@@ -41,6 +41,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - 基础设施", "02 - �
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - 单元测试", "03 - 单元测试", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Framework2015.Infrastructure.DomainEventTests", "ShSoft.Framework2015.Infrastructure.DomainEventTests\ShSoft.Framework2015.Infrastructure.DomainEventTests.csproj", "{1182A916-10CD-482C-B8AA-1A630C5C739C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -111,6 +113,10 @@ Global
 		{BE9A8E04-FAF7-47E4-951A-416C7CC2C089}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE9A8E04-FAF7-47E4-951A-416C7CC2C089}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BE9A8E04-FAF7-47E4-951A-416C7CC2C089}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -132,5 +138,6 @@ Global
 		{972CFDBB-1E0F-43CD-987A-458E9D1543B8} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{8CD2566C-772F-4229-8242-A38418B9E18A} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{BE9A8E04-FAF7-47E4-951A-416C7CC2C089} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{1182A916-10CD-482C-B8AA-1A630C5C739C} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 	EndGlobalSection
 EndGlobal
