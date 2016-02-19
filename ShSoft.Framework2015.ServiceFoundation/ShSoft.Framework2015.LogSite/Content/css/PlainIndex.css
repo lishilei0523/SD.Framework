@@ -1,0 +1,34 @@
+﻿.main {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+#dvList {
+    width: 100%;
+    height: 95%;
+}
+
+.nav {
+    background: none repeat scroll 0 0 #F4F4F4;
+    width: 100%;
+    height: 4%;
+    padding: 5px;
+}
+
+    .nav table td {
+        padding: 0 10px;
+    }
+
+.aLink {
+    text-decoration: none;
+    color: #003F7B;
+}
+
+    .aLink:hover {
+        color: #E86703;
+    }
+
+.datagrid-body table td, .datagrid-header-inner table td {
+    padding: 5px;
+}

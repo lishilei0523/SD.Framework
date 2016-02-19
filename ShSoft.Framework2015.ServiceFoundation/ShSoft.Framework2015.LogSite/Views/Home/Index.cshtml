@@ -1,0 +1,99 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>六月版项目日志管理 - 后台首页</title>
+    <link type="text/css" href="~/Content/css/Home.css" rel="stylesheet" />
+    <link type="text/css" href="~/EasyUI/themes/default/easyui.css" rel="stylesheet" />
+    <link type="text/css" href="~/EasyUI/themes/icon.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script type="text/javascript" src="~/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="~/EasyUI/locale/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="~/EasyUI/jquery.easyui.GlobalParas.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/messageBox.js"></script>
+    <script type="text/javascript" src="~/Scripts/datetools.js"></script>
+    <script type="text/javascript" src="~/Content/js/Home.js"></script>
+</head>
+<body class="easyui-layout">
+    <!-------------------------------------------网站头部--------------------------------------------->
+    <div data-options="region:'north',split:false,border:false" id="dvHeader">
+        <!--左边logo-->
+        <div class="logo">六月版项目日志管理后台</div>
+        <!--左边logo-->
+        <!--右边内容-->
+        <div class="rightBtns">
+            <!--注销用户、修改密码按钮-->
+            <a class="easyui-linkbutton" id="btn_exit"></a>
+            <a class="easyui-linkbutton" id="btn_padlock"></a>
+            <!--注销用户、修改密码按钮-->
+            <div class="welcomeLb">
+                <span>欢迎您：@*@Model.RealName*@</span>
+            </div>
+        </div>
+        <!--右边内容-->
+    </div>
+    <!-------------------------------------------网站头部--------------------------------------------->
+    <!-------------------------------------网站中部，内容部分---------------------------------------->
+    <div data-options="region:'center'" id="dvContent">
+        <div class="easyui-tabs" id="tabs" data-options="headerWidth:200,fit:true">
+            <div data-options="title:'首页'" class="tabHome">
+                <iframe src="http://cn.bing.com" style="width: 100%; height: 99%; border: 0;"></iframe>
+            </div>
+        </div>
+    </div>
+    <!-------------------------------------网站中部，内容部分---------------------------------------->
+    <!-------------------------------------网站左部，菜单部分---------------------------------------->
+    <div data-options="region:'west',split:false" title="功能选项" id="dvMenu">
+        <ul id="menuTree"></ul>
+    </div>
+    <!-------------------------------------网站左部，菜单部分---------------------------------------->
+    <!-------------------------------------------网站底部--------------------------------------------->
+    <div data-options="region:'south',border:false" id="dvFooter">
+        <div class="currentUser">当前登录用户：@*@Model.UserName*@</div>
+        <div class="service">
+            <span>开发及技术支持&nbsp;——&nbsp;</span><a href="http://www.shanhesoftware.com" target="_blank">哈尔滨山河软件有限公司</a>&nbsp;&nbsp;<span id="nowDate"></span>
+        </div>
+    </div>
+    <!-------------------------------------------网站底部--------------------------------------------->
+    <!---------------------------------------修改密码对话框---------------------------------------------->
+    <div id="dvUpdatePwd">
+        @using (Ajax.BeginForm("UpdatePassword", new { controller = "User" }, new AjaxOptions { OnSuccess = "updatedPwd" }, new { id = "fmUpdatePwd" }))
+        {
+            <input type="hidden" id="txtUserId" name="userId" value="" />
+            <table style="width: 100%; text-align: right">
+                <tr>
+                    <td>旧密码:</td>
+                    <td>@Html.Password("oldPwd")</td>
+                </tr>
+                <tr>
+                    <td>新密码:</td>
+                    <td>@Html.Password("newPwd")</td>
+                </tr>
+                <tr>
+                    <td>确认密码:</td>
+                    <td>@Html.Password("newPwd2")</td>
+                </tr>
+            </table>
+            <div style="text-align: center; padding: 15px;">
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-ok'" onclick="changePwd();">保存</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-reset'" onclick="javascript: $('#fmUpdatePwd').form('reset');">重置</a>
+                <a class="easyui-linkbutton" data-options="iconCls:'icon-cancel'" onclick="javascript: $('#dvUpdatePwd').window('close')">取消</a>
+            </div>
+        }
+    </div>
+    <!---------------------------------------修改密码对话框---------------------------------------------->
+    <!------------------------------------------公共窗口----------------------------------------------->
+    <div id="commonWindow">
+        <iframe id="comFrame" style="width: 100%; height: 99%; border: 0px;"></iframe>
+    </div>
+    <!------------------------------------------公共窗口----------------------------------------------->
+</body>
+</html>

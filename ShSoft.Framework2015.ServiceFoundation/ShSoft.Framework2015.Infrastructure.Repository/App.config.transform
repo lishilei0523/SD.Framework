@@ -1,0 +1,6 @@
+﻿<configuration>
+  <connectionStrings>
+    <!--默认连接字符串-->
+    <add name="DefaultConnection" connectionString="" providerName="" />
+  </connectionStrings>
+</configuration>

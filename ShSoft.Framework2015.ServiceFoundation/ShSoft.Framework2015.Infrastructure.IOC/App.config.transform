@@ -1,0 +1,10 @@
+﻿<configuration>
+  <configSections>
+    <section name="injectionConfiguration" type="ShSoft.Framework2015.Infrastructure.IOC.Configuration.InjectionConfiguration,ShSoft.Framework2015.Infrastructure.IOC"/>
+  </configSections>
+  <injectionConfiguration>
+    <asInterfaceTypes>
+      <type name="ShSoft.Framework2015.Infrastructure.Repository.EntityFrameworkProvider.Base.DbCleaner" assembly="ShSoft.Framework2015.Infrastructure.Repository" />
+    </asInterfaceTypes>
+  </injectionConfiguration>
+</configuration>

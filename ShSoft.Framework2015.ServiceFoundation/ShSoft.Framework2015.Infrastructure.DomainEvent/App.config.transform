@@ -1,0 +1,6 @@
+﻿<configuration>
+  <connectionStrings>
+    <!--事件源连接字符串-->
+    <add name="EventSourceConnection" connectionString="" providerName="" />
+  </connectionStrings>
+</configuration>

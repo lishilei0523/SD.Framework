@@ -1,0 +1,75 @@
+﻿body {
+    font: 14px "微软雅黑";
+}
+
+#dvHeader {
+    height: 70px;
+    padding: 0px;
+    background: url('/Content/images/banner-pic.gif') repeat;
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+
+    #dvHeader .logo {
+        font: 26px "微软雅黑";
+        color: #1B4567;
+        width: 372px;
+        height: 68px;
+        float: left;
+        margin-left: 20px;
+        margin-top: 15px;
+        /*background: url('/Content/images/Mlogo.jpg');*/
+    }
+
+    #dvHeader .rightBtns {
+        float: right;
+        margin-top: 4px;
+        margin-right: 50px;
+        height: 26px;
+        text-align: right;
+    }
+
+    #dvHeader .welcomeLb {
+        width: 300px;
+        height: 20px;
+        margin-top: 10px;
+        font-size: 13px;
+        text-align: left;
+    }
+
+#dvContent {
+    padding: 2px;
+    background: #eee;
+}
+
+    #dvContent .tabHome {
+        padding: 0;
+        /*background: url('/Content/images/welcom.jpg') no-repeat;*/
+        background-size: 100% 100%;
+    }
+
+#dvMenu {
+    width: 230px;
+}
+
+#dvFooter {
+    height: 20px;
+}
+
+    #dvFooter .currentUser {
+        float: left;
+        margin-left: 20px;
+    }
+
+    #dvFooter .service {
+        float: right;
+        margin-right: 40px;
+    }
+
+        #dvFooter .service a {
+            color: #1336dd;
+        }
+
+#dvUpdatePwd table input {
+    width: 240px;
+}

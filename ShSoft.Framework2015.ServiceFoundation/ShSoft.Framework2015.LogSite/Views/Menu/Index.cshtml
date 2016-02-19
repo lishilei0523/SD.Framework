@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section header{
+    <link type="text/css" href="~/Content/css/MenuIndex.css" rel="stylesheet" />
+    <script type="text/javascript" src="~/Content/js/MenuIndex.js"></script>
+}
+
+<!------------------------------菜单树窗口---------------------------------->
+<div id="dvDep">
+    <div class="easyui-panel" style="height:800%;padding:20px;" title="菜单架构">
+        <div id="dvBtns">
+            <a href="javascript: void(0);" onclick="addSub();" class="easyui-linkbutton" data-options="iconCls:'icon-ok'">增加下级菜单</a>
+            <a href="javascript: void(0);" onclick="deleteSingle();" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除</a>
+            <a href="javascript: void(0);" onclick="deleteSelected();" class="easyui-linkbutton" data-options="iconCls:'icon-cancel'">删除勾选</a>
+        </div>
+        <ul id="treeMenu"></ul>
+    </div>
+</div>
+<!----------------------------菜单树窗口结束-------------------------------->
+<!------------------------添加或修改div/iframe------------------------------>
+<div id="dvIframe">
+    <div class="easyui-panel" style="height:291%;padding:20px;" title="菜单信息">
+        <iframe id="ifAddOrEdit"></iframe>
+    </div>
+</div>
+<!------------------------添加或修改div/iframe------------------------------>
