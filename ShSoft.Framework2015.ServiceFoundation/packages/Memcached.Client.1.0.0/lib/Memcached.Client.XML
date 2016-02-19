@@ -1,0 +1,1270 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Memcached.Client</name>
+    </assembly>
+    <members>
+        <member name="T:Memcached.Client.CRCTool">
+            <summary>
+            Tool to calculate and add CRC codes to a string
+            Code found posted on CodeProject.com:
+            http://www.codeproject.com/csharp/marcelcrcencoding.asp
+            
+            ***************************************************************************
+            Copyright (c) 2003 Thoraxcentrum, Erasmus MC, The Netherlands.
+            
+            Written by Marcel de Wijs with help from a lot of others, 
+            especially Stefan Nelwan
+            
+            This code is for free. I ported it from several different sources to C#.
+            
+            For comments: Marcel_de_Wijs@hotmail.com
+            ***************************************************************************
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.CRCTool.crctablefast(System.Byte[])">
+            <summary>
+            4 ways to calculate the crc checksum. If you have to do a lot of encoding
+            you should use the table functions. Since they use precalculated values, which 
+            saves some calculating.
+            </summary>.
+        </member>
+        <member name="M:Memcached.Client.CRCTool.CalcCRCITT(System.Byte[])">
+            <summary>
+            CalcCRCITT is an algorithm found on the web for calculating the CRCITT checksum
+            It is included to demonstrate that although it looks different it is the same 
+            routine as the crcbitbybit* functions. But it is optimized and preconfigured for CRCITT.
+            </summary>
+        </member>
+        <member name="T:Memcached.Client.IteratorIsolateCollection">
+            <summary>
+            Gives us a handy way to modify a collection while we're iterating through it.
+            </summary>
+        </member>
+        <member name="T:Memcached.Client.MemcachedClient">
+             <summary>
+             This is a C# client for the memcached server available from
+             <a href="http:/www.danga.com/memcached/">http://www.danga.com/memcached/</a>.
+            
+             Supports setting, adding, replacing, deleting compressed/uncompressed and
+             serialized (can be stored as string if object is native class) objects to memcached.
+            
+             Now pulls SockIO objects from SockIOPool, which is a connection pool.  The server failover
+             has also been moved into the SockIOPool class.
+             This pool needs to be initialized prior to the client working.  See javadocs from SockIOPool.
+             (This will have to be fixed for our C# version.  Most of this code is straight ported over from Java.)
+             </summary>
+             <example>
+             //***To create cache client object and set params:***
+             MemcachedClient mc = new MemcachedClient();
+             
+             // compression is enabled by default	
+             mc.setCompressEnable(true);
+            
+            	// set compression threshhold to 4 KB (default: 15 KB)	
+            	mc.setCompressThreshold(4096);
+            
+            	// turn on storing primitive types as a string representation
+            	// Should not do this in most cases.	
+            	mc.setPrimitiveAsString(true);
+             
+             
+             //***To store an object:***
+             MemcachedClient mc = new MemcachedClient();
+             string key   = "cacheKey1";	
+             object value = SomeClass.getObject();	
+             mc.set(key, value);
+             
+             
+             //***To store an object using a custom server hashCode:***
+             //The set method shown here will always set the object in the cache.
+             //The add and replace methods do the same, but with a slight difference.
+             //  add -- will store the object only if the server does not have an entry for this key
+             //  replace -- will store the object only if the server already has an entry for this key
+            	MemcachedClient mc = new MemcachedClient();
+            	string key   = "cacheKey1";	
+            	object value = SomeClass.getObject();	
+            	int hash = 45;
+            	mc.set(key, value, hash);
+             
+             
+             //***To delete a cache entry:***
+             MemcachedClient mc = new MemcachedClient();
+             string key   = "cacheKey1";	
+             mc.delete(key);
+             
+             
+             //***To delete a cache entry using a custom hash code:***
+             MemcachedClient mc = new MemcachedClient();
+             string key   = "cacheKey1";	
+             int hash = 45;
+             mc.delete(key, hashCode);
+             
+             
+             //***To store a counter and then increment or decrement that counter:***
+             MemcachedClient mc = new MemcachedClient();
+             string key   = "counterKey";	
+             mc.storeCounter(key, 100);
+             Console.WriteLine("counter after adding      1: " mc.incr(key));	
+             Console.WriteLine("counter after adding      5: " mc.incr(key, 5));	
+             Console.WriteLine("counter after subtracting 4: " mc.decr(key, 4));	
+             Console.WriteLine("counter after subtracting 1: " mc.decr(key));	
+             
+             
+             //***To store a counter and then increment or decrement that counter with custom hash:***
+             MemcachedClient mc = new MemcachedClient();
+             string key   = "counterKey";	
+             int hash = 45;	
+             mc.storeCounter(key, 100, hash);
+             Console.WriteLine("counter after adding      1: " mc.incr(key, 1, hash));	
+             Console.WriteLine("counter after adding      5: " mc.incr(key, 5, hash));	
+             Console.WriteLine("counter after subtracting 4: " mc.decr(key, 4, hash));	
+             Console.WriteLine("counter after subtracting 1: " mc.decr(key, 1, hash));	
+             
+             
+             //***To retrieve an object from the cache:***
+             MemcachedClient mc = new MemcachedClient();
+             string key   = "key";	
+             object value = mc.get(key);	
+            
+            
+             //***To retrieve an object from the cache with custom hash:***
+             MemcachedClient mc = new MemcachedClient();
+             string key   = "key";	
+             int hash = 45;	
+             object value = mc.get(key, hash);
+             
+             
+             //***To retrieve an multiple objects from the cache***
+             MemcachedClient mc = new MemcachedClient();
+             string[] keys   = { "key", "key1", "key2" };
+             object value = mc.getMulti(keys);
+             
+            
+             //***To retrieve an multiple objects from the cache with custom hashing***
+             MemcachedClient mc = new MemcachedClient();
+             string[] keys    = { "key", "key1", "key2" };
+             int[] hashes = { 45, 32, 44 };
+             object value = mc.getMulti(keys, hashes);
+             
+            
+             //***To flush all items in server(s)***
+             MemcachedClient mc = new MemcachedClient();
+             mc.FlushAll();
+             
+            
+             //***To get stats from server(s)***
+             MemcachedClient mc = new MemcachedClient();
+             Hashtable stats = mc.stats();
+             </example>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.#ctor">
+            <summary>
+            Creates a new instance of MemcachedClient.
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Init">
+            <summary>
+            Initializes client object to defaults.
+            
+            This enables compression and sets compression threshhold to 15 KB.
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.KeyExists(System.String)">
+            <summary>
+            Checks to see if key exists in cache. 
+            </summary>
+            <param name="key">the key to look for</param>
+            <returns><c>true</c> if key found in cache, <c>false</c> if not (or if cache is down)</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Delete(System.String)">
+            <summary>
+            Deletes an object from cache given cache key.
+            </summary>
+            <param name="key">the key to be removed</param>
+            <returns><c>true</c>, if the data was deleted successfully</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Delete(System.String,System.DateTime)">
+            <summary>
+            Deletes an object from cache given cache key and expiration date. 
+            </summary>
+            <param name="key">the key to be removed</param>
+            <param name="expiry">when to expire the record.</param>
+            <returns><c>true</c>, if the data was deleted successfully</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Delete(System.String,System.Object,System.DateTime)">
+            <summary>
+            Deletes an object from cache given cache key, a delete time, and an optional hashcode.
+            
+            The item is immediately made non retrievable.<br/>
+            Keep in mind: 
+            <see cref="!:add">add(string, object)</see> and <see cref="!:replace">replace(string, object)</see>
+            will fail when used with the same key will fail, until the server reaches the
+            specified time. However, <see cref="!:set">set(string, object)</see> will succeed
+            and the new value will not be deleted.
+            </summary>
+            <param name="key">the key to be removed</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <param name="expiry">when to expire the record.</param>
+            <returns><c>true</c>, if the data was deleted successfully</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.GetExpirationTime(System.DateTime)">
+            <summary>
+            Converts a .NET date time to a UNIX timestamp
+            </summary>
+            <param name="ticks"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Set(System.String,System.Object)">
+            <summary>
+            Stores data on the server; only the key and the value are specified.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Set(System.String,System.Object,System.Int32)">
+            <summary>
+            Stores data on the server; only the key and the value are specified.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Set(System.String,System.Object,System.DateTime)">
+            <summary>
+            Stores data on the server; the key, value, and an expiration time are specified.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <param name="expiry">when to expire the record</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Set(System.String,System.Object,System.DateTime,System.Int32)">
+            <summary>
+            Stores data on the server; the key, value, and an expiration time are specified.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <param name="expiry">when to expire the record</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Add(System.String,System.Object)">
+            <summary>
+            Adds data to the server; only the key and the value are specified.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Add(System.String,System.Object,System.Int32)">
+            <summary>
+            Adds data to the server; the key, value, and an optional hashcode are passed in.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Add(System.String,System.Object,System.DateTime)">
+            <summary>
+            Adds data to the server; the key, value, and an expiration time are specified.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <param name="expiry">when to expire the record</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Add(System.String,System.Object,System.DateTime,System.Int32)">
+            <summary>
+            Adds data to the server; the key, value, and an expiration time are specified.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <param name="expiry">when to expire the record</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Replace(System.String,System.Object)">
+            <summary>
+            Updates data on the server; only the key and the value are specified.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Replace(System.String,System.Object,System.Int32)">
+            <summary>
+            Updates data on the server; only the key and the value and an optional hash are specified.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Replace(System.String,System.Object,System.DateTime)">
+            <summary>
+            Updates data on the server; the key, value, and an expiration time are specified.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <param name="expiry">when to expire the record</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Replace(System.String,System.Object,System.DateTime,System.Int32)">
+            <summary>
+            Updates data on the server; the key, value, and an expiration time are specified.
+            </summary>
+            <param name="key">key to store data under</param>
+            <param name="value">value to store</param>
+            <param name="expiry">when to expire the record</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>true, if the data was successfully stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Set(System.String,System.String,System.Object,System.DateTime,System.Object,System.Boolean)">
+            <summary>
+            Stores data to cache.
+            
+            If data does not already exist for this key on the server, or if the key is being
+            deleted, the specified value will not be stored.
+            The server will automatically delete the value when the expiration time has been reached.
+            
+            If compression is enabled, and the data is longer than the compression threshold
+            the data will be stored in compressed form.
+            
+            As of the current release, all objects stored will use .NET serialization.
+            </summary>
+            <param name="cmdname">action to take (set, add, replace)</param>
+            <param name="key">key to store cache under</param>
+            <param name="value">object to cache</param>
+            <param name="expiry">expiration</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <param name="asString">store this object as a string?</param>
+            <returns>true/false indicating success</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.StoreCounter(System.String,System.Int64)">
+            <summary>
+            Store a counter to memcached given a key
+            </summary>
+            <param name="key">cache key</param>
+            <param name="counter">number to store</param>
+            <returns>true/false indicating success</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.StoreCounter(System.String,System.Int64,System.Int32)">
+            <summary>
+            Store a counter to memcached given a key
+            </summary>
+            <param name="key">cache key</param>
+            <param name="counter">number to store</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>true/false indicating success</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.GetCounter(System.String)">
+            <summary>
+            Returns value in counter at given key as long. 
+            </summary>
+            <param name="key">cache ket</param>
+            <returns>counter value or -1 if not found</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.GetCounter(System.String,System.Object)">
+            <summary>
+            Returns value in counter at given key as long. 
+            </summary>
+            <param name="key">cache ket</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>counter value or -1 if not found</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Increment(System.String)">
+            <summary>
+            Increment the value at the specified key by 1, and then return it.
+            </summary>
+            <param name="key">key where the data is stored</param>
+            <returns>-1, if the key is not found, the value after incrementing otherwise</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Increment(System.String,System.Int64)">
+            <summary>
+            Increment the value at the specified key by passed in val. 
+            </summary>
+            <param name="key">key where the data is stored</param>
+            <param name="inc">how much to increment by</param>
+            <returns>-1, if the key is not found, the value after incrementing otherwise</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Increment(System.String,System.Int64,System.Int32)">
+            <summary>
+            Increment the value at the specified key by the specified increment, and then return it.
+            </summary>
+            <param name="key">key where the data is stored</param>
+            <param name="inc">how much to increment by</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>-1, if the key is not found, the value after incrementing otherwise</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Decrement(System.String)">
+            <summary>
+            Decrement the value at the specified key by 1, and then return it.
+            </summary>
+            <param name="key">key where the data is stored</param>
+            <returns>-1, if the key is not found, the value after incrementing otherwise</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Decrement(System.String,System.Int64)">
+            <summary>
+            Decrement the value at the specified key by passed in value, and then return it.
+            </summary>
+            <param name="key">key where the data is stored</param>
+            <param name="inc">how much to increment by</param>
+            <returns>-1, if the key is not found, the value after incrementing otherwise</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Decrement(System.String,System.Int64,System.Int32)">
+            <summary>
+            Decrement the value at the specified key by the specified increment, and then return it.
+            </summary>
+            <param name="key">key where the data is stored</param>
+            <param name="inc">how much to increment by</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>-1, if the key is not found, the value after incrementing otherwise</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.IncrementOrDecrement(System.String,System.String,System.Int64,System.Object)">
+            <summary>
+            Increments/decrements the value at the specified key by inc.
+            
+            Note that the server uses a 32-bit unsigned integer, and checks for
+            underflow. In the event of underflow, the result will be zero.  Because
+            Java lacks unsigned types, the value is returned as a 64-bit integer.
+            The server will only decrement a value if it already exists;
+            if a value is not found, -1 will be returned.
+            
+            TODO: C# has unsigned types.  We can fix this.
+            </summary>
+            <param name="cmdname">increment/decrement</param>
+            <param name="key">cache key</param>
+            <param name="inc">amount to incr or decr</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>new value or -1 if not exist</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Get(System.String)">
+            <summary>
+            Retrieve a key from the server, using a specific hash.
+            
+            If the data was compressed or serialized when compressed, it will automatically
+            be decompressed or serialized, as appropriate. (Inclusive or)
+            
+            Non-serialized data will be returned as a string, so explicit conversion to
+            numeric types will be necessary, if desired
+            </summary>
+            <param name="key">key where data is stored</param>
+            <returns>the object that was previously stored, or null if it was not previously stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Get(System.String,System.Int32)">
+            <summary>
+            Retrieve a key from the server, using a specific hash.
+            
+            If the data was compressed or serialized when compressed, it will automatically
+            be decompressed or serialized, as appropriate. (Inclusive or)
+            
+            Non-serialized data will be returned as a string, so explicit conversion to
+            numeric types will be necessary, if desired
+            </summary>
+            <param name="key">key where data is stored</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>the object that was previously stored, or null if it was not previously stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Get(System.String,System.Object,System.Boolean)">
+            <summary>
+            Retrieve a key from the server, using a specific hash.
+            
+            If the data was compressed or serialized when compressed, it will automatically
+            be decompressed or serialized, as appropriate. (Inclusive or)
+            
+            Non-serialized data will be returned as a string, so explicit conversion to
+            numeric types will be necessary, if desired
+            </summary>
+            <param name="key">key where data is stored</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <param name="asString">if true, then return string val</param>
+            <returns>the object that was previously stored, or null if it was not previously stored</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.GetMultipleArray(System.String[])">
+            <summary>
+            Retrieve multiple objects from the memcache.
+            
+            This is recommended over repeated calls to <see cref="!:get">get(string)</see>, since it
+            is more efficient.
+            </summary>
+            <param name="keys">string array of keys to retrieve</param>
+            <returns>object array ordered in same order as key array containing results</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.GetMultipleArray(System.String[],System.Int32[])">
+            <summary>
+            Retrieve multiple objects from the memcache.
+            
+            This is recommended over repeated calls to <see cref="!:get">get(string)</see>, since it
+            is more efficient.
+            </summary>
+            <param name="keys">string array of keys to retrieve</param>
+            <param name="hashCodes">if not null, then the int array of hashCodes</param>
+            <returns>object array ordered in same order as key array containing results</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.GetMultipleArray(System.String[],System.Int32[],System.Boolean)">
+            <summary>
+            Retrieve multiple objects from the memcache.
+            
+            This is recommended over repeated calls to <see cref="!:get">get(string)</see>, since it
+            is more efficient.
+            </summary>
+            <param name="keys">string array of keys to retrieve</param>
+            <param name="hashCodes">if not null, then the int array of hashCodes</param>
+            <param name="asString">asString if true, retrieve string vals</param>
+            <returns>object array ordered in same order as key array containing results</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.GetMultiple(System.String[])">
+            <summary>
+            Retrieve multiple objects from the memcache.
+            
+            This is recommended over repeated calls to <see cref="!:get">get(string)</see>, since it
+            is more efficient.
+            </summary>
+            <param name="keys">string array of keys to retrieve</param>
+            <returns>
+            a hashmap with entries for each key is found by the server,
+            keys that are not found are not entered into the hashmap, but attempting to
+            retrieve them from the hashmap gives you null.
+            </returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.GetMultiple(System.String[],System.Int32[])">
+            <summary>
+            Retrieve multiple objects from the memcache.
+            
+            This is recommended over repeated calls to <see cref="!:get">get(string)</see>, since it
+            is more efficient.
+            </summary>
+            <param name="keys">string array of keys to retrieve</param>
+            <param name="hashCodes">hashCodes if not null, then the int array of hashCodes</param>
+            <returns>
+            a hashmap with entries for each key is found by the server,
+            keys that are not found are not entered into the hashmap, but attempting to
+            retrieve them from the hashmap gives you null.
+            </returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.GetMultiple(System.String[],System.Int32[],System.Boolean)">
+            <summary>
+            Retrieve multiple objects from the memcache.
+            
+            This is recommended over repeated calls to <see cref="!:get">get(string)</see>, since it
+            is more efficient.
+            </summary>
+            <param name="keys">string array of keys to retrieve</param>
+            <param name="hashCodes">hashCodes if not null, then the int array of hashCodes</param>
+            <param name="asString">if true then retrieve using string val</param>
+            <returns>
+            a hashmap with entries for each key is found by the server,
+            keys that are not found are not entered into the hashmap, but attempting to
+            retrieve them from the hashmap gives you null.
+            </returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.LoadItems(Memcached.Client.SockIO,System.Collections.Hashtable,System.Boolean)">
+            <summary>
+            This method loads the data from cache into a Hashtable.
+            
+            Pass a SockIO object which is ready to receive data and a Hashtable
+            to store the results.
+            </summary>
+            <param name="sock">socket waiting to pass back data</param>
+            <param name="hm">hashmap to store data into</param>
+            <param name="asString">if true, and if we are using NativehHandler, return string val</param>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.FlushAll">
+            <summary>
+            Invalidates the entire cache.
+            
+            Will return true only if succeeds in clearing all servers.
+            </summary>
+            <returns>success true/false</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.FlushAll(System.Collections.ArrayList)">
+            <summary>
+            Invalidates the entire cache.
+            
+            Will return true only if succeeds in clearing all servers.
+            If pass in null, then will try to flush all servers.
+            </summary>
+            <param name="servers">optional array of host(s) to flush (host:port)</param>
+            <returns>success true/false</returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Stats">
+            <summary>
+            Retrieves stats for all servers.
+            
+            Returns a map keyed on the servername.
+            The value is another map which contains stats
+            with stat name as key and value as value.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Memcached.Client.MemcachedClient.Stats(System.Collections.ArrayList)">
+            <summary>
+            Retrieves stats for passed in servers (or all servers).
+            
+            Returns a map keyed on the servername.
+            The value is another map which contains stats
+            with stat name as key and value as value.
+            </summary>
+            <param name="servers">string array of servers to retrieve stats from, or all if this is null</param>
+            <returns>Stats map</returns>
+        </member>
+        <member name="P:Memcached.Client.MemcachedClient.PoolName">
+            <summary>
+            Sets the pool that this instance of the client will use.
+            The pool must already be initialized or none of this will work.
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.MemcachedClient.PrimitiveAsString">
+            <summary>
+            Enables storing primitive types as their string values. 
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.MemcachedClient.DefaultEncoding">
+            <summary>
+            Sets default string encoding when storing primitives as strings. 
+            Default is UTF-8.
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.MemcachedClient.EnableCompression">
+            <summary>
+            Enable storing compressed data, provided it meets the threshold requirements.
+            
+            If enabled, data will be stored in compressed form if it is
+            longer than the threshold length set with setCompressThreshold(int)
+            
+            The default is that compression is enabled.
+            
+            Even if compression is disabled, compressed data will be automatically
+            decompressed.
+            </summary>
+            <value><c>true</c> to enable compuression, <c>false</c> to disable compression</value>
+        </member>
+        <member name="P:Memcached.Client.MemcachedClient.CompressionThreshold">
+            <summary>
+            Sets the required length for data to be considered for compression.
+            
+            If the length of the data to be stored is not equal or larger than this value, it will
+            not be compressed.
+            
+            This defaults to 15 KB.
+            </summary>
+            <value>required length of data to consider compression</value>
+        </member>
+        <member name="T:Memcached.Client.NativeHandler">
+            	/// COMMENT FROM ORIGINAL JAVA CLIENT LIBRARY.  NOT SURE HOW MUCH IT 
+            	/// APPLIES TO THIS LIBRARY.
+            	///
+            	///
+            	/// Handle encoding standard Java types directly which can result in significant
+            	/// memory savings:
+            	/// 
+            	/// Currently the Memcached driver for Java supports the setSerialize() option.
+            	/// This can increase performance in some situations but has a few issues:
+            	/// 
+            	/// Code that performs class casting will throw ClassCastExceptions when
+            	/// setSerialize is enabled. For example:
+            	/// 
+            	///     mc.set("foo", new Integer(1)); Integer output = (Integer)mc.get("foo");
+            	/// 
+            	/// Will work just file when setSerialize is true but when its false will just throw
+            	/// a ClassCastException.
+            	/// 
+            	/// Also internally it doesn't support bool and since toString is called wastes a
+            	/// lot of memory and causes additional performance issue.  For example an Integer
+            	/// can take anywhere from 1 byte to 10 bytes.
+            	/// 
+            	/// Due to the way the memcached slabytes allocator works it seems like a LOT of wasted
+            	/// memory to store primitive types as serialized objects (from a performance and
+            	/// memory perspective).  In our applications we have millions of small objects and
+            	/// wasted memory would become a big problem.
+            	/// 
+            	/// For example a Serialized bool takes 47 bytes which means it will fit into the
+            	/// 64byte LRU.  Using 1 byte means it will fit into the 8 byte LRU thus saving 8x
+            	/// the memory.  This also saves the CPU performance since we don't have to
+            	/// serialize bytes back and forth and we can compute the byte[] value directly.
+            	/// 
+            	/// One problem would be when the user calls get() because doing so would require
+            	/// the app to know the type of the object stored as a bytearray inside memcached
+            	/// (since the user will probably cast).
+            	/// 
+            	/// If we assume the basic types are interned we could use the first byte as the
+            	/// type with the remaining bytes as the value.  Then on get() we could read the
+            	/// first byte to determine the type and then construct the correct object for it.
+            	/// This would prevent the ClassCastException I talked about above.
+            	/// 
+            	/// We could remove the setSerialize() option and just assume that standard VM types
+            	/// are always internd in this manner.
+            	/// 
+            	/// mc.set("foo", new bool.TRUE); bool bytes = (bool)mc.get("foo");
+            	/// 
+            	/// And the type casts would work because internally we would create a new bool
+            	/// to return back to the client.
+            	/// 
+            	/// This would reduce memory footprint and allow for a virtual implementation of the
+            	/// Externalizable interface which is much faster than Serialzation.
+            	/// 
+            	/// Currently the memory improvements would be:
+            	/// 
+            	/// java.lang.bool - 8x performance improvement (now just two bytes)
+            	/// java.lang.Integer - 16x performance improvement (now just 5 bytes)
+            	/// 
+            	/// Most of the other primitive types would benefit from this optimization.
+            	/// java.lang.Character being another obvious example.
+            	/// 
+            	/// I know it seems like I'm being really picky here but for our application I'd
+            	/// save 1G of memory right off the bat.  We'd go down from 1.152G of memory used
+            	/// down to 144M of memory used which is much better IMO.
+            	*
+        </member>
+        <member name="T:Memcached.Client.SockIO">
+            <summary>
+            Memcached C# client, utility class for Socket IO.
+            
+            This class is a wrapper around a Socket and its streams.
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIO.#ctor(Memcached.Client.SockIOPool,System.String,System.Int32,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            creates a new SockIO object wrapping a socket
+            connection to host:port, and its input and output streams
+            </summary>
+            <param name="pool">Pool this object is tied to</param>
+            <param name="host">host to connect to</param>
+            <param name="port">port to connect to</param>
+            <param name="timeout">int ms to block on data for read</param>
+            <param name="connectTimeout">timeout (in ms) for initial connection</param>
+            <param name="noDelay">TCP NODELAY option?</param>
+        </member>
+        <member name="M:Memcached.Client.SockIO.#ctor(Memcached.Client.SockIOPool,System.String,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            creates a new SockIO object wrapping a socket
+            connection to host:port, and its input and output streams
+            </summary>
+            <param name="pool">Pool this object is tied to</param>
+            <param name="host">hostname:port</param>
+            <param name="timeout">read timeout value for connected socket</param>
+            <param name="connectTimeout">timeout for initial connections</param>
+            <param name="noDelay">TCP NODELAY option?</param>
+        </member>
+        <member name="M:Memcached.Client.SockIO.GetSocket(System.String,System.Int32,System.Int32)">
+            <summary>
+            Method which spawns thread to get a connection and then enforces a timeout on the initial
+            connection.
+            
+            This should be backed by a thread pool.  Any volunteers?
+            </summary>
+            <param name="host">host to establish connection to</param>
+            <param name="port">port on that host</param>
+            <param name="timeout">connection timeout in ms</param>
+            <returns>connected socket</returns>
+        </member>
+        <member name="M:Memcached.Client.SockIO.TrueClose">
+            <summary>
+            closes socket and all streams connected to it 
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIO.Close">
+            <summary>
+            sets closed flag and checks in to connection pool
+            but does not close connections
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIO.ReadLine">
+            <summary>
+            reads a line
+            intentionally not using the deprecated readLine method from DataInputStream 
+            </summary>
+            <returns>String that was read in</returns>
+        </member>
+        <member name="M:Memcached.Client.SockIO.ClearEndOfLine">
+            <summary>
+            reads up to end of line and returns nothing 
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIO.Read(System.Byte[])">
+            <summary>
+            reads length bytes into the passed in byte array from stream
+            </summary>
+            <param name="b">byte array</param>
+        </member>
+        <member name="M:Memcached.Client.SockIO.Flush">
+            <summary>
+            flushes output stream 
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIO.Write(System.Byte[])">
+            <summary>
+            writes a byte array to the output stream
+            </summary>
+            <param name="bytes">byte array to write</param>
+        </member>
+        <member name="M:Memcached.Client.SockIO.Write(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            writes a byte array to the output stream
+            </summary>
+            <param name="bytes">byte array to write</param>
+            <param name="offset">offset to begin writing from</param>
+            <param name="count">count of bytes to write</param>
+        </member>
+        <member name="M:Memcached.Client.SockIO.ToString">
+            <summary>
+            returns the string representation of this socket 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Memcached.Client.SockIO.Host">
+            <summary>
+            returns the host this socket is connected to 
+            
+            String representation of host (hostname:port)
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.SockIO.IsConnected">
+            <summary>
+            Gets whether or not the socket is connected.  Returns <c>true</c> if it is.
+            </summary>
+        </member>
+        <member name="T:Memcached.Client.SockIO.ConnectThread">
+            <summary>
+            Thread to attempt connection. 
+            This will be polled by the main thread. We run the risk of filling up w/
+            threads attempting connections if network is down.  However, the falling off
+            mech in the main code should limit this.
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIO.ConnectThread.#ctor(System.String,System.Int32)">
+            <summary>
+            Constructor 
+            </summary>
+            <param name="host"></param>
+            <param name="port"></param>
+        </member>
+        <member name="M:Memcached.Client.SockIO.ConnectThread.Connect">
+            <summary>
+            The logic of the thread.
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIO.ConnectThread.Start">
+            <summary>
+            start thread running.
+            This attempts to establish a connection. 
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.SockIO.ConnectThread.IsConnected">
+            <summary>
+            Is the new socket connected yet 
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.SockIO.ConnectThread.IsError">
+            <summary>
+            Did we have an exception while connecting? 
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Memcached.Client.SockIO.ConnectThread.Socket">
+            <summary>
+            Return the socket. 
+            </summary>
+        </member>
+        <member name="T:Memcached.Client.HashingAlgorithm">
+            <summary>
+            Hashing algorithms we can use
+            </summary>
+        </member>
+        <member name="F:Memcached.Client.HashingAlgorithm.Native">
+            <summary>native String.hashCode() - fast (cached) but not compatible with other clients</summary>
+        </member>
+        <member name="F:Memcached.Client.HashingAlgorithm.OldCompatibleHash">
+            <summary>original compatibility hashing alg (works with other clients)</summary>
+        </member>
+        <member name="F:Memcached.Client.HashingAlgorithm.NewCompatibleHash">
+            <summary>new CRC32 based compatibility hashing algorithm (fast and works with other clients)</summary>
+        </member>
+        <member name="T:Memcached.Client.SockIOPool">
+             <summary>
+             This class is a connection pool for maintaning a pool of persistent connections
+             to memcached servers.
+             
+             The pool must be initialized prior to use. This should typically be early on
+             in the lifecycle of the application instance.
+             </summary>
+             <example>
+             //Using defaults
+            	String[] serverlist = {"cache0.server.com:12345", "cache1.server.com:12345"};
+            
+            	SockIOPool pool = SockIOPool.GetInstance();
+            	pool.SetServers(serverlist);
+            	pool.Initialize();	
+            		
+            	
+            	//An example of initializing using defaults and providing weights for servers:
+            	String[] serverlist = {"cache0.server.com:12345", "cache1.server.com:12345"};
+            	int[] weights   = new int[]{5, 2};
+             
+             SockIOPool pool = SockIOPool.GetInstance();
+            	pool.SetServers(serverlist);
+            	pool.SetWeights(weights);	
+            	pool.Initialize();	
+            	
+            	
+             //An example of initializing overriding defaults:
+             String[] serverlist     = {"cache0.server.com:12345", "cache1.server.com:12345"};
+             int[] weights       = new int[]{5, 2};	
+             int initialConnections  = 10;
+             int minSpareConnections = 5;
+             int maxSpareConnections = 50;	
+             long maxIdleTime        = 1000 * 60 * 30;	// 30 minutes
+             long maxBusyTime        = 1000 * 60 * 5;	// 5 minutes
+             long maintThreadSleep   = 1000 * 5;			// 5 seconds
+             int	socketTimeOut       = 1000 * 3;			// 3 seconds to block on reads
+             int	socketConnectTO     = 1000 * 3;			// 3 seconds to block on initial connections.  If 0, then will use blocking connect (default)
+             boolean failover        = false;			// turn off auto-failover in event of server down	
+             boolean nagleAlg        = false;			// turn off Nagle's algorithm on all sockets in pool	
+             
+             SockIOPool pool = SockIOPool.getInstance();
+             pool.Servers = serverlist;
+             pool.Weights = weights;	
+             pool.InitConnections = initialConnections;
+             pool.MinConnections = minSpareConnections;
+             pool.MaxConnections = maxSpareConnections;
+             pool.MaxIdle = maxIdleTime;
+             pool.MaxBusy = maxBusyTime;
+             pool.MaintenanceSleep = maintThreadSleep;
+             pool.SocketTimeout = socketTimeOut;
+             pool.SocketConnectTimeOut = socketConnectTO;	
+             pool.Nagle = nagleAlg;	
+             pool.HashingAlg = SockIOPool.HashingAlgorithms.NEW_COMPAT_HASH;	
+             pool.Initialize();	
+             
+             
+             //The easiest manner in which to initialize the pool is to set the servers and rely on defaults as in the first example.
+             //After pool is initialized, a client will request a SockIO object by calling getSock with the cache key
+             //The client must always close the SockIO object when finished, which will return the connection back to the pool.
+             //An example of retrieving a SockIO object:
+             SockIOPool.SockIO sock = SockIOPool.GetInstance().GetSock(key);
+             try 
+             {
+            		sock.write("version\r\n");	
+            		sock.flush();	
+            		Console.WriteLine("Version: " + sock.ReadLine());	
+             }
+            	catch(IOException ioe) { Console.WriteLine("io exception thrown") }
+             finally { sock.Close();	}
+             
+            	</example>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.GetInstance(System.String)">
+            <summary>
+            Factory to create/retrieve new pools given a unique poolName.
+            </summary>
+            <param name="poolName">unique name of the pool</param>
+            <returns>instance of SockIOPool</returns>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.GetInstance">
+            <summary>
+            Single argument version of factory used for back compat.
+            Simply creates a pool named "default". 
+            </summary>
+            <returns>instance of SockIOPool</returns>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.SetServers(System.String[])">
+            <summary>
+            Sets the list of all cache servers
+            </summary>
+            <param name="servers">string array of servers [host:port]</param>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.SetServers(System.Collections.ArrayList)">
+            <summary>
+            Sets the list of all cache servers
+            </summary>
+            <param name="servers">string array of servers [host:port]</param>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.SetWeights(System.Int32[])">
+            <summary>
+            sets the list of weights to apply to the server list
+            </summary>
+            <param name="weights">
+            This is an int array with each element corresponding to an element
+            in the same position in the server string array <see>Servers</see>.
+            </param>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.SetWeights(System.Collections.ArrayList)">
+            <summary>
+            sets the list of weights to apply to the server list
+            </summary>
+            <param name="weights">
+            This is an int array with each element corresponding to an element
+            in the same position in the server string array <see>Servers</see>.
+            </param>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.OriginalHashingAlgorithm(System.String)">
+            <summary>
+            Internal private hashing method.
+            
+            This is the original hashing algorithm from other clients.
+            Found to be slow and have poor distribution.
+            </summary>
+            <param name="key">string to hash</param>
+            <returns>hashcode for this string using memcached's hashing algorithm</returns>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.NewHashingAlgorithm(System.String)">
+            <summary>
+            Internal private hashing method.
+            
+            This is the new hashing algorithm from other clients.
+            Found to be fast and have very good distribution.
+            
+            UPDATE: this is dog slow under java.  Maybe under .NET? 
+            </summary>
+            <param name="key">string to hash</param>
+            <returns>hashcode for this string using memcached's hashing algorithm</returns>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.Initialize">
+            <summary>
+            Initializes the pool
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.CreateSocket(System.String)">
+             <summary>
+             Creates a new SockIO obj for the given server.
+            
+            If server fails to connect, then return null and do not try
+            again until a duration has passed.  This duration will grow
+            by doubling after each failed attempt to connect.
+             </summary>
+             <param name="host">host:port to connect to</param>
+             <returns>SockIO obj or null if failed to create</returns>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.GetSock(System.String)">
+            <summary>
+            Returns appropriate SockIO object given
+            string cache key.
+            </summary>
+            <param name="key">hashcode for cache key</param>
+            <returns>SockIO obj connected to server</returns>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.GetSock(System.String,System.Object)">
+            <summary>
+            Returns appropriate SockIO object given
+            string cache key and optional hashcode.
+            
+            Trys to get SockIO from pool.  Fails over
+            to additional pools in event of server failure.
+            </summary>
+            <param name="key">hashcode for cache key</param>
+            <param name="hashCode">if not null, then the int hashcode to use</param>
+            <returns>SockIO obj connected to server</returns>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.GetConnection(System.String)">
+            <summary>
+            Returns a SockIO object from the pool for the passed in host.
+            
+            Meant to be called from a more intelligent method
+            which handles choosing appropriate server
+            and failover. 
+            </summary>
+            <param name="host">host from which to retrieve object</param>
+            <returns>SockIO object or null if fail to retrieve one</returns>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.AddSocketToPool(System.Collections.Hashtable,System.String,Memcached.Client.SockIO)">
+            <summary>
+            Adds a socket to a given pool for the given host.
+            
+            Internal utility method. 
+            </summary>
+            <param name="pool">pool to add to</param>
+            <param name="host">host this socket is connected to</param>
+            <param name="socket">socket to add</param>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.RemoveSocketFromPool(System.Collections.Hashtable,System.String,Memcached.Client.SockIO)">
+            <summary>
+            Removes a socket from specified pool for host.
+            
+            Internal utility method. 
+            </summary>
+            <param name="pool">pool to remove from</param>
+            <param name="host">host pool</param>
+            <param name="socket">socket to remove</param>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.ClearHostFromPool(System.Collections.Hashtable,System.String)">
+            <summary>
+            Closes and removes all sockets from specified pool for host. 
+            
+            Internal utility method. 
+            </summary>
+            <param name="pool">pool to clear</param>
+            <param name="host">host to clear</param>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.CheckIn(Memcached.Client.SockIO,System.Boolean)">
+            <summary>
+            Checks a SockIO object in with the pool.
+            
+            This will remove SocketIO from busy pool, and optionally
+            add to avail pool.
+            </summary>
+            <param name="socket">socket to return</param>
+            <param name="addToAvail">add to avail pool if true</param>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.CheckIn(Memcached.Client.SockIO)">
+            <summary>
+            Returns a socket to the avail pool.
+            
+            This is called from SockIO.close().  Calling this method
+            directly without closing the SockIO object first
+            will cause an IOException to be thrown.
+            </summary>
+            <param name="socket">socket to return</param>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.ClosePool(System.Collections.Hashtable)">
+            <summary>
+            Closes all sockets in the passed in pool.
+            
+            Internal utility method. 
+            </summary>
+            <param name="pool">pool to close</param>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.Shutdown">
+            <summary>
+            Shuts down the pool.
+            
+            Cleanly closes all sockets.
+            Stops the maint thread.
+            Nulls out all internal maps
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.StartMaintenanceThread">
+            <summary>
+            Starts the maintenance thread.
+            
+            This thread will manage the size of the active pool
+            as well as move any closed, but not checked in sockets
+            back to the available pool.
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.StopMaintenanceThread">
+            <summary>
+            Stops the maintenance thread.
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.SelfMaintain">
+            <summary>
+            Runs self maintenance on all internal pools.
+            
+            This is typically called by the maintenance thread to manage pool size. 
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.Servers">
+            <summary>
+            Gets the list of all cache servers
+            </summary>
+            <value>string array of servers [host:port]</value>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.Weights">
+            <summary>
+            Gets or sets the list of weights to apply to the server list
+            </summary>
+            <value>
+            This is an int array with each element corresponding to an element
+            in the same position in the server string array <see>Servers</see>.
+            </value>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.InitConnections">
+            <summary>
+            Gets or sets the initial number of connections per server setting in the available pool.
+            </summary>
+            <value>int number of connections</value>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.MinConnections">
+            <summary>
+            Gets or sets the minimum number of spare connections to maintain in our available pool
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.MaxConnections">
+            <summary>
+            Gets or sets the maximum number of spare connections allowed in our available pool.
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.MaxIdle">
+            <summary>
+            Gets or sets the maximum idle time for threads in the avaiable pool.
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.MaxBusy">
+            <summary>
+            Gets or sets the maximum busy time for threads in the busy pool
+            </summary>
+            <value>idle time in milliseconds</value>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.MaintenanceSleep">
+            <summary>
+            Gets or sets the sleep time between runs of the pool maintenance thread.
+            If set to 0, then the maintenance thread will not be started;
+            </summary>
+            <value>sleep time in milliseconds</value>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.SocketTimeout">
+            <summary>
+            Gets or sets the socket timeout for reads
+            </summary>
+            <value>timeout time in milliseconds</value>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.SocketConnectTimeout">
+            <summary>
+            Gets or sets the socket timeout for connects.
+            </summary>
+            <value>timeout time in milliseconds</value>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.Failover">
+            <summary>
+            Gets or sets the failover flag for the pool.
+            
+            If this flag is set to true and a socket fails to connect,
+            the pool will attempt to return a socket from another server
+            if one exists.  If set to false, then getting a socket
+            will return null if it fails to connect to the requested server.
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.Nagle">
+            <summary>
+            Gets or sets the Nagle algorithm flag for the pool.
+            
+            If false, will turn off Nagle's algorithm on all sockets created.
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.HashingAlgorithm">
+            <summary>
+            Gets or sets the hashing algorithm we will use.
+            </summary>
+        </member>
+        <member name="P:Memcached.Client.SockIOPool.Initialized">
+            <summary>
+            Returns the state of the pool
+            </summary>
+            <returns>returns <c>true</c> if initialized</returns>
+        </member>
+        <member name="T:Memcached.Client.SockIOPool.MaintenanceThread">
+            <summary>
+            Class which extends thread and handles maintenance of the pool.
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.MaintenanceThread.StopThread">
+            <summary>
+            Sets stop variable and interups and wait
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.MaintenanceThread.Maintain">
+            <summary>
+            The logic of the thread.
+            </summary>
+        </member>
+        <member name="M:Memcached.Client.SockIOPool.MaintenanceThread.Start">
+            <summary>
+            Start the thread
+            </summary>
+        </member>
+    </members>
+</doc>
