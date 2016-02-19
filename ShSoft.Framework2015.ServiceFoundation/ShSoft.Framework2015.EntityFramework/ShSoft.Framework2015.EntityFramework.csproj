@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\NonMapAttribute.cs" />
+    <Compile Include="Attributes\SingleTableMapAttribute.cs" />
     <Compile Include="Base\BaseDbContext.cs" />
     <Compile Include="Extensions\ConfigurationExtension.cs" />
     <Compile Include="Extensions\IndexType.cs" />

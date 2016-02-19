@@ -3,11 +3,11 @@
 namespace ShSoft.Framework2015.EntityFramework.Attributes
 {
     /// <summary>
-    /// 不映射表特性
+    /// 单表继承特性
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = true, Inherited = false)]
-    public class NonMapAttribute : Attribute
+    public class SingleTableMapAttribute : Attribute
     {
 
     }
