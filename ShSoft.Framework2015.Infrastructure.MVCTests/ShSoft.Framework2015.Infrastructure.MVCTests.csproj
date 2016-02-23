@@ -228,6 +228,10 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure.MVCTests.IAppService\ShSoft.Framework2015.Infrastructure.MVCTests.IAppService.csproj">
+      <Project>{04bfa4d7-86c8-4341-b34c-3f1d88d19827}</Project>
+      <Name>ShSoft.Framework2015.Infrastructure.MVCTests.IAppService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure.MVC\ShSoft.Framework2015.Infrastructure.MVC.csproj">
       <Project>{be9a8e04-faf7-47e4-951a-416c7cc2c089}</Project>
       <Name>ShSoft.Framework2015.Infrastructure.MVC</Name>

@@ -1,19 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using ShSoft.Framework2015.Infrastructure.MVCTests.IAppService;
 
 namespace ShSoft.Framework2015.Infrastructure.MVCTests.Controllers
 {
     public class HomeController : Controller
     {
-        //
-        // GET: /Home/
+
+        private readonly IProductContract _productContract;
+
+        public HomeController(IProductContract productContract)
+        {
+            this._productContract = productContract;
+        }
 
         public ActionResult Index()
         {
-            return View();
+            this.ViewBag.Hello = this._productContract.Test();
+            return this.View();
         }
 
     }
