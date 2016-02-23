@@ -8,7 +8,7 @@ namespace ShSoft.Framework2015.Infrastructure.MVC.DependencyResolvers
     /// <summary>
     /// MVC依赖解决者
     /// </summary>
-    internal class MvcDependencyResolver : IDependencyResolver
+    public class MvcDependencyResolver : IDependencyResolver
     {
         /// <summary>
         /// 解析支持任意对象创建的一次注册的服务
@@ -17,7 +17,14 @@ namespace ShSoft.Framework2015.Infrastructure.MVC.DependencyResolvers
         /// <returns> 请求的服务或对象 </returns>
         public object GetService(Type serviceType)
         {
-            return ResolverMediator.Resolve(serviceType);
+            try
+            {
+                return ResolverMediator.Resolve(serviceType);
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -27,7 +34,15 @@ namespace ShSoft.Framework2015.Infrastructure.MVC.DependencyResolvers
         /// <returns>请求的服务</returns>
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return ResolverMediator.ResolveAll(serviceType);
+            try
+            {
+                return ResolverMediator.ResolveAll(serviceType);
+            }
+            catch
+            {
+                return null;
+            }
+
         }
     }
 }
