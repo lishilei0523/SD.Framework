@@ -17,14 +17,7 @@ namespace ShSoft.Framework2015.Infrastructure.MVC.DependencyResolvers
         /// <returns> 请求的服务或对象 </returns>
         public object GetService(Type serviceType)
         {
-            try
-            {
-                return ResolverMediator.Resolve(serviceType);
-            }
-            catch
-            {
-                return null;
-            }
+            return ResolverMediator.ResolveOptional(serviceType);
         }
 
         /// <summary>
@@ -34,15 +27,7 @@ namespace ShSoft.Framework2015.Infrastructure.MVC.DependencyResolvers
         /// <returns>请求的服务</returns>
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            try
-            {
-                return ResolverMediator.ResolveAll(serviceType);
-            }
-            catch
-            {
-                return null;
-            }
-
+            return ResolverMediator.ResolveAll(serviceType);
         }
     }
 }

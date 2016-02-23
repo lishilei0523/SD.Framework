@@ -9,7 +9,7 @@ namespace ShSoft.Framework2015.Infrastructure.WebApi.DependencyResolvers
     /// <summary>
     /// WebApi依赖解决者
     /// </summary>
-    internal class WebApiDependencyResolver : IDependencyResolver
+    public class WebApiDependencyResolver : IDependencyResolver
     {
         /// <summary>
         /// 解析支持任意对象创建的一次注册的服务
@@ -18,7 +18,7 @@ namespace ShSoft.Framework2015.Infrastructure.WebApi.DependencyResolvers
         /// <returns> 请求的服务或对象 </returns>
         public object GetService(Type serviceType)
         {
-            return ResolverMediator.Resolve(serviceType);
+            return ResolverMediator.ResolveOptional(serviceType);
         }
 
         /// <summary>

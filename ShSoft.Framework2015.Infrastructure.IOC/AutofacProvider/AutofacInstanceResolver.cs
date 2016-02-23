@@ -12,6 +12,8 @@ namespace ShSoft.Framework2015.Infrastructure.IOC.AutofacProvider
     /// </summary>
     internal class AutofacInstanceResolver : IInstanceResolver
     {
+        #region # 字段及构造器
+
         /// <summary>
         /// Autofac容器
         /// </summary>
@@ -26,6 +28,9 @@ namespace ShSoft.Framework2015.Infrastructure.IOC.AutofacProvider
             this._container = container;
         }
 
+        #endregion
+
+        #region # 解析实例 —— T Resolve<T>()
         /// <summary>
         /// 解析实例
         /// </summary>
@@ -35,17 +40,9 @@ namespace ShSoft.Framework2015.Infrastructure.IOC.AutofacProvider
         {
             return this._container.Resolve<T>();
         }
+        #endregion
 
-        /// <summary>
-        /// 解析实例集
-        /// </summary>
-        /// <typeparam name="T">实例类型</typeparam>
-        /// <returns>实例集</returns>
-        public IEnumerable<T> ResolveAll<T>()
-        {
-            return this._container.Resolve<IEnumerable<T>>();
-        }
-
+        #region # 解析实例 —— object Resolve(Type type)
         /// <summary>
         /// 解析实例
         /// </summary>
@@ -55,7 +52,45 @@ namespace ShSoft.Framework2015.Infrastructure.IOC.AutofacProvider
         {
             return this._container.Resolve(type);
         }
+        #endregion
 
+        #region # 解析实例 —— T ResolveOptional<T>()
+        /// <summary>
+        /// 解析实例
+        /// </summary>
+        /// <typeparam name="T">实例类型</typeparam>
+        /// <returns>实例，如未注册则返回null</returns>
+        public T ResolveOptional<T>() where T : class
+        {
+            return this._container.ResolveOptional<T>();
+        }
+        #endregion
+
+        #region # 解析实例 —— object ResolveOptional(Type type)
+        /// <summary>
+        /// 解析实例
+        /// </summary>
+        /// <param name="type">实例类型</param>
+        /// <returns>实例，如未注册则返回null</returns>
+        public object ResolveOptional(Type type)
+        {
+            return this._container.ResolveOptional(type);
+        }
+        #endregion
+
+        #region # 解析实例集 —— IEnumerable<T> ResolveAll<T>()
+        /// <summary>
+        /// 解析实例集
+        /// </summary>
+        /// <typeparam name="T">实例类型</typeparam>
+        /// <returns>实例集</returns>
+        public IEnumerable<T> ResolveAll<T>()
+        {
+            return this._container.Resolve<IEnumerable<T>>();
+        }
+        #endregion
+
+        #region # 解析实例集 —— IEnumerable<object> ResolveAll(Type type)
         /// <summary>
         /// 解析实例集
         /// </summary>
@@ -72,5 +107,6 @@ namespace ShSoft.Framework2015.Infrastructure.IOC.AutofacProvider
             }
             return Enumerable.Empty<object>();
         }
+        #endregion
     }
 }
