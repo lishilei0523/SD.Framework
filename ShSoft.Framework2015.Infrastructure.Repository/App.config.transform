@@ -1,6 +1,11 @@
 ﻿<configuration>
   <connectionStrings>
     <!--默认连接字符串-->
-    <add name="DefaultConnection" connectionString="" providerName="" />
+    <add name="DefaultConnection" connectionString="" providerName="System.Data.SqlClient" />
   </connectionStrings>
+  <injectionConfiguration>
+    <asInterfaceTypes>
+      <type name="ShSoft.Framework2015.Infrastructure.Repository.EntityFrameworkProvider.Base.DbCleaner" assembly="ShSoft.Framework2015.Infrastructure.Repository" />
+    </asInterfaceTypes>
+  </injectionConfiguration>
 </configuration>
