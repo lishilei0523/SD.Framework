@@ -32,6 +32,9 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
 
             #endregion
 
+            //初始化映射
+            Mapper.Reset();
+
             //创建映射关系
             IMappingExpression<TSource, TTarget> mapConfig = Mapper.CreateMap<TSource, TTarget>();
 
