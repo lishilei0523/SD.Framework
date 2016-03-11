@@ -14,14 +14,11 @@ namespace ShSoft.Framework2015.Infrastructure.MVCTests
     {
         protected void Application_Start()
         {
+            //注册依赖注入配置
             IocConfig.Register();
 
             AreaRegistration.RegisterAllAreas();
-
-            WebApiConfig.Register(GlobalConfiguration.Configuration);
-            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }

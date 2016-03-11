@@ -9,7 +9,7 @@ namespace ShSoft.Framework2015.Infrastructure.WebApi.DependencyResolvers
     /// <summary>
     /// WebApi依赖解决者
     /// </summary>
-    public class WebApiDependencyResolver : IDependencyResolver
+    internal class WebApiDependencyResolver : IDependencyResolver
     {
         /// <summary>
         /// 解析支持任意对象创建的一次注册的服务

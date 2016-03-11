@@ -22,14 +22,5 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEventTests.StubEventSources
         public string ProductNo { get; private set; }
         public string ProductName { get; private set; }
         public decimal Price { get; private set; }
-
-
-        ///// <summary>
-        ///// 处理
-        ///// </summary>
-        //public override void Handle()
-        //{
-        //    EventMediator.Handle(this);
-        //}
     }
 }

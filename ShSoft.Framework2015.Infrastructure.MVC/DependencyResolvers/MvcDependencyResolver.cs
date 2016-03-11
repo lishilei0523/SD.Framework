@@ -8,7 +8,7 @@ namespace ShSoft.Framework2015.Infrastructure.MVC.DependencyResolvers
     /// <summary>
     /// MVC依赖解决者
     /// </summary>
-    public class MvcDependencyResolver : IDependencyResolver
+    internal class MvcDependencyResolver : IDependencyResolver
     {
         /// <summary>
         /// 解析支持任意对象创建的一次注册的服务

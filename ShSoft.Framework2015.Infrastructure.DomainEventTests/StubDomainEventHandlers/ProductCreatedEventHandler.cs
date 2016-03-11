@@ -3,6 +3,9 @@ using ShSoft.Framework2015.Infrastructure.IDomainEvent;
 
 namespace ShSoft.Framework2015.Infrastructure.DomainEventTests.StubDomainEventHandlers
 {
+    /// <summary>
+    /// 商品已创建事件处理这
+    /// </summary>
     public class ProductCreatedEventHandler : IDomainEventHandler<ProductCreatedEvent>
     {
         public static string ProductName = null;
