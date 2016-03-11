@@ -9,9 +9,8 @@ namespace ShSoft.Framework2015.EntityFrameworkTests.Entities
         /// <summary>
         /// 基础构造器
         /// </summary>
-        /// <param name="connectionName">连接字符串名称</param>
-        public DbSession(string connectionName)
-            : base(connectionName)
+        public DbSession()
+            : base("DefaultConnection")
         {
         }
 
@@ -36,7 +35,7 @@ namespace ShSoft.Framework2015.EntityFrameworkTests.Entities
         /// </summary>
         public override Func<Type, bool> TypeQuery
         {
-            get { return x => x.IsSubclassOf(typeof(AggregateRootEntity)); }
+            get { return x => x.IsSubclassOf(typeof(PlainEntity)); }
         }
 
         /// <summary>
