@@ -11,7 +11,7 @@ namespace ShSoft.Framework2015.AOP.Aspects.ForMethod
     /// 程序日志AOP特性类
     /// </summary>
     [Serializable]
-    [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
+    [AttributeUsage(AttributeTargets.Constructor | AttributeTargets.Method, AllowMultiple = true)]
     public class RunningLogAspect : OnMethodBoundaryAspect
     {
         /// <summary>
