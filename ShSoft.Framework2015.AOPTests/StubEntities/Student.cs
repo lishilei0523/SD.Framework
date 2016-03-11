@@ -7,7 +7,7 @@ namespace ShSoft.Framework2015.AOPTests.StubEntities
     /// <summary>
     /// 学生
     /// </summary>
-    [StubExceptionLogAspect]    //记录异常日志标签
+    [StubExceptionLogAspect]                    //记录异常日志标签
     public class Student
     {
         /// <summary>
@@ -16,7 +16,7 @@ namespace ShSoft.Framework2015.AOPTests.StubEntities
         /// <param name="name">姓名</param>
         /// <param name="gender">性别</param>
         /// <param name="age">年龄</param>
-        [RunningLogAspect]      //记录运行日志标签
+        [RunningLogAspect]                      //记录运行日志标签
         public Student(string name, bool gender, int age)
         {
             //验证参数

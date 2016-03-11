@@ -58,6 +58,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Framework2015.Infras
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Framework2015.AOPTests", "ShSoft.Framework2015.AOPTests\ShSoft.Framework2015.AOPTests.csproj", "{57BBBE8C-84EF-4605-8B96-83ABE9FA0AB8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Framework2015.CacheStorageTests", "ShSoft.Framework2015.CacheStorageTests\ShSoft.Framework2015.CacheStorageTests.csproj", "{421786C0-1720-4636-A23D-6FEC573BAD53}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -148,6 +150,10 @@ Global
 		{57BBBE8C-84EF-4605-8B96-83ABE9FA0AB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{57BBBE8C-84EF-4605-8B96-83ABE9FA0AB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{57BBBE8C-84EF-4605-8B96-83ABE9FA0AB8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{421786C0-1720-4636-A23D-6FEC573BAD53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{421786C0-1720-4636-A23D-6FEC573BAD53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{421786C0-1720-4636-A23D-6FEC573BAD53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{421786C0-1720-4636-A23D-6FEC573BAD53}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -174,5 +180,6 @@ Global
 		{3F66CC12-3DD8-4CA6-99C4-B2FEC28D3473} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{04BFA4D7-86C8-4341-B34C-3F1D88D19827} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{57BBBE8C-84EF-4605-8B96-83ABE9FA0AB8} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
+		{421786C0-1720-4636-A23D-6FEC573BAD53} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 	EndGlobalSection
 EndGlobal
