@@ -4,12 +4,17 @@ using ShSoft.Framework2015.Infrastructure.IDomainEvent;
 namespace ShSoft.Framework2015.Infrastructure.DomainEventTests.StubDomainEventHandlers
 {
     /// <summary>
-    /// 商品已创建事件处理这
+    /// 商品已创建事件处理者
     /// </summary>
     public class ProductCreatedEventHandler : IDomainEventHandler<ProductCreatedEvent>
     {
-        public static string ProductName = null;
-
+        /// <summary>
+        /// 商品名称
+        /// </summary>
+        /// <remarks>
+        /// 测试用例参数，默认为null，事件触发后会将其赋值为商品名称
+        /// </remarks>
+        public static string ProductName;
 
         /// <summary>
         /// 执行顺序，倒序排列
