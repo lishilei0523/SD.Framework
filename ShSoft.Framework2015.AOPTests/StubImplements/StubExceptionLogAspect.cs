@@ -2,7 +2,7 @@
 using PostSharp.Aspects;
 using ShSoft.Framework2015.AOP.Aspects.ForAny;
 
-namespace ShSoft.Framework2015.AOPTests.Implements
+namespace ShSoft.Framework2015.AOPTests.StubImplements
 {
     /// <summary>
     /// 具体异常AOP特性类

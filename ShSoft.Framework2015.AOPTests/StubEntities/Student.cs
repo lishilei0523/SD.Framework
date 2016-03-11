@@ -1,6 +1,6 @@
 ﻿using System;
 using ShSoft.Framework2015.AOP.Aspects.ForMethod;
-using ShSoft.Framework2015.AOPTests.Implements;
+using ShSoft.Framework2015.AOPTests.StubImplements;
 
 namespace ShSoft.Framework2015.AOPTests.StubEntities
 {
