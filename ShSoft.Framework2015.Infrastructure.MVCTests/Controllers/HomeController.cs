@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using ShSoft.Framework2015.Infrastructure.MVCTests.IAppService.Interfaces;
+using ShSoft.Framework2015.Infrastructure.StubIAppService.Interfaces;
 
 namespace ShSoft.Framework2015.Infrastructure.MVCTests.Controllers
 {

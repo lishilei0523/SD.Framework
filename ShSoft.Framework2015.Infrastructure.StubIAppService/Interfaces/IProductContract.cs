@@ -1,4 +1,4 @@
-﻿namespace ShSoft.Framework2015.Infrastructure.MVCTests.IAppService.Interfaces
+﻿namespace ShSoft.Framework2015.Infrastructure.StubIAppService.Interfaces
 {
     /// <summary>
     /// 商品管理接口
