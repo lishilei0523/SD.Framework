@@ -8,7 +8,7 @@ namespace ShSoft.Framework2015.CacheStorage.Factory
     /// <summary>
     /// 缓存容器工厂
     /// </summary>
-    public static class CacheAdapterFactory
+    internal static class CacheAdapterFactory
     {
         #region # 静态字段及静态构造器
 

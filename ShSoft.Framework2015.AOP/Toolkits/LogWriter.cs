@@ -10,7 +10,7 @@ namespace ShSoft.Framework2015.AOP.Toolkits
     /// <summary>
     /// 日志记录者
     /// </summary>
-    public static class LogWriter
+    internal static class LogWriter
     {
         #region # 常量、字段及构造器
 

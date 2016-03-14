@@ -3,7 +3,7 @@
     /// <summary>
     /// 缓存容器类型
     /// </summary>
-    public enum CacheType
+    internal enum CacheType
     {
         /// <summary>
         /// 无缓存

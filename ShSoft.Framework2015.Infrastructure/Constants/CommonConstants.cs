@@ -34,6 +34,11 @@ namespace ShSoft.Framework2015.Infrastructure.Constants
         /// </summary>
         public const string TablePrefixAppSettingKey = "TablePrefix";
 
+        /// <summary>
+        /// 开启数据自动迁移AppSetting键
+        /// </summary>
+        public const string AutoMigrationAppSettingKey = "AutoMigration";
+
         #endregion
 
         #region # WCF相关
