@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Web;
-using ShSoft.Framework2015.Infrastructure.IDomainEvent;
-using ShSoft.Framework2015.Infrastructure.IOC.Mediator;
-using ShSoft.Framework2015.Infrastructure.IRepository;
 
 namespace ShSoft.Framework2015.Infrastructure.Web.Base
 {
@@ -16,29 +13,8 @@ namespace ShSoft.Framework2015.Infrastructure.Web.Base
         /// </summary>
         protected virtual void Application_Start(object sender, EventArgs e)
         {
-            //初始化数据库
-            this.InitDataBase();
-
-            //初始化领域事件存储
-            this.InitDomainEventStore();
-        }
-
-        /// <summary>
-        /// 初始化数据库
-        /// </summary>
-        private void InitDataBase()
-        {
-            IDataInitializer initializer = ResolverMediator.Resolve<IDataInitializer>();
-            initializer.Initialize();
-        }
-
-        /// <summary>
-        /// 初始化领域事件存储
-        /// </summary>
-        private void InitDomainEventStore()
-        {
-            IDomainEventStorer eventStorer = ResolverMediator.Resolve<IDomainEventStorer>();
-            eventStorer.InitStore();
+            //注册初始化数据库
+            InitDbConfig.Register();
         }
     }
 }
