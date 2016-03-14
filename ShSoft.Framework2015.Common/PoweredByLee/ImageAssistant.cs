@@ -543,7 +543,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         /// <param name="mybt">要进行处理的图片</param>
         /// <param name="width">图片的长度</param>
         /// <param name="height">图片的高度</param>
-        public static Bitmap BWPic(Bitmap mybm, int width, int height)
+        public static Bitmap BWPic(Bitmap mybt, int width, int height)
         {
             Bitmap bm = new Bitmap(width, height);
             int x, y, result; //x,y是循环次数，result是记录处理后的像素值
@@ -552,7 +552,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
             {
                 for (y = 0; y < height; y++)
                 {
-                    pixel = mybm.GetPixel(x, y);//获取当前坐标的像素值
+                    pixel = mybt.GetPixel(x, y);//获取当前坐标的像素值
                     result = (pixel.R + pixel.G + pixel.B) / 3;//取红绿蓝三色的平均值
                     bm.SetPixel(x, y, Color.FromArgb(result, result, result));
                 }
@@ -566,7 +566,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         /// 获取图片中的各帧
         /// </summary>
         /// <param name="pPath">图片路径</param>
-        /// <param name="pSavePath">保存路径</param>
+        /// <param name="pSavedPath">保存路径</param>
         public static void GetFrames(string pPath, string pSavedPath)
         {
             Image gif = Image.FromFile(pPath);

@@ -42,19 +42,5 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
             return pathBuilder.ToString();
         }
         #endregion
-
-        public static void Test()
-        {
-            //Assembly assembly = Assembly.Load("");
-            //IEnumerable<Type> types = assembly.GetTypes().Where(x => x.GetCustomAttribute<Attribute>() != null);
-
-            //foreach (var type in types)
-            //{
-            //    foreach (var method in type.GetMethods())
-            //    {
-            //        method.DeclaringType.as
-            //    }
-            //}
-        }
     }
 }
