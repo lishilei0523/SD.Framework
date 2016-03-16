@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using AutoMapper;
@@ -12,7 +13,10 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
     /// <typeparam name="TTarget">目标实例类型</typeparam>
     public static class Transform<TSource, TTarget>
     {
-        #region 01.映射 —— static TTarget Map(TSource sourceInstance, Action<TSource, TTarget> beforeMapEventHandler...
+        private static readonly ICollection<Tuple<Type, Type>> typeMaps = new HashSet<Tuple<Type, Type>>();
+
+
+        #region # 映射 —— static TTarget Map(TSource sourceInstance, Action<TSource, TTarget> beforeMapEventHandler...
         /// <summary>
         /// 映射
         /// </summary>
@@ -32,39 +36,39 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
 
             #endregion
 
-            //初始化映射
-            Mapper.Reset();
-
-            //创建映射关系
-            IMappingExpression<TSource, TTarget> mapConfig = Mapper.CreateMap<TSource, TTarget>();
-
-            #region # 忽略映射成员处理
-
-            foreach (Expression<Func<TTarget, object>> ignoreMember in ignoreMembers)
+            if (Mapper.FindTypeMapFor<TSource, TTarget>() == null)
             {
-                mapConfig.ForMember(ignoreMember, source => source.Ignore());
+                //创建映射关系
+                IMappingExpression<TSource, TTarget> mapConfig = Mapper.CreateMap<TSource, TTarget>();
+
+                #region # 忽略映射成员处理
+
+                foreach (Expression<Func<TTarget, object>> ignoreMember in ignoreMembers)
+                {
+                    mapConfig.ForMember(ignoreMember, source => source.Ignore());
+                }
+
+                #endregion
+
+                #region # 映射前后事件处理
+
+                if (beforeMapEventHandler != null)
+                {
+                    mapConfig.BeforeMap(beforeMapEventHandler);
+                }
+                if (afterMapEventHandler != null)
+                {
+                    mapConfig.AfterMap(afterMapEventHandler);
+                }
+
+                #endregion
             }
-
-            #endregion
-
-            #region # 映射前后事件处理
-
-            if (beforeMapEventHandler != null)
-            {
-                mapConfig.BeforeMap(beforeMapEventHandler);
-            }
-            if (afterMapEventHandler != null)
-            {
-                mapConfig.AfterMap(afterMapEventHandler);
-            }
-
-            #endregion
 
             return Mapper.Map<TSource, TTarget>(sourceInstance);
         }
         #endregion
 
-        #region 02.填充 —— static void Fill(TSource sourceInstance, TTarget targetInstance)
+        #region # 填充 —— static void Fill(TSource sourceInstance, TTarget targetInstance)
         /// <summary>
         /// 将两个对象名称相同的属性替换赋值
         /// </summary>

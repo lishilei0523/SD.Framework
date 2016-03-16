@@ -12,18 +12,18 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
     /// </summary>
     public static class ImageAssistant
     {
-        #region 01.缩略图 —— static void MakeThumbnail(string originalImagePath, string thumbnailPath, int width, int height, string mode)
+        #region # 缩略图 —— static void MakeThumbnail(string sourceImagePath...
         /// <summary>
         /// 生成缩略图
         /// </summary>
-        /// <param name="originalImagePath">源图路径（物理路径）</param>
+        /// <param name="sourceImagePath">源图路径（物理路径）</param>
         /// <param name="thumbnailPath">缩略图路径（物理路径）</param>
         /// <param name="width">缩略图宽度</param>
         /// <param name="height">缩略图高度</param>
         /// <param name="mode">生成缩略图的方式</param>    
-        public static void MakeThumbnail(string originalImagePath, string thumbnailPath, int width, int height, string mode)
+        public static void MakeThumbnail(string sourceImagePath, string thumbnailPath, int width, int height, string mode)
         {
-            Image originalImage = Image.FromFile(originalImagePath);
+            Image originalImage = Image.FromFile(sourceImagePath);
 
             int towidth = width;
             int toheight = height;
@@ -95,7 +95,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 02.图片水印 —— static string ImageWatermark(string path, string waterpath, string location)
+        #region # 图片水印 —— static string ImageWatermark(string path...
         /// <summary>
         /// 图片水印处理方法
         /// </summary>
@@ -191,7 +191,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 02.文字水印 —— static string LetterWatermark(string path, int size, string letter, Color color, string location)
+        #region # 文字水印 —— static string LetterWatermark(string path, int size, string letter, Color color, string location)
         /// <summary>
         /// 文字水印
         /// </summary>
@@ -296,7 +296,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 03.调整光暗 —— static Bitmap LDPic(Bitmap mybm, int width, int height, int val)
+        #region # 调整光暗 —— static Bitmap LDPic(Bitmap mybm, int width, int height, int val)
         /// <summary>
         /// 调整光暗
         /// </summary>
@@ -324,7 +324,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 04.反色处理 —— static Bitmap RePic(Bitmap mybm, int width, int height)
+        #region # 反色处理 —— static Bitmap RePic(Bitmap mybm, int width, int height)
         /// <summary>
         /// 反色处理
         /// </summary>
@@ -351,7 +351,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 05.浮雕处理 —— static Bitmap FD(Bitmap oldBitmap, int Width, int Height)
+        #region # 浮雕处理 —— static Bitmap FD(Bitmap oldBitmap, int Width, int Height)
         /// <summary>
         /// 浮雕处理
         /// </summary>
@@ -385,7 +385,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 06.拉伸图片 —— static Bitmap ResizeImage(Bitmap bmp, int newW, int newH)
+        #region # 拉伸图片 —— static Bitmap ResizeImage(Bitmap bmp, int newW, int newH)
         /// <summary>
         /// 拉伸图片
         /// </summary>
@@ -410,7 +410,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 07.滤色处理 —— static Bitmap FilPic(Bitmap mybm, int width, int height)
+        #region # 滤色处理 —— static Bitmap FilPic(Bitmap mybm, int width, int height)
         /// <summary>
         /// 滤色处理
         /// </summary>
@@ -435,7 +435,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 08.左右翻转 —— static Bitmap RevPicLR(Bitmap mybm, int width, int height)
+        #region # 左右翻转 —— static Bitmap RevPicLR(Bitmap mybm, int width, int height)
         /// <summary>
         /// 左右翻转
         /// </summary>
@@ -459,7 +459,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 09.上下翻转 —— static Bitmap RevPicUD(Bitmap mybm, int width, int height)
+        #region # 上下翻转 —— static Bitmap RevPicUD(Bitmap mybm, int width, int height)
         /// <summary>
         /// 上下翻转
         /// </summary>
@@ -483,7 +483,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 10.压缩图片 —— static bool Compress(string oldfile, string newfile)
+        #region # 压缩图片 —— static bool Compress(string oldfile, string newfile)
         /// <summary>
         /// 压缩到指定尺寸
         /// </summary>
@@ -528,15 +528,20 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 11.图片灰度化 —— static Color Gray(Color c)
-        public static Color Gray(Color c)
+        #region # 颜色灰度化 —— static Color Gray(Color color)
+        /// <summary>
+        /// 颜色灰度化
+        /// </summary>
+        /// <param name="color">颜色</param>
+        /// <returns>颜色</returns>
+        public static Color Gray(Color color)
         {
-            int rgb = Convert.ToInt32((double)(((0.3 * c.R) + (0.59 * c.G)) + (0.11 * c.B)));
+            int rgb = Convert.ToInt32((double)(((0.3 * color.R) + (0.59 * color.G)) + (0.11 * color.B)));
             return Color.FromArgb(rgb, rgb, rgb);
         }
         #endregion
 
-        #region 12.转换为黑白图片 —— static Bitmap BWPic(Bitmap mybm, int width, int height)
+        #region # 转换为黑白图片 —— static Bitmap BWPic(Bitmap mybm, int width, int height)
         /// <summary>
         /// 转换为黑白图片
         /// </summary>
@@ -561,7 +566,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 13.获取图片中的各帧 —— static void GetFrames(string pPath, string pSavedPath)
+        #region # 获取图片中的各帧 —— static void GetFrames(string pPath, string pSavedPath)
         /// <summary>
         /// 获取图片中的各帧
         /// </summary>
