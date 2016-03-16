@@ -25,7 +25,7 @@ namespace ShSoft.Framework2015.LogSite.Controllers
         /// <returns>菜单树</returns>
         public ActionResult GetMenuList()
         {
-            return this.Content(OperateContext.Current.MainMenuTree);
+            return this.Content(OperationContext.Current.MainMenuTree);
         }
         #endregion
     }

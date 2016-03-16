@@ -17,20 +17,51 @@ namespace ShSoft.Framework2015.LogSite.Model
     [Serializable]
     public class Menu
     {
+        /// <summary>
+        /// 标识Id
+        /// </summary>
         [Key]
         public int Id { get; set; }
+
+        /// <summary>
+        /// 上级菜单
+        /// </summary>
         [DisplayName("上级菜单")]
         public int PId { get; set; }
+
+        /// <summary>
+        /// 上级菜单
+        /// </summary>
         [DisplayName("上级菜单")]
         public string PName { get; set; }
+
+        /// <summary>
+        /// 菜单名称
+        /// </summary>
         [DisplayName("菜单名称")]
         public string MenuName { get; set; }
+
+        /// <summary>
+        /// 链接地址
+        /// </summary>
         [DisplayName("链接地址")]
         public string Url { get; set; }
+
+        /// <summary>
+        /// 是否是链接
+        /// </summary>
         [DisplayName("是否是链接")]
         public bool? IsLink { get; set; }
+
+        /// <summary>
+        /// 菜单等级
+        /// </summary>
         [DisplayName("菜单等级")]
         public int Level { get; set; }
+
+        /// <summary>
+        /// 排序
+        /// </summary>
         [DisplayName("排序")]
         public int? Sort { get; set; }
 

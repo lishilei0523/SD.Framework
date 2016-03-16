@@ -10,30 +10,30 @@ using ShSoft.Framework2015.LogSite.Model.Format;
 namespace ShSoft.Framework2015.LogSite.Controllers
 {
     /// <summary>
-    /// MVC全局操作上下文
+    /// MVC操作上下文帮助类
     /// </summary>
-    public sealed class OperateContext
+    public sealed class OperationContext
     {
         #region # 访问器 —— static OperateContext Current
 
         /// <summary>
         /// 将构造方法私有化
         /// </summary>
-        private OperateContext() { }
+        private OperationContext() { }
 
         /// <summary>
         /// 当前OperateContext实例，类似HttpContext.Current
         /// </summary>
-        public static OperateContext Current
+        public static OperationContext Current
         {
             get
             {
                 //从线程缓存中取，如果没有new一个，然后再存入线程缓存
-                OperateContext context = CallContext.GetData(typeof(OperateContext).Name) as OperateContext;
+                OperationContext context = CallContext.GetData(typeof(OperationContext).Name) as OperationContext;
                 if (context == null)
                 {
-                    context = new OperateContext();
-                    CallContext.SetData(typeof(OperateContext).Name, context);
+                    context = new OperationContext();
+                    CallContext.SetData(typeof(OperationContext).Name, context);
                 }
                 return context;
             }

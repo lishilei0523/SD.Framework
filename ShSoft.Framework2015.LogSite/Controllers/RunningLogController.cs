@@ -98,12 +98,12 @@ namespace ShSoft.Framework2015.LogSite.Controllers
                 List<Guid> idList = selectedIds.Split(',').Select(x => Guid.Parse(x)).ToList();
                 //2.执行批量删除操作
                 idList.ForEach(x => this._runningLogBll.PhysicalDelete(x));
-                return OperateContext.Current.JsonModel(1, "删除成功！");
+                return OperationContext.Current.JsonModel(1, "删除成功！");
             }
             catch (Exception ex)
             {
                 //返回程序信息
-                return OperateContext.Current.JsonModel(0, string.Format("删除失败，{0}", ex.Message));
+                return OperationContext.Current.JsonModel(0, string.Format("删除失败，{0}", ex.Message));
             }
         }
         #endregion

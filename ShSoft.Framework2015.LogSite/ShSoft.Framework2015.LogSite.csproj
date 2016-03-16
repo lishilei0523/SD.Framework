@@ -98,7 +98,7 @@
     <Compile Include="Controllers\ExceptionLogController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
-    <Compile Include="Controllers\OperateContext.cs" />
+    <Compile Include="Controllers\OperationContext.cs" />
     <Compile Include="Controllers\RunningLogController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

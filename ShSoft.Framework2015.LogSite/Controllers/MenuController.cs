@@ -54,7 +54,7 @@ namespace ShSoft.Framework2015.LogSite.Controllers
             //2.查询所有菜单
             List<Menu> menuList = this._dbSession.Set<Menu>().OrderByDescending(x => x.Sort).ToList();
             //3.将菜单集合转换为树形
-            List<TreeModel> treeList = OperateContext.Current.MenuListToTree(menuList, 0);
+            List<TreeModel> treeList = OperationContext.Current.MenuListToTree(menuList, 0);
             //4.返回Json字符串
             return this.Json(treeList, JsonRequestBehavior.AllowGet);
         }
@@ -90,16 +90,16 @@ namespace ShSoft.Framework2015.LogSite.Controllers
 
                 if (this._dbSession.SaveChanges() > 0)
                 {
-                    return OperateContext.Current.JsonModel(1, "添加成功！");
+                    return OperationContext.Current.JsonModel(1, "添加成功！");
                 }
                 else
                 {
-                    return OperateContext.Current.JsonModel(0, "添加失败！");
+                    return OperationContext.Current.JsonModel(0, "添加失败！");
                 }
             }
             else    //模型校验失败
             {
-                return OperateContext.Current.JsonModel(0, "您输入的数据有误，请重试！");
+                return OperationContext.Current.JsonModel(0, "您输入的数据有误，请重试！");
             }
         }
         #endregion
@@ -118,18 +118,18 @@ namespace ShSoft.Framework2015.LogSite.Controllers
                 Menu model = this._dbSession.Set<Menu>().Single(x => x.Id == id);
                 if (model == null)
                 {
-                    return OperateContext.Current.JsonModel(0, "该菜单节点不存在！");
+                    return OperationContext.Current.JsonModel(0, "该菜单节点不存在！");
                 }
                 else //2.如果存在，则递归删除
                 {
                     this.DeleteRecursion(id);     //删除给定菜单节点以及其所有下级菜单节点
-                    return OperateContext.Current.JsonModel(1, "删除成功！");
+                    return OperationContext.Current.JsonModel(1, "删除成功！");
                 }
             }
             catch (Exception ex)
             {
                 //返回客户端错误消息
-                return OperateContext.Current.JsonModel(0, ex.Message);
+                return OperationContext.Current.JsonModel(0, ex.Message);
             }
         }
 
@@ -175,14 +175,14 @@ namespace ShSoft.Framework2015.LogSite.Controllers
                     Menu currentMenu = this._dbSession.Set<Menu>().Single(x => x.Id == id);
                     this._dbSession.Set<Menu>().Remove(currentMenu);
                 });
-                return OperateContext.Current.JsonModel(1, "删除成功！");
+                return OperationContext.Current.JsonModel(1, "删除成功！");
             }
             catch (Exception ex)
             {
                 //写入日志
 
                 //返回异常信息
-                return OperateContext.Current.JsonModel(0, string.Format("删除失败，{0}", ex.Message));
+                return OperationContext.Current.JsonModel(0, string.Format("删除失败，{0}", ex.Message));
             }
         }
         #endregion
@@ -222,11 +222,11 @@ namespace ShSoft.Framework2015.LogSite.Controllers
                 entry.State = EntityState.Modified;
                 this._dbSession.SaveChanges();
 
-                return OperateContext.Current.JsonModel(1, "修改成功！");
+                return OperationContext.Current.JsonModel(1, "修改成功！");
             }
             else    //模型校验失败
             {
-                return OperateContext.Current.JsonModel(0, "您输入的数据有误，请重试！");
+                return OperationContext.Current.JsonModel(0, "您输入的数据有误，请重试！");
             }
         }
         #endregion
