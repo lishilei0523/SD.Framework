@@ -1,8 +1,8 @@
 ﻿using System;
-using ShSoft.Framework2015.CacheStorage.Factory;
-using ShSoft.Framework2015.CacheStorage.Interface;
+using ShSoft.Framework2015.CacheManager.Factory;
+using ShSoft.Framework2015.CacheManager.Interface;
 
-namespace ShSoft.Framework2015.CacheStorage.Mediator
+namespace ShSoft.Framework2015.CacheManager.Mediator
 {
     /// <summary>
     /// 缓存中介者

@@ -1,7 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShSoft.Framework2015.CacheStorage.Mediator;
+using ShSoft.Framework2015.CacheManager.Mediator;
 
-namespace ShSoft.Framework2015.CacheStorageTests
+namespace ShSoft.Framework2015.CacheManagerTests
 {
     /// <summary>
     /// 缓存测试

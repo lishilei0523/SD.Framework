@@ -1,26 +1,17 @@
 ﻿using System;
-using System.Configuration;
-using ServiceStack.Redis;
-using ShSoft.Framework2015.CacheStorage.Interface;
+using System.Collections;
+using System.Collections.Generic;
+using System.Web;
+using ShSoft.Framework2015.CacheManager.Interface;
 
-namespace ShSoft.Framework2015.CacheStorage.Implements
+namespace ShSoft.Framework2015.CacheManager.Implements
 {
     /// <summary>
-    /// Redis缓存容器
+    /// HttpRuntimeCache缓存容器
     /// </summary>
-    internal class RedisCacheAdapter : ICacheAdapter
+    internal class HttpRuntimeCacheAdapter : ICacheAdapter
     {
         #region # 字段及构造器
-
-        /// <summary>
-        /// Redis服务器地址AppSetting键
-        /// </summary>
-        private const string RedisServerAppSettingKey = "RedisServer";
-
-        /// <summary>
-        /// 定义Redis客户端私有字段
-        /// </summary>
-        private static readonly RedisClient _RedisClient;     // = new RedisClient("127.0.0.1", 6379); 
 
         /// <summary>
         /// 当前实例
@@ -30,21 +21,8 @@ namespace ShSoft.Framework2015.CacheStorage.Implements
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static RedisCacheAdapter()
+        static HttpRuntimeCacheAdapter()
         {
-            //读取配置文件中的Redis服务端IP地址、端口号
-            string ip = ConfigurationManager.AppSettings[RedisServerAppSettingKey];   //127.0.0.1,6379
-
-            //判断是否为空
-            if (string.IsNullOrWhiteSpace(ip))
-            {
-                throw new SystemException("Redis服务端IP地址未配置！");
-            }
-
-            string[] redisServer = ip.Split(',');
-            //实例化RedisClient
-            _RedisClient = new RedisClient(redisServer[0], int.Parse(redisServer[1]));
-
             _Current = new HttpRuntimeCacheAdapter();
         }
 
@@ -69,7 +47,12 @@ namespace ShSoft.Framework2015.CacheStorage.Implements
         /// <param name="value">值</param>
         public void Set<T>(string key, T value)
         {
-            _RedisClient.Set(key, value);
+            //如果缓存已存在则清空
+            if (HttpRuntime.Cache.Get(key) != null)
+            {
+                HttpRuntime.Cache.Remove(key);
+            }
+            HttpRuntime.Cache.Insert(key, value);
         }
         #endregion
 
@@ -83,7 +66,12 @@ namespace ShSoft.Framework2015.CacheStorage.Implements
         /// <param name="exp">过期时间</param>
         public void Set<T>(string key, T value, DateTime exp)
         {
-            _RedisClient.Set(key, value, exp);
+            //如果缓存已存在则清空
+            if (HttpRuntime.Cache.Get(key) != null)
+            {
+                HttpRuntime.Cache.Remove(key);
+            }
+            HttpRuntime.Cache.Insert(key, value, null, exp, TimeSpan.Zero);
         }
         #endregion
 
@@ -96,7 +84,7 @@ namespace ShSoft.Framework2015.CacheStorage.Implements
         /// <returns>值</returns>
         public T Get<T>(string key)
         {
-            return _RedisClient.Get<T>(key);
+            return (T)HttpRuntime.Cache.Get(key);
         }
         #endregion
 
@@ -107,7 +95,7 @@ namespace ShSoft.Framework2015.CacheStorage.Implements
         /// <param name="key">键</param>
         public void Remove(string key)
         {
-            _RedisClient.Remove(key);
+            HttpRuntime.Cache.Remove(key);
         }
         #endregion
 
@@ -117,7 +105,23 @@ namespace ShSoft.Framework2015.CacheStorage.Implements
         /// </summary>
         public void RemoveAll()
         {
-            _RedisClient.FlushAll();
+            //01.定义key集合用于存储所有cache的键
+            List<string> keys = new List<string>();
+
+            //02.获取HttpRuntime字典枚举器
+            IDictionaryEnumerator enumerator = HttpRuntime.Cache.GetEnumerator();
+
+            //03.将所有缓存键添加到keys集合
+            while (enumerator.MoveNext())
+            {
+                keys.Add(enumerator.Key.ToString());
+            }
+
+            //04.循环删除所有缓存
+            foreach (string key in keys)
+            {
+                HttpRuntime.Cache.Remove(key);
+            }
         }
         #endregion
     }

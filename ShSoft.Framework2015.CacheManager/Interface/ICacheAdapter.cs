@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ShSoft.Framework2015.CacheStorage.Interface
+namespace ShSoft.Framework2015.CacheManager.Interface
 {
     /// <summary>
     /// 缓存容器接口

@@ -1,7 +1,7 @@
 ﻿using System;
-using ShSoft.Framework2015.CacheStorage.Interface;
+using ShSoft.Framework2015.CacheManager.Interface;
 
-namespace ShSoft.Framework2015.CacheStorage.Implements
+namespace ShSoft.Framework2015.CacheManager.Implements
 {
     /// <summary>
     /// 空缓存容器

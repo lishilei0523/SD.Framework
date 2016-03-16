@@ -7,8 +7,8 @@
     <ProjectGuid>{9F9D95B0-7E4C-4138-9468-C881720B5572}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ShSoft.Framework2015.CacheStorage</RootNamespace>
-    <AssemblyName>ShSoft.Framework2015.CacheStorage</AssemblyName>
+    <RootNamespace>ShSoft.Framework2015.CacheManager</RootNamespace>
+    <AssemblyName>ShSoft.Framework2015.CacheManager</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
@@ -35,7 +35,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\ShSoft.Framework2015.CacheStorage.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\ShSoft.Framework2015.CacheManager.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Configuration;
-using ShSoft.Framework2015.CacheStorage.Implements;
-using ShSoft.Framework2015.CacheStorage.Interface;
+using ShSoft.Framework2015.CacheManager.Implements;
+using ShSoft.Framework2015.CacheManager.Interface;
 
-namespace ShSoft.Framework2015.CacheStorage.Factory
+namespace ShSoft.Framework2015.CacheManager.Factory
 {
     /// <summary>
     /// 缓存容器工厂

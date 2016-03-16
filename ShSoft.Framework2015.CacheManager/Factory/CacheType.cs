@@ -1,4 +1,4 @@
-﻿namespace ShSoft.Framework2015.CacheStorage.Factory
+﻿namespace ShSoft.Framework2015.CacheManager.Factory
 {
     /// <summary>
     /// 缓存容器类型
