@@ -26,31 +26,29 @@ namespace ShSoft.Framework2015.CommonTests.TestCases
             Assert.IsTrue(studentInfo.Name == student.Name);
         }
 
-
         /// <summary>
         /// 测试映射后事件执行次数
         /// </summary>
         [TestMethod]
         public void TestMap_AfterMap()
         {
-            int count = 0;
+            Student student = new Student { Id = 1, Name = "张三", BirthDay = DateTime.Now };
 
-
-            Student student1 = new Student { Id = 1, Name = "张三", BirthDay = DateTime.Now };
-
-            StudentInfo studentInfo1 = null;
+            StudentInfo studentInfo = null;
             for (int i = 0; i < 10; i++)
             {
-                studentInfo1 = Transform<Student, StudentInfo>.Map(student1, null, Test);
+                studentInfo = Transform<Student, StudentInfo>.Map(student, null, this.AfterMap);
             }
 
-
-
-            Assert.IsTrue(studentInfo1.Name == student1.Name);
+            Assert.IsTrue(studentInfo.Name == student.Name);
         }
 
-
-        private void Test(Student x, StudentInfo y)
+        /// <summary>
+        /// 映射后事件方法
+        /// </summary>
+        /// <param name="source">源实例</param>
+        /// <param name="target">目标实例</param>
+        private void AfterMap(Student source, StudentInfo target)
         {
             Trace.WriteLine(DateTime.Now);
         }
