@@ -55,10 +55,6 @@
       <Project>{891d9124-0462-4841-b1f6-8fff2fd0b7be}</Project>
       <Name>ShSoft.Framework2015.Infrastructure.IOC</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure.Web\ShSoft.Framework2015.Infrastructure.Web.csproj">
-      <Project>{17c748af-d2e4-4f35-925c-2d0c1d5a51b4}</Project>
-      <Name>ShSoft.Framework2015.Infrastructure.Web</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
