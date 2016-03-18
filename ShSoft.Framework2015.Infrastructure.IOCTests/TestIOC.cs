@@ -47,5 +47,16 @@ namespace ShSoft.Framework2015.Infrastructure.IOCTests
             IProductContract productContract = ResolverMediator.ResolveOptional<IProductContract>();
             Assert.IsNotNull(productContract);
         }
+
+        /// <summary>
+        /// 测试实例代理
+        /// </summary>
+        [TestMethod]
+        public void TestProxy()
+        {
+            string products = Proxy<IProductContract>.Instance.GetProducts();
+            Assert.IsNotNull(products);
+        }
+
     }
 }
