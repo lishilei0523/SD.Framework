@@ -59,6 +59,7 @@
     <Compile Include="AutofacProvider\AutofacInstanceResolver.cs" />
     <Compile Include="Factory\ProviderType.cs" />
     <Compile Include="Factory\ResolverFactory.cs" />
+    <Compile Include="Mediator\Proxy.cs" />
     <Compile Include="Mediator\ResolverMediator.cs" />
     <Compile Include="Configuration\AssemblyElement.cs" />
     <Compile Include="Configuration\AssemblyElementCollection.cs" />
