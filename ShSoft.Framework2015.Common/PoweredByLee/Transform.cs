@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Reflection;
 using AutoMapper;
@@ -13,9 +12,6 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
     /// <typeparam name="TTarget">目标实例类型</typeparam>
     public static class Transform<TSource, TTarget>
     {
-        private static readonly ICollection<Tuple<Type, Type>> typeMaps = new HashSet<Tuple<Type, Type>>();
-
-
         #region # 映射 —— static TTarget Map(TSource sourceInstance, Action<TSource, TTarget> beforeMapEventHandler...
         /// <summary>
         /// 映射

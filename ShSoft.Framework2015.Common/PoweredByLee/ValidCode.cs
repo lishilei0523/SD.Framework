@@ -3,7 +3,6 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Runtime.Remoting.Messaging;
 using System.Web;
 
 namespace ShSoft.Framework2015.Common.PoweredByLee
@@ -11,65 +10,40 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
     /// <summary>
     /// 验证码处理类
     /// </summary>
-    public class ValidCode
+    public static class ValidCode
     {
-        #region 00.访问器 —— static ValidCode Current
-        /// <summary>
-        /// 私有构造函数
-        /// </summary>
-        private ValidCode() { }
+        #region # 常量
 
         /// <summary>
-        /// 访问器
-        /// </summary>
-        public static ValidCode Current
-        {
-            get
-            {
-                //从线程缓存中取，如果没有new一个，然后再存入线程缓存
-                ValidCode vCode = CallContext.GetData(typeof(ValidCode).Name) as ValidCode;
-                if (vCode == null)
-                {
-                    vCode = new ValidCode();
-                    CallContext.SetData(typeof(ValidCode).Name, vCode);
-                }
-                return vCode;
-            }
-        }
-        #endregion
-
-        #region 01.验证码的最大长度常量 —— int MaxLength
-        /// <summary>
-        /// 验证码的最大长度属性
+        /// 验证码的最大长度
         /// </summary>
         public const int MaxLength = 10;
-        #endregion
 
-        #region 02.验证码的最小长度常量 —— int MinLength
         /// <summary>
-        /// 验证码的最小长度属性
+        /// 验证码的最小长度
         /// </summary>
         public const int MinLength = 1;
+
         #endregion
 
-        #region 03.创建验证码字符串方法 —— string CreateValidCode(int length)
+        #region # 生成验证码字符串 —— string GenerateValidCode(int length)
         /// <summary>
-        /// 创建验证码字符串方法
+        /// 生成验证码字符串
         /// </summary>
         /// <param name="length">验证码长度</param>
         /// <returns>验证码字符串</returns>
-        public string CreateValidCode(int length)
+        public static string GenerateValidCode(int length)
         {
             #region # 验证参数
 
             if (length > MaxLength)
             {
-                throw new ArgumentOutOfRangeException("length", "验证码长度不可超过10！");
+                length = MaxLength;
             }
 
             if (length < MinLength)
             {
-                throw new ArgumentOutOfRangeException("length", "验证码长度不小于1！");
+                length = MinLength;
             }
 
             #endregion
@@ -112,20 +86,20 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 04.创建验证码图片方法（直接输出到浏览器） —— void CreateValidCodeImage(string validCode, HttpContext context)
+        #region # 生成验证码图片（直接输出到浏览器） —— void GenerateValidCodeImage(string validCode...
         /// <summary>
-        /// 创建验证码图片（直接输出到浏览器）
+        /// 生成验证码图片（直接输出到浏览器）
         /// </summary>
         /// <param name="validCode">验证码字符串</param>
         /// <param name="context">HttpContext上下文对象</param>
-        public void CreateValidCodeImage(string validCode, HttpContext context)
+        public static void GenerateValidCodeImage(string validCode, HttpContext context)
         {
             Bitmap image = new Bitmap((int)Math.Ceiling(validCode.Length * 12.0), 22);
             Graphics graphic = Graphics.FromImage(image);
             try
             {
                 //绘制验证码
-                MemoryStream stream = this.DrawValidCode(validCode, graphic, image);
+                MemoryStream stream = DrawValidCode(validCode, graphic, image);
 
                 //输出图片流
                 context.Response.Clear();
@@ -140,20 +114,20 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 05.创建验证码图片方法（返回字节数组） —— byte[] CreateValidCodeImage(string validCode)
+        #region # 生成验证码图片（返回字节数组） —— byte[] GenerateValidCodeImage(string validCode)
         /// <summary>
-        /// 创建验证码图片方法（返回字节数组）
+        /// 生成验证码图片（返回字节数组）
         /// </summary>
         /// <param name="validCode">验证码字符串</param>
         /// <returns>验证码图片序列化后的字节数组</returns>
-        public byte[] CreateValidCodeImage(string validCode)
+        public static byte[] GenerateValidCodeImage(string validCode)
         {
             Bitmap image = new Bitmap((int)Math.Ceiling(validCode.Length * 12.0), 22);
             Graphics graphic = Graphics.FromImage(image);
             try
             {
                 //绘制验证码
-                MemoryStream stream = this.DrawValidCode(validCode, graphic, image);
+                MemoryStream stream = DrawValidCode(validCode, graphic, image);
 
                 //输出图片流
                 return stream.ToArray();
@@ -166,7 +140,15 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        private MemoryStream DrawValidCode(string validCode, Graphics graphic, Bitmap image)
+        #region # 绘制验证码 —— MemoryStream DrawValidCode(string validCode, Graphics graphic...
+        /// <summary>
+        /// 绘制验证码
+        /// </summary>
+        /// <param name="validCode">验证码</param>
+        /// <param name="graphic">画刷</param>
+        /// <param name="image">画布</param>
+        /// <returns>内存流</returns>
+        private static MemoryStream DrawValidCode(string validCode, Graphics graphic, Bitmap image)
         {
             //生成随机生成器
             Random random = new Random();
@@ -203,5 +185,6 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
 
             return stream;
         }
+        #endregion
     }
 }
