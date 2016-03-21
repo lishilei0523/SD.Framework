@@ -108,7 +108,6 @@
     <Compile Include="Model\ExceptionLogs\ExceptionLogBll.cs" />
     <Compile Include="Model\ExceptionLogs\ExceptionLogDal.cs" />
     <Compile Include="Model\Format\GridModel.cs" />
-    <Compile Include="Model\Format\PageModel.cs" />
     <Compile Include="Model\Format\ResponseModel.cs" />
     <Compile Include="Model\Format\TreeModel.cs" />
     <Compile Include="Model\Menu.cs" />

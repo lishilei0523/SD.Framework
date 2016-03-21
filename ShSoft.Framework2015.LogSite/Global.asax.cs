@@ -1,5 +1,5 @@
-﻿using System.Web.Mvc;
-using System.Web.Optimization;
+﻿using System.Web;
+using System.Web.Mvc;
 using System.Web.Routing;
 using ShSoft.Framework2015.LogSite.Model.Base;
 
@@ -9,7 +9,7 @@ namespace ShSoft.Framework2015.LogSite
     /// 全局应用程序类
     /// </summary>
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         /// <summary>
         /// 应用程序开始事件
