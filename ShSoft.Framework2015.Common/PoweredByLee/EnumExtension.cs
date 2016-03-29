@@ -11,6 +11,15 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
     /// </summary>
     public static class EnumExtension
     {
+        #region # 常量
+
+        /// <summary>
+        /// 枚举值字段
+        /// </summary>
+        private const string EnumValueField = "value__";
+
+        #endregion
+
         #region # 获取枚举成员名称 —— static string GetEnumMember(this Enum @enum)
         /// <summary>
         /// 获取枚举成员名称
@@ -49,7 +58,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
 
             IDictionary<string, string> dictionaries = new Dictionary<string, string>();
 
-            foreach (FieldInfo field in fields.Where(x => x.Name != "value__"))
+            foreach (FieldInfo field in fields.Where(x => x.Name != EnumValueField))
             {
                 DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
 
@@ -97,7 +106,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
 
             ICollection<Tuple<int, string, string>> enumInfos = new HashSet<Tuple<int, string, string>>();
 
-            foreach (FieldInfo field in fields)
+            foreach (FieldInfo field in fields.Where(x => x.Name != EnumValueField))
             {
                 DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
                 int value = Convert.ToInt32(field.GetValue(Activator.CreateInstance(enumType)));
