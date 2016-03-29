@@ -60,7 +60,7 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-        #region 将String值转换成可空的枚举 —— static T? GetEnum<T>(this string enumValue) where T : struct
+        #region # 将String值转换成可空的枚举 —— static T? GetEnum<T>(this string enumValue)
         /// <summary>
         /// 将String值转换成可空的枚举 
         /// </summary>
@@ -70,6 +70,42 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         public static T? GetEnum<T>(this string enumValue) where T : struct
         {
             return string.IsNullOrEmpty(enumValue) ? (T?)null : (T)(Enum.Parse(typeof(T), enumValue));
+        }
+        #endregion
+
+        #region # 获取枚举类型完整信息 —— static IEnumerable<Tuple<int, string, string>> GetEnumMemberInfos(...
+        /// <summary>
+        /// 获取枚举类型完整信息
+        /// </summary>
+        /// <param name="enumType">枚举类型</param>
+        /// <returns>完整信息</returns>
+        /// <remarks>
+        /// Tuple[int, string, string]，[枚举int值，枚举名，枚举描述]
+        /// </remarks>
+        public static IEnumerable<Tuple<int, string, string>> GetEnumMemberInfos(this Type enumType)
+        {
+            #region # 验证参数
+
+            if (!enumType.IsSubclassOf(typeof(Enum)))
+            {
+                throw new ArgumentOutOfRangeException(string.Format("类型\"{0}\"不是枚举类型！", enumType.Name));
+            }
+
+            #endregion
+
+            FieldInfo[] fields = enumType.GetFields();
+
+            ICollection<Tuple<int, string, string>> enumInfos = new HashSet<Tuple<int, string, string>>();
+
+            foreach (FieldInfo field in fields)
+            {
+                DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
+                int value = Convert.ToInt32(field.GetValue(Activator.CreateInstance(enumType)));
+
+                enumInfos.Add(new Tuple<int, string, string>(value, field.Name, enumMember == null ? field.Name : string.IsNullOrEmpty(enumMember.Description) ? field.Name : enumMember.Description));
+            }
+
+            return enumInfos;
         }
         #endregion
     }
