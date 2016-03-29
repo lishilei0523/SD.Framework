@@ -60,7 +60,17 @@ namespace ShSoft.Framework2015.Common.PoweredByLee
         }
         #endregion
 
-
-
+        #region 将String值转换成可空的枚举 —— static T? GetEnum<T>(this string enumValue) where T : struct
+        /// <summary>
+        /// 将String值转换成可空的枚举 
+        /// </summary>
+        /// <param name="enumValue">枚举的string值</param>
+        /// <typeparam name="T">枚举类型</typeparam>
+        /// <returns>可空的枚举对象</returns>
+        public static T? GetEnum<T>(this string enumValue) where T : struct
+        {
+            return string.IsNullOrEmpty(enumValue) ? (T?)null : (T)(Enum.Parse(typeof(T), enumValue));
+        }
+        #endregion
     }
 }
