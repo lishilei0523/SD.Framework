@@ -37,6 +37,18 @@
     <DocumentationFile>bin\Release\ShSoft.Framework2015.Infrastructure.WebApi.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SD.IOC.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SD.IOC.Core.1.0.0.0\lib\net45\SD.IOC.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -55,18 +67,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Base\BaseWebApiApplication.cs" />
     <Compile Include="DependencyResolvers\WebApiDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure.IOC\ShSoft.Framework2015.Infrastructure.IOC.csproj">
-      <Project>{891d9124-0462-4841-b1f6-8fff2fd0b7be}</Project>
-      <Name>ShSoft.Framework2015.Infrastructure.IOC</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure.Web\ShSoft.Framework2015.Infrastructure.Web.csproj">
-      <Project>{17c748af-d2e4-4f35-925c-2d0c1d5a51b4}</Project>
-      <Name>ShSoft.Framework2015.Infrastructure.Web</Name>
+    <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure.Global\ShSoft.Framework2015.Infrastructure.Global.csproj">
+      <Project>{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}</Project>
+      <Name>ShSoft.Framework2015.Infrastructure.Global</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure\ShSoft.Framework2015.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
@@ -74,6 +81,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

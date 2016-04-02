@@ -2,8 +2,8 @@
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
-using ShSoft.Framework2015.Infrastructure.IOC.Mediator;
-using ShSoft.Framework2015.Infrastructure.IRepository;
+using SD.IOC.Core.Mediator;
+using ShSoft.Framework2015.Infrastructure.Global.Finalization;
 
 namespace ShSoft.Framework2015.Infrastructure.WCF.IOC
 {
@@ -39,7 +39,7 @@ namespace ShSoft.Framework2015.Infrastructure.WCF.IOC
         /// <returns>服务契约实例</returns>
         public object GetInstance(InstanceContext instanceContext, Message message)
         {
-            return ResolverMediator.Resolve(this._serviceType);
+            return ResolveMediator.Resolve(this._serviceType);
         }
         #endregion
 
@@ -67,8 +67,7 @@ namespace ShSoft.Framework2015.Infrastructure.WCF.IOC
             this.Clean(instanceContext);
 
             //清理数据库
-            IDbCleaner dbCleaner = ResolverMediator.Resolve<IDbCleaner>();
-            dbCleaner.Clean();
+            CleanDbConnection.Register();
         }
         #endregion
 
@@ -81,7 +80,14 @@ namespace ShSoft.Framework2015.Infrastructure.WCF.IOC
         {
             if (instanceContext != null)
             {
-                instanceContext.CloseChannel();
+                try
+                {
+                    instanceContext.Close();
+                }
+                catch
+                {
+                    instanceContext.Abort();
+                }
             }
         }
         #endregion

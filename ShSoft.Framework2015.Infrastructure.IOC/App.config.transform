@@ -1,5 +1,0 @@
-﻿<configuration>
-  <configSections>
-    <section name="injectionConfiguration" type="ShSoft.Framework2015.Infrastructure.IOC.Configuration.InjectionConfiguration,ShSoft.Framework2015.Infrastructure.IOC"/>
-  </configSections>
-</configuration>

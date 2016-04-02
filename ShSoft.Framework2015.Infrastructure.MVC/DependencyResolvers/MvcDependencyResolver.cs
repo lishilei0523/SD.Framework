@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using ShSoft.Framework2015.Infrastructure.IOC.Mediator;
+using SD.IOC.Core.Mediator;
 
 namespace ShSoft.Framework2015.Infrastructure.MVC.DependencyResolvers
 {
@@ -17,7 +17,7 @@ namespace ShSoft.Framework2015.Infrastructure.MVC.DependencyResolvers
         /// <returns> 请求的服务或对象 </returns>
         public object GetService(Type serviceType)
         {
-            return ResolverMediator.ResolveOptional(serviceType);
+            return ResolveMediator.ResolveOptional(serviceType);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace ShSoft.Framework2015.Infrastructure.MVC.DependencyResolvers
         /// <returns>请求的服务</returns>
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return ResolverMediator.ResolveAll(serviceType);
+            return ResolveMediator.ResolveAll(serviceType);
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Runtime.Remoting.Messaging;
-using ShSoft.Framework2015.EntityFramework.Base;
+using SD.IOC.Core.Mediator;
+using SD.Toolkits.EntityFramework.Base;
 using ShSoft.Framework2015.Infrastructure.Constants;
 using ShSoft.Framework2015.Infrastructure.IEntity;
-using ShSoft.Framework2015.Infrastructure.IOC.Mediator;
 
 namespace ShSoft.Framework2015.Infrastructure.Repository.EntityFrameworkProvider.Base
 {
@@ -55,7 +55,7 @@ namespace ShSoft.Framework2015.Infrastructure.Repository.EntityFrameworkProvider
                 DbContext dbContext = CallContext.GetData(CommandInstanceKey) as DbContext;
                 if (dbContext == null)
                 {
-                    dbContext = ResolverMediator.Resolve<BaseDbSession>();
+                    dbContext = ResolveMediator.Resolve<BaseDbSession>();
                     CallContext.SetData(CommandInstanceKey, dbContext);
                 }
                 return dbContext;
@@ -74,7 +74,7 @@ namespace ShSoft.Framework2015.Infrastructure.Repository.EntityFrameworkProvider
                 DbContext dbContext = CallContext.GetData(QueryInstanceKey) as DbContext;
                 if (dbContext == null)
                 {
-                    dbContext = ResolverMediator.Resolve<BaseDbSession>();
+                    dbContext = ResolveMediator.Resolve<BaseDbSession>();
                     //关闭自动跟踪实体变化状态
                     dbContext.Configuration.AutoDetectChangesEnabled = false;
                     CallContext.SetData(QueryInstanceKey, dbContext);

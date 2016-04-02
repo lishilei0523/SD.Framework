@@ -9,6 +9,11 @@ namespace ShSoft.Framework2015.Infrastructure.CustomExceptions
     public class DomainException : ApplicationException
     {
         /// <summary>
+        /// 无参构造器
+        /// </summary>
+        public DomainException() { }
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="message">异常消息</param>

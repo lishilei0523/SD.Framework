@@ -39,9 +39,17 @@
     <DocumentationFile>bin\Release\ShSoft.Framework2015.Infrastructure.AOP.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="PostSharp, Version=4.1.15.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
       <HintPath>..\packages\PostSharp.4.1.15\lib\net35-client\PostSharp.dll</HintPath>
       <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SD.AOP.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SD.AOP.Core.1.0.0.0\lib\net45\SD.AOP.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -56,10 +64,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShSoft.Framework2015.AOP\ShSoft.Framework2015.AOP.csproj">
-      <Project>{dbb8d1a5-231c-49c8-9a6a-f2d137d5396f}</Project>
-      <Name>ShSoft.Framework2015.AOP</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2015.Common\ShSoft.Framework2015.Common.csproj">
       <Project>{37402463-F73A-4788-B9DE-5C57EC18604F}</Project>
       <Name>ShSoft.Framework2015.Common</Name>
@@ -70,6 +74,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

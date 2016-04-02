@@ -1,6 +1,0 @@
-﻿<configuration>
-  <appSettings>
-    <!--键：约定；值：connectionString name-->
-    <add key="NoConnection" value="DefaultConnection" />
-  </appSettings>
-</configuration>

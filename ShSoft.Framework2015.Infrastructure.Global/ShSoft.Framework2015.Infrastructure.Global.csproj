@@ -4,18 +4,18 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F9FF05F0-1900-4D24-859A-B3202F2208D7}</ProjectGuid>
+    <ProjectGuid>{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ShSoft.Framework2015.Infrastructure</RootNamespace>
-    <AssemblyName>ShSoft.Framework2015.Infrastructure</AssemblyName>
+    <RootNamespace>ShSoft.Framework2015.Infrastructure.Global</RootNamespace>
+    <AssemblyName>ShSoft.Framework2015.Infrastructure.Global</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
     <SccAuxPath>SAK</SccAuxPath>
     <SccProvider>SAK</SccProvider>
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\ShanHeSoftWareJune\HDIPlatform_June\11SupplierSystem\FrontTerminals\</SolutionDir>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -34,42 +34,33 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\ShSoft.Framework2015.Infrastructure.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\ShSoft.Framework2015.Infrastructure.Global.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SD.IOC.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SD.IOC.Core.1.0.0.0\lib\net45\SD.IOC.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Constants\CacheConstants.cs" />
-    <Compile Include="Constants\CommonConstants.cs" />
-    <Compile Include="Constants\WebConfigSetting.cs" />
-    <Compile Include="CustomExceptions\AppServiceException.cs" />
-    <Compile Include="CustomExceptions\UIException.cs" />
-    <Compile Include="CustomExceptions\BusinessException.cs" />
-    <Compile Include="CustomExceptions\DomainException.cs" />
-    <Compile Include="CustomExceptions\RepositoryException.cs" />
-    <Compile Include="IDomainEvent\IDomainEvent.cs" />
-    <Compile Include="IDomainEvent\IDomainEventStorer.cs" />
-    <Compile Include="IRepository\IDataInitializer.cs" />
-    <Compile Include="IRepository\IDbCleaner.cs" />
-    <Compile Include="IApplicationService\IApplicationService.cs" />
-    <Compile Include="IDomainEvent\IDomainEventHandlerAsync.cs" />
-    <Compile Include="IDomainService\IDomainService.cs" />
-    <Compile Include="IDTO\BaseDTO.cs" />
-    <Compile Include="IDTO\PageModel.cs" />
-    <Compile Include="IEntity\AggregateRootEntity.cs" />
-    <Compile Include="IEntity\PlainEntity.cs" />
-    <Compile Include="IEntity\IValueObject.cs" />
-    <Compile Include="IEntity\IVersionControl.cs" />
-    <Compile Include="IDomainEvent\IDomainEventHandler.cs" />
-    <Compile Include="IRepository\IRepository.cs" />
-    <Compile Include="IRepository\IUnitOfWork.cs" />
-    <Compile Include="IRepository\PageExtension.cs" />
+    <Compile Include="Finalization\CleanDbConnection.cs" />
+    <Compile Include="Initialization\InitDatabase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure\ShSoft.Framework2015.Infrastructure.csproj">
+      <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
+      <Name>ShSoft.Framework2015.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -75,10 +75,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure.IOC\ShSoft.Framework2015.Infrastructure.IOC.csproj">
-      <Project>{891d9124-0462-4841-b1f6-8fff2fd0b7be}</Project>
-      <Name>ShSoft.Framework2015.Infrastructure.IOC</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure.StubAppService\ShSoft.Framework2015.Infrastructure.StubAppService.csproj">
       <Project>{a9f7d041-ecf8-434d-b083-5f57ad348564}</Project>
       <Name>ShSoft.Framework2015.Infrastructure.StubAppService</Name>

@@ -38,12 +38,24 @@
     <DocumentationFile>bin\Release\ShSoft.Framework2015.Infrastructure.DomainEvent.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
+      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SD.IOC.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SD.IOC.Core.1.0.0.0\lib\net45\SD.IOC.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SD.Toolkits.EntityFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SD.Toolkits.EntityFramework.1.0.0.0\lib\net45\SD.Toolkits.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -57,14 +69,6 @@
     <Compile Include="Providers\EFDomainEventStorerProvider.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShSoft.Framework2015.EntityFramework\ShSoft.Framework2015.EntityFramework.csproj">
-      <Project>{A101FBDF-273F-477F-85DF-D9AD39FDB117}</Project>
-      <Name>ShSoft.Framework2015.EntityFramework</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure.IOC\ShSoft.Framework2015.Infrastructure.IOC.csproj">
-      <Project>{891d9124-0462-4841-b1f6-8fff2fd0b7be}</Project>
-      <Name>ShSoft.Framework2015.Infrastructure.IOC</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure\ShSoft.Framework2015.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
       <Name>ShSoft.Framework2015.Infrastructure</Name>

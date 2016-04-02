@@ -1,6 +1,0 @@
-﻿<configuration>
-  <appSettings>
-    <!--键：约定；值：connectionString name-->
-    <add key="LogConnection" value="LogConnection" />
-  </appSettings>
-</configuration>

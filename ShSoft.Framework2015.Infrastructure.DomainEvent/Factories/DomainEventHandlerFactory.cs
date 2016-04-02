@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using SD.IOC.Core.Mediator;
 using ShSoft.Framework2015.Infrastructure.IDomainEvent;
-using ShSoft.Framework2015.Infrastructure.IOC.Mediator;
 
 namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Factories
 {
@@ -20,7 +20,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Factories
         /// <returns>同步领域事件处理者集合</returns>
         public static IEnumerable<IDomainEventHandler<T>> GetEventHandlersFor<T>(T domainEvent) where T : IDomainEvent.DomainEvent
         {
-            return ResolverMediator.ResolveAll<IDomainEventHandler<T>>();
+            return ResolveMediator.ResolveAll<IDomainEventHandler<T>>();
         }
         #endregion
 
@@ -34,7 +34,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Factories
         {
             Type handlerType = typeof(IDomainEventHandler<>).MakeGenericType(eventType);
 
-            IEnumerable<object> handlers = ResolverMediator.ResolveAll(handlerType);
+            IEnumerable<object> handlers = ResolveMediator.ResolveAll(handlerType);
 
             return handlers.Select(handler => (IDomainEventHandler)handler);
         }
@@ -49,7 +49,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Factories
         /// <returns>异步领域事件处理者集合</returns>
         public static IEnumerable<IDomainEventHandlerAsync<T>> GetEventHandlersAsyncFor<T>(T domainEvent) where T : IDomainEvent.DomainEvent
         {
-            return ResolverMediator.ResolveAll<IDomainEventHandlerAsync<T>>();
+            return ResolveMediator.ResolveAll<IDomainEventHandlerAsync<T>>();
         }
         #endregion
 
@@ -63,7 +63,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Factories
         {
             Type handlerType = typeof(IDomainEventHandlerAsync<>).MakeGenericType(eventType);
 
-            return ResolverMediator.ResolveAll(handlerType);
+            return ResolveMediator.ResolveAll(handlerType);
         }
         #endregion
     }

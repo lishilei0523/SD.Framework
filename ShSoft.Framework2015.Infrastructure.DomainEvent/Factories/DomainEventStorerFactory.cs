@@ -1,5 +1,5 @@
-﻿using ShSoft.Framework2015.Infrastructure.IDomainEvent;
-using ShSoft.Framework2015.Infrastructure.IOC.Mediator;
+﻿using SD.IOC.Core.Mediator;
+using ShSoft.Framework2015.Infrastructure.IDomainEvent;
 
 namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Factories
 {
@@ -15,7 +15,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Factories
         /// <returns>领域事件存储者实例</returns>
         public static IDomainEventStorer GetEventEventStorer()
         {
-            return ResolverMediator.Resolve<IDomainEventStorer>();
+            return ResolveMediator.Resolve<IDomainEventStorer>();
         }
         #endregion
     }

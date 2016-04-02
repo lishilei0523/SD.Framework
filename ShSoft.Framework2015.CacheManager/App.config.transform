@@ -1,6 +1,0 @@
-﻿<configuration>
-  <appSettings>
-    <!--缓存容器类型：HttpRuntime、Memcached、Redis、Null-->
-    <add key="CacheType" value="HttpRuntime" />
-  </appSettings>
-</configuration>

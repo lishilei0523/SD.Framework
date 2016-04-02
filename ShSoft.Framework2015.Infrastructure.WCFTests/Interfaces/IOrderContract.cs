@@ -6,7 +6,7 @@ namespace ShSoft.Framework2015.Infrastructure.WCFTests.Interfaces
     /// 订单服务契约接口
     /// </summary>
     [ServiceContract(Namespace = "http://ShSoft.Framework2015.Infrastructure.WCFTests.Interfaces")]
-    public interface IOrderContract : IApplicationService.IApplicationService
+    public interface IOrderContract : IApplicationService
     {
         /// <summary>
         /// 获取订单

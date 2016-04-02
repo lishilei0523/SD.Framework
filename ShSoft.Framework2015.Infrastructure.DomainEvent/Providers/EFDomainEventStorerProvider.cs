@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ShSoft.Framework2015.EntityFramework.Base;
+using SD.Toolkits.EntityFramework.Base;
 using ShSoft.Framework2015.Infrastructure.Constants;
 using ShSoft.Framework2015.Infrastructure.IDomainEvent;
 

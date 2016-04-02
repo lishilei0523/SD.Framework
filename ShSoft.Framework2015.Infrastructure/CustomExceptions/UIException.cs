@@ -9,6 +9,11 @@ namespace ShSoft.Framework2015.Infrastructure.CustomExceptions
     public class UIException : ApplicationException
     {
         /// <summary>
+        /// 无参构造器
+        /// </summary>
+        public UIException() { }
+
+        /// <summary>
         /// 构造函数
         /// </summary>
         /// <param name="message">异常消息</param>

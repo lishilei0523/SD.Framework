@@ -1,6 +1,6 @@
 ﻿using System;
 using PostSharp.Aspects;
-using ShSoft.Framework2015.AOP.Aspects.ForAny;
+using SD.AOP.Core.Aspects.ForAny;
 using ShSoft.Framework2015.Infrastructure.CustomExceptions;
 
 namespace ShSoft.Framework2015.Infrastructure.AOP.Aspects.ForAny

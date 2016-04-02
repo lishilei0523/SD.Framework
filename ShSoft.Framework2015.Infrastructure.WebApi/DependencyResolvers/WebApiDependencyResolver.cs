@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Web.Http.Dependencies;
-using ShSoft.Framework2015.Infrastructure.IOC.Mediator;
+using SD.IOC.Core.Mediator;
+using ShSoft.Framework2015.Infrastructure.Global.Finalization;
 using ShSoft.Framework2015.Infrastructure.IRepository;
 
 namespace ShSoft.Framework2015.Infrastructure.WebApi.DependencyResolvers
@@ -18,7 +19,7 @@ namespace ShSoft.Framework2015.Infrastructure.WebApi.DependencyResolvers
         /// <returns> 请求的服务或对象 </returns>
         public object GetService(Type serviceType)
         {
-            return ResolverMediator.ResolveOptional(serviceType);
+            return ResolveMediator.ResolveOptional(serviceType);
         }
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace ShSoft.Framework2015.Infrastructure.WebApi.DependencyResolvers
         /// <returns>请求的服务</returns>
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return ResolverMediator.ResolveAll(serviceType);
+            return ResolveMediator.ResolveAll(serviceType);
         }
 
         /// <summary>
@@ -48,8 +49,7 @@ namespace ShSoft.Framework2015.Infrastructure.WebApi.DependencyResolvers
         public void Dispose()
         {
             //清理数据库
-            IDbCleaner dbCleaner = ResolverMediator.Resolve<IDbCleaner>();
-            dbCleaner.Clean();
+            CleanDbConnection.Register();
         }
     }
 }

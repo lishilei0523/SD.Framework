@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ShSoft.Framework2015.Infrastructure.Constants
+﻿namespace ShSoft.Framework2015.Infrastructure.Constants
 {
     /// <summary>
     /// 公共常量
@@ -38,15 +36,6 @@ namespace ShSoft.Framework2015.Infrastructure.Constants
         /// 开启数据自动迁移AppSetting键
         /// </summary>
         public const string AutoMigrationAppSettingKey = "AutoMigration";
-
-        #endregion
-
-        #region # WCF相关
-
-        /// <summary>
-        /// 信道实例属性名
-        /// </summary>
-        public const string ChannelPropertyName = "Channel";
 
         #endregion
 
@@ -95,45 +84,6 @@ namespace ShSoft.Framework2015.Infrastructure.Constants
         /// 数值类型完整类名集
         /// </summary>
         public const string NumbericFullNames = "System.Decimal,System.Int16,System.Int32,System.Int64,System.UInt16,System.UInt32,System.UInt64,System.Double,System.Single";
-
-        #endregion
-
-        #region # 人资权限相关
-
-        /// <summary>
-        /// 超级管理员登录名
-        /// </summary>
-        public const string AdminLoginId = "admin";
-
-        /// <summary>
-        /// 超级管理员员工编号
-        /// </summary>
-        public const string AdminEmployeeNo = "X1";
-
-        /// <summary>
-        /// 超级管理员角色Id
-        /// </summary>
-        public static readonly Guid AdminRoleId = new Guid("45C2E307-128D-4094-9366-A36CD6535F70");
-
-        /// <summary>
-        /// 管理中心系统类别编号
-        /// </summary>
-        public const string MCSystemKindNo = "X1";
-
-        /// <summary>
-        /// 供应商系统类别编号
-        /// </summary>
-        public const string SupplierSystemKindNo = "X2";
-
-        /// <summary>
-        /// 管理中心组织编号
-        /// </summary>
-        public const string MCOrganizationNo = "X1";
-
-        /// <summary>
-        /// 管理中心系统编号
-        /// </summary>
-        public const string MCSystemNo = "X1";
 
         #endregion
     }
