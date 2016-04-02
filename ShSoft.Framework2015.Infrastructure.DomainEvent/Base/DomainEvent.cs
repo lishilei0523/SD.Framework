@@ -1,6 +1,5 @@
 ﻿using System;
 using ShSoft.Framework2015.Infrastructure.DomainEvent.Mediator;
-using ShSoft.Framework2015.Infrastructure.IEntity;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Framework2015.Infrastructure.IDomainEvent
@@ -9,7 +8,7 @@ namespace ShSoft.Framework2015.Infrastructure.IDomainEvent
     /// 领域事件源基类
     /// </summary>
     [Serializable]
-    public class DomainEvent : PlainEntity, IDomainEvent
+    public class DomainEvent : IDomainEvent
     {
         #region # 构造器
 
@@ -21,6 +20,7 @@ namespace ShSoft.Framework2015.Infrastructure.IDomainEvent
         {
             //默认值
             this.Handled = false;
+            this.AddedTime = DateTime.Now;
         }
         #endregion
 
@@ -51,6 +51,13 @@ namespace ShSoft.Framework2015.Infrastructure.IDomainEvent
         /// 触发时间
         /// </summary>
         public DateTime? TriggerTime { get; private set; }
+        #endregion
+
+        #region 添加时间 —— DateTime AddedTime
+        /// <summary>
+        /// 添加时间
+        /// </summary>
+        public DateTime AddedTime { get; private set; }
         #endregion
 
         #endregion
