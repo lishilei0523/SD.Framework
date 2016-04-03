@@ -49,7 +49,7 @@ namespace ShSoft.Framework2015.Infrastructure.WebApi.DependencyResolvers
         public void Dispose()
         {
             //清理数据库
-            CleanDbConnection.Register();
+            FinalizeDatabase.Register();
         }
     }
 }

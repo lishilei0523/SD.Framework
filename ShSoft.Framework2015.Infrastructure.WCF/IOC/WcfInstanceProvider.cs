@@ -67,7 +67,7 @@ namespace ShSoft.Framework2015.Infrastructure.WCF.IOC
             this.Clean(instanceContext);
 
             //清理数据库
-            CleanDbConnection.Register();
+            FinalizeDatabase.Register();
         }
         #endregion
 
