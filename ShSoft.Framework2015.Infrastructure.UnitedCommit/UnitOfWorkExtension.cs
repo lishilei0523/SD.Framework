@@ -20,22 +20,28 @@ namespace ShSoft.Framework2015.Infrastructure.UnitedCommit
                 //开启事务
                 using (TransactionScope scope = new TransactionScope())
                 {
-                    //提交事务
+                    //提交工作单元
                     unitOfWork.Commit();
 
                     //处理领域事件
                     EventMediator.HandleUncompletedEvents();
 
+                    //事务完成
                     scope.Complete();
                 }
             }
             catch
             {
-                //无事务
+                //不参与事务
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
                 {
+                    //回滚工作单元
                     unitOfWork.RollBack();
+
+                    //清空未处理的领域事件
                     EventMediator.ClearUncompletedEvents();
+
+                    //事务完成
                     scope.Complete();
                 }
                 throw;
