@@ -4,9 +4,9 @@ using ShSoft.Framework2015.Infrastructure.IRepository;
 namespace ShSoft.Framework2015.Infrastructure.Global.Finalization
 {
     /// <summary>
-    /// 清理数据库连接
+    /// 清理数据库
     /// </summary>
-    public static class CleanDbConnection
+    public static class FinalizeDatabase
     {
         /// <summary>
         /// 注册
