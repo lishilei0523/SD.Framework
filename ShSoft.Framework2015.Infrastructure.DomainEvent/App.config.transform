@@ -1,6 +1,9 @@
 ﻿<configuration>
-  <connectionStrings>
-    <!--事件源连接字符串-->
-    <add name="EventSourceConnection" connectionString="" providerName="" />
-  </connectionStrings>
+  <!--依赖注入注册配置-->
+  <injectionRegisterConfiguration>
+    <!--As接口类型列表-->
+    <asInterfaceTypes>
+      <type name="ShSoft.Framework2015.Infrastructure.DomainEvent.DefaultProvider.SessionStorerProvider" assembly="ShSoft.Framework2015.Infrastructure.DomainEvent" />
+    </asInterfaceTypes>
+  </injectionRegisterConfiguration>
 </configuration>

@@ -28,7 +28,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEventTests.StubEntities
             this.Price = price;
 
             //发起领域事件
-            EventMediator.Handle(new ProductCreatedEvent(this.Number, this.Name, this.Price));
+            EventMediator.Suspend(new ProductCreatedEvent(this.Number, this.Name, this.Price));
         }
 
         /// <summary>

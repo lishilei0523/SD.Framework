@@ -19,6 +19,7 @@ namespace ShSoft.Framework2015.Infrastructure.IDomainEvent
         protected DomainEvent()
         {
             //默认值
+            this.Id = Guid.NewGuid();
             this.Handled = false;
             this.AddedTime = DateTime.Now;
         }
@@ -28,7 +29,7 @@ namespace ShSoft.Framework2015.Infrastructure.IDomainEvent
         /// <summary>
         /// 基础构造器
         /// </summary>
-        protected DomainEvent(DateTime? triggerTime)
+        protected DomainEvent(DateTime? triggerTime = null)
             : this()
         {
             this.TriggerTime = triggerTime;
@@ -39,11 +40,25 @@ namespace ShSoft.Framework2015.Infrastructure.IDomainEvent
 
         #region # 属性
 
+        #region 标识 —— Guid Id
+        /// <summary>
+        /// 标识
+        /// </summary>
+        public Guid Id { get; protected set; }
+        #endregion
+
         #region 是否已处理 —— bool Handled
         /// <summary>
         /// 是否已处理
         /// </summary>
         public bool Handled { get; private set; }
+        #endregion
+
+        #region 事件源数据序列化字符串 —— string SourceDataStr
+        /// <summary>
+        /// 事件源数据序列化字符串
+        /// </summary>
+        public string SourceDataStr { get; protected set; }
         #endregion
 
         #region 触发时间 —— DateTime? TriggerTime

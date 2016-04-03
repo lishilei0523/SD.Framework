@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using SD.IOC.Core.Mediator;
 using ShSoft.Framework2015.Infrastructure.DomainEvent.Factories;
 using ShSoft.Framework2015.Infrastructure.IDomainEvent;
 
@@ -20,7 +21,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Mediator
         /// <param name="domainSource">领域事件源</param>
         public static void Suspend<T>(T domainSource) where T : IDomainEvent.DomainEvent
         {
-            using (IDomainEventStorer eventStorer = DomainEventStorerFactory.GetEventEventStorer())
+            using (IDomainEventStorer eventStorer = ResolveMediator.Resolve<IDomainEventStorer>())
             {
                 eventStorer.Suspend(domainSource);
             }
@@ -112,7 +113,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Mediator
         /// </summary>
         internal static void HandleUncompletedEvents()
         {
-            using (IDomainEventStorer eventStorer = DomainEventStorerFactory.GetEventEventStorer())
+            using (IDomainEventStorer eventStorer = ResolveMediator.Resolve<IDomainEventStorer>())
             {
                 eventStorer.HandleUncompletedEvents();
             }
@@ -125,7 +126,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Mediator
         /// </summary>
         internal static void ClearUncompletedEvents()
         {
-            using (IDomainEventStorer eventStorer = DomainEventStorerFactory.GetEventEventStorer())
+            using (IDomainEventStorer eventStorer = ResolveMediator.Resolve<IDomainEventStorer>())
             {
                 eventStorer.ClearUncompletedEvents();
             }

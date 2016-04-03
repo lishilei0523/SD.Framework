@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity;
 using System.Linq;
-using SD.Toolkits.EntityFramework.Base;
+using System.Reflection;
 using ShSoft.Framework2015.Infrastructure.Constants;
 using ShSoft.Framework2015.Infrastructure.IDomainEvent;
 
-namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Providers
+namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider
 {
     /// <summary>
     /// 领域事件存储者 - EF提供者
     /// </summary>
-    public abstract class EFDomainEventStorerProvider : BaseDbContext, IDomainEventStorer
+    public abstract class EntityFrameworkStorerProvider : DbContext, IDomainEventStorer
     {
         #region # 构造器
 
@@ -18,7 +20,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Providers
         /// <summary>
         /// 基础构造器
         /// </summary>
-        protected EFDomainEventStorerProvider()
+        protected EntityFrameworkStorerProvider()
             : base(CommonConstants.EventDbContextConstructArg)
         {
 
@@ -29,62 +31,74 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.Providers
 
         #region # 属性
 
-        #region 实体所在程序集 —— override string EntityAssembly
+        #region 事件源所在程序集 —— abstract string EventSourceAssembly
         /// <summary>
-        /// 实体所在程序集
+        /// 事件源所在程序集
         /// </summary>
-        public override string EntityAssembly
-        {
-            get { return WebConfigSetting.EventSourceAssembly; }
-        }
+        public abstract string EventSourceAssembly { get; }
         #endregion
 
-        #region 实体配置所在程序集 —— override string EntityConfigAssembly
-        /// <summary>
-        /// 实体配置所在程序集
-        /// </summary>
-        public override string EntityConfigAssembly
-        {
-            get { return WebConfigSetting.EventSourceConfigAssembly; }
-        }
-        #endregion
-
-        #region 类型查询条件 —— override Func<Type, bool> TypeQuery
-        /// <summary>
-        /// 类型查询条件
-        /// </summary>
-        public override Func<Type, bool> TypeQuery
-        {
-            get
-            {
-                return type => type.IsSubclassOf(typeof(IDomainEvent.DomainEvent));
-            }
-        }
-        #endregion
-
-        #region 单独注册的类型集 —— override IEnumerable<Type> TypesToRegister
-        /// <summary>
-        /// 单独注册的类型集
-        /// </summary>
-        public override IEnumerable<Type> TypesToRegister
-        {
-            get { return new[] { typeof(IDomainEvent.DomainEvent) }; }
-        }
-        #endregion
-
-        #region 数据表名前缀 —— override string TablePrefix
+        #region 数据表名前缀 —— abstract string TablePrefix
         /// <summary>
         /// 数据表名前缀
         /// </summary>
-        public override string TablePrefix
-        {
-            get { return WebConfigSetting.TablePrefix; }
-        }
+        public abstract string TablePrefix { get; }
         #endregion
 
         #endregion
 
         #region # 方法
+
+        #region # 模型映射事件 —— override void OnModelCreating(DbModelBuilder...
+        /// <summary>
+        /// 模型映射事件
+        /// </summary>
+        /// <param name="modelBuilder">模型建造者</param>
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            //注册事件源基类
+            modelBuilder.RegisterEntityType(typeof(IDomainEvent.DomainEvent));
+
+            //设置Id、非自增长
+            modelBuilder.Entity<IDomainEvent.DomainEvent>().HasKey(x => x.Id);
+            modelBuilder.Entity<IDomainEvent.DomainEvent>().Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+
+            //配置事件源表名
+            modelBuilder.Entity<IDomainEvent.DomainEvent>().ToTable(string.Format("{0}{1}", this.TablePrefix, typeof(IDomainEvent.DomainEvent).Name));
+
+            #region # 验证程序集
+
+            if (string.IsNullOrWhiteSpace(this.EventSourceAssembly))
+            {
+                throw new ApplicationException("事件源所在程序集未配置！");
+            }
+
+            #endregion
+
+            //加载模型所在程序集查询出所有符合条件的实体类型
+            IEnumerable<Type> types = Assembly.Load(this.EventSourceAssembly).GetTypes().Where(x => !x.IsInterface && x.IsSubclassOf(typeof(IDomainEvent.DomainEvent)));
+
+            //注册实体配置
+            this.RegisterEntityTypes(modelBuilder, types);
+        }
+        #endregion
+
+        #region # 注册实体类型 —— void RegisterEntityTypes(DbModelBuilder modelBuilder...
+        /// <summary>
+        /// 注册实体类型
+        /// </summary>
+        /// <param name="modelBuilder">模型建造者</param>
+        /// <param name="entityTypes">实体类型集</param>
+        private void RegisterEntityTypes(DbModelBuilder modelBuilder, IEnumerable<Type> entityTypes)
+        {
+            foreach (Type entityType in entityTypes)
+            {
+                modelBuilder.RegisterEntityType(entityType);
+            }
+        }
+        #endregion
 
         #region # 初始化存储 —— virtual void InitStore()
         /// <summary>
