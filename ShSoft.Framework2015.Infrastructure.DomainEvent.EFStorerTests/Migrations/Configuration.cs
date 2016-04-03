@@ -1,18 +1,16 @@
-namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+using System.Data.Entity.Migrations;
+using ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.EventStorer;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests.EventStorer.EntityFrameworkStorer>
+namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Migrations
+{
+    internal sealed class Configuration : DbMigrationsConfiguration<EntityFrameworkStorer>
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            this.AutomaticMigrationsEnabled = true;
         }
 
-        protected override void Seed(ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests.EventStorer.EntityFrameworkStorer context)
+        protected override void Seed(EntityFrameworkStorer context)
         {
             //  This method will be called after migrating to the latest version.
 

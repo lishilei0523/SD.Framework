@@ -1,6 +1,6 @@
 ﻿using ShSoft.Framework2015.Infrastructure.IEntity;
 
-namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests.Entities
+namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Entities
 {
     /// <summary>
     /// 商品

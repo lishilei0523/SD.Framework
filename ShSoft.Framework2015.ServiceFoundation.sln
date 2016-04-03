@@ -56,7 +56,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DomainEvent", "DomainEvent"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer", "ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer\ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.csproj", "{F7A08DAE-580F-46D1-9ADE-DCDB2A828994}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests", "ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorerTests\ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests.csproj", "{E1EC6A9F-80F6-44FA-BDE1-4327E8FF3BAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorerTests", "ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorerTests\ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorerTests.csproj", "{E1EC6A9F-80F6-44FA-BDE1-4327E8FF3BAF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

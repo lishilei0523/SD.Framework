@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests.EventSources;
-using ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests.EventStorer;
+using ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.EventSources;
+using ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.EventStorer;
 
-namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests
+namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer
 {
     class Program
     {

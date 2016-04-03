@@ -1,7 +1,7 @@
 ﻿using ShSoft.Framework2015.Infrastructure.Constants;
 using ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider;
 
-namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests.EventStorer
+namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.EventStorer
 {
     /// <summary>
     /// 领域事件源存储者

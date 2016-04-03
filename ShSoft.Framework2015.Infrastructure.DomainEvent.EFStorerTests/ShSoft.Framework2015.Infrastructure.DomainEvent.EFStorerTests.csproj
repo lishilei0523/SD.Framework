@@ -7,8 +7,8 @@
     <ProjectGuid>{E1EC6A9F-80F6-44FA-BDE1-4327E8FF3BAF}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests</RootNamespace>
-    <AssemblyName>ShSoft.Framework2015.Infrastructure.DomainEvent.EFProviderTests</AssemblyName>
+    <RootNamespace>ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer</RootNamespace>
+    <AssemblyName>ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
