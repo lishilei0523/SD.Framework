@@ -4,9 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Transactions;
 using ShSoft.Framework2015.Common.PoweredByLee;
-using ShSoft.Framework2015.Infrastructure.DomainEvent.Mediator;
 using ShSoft.Framework2015.Infrastructure.IEntity;
 using ShSoft.Framework2015.Infrastructure.IRepository;
 using ShSoft.Framework2015.Infrastructure.Repository.EntityFrameworkProvider.Base;
@@ -392,45 +390,11 @@ namespace ShSoft.Framework2015.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
-        #region # 统一事务处理保存更改 —— virtual void Commit()
+        #region # 统一事务处理保存更改 —— void Commit()
         /// <summary>
         /// 统一事务处理保存更改
         /// </summary>
-        public virtual void Commit()
-        {
-            try
-            {
-                //局部事务
-                using (TransactionScope scope = new TransactionScope())
-                {
-                    //提交事务
-                    this._dbContext.SaveChanges();
-
-                    //处理领域事件
-                    EventMediator.HandleUncompletedEvents();
-
-                    scope.Complete();
-                }
-            }
-            catch
-            {
-                //无事务
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
-                {
-                    this.RollBack();
-                    EventMediator.ClearUncompletedEvents();
-                    scope.Complete();
-                }
-                throw;
-            }
-        }
-        #endregion
-
-        #region # 预统一事务处理保存更改（不提交领域事件） —— void PreCommit()
-        /// <summary>
-        /// 预统一事务处理保存更改（不提交领域事件）
-        /// </summary>
-        public virtual void PreCommit()
+        public void Commit()
         {
             try
             {

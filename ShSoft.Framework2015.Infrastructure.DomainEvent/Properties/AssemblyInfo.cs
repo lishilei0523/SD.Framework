@@ -37,4 +37,4 @@ using System.Runtime.InteropServices;
 
 //Internal可见
 [assembly: InternalsVisibleTo("ShSoft.Framework2015.Infrastructure.DomainEventTests")]
-[assembly: InternalsVisibleTo("ShSoft.Framework2015.Infrastructure.Repository")]
+[assembly: InternalsVisibleTo("ShSoft.Framework2015.Infrastructure.UnitedCommit")]

@@ -165,13 +165,6 @@ namespace ShSoft.Framework2015.Infrastructure.IRepository
         void Commit();
         #endregion
 
-        #region # 预统一事务处理保存更改（不提交领域事件） —— void PreCommit()
-        /// <summary>
-        /// 预统一事务处理保存更改（不提交领域事件）
-        /// </summary>
-        void PreCommit();
-        #endregion
-
         #region # 统一事务回滚取消更改 —— void RollBack()
         /// <summary>
         /// 统一事务回滚取消更改

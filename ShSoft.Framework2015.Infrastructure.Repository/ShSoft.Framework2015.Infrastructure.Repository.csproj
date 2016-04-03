@@ -59,7 +59,6 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="EntityFrameworkProvider\Base\DbCleaner.cs" />
@@ -78,10 +77,6 @@
     <ProjectReference Include="..\ShSoft.Framework2015.Common\ShSoft.Framework2015.Common.csproj">
       <Project>{37402463-F73A-4788-B9DE-5C57EC18604F}</Project>
       <Name>ShSoft.Framework2015.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure.DomainEvent\ShSoft.Framework2015.Infrastructure.DomainEvent.csproj">
-      <Project>{79dc5e40-2857-4748-a895-49bb675cdc68}</Project>
-      <Name>ShSoft.Framework2015.Infrastructure.DomainEvent</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2015.Infrastructure\ShSoft.Framework2015.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
