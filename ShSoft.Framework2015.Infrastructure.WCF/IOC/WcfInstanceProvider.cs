@@ -30,7 +30,7 @@ namespace ShSoft.Framework2015.Infrastructure.WCF.IOC
 
         #endregion
 
-        #region # 获取服务契约实例 —— object GetInstance(InstanceContext instanceContext, Message message)
+        #region # 获取服务契约实例 —— object GetInstance(InstanceContext instanceContext...
         /// <summary>
         /// 获取服务契约实例
         /// </summary>
@@ -55,7 +55,7 @@ namespace ShSoft.Framework2015.Infrastructure.WCF.IOC
         }
         #endregion
 
-        #region # 清理实例契约 —— void ReleaseInstance(InstanceContext instanceContext, object instance)
+        #region # 清理实例契约 —— void ReleaseInstance(InstanceContext instanceContext...
         /// <summary>
         /// 清理实例契约
         /// </summary>
