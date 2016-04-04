@@ -23,11 +23,6 @@
         public const string EntityConfigAssemblyAppSettingKey = "EntityConfigAssembly";
 
         /// <summary>
-        /// 领域事件源配置所在程序集AppSetting键
-        /// </summary>
-        public const string EventSourceConfigAssemblyAppSettingKey = "EventSourceConfigAssembly";
-
-        /// <summary>
         /// 数据表名前缀AppSetting键
         /// </summary>
         public const string TablePrefixAppSettingKey = "TablePrefix";

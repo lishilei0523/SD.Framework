@@ -1,8 +1,8 @@
 ﻿using System;
-using ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.EventSources;
-using ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.EventStorer;
+using ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorerTests.EventSources;
+using ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorerTests.EventStorer;
 
-namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer
+namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorerTests
 {
     class Program
     {

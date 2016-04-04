@@ -1,10 +1,10 @@
 ﻿namespace ShSoft.Framework2015.Infrastructure.Constants
 {
     /// <summary>
-    /// 缓存常量
+    /// 缓存常量，
     /// 定义缓存键
     /// </summary>
-    public sealed class CacheConstants
+    public static class CacheConstants
     {
         /// <summary>
         /// 验证码Session键

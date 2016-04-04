@@ -1,4 +1,4 @@
-﻿namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.EventSources
+﻿namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorerTests.EventSources
 {
     /// <summary>
     /// 商品已创建事件

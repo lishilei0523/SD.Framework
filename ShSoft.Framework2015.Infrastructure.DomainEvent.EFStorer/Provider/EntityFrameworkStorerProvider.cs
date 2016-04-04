@@ -35,14 +35,20 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider
         /// <summary>
         /// 事件源所在程序集
         /// </summary>
-        public abstract string EventSourceAssembly { get; }
+        public string EventSourceAssembly
+        {
+            get { return WebConfigSetting.EventSourceAssembly; }
+        }
         #endregion
 
         #region 数据表名前缀 —— abstract string TablePrefix
         /// <summary>
         /// 数据表名前缀
         /// </summary>
-        public abstract string TablePrefix { get; }
+        public string TablePrefix
+        {
+            get { return WebConfigSetting.TablePrefix; }
+        }
         #endregion
 
         #endregion
