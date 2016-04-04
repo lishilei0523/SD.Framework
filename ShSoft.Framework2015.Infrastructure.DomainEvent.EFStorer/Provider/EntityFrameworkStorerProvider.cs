@@ -23,7 +23,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider
         protected EntityFrameworkStorerProvider()
             : base(CommonConstants.EventDbContextConstructArg)
         {
-
+            this.Database.CreateIfNotExists();
         }
         #endregion
 
@@ -31,7 +31,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider
 
         #region # 属性
 
-        #region 事件源所在程序集 —— abstract string EventSourceAssembly
+        #region 事件源所在程序集 —— string EventSourceAssembly
         /// <summary>
         /// 事件源所在程序集
         /// </summary>
@@ -41,7 +41,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider
         }
         #endregion
 
-        #region 数据表名前缀 —— abstract string TablePrefix
+        #region 数据表名前缀 —— string TablePrefix
         /// <summary>
         /// 数据表名前缀
         /// </summary>
@@ -55,7 +55,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider
 
         #region # 方法
 
-        #region # 模型映射事件 —— override void OnModelCreating(DbModelBuilder...
+        #region 模型映射事件 —— override void OnModelCreating(DbModelBuilder...
         /// <summary>
         /// 模型映射事件
         /// </summary>
@@ -91,7 +91,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider
         }
         #endregion
 
-        #region # 注册实体类型 —— void RegisterEntityTypes(DbModelBuilder modelBuilder...
+        #region 注册实体类型 —— void RegisterEntityTypes(DbModelBuilder modelBuilder...
         /// <summary>
         /// 注册实体类型
         /// </summary>
@@ -106,7 +106,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider
         }
         #endregion
 
-        #region # 初始化存储 —— virtual void InitStore()
+        #region 初始化存储 —— virtual void InitStore()
         /// <summary>
         /// 初始化存储
         /// </summary>
@@ -116,7 +116,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider
         }
         #endregion
 
-        #region # 挂起领域事件 —— void Suspend<T>(T domainSource)
+        #region 挂起领域事件 —— void Suspend<T>(T domainSource)
         /// <summary>
         /// 挂起领域事件
         /// </summary>
@@ -129,7 +129,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider
         }
         #endregion
 
-        #region # 处理未处理的领域事件 —— void HandleUncompletedEvents()
+        #region 处理未处理的领域事件 —— void HandleUncompletedEvents()
         /// <summary>
         /// 处理未处理的领域事件
         /// </summary>
@@ -155,7 +155,7 @@ namespace ShSoft.Framework2015.Infrastructure.DomainEvent.EFStorer.Provider
         }
         #endregion
 
-        #region # 清空未处理的领域事件 —— void ClearUncompletedEvents()
+        #region 清空未处理的领域事件 —— void ClearUncompletedEvents()
         /// <summary>
         /// 清空未处理的领域事件
         /// </summary>
