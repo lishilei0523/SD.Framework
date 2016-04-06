@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("ShSoft.Framework2016.Infrastructure.DomainEvent.EFStoreProvider")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("基础设施 - 领域事件基础 - Entity Framework存储实现")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("山河软件")]
 [assembly: AssemblyProduct("ShSoft.Framework2016.Infrastructure.DomainEvent.EFStoreProvider")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2016")]
+[assembly: AssemblyCopyright("Copyright © ShSoft 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
