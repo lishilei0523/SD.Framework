@@ -3,6 +3,7 @@ using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Dispatcher;
 using SD.IOC.Core.Mediator;
+using ShSoft.Framework2016.Infrastructure.Global;
 using ShSoft.Framework2016.Infrastructure.Global.Finalization;
 
 namespace ShSoft.Framework2016.Infrastructure.WCF.IOC
@@ -26,6 +27,9 @@ namespace ShSoft.Framework2016.Infrastructure.WCF.IOC
         public WcfInstanceProvider(Type serviceType)
         {
             this._serviceType = serviceType;
+
+            //初始化SessionId
+            InitSessionId.Register();
         }
 
         #endregion

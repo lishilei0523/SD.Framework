@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Runtime.Remoting.Messaging;
+using ShSoft.Framework2016.Infrastructure.Constants;
 using ShSoft.Framework2016.Infrastructure.DomainEvent.Mediator;
 
 // ReSharper disable once CheckNamespace
@@ -22,6 +24,19 @@ namespace ShSoft.Framework2016.Infrastructure.IDomainEvent
             this.Id = Guid.NewGuid();
             this.Handled = false;
             this.AddedTime = DateTime.Now;
+
+            #region # SessionId处理
+
+            object sessionIdCache = CallContext.GetData(CacheConstants.SessionIdKey);
+
+            if (sessionIdCache == null)
+            {
+                throw new ApplicationException("SessionId未设置，请检查程序！");
+            }
+
+            this.SessionId = (Guid)sessionIdCache;
+
+            #endregion
         }
         #endregion
 
@@ -73,6 +88,13 @@ namespace ShSoft.Framework2016.Infrastructure.IDomainEvent
         /// 添加时间
         /// </summary>
         public DateTime AddedTime { get; private set; }
+        #endregion
+
+        #region 会话Id —— Guid SessionId
+        /// <summary>
+        /// 会话Id
+        /// </summary>
+        public Guid SessionId { get; private set; }
         #endregion
 
         #endregion

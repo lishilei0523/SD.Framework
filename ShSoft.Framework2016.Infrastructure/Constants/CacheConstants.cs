@@ -15,5 +15,10 @@
         /// 当前登录用户Session键
         /// </summary>
         public const string CurrentUserKey = "CurrentUser";
+
+        /// <summary>
+        /// 会话Id缓存键
+        /// </summary>
+        public const string SessionIdKey = "SessionIdKey";
     }
 }

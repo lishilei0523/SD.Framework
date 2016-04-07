@@ -1,6 +1,9 @@
 ﻿using System;
+using ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorerTests.Entities;
 using ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorerTests.EventSources;
 using ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorerTests.EventStorer;
+using ShSoft.Framework2016.Infrastructure.DomainEvent.Mediator;
+using ShSoft.Framework2016.Infrastructure.Global;
 
 namespace ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorerTests
 {
@@ -8,14 +11,11 @@ namespace ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorerTests
     {
         static void Main(string[] args)
         {
-            EntityFrameworkStorer storer = new EntityFrameworkStorer();
+            InitSessionId.Register();
 
-            ProductCreatedEvent newEvent = new ProductCreatedEvent();
+            Product product = new Product();
 
-            storer.Set<ProductCreatedEvent>().Add(newEvent);
-
-            storer.SaveChanges();
-            storer.Dispose();
+            EventMediator.HandleUncompletedEvents();
 
             Console.WriteLine("OK");
             Console.ReadKey();

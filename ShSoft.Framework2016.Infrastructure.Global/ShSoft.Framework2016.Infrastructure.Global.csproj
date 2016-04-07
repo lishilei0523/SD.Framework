@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Finalization\FinalizeDatabase.cs" />
     <Compile Include="Initialization\InitDatabase.cs" />
+    <Compile Include="Initialization\InitSessionId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

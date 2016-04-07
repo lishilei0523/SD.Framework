@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\Product.cs" />
+    <Compile Include="EventHandlers\ProductCreatedEventHandler.cs" />
     <Compile Include="EventSources\ProductCreatedEvent.cs" />
     <Compile Include="EventSources\ProductCreatingEvent.cs" />
     <Compile Include="EventStorer\EntityFrameworkStorer.cs" />
@@ -65,6 +66,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShSoft.Framework2016.Common\ShSoft.Framework2016.Common.csproj">
+      <Project>{37402463-F73A-4788-B9DE-5C57EC18604F}</Project>
+      <Name>ShSoft.Framework2016.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorer\ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorer.csproj">
       <Project>{f7a08dae-580f-46d1-9ade-dcdb2a828994}</Project>
       <Name>ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorer</Name>
@@ -72,6 +77,10 @@
     <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.DomainEvent\ShSoft.Framework2016.Infrastructure.DomainEvent.csproj">
       <Project>{79DC5E40-2857-4748-A895-49BB675CDC68}</Project>
       <Name>ShSoft.Framework2016.Infrastructure.DomainEvent</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.Global\ShSoft.Framework2016.Infrastructure.Global.csproj">
+      <Project>{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}</Project>
+      <Name>ShSoft.Framework2016.Infrastructure.Global</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure\ShSoft.Framework2016.Infrastructure.csproj">
       <Project>{F9FF05F0-1900-4D24-859A-B3202F2208D7}</Project>

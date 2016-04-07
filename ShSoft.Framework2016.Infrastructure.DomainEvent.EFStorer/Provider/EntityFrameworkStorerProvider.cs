@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
+using System.Runtime.Remoting.Messaging;
 using ShSoft.Framework2016.Infrastructure.Constants;
 using ShSoft.Framework2016.Infrastructure.IDomainEvent;
 
@@ -135,7 +137,25 @@ namespace ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorer.Provider
         /// </summary>
         public void HandleUncompletedEvents()
         {
-            IOrderedQueryable<IDomainEvent.DomainEvent> eventSources = this.Set<IDomainEvent.DomainEvent>().Where(x => !x.Handled).OrderBy(x => x.AddedTime);
+            #region # SessionId处理
+
+            object sessionIdCache = CallContext.GetData(CacheConstants.SessionIdKey);
+
+            if (sessionIdCache == null)
+            {
+                throw new ApplicationException("SessionId未设置，请检查程序！");
+            }
+
+            Guid sessionId = (Guid)sessionIdCache;
+
+            #endregion
+
+            Expression<Func<IDomainEvent.DomainEvent, bool>> condition =
+                x =>
+                    !x.Handled &&
+                    x.SessionId == sessionId;
+
+            IOrderedQueryable<IDomainEvent.DomainEvent> eventSources = this.Set<IDomainEvent.DomainEvent>().Where(condition).OrderBy(x => x.AddedTime);
 
             //如果有未处理的
             if (eventSources.Any())
@@ -148,7 +168,7 @@ namespace ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorer.Provider
             }
 
             //递归
-            if (this.Set<IDomainEvent.DomainEvent>().Any(x => !x.Handled))
+            if (this.Set<IDomainEvent.DomainEvent>().Any(condition))
             {
                 this.HandleUncompletedEvents();
             }
