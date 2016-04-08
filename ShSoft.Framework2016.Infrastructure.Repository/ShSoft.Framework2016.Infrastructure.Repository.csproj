@@ -74,10 +74,6 @@
     <None Include="Web.config.transform" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShSoft.Framework2016.Common\ShSoft.Framework2016.Common.csproj">
-      <Project>{37402463-F73A-4788-B9DE-5C57EC18604F}</Project>
-      <Name>ShSoft.Framework2016.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure\ShSoft.Framework2016.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
       <Name>ShSoft.Framework2016.Infrastructure</Name>

@@ -4,7 +4,6 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
-using ShSoft.Framework2016.Common.PoweredByLee;
 using ShSoft.Framework2016.Infrastructure.IEntity;
 using ShSoft.Framework2016.Infrastructure.IRepository;
 using ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider.Base;
@@ -82,7 +81,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         {
             #region # 验证参数
 
-            if (entities.IsNullOrEmpty())
+            if (entities == null || !entities.Any())
             {
                 throw new ArgumentNullException("entities", @"要添加的实体对象集合不可为空！");
             }
@@ -140,14 +139,17 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         {
             #region # 验证参数
 
-            if (entities.IsNullOrEmpty())
+            if (entities == null || !entities.Any())
             {
                 throw new ArgumentNullException("entities", @"要保存的实体对象集合不可为空！");
             }
 
             #endregion
 
-            entities.ForEach(entity => this.RegisterSave(entity));
+            foreach (T entity in entities)
+            {
+                this.RegisterSave(entity);
+            }
         }
         #endregion
 
@@ -228,7 +230,10 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             #endregion
 
-            ids.ForEach(id => this.RegisterPhysicsRemove<T>(id));
+            foreach (Guid id in ids)
+            {
+                this.RegisterPhysicsRemove<T>(id);
+            }
         }
         #endregion
 
@@ -319,14 +324,17 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         {
             #region # 验证参数
 
-            if (ids.IsNullOrEmpty())
+            if (ids == null || !ids.Any())
             {
                 throw new ArgumentNullException("ids", @"要删除的id集合不可为空！");
             }
 
             #endregion
 
-            ids.ForEach(id => this.RegisterRemove<T>(id));
+            foreach (Guid id in ids)
+            {
+                this.RegisterRemove<T>(id);
+            }
         }
         #endregion
 
@@ -415,11 +423,14 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         /// </summary>
         public void RollBack()
         {
-            this._dbContext.ChangeTracker.Entries().ForEach(x => x.State = EntityState.Unchanged);
+            foreach (DbEntityEntry entry in this._dbContext.ChangeTracker.Entries())
+            {
+                entry.State = EntityState.Unchanged;
+            }
         }
         #endregion
 
-        #region # 执行SQL命令（无需Commit） —— void ExecuteSqlCommand(string sql, params object[] parameters)
+        #region # 执行SQL命令（无需Commit） —— void ExecuteSqlCommand(string sql...
         /// <summary>
         /// 执行SQL命令（无需Commit）
         /// </summary>
@@ -457,7 +468,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
         //Protected
 
-        #region # 注册条件删除（物理删除） —— void RegisterPhysicsRemove<T>(Expression<Func<T, bool>> predicate)
+        #region # 注册条件删除（物理删除） —— void RegisterPhysicsRemove<T>(Expression<Func<T, bool>>...
         /// <summary>
         /// 注册条件删除（物理删除）
         /// </summary>
