@@ -41,7 +41,7 @@ namespace ShSoft.Framework2016.Infrastructure.UnitedCommit
                     //清空未处理的领域事件
                     EventMediator.ClearUncompletedEvents();
 
-                    //事务完成
+                    //事务完成 
                     scope.Complete();
                 }
                 throw;
