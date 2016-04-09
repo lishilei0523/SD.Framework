@@ -1,5 +1,5 @@
 ﻿using System.Web.Mvc;
-using ShSoft.Framework2016.Infrastructure.MVC.DependencyResolvers;
+using SD.IOC.Integration.MVC;
 
 namespace ShSoft.Framework2016.Infrastructure.MVC
 {

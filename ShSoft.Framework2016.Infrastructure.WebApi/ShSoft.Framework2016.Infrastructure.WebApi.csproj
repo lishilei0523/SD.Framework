@@ -45,8 +45,12 @@
       <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SD.IOC.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SD.IOC.Core.1.0.0.0\lib\net45\SD.IOC.Core.dll</HintPath>
+    <Reference Include="SD.IOC.Core, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SD.IOC.Core.1.0.1\lib\net45\SD.IOC.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SD.IOC.Integration.WebApi, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SD.IOC.Integration.WebApi.1.0.0.0\lib\net45\SD.IOC.Integration.WebApi.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -67,7 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="DependencyResolvers\WebApiDependencyResolver.cs" />
+    <Compile Include="DependencyResolvers\MyDependencyResolver.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

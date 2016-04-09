@@ -42,8 +42,12 @@
       <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SD.IOC.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SD.IOC.Core.1.0.0.0\lib\net45\SD.IOC.Core.dll</HintPath>
+    <Reference Include="SD.IOC.Core, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SD.IOC.Core.1.0.1\lib\net45\SD.IOC.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SD.IOC.Integration.WCF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SD.IOC.Integration.WCF.1.0.0.0\lib\net45\SD.IOC.Integration.WCF.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -51,7 +55,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="IOC\WcfInstanceProvider.cs" />
+    <Compile Include="IOC\InstanceProvider.cs" />
     <Compile Include="IOC\IocServiceBehavior.cs" />
   </ItemGroup>
   <ItemGroup>

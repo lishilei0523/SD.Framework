@@ -29,7 +29,7 @@ namespace ShSoft.Framework2016.Infrastructure.WebApi
             config.Routes.MapHttpRoute("DefaultApi", "{controller}/{action}/{id}", new { id = RouteParameter.Optional }
             );
 
-            config.DependencyResolver = new WebApiDependencyResolver();
+            config.DependencyResolver = new MyDependencyResolver();
         }
     }
 }

@@ -27,7 +27,7 @@ namespace ShSoft.Framework2016.Infrastructure.WCF.IOC
                 {
                     if (!endpoint.IsSystemEndpoint)
                     {
-                        endpoint.DispatchRuntime.InstanceProvider = new WcfInstanceProvider(serviceDescription.ServiceType);
+                        endpoint.DispatchRuntime.InstanceProvider = new InstanceProvider(serviceDescription.ServiceType);
                     }
                 }
             }
