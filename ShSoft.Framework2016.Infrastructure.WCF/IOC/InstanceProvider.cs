@@ -11,13 +11,7 @@ namespace ShSoft.Framework2016.Infrastructure.WCF.IOC
     /// </summary>
     internal class InstanceProvider : WcfInstanceProvider
     {
-        #region # 字段及构造器
-
-        /// <summary>
-        /// 服务契约类型
-        /// </summary>
-        private readonly Type _serviceType;
-
+        #region # 构造器
         /// <summary>
         /// 构造器
         /// </summary>
@@ -25,9 +19,8 @@ namespace ShSoft.Framework2016.Infrastructure.WCF.IOC
         public InstanceProvider(Type serviceType)
             : base(serviceType)
         {
-            this._serviceType = serviceType;
-        }
 
+        }
         #endregion
 
         #region # 获取服务契约实例 —— override object GetInstance(InstanceContext instanceContext)
