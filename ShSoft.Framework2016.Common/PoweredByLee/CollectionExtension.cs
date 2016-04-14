@@ -24,7 +24,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             if (enumerable == null)
             {
-                throw new ArgumentNullException("enumerable", @"源集合对象不可为空！");
+                throw new ArgumentNullException("enumerable", string.Format("源{0}集合对象不可为空！", typeof(T).Name));
             }
 
             if (action == null)
@@ -56,12 +56,12 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             if (sourceList == null)
             {
-                throw new ArgumentNullException("sourceList", @"源集合对象不可为空！");
+                throw new ArgumentNullException("sourceList", string.Format(@"源{0}集合对象不可为空！", typeof(T).Name));
             }
 
             if (targetList == null)
             {
-                throw new ArgumentNullException("targetList", @"目标集合对象不可为空！");
+                throw new ArgumentNullException("targetList", string.Format(@"目标{0}集合对象不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -150,7 +150,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             if (enumerable == null)
             {
-                throw new ArgumentNullException("sourceList", @"源集合对象不可为空！");
+                throw new ArgumentNullException("enumerable", string.Format("源{0}集合对象不可为空！", typeof(T).Name));
             }
 
             if (keySelector == null)
@@ -179,12 +179,12 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             if (collection == null)
             {
-                throw new ArgumentNullException("collection", @"源集合对象不可为空！");
+                throw new ArgumentNullException("collection", string.Format("源{0}集合对象不可为空！", typeof(T).Name));
             }
 
             if (enumerable == null)
             {
-                throw new ArgumentNullException("enumerable", @"要添加的集合项不可为空！");
+                throw new ArgumentNullException("enumerable", string.Format("要添加的{0}集合项不可为空！", typeof(T).Name));
             }
 
             #endregion

@@ -27,7 +27,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             if (sourceInstance == null)
             {
-                throw new ArgumentNullException("sourceInstance", @"源实例不可为空！");
+                throw new ArgumentNullException("sourceInstance", string.Format("源{0}实例不可为空！", typeof(TSource).Name));
             }
 
             #endregion

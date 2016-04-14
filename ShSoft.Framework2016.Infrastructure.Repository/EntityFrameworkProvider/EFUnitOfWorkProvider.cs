@@ -56,12 +56,12 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", @"要添加的实体对象不可为空！");
+                throw new ArgumentNullException("entity", string.Format(@"要添加的{0}实体对象不可为空！", typeof(T).Name));
             }
 
             if (entity.Id == Guid.Empty)
             {
-                throw new ArgumentNullException("Id", @"要添加的实体对象Id不可为空！");
+                throw new ArgumentNullException("Id", string.Format(@"要添加的{0}实体对象Id不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -83,7 +83,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (entities == null || !entities.Any())
             {
-                throw new ArgumentNullException("entities", @"要添加的实体对象集合不可为空！");
+                throw new ArgumentNullException("entities", string.Format("要添加的{0}实体对象集合不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -106,17 +106,17 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", @"要保存的实体对象不可为空！");
+                throw new ArgumentNullException("entity", string.Format("要保存的{0}实体对象不可为空！", typeof(T).Name));
             }
 
             if (entity.Id == Guid.Empty)
             {
-                throw new ArgumentNullException("Id", @"要保存的实体对象Id不可为空！");
+                throw new ArgumentNullException("Id", string.Format(@"要保存的{0}实体对象Id不可为空！", typeof(T).Name));
             }
 
             if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Id != entity.Id))
             {
-                throw new NullReferenceException(string.Format("不存在Id为{0}的实体对象，请尝试添加操作！", entity.Id));
+                throw new NullReferenceException(string.Format("不存在Id为{0}的{1}实体对象，请尝试添加操作！", entity.Id, typeof(T).Name));
             }
 
             #endregion
@@ -141,7 +141,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (entities == null || !entities.Any())
             {
-                throw new ArgumentNullException("entities", @"要保存的实体对象集合不可为空！");
+                throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象集合不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -167,12 +167,12 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", @"要删除的实体对象id不可为空！");
+                throw new ArgumentNullException("id", string.Format("要删除的{0}实体对象id不可为空！", typeof(T).Name));
             }
 
-            if (!this._dbContext.Set<T>().Any(x => x.Id == id))
+            if (!this._dbContext.Set<T>().Where(x => !x.Deleted).Any(x => x.Id == id))
             {
-                throw new NullReferenceException(string.Format("Id为{0}的实体对象不存在，请重试！", id));
+                throw new NullReferenceException(string.Format("Id为{0}的{1}实体对象不存在，请重试！", id, typeof(T).Name));
             }
 
             #endregion
@@ -196,12 +196,12 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (string.IsNullOrWhiteSpace(no))
             {
-                throw new ArgumentNullException("no", @"要删除的实体对象编号不可为空！");
+                throw new ArgumentNullException("no", string.Format("要删除的{0}实体对象编号不可为空！", typeof(T).Name));
             }
 
-            if (this._dbContext.Set<T>().All(x => x.Number != no))
+            if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Number != no))
             {
-                throw new NullReferenceException(string.Format("编号为{0}的实体对象不存在，请重试！", no));
+                throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", no, typeof(T).Name));
             }
 
             #endregion
@@ -225,7 +225,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (ids == null || !ids.Any())
             {
-                throw new ArgumentNullException("ids", @"要删除的id集合不可为空！");
+                throw new ArgumentNullException("ids", string.Format("要删除的{0}的id集合不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -263,12 +263,12 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", @"要删除的实体对象id不可为空！");
+                throw new ArgumentNullException("id", string.Format("要删除的{0}实体对象id不可为空！", typeof(T).Name));
             }
 
-            if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Id != id))
+            if (!this._dbContext.Set<T>().Where(x => !x.Deleted).Any(x => x.Id == id))
             {
-                throw new NullReferenceException(string.Format("Id为{0}的实体对象不存在，请重试！", id));
+                throw new NullReferenceException(string.Format("Id为{0}的{1}实体对象不存在，请重试！", id, typeof(T).Name));
             }
 
             #endregion
@@ -295,12 +295,12 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (string.IsNullOrWhiteSpace(no))
             {
-                throw new ArgumentNullException("no", @"要删除的实体对象编号不可为空！");
+                throw new ArgumentNullException("no", string.Format(@"要删除的{0}实体对象编号不可为空！", typeof(T).Name));
             }
 
             if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Number != no))
             {
-                throw new NullReferenceException(string.Format("编号为{0}的实体对象不存在，请重试！", no));
+                throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", no, typeof(T).Name));
             }
 
             #endregion
@@ -326,7 +326,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (ids == null || !ids.Any())
             {
-                throw new ArgumentNullException("ids", @"要删除的id集合不可为空！");
+                throw new ArgumentNullException("ids", string.Format("要删除的{0}的id集合不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -366,7 +366,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", @"id不可为空！");
+                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -389,7 +389,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (string.IsNullOrWhiteSpace(no))
             {
-                throw new ArgumentNullException("no", @"编号不可为空！");
+                throw new ArgumentNullException("no", string.Format("{0}的编号不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -562,12 +562,12 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (!this._dbContext.Set<T>().Where(x => !x.Deleted).Any(predicate))
             {
-                throw new NullReferenceException(string.Format("给定的条件\"{0}\"中查询不到任何实体对象！", predicate));
+                throw new NullReferenceException(string.Format("给定的条件\"{0}\"中查询不到任何{1}实体对象！", predicate, typeof(T).Name));
             }
 
             if (this._dbContext.Set<T>().Where(x => !x.Deleted).Count(predicate) > 1)
             {
-                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的实体对象！", predicate));
+                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
             }
 
             #endregion

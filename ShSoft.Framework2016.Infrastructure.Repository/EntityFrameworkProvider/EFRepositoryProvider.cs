@@ -59,7 +59,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", @"id不可为空！");
+                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -82,7 +82,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", @"id不可为空！");
+                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(TSub).Name));
             }
 
             #endregion
@@ -105,7 +105,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (string.IsNullOrWhiteSpace(no))
             {
-                throw new ArgumentNullException("no", @"编号不可为空！");
+                throw new ArgumentNullException("no", string.Format("{0}的编号不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -128,7 +128,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (string.IsNullOrWhiteSpace(no))
             {
-                throw new ArgumentNullException("no", @"编号不可为空！");
+                throw new ArgumentNullException("no", string.Format("{0}的编号不可为空！", typeof(TSub).Name));
             }
 
             #endregion
@@ -153,7 +153,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("Id为\"{0}\"的实体不存在！", id));
+                throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(T).Name));
             }
 
             #endregion
@@ -178,7 +178,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("Id为\"{0}\"的实体不存在！", id));
+                throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(TSub).Name));
             }
 
             #endregion
@@ -203,7 +203,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的实体不存在！", no));
+                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", no, typeof(T).Name));
             }
 
             #endregion
@@ -228,7 +228,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的实体不存在！", no));
+                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", no, typeof(TSub).Name));
             }
 
             #endregion
@@ -251,7 +251,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentNullException("name", @"名称不可为空！");
+                throw new ArgumentNullException("name", string.Format("{0}的名称不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -432,7 +432,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", @"id不可为空！");
+                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -454,7 +454,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", @"id不可为空！");
+                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -476,7 +476,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (string.IsNullOrWhiteSpace(no))
             {
-                throw new ArgumentNullException("no", @"编号不可为空！");
+                throw new ArgumentNullException("no", string.Format("{0}的编号不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -498,7 +498,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (string.IsNullOrWhiteSpace(no))
             {
-                throw new ArgumentNullException("no", @"编号不可为空！");
+                throw new ArgumentNullException("no", string.Format("{0}的编号不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -519,7 +519,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentNullException("name", @"名称不可为空！");
+                throw new ArgumentNullException("name", string.Format("{0}的名称不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -540,7 +540,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentNullException("name", @"名称不可为空！");
+                throw new ArgumentNullException("name", string.Format("{0}的名称不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -634,7 +634,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (this.Count(predicate) > 1)
             {
-                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的实体对象！", predicate));
+                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
             }
 
             #endregion
@@ -665,7 +665,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             if (this.Count(predicate) > 1)
             {
-                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的子类对象！", predicate));
+                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
             }
 
             #endregion
