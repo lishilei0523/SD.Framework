@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace ShSoft.Framework2016.Common.PoweredByLee
 {
@@ -290,6 +292,100 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             rowCount = list.Count();
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
             return list.OrderByDescending(keySelectorOne).ThenByDescending(keySelectorTwo).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+        }
+        #endregion
+
+        #region # DataTable转换泛型集合扩展方法 —— static IEnumerable<T> ToList<T>(this DataTable...
+        /// <summary>
+        /// DataTable转换泛型集合扩展方法
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="dataTable">数据表</param>
+        /// <returns>泛型集合</returns>
+        public static IEnumerable<T> ToList<T>(this DataTable dataTable) where T : new()
+        {
+            //获取类型与属性信息
+            Type currentType = typeof(T);
+            PropertyInfo[] properties = currentType.GetProperties();
+
+            #region # 验证
+
+            if (dataTable == null)
+            {
+                throw new ArgumentNullException("dataTable", "数据表不可为null！");
+            }
+
+            if (dataTable.Columns.Count != properties.Length)
+            {
+                throw new ArgumentOutOfRangeException("dataTable", "列数与属性数不匹配，请检查程序！");
+            }
+
+            IEnumerable<string> propertyNames = properties.Select(x => x.Name);
+            IEnumerable<string> columnNames = from DataColumn column in dataTable.Columns select column.ColumnName;
+
+            if (propertyNames.EqualsTo(columnNames))
+            {
+                throw new InvalidOperationException("列名与属性名不完全一致，请检查程序！");
+            }
+
+            #endregion
+
+            ICollection<T> collection = new List<T>();
+
+            foreach (DataRow row in dataTable.Rows)
+            {
+                T instance = Activator.CreateInstance<T>();
+                foreach (PropertyInfo property in properties)
+                {
+                    property.SetValue(instance, row[property.Name]);
+                }
+                collection.Add(instance);
+            }
+            return collection;
+        }
+        #endregion
+
+        #region # 泛型集合转换DataTable扩展方法 —— static DataTable ToDataTable<T>(this IEnumerable...
+        /// <summary>
+        /// 泛型集合转换DataTable扩展方法
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="enumerable">集合</param>
+        /// <returns>DataTable</returns>
+        public static DataTable ToDataTable<T>(this IEnumerable<T> enumerable)
+        {
+            #region # 验证参数
+
+            if (enumerable == null)
+            {
+                throw new ArgumentNullException("enumerable", "集合不可为null！");
+            }
+
+            #endregion
+
+            //获取类型与属性信息
+            Type currentType = typeof(T);
+            PropertyInfo[] properties = currentType.GetProperties();
+
+            DataTable dataTable = new DataTable();
+
+            //创建列
+            foreach (PropertyInfo property in properties)
+            {
+                dataTable.Columns.Add(new DataColumn(property.Name));
+            }
+
+            //创建行
+            T[] array = enumerable.ToArray();
+            for (int i = 0; i < array.Length; i++)
+            {
+                foreach (PropertyInfo property in properties)
+                {
+                    dataTable.Rows[i][property.Name] = property.GetValue(array[i]);
+                }
+            }
+
+            return dataTable;
         }
         #endregion
     }
