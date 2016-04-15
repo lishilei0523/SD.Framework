@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using NPOI.SS.Formula.Functions;
 
 namespace ShSoft.Framework2016.Common.PoweredByLee
 {
@@ -109,6 +110,70 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             //再对比字符是否相同
             if (!sourceListStr.ToCharArray().Except(targetListStr.ToCharArray()).Any() &&
                 !targetListStr.ToCharArray().Except(sourceListStr.ToCharArray()).Any())
+            {
+                return true;
+            }
+
+            #endregion
+
+            return false;
+        }
+        #endregion
+
+        #region # 判断两个字典中的元素是否相等扩展方法 —— static bool EqualsTo<TKey, TValue>(this IDictionary<TKey...
+        /// <summary>
+        /// 判断两个字典中的元素是否相等扩展方法
+        /// </summary>
+        /// <typeparam name="TKey">键类型</typeparam>
+        /// <typeparam name="TValue">值类型</typeparam>
+        /// <param name="sourceDict">源字典</param>
+        /// <param name="targetDict">目标字典</param>
+        /// <returns>是否相等</returns>
+        /// <exception cref="ArgumentNullException">源字典对象为空、目标字典对象为空</exception>
+        public static bool EqualsTo<TKey, TValue>(this IDictionary<TKey, TValue> sourceDict, IDictionary<TKey, TValue> targetDict)
+        {
+            #region # 验证参数
+
+            if (sourceDict == null)
+            {
+                throw new ArgumentNullException("sourceDict", string.Format(@"源{0}字典对象不可为空！", typeof(T).Name));
+            }
+
+            if (targetDict == null)
+            {
+                throw new ArgumentNullException("targetDict", string.Format(@"目标{0}字典对象不可为空！", typeof(T).Name));
+            }
+
+            #endregion
+
+            #region 01.长度对比
+
+            //长度不相等
+            if (sourceDict.Count() != targetDict.Count())
+            {
+                return false;
+            }
+
+            //长度都为0
+            if (!sourceDict.Any() && !targetDict.Any())
+            {
+                return true;
+            }
+
+            #endregion
+
+            #region 02.深度对比
+
+            //获取键集合
+            IEnumerable<TKey> sourceKeys = sourceDict.Select(x => x.Key);
+            IEnumerable<TKey> targetKeys = targetDict.Select(x => x.Key);
+
+            //获取值集合
+            IEnumerable<TValue> sourceValues = sourceDict.Select(x => x.Value);
+            IEnumerable<TValue> targetValues = targetDict.Select(x => x.Value);
+
+            //判断是否键值都相等
+            if (sourceKeys.EqualsTo(targetKeys) && sourceValues.EqualsTo(targetValues))
             {
                 return true;
             }
