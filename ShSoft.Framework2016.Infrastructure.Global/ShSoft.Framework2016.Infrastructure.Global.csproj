@@ -46,18 +46,24 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Finalization\FinalizeDatabase.cs" />
     <Compile Include="Initialization\InitDatabase.cs" />
     <Compile Include="Initialization\InitSessionId.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Transaction\UnitOfWorkExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.DomainEvent\ShSoft.Framework2016.Infrastructure.DomainEvent.csproj">
+      <Project>{79DC5E40-2857-4748-A895-49BB675CDC68}</Project>
+      <Name>ShSoft.Framework2016.Infrastructure.DomainEvent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure\ShSoft.Framework2016.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
       <Name>ShSoft.Framework2016.Infrastructure</Name>

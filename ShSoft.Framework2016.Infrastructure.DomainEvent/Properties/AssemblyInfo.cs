@@ -38,4 +38,4 @@ using System.Runtime.InteropServices;
 //Internal可见
 [assembly: InternalsVisibleTo("ShSoft.Framework2016.Infrastructure.DomainEventTests")]
 [assembly: InternalsVisibleTo("ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorerTests")]
-[assembly: InternalsVisibleTo("ShSoft.Framework2016.Infrastructure.UnitedCommit")]
+[assembly: InternalsVisibleTo("ShSoft.Framework2016.Infrastructure.Global")]

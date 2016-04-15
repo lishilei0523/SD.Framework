@@ -2,7 +2,7 @@
 using ShSoft.Framework2016.Infrastructure.DomainEvent.Mediator;
 using ShSoft.Framework2016.Infrastructure.IRepository;
 
-namespace ShSoft.Framework2016.Infrastructure.UnitedCommit
+namespace ShSoft.Framework2016.Infrastructure.Global.Transaction
 {
     /// <summary>
     /// UnitOfWork扩展工具类
