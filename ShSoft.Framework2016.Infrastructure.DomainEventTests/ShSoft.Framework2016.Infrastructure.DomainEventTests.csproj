@@ -68,6 +68,10 @@
       <Project>{79dc5e40-2857-4748-a895-49bb675cdc68}</Project>
       <Name>ShSoft.Framework2016.Infrastructure.DomainEvent</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.Global\ShSoft.Framework2016.Infrastructure.Global.csproj">
+      <Project>{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}</Project>
+      <Name>ShSoft.Framework2016.Infrastructure.Global</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure\ShSoft.Framework2016.Infrastructure.csproj">
       <Project>{F9FF05F0-1900-4D24-859A-B3202F2208D7}</Project>
       <Name>ShSoft.Framework2016.Infrastructure</Name>

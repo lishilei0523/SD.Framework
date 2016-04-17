@@ -3,6 +3,7 @@ using ShSoft.Framework2016.Infrastructure.DomainEvent.Mediator;
 using ShSoft.Framework2016.Infrastructure.DomainEventTests.StubDomainEventHandlers;
 using ShSoft.Framework2016.Infrastructure.DomainEventTests.StubEntities;
 using ShSoft.Framework2016.Infrastructure.DomainEventTests.StubEventSources;
+using ShSoft.Framework2016.Infrastructure.Global;
 
 namespace ShSoft.Framework2016.Infrastructure.DomainEventTests.TestCases
 {
@@ -18,6 +19,8 @@ namespace ShSoft.Framework2016.Infrastructure.DomainEventTests.TestCases
         [TestMethod]
         public void CreateProduct()
         {
+            InitSessionId.Register();
+
             Product product = new Product("001", "测试商品1", 19);
 
             EventMediator.HandleUncompletedEvents();
@@ -32,6 +35,8 @@ namespace ShSoft.Framework2016.Infrastructure.DomainEventTests.TestCases
         [TestMethod]
         public void CreateProductCreatedEvent()
         {
+            InitSessionId.Register();
+
             ProductCreatedEvent eventSource = new ProductCreatedEvent("001", "测试商品1", 19);
             eventSource.Handle();
 
