@@ -66,6 +66,15 @@ namespace ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorer.Provider
         {
             base.OnModelCreating(modelBuilder);
 
+            #region # 验证程序集
+
+            if (string.IsNullOrWhiteSpace(this.EventSourceAssembly))
+            {
+                throw new ApplicationException("事件源所在程序集未配置！");
+            }
+
+            #endregion
+
             //注册事件源基类
             modelBuilder.RegisterEntityType(typeof(IDomainEvent.DomainEvent));
 
@@ -75,15 +84,6 @@ namespace ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorer.Provider
 
             //配置事件源表名
             modelBuilder.Entity<IDomainEvent.DomainEvent>().ToTable(string.Format("{0}{1}", this.TablePrefix, typeof(IDomainEvent.DomainEvent).Name));
-
-            #region # 验证程序集
-
-            if (string.IsNullOrWhiteSpace(this.EventSourceAssembly))
-            {
-                throw new ApplicationException("事件源所在程序集未配置！");
-            }
-
-            #endregion
 
             //加载模型所在程序集查询出所有符合条件的实体类型
             IEnumerable<Type> types = Assembly.Load(this.EventSourceAssembly).GetTypes().Where(x => !x.IsInterface && x.IsSubclassOf(typeof(IDomainEvent.DomainEvent)));
