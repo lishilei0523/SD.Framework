@@ -370,17 +370,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>目标类型对象</returns>
         public static T Map<T>(this object instance)
         {
-            #region # 验证参数
-
-            if (instance == null)
-            {
-                throw new ArgumentNullException("instance", @"源实例不可为空！");
-            }
-
-            #endregion
-
-            Mapper.CreateMap(instance.GetType(), typeof(T));
-            return Mapper.Map<T>(instance);
+            return instance.Map<object, T>();
         }
         #endregion
 

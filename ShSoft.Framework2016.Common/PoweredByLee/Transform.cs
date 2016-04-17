@@ -94,4 +94,42 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         }
         #endregion
     }
+
+    /// <summary>
+    /// 新模型映射工具类
+    /// </summary>
+    public static class Transform
+    {
+        #region # 映射 —— static TTarget Map<TSource, TTarget>(this TSource...
+        /// <summary>
+        /// 映射
+        /// </summary>
+        /// <typeparam name="TSource">源实例类型</typeparam>
+        /// <typeparam name="TTarget">目标实例类型</typeparam>
+        /// <param name="sourceInstance">源实例</param>
+        /// <param name="beforeMapEventHandler">映射前事件处理者</param>
+        /// <param name="afterMapEventHandler">映射后事件处理者</param>
+        /// <param name="ignoreMembers">忽略映射成员集</param>
+        /// <returns>目标实例</returns>
+        public static TTarget Map<TSource, TTarget>(this TSource sourceInstance, Action<TSource, TTarget> beforeMapEventHandler = null, Action<TSource, TTarget> afterMapEventHandler = null, params Expression<Func<TTarget, object>>[] ignoreMembers)
+        {
+            return Transform<TSource, TTarget>.Map(sourceInstance, beforeMapEventHandler, afterMapEventHandler,
+                ignoreMembers);
+        }
+        #endregion
+
+        #region # 填充 —— static void Fill<TSource, TTarget>(this TSource...
+        /// <summary>
+        /// 将两个对象名称相同的属性替换赋值
+        /// </summary>
+        /// <typeparam name="TSource">源实例类型</typeparam>
+        /// <typeparam name="TTarget">目标实例类型</typeparam>
+        /// <param name="sourceInstance">源实例</param>
+        /// <param name="targetInstance">目标实例</param>
+        public static void Fill<TSource, TTarget>(this TSource sourceInstance, TTarget targetInstance)
+        {
+            Transform<TSource, TTarget>.Fill(sourceInstance, targetInstance);
+        }
+        #endregion
+    }
 }
