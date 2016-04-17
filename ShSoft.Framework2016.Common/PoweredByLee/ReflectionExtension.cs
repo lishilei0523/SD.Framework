@@ -21,7 +21,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             if (method == null)
             {
-                throw new ArgumentNullException("methodInfo", @"方法信息不可为空！");
+                throw new ArgumentNullException("method", @"方法信息不可为空！");
             }
 
             #endregion

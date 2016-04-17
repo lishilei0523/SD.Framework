@@ -47,7 +47,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>受影响的行数</returns>
         public int ExecuteNonQuery(string sql, params SqlParameter[] args)
         {
-            return ExecuteNonQuery(sql, CommandType.Text, args);
+            return this.ExecuteNonQuery(sql, CommandType.Text, args);
         }
         #endregion
 
@@ -60,7 +60,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>受影响的行数</returns>
         public int ExecuteNonQuerySP(string proc, params SqlParameter[] args)
         {
-            return ExecuteNonQuery(proc, CommandType.StoredProcedure, args);
+            return this.ExecuteNonQuery(proc, CommandType.StoredProcedure, args);
         }
         #endregion
 
@@ -73,7 +73,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>object对象</returns>
         public object ExecuteScalar(string sql, params SqlParameter[] args)
         {
-            return ExecuteScalar(sql, CommandType.Text, args);
+            return this.ExecuteScalar(sql, CommandType.Text, args);
         }
         #endregion
 
@@ -87,7 +87,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>类型对象</returns>
         public T ExecuteScalar<T>(string sql, params SqlParameter[] args)
         {
-            return ExecuteScalar<T>(sql, CommandType.Text, args);
+            return this.ExecuteScalar<T>(sql, CommandType.Text, args);
         }
         #endregion
 
@@ -100,7 +100,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>object对象</returns>
         public object ExecuteScalarSP(string proc, params SqlParameter[] args)
         {
-            return ExecuteScalar(proc, CommandType.StoredProcedure, args);
+            return this.ExecuteScalar(proc, CommandType.StoredProcedure, args);
         }
         #endregion
 
@@ -113,7 +113,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>类型对象</returns>
         public T ExecuteScalarSP<T>(string proc, params SqlParameter[] args)
         {
-            return ExecuteScalar<T>(proc, CommandType.StoredProcedure, args);
+            return this.ExecuteScalar<T>(proc, CommandType.StoredProcedure, args);
         }
         #endregion
 
@@ -126,7 +126,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>DataReader对象</returns>
         public SqlDataReader ExecuteReader(string sql, params SqlParameter[] args)
         {
-            return ExecuteReader(sql, CommandType.Text, args);
+            return this.ExecuteReader(sql, CommandType.Text, args);
         }
         #endregion
 
@@ -139,7 +139,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>DataReader对象</returns>
         public SqlDataReader ExecuteReaderSP(string proc, params SqlParameter[] args)
         {
-            return ExecuteReader(proc, CommandType.StoredProcedure, args);
+            return this.ExecuteReader(proc, CommandType.StoredProcedure, args);
         }
         #endregion
 
@@ -152,7 +152,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>DataTable对象</returns>
         public DataTable GetDataTable(string sql, params SqlParameter[] args)
         {
-            return GetDataTable(sql, CommandType.Text, args);
+            return this.GetDataTable(sql, CommandType.Text, args);
         }
         #endregion
 
@@ -165,7 +165,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>DataTable对象</returns>
         public DataTable GetDataTableSP(string proc, params SqlParameter[] args)
         {
-            return GetDataTable(proc, CommandType.StoredProcedure, args);
+            return this.GetDataTable(proc, CommandType.StoredProcedure, args);
         }
         #endregion
 
@@ -178,7 +178,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>DataSet对象</returns>
         public DataSet GetDataSet(string sql, params SqlParameter[] args)
         {
-            return GetDataSet(sql, CommandType.Text, args);
+            return this.GetDataSet(sql, CommandType.Text, args);
         }
         #endregion
 
@@ -191,7 +191,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>DataSet对象</returns>
         public DataSet GetDataSetSP(string proc, params SqlParameter[] args)
         {
-            return GetDataSet(proc, CommandType.StoredProcedure, args);
+            return this.GetDataSet(proc, CommandType.StoredProcedure, args);
         }
         #endregion
 
@@ -291,7 +291,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             }
             catch (InvalidCastException)
             {
-                throw new InvalidCastException("给定类型有误，请重试！");
+                throw new InvalidCastException(string.Format("返回值不可转换为给定类型{0}，请检查程序！", typeof(T).Name));
             }
         }
         #endregion
@@ -315,7 +315,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             #endregion
 
-            SqlConnection conn = CreateConnection();
+            SqlConnection conn = this.CreateConnection();
             try
             {
                 SqlCommand cmd = new SqlCommand(sql, conn) { CommandType = type };
@@ -351,7 +351,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             #endregion
 
             DataTable dataTable = new DataTable();
-            using (SqlConnection conn = CreateConnection())
+            using (SqlConnection conn = this.CreateConnection())
             {
                 SqlDataAdapter adapter = new SqlDataAdapter(sql, conn) { SelectCommand = { CommandType = type } };
                 adapter.SelectCommand.Parameters.AddRange(args);
@@ -381,15 +381,15 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             #endregion
 
-            using (SqlConnection conn = CreateConnection())
+            using (SqlConnection conn = this.CreateConnection())
             {
                 DataSet dataSet = new DataSet();
-                using (SqlDataAdapter sda = new SqlDataAdapter(sql, conn))
+                using (SqlDataAdapter adapter = new SqlDataAdapter(sql, conn))
                 {
-                    sda.SelectCommand.Parameters.AddRange(args);
-                    sda.SelectCommand.CommandType = type;
+                    adapter.SelectCommand.Parameters.AddRange(args);
+                    adapter.SelectCommand.CommandType = type;
                     conn.Open();
-                    sda.Fill(dataSet);
+                    adapter.Fill(dataSet);
                 }
                 return dataSet;
             }
