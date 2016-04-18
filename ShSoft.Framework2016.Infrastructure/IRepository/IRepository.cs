@@ -10,6 +10,8 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
     /// <typeparam name="T">实体类型</typeparam>
     public interface IRepository<T> : IDisposable where T : PlainEntity
     {
+        //Single部分
+
         #region # 根据Id获取唯一实体对象（查看时用） —— T SingleOrDefault(Guid id)
         /// <summary>
         /// 根据Id获取唯一实体对象（查看时用），
@@ -32,26 +34,26 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         TSub SingleOrDefault<TSub>(Guid id) where TSub : T;
         #endregion
 
-        #region # 根据编号获取唯一实体对象（查看时用） —— T SingleOrDefault(string no)
+        #region # 根据编号获取唯一实体对象（查看时用） —— T SingleOrDefault(string number)
         /// <summary>
         /// 根据编号获取唯一实体对象（查看时用），
         /// 无该对象时返回null
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>唯一实体对象</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        T SingleOrDefault(string no);
+        T SingleOrDefault(string number);
         #endregion
 
-        #region # 根据编号获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(string no)
+        #region # 根据编号获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(string number)
         /// <summary>
         /// 根据编号获取唯一子类对象（查看时用），
         /// 无该对象时返回null
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>唯一子类对象</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        TSub SingleOrDefault<TSub>(string no) where TSub : T;
+        TSub SingleOrDefault<TSub>(string number) where TSub : T;
         #endregion
 
         #region # 根据Id获取唯一实体对象（查看时用） —— T Single(Guid id)
@@ -76,26 +78,26 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         TSub Single<TSub>(Guid id) where TSub : T;
         #endregion
 
-        #region # 根据编号获取唯一实体对象（查看时用） —— T Single(string no)
+        #region # 根据编号获取唯一实体对象（查看时用） —— T Single(string number)
         /// <summary>
         /// 根据编号获取唯一实体对象（查看时用），
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>单个实体对象</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         /// <exception cref="NullReferenceException">无该对象</exception>
-        T Single(string no);
+        T Single(string number);
         #endregion
 
-        #region # 根据编号获取唯一子类对象（查看时用） —— TSub Single<TSub>(string no)
+        #region # 根据编号获取唯一子类对象（查看时用） —— TSub Single<TSub>(string number)
         /// <summary>
         /// 根据编号获取唯一子类对象（查看时用），
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>单个子类对象</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         /// <exception cref="NullReferenceException">无该对象</exception>
-        TSub Single<TSub>(string no) where TSub : T;
+        TSub Single<TSub>(string number) where TSub : T;
         #endregion
 
         #region # 根据名称获取唯一实体对象（查看时用） —— T SingleByName(string name)
@@ -107,6 +109,39 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         /// <returns>单个实体对象</returns>
         /// <exception cref="ArgumentNullException">名称为空</exception>
         T SingleByName(string name);
+        #endregion
+
+        #region # 根据Id获取唯一实体对象Name —— string GetName(Guid id)
+        /// <summary>
+        /// 根据Id获取唯一实体对象Name
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>实体对象Name</returns>
+        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="NullReferenceException">无该对象</exception>
+        string GetName(Guid id);
+        #endregion
+
+        #region # 根据编号获取唯一实体对象Name —— string GetName(string number)
+        /// <summary>
+        /// 根据编号获取唯一实体对象Name
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <returns>实体对象Name</returns>
+        /// <exception cref="ArgumentNullException">编号为空</exception>
+        /// <exception cref="NullReferenceException">无该对象</exception>
+        string GetName(string number);
+        #endregion
+
+        #region # 根据Id获取唯一实体对象Number —— string GetNumber(Guid id)
+        /// <summary>
+        /// 根据Id获取唯一实体对象Number
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>实体对象Number</returns>
+        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="NullReferenceException">无该对象</exception>
+        string GetNumber(Guid id);
         #endregion
 
         #region # 获取默认或第一个实体对象 —— T FirstOrDefault()
@@ -124,6 +159,9 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         /// </summary>
         TSub FirstOrDefault<TSub>() where TSub : T;
         #endregion
+
+
+        //IEnumerable部分
 
         #region # 获取实体对象集合 —— IEnumerable<T> FindAll()
         /// <summary>
@@ -158,12 +196,12 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         IEnumerable<T> Find(IEnumerable<Guid> ids);
         #endregion
 
-        #region # 根据编号集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<string> nos)
+        #region # 根据编号集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<string> numbers)
         /// <summary>
         /// 根据编号集获取实体对象集合
         /// </summary>
         /// <returns>实体对象集合</returns>
-        IEnumerable<T> Find(IEnumerable<string> nos);
+        IEnumerable<T> Find(IEnumerable<string> numbers);
         #endregion
 
         #region # 根据关键字获取给定类型子类对象集合 —— IEnumerable<TSub> Find<TSub>(string keywords)
@@ -175,7 +213,7 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         IEnumerable<TSub> Find<TSub>(string keywords) where TSub : T;
         #endregion
 
-        #region # 根据关键字分页获取实体对象集合 + 输出记录条数与页数
+        #region # 根据关键字分页获取实体对象集合 + 输出记录条数与页数 —— IEnumerable<T> FindByPage(...
         /// <summary>
         /// 根据关键字获取实体对象集合 + 分页 + 输出记录条数与页数
         /// </summary>
@@ -190,7 +228,7 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         IEnumerable<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount);
         #endregion
 
-        #region # 根据关键字分页获取子类对象集合 + 输出记录条数与页数
+        #region # 根据关键字分页获取子类对象集合 + 输出记录条数与页数 —— IEnumerable<TSub> FindByPage<TSub>(
         /// <summary>
         /// 根据关键字分页获取子类对象集合 + 分页 + 输出记录条数与页数
         /// </summary>
@@ -205,6 +243,31 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         IEnumerable<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T;
         #endregion
+
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary()
+        /// <summary>
+        /// 获取Id与Name字典
+        /// </summary>
+        /// <returns>Id与Name字典</returns>
+        /// <remarks>
+        /// IDictionary[Guid, string]，键：Id，值：Name
+        /// </remarks>
+        IDictionary<Guid, string> FindDictionary();
+        #endregion
+
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary<TSub>()
+        /// <summary>
+        /// 获取Id与Name字典
+        /// </summary>
+        /// <returns>Id与Name字典</returns>
+        /// <remarks>
+        /// IDictionary[Guid, string]，键：Id，值：Name
+        /// </remarks>
+        IDictionary<Guid, string> FindDictionary<TSub>() where TSub : T;
+        #endregion
+
+
+        //Count部分
 
         #region # 获取总记录条数 —— int Count()
         /// <summary>
@@ -221,6 +284,9 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         /// <returns>总记录条数</returns>
         int Count<TSub>() where TSub : T;
         #endregion
+
+
+        //Exists部分
 
         #region # 判断是否存在给定Id的实体对象 —— bool Exists(Guid id)
         /// <summary>
@@ -242,24 +308,24 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         bool Exists<TSub>(Guid id) where TSub : T;
         #endregion
 
-        #region # 判断是否存在给定编号的实体对象 —— bool Exists(string no)
+        #region # 判断是否存在给定编号的实体对象 —— bool Exists(string number)
         /// <summary>
         /// 判断是否存在给定编号的实体对象
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        bool Exists(string no);
+        bool Exists(string number);
         #endregion
 
-        #region # 判断是否存在给定编号的子类对象 —— bool Exists<TSub>(string no)
+        #region # 判断是否存在给定编号的子类对象 —— bool Exists<TSub>(string number)
         /// <summary>
         /// 判断是否存在给定编号的子类对象
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        bool Exists<TSub>(string no) where TSub : T;
+        bool Exists<TSub>(string number) where TSub : T;
         #endregion
 
         #region # 判断是否存在给定名称的实体对象 —— bool ExistsName(string name)
@@ -279,6 +345,9 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         /// <returns>是否已存在</returns>
         bool ExistsName<TSub>(string name) where TSub : T;
         #endregion
+
+
+        //其他
 
         #region # 执行SQL查询 —— IEnumerable<T> ExecuteSqlQuery(string sql, params object[] parameters)
         /// <summary>

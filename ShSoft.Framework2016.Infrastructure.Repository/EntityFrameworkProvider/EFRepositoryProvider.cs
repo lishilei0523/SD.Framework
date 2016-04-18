@@ -43,6 +43,8 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
         #region # Public
 
+        //Single部分
+
         #region # 根据Id获取唯一实体对象（查看时用） —— T SingleOrDefault(Guid id)
         /// <summary>
         /// 根据Id获取唯一实体对象（查看时用），
@@ -91,49 +93,49 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
-        #region # 根据编号获取唯一实体对象（查看时用） —— T SingleOrDefault(string no)
+        #region # 根据编号获取唯一实体对象（查看时用） —— T SingleOrDefault(string number)
         /// <summary>
         /// 根据编号获取唯一实体对象（查看时用），
         /// 无该对象时返回null
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>单个实体对象</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        public T SingleOrDefault(string no)
+        public T SingleOrDefault(string number)
         {
             #region # 验证参数
 
-            if (string.IsNullOrWhiteSpace(no))
+            if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("no", string.Format("{0}的编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
             }
 
             #endregion
 
-            return this.SingleOrDefault(x => x.Number == no); ;
+            return this.SingleOrDefault(x => x.Number == number); ;
         }
         #endregion
 
-        #region # 根据编号获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(string no)
+        #region # 根据编号获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(string number)
         /// <summary>
         /// 根据编号获取唯一子类对象（查看时用），
         /// 无该对象时返回null
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>唯一子类对象</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        public TSub SingleOrDefault<TSub>(string no) where TSub : T
+        public TSub SingleOrDefault<TSub>(string number) where TSub : T
         {
             #region # 验证参数
 
-            if (string.IsNullOrWhiteSpace(no))
+            if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("no", string.Format("{0}的编号不可为空！", typeof(TSub).Name));
+                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(TSub).Name));
             }
 
             #endregion
 
-            return this.SingleOrDefault<TSub>(x => x.Number == no); ;
+            return this.SingleOrDefault<TSub>(x => x.Number == number); ;
         }
         #endregion
 
@@ -187,23 +189,23 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
-        #region # 根据编号获取唯一实体对象（查看时用） —— T Single(string no)
+        #region # 根据编号获取唯一实体对象（查看时用） —— T Single(string number)
         /// <summary>
         /// 根据编号获取唯一实体对象（查看时用），
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>单个实体对象</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         /// <exception cref="NullReferenceException">无该对象</exception>
-        public T Single(string no)
+        public T Single(string number)
         {
-            T current = this.SingleOrDefault(no);
+            T current = this.SingleOrDefault(number);
 
             #region # 非空验证
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", no, typeof(T).Name));
+                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(T).Name));
             }
 
             #endregion
@@ -212,23 +214,23 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
-        #region # 根据编号获取唯一子类对象（查看时用） —— TSub Single<TSub>(string no)
+        #region # 根据编号获取唯一子类对象（查看时用） —— TSub Single<TSub>(string number)
         /// <summary>
         /// 根据编号获取唯一子类对象（查看时用），
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>单个子类对象</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         /// <exception cref="NullReferenceException">无该对象</exception>
-        public TSub Single<TSub>(string no) where TSub : T
+        public TSub Single<TSub>(string number) where TSub : T
         {
-            TSub current = this.SingleOrDefault<TSub>(no);
+            TSub current = this.SingleOrDefault<TSub>(number);
 
             #region # 非空验证
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", no, typeof(TSub).Name));
+                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(TSub).Name));
             }
 
             #endregion
@@ -260,6 +262,48 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
+        #region # 根据Id获取唯一实体对象Name —— string GetName(Guid id)
+        /// <summary>
+        /// 根据Id获取唯一实体对象Name
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>实体对象Name</returns>
+        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="NullReferenceException">无该对象</exception>
+        public string GetName(Guid id)
+        {
+            return this.Single(id).Name;
+        }
+        #endregion
+
+        #region # 根据编号获取唯一实体对象Name —— string GetName(string number)
+        /// <summary>
+        /// 根据编号获取唯一实体对象Name
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <returns>实体对象Name</returns>
+        /// <exception cref="ArgumentNullException">编号为空</exception>
+        /// <exception cref="NullReferenceException">无该对象</exception>
+        public string GetName(string number)
+        {
+            return this.Single(number).Name;
+        }
+        #endregion
+
+        #region # 根据Id获取唯一实体对象Number —— string GetNumber(Guid id)
+        /// <summary>
+        /// 根据Id获取唯一实体对象Number
+        /// </summary>
+        /// <param name="id">Id</param>
+        /// <returns>实体对象Number</returns>
+        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="NullReferenceException">无该对象</exception>
+        public string GetNumber(Guid id)
+        {
+            return this.Single(id).Number;
+        }
+        #endregion
+
         #region # 获取默认或第一个实体对象 —— T FirstOrDefault()
         /// <summary>
         /// 获取默认或第一个实体对象，
@@ -281,6 +325,9 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
             return this.FindAllInner<TSub>().FirstOrDefault();
         }
         #endregion
+
+
+        //IEnumerable部分
 
         #region # 获取实体对象集合 —— IEnumerable<T> FindAll()
         /// <summary>
@@ -329,15 +376,15 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
-        #region # 根据编号集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<string> nos)
+        #region # 根据编号集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<string> numbers)
 
         /// <summary>
         /// 根据编号集获取实体对象集合
         /// </summary>
         /// <returns>实体对象集合</returns>
-        public IEnumerable<T> Find(IEnumerable<string> nos)
+        public IEnumerable<T> Find(IEnumerable<string> numbers)
         {
-            return this.Find(x => nos.Contains(x.Number)).AsEnumerable();
+            return this.Find(x => numbers.Contains(x.Number)).AsEnumerable();
         }
         #endregion
 
@@ -355,7 +402,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
-        #region # 根据关键字分页获取实体对象集合 + 输出记录条数与页数
+        #region # 根据关键字分页获取实体对象集合 + 输出记录条数与页数 —— IEnumerable<T> FindByPage(...
         /// <summary>
         /// 根据关键字获取实体对象集合 + 分页 + 输出记录条数与页数
         /// </summary>
@@ -375,7 +422,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
-        #region # 根据关键字分页获取子类对象集合 + 输出记录条数与页数
+        #region # 根据关键字分页获取子类对象集合 + 输出记录条数与页数 —— IEnumerable<TSub> FindByPage<TSub>(...
         /// <summary>
         /// 根据关键字分页获取子类对象集合 + 分页 + 输出记录条数与页数
         /// </summary>
@@ -396,6 +443,51 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
             return this.FindByPage<TSub>(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
         }
         #endregion
+
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary()
+        /// <summary>
+        /// 获取Id与Name字典
+        /// </summary>
+        /// <returns>Id与Name字典</returns>
+        /// <remarks>
+        /// IDictionary[Guid, string]，键：Id，值：Name
+        /// </remarks>
+        public IDictionary<Guid, string> FindDictionary()
+        {
+            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
+
+            foreach (T entity in this.FindAllInner())
+            {
+                dictionary.Add(entity.Id, entity.Name);
+            }
+
+            return dictionary;
+        }
+        #endregion
+
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary<TSub>()
+        /// <summary>
+        /// 获取Id与Name字典
+        /// </summary>
+        /// <returns>Id与Name字典</returns>
+        /// <remarks>
+        /// IDictionary[Guid, string]，键：Id，值：Name
+        /// </remarks>
+        public IDictionary<Guid, string> FindDictionary<TSub>() where TSub : T
+        {
+            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
+
+            foreach (TSub entity in this.FindAllInner<TSub>())
+            {
+                dictionary.Add(entity.Id, entity.Name);
+            }
+
+            return dictionary;
+        }
+        #endregion
+
+
+        //Count部分
 
         #region # 获取总记录条数 —— int Count()
         /// <summary>
@@ -418,6 +510,9 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
             return this.Count<TSub>(x => true);
         }
         #endregion
+
+
+        //Exists部分
 
         #region # 判断是否存在给定Id的实体对象 —— bool Exists(Guid id)
         /// <summary>
@@ -463,47 +558,47 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
-        #region # 判断是否存在给定编号的实体对象 —— bool Exists(string no)
+        #region # 判断是否存在给定编号的实体对象 —— bool Exists(string number)
         /// <summary>
         /// 判断是否存在给定编号的实体对象
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        public bool Exists(string no)
+        public bool Exists(string number)
         {
             #region # 验证参数
 
-            if (string.IsNullOrWhiteSpace(no))
+            if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("no", string.Format("{0}的编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
             }
 
             #endregion
 
-            return this.Exists(x => x.Number == no);
+            return this.Exists(x => x.Number == number);
         }
         #endregion
 
-        #region # 判断是否存在给定编号的子类对象 —— bool Exists<TSub>(string no)
+        #region # 判断是否存在给定编号的子类对象 —— bool Exists<TSub>(string number)
         /// <summary>
         /// 判断是否存在给定编号的子类对象
         /// </summary>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        public bool Exists<TSub>(string no) where TSub : T
+        public bool Exists<TSub>(string number) where TSub : T
         {
             #region # 验证参数
 
-            if (string.IsNullOrWhiteSpace(no))
+            if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("no", string.Format("{0}的编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
             }
 
             #endregion
 
-            return this.Exists<TSub>(x => x.Number == no);
+            return this.Exists<TSub>(x => x.Number == number);
         }
         #endregion
 
@@ -549,6 +644,9 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
+
+        //其他
+
         #region # 执行SQL查询 —— IEnumerable<T> ExecuteSqlQuery(string sql, params object[] parameters)
         /// <summary>
         /// 执行SQL查询
@@ -589,28 +687,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
         #region # Protected
 
-        #region # 获取实体对象集合 —— virtual IQueryable<T> FindAllInner()
-        /// <summary>
-        /// 获取实体对象集合
-        /// </summary>
-        /// <returns>实体对象集合</returns>
-        protected virtual IQueryable<T> FindAllInner()
-        {
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime);
-        }
-        #endregion
-
-        #region # 获取给定类型子类对象集合 —— IQueryable<TSub> FindAllInner<TSub>()
-        /// <summary>
-        /// 获取给定类型子类对象集合
-        /// </summary>
-        /// <typeparam name="TSub">子类类型</typeparam>
-        /// <returns>子类对象集合</returns>
-        protected IQueryable<TSub> FindAllInner<TSub>() where TSub : T
-        {
-            return this.FindAllInner().OfType<TSub>();
-        }
-        #endregion
+        //Single部分
 
         #region # 根据条件获取唯一实体对象（查看时用） —— T SingleOrDefault(Expression<Func<T, bool>> predicate)
         /// <summary>
@@ -719,6 +796,32 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
+
+        //IQueryable部分
+
+        #region # 获取实体对象集合 —— virtual IQueryable<T> FindAllInner()
+        /// <summary>
+        /// 获取实体对象集合
+        /// </summary>
+        /// <returns>实体对象集合</returns>
+        protected virtual IQueryable<T> FindAllInner()
+        {
+            return this._dbContext.Set<T>().Where(x => !x.Deleted).OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime);
+        }
+        #endregion
+
+        #region # 获取给定类型子类对象集合 —— IQueryable<TSub> FindAllInner<TSub>()
+        /// <summary>
+        /// 获取给定类型子类对象集合
+        /// </summary>
+        /// <typeparam name="TSub">子类类型</typeparam>
+        /// <returns>子类对象集合</returns>
+        protected IQueryable<TSub> FindAllInner<TSub>() where TSub : T
+        {
+            return this.FindAllInner().OfType<TSub>();
+        }
+        #endregion
+
         #region # 根据条件获取实体对象集合 —— IQueryable<T> Find(Expression<Func<T, bool>> predicate)
         /// <summary>
         /// 根据条件获取实体对象集合
@@ -822,7 +925,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
-        #region # 根据条件分页获取实体对象集合 + 输出记录条数与页数
+        #region # 根据条件分页获取实体对象集合 + 输出记录条数与页数 —— IQueryable<T> FindByPage(...
         /// <summary>
         /// 根据条件获取实体对象集合 + 分页 + 输出记录条数与页数
         /// </summary>
@@ -840,7 +943,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
-        #region # 根据条件分页获取子类对象集合 + 输出记录条数与页数
+        #region # 根据条件分页获取子类对象集合 + 输出记录条数与页数 —— IQueryable<TSub> FindByPage<TSub>(...
         /// <summary>
         /// 根据条件分页获取子类对象集合 + 分页 + 输出记录条数与页数
         /// </summary>
@@ -858,6 +961,53 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
             return this.FindAllInner<TSub>().ToPage(predicate, pageIndex, pageSize, out rowCount, out pageCount);
         }
         #endregion
+
+        #region # 获取给定条件的Id与Name字典 —— IDictionary<Guid, string> FindDictionary(Expression...
+        /// <summary>
+        /// 获取给定条件的Id与Name字典
+        /// </summary>
+        /// <param name="predicate">条件表达式</param>
+        /// <returns>Id与Name字典</returns>
+        /// <remarks>
+        /// IDictionary[Guid, string]，键：Id，值：Name
+        /// </remarks>
+        protected IDictionary<Guid, string> FindDictionary(Expression<Func<T, bool>> predicate)
+        {
+            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
+
+            foreach (T entity in this.Find(predicate))
+            {
+                dictionary.Add(entity.Id, entity.Name);
+            }
+
+            return dictionary;
+        }
+        #endregion
+
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary<TSub>(Expression...
+        /// <summary>
+        /// 获取给定条件的Id与Name字典
+        /// </summary>
+        /// <param name="predicate">条件表达式</param>
+        /// <returns>Id与Name字典</returns>
+        /// <remarks>
+        /// IDictionary[Guid, string]，键：Id，值：Name
+        /// </remarks>
+        protected IDictionary<Guid, string> FindDictionary<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
+        {
+            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
+
+            foreach (TSub entity in this.Find<TSub>(predicate))
+            {
+                dictionary.Add(entity.Id, entity.Name);
+            }
+
+            return dictionary;
+        }
+        #endregion
+
+
+        //Count部分
 
         #region # 根据条件获取记录条数 —— int Count(Expression<Func<T, bool>> predicate)
         /// <summary>
@@ -904,6 +1054,9 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
             return this.FindAllInner<TSub>().Count(predicate);
         }
         #endregion
+
+
+        //Exists部分
 
         #region # 判断是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> predicate)
         /// <summary>
