@@ -1,6 +1,5 @@
 ﻿using System.ServiceModel;
 using ShSoft.Framework2016.Infrastructure.StubIAppService.Interfaces;
-using ShSoft.Framework2016.Infrastructure.WCF.IOC;
 using ShSoft.Framework2016.Infrastructure.WCFTests.Interfaces;
 
 namespace ShSoft.Framework2016.Infrastructure.WCFTests.Implements
@@ -9,7 +8,6 @@ namespace ShSoft.Framework2016.Infrastructure.WCFTests.Implements
     /// 订单服务契约实现
     /// </summary>
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
-    [IocServiceBehavior]
     public class OrderContract : IOrderContract
     {
         /// <summary>

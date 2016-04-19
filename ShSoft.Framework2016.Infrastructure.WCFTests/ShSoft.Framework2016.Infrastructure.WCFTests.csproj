@@ -83,9 +83,9 @@
       <Project>{04BFA4D7-86C8-4341-B34C-3F1D88D19827}</Project>
       <Name>ShSoft.Framework2016.Infrastructure.StubIAppService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.WCF\ShSoft.Framework2016.Infrastructure.WCF.csproj">
+    <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.WCF.IOC\ShSoft.Framework2016.Infrastructure.WCF.IOC.csproj">
       <Project>{ee338374-786d-4136-8f24-5ebd2ef7f02e}</Project>
-      <Name>ShSoft.Framework2016.Infrastructure.WCF</Name>
+      <Name>ShSoft.Framework2016.Infrastructure.WCF.IOC</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure\ShSoft.Framework2016.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>

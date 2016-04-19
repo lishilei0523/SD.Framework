@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
@@ -10,7 +9,7 @@ namespace ShSoft.Framework2016.Infrastructure.WCF.IOC
     /// <summary>
     /// WCF依赖注入特性类
     /// </summary>
-    public class IocServiceBehavior : Attribute, IServiceBehavior
+    internal class IocServiceBehavior : IServiceBehavior
     {
         #region # 适用依赖注入 —— void ApplyDispatchBehavior(ServiceDescription serviceDescription...
         /// <summary>
