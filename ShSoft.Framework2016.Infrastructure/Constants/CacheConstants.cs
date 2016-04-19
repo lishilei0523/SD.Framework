@@ -20,5 +20,20 @@
         /// 会话Id缓存键
         /// </summary>
         public const string SessionIdKey = "SessionIdKey";
+
+        /// <summary>
+        /// 公钥Session键
+        /// </summary>
+        public const string PublishKeySessionKey = "PublishKeySessionKey";
+
+        /// <summary>
+        /// WCF身份认证消息头名称
+        /// </summary>
+        public const string WcfAuthHeaderName = "WcfAuthHeaderName";
+
+        /// <summary>
+        /// WCF身份认证消息头Ns
+        /// </summary>
+        public const string WcfAuthHeaderNs = "WcfAuthHeaderNs";
     }
 }
