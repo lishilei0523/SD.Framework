@@ -128,14 +128,13 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.MVC\ShSoft.Framework2016.Infrastructure.MVC.csproj">
+    <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.MVC.IOC\ShSoft.Framework2016.Infrastructure.MVC.IOC.csproj">
       <Project>{be9a8e04-faf7-47e4-951a-416c7cc2c089}</Project>
-      <Name>ShSoft.Framework2016.Infrastructure.MVC</Name>
+      <Name>ShSoft.Framework2016.Infrastructure.MVC.IOC</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.StubAppService\ShSoft.Framework2016.Infrastructure.StubAppService.csproj">
       <Project>{a9f7d041-ecf8-434d-b083-5f57ad348564}</Project>
