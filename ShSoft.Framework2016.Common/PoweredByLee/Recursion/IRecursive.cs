@@ -5,7 +5,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee.Recursion
     /// <summary>
     /// 可递归接口
     /// </summary>
-    public interface IRecursive<T>
+    public interface IRecursive
     {
         #region 是否是根级节点 —— bool IsRoot
         /// <summary>
@@ -20,7 +20,13 @@ namespace ShSoft.Framework2016.Common.PoweredByLee.Recursion
         /// </summary>
         bool IsLeaf { get; }
         #endregion
+    }
 
+    /// <summary>
+    /// 可递归接口（泛型）
+    /// </summary>
+    public interface IRecursive<T> : IRecursive
+    {
         #region 父节点 —— IRecursion ParentNode
         /// <summary>
         /// 父节点

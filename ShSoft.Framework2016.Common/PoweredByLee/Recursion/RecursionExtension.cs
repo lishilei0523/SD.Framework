@@ -30,7 +30,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee.Recursion
         }
         #endregion
 
-        #region # 尾递归扩展方法 —— static void TailRecursion<T>(this IEnumerable<T> nodes, HashSet<T> collection)
+        #region # 尾递归扩展方法 —— static void TailRecursion<T>(this IEnumerable<T> nodes...
         /// <summary>
         /// 尾递归扩展方法，
         /// 自下向上递归

@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Net.Sockets;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 using System.Xml.Serialization;
-using AutoMapper;
 using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.PanGu;
 using Newtonsoft.Json;
@@ -401,7 +401,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             foreach (IPAddress ip in addressList)
             {
-                if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
                 {
                     buid.Append(ip + ";");
                 }

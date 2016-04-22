@@ -33,6 +33,8 @@ namespace ShSoft.Framework2016.Infrastructure.WCF.IOC
         }
         #endregion
 
+
+        //没有用
         public void AddBindingParameters(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase, Collection<ServiceEndpoint> endpoints, BindingParameterCollection bindingParameters) { }
         public void Validate(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase) { }
     }

@@ -12,10 +12,10 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         #region 01.读取文件方法 —— static string ReadFile(string path)
         /// <summary>
         /// 读取文件方法
-        /// 异常：ArgumentNullException
         /// </summary>
         /// <param name="path">路径</param>
         /// <returns>内容字符串</returns>
+        /// <exception cref="ArgumentNullException">路径为空</exception>
         public static string ReadFile(string path)
         {
             #region # 验证参数
@@ -47,11 +47,11 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         #region 02.写入文件方法 —— static bool WriteFile(string path, string content)
         /// <summary>
         /// 写入文件方法
-        /// 异常：ArgumentNullException
         /// </summary>
         /// <param name="path">路径</param>
         /// <param name="content">内容</param>
         /// <returns>写入结果</returns>
+        /// <exception cref="ArgumentNullException">路径为空</exception>
         public static bool WriteFile(string path, string content)
         {
             #region # 验证参数

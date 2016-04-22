@@ -26,8 +26,8 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         public static IEnumerable<T> ToPage<T>(this IEnumerable<T> enumerable, Func<T, bool> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount)
             where T : PlainEntity
         {
-            IEnumerable<T> list = enumerable.Where(predicate);
-            rowCount = list.Count();
+            T[] list = enumerable.Where(predicate).ToArray();
+            rowCount = list.Length;
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
             return list.OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }

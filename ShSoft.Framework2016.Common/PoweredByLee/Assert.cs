@@ -100,21 +100,6 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         }
         #endregion
 
-        #region # 断言集合为空 —— void IsEmpty<T>(IEnumerable<T> enumerable, string errorMessage = null)
-        /// <summary>
-        /// 断言集合为空
-        /// </summary>
-        /// <param name="enumerable">集合</param>
-        /// <param name="errorMessage">错误消息</param>
-        public static void IsEmpty<T>(IEnumerable<T> enumerable, string errorMessage = null)
-        {
-            if (!enumerable.IsNullOrEmpty())
-            {
-                throw new AssertFailedException(errorMessage);
-            }
-        }
-        #endregion
-
         #region # 断言集合不为空 —— void IsNotEmpty<T>(IEnumerable<T> enumerable, string errorMessage = null)
         /// <summary>
         /// 断言集合不为空
