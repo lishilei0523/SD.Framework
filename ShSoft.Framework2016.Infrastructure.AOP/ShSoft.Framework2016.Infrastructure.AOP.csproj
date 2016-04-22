@@ -49,7 +49,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SD.AOP.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SD.AOP.Core.1.0.0.0\lib\net45\SD.AOP.Core.dll</HintPath>
+      <HintPath>..\packages\SD.AOP.Core.1.0.2\lib\net45\SD.AOP.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -64,10 +64,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShSoft.Framework2016.Common\ShSoft.Framework2016.Common.csproj">
-      <Project>{37402463-F73A-4788-B9DE-5C57EC18604F}</Project>
-      <Name>ShSoft.Framework2016.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure\ShSoft.Framework2016.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
       <Name>ShSoft.Framework2016.Infrastructure</Name>
