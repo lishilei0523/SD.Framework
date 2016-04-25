@@ -1,4 +1,5 @@
-﻿using System.Transactions;
+﻿using System.Threading.Tasks;
+using System.Transactions;
 using ShSoft.Framework2016.Infrastructure.DomainEvent.Mediator;
 using ShSoft.Framework2016.Infrastructure.IRepository;
 
@@ -46,6 +47,15 @@ namespace ShSoft.Framework2016.Infrastructure.Global.Transaction
                 }
                 throw;
             }
+        }
+
+        /// <summary>
+        /// UnitOfWork联合提交（包含处理领域事件）异步扩展方法
+        /// </summary>
+        /// <param name="unitOfWork">工作单元实例</param>
+        public static async Task UnitedCommitAsync(this IUnitOfWork unitOfWork)
+        {
+            await Task.Run(() => UnitedCommit(unitOfWork));
         }
     }
 }

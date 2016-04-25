@@ -4,6 +4,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using ShSoft.Framework2016.Infrastructure.IEntity;
 using ShSoft.Framework2016.Infrastructure.IRepository;
 using ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider.Base;
@@ -408,6 +409,25 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
             {
                 //提交事务
                 this._dbContext.SaveChanges();
+            }
+            catch
+            {
+                this.RollBack();
+                throw;
+            }
+        }
+        #endregion
+
+        #region # 统一事务处理保存更改（异步） —— async Task CommitAsync()
+        /// <summary>
+        /// 统一事务处理保存更改（异步）
+        /// </summary>
+        public async Task CommitAsync()
+        {
+            try
+            {
+                //提交事务
+                await this._dbContext.SaveChangesAsync();
             }
             catch
             {

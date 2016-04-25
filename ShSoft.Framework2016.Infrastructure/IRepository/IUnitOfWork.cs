@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using ShSoft.Framework2016.Infrastructure.IEntity;
 
 namespace ShSoft.Framework2016.Infrastructure.IRepository
@@ -163,6 +164,13 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         /// 统一事务处理保存更改
         /// </summary>
         void Commit();
+        #endregion
+
+        #region # 统一事务处理保存更改（异步） —— Task CommitAsync()
+        /// <summary>
+        /// 统一事务处理保存更改（异步）
+        /// </summary>
+        Task CommitAsync();
         #endregion
 
         #region # 统一事务回滚取消更改 —— void RollBack()
