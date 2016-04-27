@@ -13,12 +13,12 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
     /// </summary>
     public static class ExcelAssistant
     {
-        #region 01.读取Excel并转换为给定类型数组 —— static T[] ReadFile<T>(string path, int sheetIndex, int rowIndex)
+        #region # 读取Excel并转换为给定类型数组 —— static T[] ReadFile<T>(string path, int sheetIndex...
         /// <summary>
         /// 读取Excel并转换为给定类型数组
         /// </summary>
         /// <param name="path">读取路径</param>
-        /// <param name="sheetIndex">工作簿索引</param>
+        /// <param name="sheetIndex">工作表索引</param>
         /// <param name="rowIndex">行索引</param>
         /// <returns>给定类型数组</returns>
         public static T[] ReadFile<T>(string path, int sheetIndex, int rowIndex)
@@ -29,17 +29,14 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             {
                 throw new ArgumentNullException("path", @"文件路径不可为空！");
             }
-
             if (Path.GetExtension(path) != ".xls")
             {
                 throw new ArgumentOutOfRangeException("path", @"文件格式不正确！");
             }
-
             if (sheetIndex < 0)
             {
-                throw new ArgumentOutOfRangeException("sheetIndex", @"工作簿索引不可为负数！");
+                throw new ArgumentOutOfRangeException("sheetIndex", @"工作表索引不可为负数！");
             }
-
             if (rowIndex < 0)
             {
                 throw new ArgumentOutOfRangeException("rowIndex", @"行索引不可为负数！");
@@ -47,16 +44,11 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             #endregion
 
-            List<T> list = new List<T>();
             //01.创建文件流
             using (FileStream fsRead = File.OpenRead(path))
             {
                 //02.创建工作薄
                 IWorkbook workbook = new HSSFWorkbook(fsRead);
-                //03.读取给定工作簿
-
-                ISheet sheet = workbook.GetSheetAt(sheetIndex);
-                //04.读取sheet中除标题外的每一行
 
                 #region # 验证逻辑
 
@@ -65,29 +57,60 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
                     throw new InvalidOperationException("给定工作簿索引超出了Excel有效工作簿数！");
                 }
 
-                if (rowIndex > sheet.LastRowNum)
-                {
-                    throw new InvalidOperationException("给定行索引超出了Excel有效行数！");
-                }
-
                 #endregion
 
-                for (int i = rowIndex; i <= sheet.LastRowNum; i++)
-                {
-                    Type sourceType = typeof(T);
-                    T sourceObj = (T)Activator.CreateInstance(sourceType);
-                    PropertyInfo[] properties = sourceType.GetProperties();
+                //03.读取给定工作表
+                ISheet sheet = workbook.GetSheetAt(sheetIndex);
 
-                    //读取每行并为对象赋值
-                    FillInstanceValue(sheet, i, properties, sourceObj);
-                    list.Add(sourceObj);
-                }
-                return list.ToArray();
+                //04.返回集合
+                return SheetToArray<T>(sheet, rowIndex);
             }
         }
         #endregion
 
-        #region 02.读取Excel并转换为给定类型数组 —— static T[] ReadFile<T>(string path)
+        #region # 读取Excel并转换为给定类型数组 —— static T[] ReadFile<T>(string path, string...
+        /// <summary>
+        /// 读取Excel并转换为给定类型数组
+        /// </summary>
+        /// <param name="path">读取路径</param>
+        /// <param name="sheetName">工作表名称</param>
+        /// <param name="rowIndex">行索引</param>
+        /// <returns>给定类型数组</returns>
+        public static T[] ReadFile<T>(string path, string sheetName, int rowIndex)
+        {
+            #region # 验证参数
+
+            if (string.IsNullOrWhiteSpace(path))
+            {
+                throw new ArgumentNullException("path", @"文件路径不可为空！");
+            }
+            if (Path.GetExtension(path) != ".xls")
+            {
+                throw new ArgumentOutOfRangeException("path", @"文件格式不正确！");
+            }
+            if (rowIndex < 0)
+            {
+                throw new ArgumentOutOfRangeException("rowIndex", @"行索引不可为负数！");
+            }
+
+            #endregion
+
+            //01.创建文件流
+            using (FileStream fsRead = File.OpenRead(path))
+            {
+                //02.创建工作薄
+                IWorkbook workbook = new HSSFWorkbook(fsRead);
+
+                //03.读取给定工作表
+                ISheet sheet = workbook.GetSheet(sheetName);
+
+                //04.返回集合
+                return SheetToArray<T>(sheet, rowIndex);
+            }
+        }
+        #endregion
+
+        #region # 读取Excel并转换为给定类型数组 —— static T[] ReadFile<T>(string path)
         /// <summary>
         /// 读取Excel并转换为给定类型数组
         /// </summary>
@@ -100,7 +123,43 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         }
         #endregion
 
-        #region 03.将集合写入Excel —— static void WriteFile<T>(IEnumerable<T> list, string path)
+        #region # 将工作表数据填充至数组 —— static T[] SheetToArray<T>(ISheet sheet, int rowIndex)
+        /// <summary>
+        /// 将工作表数据填充至数组
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="sheet">工作表</param>
+        /// <param name="rowIndex">行索引</param>
+        /// <returns>泛型集合</returns>
+        private static T[] SheetToArray<T>(ISheet sheet, int rowIndex)
+        {
+            #region # 验证逻辑
+
+            if (rowIndex > sheet.LastRowNum)
+            {
+                throw new InvalidOperationException("给定行索引超出了Excel有效行数！");
+            }
+
+            #endregion
+
+            ICollection<T> collection = new List<T>();
+
+            //读取给定行索引后的每一行
+            for (int index = rowIndex; index <= sheet.LastRowNum; index++)
+            {
+                Type sourceType = typeof(T);
+                T sourceObj = (T)Activator.CreateInstance(sourceType);
+                PropertyInfo[] properties = sourceType.GetProperties();
+
+                //读取每行并为对象赋值
+                FillInstanceValue(sheet, index, properties, sourceObj);
+                collection.Add(sourceObj);
+            }
+            return collection.ToArray();
+        }
+        #endregion
+
+        #region # 将集合写入Excel —— static void WriteFile<T>(IEnumerable<T> list, string path)
         /// <summary>
         /// 将集合写入Excel
         /// </summary>
@@ -138,7 +197,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         }
         #endregion
 
-        #region 04.将集合写入Excel，并返回内存流 —— static Stream WriteStream<T>(IEnumerable<T> list)
+        #region # 将集合写入Excel，并返回内存流 —— static Stream WriteStream<T>(IEnumerable<T> list)
         /// <summary>
         /// 将集合写入Excel，并返回内存流
         /// </summary>
@@ -164,7 +223,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         }
         #endregion
 
-        #region 05.创建工作簿 —— static IWorkbook CreateWorkbook<T>(IEnumerable<T> list)
+        #region # 创建工作簿 —— static IWorkbook CreateWorkbook<T>(IEnumerable<T> list)
         /// <summary>
         /// 创建工作簿
         /// </summary>
@@ -189,7 +248,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         }
         #endregion
 
-        #region 06.读取每一行，并填充对象属性值 —— static void FillInstanceValue<T>(ISheet sheet, int index...
+        #region # 读取每一行，并填充对象属性值 —— static void FillInstanceValue<T>(ISheet sheet, int index...
         /// <summary>
         /// 读取每一行，并填充对象属性值
         /// </summary>
@@ -250,7 +309,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         }
         #endregion
 
-        #region 07.创建标题行 —— static void CreateTitleRow<T>(IEnumerable<T> list, IRow rowTitle)
+        #region # 创建标题行 —— static void CreateTitleRow<T>(IEnumerable<T> list, IRow rowTitle)
         /// <summary>
         /// 创建标题行
         /// </summary>
@@ -271,7 +330,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         }
         #endregion
 
-        #region 08.创建数据行 —— static void CreateDataRows<T>(IEnumerable<T> list, ISheet sheet)
+        #region # 创建数据行 —— static void CreateDataRows<T>(IEnumerable<T> list, ISheet sheet)
         /// <summary>
         /// 创建数据行
         /// </summary>
@@ -333,8 +392,10 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         }
         #endregion
 
-        #region 09.创建自定义工作簿
-        private static IWorkbook _customerWorkbook = null;
+        #region # 创建自定义工作簿
+
+
+        private static IWorkbook _CustomerWorkbook;
 
         /// <summary>
         /// 第一步：创建一个空工作簿
@@ -342,7 +403,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns></returns>
         public static void CreateCustomeWorkbook()
         {
-            _customerWorkbook = new HSSFWorkbook();
+            _CustomerWorkbook = new HSSFWorkbook();
         }
 
 
@@ -355,7 +416,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         {
             sheetNames.ForEach(x =>
             {
-                _customerWorkbook.CreateSheet(x);
+                _CustomerWorkbook.CreateSheet(x);
             });
         }
 
@@ -366,9 +427,9 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns></returns>
         public static void CreateTitleRows(List<string> rowTitles)
         {
-            for (int i = 0; i < _customerWorkbook.NumberOfSheets; i++)
+            for (int i = 0; i < _CustomerWorkbook.NumberOfSheets; i++)
             {
-                IRow rowTitle = _customerWorkbook.GetSheetAt(i).CreateRow(0);
+                IRow rowTitle = _CustomerWorkbook.GetSheetAt(i).CreateRow(0);
                 for (int j = 0; j < rowTitles.Count; j++)
                 {
                     rowTitle.CreateCell(j).SetCellValue(rowTitles[j]);
@@ -385,7 +446,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         {
             for (int i = 0; i < data.Count; i++)
             {
-                ISheet sheet = _customerWorkbook.GetSheetAt(i);
+                ISheet sheet = _CustomerWorkbook.GetSheetAt(i);
                 CreateDataRows(data[i], sheet);
             }
         }
@@ -397,7 +458,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         {
             //写入文件
             Stream stream = new MemoryStream();
-            _customerWorkbook.Write(stream);
+            _CustomerWorkbook.Write(stream);
             return stream;
         }
         /// <summary>
@@ -406,11 +467,10 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns></returns>
         public static IWorkbook GetCustomerWorkBook()
         {
-            return _customerWorkbook;
+            return _CustomerWorkbook;
         }
 
 
         #endregion
-
     }
 }
