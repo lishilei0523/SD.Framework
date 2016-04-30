@@ -65,11 +65,12 @@
     <Compile Include="PoweredByLee\FileAssistant.cs" />
     <Compile Include="PoweredByLee\ImageAssistant.cs" />
     <Compile Include="PoweredByLee\NumbericExtension.cs" />
+    <Compile Include="PoweredByLee\ObjectExtension.cs" />
     <Compile Include="PoweredByLee\PathExtension.cs" />
-    <Compile Include="PoweredByLee\Recursion\IRecursive.cs" />
-    <Compile Include="PoweredByLee\Recursion\RecursionExtension.cs" />
     <Compile Include="PoweredByLee\ReflectionExtension.cs" />
     <Compile Include="PoweredByLee\SqlHelper.cs" />
+    <Compile Include="PoweredByLee\StreamExtension.cs" />
+    <Compile Include="PoweredByLee\StringExtension.cs" />
     <Compile Include="PoweredByLee\Transform.cs" />
     <Compile Include="PoweredByLee\ValidCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
