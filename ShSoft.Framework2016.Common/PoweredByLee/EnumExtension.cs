@@ -69,16 +69,36 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         }
         #endregion
 
-        #region # 将String值转换成可空的枚举 —— static T? GetEnum<T>(this string enumValue)
+        #region # 将字符串转换成可空的枚举 —— static T? GetEnum<T>(this string enumStr)
         /// <summary>
-        /// 将String值转换成可空的枚举 
+        /// 将字符串转换成可空的枚举
         /// </summary>
-        /// <param name="enumValue">枚举的string值</param>
         /// <typeparam name="T">枚举类型</typeparam>
-        /// <returns>可空的枚举对象</returns>
-        public static T? GetEnum<T>(this string enumValue) where T : struct
+        /// <param name="enumStr">枚举的字符串值</param>
+        /// <returns>可空的枚举值</returns>
+        public static T? GetEnum<T>(this string enumStr) where T : struct
         {
-            return string.IsNullOrEmpty(enumValue) ? (T?)null : (T)(Enum.Parse(typeof(T), enumValue));
+            #region # 验证参数
+
+            if (string.IsNullOrWhiteSpace(enumStr))
+            {
+                return null;
+            }
+            if (typeof(T).IsSubclassOf(typeof(Enum)))
+            {
+                throw new ArgumentOutOfRangeException(string.Format("类型\"{0}\"不是枚举类型！", typeof(T).Name));
+            }
+
+            #endregion
+
+            T @enum;
+
+            if (!Enum.TryParse(enumStr, out @enum))
+            {
+                throw new InvalidCastException(string.Format("无法将给定字符串\"{0}\"转换为枚举\"{1}\"！", enumStr, typeof(T).Name));
+            }
+
+            return @enum;
         }
         #endregion
 

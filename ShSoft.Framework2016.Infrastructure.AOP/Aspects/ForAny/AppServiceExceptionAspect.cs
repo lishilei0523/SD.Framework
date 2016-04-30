@@ -1,7 +1,7 @@
 ﻿using System;
 using PostSharp.Aspects;
 using SD.AOP.Core.Aspects.ForAny;
-using ShSoft.Framework2016.Common.PoweredByLee;
+using SD.AOP.Core.Toolkits;
 using ShSoft.Framework2016.Infrastructure.CustomExceptions;
 
 namespace ShSoft.Framework2016.Infrastructure.AOP.Aspects.ForAny

@@ -69,6 +69,10 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             #endregion
 
+            //转数组
+            sourceList = sourceList.ToArray();
+            targetList = targetList.ToArray();
+
             #region 01.长度对比
 
             //长度不相等
@@ -136,12 +140,12 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             if (sourceDict == null)
             {
-                throw new ArgumentNullException("sourceDict", string.Format(@"源{0}字典对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException("sourceDict", "源字典对象不可为空！");
             }
 
             if (targetDict == null)
             {
-                throw new ArgumentNullException("targetDict", string.Format(@"目标{0}字典对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException("targetDict", "目标字典对象不可为空！");
             }
 
             #endregion
@@ -303,7 +307,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             #endregion
 
-            IEnumerable<T> list = enumerable.Where(predicate);
+            T[] list = enumerable.Where(predicate).ToArray();
             rowCount = list.Count();
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
             return list.OrderByDescending(keySelectorOne).ThenByDescending(keySelectorTwo).Skip((pageIndex - 1) * pageSize).Take(pageSize);

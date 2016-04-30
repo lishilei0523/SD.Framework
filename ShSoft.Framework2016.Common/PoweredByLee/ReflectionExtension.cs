@@ -9,6 +9,15 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
     /// </summary>
     public static class ReflectionExtension
     {
+        #region # 常量
+
+        /// <summary>
+        /// 分隔符
+        /// </summary>
+        private const string Separator = "/";
+
+        #endregion
+
         #region # 获取方法路径 —— string GetMethodPath(this MethodBase method)
         /// <summary>
         /// 获取方法路径
@@ -30,13 +39,13 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             string @namespace = method.DeclaringType.Namespace;
             string className = method.DeclaringType.Name;
 
-            StringBuilder pathBuilder = new StringBuilder("/");
+            StringBuilder pathBuilder = new StringBuilder(Separator);
             pathBuilder.Append(assemblyName);
-            pathBuilder.Append("/");
+            pathBuilder.Append(Separator);
             pathBuilder.Append(@namespace);
-            pathBuilder.Append("/");
+            pathBuilder.Append(Separator);
             pathBuilder.Append(className);
-            pathBuilder.Append("/");
+            pathBuilder.Append(Separator);
             pathBuilder.Append(method.Name);
 
             return pathBuilder.ToString();

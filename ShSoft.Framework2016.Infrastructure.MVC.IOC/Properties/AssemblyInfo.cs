@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("ShSoft.Framework2016.Infrastructure.MVC")]
-[assembly: AssemblyDescription("基础设施 - MVC基础")]
+[assembly: AssemblyTitle("ShSoft.Framework2016.Infrastructure.MVC.IOC")]
+[assembly: AssemblyDescription("基础设施 - MVC依赖注入基础")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("山河软件")]
-[assembly: AssemblyProduct("ShSoft.Framework2016.Infrastructure.MVC")]
+[assembly: AssemblyProduct("ShSoft.Framework2016.Infrastructure.MVC.IOC")]
 [assembly: AssemblyCopyright("Copyright © ShSoft 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
