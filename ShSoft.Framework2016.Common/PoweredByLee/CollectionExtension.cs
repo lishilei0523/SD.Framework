@@ -4,7 +4,6 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using NPOI.SS.Formula.Functions;
 
 namespace ShSoft.Framework2016.Common.PoweredByLee
 {
