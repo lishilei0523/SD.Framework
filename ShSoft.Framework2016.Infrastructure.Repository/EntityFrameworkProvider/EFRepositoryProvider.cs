@@ -66,7 +66,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             #endregion
 
-            return this.SingleOrDefault(x => x.Id == id); ;
+            return this.SingleOrDefault(x => x.Id == id);
         }
         #endregion
 
@@ -112,7 +112,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             #endregion
 
-            return this.SingleOrDefault(x => x.Number == number); ;
+            return this.SingleOrDefault(x => x.Number == number); 
         }
         #endregion
 
@@ -135,7 +135,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             #endregion
 
-            return this.SingleOrDefault<TSub>(x => x.Number == number); ;
+            return this.SingleOrDefault<TSub>(x => x.Number == number); 
         }
         #endregion
 
@@ -258,7 +258,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             #endregion
 
-            return this.SingleOrDefault(x => x.Name == name); ;
+            return this.SingleOrDefault(x => x.Name == name); 
         }
         #endregion
 
@@ -398,7 +398,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         {
             Expression<Func<TSub, bool>> condition =
                 x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
-            return this.Find<TSub>(condition).AsEnumerable();
+            return this.Find(condition).AsEnumerable();
         }
         #endregion
 
@@ -440,7 +440,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         {
             Expression<Func<TSub, bool>> condition =
                 x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
-            return this.FindByPage<TSub>(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
+            return this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
         }
         #endregion
 
@@ -792,7 +792,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             #endregion
 
-            return this.Find<TSub>(predicate).FirstOrDefault();
+            return this.Find(predicate).FirstOrDefault();
         }
         #endregion
 
@@ -893,7 +893,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<Guid> FindIds<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
-            return this.Find<TSub>(predicate).Select(x => x.Id);
+            return this.Find(predicate).Select(x => x.Id);
         }
         #endregion
 
@@ -921,7 +921,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<string> FindNos<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
-            return this.Find<TSub>(predicate).Select(x => x.Number);
+            return this.Find(predicate).Select(x => x.Number);
         }
         #endregion
 
@@ -997,7 +997,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         {
             IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
 
-            foreach (TSub entity in this.Find<TSub>(predicate))
+            foreach (TSub entity in this.Find(predicate))
             {
                 dictionary.Add(entity.Id, entity.Name);
             }
