@@ -64,6 +64,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 - Documentations", "00 -
 		ShSoft.Framework2016.Documentations\ShSoft.FrameworkTemplate.Extension.vsix = ShSoft.Framework2016.Documentations\ShSoft.FrameworkTemplate.Extension.vsix
 		ShSoft.Framework2016.Documentations\ShSoft.FrameworkTemplate.zip = ShSoft.Framework2016.Documentations\ShSoft.FrameworkTemplate.zip
 		ShSoft.Framework2016.Documentations\基于此框架的项目架构图.vsd = ShSoft.Framework2016.Documentations\基于此框架的项目架构图.vsd
+		ShSoft.Framework2016.Documentations\基于此框架的项目架构图.vsdx = ShSoft.Framework2016.Documentations\基于此框架的项目架构图.vsdx
 		ShSoft.Framework2016.Documentations\开发规范.doc = ShSoft.Framework2016.Documentations\开发规范.doc
 		ShSoft.Framework2016.Documentations\解决方案模板使用说明.doc = ShSoft.Framework2016.Documentations\解决方案模板使用说明.doc
 	EndProjectSection
