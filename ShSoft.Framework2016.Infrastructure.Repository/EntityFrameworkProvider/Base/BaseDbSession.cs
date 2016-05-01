@@ -20,12 +20,12 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         /// <summary>
         /// EF（写）上下文对象缓存键
         /// </summary>
-        public const string CommandInstanceKey = "CommandInstance";
+        internal const string CommandInstanceKey = "CommandInstance";
 
         /// <summary>
         /// EF（读）上下文对象缓存键
         /// </summary>
-        public const string QueryInstanceKey = "QueryInstance";
+        internal const string QueryInstanceKey = "QueryInstance";
 
         #endregion
 

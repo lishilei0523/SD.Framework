@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using ShSoft.Framework2016.Infrastructure.Constants;
+using ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorer.Migrations;
 using ShSoft.Framework2016.Infrastructure.IDomainEvent;
 
 namespace ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorer.Provider
@@ -14,15 +15,26 @@ namespace ShSoft.Framework2016.Infrastructure.DomainEvent.EFStorer.Provider
     /// <summary>
     /// 领域事件存储者 - EF提供者
     /// </summary>
-    public abstract class EntityFrameworkStorerProvider : DbContext, IDomainEventStorer
+    public class EntityFrameworkStorerProvider : DbContext, IDomainEventStorer
     {
         #region # 构造器
+
+        #region 00.静态构造器
+        /// <summary>
+        /// 静态构造器
+        /// </summary>
+        static EntityFrameworkStorerProvider()
+        {
+            //数据迁移
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<EntityFrameworkStorerProvider, Configuration>());
+        }
+        #endregion
 
         #region 01.基础构造器
         /// <summary>
         /// 基础构造器
         /// </summary>
-        protected EntityFrameworkStorerProvider()
+        public EntityFrameworkStorerProvider()
             : base(CommonConstants.EventDbContextConstructArg)
         {
             this.Database.CreateIfNotExists();

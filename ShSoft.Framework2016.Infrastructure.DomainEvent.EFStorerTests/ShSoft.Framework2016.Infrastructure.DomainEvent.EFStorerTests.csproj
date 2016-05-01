@@ -56,8 +56,6 @@
     <Compile Include="EventHandlers\ProductCreatedEventHandler.cs" />
     <Compile Include="EventSources\ProductCreatedEvent.cs" />
     <Compile Include="EventSources\ProductCreatingEvent.cs" />
-    <Compile Include="EventStorer\EntityFrameworkStorer.cs" />
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
