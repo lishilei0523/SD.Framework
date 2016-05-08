@@ -26,41 +26,13 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
         #endregion
 
-        #region # 生成验证码图片（返回字节数组） —— static byte[] Generate(int length)
+        #region # 生成验证码字符串 —— string GenerateCode(int length)
         /// <summary>
-        /// 生成验证码图片（返回字节数组）
-        /// </summary>
-        /// <param name="length">验证码长度</param>
-        /// <returns>验证码图片序列化后的字节数组</returns>
-        public static byte[] Generate(int length)
-        {
-            string validCode = GetCode(length);
-
-            Bitmap image = new Bitmap((int)Math.Ceiling(validCode.Length * 12.0), 22);
-            Graphics graphic = Graphics.FromImage(image);
-            try
-            {
-                //绘制验证码
-                MemoryStream stream = DrawValidCode(validCode, graphic, image);
-
-                //输出图片流
-                return stream.ToArray();
-            }
-            finally
-            {
-                graphic.Dispose();
-                image.Dispose();
-            }
-        }
-        #endregion
-
-        #region # 获取验证码字符串 —— string GetCode(int length)
-        /// <summary>
-        /// 获取验证码字符串
+        /// 生成验证码字符串
         /// </summary>
         /// <param name="length">字符串长度</param>
         /// <returns>验证码字符串</returns>
-        private static string GetCode(int length)
+        public static string GenerateCode(int length)
         {
             #region # 验证参数
 
@@ -116,6 +88,32 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             }
 
             return validCodeBuilder.ToString();
+        }
+        #endregion
+
+        #region # 生成验证码图片（返回字节数组） —— static byte[] GenerateStream(string validCode)
+        /// <summary>
+        /// 生成验证码图片（返回字节数组）
+        /// </summary>
+        /// <param name="validCode">验证码字符串</param>
+        /// <returns>验证码图片序列化后的字节数组</returns>
+        public static byte[] GenerateStream(string validCode)
+        {
+            Bitmap image = new Bitmap((int)Math.Ceiling(validCode.Length * 12.0), 22);
+            Graphics graphic = Graphics.FromImage(image);
+            try
+            {
+                //绘制验证码
+                MemoryStream stream = DrawValidCode(validCode, graphic, image);
+
+                //输出图片流
+                return stream.ToArray();
+            }
+            finally
+            {
+                graphic.Dispose();
+                image.Dispose();
+            }
         }
         #endregion
 
