@@ -12,7 +12,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
     /// </summary>
     public static class CollectionExtension
     {
-        #region # 遍历ForEach扩展方法 —— static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
+        #region # 遍历ForEach扩展方法 —— static void ForEach<T>(this IEnumerable<T> enumerable...
         /// <summary>
         /// 遍历ForEach扩展方法
         /// </summary>
@@ -28,7 +28,6 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             {
                 throw new ArgumentNullException("enumerable", string.Format("源{0}集合对象不可为空！", typeof(T).Name));
             }
-
             if (action == null)
             {
                 throw new ArgumentNullException("action", @"操作表达式不可为空！");
@@ -251,7 +250,6 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             {
                 throw new ArgumentNullException("collection", string.Format("源{0}集合对象不可为空！", typeof(T).Name));
             }
-
             if (enumerable == null)
             {
                 throw new ArgumentNullException("enumerable", string.Format("要添加的{0}集合项不可为空！", typeof(T).Name));

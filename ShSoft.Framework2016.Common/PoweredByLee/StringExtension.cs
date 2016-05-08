@@ -47,12 +47,12 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             using (MD5 md5 = MD5.Create())
             {
                 buffer = md5.ComputeHash(buffer);
-                StringBuilder sb = new StringBuilder();
-                foreach (byte byt in buffer)
+                StringBuilder md5Builder = new StringBuilder();
+                foreach (byte @byte in buffer)
                 {
-                    sb.Append(byt.ToString("x2"));
+                    md5Builder.Append(@byte.ToString("x2"));
                 }
-                return sb.ToString();
+                return md5Builder.ToString();
             }
         }
         #endregion
@@ -224,6 +224,18 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             str = Regex.Replace(str, "<[^>]*>", "", RegexOptions.Compiled);
             str = Regex.Replace(str, @"([\r\n])[\s]+", " ", RegexOptions.Compiled);
             return str.Replace("&nbsp;", " ");
+        }
+        #endregion
+
+        #region # 字符串过滤SQL语句关键字扩展方法 —— static string FilterSql(this string sql)
+        /// <summary>
+        /// 字符串过滤SQL语句关键字扩展方法
+        /// </summary>
+        /// <param name="sql">SQL字符串</param>
+        /// <returns>过滤后的SQL字符串</returns>
+        public static string FilterSql(this string sql)
+        {
+            return sql.Replace("'", string.Empty);
         }
         #endregion
     }

@@ -72,7 +72,7 @@
     <Compile Include="PoweredByLee\StreamExtension.cs" />
     <Compile Include="PoweredByLee\StringExtension.cs" />
     <Compile Include="PoweredByLee\Transform.cs" />
-    <Compile Include="PoweredByLee\ValidCode.cs" />
+    <Compile Include="PoweredByLee\ValidCodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PoweredByLee\HttpAssitant.cs" />
     <Compile Include="Web\JsonHelper.cs" />

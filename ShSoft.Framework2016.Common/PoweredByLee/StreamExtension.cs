@@ -20,12 +20,12 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             using (MD5 md5 = MD5.Create())
             {
                 byte[] buffer = md5.ComputeHash(stream);
-                StringBuilder sb = new StringBuilder();
-                foreach (byte byt in buffer)
+                StringBuilder md5Builder = new StringBuilder();
+                foreach (byte @byte in buffer)
                 {
-                    sb.Append(byt.ToString("x2"));
+                    md5Builder.Append(@byte.ToString("x2"));
                 }
-                return sb.ToString();
+                return md5Builder.ToString();
             }
         }
         #endregion
