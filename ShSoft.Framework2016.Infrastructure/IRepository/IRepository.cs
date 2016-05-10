@@ -346,6 +346,46 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         bool ExistsName<TSub>(string name) where TSub : T;
         #endregion
 
+        #region # 判断是否存在给定名称的实体对象 —— bool ExistsName(Guid? id, string name)
+        /// <summary>
+        /// 判断是否存在给定名称的实体对象
+        /// </summary>
+        /// <param name="id">标识id</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否已存在</returns>
+        bool ExistsName(Guid? id, string name);
+        #endregion
+
+        #region # 判断是否存在给定名称的子类对象 —— bool ExistsName<TSub>(Guid? id, string name)
+        /// <summary>
+        /// 判断是否存在给定名称的子类对象
+        /// </summary>
+        /// <param name="id">标识id</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否已存在</returns>
+        bool ExistsName<TSub>(Guid? id, string name) where TSub : T;
+        #endregion
+
+        #region # 判断是否存在给定名称的实体对象 —— bool ExistsName(string number, string name)
+        /// <summary>
+        /// 判断是否存在给定名称的实体对象
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否已存在</returns>
+        bool ExistsName(string number, string name);
+        #endregion
+
+        #region # 判断是否存在给定名称的子类对象 —— bool ExistsName<TSub>(string number, string name)
+        /// <summary>
+        /// 判断是否存在给定名称的子类对象
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否已存在</returns>
+        bool ExistsName<TSub>(string number, string name) where TSub : T;
+        #endregion
+
 
         //其他
 

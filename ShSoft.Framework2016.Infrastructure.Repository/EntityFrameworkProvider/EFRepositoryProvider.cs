@@ -112,7 +112,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             #endregion
 
-            return this.SingleOrDefault(x => x.Number == number); 
+            return this.SingleOrDefault(x => x.Number == number);
         }
         #endregion
 
@@ -135,7 +135,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             #endregion
 
-            return this.SingleOrDefault<TSub>(x => x.Number == number); 
+            return this.SingleOrDefault<TSub>(x => x.Number == number);
         }
         #endregion
 
@@ -258,7 +258,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
 
             #endregion
 
-            return this.SingleOrDefault(x => x.Name == name); 
+            return this.SingleOrDefault(x => x.Name == name);
         }
         #endregion
 
@@ -641,6 +641,94 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
             #endregion
 
             return this.Exists<TSub>(x => x.Name == name);
+        }
+        #endregion
+
+        #region # 判断是否存在给定名称的实体对象 —— bool ExistsName(Guid? id, string name)
+        /// <summary>
+        /// 判断是否存在给定名称的实体对象
+        /// </summary>
+        /// <param name="id">标识id</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否已存在</returns>
+        public bool ExistsName(Guid? id, string name)
+        {
+            id = id ?? Guid.Empty;
+
+            T current = this.SingleOrDefault(id.Value);
+
+            if (current != null && current.Name == name)
+            {
+                return false;
+            }
+
+            return this.ExistsName(name);
+        }
+        #endregion
+
+        #region # 判断是否存在给定名称的子类对象 —— bool ExistsName<TSub>(Guid? id, string name)
+        /// <summary>
+        /// 判断是否存在给定名称的子类对象
+        /// </summary>
+        /// <param name="id">标识id</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否已存在</returns>
+        public bool ExistsName<TSub>(Guid? id, string name) where TSub : T
+        {
+            id = id ?? Guid.Empty;
+
+            TSub current = this.SingleOrDefault<TSub>(id.Value);
+
+            if (current != null && current.Name == name)
+            {
+                return false;
+            }
+
+            return this.ExistsName(name);
+        }
+        #endregion
+
+        #region # 判断是否存在给定名称的实体对象 —— bool ExistsName(string number, string name)
+        /// <summary>
+        /// 判断是否存在给定名称的实体对象
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否已存在</returns>
+        public bool ExistsName(string number, string name)
+        {
+            number = string.IsNullOrWhiteSpace(number) ? Guid.NewGuid().ToString().Substring(0, 10) : number;
+
+            T current = this.SingleOrDefault(number);
+
+            if (current != null && current.Name == name)
+            {
+                return false;
+            }
+
+            return this.ExistsName(name);
+        }
+        #endregion
+
+        #region # 判断是否存在给定名称的子类对象 —— bool ExistsName<TSub>(string number, string name)
+        /// <summary>
+        /// 判断是否存在给定名称的子类对象
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否已存在</returns>
+        public bool ExistsName<TSub>(string number, string name) where TSub : T
+        {
+            number = string.IsNullOrWhiteSpace(number) ? Guid.NewGuid().ToString().Substring(0, 10) : number;
+
+            TSub current = this.SingleOrDefault<TSub>(number);
+
+            if (current != null && current.Name == name)
+            {
+                return false;
+            }
+
+            return this.ExistsName(name);
         }
         #endregion
 
