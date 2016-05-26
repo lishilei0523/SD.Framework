@@ -196,12 +196,28 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         IEnumerable<T> Find(IEnumerable<Guid> ids);
         #endregion
 
+        #region # 根据Id集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 根据Id集获取子类对象集合
+        /// </summary>
+        /// <returns>子类对象集合</returns>
+        IEnumerable<TSub> Find<TSub>(IEnumerable<Guid> ids) where TSub : T;
+        #endregion
+
         #region # 根据编号集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<string> numbers)
         /// <summary>
         /// 根据编号集获取实体对象集合
         /// </summary>
         /// <returns>实体对象集合</returns>
         IEnumerable<T> Find(IEnumerable<string> numbers);
+        #endregion
+
+        #region # 根据编号集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<string> numbers)
+        /// <summary>
+        /// 根据编号集获取子类对象集合
+        /// </summary>
+        /// <returns>子类对象集合</returns>
+        IEnumerable<TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T;
         #endregion
 
         #region # 根据关键字获取给定类型子类对象集合 —— IEnumerable<TSub> Find<TSub>(string keywords)

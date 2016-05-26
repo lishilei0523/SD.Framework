@@ -376,8 +376,18 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
-        #region # 根据编号集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<string> numbers)
+        #region # 根据Id集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 根据Id集获取子类对象集合
+        /// </summary>
+        /// <returns>子类对象集合</returns>
+        public IEnumerable<TSub> Find<TSub>(IEnumerable<Guid> ids) where TSub : T
+        {
+            return this.Find<TSub>(x => ids.Contains(x.Id)).AsEnumerable();
+        }
+        #endregion
 
+        #region # 根据编号集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<string> numbers)
         /// <summary>
         /// 根据编号集获取实体对象集合
         /// </summary>
@@ -385,6 +395,17 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         public IEnumerable<T> Find(IEnumerable<string> numbers)
         {
             return this.Find(x => numbers.Contains(x.Number)).AsEnumerable();
+        }
+        #endregion
+
+        #region # 根据编号集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<string> numbers)
+        /// <summary>
+        /// 根据编号集获取子类对象集合
+        /// </summary>
+        /// <returns>子类对象集合</returns>
+        public IEnumerable<TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T
+        {
+            return this.Find<TSub>(x => numbers.Contains(x.Number)).AsEnumerable();
         }
         #endregion
 
