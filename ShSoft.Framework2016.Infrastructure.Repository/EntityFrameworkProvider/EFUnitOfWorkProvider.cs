@@ -399,6 +399,18 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         }
         #endregion
 
+        #region # 获取全部实体对象（修改时用） —— IEnumerable<T> ResolveAll<T>()
+        /// <summary>
+        /// 获取全部实体对象（修改时用）
+        /// </summary>
+        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <returns>实体对象集合</returns>
+        public IEnumerable<T> ResolveAll<T>() where T : AggregateRootEntity
+        {
+            return this._dbContext.Set<T>().Where(x => !x.Deleted).AsEnumerable();
+        }
+        #endregion
+
         #region # 统一事务处理保存更改 —— void Commit()
         /// <summary>
         /// 统一事务处理保存更改

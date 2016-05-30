@@ -148,6 +148,15 @@ namespace ShSoft.Framework2016.Infrastructure.IRepository
         T Resolve<T>(Guid id) where T : AggregateRootEntity;
         #endregion
 
+        #region # 获取全部实体对象（修改时用） —— IEnumerable<T> ResolveAll<T>()
+        /// <summary>
+        /// 获取全部实体对象（修改时用）
+        /// </summary>
+        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <returns>实体对象集合</returns>
+        IEnumerable<T> ResolveAll<T>() where T : AggregateRootEntity;
+        #endregion
+
         #region # 根据编号获取唯一实体对象（修改时用） —— T Resolve<T>(string no)
         /// <summary>
         /// 根据编号获取唯一实体对象（修改时用）
