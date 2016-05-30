@@ -562,7 +562,7 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         /// 根据条件获取唯一实体对象（修改时用）
         /// </summary>
         /// <param name="predicate">条件</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NullReferenceException">查询不到任何实体对象</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
@@ -570,6 +570,30 @@ namespace ShSoft.Framework2016.Infrastructure.Repository.EntityFrameworkProvider
         protected T Resolve<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
             return this.Single<T>(predicate);
+        }
+        #endregion
+
+        #region # 根据条件获取实体对象集合（修改时用） —— IQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> predicate)
+        /// <summary>
+        /// 根据条件获取实体对象集合（修改时用）
+        /// </summary>
+        /// <param name="predicate">条件</param>
+        /// <returns>实体对象集合</returns>
+        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
+        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
+        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
+        protected IQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        {
+            #region # 验证参数
+
+            if (predicate == null)
+            {
+                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+            }
+
+            #endregion
+
+            return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
         }
         #endregion
 
