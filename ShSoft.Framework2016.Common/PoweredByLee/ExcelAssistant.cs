@@ -385,7 +385,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
                     }
                     else
                     {
-                        rowData.CreateCell(j).SetCellValue(properties[j].GetValue(item).ToString());
+                        rowData.CreateCell(j).SetCellValue(properties[j].GetValue(item) == null ? string.Empty : properties[j].GetValue(item).ToString());
                     }
                 }
             }
