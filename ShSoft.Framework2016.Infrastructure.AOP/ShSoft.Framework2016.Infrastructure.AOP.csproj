@@ -28,6 +28,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\ShSoft.Framework2016.Infrastructure.AOP.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -61,6 +62,7 @@
     <Compile Include="Aspects\ForAny\BusinessExceptionAspect.cs" />
     <Compile Include="Aspects\ForAny\DomainExceptionAspect.cs" />
     <Compile Include="Aspects\ForAny\RepositoryExceptionAspect.cs" />
+    <Compile Include="Aspects\ForAny\NonThrowExceptionAspect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
