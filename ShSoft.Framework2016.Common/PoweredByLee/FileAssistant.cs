@@ -50,9 +50,10 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// </summary>
         /// <param name="path">路径</param>
         /// <param name="content">内容</param>
+        /// <param name="append">是否附加</param>
         /// <returns>写入结果</returns>
         /// <exception cref="ArgumentNullException">路径为空</exception>
-        public static bool WriteFile(string path, string content)
+        public static bool WriteFile(string path, string content, bool append = false)
         {
             #region # 验证参数
 
@@ -65,7 +66,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             FileInfo file = new FileInfo(path);
             StreamWriter writer = null;
-            if (file.Exists)
+            if (file.Exists && !append)
             {
                 file.Delete();
             }
@@ -77,7 +78,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
                 {
                     Directory.CreateDirectory(directory);
                 }
-                writer = new StreamWriter(path, false, Encoding.UTF8);
+                writer = append ? file.AppendText() : new StreamWriter(path, false, Encoding.UTF8);
                 writer.Write(content);
                 return true;
             }
