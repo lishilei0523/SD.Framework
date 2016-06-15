@@ -44,16 +44,15 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         }
         #endregion
 
-        #region 02.写入文件方法 —— static bool WriteFile(string path, string content)
+        #region 02.写入文件方法 —— static void WriteFile(string path, string content)
         /// <summary>
         /// 写入文件方法
         /// </summary>
         /// <param name="path">路径</param>
         /// <param name="content">内容</param>
         /// <param name="append">是否附加</param>
-        /// <returns>写入结果</returns>
         /// <exception cref="ArgumentNullException">路径为空</exception>
-        public static bool WriteFile(string path, string content, bool append = false)
+        public static void WriteFile(string path, string content, bool append = false)
         {
             #region # 验证参数
 
@@ -80,7 +79,6 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
                 }
                 writer = append ? file.AppendText() : new StreamWriter(path, false, Encoding.UTF8);
                 writer.Write(content);
-                return true;
             }
             finally
             {
@@ -129,7 +127,6 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             }
 
             //03.递归循环子文件夹
-            DirectoryInfo targetDir = new DirectoryInfo(targetPath);
             DirectoryInfo[] subDirArray = sourceDir.GetDirectories();
             foreach (DirectoryInfo subDir in subDirArray)
             {
