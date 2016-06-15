@@ -159,7 +159,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>是否为0或百分数</returns>
         public static bool IsZeroOrPercentage(this float number)
         {
-            if (number.IsPercentage() || number == 0)
+            if (number.IsPercentage() || number.Equals(0f))
             {
                 return true;
             }
@@ -175,7 +175,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>是否为0或百分数</returns>
         public static bool IsZeroOrPercentage(this double number)
         {
-            if (number.IsPercentage() || number == 0)
+            if (number.IsPercentage() || number.Equals(0d))
             {
                 return true;
             }
@@ -191,7 +191,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// <returns>是否为0或百分数</returns>
         public static bool IsZeroOrPercentage(this decimal number)
         {
-            if (number.IsPercentage() || number == 0)
+            if (number.IsPercentage() || number.Equals(0m))
             {
                 return true;
             }
