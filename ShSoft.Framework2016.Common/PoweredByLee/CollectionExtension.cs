@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 
 namespace ShSoft.Framework2016.Common.PoweredByLee
 {
@@ -452,6 +453,26 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             }
 
             return dataTable;
+        }
+        #endregion
+
+        #region # 泛型集合转换为分割字符串扩展方法 —— static string ToSplicString<T>(this IEnumerable<T>...
+        /// <summary>
+        /// 泛型集合转换为分割字符串扩展方法
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="enumerable">集合</param>
+        /// <returns>分割字符串</returns>
+        public static string ToSplicString<T>(this IEnumerable<T> enumerable)
+        {
+            StringBuilder builder = new StringBuilder();
+            foreach (T item in enumerable)
+            {
+                builder.AppendFormat("'{0}'", item);
+                builder.Append(',');
+            }
+
+            return builder.Length > 0 ? builder.ToString().Substring(0, builder.Length - 1) : string.Empty;
         }
         #endregion
     }
