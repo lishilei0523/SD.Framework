@@ -43,6 +43,7 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
         /// </summary>
         /// <param name="enumType">枚举类型</param>
         /// <returns>枚举成员名称字典</returns>
+        /// IDictionary[string, string]，[枚举名，枚举描述]
         public static IDictionary<string, string> GetEnumMembers(this Type enumType)
         {
             #region # 验证参数
@@ -135,6 +136,27 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             }
 
             return enumInfos;
+        }
+        #endregion
+
+        #region # 获取枚举值、描述字典 —— static IDictionary<int, string> GetEnumDictionary(...
+        /// <summary>
+        /// 获取枚举值、描述字典
+        /// </summary>
+        /// <param name="enumType">枚举类型</param>
+        /// <returns>枚举值、描述字典</returns>
+        /// IDictionary[int, string]，[枚举int值，枚举描述]
+        public static IDictionary<int, string> GetEnumDictionary(this Type enumType)
+        {
+            IEnumerable<Tuple<int, string, string>> tuples = GetEnumMemberInfos(enumType);
+
+            IDictionary<int, string> dictionary = new Dictionary<int, string>();
+            foreach (Tuple<int, string, string> tuple in tuples)
+            {
+                dictionary.Add(tuple.Item1, tuple.Item3);
+            }
+
+            return dictionary;
         }
         #endregion
     }
