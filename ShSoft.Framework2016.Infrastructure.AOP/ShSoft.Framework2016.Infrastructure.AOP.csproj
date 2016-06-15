@@ -63,9 +63,14 @@
     <Compile Include="Aspects\ForAny\DomainExceptionAspect.cs" />
     <Compile Include="Aspects\ForAny\RepositoryExceptionAspect.cs" />
     <Compile Include="Aspects\ForAny\NonThrowExceptionAspect.cs" />
+    <Compile Include="Aspects\ForAny\WinServiceExceptionAspect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShSoft.Framework2016.Common\ShSoft.Framework2016.Common.csproj">
+      <Project>{37402463-f73a-4788-b9de-5c57ec18604f}</Project>
+      <Name>ShSoft.Framework2016.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure\ShSoft.Framework2016.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
       <Name>ShSoft.Framework2016.Infrastructure</Name>
