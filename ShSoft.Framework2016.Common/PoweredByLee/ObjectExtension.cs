@@ -82,27 +82,20 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             using (Stream stream = new MemoryStream())
             {
-                try
+                _BinaryFormatter.Serialize(stream, instance);
+                stream.Position = 0;
+                T ectype = _BinaryFormatter.Deserialize(stream) as T;
+
+                #region # 非空验证
+
+                if (ectype == null)
                 {
-                    _BinaryFormatter.Serialize(stream, instance);
-                    stream.Position = 0;
-                    T ectype = _BinaryFormatter.Deserialize(stream) as T;
-
-                    #region # 非空验证
-
-                    if (ectype == null)
-                    {
-                        throw new InvalidCastException(string.Format("无法将源类型\"{0}\"反序列化为给定类型\"{1}\"，请检查类型后重试！", instance.GetType().Name, typeof(T).Name));
-                    }
-
-                    #endregion
-
-                    return ectype;
+                    throw new InvalidCastException(string.Format("无法将源类型\"{0}\"反序列化为给定类型\"{1}\"，请检查类型后重试！", instance.GetType().Name, typeof(T).Name));
                 }
-                catch (SerializationException)
-                {
-                    throw new SerializationException(string.Format("给定对象类型\"{0}\"未标记\"Serializable\"特性！", instance.GetType().Name));
-                }
+
+                #endregion
+
+                return ectype;
             }
         }
         #endregion
