@@ -43,11 +43,11 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SD.IOC.Core, Version=1.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SD.IOC.Core.1.0.1\lib\net45\SD.IOC.Core.dll</HintPath>
+      <HintPath>..\packages\SD.IOC.Core.1.0.5\lib\net45\SD.IOC.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="SD.IOC.Integration.WCF, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SD.IOC.Integration.WCF.1.0.0.0\lib\net45\SD.IOC.Integration.WCF.dll</HintPath>
+      <HintPath>..\packages\SD.IOC.Integration.WCF.1.0.1\lib\net45\SD.IOC.Integration.WCF.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />

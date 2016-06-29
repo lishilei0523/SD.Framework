@@ -40,8 +40,8 @@
     <DocumentationFile>bin\Release\ShSoft.Framework2016.Infrastructure.AOP.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="PostSharp, Version=4.1.15.0, Culture=neutral, PublicKeyToken=b13fd38b8f9c99d7, processorArchitecture=MSIL">
@@ -50,7 +50,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SD.AOP.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SD.AOP.Core.1.0.2\lib\net45\SD.AOP.Core.dll</HintPath>
+      <HintPath>..\packages\SD.AOP.Core.1.0.4\lib\net45\SD.AOP.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
