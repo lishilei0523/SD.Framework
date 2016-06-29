@@ -64,6 +64,10 @@
     <Compile Include="TestCases\ProductCreateTests.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.DomainEvent.MSMQStorer\ShSoft.Framework2016.Infrastructure.DomainEvent.MSMQStorer.csproj">
+      <Project>{43c40111-8da9-4768-b9fd-366055a4c763}</Project>
+      <Name>ShSoft.Framework2016.Infrastructure.DomainEvent.MSMQStorer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Framework2016.Infrastructure.DomainEvent\ShSoft.Framework2016.Infrastructure.DomainEvent.csproj">
       <Project>{79dc5e40-2857-4748-a895-49bb675cdc68}</Project>
       <Name>ShSoft.Framework2016.Infrastructure.DomainEvent</Name>

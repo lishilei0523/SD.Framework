@@ -5,6 +5,7 @@ namespace ShSoft.Framework2016.Infrastructure.DomainEventTests.StubEventSources
     /// <summary>
     /// 商品已创建事件
     /// </summary>
+    [Serializable]
     public class ProductCreatedEvent : IDomainEvent.DomainEvent
     {
         /// <summary>
