@@ -49,29 +49,15 @@
 	NuGet包地址：https://www.nuget.org/packages/ShSoft.Framework2016.Infrastructure.Global
 
 
-7、ShSoft.Framework2016.Infrastructure.MVC.IOC
-
-	MVC客户端依赖注入基础设施。
-
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Framework2016.Infrastructure.MVC.IOC
-
-
-8、ShSoft.Framework2016.Infrastructure.Repository
+7、ShSoft.Framework2016.Infrastructure.Repository
 
 	仓储基础设施，包含EntityFramework DbContext的三次封装、数据库清理者、EntityFramework仓储提供者、EntityFramework UnitOfWork提供者。
 
 	NuGet包地址：https://www.nuget.org/packages/ShSoft.Framework2016.Infrastructure.Repository
 
 
-9、ShSoft.Framework2016.Infrastructure.WCF.IOC
+8、ShSoft.Framework2016.Infrastructure.WCF
 
-	WCF服务端依赖注入基础设施。
+	WCF服务端基础设施。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Framework2016.Infrastructure.WCF.IOC
-
-
-10、ShSoft.Framework2016.Infrastructure.WebApi
-
-	WebApi客户端依赖注入基础设施。
-
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Framework2016.Infrastructure.WebApi
+	NuGet包地址：https://www.nuget.org/packages/ShSoft.Framework2016.Infrastructure.WCF
