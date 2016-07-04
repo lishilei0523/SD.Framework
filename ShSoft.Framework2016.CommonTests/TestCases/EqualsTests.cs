@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShSoft.Framework2016.Common.PoweredByLee;
 using ShSoft.Framework2016.CommonTests.StubEntities;
@@ -43,9 +44,10 @@ namespace ShSoft.Framework2016.CommonTests.TestCases
         {
             this._sourceList = new List<Student>
             {
+                new Student{Id = 3,Name = "学生3",BirthDay = new DateTime(1996,2,20)},
                 new Student{Id = 1,Name = "学生1",BirthDay = new DateTime(1992,4,18)},
-                new Student{Id = 2,Name = "学生2",BirthDay = new DateTime(1991,4,20)},
-                new Student{Id = 3,Name = "学生3",BirthDay = new DateTime(1996,2,20)}
+                new Student{Id = 2,Name = "学生2",BirthDay = new DateTime(1991,4,20)}
+         
             };
             this._targetList = new List<Student>
             {
@@ -76,7 +78,7 @@ namespace ShSoft.Framework2016.CommonTests.TestCases
         [TestMethod]
         public void TestCollectionEquals()
         {
-            Assert.IsTrue(this._sourceList.EqualsTo(this._targetList));
+            Assert.IsTrue(this._sourceList.OrderBy(x => x.Id).EqualsTo(this._targetList.OrderBy(x => x.Id)));
         }
 
         /// <summary>
@@ -86,6 +88,21 @@ namespace ShSoft.Framework2016.CommonTests.TestCases
         public void TestDictionaryEquals()
         {
             Assert.IsTrue(this._sourceDict.EqualsTo(this._targetDict));
+        }
+
+        /// <summary>
+        /// 测试字典是否值相等
+        /// </summary>
+        [TestMethod]
+        public void TestDictionaryEquals2()
+        {
+            IDictionary<Guid, float> source = new Dictionary<Guid, float>();
+            source.Add(new Guid("494bcada-3377-476e-912f-1eecef3eb9fc"), 10.0f);
+
+            IDictionary<Guid, float> target = new Dictionary<Guid, float>();
+            target.Add(new Guid("494bcada-3377-476e-912f-1eecef3eb9fc"), 10.0f);
+
+            Assert.IsTrue(source.EqualsTo(target));
         }
     }
 }

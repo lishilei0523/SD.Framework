@@ -104,15 +104,8 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
             string sourceListStr = sourceList.ToJson().Trim();
             string targetListStr = targetList.ToJson().Trim();
 
-            //先对比字符串是否相同
+            //对比字符串是否相同
             if (sourceListStr == targetListStr)
-            {
-                return true;
-            }
-
-            //再对比字符是否相同
-            if (!sourceListStr.ToCharArray().Except(targetListStr.ToCharArray()).Any() &&
-                !targetListStr.ToCharArray().Except(sourceListStr.ToCharArray()).Any())
             {
                 return true;
             }
@@ -167,13 +160,16 @@ namespace ShSoft.Framework2016.Common.PoweredByLee
 
             #region 02.深度对比
 
+            IOrderedEnumerable<KeyValuePair<TKey, TValue>> sourceKeyValues = sourceDict.OrderBy(x => x.Key);
+            IOrderedEnumerable<KeyValuePair<TKey, TValue>> targetKeyValues = targetDict.OrderBy(x => x.Key);
+
             //获取键集合
-            IEnumerable<TKey> sourceKeys = sourceDict.Select(x => x.Key);
-            IEnumerable<TKey> targetKeys = targetDict.Select(x => x.Key);
+            IEnumerable<TKey> sourceKeys = sourceKeyValues.Select(x => x.Key);
+            IEnumerable<TKey> targetKeys = targetKeyValues.Select(x => x.Key);
 
             //获取值集合
-            IEnumerable<TValue> sourceValues = sourceDict.Select(x => x.Value);
-            IEnumerable<TValue> targetValues = targetDict.Select(x => x.Value);
+            IEnumerable<TValue> sourceValues = sourceKeyValues.Select(x => x.Value);
+            IEnumerable<TValue> targetValues = targetKeyValues.Select(x => x.Value);
 
             //判断是否键值都相等
             if (sourceKeys.EqualsTo(targetKeys) && sourceValues.EqualsTo(targetValues))
