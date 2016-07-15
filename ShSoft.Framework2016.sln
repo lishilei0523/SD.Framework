@@ -94,6 +94,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Framework2016.Infras
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Framework2016.Infrastructure.WCF", "ShSoft.Framework2016.Infrastructure.WCF\ShSoft.Framework2016.Infrastructure.WCF.csproj", "{9A78B517-AD18-4BC7-B687-4DC245F4DB57}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Framework2016.Infrastructure.DomainEvent.RabbitMQStorer", "ShSoft.Framework2016.Infrastructure.DomainEvent.RabbitMQStorer\ShSoft.Framework2016.Infrastructure.DomainEvent.RabbitMQStorer.csproj", "{7D78CE29-610B-4709-8950-3AEAF405C89B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -164,6 +166,10 @@ Global
 		{9A78B517-AD18-4BC7-B687-4DC245F4DB57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A78B517-AD18-4BC7-B687-4DC245F4DB57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A78B517-AD18-4BC7-B687-4DC245F4DB57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7D78CE29-610B-4709-8950-3AEAF405C89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7D78CE29-610B-4709-8950-3AEAF405C89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7D78CE29-610B-4709-8950-3AEAF405C89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7D78CE29-610B-4709-8950-3AEAF405C89B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -192,5 +198,6 @@ Global
 		{426C71E0-58E8-4AF3-B46C-BB7456329963} = {2FF43B60-1BEF-4A20-BEC0-889A2E3A6CBE}
 		{43C40111-8DA9-4768-B9FD-366055A4C763} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{9A78B517-AD18-4BC7-B687-4DC245F4DB57} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{7D78CE29-610B-4709-8950-3AEAF405C89B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 	EndGlobalSection
 EndGlobal

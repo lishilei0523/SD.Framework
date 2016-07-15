@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("ShSoft.Framework2016.Infrastructure.DomainEvent.EFStoreProvider")]
-[assembly: AssemblyDescription("基础设施 - 领域事件基础 - Entity Framework存储实现")]
+[assembly: AssemblyTitle("ShSoft.Framework2016.Infrastructure.DomainEvent.RabbitMQStorer")]
+[assembly: AssemblyDescription("基础设施 - 领域事件基础 - RabbitMQ存储实现")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("山河软件")]
-[assembly: AssemblyProduct("ShSoft.Framework2016.Infrastructure.DomainEvent.EFStoreProvider")]
+[assembly: AssemblyCompany("ShSoft")]
+[assembly: AssemblyProduct("ShSoft.Framework2016.Infrastructure.DomainEvent.RabbitMQStorer")]
 [assembly: AssemblyCopyright("Copyright © ShSoft 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("0fbc55ae-1c56-45aa-a694-38f9293678d1")]
+[assembly: Guid("895ed436-a35f-4e56-aaf7-d13423b2d80c")]
 
 // 程序集的版本信息由下面四个值组成: 
 //
