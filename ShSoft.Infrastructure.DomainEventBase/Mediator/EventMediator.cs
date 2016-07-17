@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 using SD.IOC.Core.Mediator;
 using ShSoft.Infrastructure.DomainEventBase.Factories;
 
@@ -40,18 +39,10 @@ namespace ShSoft.Infrastructure.DomainEventBase.Mediator
             IEnumerable<IDomainEventHandler<T>> eventHandlers =
                 DomainEventHandlerFactory.GetEventHandlersFor(eventSource).OrderByDescending(x => x.Sort);
 
-            if (!eventSource.Asynchronous)
+            //顺序处理事件
+            foreach (IDomainEventHandler<T> handler in eventHandlers)
             {
-                //顺序处理事件
-                foreach (IDomainEventHandler<T> handler in eventHandlers)
-                {
-                    handler.Handle(eventSource);
-                }
-            }
-            else
-            {
-                //异步并行处理事件
-                Task.Run(() => Parallel.ForEach(eventHandlers, handler => handler.Handle(eventSource)));
+                handler.Handle(eventSource);
             }
         }
         #endregion
@@ -62,56 +53,30 @@ namespace ShSoft.Infrastructure.DomainEventBase.Mediator
         /// </summary>
         /// <param name="eventSource">领域事件源</param>
         /// <remarks>此方法涉及反射操作，慎做修改</remarks>
-        internal static void Handle(IDomainEvent eventSource)
+        public static void Handle(IDomainEvent eventSource)
         {
             //获取相应事件处理者实例集合
             IEnumerable<IDomainEventHandler> eventHandlers = DomainEventHandlerFactory.GetEventHandlersFor(eventSource.GetType()).OrderByDescending(x => x.Sort);
 
-            if (!eventSource.Asynchronous)
+            //顺序处理事件
+            foreach (IDomainEventHandler handler in eventHandlers)
             {
-                //顺序处理事件
-                foreach (IDomainEventHandler handler in eventHandlers)
+                try
                 {
-                    try
-                    {
-                        Type handlerType = handler.GetType();
+                    Type handlerType = handler.GetType();
 
-                        MethodInfo methodInfo = handlerType.GetMethod("Handle", new[] { eventSource.GetType() });
+                    MethodInfo methodInfo = handlerType.GetMethod("Handle", new[] { eventSource.GetType() });
 
-                        methodInfo.Invoke(handler, new object[] { eventSource });
-                    }
-                    catch (TargetInvocationException ex)
-                    {
-                        if (ex.InnerException != null)
-                        {
-                            throw ex.InnerException;
-                        }
-                        throw;
-                    }
+                    methodInfo.Invoke(handler, new object[] { eventSource });
                 }
-            }
-            else
-            {
-                //异步并行处理事件
-                Task.Run(() => Parallel.ForEach(eventHandlers, handler =>
+                catch (TargetInvocationException ex)
                 {
-                    try
+                    if (ex.InnerException != null)
                     {
-                        Type handlerType = handler.GetType();
-
-                        MethodInfo methodInfo = handlerType.GetMethod("Handle", new[] { eventSource.GetType() });
-
-                        methodInfo.Invoke(handler, new object[] { eventSource });
+                        throw ex.InnerException;
                     }
-                    catch (TargetInvocationException ex)
-                    {
-                        if (ex.InnerException != null)
-                        {
-                            throw ex.InnerException;
-                        }
-                        throw;
-                    }
-                }));
+                    throw;
+                }
             }
         }
         #endregion

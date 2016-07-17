@@ -21,15 +21,8 @@ namespace ShSoft.Infrastructure.CommandBase.Mediator
             //获取相应命令执行者实例
             ICommandExecutor<T> commandExecutor = CommandExecutorFactory.GetCommandExecutorFor(command);
 
-            //或异步执行
-            if (command.Asynchronous)
-            {
-                Task.Run(() => commandExecutor.Execute(command));
-            }
-            else
-            {
-                commandExecutor.Execute(command);
-            }
+            //执行
+            commandExecutor.Execute(command);
         }
         #endregion
 
@@ -43,26 +36,12 @@ namespace ShSoft.Infrastructure.CommandBase.Mediator
             //获取相应命令执行者实例
             object commandExecutor = CommandExecutorFactory.GetCommandExecutorFor(command.GetType());
 
-            //或异步执行
-            if (command.Asynchronous)
-            {
-                Task.Run(() =>
-                {
-                    Type executorType = commandExecutor.GetType();
+            //执行
+            Type executorType = commandExecutor.GetType();
 
-                    MethodInfo methodInfo = executorType.GetMethod("Execute", new[] { command.GetType() });
+            MethodInfo methodInfo = executorType.GetMethod("Execute", new[] { command.GetType() });
 
-                    methodInfo.Invoke(commandExecutor, new object[] { command });
-                });
-            }
-            else
-            {
-                Type executorType = commandExecutor.GetType();
-
-                MethodInfo methodInfo = executorType.GetMethod("Execute", new[] { command.GetType() });
-
-                methodInfo.Invoke(commandExecutor, new object[] { command });
-            }
+            methodInfo.Invoke(commandExecutor, new object[] { command });
         }
         #endregion
     }

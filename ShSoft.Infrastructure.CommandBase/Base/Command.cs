@@ -22,7 +22,6 @@ namespace ShSoft.Infrastructure.CommandBase
             this.Id = Guid.NewGuid();
             this.Handled = false;
             this.AddedTime = DateTime.Now;
-            this.Asynchronous = false;
 
             //TODO SessionId处理
             this.SessionId = Guid.Empty;
@@ -37,14 +36,6 @@ namespace ShSoft.Infrastructure.CommandBase
         /// </summary>
         [DataMember]
         public Guid Id { get; set; }
-        #endregion
-
-        #region 是否异步执行 —— bool Asynchronous
-        /// <summary>
-        /// 是否异步执行
-        /// </summary>
-        [DataMember]
-        public bool Asynchronous { get; set; }
         #endregion
 
         #region 是否已处理 —— bool Handled
@@ -77,21 +68,6 @@ namespace ShSoft.Infrastructure.CommandBase
         /// </summary>
         [DataMember]
         public Guid SessionId { get; set; }
-        #endregion
-
-        #endregion
-
-        #region # 方法
-
-        #region 处理 —— void Handle()
-        /// <summary>
-        /// 处理
-        /// </summary>
-        public void Handle()
-        {
-            CommandMediator.Execute((ICommand)this);
-            this.Handled = true;
-        }
         #endregion
 
         #endregion

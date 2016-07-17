@@ -114,7 +114,7 @@ namespace ShSoft.Common.PoweredByLee
 
             if (instance == null)
             {
-                throw new ArgumentNullException("obj", @"源对象不可为空！");
+                throw new ArgumentNullException("instance", @"源对象不可为空！");
             }
 
             #endregion

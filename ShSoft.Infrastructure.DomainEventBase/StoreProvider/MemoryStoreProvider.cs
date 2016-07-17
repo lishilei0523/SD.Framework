@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using ShSoft.Infrastructure.DomainEventBase;
+using ShSoft.Infrastructure.DomainEventBase.Mediator;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Infrastructure.EventStoreProvider
@@ -21,14 +22,14 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// <summary>
         /// 领域事件源集合
         /// </summary>
-        private IList<IDomainEvent> _eventSources;
+        private IList<DomainEvent> _eventSources;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
         public MemoryStoreProvider()
         {
-            this._eventSources = new List<IDomainEvent>();
+            this._eventSources = new List<DomainEvent>();
         }
 
         #endregion
@@ -54,11 +55,11 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             //如果缓存不为空，则将事件源队列变量赋值为缓存
             if (eventSources != null)
             {
-                this._eventSources = (IList<IDomainEvent>)eventSources;
+                this._eventSources = (IList<DomainEvent>)eventSources;
             }
 
             //将新事件源添加到队列
-            this._eventSources.Add(domainSource);
+            this._eventSources.Add(domainSource as DomainEvent);
 
             //将新队列添加到缓存
             CallContext.SetData(EventSessionKey, this._eventSources);
@@ -81,14 +82,15 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             }
 
             //如果缓存不为空，则将事件源队列变量赋值为缓存
-            this._eventSources = (IList<IDomainEvent>)eventSources;
+            this._eventSources = (IList<DomainEvent>)eventSources;
 
             //如果有未处理的
             if (this._eventSources.Any(x => !x.Handled))
             {
-                foreach (IDomainEvent eventSource in this._eventSources.Where(x => !x.Handled))
+                foreach (DomainEvent eventSource in this._eventSources.Where(x => !x.Handled))
                 {
-                    eventSource.Handle();
+                    EventMediator.Handle((IDomainEvent)eventSource);
+                    eventSource.Handled = true;
                 }
             }
 

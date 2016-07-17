@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="CommandBase\ICommand.cs" />
     <Compile Include="CommandBase\ICommandExecutor.cs" />
+    <Compile Include="CommandBase\ICommandQueue.cs" />
     <Compile Include="Constants\CacheConstants.cs" />
     <Compile Include="Constants\CommonConstants.cs" />
     <Compile Include="Constants\WebConfigSetting.cs" />

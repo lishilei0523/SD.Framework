@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.Remoting.Messaging;
 using ShSoft.Infrastructure.Constants;
-using ShSoft.Infrastructure.DomainEventBase.Mediator;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Infrastructure.DomainEventBase
@@ -24,7 +23,6 @@ namespace ShSoft.Infrastructure.DomainEventBase
             this.Id = Guid.NewGuid();
             this.Handled = false;
             this.AddedTime = DateTime.Now;
-            this.Asynchronous = false;
 
             #region # SessionId处理
 
@@ -63,18 +61,11 @@ namespace ShSoft.Infrastructure.DomainEventBase
         public Guid Id { get; protected set; }
         #endregion
 
-        #region 是否异步执行 —— bool Asynchronous
-        /// <summary>
-        /// 是否异步执行
-        /// </summary>
-        public bool Asynchronous { get; protected set; }
-        #endregion
-
         #region 是否已处理 —— bool Handled
         /// <summary>
         /// 是否已处理
         /// </summary>
-        public bool Handled { get; private set; }
+        public bool Handled { get; set; }
         #endregion
 
         #region 事件源数据序列化字符串 —— string SourceDataStr
@@ -103,21 +94,6 @@ namespace ShSoft.Infrastructure.DomainEventBase
         /// 会话Id
         /// </summary>
         public Guid SessionId { get; private set; }
-        #endregion
-
-        #endregion
-
-        #region # 方法
-
-        #region 处理 —— void Handle()
-        /// <summary>
-        /// 处理
-        /// </summary>
-        public void Handle()
-        {
-            EventMediator.Handle((IDomainEvent)this);
-            this.Handled = true;
-        }
         #endregion
 
         #endregion

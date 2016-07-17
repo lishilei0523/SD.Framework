@@ -1,4 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ShSoft.Infrastructure.DomainEventBase;
 using ShSoft.Infrastructure.DomainEventBase.Mediator;
 using ShSoft.Infrastructure.DomainEventBaseTests.StubDomainEventHandlers;
 using ShSoft.Infrastructure.DomainEventBaseTests.StubEntities;
@@ -38,7 +39,8 @@ namespace ShSoft.Infrastructure.DomainEventBaseTests.TestCases
             Initializer.InitSessionId();
 
             ProductCreatedEvent eventSource = new ProductCreatedEvent("001", "测试商品1", 19);
-            eventSource.Handle();
+
+            EventMediator.Handle((IDomainEvent)eventSource);
 
             //断言会触发领域事件，并修改目标参数的值
             Assert.IsTrue(ProductCreatedEventHandler.ProductName == eventSource.ProductName);

@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using ShSoft.Infrastructure.Constants;
 using ShSoft.Infrastructure.DomainEventBase;
+using ShSoft.Infrastructure.DomainEventBase.Mediator;
 using ShSoft.Infrastructure.EventStoreProvider.EntityFramework.Migrations;
 
 // ReSharper disable once CheckNamespace
@@ -175,7 +176,8 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             {
                 foreach (DomainEvent eventSource in eventSources)
                 {
-                    eventSource.Handle();
+                    EventMediator.Handle((IDomainEvent)eventSource);
+                    eventSource.Handled = true;
                 }
                 this.SaveChanges();
             }
