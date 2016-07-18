@@ -1,7 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Threading.Tasks;
-using ShSoft.Infrastructure.CommandBase.Factories;
+﻿using ShSoft.Infrastructure.CommandBase.Factories;
 
 namespace ShSoft.Infrastructure.CommandBase.Mediator
 {
@@ -23,25 +20,6 @@ namespace ShSoft.Infrastructure.CommandBase.Mediator
 
             //执行
             commandExecutor.Execute(command);
-        }
-        #endregion
-
-        #region # 执行命令 —— static void Execute(ICommand command)
-        /// <summary>
-        /// 执行命令
-        /// </summary>
-        /// <param name="command">命令对象</param>
-        public static void Execute(ICommand command)
-        {
-            //获取相应命令执行者实例
-            object commandExecutor = CommandExecutorFactory.GetCommandExecutorFor(command.GetType());
-
-            //执行
-            Type executorType = commandExecutor.GetType();
-
-            MethodInfo methodInfo = executorType.GetMethod("Execute", new[] { command.GetType() });
-
-            methodInfo.Invoke(commandExecutor, new object[] { command });
         }
         #endregion
     }

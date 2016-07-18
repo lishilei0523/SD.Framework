@@ -55,7 +55,6 @@
     <Compile Include="Factories\CommandExecutorFactory.cs" />
     <Compile Include="Mediator\CommandMediator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="QueueProvider\RabbitMQQueueProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
