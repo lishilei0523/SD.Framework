@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Service="ShSoft.Infrastructure.WCFTests.Implements.OrderContract" %>
