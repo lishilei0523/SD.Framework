@@ -122,16 +122,6 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         }
         #endregion
 
-        #region 初始化存储 —— virtual void Init()
-        /// <summary>
-        /// 初始化存储
-        /// </summary>
-        public virtual void Init()
-        {
-
-        }
-        #endregion
-
         #region 挂起领域事件 —— void Suspend<T>(T eventSource)
         /// <summary>
         /// 挂起领域事件

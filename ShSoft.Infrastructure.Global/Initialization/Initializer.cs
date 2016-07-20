@@ -2,7 +2,6 @@
 using System.Runtime.Remoting.Messaging;
 using SD.IOC.Core.Mediator;
 using ShSoft.Infrastructure.Constants;
-using ShSoft.Infrastructure.EventBase;
 using ShSoft.Infrastructure.RepositoryBase;
 
 namespace ShSoft.Infrastructure.Global
@@ -19,15 +18,6 @@ namespace ShSoft.Infrastructure.Global
         {
             IDataInitializer initializer = ResolveMediator.Resolve<IDataInitializer>();
             initializer.Initialize();
-        }
-
-        /// <summary>
-        /// 初始化事件存储
-        /// </summary>
-        public static void InitEventStore()
-        {
-            IEventStore eventStore = ResolveMediator.Resolve<IEventStore>();
-            eventStore.Init();
         }
 
         /// <summary>

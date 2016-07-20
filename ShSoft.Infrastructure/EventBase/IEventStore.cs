@@ -7,13 +7,6 @@ namespace ShSoft.Infrastructure.EventBase
     /// </summary>
     public interface IEventStore : IDisposable
     {
-        #region # 初始化存储 —— void Init()
-        /// <summary>
-        /// 初始化存储
-        /// </summary>
-        void Init();
-        #endregion
-
         #region # 挂起领域事件 —— void Suspend<T>(T eventSource)
         /// <summary>
         /// 挂起领域事件

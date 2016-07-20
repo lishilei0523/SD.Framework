@@ -134,6 +134,66 @@ namespace ShSoft.Common.PoweredByLee
         }
         #endregion
 
+        #region # object序列化为byte数组扩展方法 —— static byte[] ToByteArray(this object instance)
+        /// <summary>
+        /// object序列化为byte数组扩展方法
+        /// </summary>
+        /// <param name="instance">object及其子类</param>
+        /// <returns>byte数组</returns>
+        /// <exception cref="ArgumentNullException">源对象为空</exception>
+        /// <exception cref="SerializationException">对象类型未标记"Serializable"特性</exception>
+        public static byte[] ToByteArray(this object instance)
+        {
+            #region # 验证参数
+
+            if (instance == null)
+            {
+                throw new ArgumentNullException("instance", @"源对象不可为空！");
+            }
+
+            #endregion
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                try
+                {
+                    _BinaryFormatter.Serialize(stream, instance);
+                    return stream.ToArray();
+                }
+                catch (SerializationException)
+                {
+                    throw new SerializationException(string.Format("给定对象类型\"{0}\"未标记\"Serializable\"特性！", instance.GetType().Name));
+                }
+            }
+        }
+        #endregion
+
+        #region # byte数组反序列化为对象扩展方法 —— static T ToObject<T>(this byte[] buffer)
+        /// <summary>
+        /// byte数组反序列化为对象扩展方法
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="buffer">byte数组</param>
+        /// <returns>对象</returns>
+        public static T ToObject<T>(this byte[] buffer)
+        {
+            #region # 验证参数
+
+            if (buffer == null)
+            {
+                throw new ArgumentNullException("buffer", @"byte数组不可为null！");
+            }
+
+            #endregion
+
+            using (MemoryStream stream = new MemoryStream(buffer))
+            {
+                object instance = _BinaryFormatter.Deserialize(stream);
+                return (T)instance;
+            }
+        }
+        #endregion
+
         #region # object序列化Xml字符串扩展方法 —— static string ToXml(this object instance)
         /// <summary>
         /// object序列化Xml字符串扩展方法

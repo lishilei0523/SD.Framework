@@ -1,4 +1,13 @@
-﻿using ShSoft.Infrastructure.EventBase;
+﻿using System;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using RabbitMQ.Client;
+using RabbitMQ.Client.Events;
+using ShSoft.Infrastructure.Constants;
+using ShSoft.Infrastructure.EventBase;
+using ShSoft.Infrastructure.EventBase.Mediator;
+using ShSoft.Infrastructure.EventStoreProvider.RabbitMQ.Configuration;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Infrastructure.EventStoreProvider
@@ -6,222 +15,198 @@ namespace ShSoft.Infrastructure.EventStoreProvider
     /// <summary>
     /// 领域事件存储 - RabbitMQ提供者
     /// </summary>
-    public class RabbitMQStoreProvider //: IEventStore
+    public class RabbitMQStoreProvider : IEventStore
     {
-        //        #region # 初始化存储 —— void InitStore()
-        //        /// <summary>
-        //        /// 初始化存储
-        //        /// </summary>
-        //        public void InitStore()
-        //        {
+        #region # 字段及构造器
 
-        //        }
-        //        #endregion
+        /// <summary>
+        /// 二进制序列化器
+        /// </summary>
+        private static readonly BinaryFormatter _BinaryFormatter;
 
-        //        #region # 挂起领域事件 —— void Suspend<T>(T eventSource)
-        //        /// <summary>
-        //        /// 挂起领域事件
-        //        /// </summary>
-        //        /// <typeparam name="T">领域事件源类型</typeparam>
-        //        /// <param name="eventSource">领域事件源</param>
-        //        public void Suspend<T>(T eventSource) where T : class, IEvent.IEvent
-        //        {
-        //            this._messageQueue.Send(eventSource);
-        //        }
-        //        #endregion
+        /// <summary>
+        /// RabbitMQ连接工厂
+        /// </summary>
+        private static readonly ConnectionFactory _ConnectionFactory;
 
-        //        #region # 处理未处理的领域事件 —— void HandleUncompletedEvents()
-        //        /// <summary>
-        //        /// 处理未处理的领域事件
-        //        /// </summary>
-        //        public void HandleUncompletedEvents()
-        //        {
-        //            while (this._messageQueue.GetAllMessages().Any())
-        //            {
-        //                Message message = this._messageQueue.Receive();
+        /// <summary>
+        /// 静态构造器
+        /// </summary>
+        static RabbitMQStoreProvider()
+        {
+            _BinaryFormatter = new BinaryFormatter();
+            _ConnectionFactory = new ConnectionFactory
+            {
+                HostName = RabbitMQConfiguration.Setting.HostName,
+                UserName = RabbitMQConfiguration.Setting.UserName,
+                Password = RabbitMQConfiguration.Setting.Password
+            };
+        }
 
-        //                if (message != null)
-        //                {
-        //                    IEvent.IEvent eventSource = (IEvent.Event)message.Body;
 
-        //                    eventSource.Handle();
-        //                }
-        //            }
+        /// <summary>
+        /// 会话Id
+        /// </summary>
+        private readonly string _sessionId;
 
-        //            this.Clear();
-        //        }
-        //        #endregion
+        /// <summary>
+        /// RabbitMQ连接
+        /// </summary>
+        private readonly IConnection _connection;
 
-        //        #region # 清空未处理的领域事件 —— void ClearUncompletedEvents()
-        //        /// <summary>
-        //        /// 清空未处理的领域事件
-        //        /// </summary>
-        //        public void ClearUncompletedEvents()
-        //        {
-        //            this._messageQueue.Purge();
-        //            this.Clear();
-        //        }
-        //        #endregion
+        /// <summary>
+        /// RabbitMQ连接信道
+        /// </summary>
+        private readonly IModel _channel;
 
-        //        #region # 释放资源 —— void Dispose()
-        //        /// <summary>
-        //        /// 释放资源
-        //        /// </summary>
-        //        public void Dispose()
-        //        {
-        //            this._messageQueue.Close();
-        //            this._messageQueue.Dispose();
-        //        }
-        //        #endregion
+        /// <summary>
+        /// RabbitMQ队列
+        /// </summary>
+        private readonly QueueDeclareOk _queue;
 
-        //        #region # 清理队列 —— void Clear()
-        //        /// <summary>
-        //        /// 清理队列
-        //        /// </summary>
-        //        private void Clear()
-        //        {
-        //            if (MessageQueue.Exists(this._path))
-        //            {
-        //                MessageQueue.Delete(this._path);
-        //            }
-        //        }
-        //        #endregion
+        /// <summary>
+        /// 构造器
+        /// </summary>
+        public RabbitMQStoreProvider()
+        {
+            this._sessionId = WebConfigSetting.CurrentSessionId.ToString();
+            this._connection = _ConnectionFactory.CreateConnection();
+            this._channel = this._connection.CreateModel();
+            this._queue = this._channel.QueueDeclare(this._sessionId, true, false, true, null);
+        }
+
+        #endregion
+
+
+        //Implements
+
+        #region # 挂起领域事件 —— void Suspend<T>(T eventSource)
+        /// <summary>
+        /// 挂起领域事件
+        /// </summary>
+        /// <typeparam name="T">领域事件源类型</typeparam>
+        /// <param name="eventSource">领域事件源</param>
+        public void Suspend<T>(T eventSource) where T : class, IEvent
+        {
+            byte[] messageBody = this.ToByteArray(eventSource);
+
+            this._channel.BasicPublish(string.Empty, this._sessionId, null, messageBody);
+        }
+        #endregion
+
+        #region # 处理未处理的领域事件 —— void HandleUncompletedEvents()
+        /// <summary>
+        /// 处理未处理的领域事件
+        /// </summary>
+        public void HandleUncompletedEvents()
+        {
+            EventingBasicConsumer consumer = new EventingBasicConsumer(this._channel);
+
+            consumer.Received += (sender, e) =>
+            {
+                byte[] messageBody = e.Body;
+
+                IEvent eventSource = this.ToObject<IEvent>(messageBody);
+
+                EventMediator.Handle(eventSource);
+
+                this._channel.BasicAck(e.DeliveryTag, false);
+            };
+
+            this._channel.BasicConsume(this._sessionId, false, consumer);
+        }
+        #endregion
+
+        #region # 清空未处理的领域事件 —— void ClearUncompletedEvents()
+        /// <summary>
+        /// 清空未处理的领域事件
+        /// </summary>
+        public void ClearUncompletedEvents()
+        {
+            this._channel.QueueDelete(this._queue);
+        }
+        #endregion
+
+        #region # 释放资源 —— void Dispose()
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        public void Dispose()
+        {
+            if (this._connection != null)
+            {
+                this._connection.Close();
+                this._connection.Dispose();
+            }
+            if (this._channel != null)
+            {
+                this._channel.Close();
+                this._channel.Dispose();
+            }
+        }
+        #endregion
+
+
+        //private
+
+        #region # object序列化为byte数组扩展方法 —— byte[] ToByteArray(object instance)
+        /// <summary>
+        /// object序列化为byte数组扩展方法
+        /// </summary>
+        /// <param name="instance">object及其子类</param>
+        /// <returns>byte数组</returns>
+        /// <exception cref="ArgumentNullException">源对象为空</exception>
+        /// <exception cref="SerializationException">对象类型未标记"Serializable"特性</exception>
+        private byte[] ToByteArray(object instance)
+        {
+            #region # 验证参数
+
+            if (instance == null)
+            {
+                throw new ArgumentNullException("instance", @"源对象不可为空！");
+            }
+
+            #endregion
+
+            using (MemoryStream stream = new MemoryStream())
+            {
+                try
+                {
+                    _BinaryFormatter.Serialize(stream, instance);
+                    return stream.ToArray();
+                }
+                catch (SerializationException)
+                {
+                    throw new SerializationException(string.Format("给定对象类型\"{0}\"未标记\"Serializable\"特性！", instance.GetType().Name));
+                }
+            }
+        }
+        #endregion
+
+        #region # byte数组反序列化为对象扩展方法 —— T ToObject<T>(byte[] buffer)
+        /// <summary>
+        /// byte数组反序列化为对象扩展方法
+        /// </summary>
+        /// <typeparam name="T">类型</typeparam>
+        /// <param name="buffer">byte数组</param>
+        /// <returns>对象</returns>
+        public T ToObject<T>(byte[] buffer)
+        {
+            #region # 验证参数
+
+            if (buffer == null)
+            {
+                throw new ArgumentNullException("buffer", @"byte数组不可为null！");
+            }
+
+            #endregion
+
+            using (MemoryStream stream = new MemoryStream(buffer))
+            {
+                object instance = _BinaryFormatter.Deserialize(stream);
+                return (T)instance;
+            }
+        }
+        #endregion
     }
 }
-
-
-
-//using System;
-//using System.Linq;
-//using System.Messaging;
-//using System.Runtime.Remoting.Messaging;
-//using ShSoft.Framework2016.Infrastructure.Constants;
-//using ShSoft.Framework2016.Infrastructure.IEvent;
-
-//namespace ShSoft.Framework2016.Infrastructure.Event.MSMQStorer.Provider
-//{
-//    /// <summary>
-//    /// 领域事件存储者 - MSMQ提供者
-//    /// </summary>
-//    public class MSMQStorerProvider : IEventStorer
-//    {
-//        #region # 字段及构造器
-
-//        /// <summary>
-//        /// 消息路径
-//        /// </summary>
-//        private readonly string _path;
-
-//        /// <summary>
-//        /// 消息对象
-//        /// </summary>
-//        private readonly MessageQueue _messageQueue;
-
-//        /// <summary>
-//        /// 构造器
-//        /// </summary>
-//        public MSMQStorerProvider()
-//        {
-//            #region # SessionId处理
-
-//            object sessionIdCache = CallContext.GetData(CacheConstants.SessionIdKey);
-
-//            if (sessionIdCache == null)
-//            {
-//                throw new ApplicationException("SessionId未设置，请检查程序！");
-//            }
-
-//            Guid sessionId = (Guid)sessionIdCache;
-
-//            #endregion
-
-//            this._path = @".\Private$\" + sessionId;
-
-//            this._messageQueue = !MessageQueue.Exists(this._path) ? MessageQueue.Create(this._path) : new MessageQueue(this._path);
-
-//            this._messageQueue.Formatter = new BinaryMessageFormatter();
-//        }
-
-//        #endregion
-
-//        #region # 初始化存储 —— void InitStore()
-//        /// <summary>
-//        /// 初始化存储
-//        /// </summary>
-//        public void InitStore()
-//        {
-
-//        }
-//        #endregion
-
-//        #region # 挂起领域事件 —— void Suspend<T>(T eventSource)
-//        /// <summary>
-//        /// 挂起领域事件
-//        /// </summary>
-//        /// <typeparam name="T">领域事件源类型</typeparam>
-//        /// <param name="eventSource">领域事件源</param>
-//        public void Suspend<T>(T eventSource) where T : class, IEvent.IEvent
-//        {
-//            this._messageQueue.Send(eventSource);
-//        }
-//        #endregion
-
-//        #region # 处理未处理的领域事件 —— void HandleUncompletedEvents()
-//        /// <summary>
-//        /// 处理未处理的领域事件
-//        /// </summary>
-//        public void HandleUncompletedEvents()
-//        {
-//            while (this._messageQueue.GetAllMessages().Any())
-//            {
-//                Message message = this._messageQueue.Receive();
-
-//                if (message != null)
-//                {
-//                    IEvent.IEvent eventSource = (IEvent.Event)message.Body;
-
-//                    eventSource.Handle();
-//                }
-//            }
-
-//            this.Clear();
-//        }
-//        #endregion
-
-//        #region # 清空未处理的领域事件 —— void ClearUncompletedEvents()
-//        /// <summary>
-//        /// 清空未处理的领域事件
-//        /// </summary>
-//        public void ClearUncompletedEvents()
-//        {
-//            this._messageQueue.Purge();
-//            this.Clear();
-//        }
-//        #endregion
-
-//        #region # 释放资源 —— void Dispose()
-//        /// <summary>
-//        /// 释放资源
-//        /// </summary>
-//        public void Dispose()
-//        {
-//            this._messageQueue.Close();
-//            this._messageQueue.Dispose();
-//        }
-//        #endregion
-
-//        #region # 清理队列 —— void Clear()
-//        /// <summary>
-//        /// 清理队列
-//        /// </summary>
-//        private void Clear()
-//        {
-//            if (MessageQueue.Exists(this._path))
-//            {
-//                MessageQueue.Delete(this._path);
-//            }
-//        }
-//        #endregion
-//    }
-//}
-
