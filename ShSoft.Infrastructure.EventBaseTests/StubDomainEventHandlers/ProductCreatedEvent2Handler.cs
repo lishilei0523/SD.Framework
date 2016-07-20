@@ -1,5 +1,4 @@
 ﻿using ShSoft.Infrastructure.EventBase;
-using ShSoft.Infrastructure.EventBase.Mediator;
 using ShSoft.Infrastructure.EventBaseTests.StubEventSources;
 
 namespace ShSoft.Infrastructure.EventBaseTests.StubDomainEventHandlers
@@ -7,7 +6,7 @@ namespace ShSoft.Infrastructure.EventBaseTests.StubDomainEventHandlers
     /// <summary>
     /// 商品已创建事件处理者
     /// </summary>
-    public class ProductCreatedEventHandler : IEventHandler<ProductCreatedEvent>
+    public class ProductCreatedEvent2Handler : IEventHandler<ProductCreatedEvent2>
     {
         /// <summary>
         /// 商品名称
@@ -29,11 +28,9 @@ namespace ShSoft.Infrastructure.EventBaseTests.StubDomainEventHandlers
         /// 领域事件处理方法（同步执行）
         /// </summary>
         /// <param name="eventSource">领域事件源</param>
-        public void Handle(ProductCreatedEvent eventSource)
+        public void Handle(ProductCreatedEvent2 eventSource)
         {
             ProductName = eventSource.ProductName;
-
-            EventMediator.Suspend(new ProductCreatedEvent2(eventSource.ProductNo, eventSource.ProductName, eventSource.Price));
         }
     }
 }

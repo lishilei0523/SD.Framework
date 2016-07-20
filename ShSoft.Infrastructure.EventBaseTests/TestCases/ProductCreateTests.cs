@@ -1,8 +1,8 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShSoft.Infrastructure.EventBase;
 using ShSoft.Infrastructure.EventBase.Mediator;
+using ShSoft.Infrastructure.EventBaseTests.StubDomainEventHandlers;
 using ShSoft.Infrastructure.EventBaseTests.StubEntities;
-using ShSoft.Infrastructure.EventBaseTests.StubEventHandlers;
 using ShSoft.Infrastructure.EventBaseTests.StubEventSources;
 using ShSoft.Infrastructure.Global;
 
@@ -28,6 +28,7 @@ namespace ShSoft.Infrastructure.EventBaseTests.TestCases
 
             //断言会触发领域事件，并修改目标参数的值
             Assert.IsTrue(ProductCreatedEventHandler.ProductName == product.Name);
+            Assert.IsTrue(ProductCreatedEvent2Handler.ProductName == product.Name);
         }
 
         /// <summary>

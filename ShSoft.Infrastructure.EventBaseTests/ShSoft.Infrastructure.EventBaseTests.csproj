@@ -58,8 +58,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StubDomainEventHandlers\ProductCreatedEvent2Handler.cs" />
     <Compile Include="StubDomainEventHandlers\ProductCreatedEventHandler.cs" />
     <Compile Include="StubEntities\Product.cs" />
+    <Compile Include="StubEventSources\ProductCreatedEvent2.cs" />
     <Compile Include="StubEventSources\ProductCreatedEvent.cs" />
     <Compile Include="TestCases\ProductCreateTests.cs" />
   </ItemGroup>
@@ -67,6 +69,10 @@
     <ProjectReference Include="..\ShSoft.Infrastructure.EventBase\ShSoft.Infrastructure.EventBase.csproj">
       <Project>{79dc5e40-2857-4748-a895-49bb675cdc68}</Project>
       <Name>ShSoft.Infrastructure.EventBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShSoft.Infrastructure.EventStoreProvider.RabbitMQ\ShSoft.Infrastructure.EventStoreProvider.RabbitMQ.csproj">
+      <Project>{7d78ce29-610b-4709-8950-3aeaf405c89b}</Project>
+      <Name>ShSoft.Infrastructure.EventStoreProvider.RabbitMQ</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShSoft.Infrastructure.Global\ShSoft.Infrastructure.Global.csproj">
       <Project>{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}</Project>

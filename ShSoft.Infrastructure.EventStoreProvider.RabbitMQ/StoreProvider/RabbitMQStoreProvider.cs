@@ -100,18 +100,9 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public void HandleUncompletedEvents()
         {
-            EventingBasicConsumer consumer = new EventingBasicConsumer(this._channel);
+            QueueingBasicConsumer consumer = new QueueingBasicConsumer(this._channel);
 
-            consumer.Received += (sender, e) =>
-            {
-                IEvent eventSource = this.ToObject<IEvent>(e.Body);
-
-                EventMediator.Handle(eventSource);
-
-                this._channel.BasicAck(e.DeliveryTag, false);
-            };
-
-            this._channel.BasicConsume(this._sessionId, false, consumer);
+            this.HandleRecursively(consumer);
         }
         #endregion
 
@@ -203,6 +194,30 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             {
                 object instance = _BinaryFormatter.Deserialize(stream);
                 return (T)instance;
+            }
+        }
+        #endregion
+
+        #region # 递归处理领域事件 —— void HandleRecursively(QueueingBasicConsumer consumer)
+        /// <summary>
+        /// 递归处理领域事件
+        /// </summary>
+        /// <param name="consumer">消息消费者</param>
+        private void HandleRecursively(QueueingBasicConsumer consumer)
+        {
+            this._channel.BasicConsume(this._sessionId, false, consumer);
+
+            BasicDeliverEventArgs eventArg;
+
+            if (consumer.Queue.Dequeue(1000, out eventArg))
+            {
+                IEvent eventSource = this.ToObject<IEvent>(eventArg.Body);
+
+                EventMediator.Handle(eventSource);
+
+                this._channel.BasicAck(eventArg.DeliveryTag, false);
+
+                this.HandleRecursively(consumer);
             }
         }
         #endregion
