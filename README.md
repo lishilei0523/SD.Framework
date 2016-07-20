@@ -27,37 +27,49 @@
 
 	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.AOP
 
+4、ShSoft.Infrastructure.CommandBase
 
-4、ShSoft.Infrastructure.Event
+	命令基础设施，包含命令基类、命令执行者工厂、命令中介者。
 
-	领域事件基础设施，包含领域事件基类、领域事件处理者工厂、领域事件中介者、Session存储提供者。
-
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.Event
+	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.CommandBase
 
 
-5、ShSoft.Infrastructure.Event.EFStorer
+5、ShSoft.Infrastructure.EventBase
+
+	领域事件基础，包含领域事件基类、领域事件处理者工厂、领域事件中介者、Session存储提供者。
+
+	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.EventBase
+
+
+6、ShSoft.Infrastructure.EventStoreProvider.EntityFramework
 
 	EntityFramework领域事件存储提供者。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.Event.EFStorer
+	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.EventStoreProvider.EntityFramework
+
+7、ShSoft.Infrastructure.EventStoreProvider.RabbitMQ
+
+	RabbitMQ领域事件存储提供者。
+
+	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.EventStoreProvider.RabbitMQ
 
 
-6、ShSoft.Infrastructure.Global
+8、ShSoft.Infrastructure.Global
 
 	全局操作基础设施，包括全局初始化、释放资源、事务。
 
 	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.Global
 
 
-7、ShSoft.Infrastructure.Repository
+9、ShSoft.Infrastructure.Repository.EntityFramework
 
 	仓储基础设施，包含EntityFramework DbContext的三次封装、数据库清理者、EntityFramework仓储提供者、EntityFramework UnitOfWork提供者。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.Repository
+	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.Repository.EntityFramework
 
 
-8、ShSoft.Infrastructure.WCF
+10、ShSoft.Infrastructure.WCF.Server
 
 	WCF服务端基础设施。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.WCF
+	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.WCF.Server
