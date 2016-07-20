@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Remoting.Messaging;
 using ShSoft.Infrastructure.Constants;
 
 // ReSharper disable once CheckNamespace
@@ -23,19 +22,7 @@ namespace ShSoft.Infrastructure.EventBase
             this.Id = Guid.NewGuid();
             this.Handled = false;
             this.AddedTime = DateTime.Now;
-
-            #region # SessionId处理
-
-            object sessionIdCache = CallContext.GetData(CacheConstants.SessionIdKey);
-
-            if (sessionIdCache == null)
-            {
-                throw new ApplicationException("SessionId未设置，请检查程序！");
-            }
-
-            this.SessionId = (Guid)sessionIdCache;
-
-            #endregion
+            this.SessionId = WebConfigSetting.CurrentSessionId;
         }
         #endregion
 

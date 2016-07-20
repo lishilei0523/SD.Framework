@@ -39,7 +39,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StoreProvider\RabbitMQStoreProvider.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\ShSoft.Infrastructure\ShSoft.Infrastructure.csproj">
+      <Project>{F9FF05F0-1900-4D24-859A-B3202F2208D7}</Project>
+      <Name>ShSoft.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>

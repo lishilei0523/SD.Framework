@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Runtime.Remoting.Messaging;
 
 namespace ShSoft.Infrastructure.Constants
 {
@@ -66,6 +67,26 @@ namespace ShSoft.Infrastructure.Constants
         /// </summary>
         public static readonly string TablePrefix =
             ConfigurationManager.AppSettings[CommonConstants.TablePrefixAppSettingKey];
+        #endregion
+
+        #region # 当前SessionId —— static Guid CurrentSessionId
+        /// <summary>
+        /// 当前SessionId
+        /// </summary>
+        public static Guid CurrentSessionId
+        {
+            get
+            {
+                object sessionIdCache = CallContext.GetData(CacheConstants.SessionIdKey);
+
+                if (sessionIdCache == null)
+                {
+                    throw new ApplicationException("SessionId未设置，请检查程序！");
+                }
+
+                return (Guid)sessionIdCache;
+            }
+        }
         #endregion
     }
 }

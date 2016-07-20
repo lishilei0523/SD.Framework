@@ -21,8 +21,6 @@ namespace ShSoft.Infrastructure.CommandBase
             this.Id = Guid.NewGuid();
             this.Handled = false;
             this.AddedTime = DateTime.Now;
-
-            //TODO SessionId处理
             this.SessionId = Guid.Empty;
         }
         #endregion
