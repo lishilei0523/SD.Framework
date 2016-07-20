@@ -1,0 +1,9 @@
+﻿<configuration>
+  <!--依赖注入注册配置-->
+  <injectionRegisterConfiguration>
+    <!--As接口类型列表-->
+    <asInterfaceTypes>
+      <type name="ShSoft.Infrastructure.EventStoreProvider.MemoryStoreProvider" assembly="ShSoft.Infrastructure.EventBase" />
+    </asInterfaceTypes>
+  </injectionRegisterConfiguration>
+</configuration>

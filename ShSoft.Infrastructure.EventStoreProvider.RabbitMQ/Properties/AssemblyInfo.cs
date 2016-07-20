@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("ShSoft.Infrastructure.DomainEvent.RabbitMQStorer")]
+[assembly: AssemblyTitle("ShSoft.Infrastructure.EventStoreProvider.RabbitMQ")]
 [assembly: AssemblyDescription("基础设施 - 领域事件基础 - RabbitMQ存储实现")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ShSoft")]
-[assembly: AssemblyProduct("ShSoft.Infrastructure.DomainEvent.RabbitMQStorer")]
+[assembly: AssemblyProduct("ShSoft.Infrastructure.EventStoreProvider.RabbitMQ")]
 [assembly: AssemblyCopyright("Copyright © ShSoft 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

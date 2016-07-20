@@ -7,8 +7,8 @@ using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using ShSoft.Infrastructure.Constants;
-using ShSoft.Infrastructure.DomainEventBase;
-using ShSoft.Infrastructure.DomainEventBase.Mediator;
+using ShSoft.Infrastructure.EventBase;
+using ShSoft.Infrastructure.EventBase.Mediator;
 using ShSoft.Infrastructure.EventStoreProvider.EntityFramework.Migrations;
 
 // ReSharper disable once CheckNamespace
@@ -17,7 +17,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
     /// <summary>
     /// 领域事件存储 - EF提供者
     /// </summary>
-    public class EntityFrameworkStoreProvider : DbContext, IDomainEventStore
+    public class EntityFrameworkStoreProvider : DbContext, IEventStore
     {
         #region # 构造器
 
@@ -90,17 +90,17 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             #endregion
 
             //注册事件源基类
-            modelBuilder.RegisterEntityType(typeof(DomainEvent));
+            modelBuilder.RegisterEntityType(typeof(Event));
 
             //设置Id、非自增长
-            modelBuilder.Entity<DomainEvent>().HasKey(x => x.Id);
-            modelBuilder.Entity<DomainEvent>().Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
+            modelBuilder.Entity<Event>().HasKey(x => x.Id);
+            modelBuilder.Entity<Event>().Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 
             //配置事件源表名
-            modelBuilder.Entity<DomainEvent>().ToTable(string.Format("{0}{1}", this.TablePrefix, typeof(DomainEvent).Name));
+            modelBuilder.Entity<Event>().ToTable(string.Format("{0}{1}", this.TablePrefix, typeof(Event).Name));
 
             //加载模型所在程序集查询出所有符合条件的实体类型
-            IEnumerable<Type> types = Assembly.Load(this.EventSourceAssembly).GetTypes().Where(x => !x.IsInterface && x.IsSubclassOf(typeof(DomainEvent)));
+            IEnumerable<Type> types = Assembly.Load(this.EventSourceAssembly).GetTypes().Where(x => !x.IsInterface && x.IsSubclassOf(typeof(Event)));
 
             //注册实体配置
             this.RegisterEntityTypes(modelBuilder, types);
@@ -132,15 +132,15 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         }
         #endregion
 
-        #region 挂起领域事件 —— void Suspend<T>(T domainSource)
+        #region 挂起领域事件 —— void Suspend<T>(T eventSource)
         /// <summary>
         /// 挂起领域事件
         /// </summary>
         /// <typeparam name="T">领域事件源类型</typeparam>
-        /// <param name="domainSource">领域事件源</param>
-        public void Suspend<T>(T domainSource) where T : class, IDomainEvent
+        /// <param name="eventSource">领域事件源</param>
+        public void Suspend<T>(T eventSource) where T : class, IEvent
         {
-            this.Set<T>().Add(domainSource);
+            this.Set<T>().Add(eventSource);
             this.SaveChanges();
         }
         #endregion
@@ -164,26 +164,26 @@ namespace ShSoft.Infrastructure.EventStoreProvider
 
             #endregion
 
-            Expression<Func<DomainEvent, bool>> condition =
+            Expression<Func<Event, bool>> condition =
                 x =>
                     !x.Handled &&
                     x.SessionId == sessionId;
 
-            IOrderedQueryable<DomainEvent> eventSources = this.Set<DomainEvent>().Where(condition).OrderBy(x => x.AddedTime);
+            IOrderedQueryable<Event> eventSources = this.Set<Event>().Where(condition).OrderBy(x => x.AddedTime);
 
             //如果有未处理的
             if (eventSources.Any())
             {
-                foreach (DomainEvent eventSource in eventSources)
+                foreach (Event eventSource in eventSources)
                 {
-                    EventMediator.Handle((IDomainEvent)eventSource);
+                    EventMediator.Handle((IEvent)eventSource);
                     eventSource.Handled = true;
                 }
                 this.SaveChanges();
             }
 
             //递归
-            if (this.Set<DomainEvent>().Any(condition))
+            if (this.Set<Event>().Any(condition))
             {
                 this.HandleUncompletedEvents();
             }
@@ -196,11 +196,11 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public void ClearUncompletedEvents()
         {
-            List<DomainEvent> eventSources = this.Set<DomainEvent>().Where(x => !x.Handled).ToList();
+            List<Event> eventSources = this.Set<Event>().Where(x => !x.Handled).ToList();
 
-            foreach (DomainEvent eventSource in eventSources)
+            foreach (Event eventSource in eventSources)
             {
-                this.Set<DomainEvent>().Remove(eventSource);
+                this.Set<Event>().Remove(eventSource);
             }
 
             this.SaveChanges();

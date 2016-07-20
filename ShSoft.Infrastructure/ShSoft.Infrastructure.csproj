@@ -54,8 +54,8 @@
     <Compile Include="CustomExceptions\BusinessException.cs" />
     <Compile Include="CustomExceptions\DomainException.cs" />
     <Compile Include="CustomExceptions\RepositoryException.cs" />
-    <Compile Include="DomainEventBase\IDomainEvent.cs" />
-    <Compile Include="DomainEventBase\IDomainEventStore.cs" />
+    <Compile Include="EventBase\IEvent.cs" />
+    <Compile Include="EventBase\IEventStore.cs" />
     <Compile Include="MessageBase\IMessage.cs" />
     <Compile Include="RepositoryBase\IDataInitializer.cs" />
     <Compile Include="RepositoryBase\IDbCleaner.cs" />
@@ -67,7 +67,7 @@
     <Compile Include="EntityBase\PlainEntity.cs" />
     <Compile Include="EntityBase\IValueObject.cs" />
     <Compile Include="EntityBase\IVersionControl.cs" />
-    <Compile Include="DomainEventBase\IDomainEventHandler.cs" />
+    <Compile Include="EventBase\IEventHandler.cs" />
     <Compile Include="RepositoryBase\IRepository.cs" />
     <Compile Include="RepositoryBase\IUnitOfWork.cs" />
     <Compile Include="RepositoryBase\PageExtension.cs" />

@@ -1,5 +1,4 @@
-﻿using System;
-using System.ServiceModel;
+﻿using System.ServiceModel;
 using ShSoft.Infrastructure.StubIAppService.Interfaces;
 using ShSoft.Infrastructure.WCFTests.Interfaces;
 

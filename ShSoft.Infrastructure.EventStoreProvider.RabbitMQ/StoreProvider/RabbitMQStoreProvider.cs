@@ -17,14 +17,14 @@ namespace ShSoft.Infrastructure.EventStoreProvider
 //using System.Messaging;
 //using System.Runtime.Remoting.Messaging;
 //using ShSoft.Framework2016.Infrastructure.Constants;
-//using ShSoft.Framework2016.Infrastructure.IDomainEvent;
+//using ShSoft.Framework2016.Infrastructure.IEvent;
 
-//namespace ShSoft.Framework2016.Infrastructure.DomainEvent.MSMQStorer.Provider
+//namespace ShSoft.Framework2016.Infrastructure.Event.MSMQStorer.Provider
 //{
 //    /// <summary>
 //    /// 领域事件存储者 - MSMQ提供者
 //    /// </summary>
-//    public class MSMQStorerProvider : IDomainEventStorer
+//    public class MSMQStorerProvider : IEventStorer
 //    {
 //        #region # 字段及构造器
 
@@ -75,15 +75,15 @@ namespace ShSoft.Infrastructure.EventStoreProvider
 //        }
 //        #endregion
 
-//        #region # 挂起领域事件 —— void Suspend<T>(T domainSource)
+//        #region # 挂起领域事件 —— void Suspend<T>(T eventSource)
 //        /// <summary>
 //        /// 挂起领域事件
 //        /// </summary>
 //        /// <typeparam name="T">领域事件源类型</typeparam>
-//        /// <param name="domainSource">领域事件源</param>
-//        public void Suspend<T>(T domainSource) where T : class, IDomainEvent.IDomainEvent
+//        /// <param name="eventSource">领域事件源</param>
+//        public void Suspend<T>(T eventSource) where T : class, IEvent.IEvent
 //        {
-//            this._messageQueue.Send(domainSource);
+//            this._messageQueue.Send(eventSource);
 //        }
 //        #endregion
 
@@ -99,7 +99,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
 
 //                if (message != null)
 //                {
-//                    IDomainEvent.IDomainEvent eventSource = (IDomainEvent.DomainEvent)message.Body;
+//                    IEvent.IEvent eventSource = (IEvent.Event)message.Body;
 
 //                    eventSource.Handle();
 //                }

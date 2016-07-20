@@ -28,18 +28,18 @@
 	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.AOP
 
 
-4、ShSoft.Infrastructure.DomainEvent
+4、ShSoft.Infrastructure.Event
 
 	领域事件基础设施，包含领域事件基类、领域事件处理者工厂、领域事件中介者、Session存储提供者。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.DomainEvent
+	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.Event
 
 
-5、ShSoft.Infrastructure.DomainEvent.EFStorer
+5、ShSoft.Infrastructure.Event.EFStorer
 
 	EntityFramework领域事件存储提供者。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.DomainEvent.EFStorer
+	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.Event.EFStorer
 
 
 6、ShSoft.Infrastructure.Global

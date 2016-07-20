@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的常规信息通过以下特性集 
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("ShSoft.Infrastructure.CommandBaseTests")]
+[assembly: AssemblyTitle("ShSoft.Infrastructure.EventTests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ShSoft")]
-[assembly: AssemblyProduct("ShSoft.Infrastructure.CommandBaseTests")]
+[assembly: AssemblyProduct("ShSoft.Infrastructure.EventTests")]
 [assembly: AssemblyCopyright("Copyright © ShSoft 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-[assembly: Guid("aeda2bcc-3523-47e5-a105-ab7cbb5049af")]
+[assembly: Guid("88b12c2b-90d9-46fb-a4a0-2c42d712d7b9")]
 
 // 程序集的版本信息由以下四个值组成: 
 //

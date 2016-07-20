@@ -58,9 +58,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShSoft.Infrastructure.DomainEventBase\ShSoft.Infrastructure.DomainEventBase.csproj">
+    <ProjectReference Include="..\ShSoft.Infrastructure.EventBase\ShSoft.Infrastructure.EventBase.csproj">
       <Project>{79DC5E40-2857-4748-A895-49BB675CDC68}</Project>
-      <Name>ShSoft.Infrastructure.DomainEventBase</Name>
+      <Name>ShSoft.Infrastructure.EventBase</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShSoft.Infrastructure\ShSoft.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>

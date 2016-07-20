@@ -1,12 +1,12 @@
 ﻿using ShSoft.Common.PoweredByLee;
-using ShSoft.Infrastructure.DomainEventBase;
+using ShSoft.Infrastructure.EventBase;
 
 namespace ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests.EventSources
 {
     /// <summary>
     /// 商品已创建事件
     /// </summary>
-    public class ProductCreatedEvent : DomainEvent
+    public class ProductCreatedEvent : Event
     {
         protected ProductCreatedEvent()
         {

@@ -1,5 +1,5 @@
 ﻿using System;
-using ShSoft.Infrastructure.DomainEventBase.Mediator;
+using ShSoft.Infrastructure.EventBase.Mediator;
 using ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests.Entities;
 using ShSoft.Infrastructure.Global;
 

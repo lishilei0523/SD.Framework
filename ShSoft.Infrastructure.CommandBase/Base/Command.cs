@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.Serialization;
-using ShSoft.Infrastructure.CommandBase.Mediator;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Infrastructure.CommandBase

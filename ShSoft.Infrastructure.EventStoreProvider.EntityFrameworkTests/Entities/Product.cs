@@ -1,5 +1,5 @@
-﻿using ShSoft.Infrastructure.DomainEventBase.Mediator;
-using ShSoft.Infrastructure.EntityBase;
+﻿using ShSoft.Infrastructure.EntityBase;
+using ShSoft.Infrastructure.EventBase.Mediator;
 using ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests.EventSources;
 
 namespace ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests.Entities

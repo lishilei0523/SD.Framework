@@ -1,10 +1,10 @@
 ﻿using System;
-using ShSoft.Infrastructure.DomainEventBase;
+using ShSoft.Infrastructure.EventBase;
 using ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests.EventSources;
 
 namespace ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests.EventHandlers
 {
-    public class ProductCreatedEventHandler : IDomainEventHandler<ProductCreatedEvent>
+    public class ProductCreatedEventHandler : IEventHandler<ProductCreatedEvent>
     {
         /// <summary>
         /// 领域事件处理方法（同步执行）

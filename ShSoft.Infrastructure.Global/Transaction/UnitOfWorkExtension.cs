@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Transactions;
-using ShSoft.Infrastructure.DomainEventBase.Mediator;
+using ShSoft.Infrastructure.EventBase.Mediator;
 using ShSoft.Infrastructure.RepositoryBase;
 
 namespace ShSoft.Infrastructure.Global.Transaction
