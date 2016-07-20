@@ -104,9 +104,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
 
             consumer.Received += (sender, e) =>
             {
-                byte[] messageBody = e.Body;
-
-                IEvent eventSource = this.ToObject<IEvent>(messageBody);
+                IEvent eventSource = this.ToObject<IEvent>(e.Body);
 
                 EventMediator.Handle(eventSource);
 
