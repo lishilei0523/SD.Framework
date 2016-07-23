@@ -14,5 +14,13 @@ namespace ShSoft.Infrastructure.WCFTests.Stubs
         {
 
         }
+
+        /// <summary>
+        /// 终结
+        /// </summary>
+        public void Flush()
+        {
+
+        }
     }
 }

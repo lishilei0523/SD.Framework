@@ -1,7 +1,7 @@
 ﻿using System.Runtime.Remoting.Messaging;
 using ShSoft.Infrastructure.RepositoryBase;
 
-namespace ShSoft.Infrastructure.Repository.EntityFramework.Base
+namespace ShSoft.Infrastructure.Repository.RavenDB.Base
 {
     /// <summary>
     /// 数据库清理者实现
@@ -13,16 +13,16 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         public void Clean()
         {
-            if (BaseDbSession.CommandInstance != null)
+            if (RavenDbSession.CommandInstance != null)
             {
-                BaseDbSession.CommandInstance.Dispose();
+                RavenDbSession.CommandInstance.Dispose();
             }
-            if (BaseDbSession.QueryInstance != null)
+            if (RavenDbSession.QueryInstance != null)
             {
-                BaseDbSession.QueryInstance.Dispose();
+                RavenDbSession.QueryInstance.Dispose();
             }
-            CallContext.FreeNamedDataSlot(BaseDbSession.CommandInstanceKey);
-            CallContext.FreeNamedDataSlot(BaseDbSession.QueryInstanceKey);
+            CallContext.FreeNamedDataSlot(RavenDbSession.CommandInstanceKey);
+            CallContext.FreeNamedDataSlot(RavenDbSession.QueryInstanceKey);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         public void Flush()
         {
-            this.Clean();
+            RavenDbSession.FlushStore();
         }
     }
 }

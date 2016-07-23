@@ -9,5 +9,10 @@
         /// 清理
         /// </summary>
         void Clean();
+
+        /// <summary>
+        /// 终结
+        /// </summary>
+        void Flush();
     }
 }

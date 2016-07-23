@@ -42,7 +42,7 @@ namespace ShSoft.Infrastructure.WCF.Server
         private static void InstanceProvider_OnReleaseInstance(InstanceContext instanceContext, object instance)
         {
             //清理数据库
-            Finalizer.FinalizeDatabase();
+            Finalizer.CleanDb();
         }
 
 

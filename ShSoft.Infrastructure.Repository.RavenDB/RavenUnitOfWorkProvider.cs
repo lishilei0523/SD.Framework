@@ -1,41 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
+using Raven.Client;
+using Raven.Client.Linq;
 using ShSoft.Infrastructure.EntityBase;
-using ShSoft.Infrastructure.Repository.EntityFramework.Base;
+using ShSoft.Infrastructure.Repository.RavenDB.Base;
 using ShSoft.Infrastructure.RepositoryBase;
 
-namespace ShSoft.Infrastructure.Repository.EntityFramework
+namespace ShSoft.Infrastructure.Repository.RavenDB
 {
     /// <summary>
-    /// EF单元事务Provider
+    /// RavenDB单元事务Provider
     /// </summary>
-    public abstract class EFUnitOfWorkProvider : IUnitOfWork
+    public abstract class RavenUnitOfWorkProvider : IUnitOfWork
     {
-        #region # 创建EF（写）上下文对象
+        #region # 创建RavenDB会话对象
 
         /// <summary>
-        /// EF（写）上下文对象字段
+        /// RavenDB会话对象
         /// </summary>
-        private readonly DbContext _dbContext;
+        private readonly IDocumentSession _dbContext;
 
         /// <summary>
         /// 构造器
         /// </summary>
-        protected EFUnitOfWorkProvider()
+        protected RavenUnitOfWorkProvider()
         {
-            //EF（写）上下文对象字段
-            this._dbContext = BaseDbSession.CommandInstance;
+            this._dbContext = RavenDbSession.CommandInstance;
         }
 
         /// <summary>
         /// 析构器
         /// </summary>
-        ~EFUnitOfWorkProvider()
+        ~RavenUnitOfWorkProvider()
         {
             this.Dispose();
         }
@@ -67,7 +66,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            this._dbContext.Set<T>().Add(entity);
+            this._dbContext.Store(entity);
         }
         #endregion
 
@@ -89,7 +88,10 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            this._dbContext.Set<T>().AddRange(entities);
+            foreach (T entity in entities)
+            {
+                this.RegisterAdd(entity);
+            }
         }
         #endregion
 
@@ -115,16 +117,12 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException("Id", string.Format(@"要保存的{0}实体对象Id不可为空！", typeof(T).Name));
             }
 
-            if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Id != entity.Id))
+            if (!this.Exists<T>(entity.Id))
             {
                 throw new NullReferenceException(string.Format("不存在Id为{0}的{1}实体对象，请尝试添加操作！", entity.Id, typeof(T).Name));
             }
 
             #endregion
-
-            entity.SavedTime = DateTime.Now;
-            DbEntityEntry entry = this._dbContext.Entry<T>(entity);
-            entry.State = EntityState.Modified;
         }
         #endregion
 
@@ -171,15 +169,15 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException("id", string.Format("要删除的{0}实体对象id不可为空！", typeof(T).Name));
             }
 
-            if (!this._dbContext.Set<T>().Where(x => !x.Deleted).Any(x => x.Id == id))
+            if (!this.Exists<T>(id))
             {
                 throw new NullReferenceException(string.Format("Id为{0}的{1}实体对象不存在，请重试！", id, typeof(T).Name));
             }
 
             #endregion
 
-            T entity = this._dbContext.Set<T>().Single(x => x.Id == id);
-            this._dbContext.Set<T>().Remove(entity);
+            T entity = this._dbContext.Query<T>().Single(x => x.Id == id);
+            this._dbContext.Delete(entity);
         }
         #endregion
 
@@ -200,15 +198,15 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException("number", string.Format("要删除的{0}实体对象编号不可为空！", typeof(T).Name));
             }
 
-            if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Number != number))
+            if (!this.Exists<T>(number))
             {
                 throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", number, typeof(T).Name));
             }
 
             #endregion
 
-            T entity = this._dbContext.Set<T>().Single(x => x.Number == number);
-            this._dbContext.Set<T>().Remove(entity);
+            T entity = this._dbContext.Query<T>().Single(x => x.Number == number);
+            this._dbContext.Delete(entity);
         }
         #endregion
 
@@ -246,7 +244,12 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterPhysicsRemoveAll<T>() where T : AggregateRootEntity
         {
-            this.RegisterPhysicsRemove<T>(x => true);
+            IRavenQueryable<T> queryable = this.FindAll<T>();
+
+            foreach (T entity in queryable)
+            {
+                this._dbContext.Delete(entity);
+            }
         }
         #endregion
 
@@ -266,19 +269,16 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
             {
                 throw new ArgumentNullException("id", string.Format("要删除的{0}实体对象id不可为空！", typeof(T).Name));
             }
-
-            if (!this._dbContext.Set<T>().Where(x => !x.Deleted).Any(x => x.Id == id))
+            if (!this.Exists<T>(id))
             {
                 throw new NullReferenceException(string.Format("Id为{0}的{1}实体对象不存在，请重试！", id, typeof(T).Name));
             }
 
             #endregion
 
-            T entity = this.Single<T>(x => x.Id == id);
+            T entity = this._dbContext.Load<T>(id);
             entity.Deleted = true;
             entity.DeletedTime = DateTime.Now;
-            DbEntityEntry entry = this._dbContext.Entry<T>(entity);
-            entry.State = EntityState.Modified;
         }
         #endregion
 
@@ -299,7 +299,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException("number", string.Format(@"要删除的{0}实体对象编号不可为空！", typeof(T).Name));
             }
 
-            if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Number != number))
+            if (!this.Exists<T>(number))
             {
                 throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", number, typeof(T).Name));
             }
@@ -309,8 +309,6 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
             T entity = this.Single<T>(x => x.Number == number);
             entity.Deleted = true;
             entity.DeletedTime = DateTime.Now;
-            DbEntityEntry entry = this._dbContext.Entry<T>(entity);
-            entry.State = EntityState.Modified;
         }
         #endregion
 
@@ -346,7 +344,13 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         /// <typeparam name="T">实体类型</typeparam>
         public void RegisterRemoveAll<T>() where T : AggregateRootEntity
         {
-            this.RegisterRemove<T>(x => true);
+            IRavenQueryable<T> queryable = this.FindAll<T>();
+
+            foreach (T entity in queryable)
+            {
+                entity.Deleted = true;
+                entity.DeletedTime = DateTime.Now; ;
+            }
         }
         #endregion
 
@@ -369,10 +373,14 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
             {
                 throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
             }
+            if (!this.Exists<T>(id))
+            {
+                throw new NullReferenceException(string.Format("Id为{0}的{1}实体对象不存在，请重试！", id, typeof(T).Name));
+            }
 
             #endregion
 
-            return this.Resolve<T>(x => x.Id == id);
+            return this._dbContext.Load<T>(id);
         }
         #endregion
 
@@ -392,10 +400,14 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
             {
                 throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
             }
+            if (!this.Exists<T>(number))
+            {
+                throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", number, typeof(T).Name));
+            }
 
             #endregion
 
-            return this.Resolve<T>(x => x.Number == number);
+            return this.Single<T>(x => x.Number == number);
         }
         #endregion
 
@@ -407,7 +419,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象集合</returns>
         public IEnumerable<T> ResolveAll<T>() where T : AggregateRootEntity
         {
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).AsEnumerable();
+            return Queryable.Where(this._dbContext.Query<T>(), x => !x.Deleted).AsEnumerable();
         }
         #endregion
 
@@ -439,7 +451,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
             try
             {
                 //提交事务
-                await this._dbContext.SaveChangesAsync();
+                await Task.Run(() => this._dbContext.SaveChanges());
             }
             catch
             {
@@ -455,10 +467,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         /// </summary>
         public void RollBack()
         {
-            foreach (DbEntityEntry entry in this._dbContext.ChangeTracker.Entries())
-            {
-                entry.State = EntityState.Unchanged;
-            }
+
         }
         #endregion
 
@@ -471,16 +480,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         /// <exception cref="ArgumentNullException">SQL语句为空</exception>
         public void ExecuteSqlCommand(string sql, params object[] parameters)
         {
-            #region # 验证参数
-
-            if (string.IsNullOrWhiteSpace(sql))
-            {
-                throw new ArgumentNullException("sql", @"SQL语句不可为空！");
-            }
-
-            #endregion
-
-            this._dbContext.Database.ExecuteSqlCommand(sql, parameters);
+            throw new NotSupportedException("RavenDB不支持SQL命令！");
         }
         #endregion
 
@@ -500,103 +500,6 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
         //Protected
 
-        #region # 注册条件删除（物理删除） —— void RegisterPhysicsRemove<T>(...
-        /// <summary>
-        /// 注册条件删除（物理删除）
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="predicate">条件表达式</param>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        protected void RegisterPhysicsRemove<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
-        {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            #endregion
-
-            IQueryable<T> list = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
-            foreach (T entity in list)
-            {
-                this._dbContext.Set<T>().Attach(entity);
-                this._dbContext.Set<T>().Remove(entity);
-            }
-        }
-        #endregion
-
-        #region # 注册条件删除（逻辑删除） —— void RegisterRemove<T>(...
-        /// <summary>
-        /// 注册条件删除（逻辑删除）
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="predicate">条件表达式</param>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        protected void RegisterRemove<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
-        {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            #endregion
-
-            IQueryable<T> list = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
-            foreach (T entity in list)
-            {
-                entity.Deleted = true;
-                entity.DeletedTime = DateTime.Now;
-                DbEntityEntry entry = this._dbContext.Entry<T>(entity);
-                entry.State = EntityState.Modified;
-            }
-        }
-        #endregion
-
-        #region # 根据条件获取唯一实体对象（修改时用） —— T Resolve<T>(...
-        /// <summary>
-        /// 根据条件获取唯一实体对象（修改时用）
-        /// </summary>
-        /// <param name="predicate">条件</param>
-        /// <returns>实体对象</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NullReferenceException">查询不到任何实体对象</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
-        protected T Resolve<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
-        {
-            return this.Single<T>(predicate);
-        }
-        #endregion
-
-        #region # 根据条件获取实体对象集合（修改时用） —— IQueryable<T> ResolveRange<T>(...
-        /// <summary>
-        /// 根据条件获取实体对象集合（修改时用）
-        /// </summary>
-        /// <param name="predicate">条件</param>
-        /// <returns>实体对象集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
-        protected IQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
-        {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            #endregion
-
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
-        }
-        #endregion
-
         #region # 根据条件获取唯一实体对象（修改时用） —— T Single<T>(...
         /// <summary>
         /// 根据条件获取唯一实体对象（修改时用）
@@ -607,7 +510,39 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         /// <exception cref="NullReferenceException">查询不到任何实体对象</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
-        private T Single<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        protected T Single<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        {
+            #region # 验证参数
+
+            if (predicate == null)
+            {
+                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+            }
+            if (!this.Exists<T>(predicate))
+            {
+                throw new NullReferenceException(string.Format("给定的条件\"{0}\"中查询不到任何{1}实体对象！", predicate, typeof(T).Name));
+            }
+            if (this.Count(predicate) > 1)
+            {
+                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
+            }
+
+            #endregion
+
+            return this.FindAll<T>().SingleAsync(predicate).Result;
+        }
+        #endregion
+
+        #region # 根据条件获取实体对象集合（修改时用） —— IRavenQueryable<T> ResolveRange<T>(...
+        /// <summary>
+        /// 根据条件获取实体对象集合（修改时用）
+        /// </summary>
+        /// <param name="predicate">条件</param>
+        /// <returns>实体对象集合</returns>
+        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
+        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
+        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
+        protected IRavenQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
             #region # 验证参数
 
@@ -616,19 +551,80 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
             }
 
-            if (!this._dbContext.Set<T>().Where(x => !x.Deleted).Any(predicate))
-            {
-                throw new NullReferenceException(string.Format("给定的条件\"{0}\"中查询不到任何{1}实体对象！", predicate, typeof(T).Name));
-            }
-
-            if (this._dbContext.Set<T>().Where(x => !x.Deleted).Count(predicate) > 1)
-            {
-                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
-            }
-
             #endregion
 
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).Single(predicate);
+            return this.FindAll<T>().Where(predicate);
+        }
+        #endregion
+
+
+        //Private
+
+        #region # 获取全部实体对象集合 —— IRavenQueryable<T> FindAll<T>()
+        /// <summary>
+        /// 获取全部实体对象集合
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <returns>实体对象集合</returns>
+        private IRavenQueryable<T> FindAll<T>() where T : AggregateRootEntity
+        {
+            return this._dbContext.Query<T>().Where(x => !x.Deleted);
+        }
+        #endregion
+
+        #region # 是否存在实体对象 —— bool Exists<T>(Guid id)
+        /// <summary>
+        /// 是否存在实体对象
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="id">标识Id</param>
+        /// <returns>是否存在</returns>
+        private bool Exists<T>(Guid id) where T : AggregateRootEntity
+        {
+            return this._dbContext.Load<T>(id) != null;
+        }
+        #endregion
+
+        #region # 是否存在实体对象 —— bool Exists<T>(string number)
+        /// <summary>
+        /// 是否存在实体对象
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="number">编号</param>
+        /// <returns>是否存在</returns>
+        private bool Exists<T>(string number) where T : AggregateRootEntity
+        {
+            return this.Exists<T>(x => x.Number == number);
+        }
+        #endregion
+
+        #region # 是否存在实体对象 —— bool Exists<T>(Expression<Func<T, bool>> predicate)
+        /// <summary>
+        /// 是否存在实体对象
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="predicate">条件表达式</param>
+        /// <returns>是否存在</returns>
+        private bool Exists<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        {
+            Task<bool> exists = this.FindAll<T>().AnyAsync(predicate);
+
+            return exists.Result;
+        }
+        #endregion
+
+        #region # 实体对象个数 —— int Count<T>(Expression<Func<T, bool>> predicate)
+        /// <summary>
+        /// 实体对象个数
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="predicate">条件表达式</param>
+        /// <returns>实体对象个数</returns>
+        private int Count<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        {
+            Task<int> exists = this.FindAll<T>().CountAsync(predicate);
+
+            return exists.Result;
         }
         #endregion
     }

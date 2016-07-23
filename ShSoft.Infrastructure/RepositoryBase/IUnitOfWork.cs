@@ -60,7 +60,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
         /// <param name="id">标识Id</param>
         /// <exception cref="ArgumentNullException">id为空</exception>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        void RegisterPhysicsRemove<T>(Guid id) where T : PlainEntity;
+        void RegisterPhysicsRemove<T>(Guid id) where T : AggregateRootEntity;
         #endregion
 
         #region # 注册删除单行（物理删除） —— void RegisterPhysicsRemove<T>(string number)
@@ -71,7 +71,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
         /// <param name="number">编号</param>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        void RegisterPhysicsRemove<T>(string number) where T : PlainEntity;
+        void RegisterPhysicsRemove<T>(string number) where T : AggregateRootEntity;
         #endregion
 
         #region # 注册删除多行（物理删除） —— void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids)
@@ -82,7 +82,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
         /// <param name="ids">标识Id集合</param>
         /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids) where T : PlainEntity;
+        void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
         #endregion
 
         #region # 注册删除全部（物理删除） —— void RegisterPhysicsRemoveAll<T>()
@@ -91,7 +91,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        void RegisterPhysicsRemoveAll<T>() where T : PlainEntity;
+        void RegisterPhysicsRemoveAll<T>() where T : AggregateRootEntity;
         #endregion
 
         #region # 注册删除单行（逻辑删除） —— void RegisterRemove<T>(Guid id)
@@ -102,7 +102,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
         /// <param name="id">标识Id</param>
         /// <exception cref="ArgumentNullException">id为空</exception>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        void RegisterRemove<T>(Guid id) where T : PlainEntity;
+        void RegisterRemove<T>(Guid id) where T : AggregateRootEntity;
         #endregion
 
         #region # 注册删除单行（逻辑删除） —— void RegisterRemove<T>(string number)
@@ -113,7 +113,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
         /// <param name="number">编号</param>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        void RegisterRemove<T>(string number) where T : PlainEntity;
+        void RegisterRemove<T>(string number) where T : AggregateRootEntity;
         #endregion
 
         #region # 注册删除多行（逻辑删除） —— void RegisterRemoveRange<T>(IEnumerable<Guid> ids)
@@ -123,7 +123,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集合</param>
         /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
-        void RegisterRemoveRange<T>(IEnumerable<Guid> ids) where T : PlainEntity;
+        void RegisterRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
         #endregion
 
         #region # 注册删除全部（逻辑删除） —— void RegisterRemoveAll<T>()
@@ -131,7 +131,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
         /// 注册删除全部（逻辑删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        void RegisterRemoveAll<T>() where T : PlainEntity;
+        void RegisterRemoveAll<T>() where T : AggregateRootEntity;
         #endregion
 
         #region # 根据Id获取唯一实体对象（修改时用） —— T Resolve<T>(Guid id)
