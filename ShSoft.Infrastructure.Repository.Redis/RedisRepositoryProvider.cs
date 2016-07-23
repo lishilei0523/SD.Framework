@@ -14,7 +14,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
     /// Redis简单仓储Provider
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
-    public class RedisRepositoryProvider<T> : ISimpleRepository<T> where T : AggregateRootEntity
+    public abstract class RedisRepositoryProvider<T> : ISimpleRepository<T> where T : AggregateRootEntity
     {
         #region # 字段及构造器
 
@@ -101,6 +101,36 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
+        #region # 添加实体对象集合 —— void AddRange(IEnumerable<T> entities)
+        /// <summary>
+        /// 添加实体对象集合
+        /// </summary>
+        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <param name="entities">实体对象集合</param>
+        /// <exception cref="ArgumentNullException">实体对象集合为null或长度为0</exception>
+        public void AddRange(IEnumerable<T> entities)
+        {
+            #region # 验证参数
+
+            if (entities == null || !entities.Any())
+            {
+                throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象集合不可为空！", typeof(T).Name));
+            }
+
+            #endregion
+
+            using (IRedisTypedTransaction<T> trans = this._redisTypedClient.CreateTransaction())
+            {
+                foreach (T entity in entities)
+                {
+                    trans.QueueCommand(x => x.AddItemToList(this._table, entity));
+                }
+
+                trans.Commit();
+            }
+        }
+        #endregion
+
         #region # 保存单个实体对象 —— void Save(T entity)
         /// <summary>
         /// 保存单个实体对象
@@ -137,6 +167,40 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
+        #region # 保存实体对象集合 —— void SaveRange(IEnumerable<T> entities)
+        /// <summary>
+        /// 保存实体对象集合
+        /// </summary>
+        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <param name="entities">实体对象集合</param>
+        /// <exception cref="ArgumentNullException">实体对象集合</exception>
+        /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
+        public void SaveRange(IEnumerable<T> entities)
+        {
+            #region # 验证参数
+
+            if (entities == null || !entities.Any())
+            {
+                throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象集合不可为空！", typeof(T).Name));
+            }
+
+            #endregion
+
+            using (IRedisTypedTransaction<T> trans = this._redisTypedClient.CreateTransaction())
+            {
+                foreach (T entity in entities)
+                {
+                    T oldEntity = this.Single(entity.Id);
+
+                    trans.QueueCommand(x => x.RemoveItemFromList(this._table, oldEntity));
+                    trans.QueueCommand(x => x.AddItemToList(this._table, entity));
+                }
+
+                trans.Commit();
+            }
+        }
+        #endregion
+
         #region # 删除单行 —— void Remove(Guid id)
         /// <summary>
         /// 删除单行
@@ -166,6 +230,70 @@ namespace ShSoft.Infrastructure.Repository.Redis
             T entity = this.Single(number);
 
             this._redisTypedClient.RemoveItemFromList(this._table, entity);
+        }
+        #endregion
+
+        #region # 删除多行 —— void RemoveRange(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 删除多行
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="ids">标识Id集合</param>
+        /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
+        public void RemoveRange(IEnumerable<Guid> ids)
+        {
+            #region # 验证参数
+
+            if (ids == null || !ids.Any())
+            {
+                throw new ArgumentNullException("ids", string.Format("要删除的{0}的id集合不可为空！", typeof(T).Name));
+            }
+
+            #endregion
+
+            using (IRedisTypedTransaction<T> trans = this._redisTypedClient.CreateTransaction())
+            {
+                foreach (Guid id in ids)
+                {
+                    T entity = this.Single(id);
+
+                    trans.QueueCommand(x => x.RemoveItemFromList(this._table, entity));
+                }
+
+                trans.Commit();
+            }
+        }
+        #endregion
+
+        #region # 删除多行 —— void RemoveRange(IEnumerable<string> numbers)
+        /// <summary>
+        /// 删除多行
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="numbers">编号集合</param>
+        /// <exception cref="ArgumentNullException">numbers为null或长度为0</exception>
+        public void RemoveRange(IEnumerable<string> numbers)
+        {
+            #region # 验证参数
+
+            if (numbers == null || !numbers.Any())
+            {
+                throw new ArgumentNullException("ids", string.Format("要删除的{0}的编号集合不可为空！", typeof(T).Name));
+            }
+
+            #endregion
+
+            using (IRedisTypedTransaction<T> trans = this._redisTypedClient.CreateTransaction())
+            {
+                foreach (string number in numbers)
+                {
+                    T entity = this.Single(number);
+
+                    trans.QueueCommand(x => x.RemoveItemFromList(this._table, entity));
+                }
+
+                trans.Commit();
+            }
         }
         #endregion
 
@@ -543,7 +671,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 根据编号集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<string> numbers)
+        #region # 根据编号集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<string>...
         /// <summary>
         /// 根据编号集获取子类对象集合
         /// </summary>
@@ -588,7 +716,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 根据关键字分页获取子类对象集合 + 输出记录条数与页数 —— IEnumerable<TSub> FindByPage<TSub>(...
+        #region # 根据关键字分页获取子类对象集合 + 输出记录条数与页数 —— IEnumerable<TSub> FindByPage...
         /// <summary>
         /// 根据关键字分页获取子类对象集合 + 分页 + 输出记录条数与页数
         /// </summary>
@@ -901,7 +1029,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
         //其他
 
-        #region # 执行SQL查询 —— IEnumerable<T> ExecuteSqlQuery(string sql, params object[] parameters)
+        #region # 执行SQL查询 —— IEnumerable<T> ExecuteSqlQuery(string sql...
         /// <summary>
         /// 执行SQL查询
         /// </summary>
@@ -931,7 +1059,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
         //Single部分
 
-        #region # 根据条件获取唯一实体对象（查看时用） —— T SingleOrDefault(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取唯一实体对象（查看时用） —— T SingleOrDefault(...
         /// <summary>
         /// 根据条件获取唯一实体对象（查看时用），
         /// 无该对象时返回null
@@ -962,7 +1090,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 根据条件获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(Expression<Func<TSub, bool>> predicate)
+        #region # 根据条件获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(...
         /// <summary>
         /// 根据条件获取唯一子类对象（查看时用），
         /// 无该对象时返回null
@@ -993,7 +1121,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 根据条件获取第一个实体对象（查看时用） —— T FirstOrDefault(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取第一个实体对象（查看时用） —— T FirstOrDefault(...
         /// <summary>
         /// 根据条件获取第一个实体对象（查看时用），
         /// 无该对象时返回null
@@ -1015,7 +1143,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 根据条件获取第一个子类对象（查看时用） —— TSub FirstOrDefault<TSub>(Expression<Func<TSub...
+        #region # 根据条件获取第一个子类对象（查看时用） —— TSub FirstOrDefault<TSub>(...
         /// <summary>
         /// 根据条件获取第一个子类对象（查看时用），
         /// 无该对象时返回null
@@ -1087,7 +1215,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 根据条件获取子类对象集合 —— IQueryable<TSub> Find<TSub>(Expression<Func<TSub, bool>>...
+        #region # 根据条件获取子类对象集合 —— IQueryable<TSub> Find<TSub>(...
         /// <summary>
         /// 根据条件获取子类对象集合
         /// </summary>
@@ -1111,7 +1239,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 根据条件获取实体对象Id集合 —— IQueryable<Guid> FindIds(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取实体对象Id集合 —— IQueryable<Guid> FindIds(Expression...
         /// <summary>
         /// 根据条件获取实体对象Id集合
         /// </summary>
@@ -1125,7 +1253,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 根据条件获取子类对象Id集合 —— IQueryable<Guid> FindIds<TSub>(Expression<Func<TSub, bool>> predicate)
+        #region # 根据条件获取子类对象Id集合 —— IQueryable<Guid> FindIds<TSub>(...
         /// <summary>
         /// 根据条件获取子类对象Id集合
         /// </summary>
@@ -1139,7 +1267,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 根据条件获取实体对象编号集合 —— IQueryable<string> FindNos(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取实体对象编号集合 —— IQueryable<string> FindNos(...
         /// <summary>
         /// 根据条件获取实体对象编号集合
         /// </summary>
@@ -1153,7 +1281,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 根据条件获取子类对象编号集合 —— IQueryable<string> FindNos<TSub>(Expression<Func<TSub, bool>> predicate)
+        #region # 根据条件获取子类对象编号集合 —— IQueryable<string> FindNos<TSub>(...
         /// <summary>
         /// 根据条件获取子类对象编号集合
         /// </summary>
@@ -1185,7 +1313,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 根据条件分页获取子类对象集合 + 输出记录条数与页数 —— IQueryable<TSub> FindByPage<TSub>(...
+        #region # 根据条件分页获取子类对象集合 + 输出记录条数与页数 —— IQueryable<TSub> FindByPage(...
         /// <summary>
         /// 根据条件分页获取子类对象集合 + 分页 + 输出记录条数与页数
         /// </summary>
@@ -1323,7 +1451,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         }
         #endregion
 
-        #region # 判断是否存在给定条件的子类对象 —— bool Exists<TSub>(Expression<Func<TSub, bool>> predicate)
+        #region # 判断是否存在给定条件的子类对象 —— bool Exists<TSub>(Expression<Func<TSub...
         /// <summary>
         /// 判断是否存在给定条件的子类对象
         /// </summary>

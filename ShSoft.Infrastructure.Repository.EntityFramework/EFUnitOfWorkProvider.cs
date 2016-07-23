@@ -183,31 +183,31 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 注册删除单行（物理删除） —— void RegisterPhysicsRemove<T>(string no)
+        #region # 注册删除单行（物理删除） —— void RegisterPhysicsRemove<T>(string number)
         /// <summary>
         /// 注册删除单行（物理删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        public void RegisterPhysicsRemove<T>(string no) where T : PlainEntity
+        public void RegisterPhysicsRemove<T>(string number) where T : PlainEntity
         {
             #region # 验证参数
 
-            if (string.IsNullOrWhiteSpace(no))
+            if (string.IsNullOrWhiteSpace(number))
             {
                 throw new ArgumentNullException("no", string.Format("要删除的{0}实体对象编号不可为空！", typeof(T).Name));
             }
 
-            if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Number != no))
+            if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Number != number))
             {
-                throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", no, typeof(T).Name));
+                throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", number, typeof(T).Name));
             }
 
             #endregion
 
-            T entity = this._dbContext.Set<T>().Single(x => x.Number == no);
+            T entity = this._dbContext.Set<T>().Single(x => x.Number == number);
             this._dbContext.Set<T>().Remove(entity);
         }
         #endregion
@@ -282,31 +282,31 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 注册删除单行（逻辑删除） —— void RegisterRemove<T>(string no)
+        #region # 注册删除单行（逻辑删除） —— void RegisterRemove<T>(string number)
         /// <summary>
         /// 注册删除单行（逻辑删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        public void RegisterRemove<T>(string no) where T : PlainEntity
+        public void RegisterRemove<T>(string number) where T : PlainEntity
         {
             #region # 验证参数
 
-            if (string.IsNullOrWhiteSpace(no))
+            if (string.IsNullOrWhiteSpace(number))
             {
                 throw new ArgumentNullException("no", string.Format(@"要删除的{0}实体对象编号不可为空！", typeof(T).Name));
             }
 
-            if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Number != no))
+            if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Number != number))
             {
-                throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", no, typeof(T).Name));
+                throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", number, typeof(T).Name));
             }
 
             #endregion
 
-            T entity = this.Single<T>(x => x.Number == no);
+            T entity = this.Single<T>(x => x.Number == number);
             entity.Deleted = true;
             entity.DeletedTime = DateTime.Now;
             DbEntityEntry entry = this._dbContext.Entry<T>(entity);
@@ -376,26 +376,26 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据编号获取唯一实体对象（修改时用） —— T Resolve<T>(string no)
+        #region # 根据编号获取唯一实体对象（修改时用） —— T Resolve<T>(string number)
         /// <summary>
         /// 根据编号获取唯一实体对象（修改时用）
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>单个实体对象</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        public T Resolve<T>(string no) where T : AggregateRootEntity
+        public T Resolve<T>(string number) where T : AggregateRootEntity
         {
             #region # 验证参数
 
-            if (string.IsNullOrWhiteSpace(no))
+            if (string.IsNullOrWhiteSpace(number))
             {
                 throw new ArgumentNullException("no", string.Format("{0}的编号不可为空！", typeof(T).Name));
             }
 
             #endregion
 
-            return this.Resolve<T>(x => x.Number == no);
+            return this.Resolve<T>(x => x.Number == number);
         }
         #endregion
 
@@ -500,7 +500,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
         //Protected
 
-        #region # 注册条件删除（物理删除） —— void RegisterPhysicsRemove<T>(Expression<Func<T, bool>>...
+        #region # 注册条件删除（物理删除） —— void RegisterPhysicsRemove<T>(...
         /// <summary>
         /// 注册条件删除（物理删除）
         /// </summary>
@@ -528,7 +528,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 注册条件删除（逻辑删除） —— void RegisterRemove<T>(Expression<Func<T, bool>> predicate)
+        #region # 注册条件删除（逻辑删除） —— void RegisterRemove<T>(...
         /// <summary>
         /// 注册条件删除（逻辑删除）
         /// </summary>
@@ -557,7 +557,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取唯一实体对象（修改时用） —— T Resolve<T>(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取唯一实体对象（修改时用） —— T Resolve<T>(...
         /// <summary>
         /// 根据条件获取唯一实体对象（修改时用）
         /// </summary>
@@ -573,7 +573,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取实体对象集合（修改时用） —— IQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取实体对象集合（修改时用） —— IQueryable<T> ResolveRange<T>(...
         /// <summary>
         /// 根据条件获取实体对象集合（修改时用）
         /// </summary>
@@ -597,7 +597,7 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取唯一实体对象（修改时用） —— T Single<T>(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取唯一实体对象（修改时用） —— T Single<T>(...
         /// <summary>
         /// 根据条件获取唯一实体对象（修改时用）
         /// </summary>

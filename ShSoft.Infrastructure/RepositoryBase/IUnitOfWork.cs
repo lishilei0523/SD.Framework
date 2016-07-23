@@ -63,15 +63,15 @@ namespace ShSoft.Infrastructure.RepositoryBase
         void RegisterPhysicsRemove<T>(Guid id) where T : PlainEntity;
         #endregion
 
-        #region # 注册删除单行（物理删除） —— void RegisterPhysicsRemove<T>(string no)
+        #region # 注册删除单行（物理删除） —— void RegisterPhysicsRemove<T>(string number)
         /// <summary>
         /// 注册删除单行（物理删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        void RegisterPhysicsRemove<T>(string no) where T : PlainEntity;
+        void RegisterPhysicsRemove<T>(string number) where T : PlainEntity;
         #endregion
 
         #region # 注册删除多行（物理删除） —— void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids)
@@ -105,15 +105,15 @@ namespace ShSoft.Infrastructure.RepositoryBase
         void RegisterRemove<T>(Guid id) where T : PlainEntity;
         #endregion
 
-        #region # 注册删除单行（逻辑删除） —— void RegisterRemove<T>(string no)
+        #region # 注册删除单行（逻辑删除） —— void RegisterRemove<T>(string number)
         /// <summary>
         /// 注册删除单行（逻辑删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        void RegisterRemove<T>(string no) where T : PlainEntity;
+        void RegisterRemove<T>(string number) where T : PlainEntity;
         #endregion
 
         #region # 注册删除多行（逻辑删除） —— void RegisterRemoveRange<T>(IEnumerable<Guid> ids)
@@ -157,15 +157,15 @@ namespace ShSoft.Infrastructure.RepositoryBase
         IEnumerable<T> ResolveAll<T>() where T : AggregateRootEntity;
         #endregion
 
-        #region # 根据编号获取唯一实体对象（修改时用） —— T Resolve<T>(string no)
+        #region # 根据编号获取唯一实体对象（修改时用） —— T Resolve<T>(string number)
         /// <summary>
         /// 根据编号获取唯一实体对象（修改时用）
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
-        /// <param name="no">编号</param>
+        /// <param name="number">编号</param>
         /// <returns>单个实体对象</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        T Resolve<T>(string no) where T : AggregateRootEntity;
+        T Resolve<T>(string number) where T : AggregateRootEntity;
         #endregion
 
         #region # 统一事务处理保存更改 —— void Commit()
@@ -189,7 +189,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
         void RollBack();
         #endregion
 
-        #region # 执行SQL命令（无需Commit） —— void ExecuteSqlCommand(string sql, params object[] parameters)
+        #region # 执行SQL命令（无需Commit） —— void ExecuteSqlCommand(string sql...
         /// <summary>
         /// 执行SQL命令（无需Commit）
         /// </summary>

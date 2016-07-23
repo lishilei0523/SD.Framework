@@ -212,7 +212,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
         IEnumerable<T> Find(IEnumerable<string> numbers);
         #endregion
 
-        #region # 根据编号集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<string> numbers)
+        #region # 根据编号集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<string>...
         /// <summary>
         /// 根据编号集获取子类对象集合
         /// </summary>
@@ -244,7 +244,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
         IEnumerable<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount);
         #endregion
 
-        #region # 根据关键字分页获取子类对象集合 + 输出记录条数与页数 —— IEnumerable<TSub> FindByPage<TSub>(
+        #region # 根据关键字分页获取子类对象集合 + 输出记录条数与页数 —— IEnumerable<TSub> FindByPage...
         /// <summary>
         /// 根据关键字分页获取子类对象集合 + 分页 + 输出记录条数与页数
         /// </summary>
@@ -405,7 +405,7 @@ namespace ShSoft.Infrastructure.RepositoryBase
 
         //其他
 
-        #region # 执行SQL查询 —— IEnumerable<T> ExecuteSqlQuery(string sql, params object[] parameters)
+        #region # 执行SQL查询 —— IEnumerable<T> ExecuteSqlQuery(string sql...
         /// <summary>
         /// 执行SQL查询
         /// </summary>
