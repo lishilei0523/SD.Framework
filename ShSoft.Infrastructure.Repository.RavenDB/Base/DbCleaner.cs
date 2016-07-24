@@ -24,13 +24,5 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
             CallContext.FreeNamedDataSlot(RavenDbSession.CommandInstanceKey);
             CallContext.FreeNamedDataSlot(RavenDbSession.QueryInstanceKey);
         }
-
-        /// <summary>
-        /// 终结
-        /// </summary>
-        public void Flush()
-        {
-            RavenDbSession.FlushStore();
-        }
     }
 }

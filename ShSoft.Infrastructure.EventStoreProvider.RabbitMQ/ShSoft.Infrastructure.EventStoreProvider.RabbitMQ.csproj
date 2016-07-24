@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Configuration\RabbitMQConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StoreProvider\RabbitMQStoreProvider.cs" />
+    <Compile Include="StoreProvider\RabbitStoreProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShSoft.Infrastructure.EventBase\ShSoft.Infrastructure.EventBase.csproj">

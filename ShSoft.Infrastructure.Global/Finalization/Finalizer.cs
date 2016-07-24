@@ -23,18 +23,5 @@ namespace ShSoft.Infrastructure.Global
                 dbCleaner.Clean();
             }
         }
-
-        /// <summary>
-        /// 终结数据库
-        /// </summary>
-        public static void FlushDb()
-        {
-            IEnumerable<IDbCleaner> dbCleaners = ResolveMediator.ResolveAll<IDbCleaner>();
-
-            foreach (IDbCleaner dbCleaner in dbCleaners)
-            {
-                dbCleaner.Flush();
-            }
-        }
     }
 }

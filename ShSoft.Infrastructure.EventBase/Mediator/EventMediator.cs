@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Transactions;
 using SD.IOC.Core.Mediator;
 using ShSoft.Infrastructure.EventBase.Factories;
 
@@ -22,7 +23,12 @@ namespace ShSoft.Infrastructure.EventBase.Mediator
         {
             using (IEventStore eventStorer = ResolveMediator.Resolve<IEventStore>())
             {
-                eventStorer.Suspend(eventSource);
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
+                {
+                    eventStorer.Suspend(eventSource);
+
+                    scope.Complete();
+                }
             }
         }
         #endregion

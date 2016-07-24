@@ -33,6 +33,12 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         #endregion
 
         #region 01.基础构造器
+
+        /// <summary>
+        /// 会话Id
+        /// </summary>
+        private readonly Guid _sessionId;
+
         /// <summary>
         /// 基础构造器
         /// </summary>
@@ -40,7 +46,9 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             : base(CommonConstants.DbSessionConstructorArg)
         {
             this.Database.CreateIfNotExists();
+            this._sessionId = WebConfigSetting.CurrentSessionId;
         }
+
         #endregion
 
         #endregion
@@ -141,23 +149,10 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public void HandleUncompletedEvents()
         {
-            #region # SessionId处理
-
-            object sessionIdCache = CallContext.GetData(CacheConstants.SessionIdKey);
-
-            if (sessionIdCache == null)
-            {
-                throw new ApplicationException("SessionId未设置，请检查程序！");
-            }
-
-            Guid sessionId = (Guid)sessionIdCache;
-
-            #endregion
-
             Expression<Func<Event, bool>> condition =
                 x =>
                     !x.Handled &&
-                    x.SessionId == sessionId;
+                    x.SessionId == this._sessionId;
 
             IOrderedQueryable<Event> eventSources = this.Set<Event>().Where(condition).OrderBy(x => x.AddedTime);
 

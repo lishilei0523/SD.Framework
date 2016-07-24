@@ -21,7 +21,7 @@ namespace ShSoft.Infrastructure.Repository.RavenDB
         /// <summary>
         /// RavenDB会话对象
         /// </summary>
-        private readonly IDocumentSession _dbContext;
+        private readonly IAsyncDocumentSession _dbContext;
 
         /// <summary>
         /// 构造器
@@ -66,7 +66,7 @@ namespace ShSoft.Infrastructure.Repository.RavenDB
 
             #endregion
 
-            return this._dbContext.Load<T>(id);
+            return this._dbContext.LoadAsync<T>(id).Result;
         }
         #endregion
 
@@ -89,7 +89,7 @@ namespace ShSoft.Infrastructure.Repository.RavenDB
 
             #endregion
 
-            return this._dbContext.Load<TSub>(id);
+            return this._dbContext.LoadAsync<TSub>(id).Result;
         }
         #endregion
 

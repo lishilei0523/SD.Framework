@@ -24,13 +24,5 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework.Base
             CallContext.FreeNamedDataSlot(BaseDbSession.CommandInstanceKey);
             CallContext.FreeNamedDataSlot(BaseDbSession.QueryInstanceKey);
         }
-
-        /// <summary>
-        /// 终结
-        /// </summary>
-        public void Flush()
-        {
-            this.Clean();
-        }
     }
 }

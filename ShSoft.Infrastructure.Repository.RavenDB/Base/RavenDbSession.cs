@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using Raven.Client;
 using Raven.Client.Document;
@@ -12,7 +13,7 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
     /// </summary>
     internal static class RavenDbSession
     {
-        #region # 字段及构造器
+        #region # 常量
 
         /// <summary>
         /// Raven（写）上下文对象缓存键
@@ -29,21 +30,39 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
         /// </summary>
         private const string ConnectionStringName = "RavenConnection";
 
+        #endregion
+
+        #region # 字段及构造器
+
         /// <summary>
-        /// RavenDB文档存储
+        /// RavenDB文档存储延迟加载字段
         /// </summary>
-        private static readonly IDocumentStore _Store;
+        private static readonly Lazy<IDocumentStore> _Store;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
         static RavenDbSession()
         {
-            _Store = new DocumentStore { ConnectionStringName = ConnectionStringName };
-            _Store.Initialize();
+            _Store = new Lazy<IDocumentStore>(CreateStore);
+        }
 
-            Assembly assembly = Assembly.Load(WebConfigSetting.EntityConfigAssembly);
-            IndexCreation.CreateIndexes(assembly, _Store);
+        /// <summary>
+        /// 创建RavenDB文档存储
+        /// </summary>
+        /// <returns>RavenDB文档存储</returns>
+        private static IDocumentStore CreateStore()
+        {
+            IDocumentStore documentStore = new DocumentStore { ConnectionStringName = ConnectionStringName };
+            documentStore.Initialize();
+
+            if (!string.IsNullOrWhiteSpace(WebConfigSetting.EntityConfigAssembly))
+            {
+                Assembly assembly = Assembly.Load(WebConfigSetting.EntityConfigAssembly);
+                IndexCreation.CreateIndexes(assembly, documentStore);
+            }
+
+            return documentStore;
         }
 
         #endregion
@@ -61,7 +80,7 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
                 IDocumentSession dbSession = CallContext.GetData(CommandInstanceKey) as IDocumentSession;
                 if (dbSession == null)
                 {
-                    dbSession = _Store.OpenSession();
+                    dbSession = _Store.Value.OpenSession();
                     CallContext.SetData(CommandInstanceKey, dbSession);
                 }
                 return dbSession;
@@ -69,18 +88,18 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
         }
         #endregion
 
-        #region Raven（读）上下文对象 —— static IDocumentSession QueryInstance
+        #region Raven（读）上下文对象 —— static IAsyncDocumentSession QueryInstance
         /// <summary>
         /// Raven（读）上下文对象
         /// </summary>
-        public static IDocumentSession QueryInstance
+        public static IAsyncDocumentSession QueryInstance
         {
             get
             {
-                IDocumentSession dbSession = CallContext.GetData(QueryInstanceKey) as IDocumentSession;
+                IAsyncDocumentSession dbSession = CallContext.GetData(QueryInstanceKey) as IAsyncDocumentSession;
                 if (dbSession == null)
                 {
-                    dbSession = _Store.OpenSession();
+                    dbSession = _Store.Value.OpenAsyncSession();
                     CallContext.SetData(QueryInstanceKey, dbSession);
                 }
                 return dbSession;
@@ -88,16 +107,6 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
         }
         #endregion
 
-        #endregion
-
-        #region # 析构器
-        /// <summary>
-        /// 释放RavenDB文档存储
-        /// </summary>
-        public static void FlushStore()
-        {
-            _Store.Dispose();
-        }
         #endregion
     }
 }

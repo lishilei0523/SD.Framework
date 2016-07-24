@@ -15,7 +15,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
     /// <summary>
     /// 领域事件存储 - RabbitMQ提供者
     /// </summary>
-    public class RabbitMQStoreProvider : IEventStore
+    public class RabbitStoreProvider : IEventStore
     {
         #region # 字段及构造器
 
@@ -32,7 +32,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static RabbitMQStoreProvider()
+        static RabbitStoreProvider()
         {
             _BinaryFormatter = new BinaryFormatter();
             _ConnectionFactory = new ConnectionFactory
@@ -67,7 +67,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// <summary>
         /// 构造器
         /// </summary>
-        public RabbitMQStoreProvider()
+        public RabbitStoreProvider()
         {
             this._sessionId = WebConfigSetting.CurrentSessionId.ToString();
             this._connection = _ConnectionFactory.CreateConnection();
