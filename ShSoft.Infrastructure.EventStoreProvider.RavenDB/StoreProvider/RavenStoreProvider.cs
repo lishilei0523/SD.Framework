@@ -177,7 +177,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
                     x.GetGenericArguments().Length == 1 &&
                     x.GetParameters().Length == 0;
 
-            MethodInfo methodInfo = this._dbSession.GetType().GetMethods().Single(condition);
+            MethodInfo methodQuery = this._dbSession.GetType().GetMethods().Single(condition);
 
             //声明领域事件集合
             IList<Event> events = new List<Event>();
@@ -186,13 +186,13 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             foreach (Type eventType in eventTypes)
             {
                 //填充泛型
-                MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(eventType);
+                MethodInfo genericMethodQuery = methodQuery.MakeGenericMethod(eventType);
 
                 //查询领域事件列表
-                object methodResult = genericMethodInfo.Invoke(this._dbSession, null);
-
+                object methodResult = genericMethodQuery.Invoke(this._dbSession, null);
                 IQueryable<Event> specEvents = (IQueryable<Event>)methodResult;
 
+                //过滤
                 specEvents = specEvents.Where(x => !x.Handled && x.SessionId == this._sessionId);
 
                 //填充集合
