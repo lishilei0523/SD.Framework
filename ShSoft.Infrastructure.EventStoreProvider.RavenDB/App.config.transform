@@ -1,4 +1,8 @@
 ﻿<configuration>
+  <appSettings>
+    <add key="RavenEventConnection" value="RavenConnection" />
+  </appSettings>
+
   <injectionRegisterConfiguration>
     <!--As接口类型列表-->
     <asInterfaceTypes>

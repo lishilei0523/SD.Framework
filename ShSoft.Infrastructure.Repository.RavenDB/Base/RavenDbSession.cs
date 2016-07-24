@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Reflection;
 using System.Runtime.Remoting.Messaging;
 using Raven.Client;
@@ -37,22 +38,23 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
         /// <summary>
         /// RavenDB文档存储延迟加载字段
         /// </summary>
-        private static readonly Lazy<IDocumentStore> _Store;
+        private static readonly IDocumentStore _Store;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
         static RavenDbSession()
         {
-            _Store = new Lazy<IDocumentStore>(CreateStore);
-        }
+            #region # 验证
 
-        /// <summary>
-        /// 创建RavenDB文档存储
-        /// </summary>
-        /// <returns>RavenDB文档存储</returns>
-        private static IDocumentStore CreateStore()
-        {
+            ConnectionStringSettings connectionString = ConfigurationManager.ConnectionStrings[ConnectionStringName];
+            if (connectionString == null)
+            {
+                throw new ApplicationException("Raven连接字符串未配置，请联系管理员！");
+            }
+
+            #endregion
+
             IDocumentStore documentStore = new DocumentStore { ConnectionStringName = ConnectionStringName };
             documentStore.Initialize();
 
@@ -62,7 +64,7 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
                 IndexCreation.CreateIndexes(assembly, documentStore);
             }
 
-            return documentStore;
+            _Store = documentStore;
         }
 
         #endregion
@@ -80,7 +82,7 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
                 IDocumentSession dbSession = CallContext.GetData(CommandInstanceKey) as IDocumentSession;
                 if (dbSession == null)
                 {
-                    dbSession = _Store.Value.OpenSession();
+                    dbSession = _Store.OpenSession();
                     CallContext.SetData(CommandInstanceKey, dbSession);
                 }
                 return dbSession;
@@ -99,7 +101,7 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
                 IAsyncDocumentSession dbSession = CallContext.GetData(QueryInstanceKey) as IAsyncDocumentSession;
                 if (dbSession == null)
                 {
-                    dbSession = _Store.Value.OpenAsyncSession();
+                    dbSession = _Store.OpenAsyncSession();
                     CallContext.SetData(QueryInstanceKey, dbSession);
                 }
                 return dbSession;

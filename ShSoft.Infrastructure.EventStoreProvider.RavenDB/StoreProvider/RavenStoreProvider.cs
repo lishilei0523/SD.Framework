@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using Raven.Abstractions.Extensions;
 using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Linq;
@@ -189,17 +189,14 @@ namespace ShSoft.Infrastructure.EventStoreProvider
                 MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(eventType);
 
                 //查询领域事件列表
-                object specEvents = genericMethodInfo.Invoke(this._dbSession, null);
-                IEnumerable enumerable = (IEnumerable)specEvents;
+                object methodResult = genericMethodInfo.Invoke(this._dbSession, null);
+
+                IQueryable<Event> specEvents = (IQueryable<Event>)methodResult;
+
+                specEvents = specEvents.Where(x => !x.Handled && x.SessionId == this._sessionId);
 
                 //填充集合
-                foreach (Event @event in enumerable)
-                {
-                    if (!@event.Handled && @event.SessionId == this._sessionId)
-                    {
-                        events.Add(@event);
-                    }
-                }
+                events.AddRange(specEvents);
             }
 
             return events;
