@@ -1,15 +1,15 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
-using System.Linq.Expressions;
 using System.Reflection;
 using Raven.Client;
 using Raven.Client.Document;
-using Raven.Client.Indexes;
 using Raven.Client.Linq;
 using ShSoft.Infrastructure.Constants;
 using ShSoft.Infrastructure.EventBase;
 using ShSoft.Infrastructure.EventBase.Mediator;
-using ShSoft.Infrastructure.EventStoreProvider.RavenDB.Configuration;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Infrastructure.EventStoreProvider
@@ -22,9 +22,9 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         #region # 常量
 
         /// <summary>
-        /// RavenDB连接字符串名称
+        /// RavenDB连接字符串AppSetting键
         /// </summary>
-        private const string ConnectionStringName = "RavenConnection";
+        private const string AppSettingKey = "RavenEventConnection";
 
         #endregion
 
@@ -40,12 +40,19 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         static RavenStoreProvider()
         {
-            IDocumentStore documentStore = new DocumentStore { ConnectionStringName = ConnectionStringName };
+            string connectionStringName = ConfigurationManager.AppSettings[AppSettingKey];
+
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(connectionStringName))
+            {
+                throw new ApplicationException("Raven领域事件存储AppSetting未设置，请联系管理员！");
+            }
+
+            #endregion
+
+            IDocumentStore documentStore = new DocumentStore { ConnectionStringName = connectionStringName };
             documentStore.Initialize();
-
-            Assembly assembly = Assembly.Load("ShSoft.Infrastructure.EventBaseTests");
-
-            IndexCreation.CreateIndexes(assembly, documentStore);
 
             _Store = documentStore;
         }
@@ -86,9 +93,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// <param name="eventSource">领域事件源</param>
         public void Suspend<T>(T eventSource) where T : class, IEvent
         {
-            Event @event = eventSource as Event;
-
-            this._dbSession.Store(@event);
+            this._dbSession.Store(eventSource);
             this._dbSession.SaveChanges();
         }
         #endregion
@@ -99,12 +104,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public void HandleUncompletedEvents()
         {
-            Expression<Func<Event, bool>> condition =
-                x =>
-                    !x.Handled &&
-                    x.SessionId == this._sessionId;
-
-            IRavenQueryable<Event> eventSources = this._dbSession.Query<Event>(typeof(EventIndex).Name).Where(condition).OrderByDescending(x => x.AddedTime);
+            IOrderedEnumerable<Event> eventSources = this.GetEventSources().OrderByDescending(x => x.AddedTime);
 
             //如果有未处理的
             if (eventSources.Any())
@@ -118,7 +118,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             }
 
             //递归
-            if (this._dbSession.Query<Event>(typeof(EventIndex).Name).Any(condition))
+            if (this.GetEventSources().Any())
             {
                 this.HandleUncompletedEvents();
             }
@@ -152,6 +152,57 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             {
                 this._dbSession.Dispose();
             }
+        }
+        #endregion
+
+
+        //Private
+
+        #region # 获取领域事件列表 —— IEnumerable<Event> GetEventSources()
+        /// <summary>
+        /// 获取领域事件列表
+        /// </summary>
+        /// <returns>领域事件列表</returns>
+        private IEnumerable<Event> GetEventSources()
+        {
+            //反射获取所有领域事件类型
+            Assembly eventAssembly = Assembly.Load(WebConfigSetting.EventSourceAssembly);
+            IEnumerable<Type> eventTypes = eventAssembly.GetTypes().Where(x => x.IsSubclassOf(typeof(Event)));
+
+            //获取IDocumentSession.Query<T>()方法
+            Func<MethodInfo, bool> condition =
+                x =>
+                    x.Name == "Query" &&
+                    x.IsGenericMethod &&
+                    x.GetGenericArguments().Length == 1 &&
+                    x.GetParameters().Length == 0;
+
+            MethodInfo methodInfo = this._dbSession.GetType().GetMethods().Single(condition);
+
+            //声明领域事件集合
+            IList<Event> events = new List<Event>();
+
+            //遍历领域事件类型
+            foreach (Type eventType in eventTypes)
+            {
+                //填充泛型
+                MethodInfo genericMethodInfo = methodInfo.MakeGenericMethod(eventType);
+
+                //查询领域事件列表
+                object specEvents = genericMethodInfo.Invoke(this._dbSession, null);
+                IEnumerable enumerable = (IEnumerable)specEvents;
+
+                //填充集合
+                foreach (Event @event in enumerable)
+                {
+                    if (!@event.Handled && @event.SessionId == this._sessionId)
+                    {
+                        events.Add(@event);
+                    }
+                }
+            }
+
+            return events;
         }
         #endregion
     }

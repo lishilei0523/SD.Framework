@@ -8,7 +8,7 @@ namespace ShSoft.Infrastructure.EventBase
     /// 领域事件源基类
     /// </summary>
     [Serializable]
-    public class Event : IEvent
+    public abstract class Event : IEvent
     {
         #region # 构造器
 

@@ -104,6 +104,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.RavenDB", "ShSoft.Infrastructure.Repository.RavenDB\ShSoft.Infrastructure.Repository.RavenDB.csproj", "{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.RavenDB", "ShSoft.Infrastructure.EventStoreProvider.RavenDB\ShSoft.Infrastructure.EventStoreProvider.RavenDB.csproj", "{1BE52970-11B9-487C-A80E-D89EA2D1D10B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -194,6 +196,10 @@ Global
 		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -227,5 +233,6 @@ Global
 		{6C90E036-5969-4A31-A685-B845923B51DD} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{1BE52970-11B9-487C-A80E-D89EA2D1D10B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 	EndGlobalSection
 EndGlobal

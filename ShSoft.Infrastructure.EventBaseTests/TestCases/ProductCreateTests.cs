@@ -43,6 +43,8 @@ namespace ShSoft.Infrastructure.EventBaseTests.TestCases
 
             EventMediator.Handle((IEvent)eventSource);
 
+            EventMediator.HandleUncompletedEvents();
+
             //断言会触发领域事件，并修改目标参数的值
             Assert.IsTrue(ProductCreatedEventHandler.ProductName == eventSource.ProductName);
         }
