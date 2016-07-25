@@ -47,24 +47,5 @@
         public const string DefaultConnectionStringName = "DefaultConnection";
 
         #endregion
-
-        #region # 系统相关
-
-        /// <summary>
-        /// 非法字符集
-        /// </summary>
-        public const string IllegalChars = "\\?<>|'";
-
-        /// <summary>
-        /// 字符串完整类名
-        /// </summary>
-        public const string StringFullName = "System.String";
-
-        /// <summary>
-        /// 数值类型完整类名集
-        /// </summary>
-        public const string NumbericFullNames = "System.Decimal,System.Int16,System.Int32,System.Int64,System.UInt16,System.UInt32,System.UInt64,System.Double,System.Single";
-
-        #endregion
     }
 }

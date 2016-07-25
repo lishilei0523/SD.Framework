@@ -17,8 +17,7 @@ namespace ShSoft.Infrastructure.EventBaseTests.StubEventSources
         /// <summary>
         /// 基础构造器
         /// </summary>
-        public ProductCreatedEvent(string productNo, string productName, decimal price, DateTime? triggerTime = null)
-            : base(triggerTime)
+        public ProductCreatedEvent(string productNo, string productName, decimal price)
         {
             this.ProductNo = productNo;
             this.ProductName = productName;

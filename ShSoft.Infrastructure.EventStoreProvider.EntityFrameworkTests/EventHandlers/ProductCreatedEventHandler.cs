@@ -7,7 +7,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests.EventHan
     public class ProductCreatedEventHandler : IEventHandler<ProductCreatedEvent>
     {
         /// <summary>
-        /// 领域事件处理方法（同步执行）
+        /// 领域事件处理方法
         /// </summary>
         /// <param name="eventSource">领域事件源</param>
         public void Handle(ProductCreatedEvent eventSource)

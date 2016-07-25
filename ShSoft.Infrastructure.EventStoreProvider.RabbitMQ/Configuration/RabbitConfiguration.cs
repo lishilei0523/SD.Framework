@@ -1,26 +1,27 @@
 ﻿using System;
 using System.Configuration;
 
-namespace ShSoft.Infrastructure.EventStoreProvider.RabbitMQ.Configuration
+// ReSharper disable once CheckNamespace
+namespace ShSoft.Infrastructure.EventStoreProvider.RabbitMQ
 {
     /// <summary>
     /// RabbitMQ配置
     /// </summary>
-    internal class RabbitMQConfiguration : ConfigurationSection
+    internal class RabbitConfiguration : ConfigurationSection
     {
         #region # 字段及构造器
 
         /// <summary>
         /// 单例
         /// </summary>
-        private static readonly RabbitMQConfiguration _Setting;
+        private static readonly RabbitConfiguration _Setting;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static RabbitMQConfiguration()
+        static RabbitConfiguration()
         {
-            _Setting = (RabbitMQConfiguration)ConfigurationManager.GetSection("rabbitMQConfiguration");
+            _Setting = (RabbitConfiguration)ConfigurationManager.GetSection("rabbitConfiguration");
 
             #region # 非空验证
 
@@ -38,7 +39,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider.RabbitMQ.Configuration
         /// <summary>
         /// 访问器
         /// </summary>
-        public static RabbitMQConfiguration Setting
+        public static RabbitConfiguration Setting
         {
             get { return _Setting; }
         }

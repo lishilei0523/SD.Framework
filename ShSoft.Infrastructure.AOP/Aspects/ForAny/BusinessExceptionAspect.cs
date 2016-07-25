@@ -10,7 +10,7 @@ namespace ShSoft.Infrastructure.AOP.Aspects.ForAny
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    public class BusinessExceptionAspect : ExceptionAspect
+    public sealed class BusinessExceptionAspect : ExceptionAspect
     {
         /// <summary>
         /// 异常过滤器

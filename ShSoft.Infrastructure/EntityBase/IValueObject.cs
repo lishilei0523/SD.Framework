@@ -5,9 +5,6 @@
     /// </summary>
     public interface IValueObject
     {
-        /// <summary>
-        /// 只读属性 - 是否合法
-        /// </summary>
-        bool Illegal { get; }
+
     }
 }

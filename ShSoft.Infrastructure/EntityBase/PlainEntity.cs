@@ -1,6 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ShSoft.Infrastructure.EntityBase
 {
@@ -31,7 +29,6 @@ namespace ShSoft.Infrastructure.EntityBase
         /// <summary>
         /// 标识
         /// </summary>
-        [Key, DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; protected set; }
         #endregion
 
@@ -67,7 +64,6 @@ namespace ShSoft.Infrastructure.EntityBase
         /// <summary>
         /// 添加时间
         /// </summary>
-        [Required]
         public DateTime AddedTime { get; private set; }
         #endregion
 
@@ -75,7 +71,6 @@ namespace ShSoft.Infrastructure.EntityBase
         /// <summary>
         /// 保存时间
         /// </summary>
-        [Required]
         public DateTime SavedTime { get; set; }
         #endregion
 

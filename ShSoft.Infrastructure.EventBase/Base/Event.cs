@@ -11,8 +11,6 @@ namespace ShSoft.Infrastructure.EventBase
     public abstract class Event : IEvent
     {
         #region # 构造器
-
-        #region 01.无参构造器
         /// <summary>
         /// 无参构造器
         /// </summary>
@@ -23,20 +21,8 @@ namespace ShSoft.Infrastructure.EventBase
             this.Handled = false;
             this.AddedTime = DateTime.Now;
             this.SessionId = WebConfigSetting.CurrentSessionId;
+            this.TriggerTime = null;
         }
-        #endregion
-
-        #region 02.基础构造器
-        /// <summary>
-        /// 基础构造器
-        /// </summary>
-        protected Event(DateTime? triggerTime = null)
-            : this()
-        {
-            this.TriggerTime = triggerTime;
-        }
-        #endregion
-
         #endregion
 
         #region # 属性
@@ -45,7 +31,7 @@ namespace ShSoft.Infrastructure.EventBase
         /// <summary>
         /// 标识
         /// </summary>
-        public Guid Id { get; protected set; }
+        public Guid Id { get; set; }
         #endregion
 
         #region 是否已处理 —— bool Handled
@@ -59,28 +45,28 @@ namespace ShSoft.Infrastructure.EventBase
         /// <summary>
         /// 事件源数据序列化字符串
         /// </summary>
-        public string SourceDataStr { get; protected set; }
+        public string SourceDataStr { get; set; }
         #endregion
 
         #region 触发时间 —— DateTime? TriggerTime
         /// <summary>
         /// 触发时间
         /// </summary>
-        public DateTime? TriggerTime { get; private set; }
+        public DateTime? TriggerTime { get; set; }
         #endregion
 
         #region 添加时间 —— DateTime AddedTime
         /// <summary>
         /// 添加时间
         /// </summary>
-        public DateTime AddedTime { get; private set; }
+        public DateTime AddedTime { get; set; }
         #endregion
 
         #region 会话Id —— Guid SessionId
         /// <summary>
         /// 会话Id
         /// </summary>
-        public Guid SessionId { get; private set; }
+        public Guid SessionId { get; set; }
         #endregion
 
         #endregion

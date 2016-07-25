@@ -26,7 +26,7 @@ namespace ShSoft.Infrastructure.EventBaseTests.StubDomainEventHandlers
         }
 
         /// <summary>
-        /// 领域事件处理方法（同步执行）
+        /// 领域事件处理方法
         /// </summary>
         /// <param name="eventSource">领域事件源</param>
         public void Handle(ProductCreatedEvent eventSource)

@@ -7,7 +7,7 @@ using RabbitMQ.Client.Events;
 using ShSoft.Infrastructure.Constants;
 using ShSoft.Infrastructure.EventBase;
 using ShSoft.Infrastructure.EventBase.Mediator;
-using ShSoft.Infrastructure.EventStoreProvider.RabbitMQ.Configuration;
+using ShSoft.Infrastructure.EventStoreProvider.RabbitMQ;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Infrastructure.EventStoreProvider
@@ -37,9 +37,9 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             _BinaryFormatter = new BinaryFormatter();
             _ConnectionFactory = new ConnectionFactory
             {
-                HostName = RabbitMQConfiguration.Setting.HostName,
-                UserName = RabbitMQConfiguration.Setting.UserName,
-                Password = RabbitMQConfiguration.Setting.Password
+                HostName = RabbitConfiguration.Setting.HostName,
+                UserName = RabbitConfiguration.Setting.UserName,
+                Password = RabbitConfiguration.Setting.Password
             };
         }
 

@@ -8,9 +8,9 @@ namespace ShSoft.Infrastructure.CommandBase.Factories
     /// </summary>
     internal static class CommandExecutorFactory
     {
-        #region # 获取命令执行者实例 —— ICommandExecutor<T> GetCommandExecutorFor...
+        #region # 获取命令执行者 —— ICommandExecutor<T> GetCommandExecutorFor...
         /// <summary>
-        /// 获取命令执行者实例
+        /// 获取命令执行者
         /// </summary>
         /// <typeparam name="T">命令类型</typeparam>
         /// <param name="command">命令对象</param>

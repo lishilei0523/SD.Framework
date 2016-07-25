@@ -58,10 +58,13 @@ namespace ShSoft.Infrastructure.Repository.RavenDB
             {
                 throw new ArgumentNullException("entity", string.Format(@"要添加的{0}实体对象不可为空！", typeof(T).Name));
             }
-
             if (entity.Id == Guid.Empty)
             {
                 throw new ArgumentNullException("Id", string.Format(@"要添加的{0}实体对象Id不可为空！", typeof(T).Name));
+            }
+            if (this.Exists<T>(x => x.Id == entity.Id))
+            {
+                throw new ArgumentOutOfRangeException("Id", string.Format("Id为\"{0}\"的实体已存在！", entity.Id));
             }
 
             #endregion

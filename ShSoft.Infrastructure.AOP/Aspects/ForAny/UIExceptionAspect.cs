@@ -11,7 +11,7 @@ namespace ShSoft.Infrastructure.AOP.Aspects.ForAny
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    public class UIExceptionAspect : ExceptionAspect
+    public sealed class UIExceptionAspect : ExceptionAspect
     {
         /// <summary>
         /// 异常过滤器

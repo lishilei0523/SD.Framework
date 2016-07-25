@@ -10,7 +10,7 @@ namespace ShSoft.Infrastructure.AOP.Aspects.ForAny
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    public class RepositoryExceptionAspect : ExceptionAspect
+    public sealed class RepositoryExceptionAspect : ExceptionAspect
     {
         /// <summary>
         /// 异常过滤器

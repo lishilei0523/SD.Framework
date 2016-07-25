@@ -42,7 +42,7 @@ namespace ShSoft.Infrastructure.AOP.Aspects.ForAny
         /// <param name="content">内容</param>
         /// <param name="append">是否附加</param>
         /// <exception cref="ArgumentNullException">路径为空</exception>
-        public void WriteFile(string path, string content, bool append = false)
+        private void WriteFile(string path, string content, bool append = false)
         {
             #region # 验证参数
 
@@ -79,5 +79,4 @@ namespace ShSoft.Infrastructure.AOP.Aspects.ForAny
             }
         }
     }
-
 }

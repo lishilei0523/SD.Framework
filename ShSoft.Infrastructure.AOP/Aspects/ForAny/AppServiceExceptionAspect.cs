@@ -11,7 +11,7 @@ namespace ShSoft.Infrastructure.AOP.Aspects.ForAny
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    public class AppServiceExceptionAspect : ExceptionAspect
+    public sealed class AppServiceExceptionAspect : ExceptionAspect
     {
         /// <summary>
         /// 异常过滤器

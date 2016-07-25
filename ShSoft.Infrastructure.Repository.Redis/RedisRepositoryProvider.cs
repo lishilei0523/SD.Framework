@@ -44,6 +44,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
             }
 
             string[] redisServer = ip.Split(',');
+
             //实例化RedisClient
             _RedisClient = new RedisClient(redisServer[0], int.Parse(redisServer[1]));
         }
@@ -61,10 +62,10 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <summary>
         /// 构造器
         /// </summary>
-        public RedisRepositoryProvider()
+        protected RedisRepositoryProvider()
         {
             this._redisTypedClient = _RedisClient.As<T>();
-            this._table = this._redisTypedClient.Lists[typeof(T).Name];
+            this._table = this._redisTypedClient.Lists[typeof(T).FullName];
         }
 
         #endregion

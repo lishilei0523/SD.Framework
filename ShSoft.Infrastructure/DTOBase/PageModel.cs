@@ -11,8 +11,14 @@ namespace ShSoft.Infrastructure.DTOBase
     public class PageModel<T>
     {
         #region # 构造器
+
         /// <summary>
-        /// 构造器
+        /// 无参构造器
+        /// </summary>
+        public PageModel() { }
+
+        /// <summary>
+        /// 基础构造器
         /// </summary>
         /// <param name="datas">数据集</param>
         /// <param name="pageIndex">页码</param>
@@ -27,6 +33,7 @@ namespace ShSoft.Infrastructure.DTOBase
             this.PageCount = pageCount;
             this.RowCount = rowCount;
         }
+
         #endregion
 
         #region # 数据集 —— IEnumerable<T> Datas
@@ -34,7 +41,7 @@ namespace ShSoft.Infrastructure.DTOBase
         /// 数据集
         /// </summary>
         [DataMember]
-        public IEnumerable<T> Datas { get; private set; }
+        public IEnumerable<T> Datas { get; set; }
         #endregion
 
         #region # 页码 —— int PageIndex
@@ -42,7 +49,7 @@ namespace ShSoft.Infrastructure.DTOBase
         /// 页码
         /// </summary>
         [DataMember]
-        public int PageIndex { get; private set; }
+        public int PageIndex { get; set; }
         #endregion
 
         #region # 页容量 —— int PageSize
@@ -50,7 +57,7 @@ namespace ShSoft.Infrastructure.DTOBase
         /// 页容量
         /// </summary>
         [DataMember]
-        public int PageSize { get; private set; }
+        public int PageSize { get; set; }
         #endregion
 
         #region # 总页数 —— int PageCount
@@ -58,7 +65,7 @@ namespace ShSoft.Infrastructure.DTOBase
         /// 总页数
         /// </summary>
         [DataMember]
-        public int PageCount { get; private set; }
+        public int PageCount { get; set; }
         #endregion
 
         #region # 总记录条数 —— int RowCount
@@ -66,7 +73,7 @@ namespace ShSoft.Infrastructure.DTOBase
         /// 总记录条数
         /// </summary>
         [DataMember]
-        public int RowCount { get; private set; }
+        public int RowCount { get; set; }
         #endregion
     }
 }
