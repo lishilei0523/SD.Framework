@@ -20,6 +20,7 @@ namespace ShSoft.Infrastructure.EventBaseTests.TestCases
         [TestMethod]
         public void CreateProduct()
         {
+            //int i = 10;
             for (int i = 0; i < 500; i++)
             {
                 using (TransactionScope scope = new TransactionScope())
@@ -45,7 +46,7 @@ namespace ShSoft.Infrastructure.EventBaseTests.TestCases
         [TestMethod]
         public void CreateProductParallel()
         {
-            Parallel.For(0, 100, index =>
+            Parallel.For(0, 500, index =>
             {
                 using (TransactionScope scope = new TransactionScope())
                 {

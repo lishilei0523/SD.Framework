@@ -11,9 +11,9 @@ using ShSoft.Infrastructure.EventBase.Mediator;
 namespace ShSoft.Infrastructure.EventStoreProvider
 {
     /// <summary>
-    /// 领域事件存储 - RavenDB提供者
+    /// 领域事件存储 - Redis提供者
     /// </summary>
-    public class RavenStoreProvider : IEventStore
+    public class RedisStoreProvider : IEventStore
     {
         #region # 字段及构造器
 
@@ -31,7 +31,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// 静态构造器
         /// </summary>
 
-        static RavenStoreProvider()
+        static RedisStoreProvider()
         {
             //读取配置文件中的Redis服务端IP地址、端口号
             string ip = ConfigurationManager.AppSettings[RedisServerAppSettingKey];   //127.0.0.1,6379
@@ -66,7 +66,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// <summary>
         /// 构造器
         /// </summary>
-        protected RavenStoreProvider()
+        public RedisStoreProvider()
         {
             this._sessionId = WebConfigSetting.CurrentSessionId.ToString();
             this._redisTypedClient = _RedisClient.As<Event>();
@@ -96,18 +96,17 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public void HandleUncompletedEvents()
         {
-            IOrderedEnumerable<Event> eventSources = this._table.GetAll().Where(x => !x.Handled).OrderByDescending(x => x.AddedTime);
+            IOrderedEnumerable<Event> eventSources = this._table.OrderByDescending(x => x.AddedTime);
 
             //如果有未处理的
             foreach (Event eventSource in eventSources.ToArray())
             {
                 EventMediator.Handle((IEvent)eventSource);
-
-                this._redisTypedClient.AddItemToList(this._table, eventSource);
+                this._redisTypedClient.RemoveItemFromList(this._table, eventSource);
             }
 
             //递归
-            if (this._table.GetAll().Any(x => !x.Handled))
+            if (this._table.Any(x => !x.Handled))
             {
                 this.HandleUncompletedEvents();
             }
