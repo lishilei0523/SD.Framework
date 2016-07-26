@@ -190,10 +190,10 @@ namespace ShSoft.Infrastructure.EventStoreProvider
 
                 //查询领域事件列表
                 object methodResult = genericMethodQuery.Invoke(this._dbSession, null);
-                IQueryable<Event> specEvents = (IQueryable<Event>)methodResult;
+                IQueryable<Event> queryable = (IQueryable<Event>)methodResult;
 
                 //过滤
-                specEvents = specEvents.Where(x => !x.Handled && x.SessionId == this._sessionId);
+                IEnumerable<Event> specEvents = queryable.ToArray().Where(x => !x.Handled && x.SessionId == this._sessionId);
 
                 //填充集合
                 events.AddRange(specEvents);
