@@ -5,7 +5,7 @@
   </connectionStrings>
   <injectionRegisterConfiguration>
     <asInterfaceTypes>
-      <type name="ShSoft.Infrastructure.Repository.EntityFramework.Base.DbCleaner" assembly="ShSoft.Infrastructure.Repository.EntityFramework" />
+      <type name="ShSoft.Infrastructure.Repository.EntityFramework.DbCleaner" assembly="ShSoft.Infrastructure.Repository.EntityFramework" />
     </asInterfaceTypes>
   </injectionRegisterConfiguration>
 </configuration>

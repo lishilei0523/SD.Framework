@@ -1,7 +1,9 @@
 ﻿using System.Runtime.Remoting.Messaging;
+using ShSoft.Infrastructure.Repository.EntityFramework.Base;
 using ShSoft.Infrastructure.RepositoryBase;
 
-namespace ShSoft.Infrastructure.Repository.EntityFramework.Base
+// ReSharper disable once CheckNamespace
+namespace ShSoft.Infrastructure.Repository.EntityFramework
 {
     /// <summary>
     /// 数据库清理者实现

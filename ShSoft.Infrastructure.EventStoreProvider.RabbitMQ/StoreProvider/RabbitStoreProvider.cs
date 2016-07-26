@@ -7,7 +7,6 @@ using RabbitMQ.Client.Events;
 using ShSoft.Infrastructure.Constants;
 using ShSoft.Infrastructure.EventBase;
 using ShSoft.Infrastructure.EventBase.Mediator;
-using ShSoft.Infrastructure.EventStoreProvider.RabbitMQ;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Infrastructure.EventStoreProvider

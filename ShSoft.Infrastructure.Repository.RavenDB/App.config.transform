@@ -5,7 +5,7 @@
   </connectionStrings>
   <injectionRegisterConfiguration>
     <asInterfaceTypes>
-      <type name="ShSoft.Infrastructure.Repository.RavenDB.Base.DbCleaner" assembly="ShSoft.Infrastructure.Repository.RavenDB" />
+      <type name="ShSoft.Infrastructure.Repository.RavenDB.DbCleaner" assembly="ShSoft.Infrastructure.Repository.RavenDB" />
     </asInterfaceTypes>
   </injectionRegisterConfiguration>
 </configuration>

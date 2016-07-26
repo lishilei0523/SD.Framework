@@ -2,7 +2,7 @@
 using System.Configuration;
 
 // ReSharper disable once CheckNamespace
-namespace ShSoft.Infrastructure.EventStoreProvider.RabbitMQ
+namespace ShSoft.Infrastructure.EventStoreProvider
 {
     /// <summary>
     /// RabbitMQ配置

@@ -1,14 +1,13 @@
 ﻿using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // 有关程序集的常规信息通过以下
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("ShSoft.Infrastructure.Repository.Redis")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("基础设施 - 仓储基础 - Redis实现")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ShSoft")]
+[assembly: AssemblyCompany("山河软件")]
 [assembly: AssemblyProduct("ShSoft.Infrastructure.Repository.Redis")]
 [assembly: AssemblyCopyright("Copyright © ShSoft 2016")]
 [assembly: AssemblyTrademark("")]

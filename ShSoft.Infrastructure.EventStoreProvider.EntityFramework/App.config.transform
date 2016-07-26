@@ -1,6 +1,5 @@
 ﻿<configuration>
   <injectionRegisterConfiguration>
-    <!--As接口类型列表-->
     <asInterfaceTypes>
       <type name="ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkStoreProvider" assembly="ShSoft.Infrastructure.EventStoreProvider.EntityFramework" />
     </asInterfaceTypes>

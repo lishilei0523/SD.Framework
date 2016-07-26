@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("ShSoft.Infrastructure.EventStoreProvider.RavenDB")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("基础设施 - 领域事件基础 - RavenDB提供者")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("ShSoft")]
+[assembly: AssemblyCompany("山河软件")]
 [assembly: AssemblyProduct("ShSoft.Infrastructure.EventStoreProvider.RavenDB")]
 [assembly: AssemblyCopyright("Copyright © ShSoft 2016")]
 [assembly: AssemblyTrademark("")]

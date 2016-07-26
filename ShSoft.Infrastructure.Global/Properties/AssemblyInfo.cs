@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("ShSoft.Infrastructure.Global")]
-[assembly: AssemblyDescription("基础设施 - 全局（初始化、清理）基础")]
+[assembly: AssemblyDescription("基础设施 - 全局（初始化、清理、事务）基础")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("山河软件")]
 [assembly: AssemblyProduct("ShSoft.Infrastructure.Global")]

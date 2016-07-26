@@ -1,14 +1,11 @@
 ﻿<configuration>
   <configSections>
     <!--RabbitMQ配置节点-->
-    <section name="rabbitConfiguration" type="ShSoft.Infrastructure.EventStoreProvider.RabbitMQ.RabbitConfiguration,ShSoft.Infrastructure.EventStoreProvider.RabbitMQ"/>
+    <section name="rabbitConfiguration" type="ShSoft.Infrastructure.EventStoreProvider.RabbitConfiguration,ShSoft.Infrastructure.EventStoreProvider.RabbitMQ"/>
   </configSections>
-
   <!--RabbitMQ配置-->
   <rabbitConfiguration hostName="" userName="" password="" />
-
   <injectionRegisterConfiguration>
-    <!--As接口类型列表-->
     <asInterfaceTypes>
       <type name="ShSoft.Infrastructure.EventStoreProvider.RabbitStoreProvider" assembly="ShSoft.Infrastructure.EventStoreProvider.RabbitMQ" />
     </asInterfaceTypes>

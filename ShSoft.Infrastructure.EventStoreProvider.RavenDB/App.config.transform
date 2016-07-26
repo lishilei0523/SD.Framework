@@ -1,10 +1,9 @@
 ﻿<configuration>
   <appSettings>
+    <!--RavenDB连接字符串名称-->
     <add key="RavenEventConnection" value="RavenConnection" />
   </appSettings>
-
   <injectionRegisterConfiguration>
-    <!--As接口类型列表-->
     <asInterfaceTypes>
       <type name="ShSoft.Infrastructure.EventStoreProvider.RavenStoreProvider" assembly="ShSoft.Infrastructure.EventStoreProvider.RavenDB" />
     </asInterfaceTypes>
