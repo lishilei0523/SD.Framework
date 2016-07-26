@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using System.Transactions;
 using Raven.Abstractions.Extensions;
 using Raven.Client;
 using Raven.Client.Document;
@@ -31,6 +32,11 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         #region # 静态构造器
 
         /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync;
+
+        /// <summary>
         /// RavenDB文档存储延迟加载字段
         /// </summary>
         private static readonly IDocumentStore _Store;
@@ -40,6 +46,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         static RavenStoreProvider()
         {
+            _Sync = new object();
             string connectionStringName = ConfigurationManager.AppSettings[AppSettingKey];
 
             #region # 验证
@@ -53,6 +60,10 @@ namespace ShSoft.Infrastructure.EventStoreProvider
 
             IDocumentStore documentStore = new DocumentStore { ConnectionStringName = connectionStringName };
             documentStore.Initialize();
+
+            documentStore.Conventions.ShouldAggressiveCacheTrackChanges = false;
+            documentStore.Conventions.ShouldSaveChangesForceAggressiveCacheCheck = false;
+            documentStore.Conventions.ShouldCacheRequest = url => false;
 
             _Store = documentStore;
         }
@@ -76,7 +87,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public RavenStoreProvider()
         {
-            this._dbSession = _Store.OpenSession();
+            this._dbSession = _Store.OpenSession(new OpenSessionOptions { ForceReadFromMaster = true });
             this._sessionId = WebConfigSetting.CurrentSessionId;
         }
 
@@ -104,21 +115,20 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public void HandleUncompletedEvents()
         {
-            IOrderedEnumerable<Event> eventSources = this.GetEventSources().OrderByDescending(x => x.AddedTime);
+            IOrderedEnumerable<Event> eventSources = this.GetEventSources().Where(x => !x.Handled).OrderByDescending(x => x.AddedTime);
 
             //如果有未处理的
-            if (eventSources.Any())
+            foreach (Event eventSource in eventSources)
             {
-                foreach (Event eventSource in eventSources)
-                {
-                    EventMediator.Handle((IEvent)eventSource);
-                    eventSource.Handled = true;
-                }
-                this._dbSession.SaveChanges();
+                EventMediator.Handle((IEvent)eventSource);
+                eventSource.Handled = true;
+
+                this._dbSession.Store(eventSource);
             }
+            this._dbSession.SaveChanges();
 
             //递归
-            if (this.GetEventSources().Any())
+            if (this.GetEventSources().Any(x => !x.Handled))
             {
                 this.HandleUncompletedEvents();
             }
@@ -193,7 +203,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
                 IQueryable<Event> queryable = (IQueryable<Event>)methodResult;
 
                 //过滤
-                IEnumerable<Event> specEvents = queryable.ToArray().Where(x => !x.Handled && x.SessionId == this._sessionId);
+                IQueryable<Event> specEvents = queryable.Where(x => !x.Handled && x.SessionId == this._sessionId);
 
                 //填充集合
                 events.AddRange(specEvents);

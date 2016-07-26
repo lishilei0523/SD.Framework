@@ -1,11 +1,9 @@
 ﻿using System.Threading.Tasks;
 using System.Transactions;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShSoft.Infrastructure.EventBase;
 using ShSoft.Infrastructure.EventBase.Mediator;
 using ShSoft.Infrastructure.EventBaseTests.StubDomainEventHandlers;
 using ShSoft.Infrastructure.EventBaseTests.StubEntities;
-using ShSoft.Infrastructure.EventBaseTests.StubEventSources;
 using ShSoft.Infrastructure.Global;
 
 namespace ShSoft.Infrastructure.EventBaseTests.TestCases
@@ -22,13 +20,13 @@ namespace ShSoft.Infrastructure.EventBaseTests.TestCases
         [TestMethod]
         public void CreateProduct()
         {
-            Parallel.For(0, 2000, index =>
+            for (int i = 0; i < 500; i++)
             {
                 using (TransactionScope scope = new TransactionScope())
                 {
                     Initializer.InitSessionId();
 
-                    Product product = new Product("001", "测试商品1", 19);
+                    Product product = new Product(i.ToString(), "测试商品" + i, 19);
 
                     EventMediator.HandleUncompletedEvents();
 
@@ -38,6 +36,32 @@ namespace ShSoft.Infrastructure.EventBaseTests.TestCases
 
                     scope.Complete();
                 }
+            }
+        }
+
+        /// <summary>
+        /// 测试商品创建
+        /// </summary>
+        [TestMethod]
+        public void CreateProductParallel()
+        {
+            Parallel.For(0, 100, index =>
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    Initializer.InitSessionId();
+
+                    Product product = new Product(index.ToString(), "测试商品" + index, 19);
+
+                    EventMediator.HandleUncompletedEvents();
+
+                    //断言会触发领域事件，并修改目标参数的值
+                    Assert.IsTrue(ProductCreatedEventHandler.ProductName == product.Name);
+                    Assert.IsTrue(ProductCreatedEvent2Handler.ProductName == product.Name);
+
+                    scope.Complete();
+                }
+
             });
         }
     }

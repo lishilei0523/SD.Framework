@@ -77,10 +77,6 @@
       <Project>{7d78ce29-610b-4709-8950-3aeaf405c89b}</Project>
       <Name>ShSoft.Infrastructure.EventStoreProvider.RabbitMQ</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Infrastructure.EventStoreProvider.RavenDB\ShSoft.Infrastructure.EventStoreProvider.RavenDB.csproj">
-      <Project>{1be52970-11b9-487c-a80e-d89ea2d1d10b}</Project>
-      <Name>ShSoft.Infrastructure.EventStoreProvider.RavenDB</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Infrastructure.Global\ShSoft.Infrastructure.Global.csproj">
       <Project>{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}</Project>
       <Name>ShSoft.Infrastructure.Global</Name>
