@@ -1,4 +1,6 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using System.Threading.Tasks;
+using System.Transactions;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShSoft.Infrastructure.EventBase;
 using ShSoft.Infrastructure.EventBase.Mediator;
 using ShSoft.Infrastructure.EventBaseTests.StubDomainEventHandlers;
@@ -20,33 +22,23 @@ namespace ShSoft.Infrastructure.EventBaseTests.TestCases
         [TestMethod]
         public void CreateProduct()
         {
-            Initializer.InitSessionId();
+            Parallel.For(0, 2000, index =>
+            {
+                using (TransactionScope scope = new TransactionScope())
+                {
+                    Initializer.InitSessionId();
 
-            Product product = new Product("001", "测试商品1", 19);
+                    Product product = new Product("001", "测试商品1", 19);
 
-            EventMediator.HandleUncompletedEvents();
+                    EventMediator.HandleUncompletedEvents();
 
-            //断言会触发领域事件，并修改目标参数的值
-            Assert.IsTrue(ProductCreatedEventHandler.ProductName == product.Name);
-            Assert.IsTrue(ProductCreatedEvent2Handler.ProductName == product.Name);
-        }
+                    //断言会触发领域事件，并修改目标参数的值
+                    Assert.IsTrue(ProductCreatedEventHandler.ProductName == product.Name);
+                    Assert.IsTrue(ProductCreatedEvent2Handler.ProductName == product.Name);
 
-        /// <summary>
-        /// 测试商品已创建事件源的Handle
-        /// </summary>
-        [TestMethod]
-        public void CreateProductCreatedEvent()
-        {
-            Initializer.InitSessionId();
-
-            ProductCreatedEvent eventSource = new ProductCreatedEvent("001", "测试商品1", 19);
-
-            EventMediator.Handle((IEvent)eventSource);
-
-            EventMediator.HandleUncompletedEvents();
-
-            //断言会触发领域事件，并修改目标参数的值
-            Assert.IsTrue(ProductCreatedEventHandler.ProductName == eventSource.ProductName);
+                    scope.Complete();
+                }
+            });
         }
     }
 }
