@@ -1,0 +1,10 @@
+﻿<configuration>
+  <appSettings>
+    <add key="RedisServer" value="127.0.0.1,6379" />
+  </appSettings>
+  <injectionRegisterConfiguration>
+    <asInterfaceTypes>
+      <type name="ShSoft.Infrastructure.EventStoreProvider.RedisStoreProvider" assembly="ShSoft.Infrastructure.EventStoreProvider.Redis" />
+    </asInterfaceTypes>
+  </injectionRegisterConfiguration>
+</configuration>

@@ -73,10 +73,6 @@
       <Project>{79dc5e40-2857-4748-a895-49bb675cdc68}</Project>
       <Name>ShSoft.Infrastructure.EventBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Infrastructure.EventStoreProvider.RabbitMQ\ShSoft.Infrastructure.EventStoreProvider.RabbitMQ.csproj">
-      <Project>{7d78ce29-610b-4709-8950-3aeaf405c89b}</Project>
-      <Name>ShSoft.Infrastructure.EventStoreProvider.RabbitMQ</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ShSoft.Infrastructure.EventStoreProvider.Redis\ShSoft.Infrastructure.EventStoreProvider.Redis.csproj">
       <Project>{78920b31-6d86-48d2-95b0-c5f19443225b}</Project>
       <Name>ShSoft.Infrastructure.EventStoreProvider.Redis</Name>

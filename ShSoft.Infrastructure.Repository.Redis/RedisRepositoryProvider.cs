@@ -55,17 +55,11 @@ namespace ShSoft.Infrastructure.Repository.Redis
         private readonly IRedisTypedClient<T> _redisTypedClient;
 
         /// <summary>
-        /// Redis表
-        /// </summary>
-        private readonly IRedisList<T> _table;
-
-        /// <summary>
         /// 构造器
         /// </summary>
         protected RedisRepositoryProvider()
         {
             this._redisTypedClient = _RedisClient.As<T>();
-            this._table = this._redisTypedClient.Lists[typeof(T).FullName];
         }
 
         #endregion
@@ -98,7 +92,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            this._redisTypedClient.AddItemToList(this._table, entity);
+            this._redisTypedClient.Store(entity);
         }
         #endregion
 
@@ -120,15 +114,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            using (IRedisTypedTransaction<T> trans = this._redisTypedClient.CreateTransaction())
-            {
-                foreach (T entity in entities)
-                {
-                    trans.QueueCommand(x => x.AddItemToList(this._table, entity));
-                }
-
-                trans.Commit();
-            }
+            this._redisTypedClient.StoreAll(entities);
         }
         #endregion
 
@@ -161,10 +147,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            T oldEntity = this.Single(entity.Id);
-
-            this._redisTypedClient.RemoveItemFromList(this._table, oldEntity);
-            this._redisTypedClient.AddItemToList(this._table, entity);
+            this._redisTypedClient.Store(entity);
         }
         #endregion
 
@@ -187,18 +170,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            using (IRedisTypedTransaction<T> trans = this._redisTypedClient.CreateTransaction())
-            {
-                foreach (T entity in entities)
-                {
-                    T oldEntity = this.Single(entity.Id);
-
-                    trans.QueueCommand(x => x.RemoveItemFromList(this._table, oldEntity));
-                    trans.QueueCommand(x => x.AddItemToList(this._table, entity));
-                }
-
-                trans.Commit();
-            }
+            this._redisTypedClient.StoreAll(entities);
         }
         #endregion
 
@@ -214,7 +186,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         {
             T entity = this.Single(id);
 
-            this._redisTypedClient.RemoveItemFromList(this._table, entity);
+            this._redisTypedClient.Delete(entity);
         }
         #endregion
 
@@ -230,7 +202,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         {
             T entity = this.Single(number);
 
-            this._redisTypedClient.RemoveItemFromList(this._table, entity);
+            this._redisTypedClient.Delete(entity);
         }
         #endregion
 
@@ -252,17 +224,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            using (IRedisTypedTransaction<T> trans = this._redisTypedClient.CreateTransaction())
-            {
-                foreach (Guid id in ids)
-                {
-                    T entity = this.Single(id);
-
-                    trans.QueueCommand(x => x.RemoveItemFromList(this._table, entity));
-                }
-
-                trans.Commit();
-            }
+            this._redisTypedClient.DeleteByIds(ids);
         }
         #endregion
 
@@ -290,7 +252,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
                 {
                     T entity = this.Single(number);
 
-                    trans.QueueCommand(x => x.RemoveItemFromList(this._table, entity));
+                    trans.QueueCommand(x => x.Delete(entity));
                 }
 
                 trans.Commit();
@@ -340,7 +302,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this.SingleOrDefault(x => x.Id == id);
+            return this._redisTypedClient.GetById(id);
         }
         #endregion
 
@@ -1177,7 +1139,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <returns>实体对象集合</returns>
         protected virtual IQueryable<T> FindAllInner()
         {
-            return this._table.GetAll().Where(x => !x.Deleted).OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime).AsQueryable();
+            return this._redisTypedClient.GetAll().Where(x => !x.Deleted).OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime).AsQueryable();
         }
         #endregion
 

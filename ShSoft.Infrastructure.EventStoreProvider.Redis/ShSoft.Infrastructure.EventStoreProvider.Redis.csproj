@@ -57,7 +57,9 @@
     <Compile Include="StoreProvider\RedisStoreProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config.transform" />
     <None Include="packages.config" />
+    <None Include="Web.config.transform" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShSoft.Infrastructure.EventBase\ShSoft.Infrastructure.EventBase.csproj">
