@@ -9,6 +9,8 @@ namespace ShSoft.Infrastructure.EventBaseTests.StubDomainEventHandlers
     /// </summary>
     public class ProductCreatedEventHandler : IEventHandler<ProductCreatedEvent>
     {
+        private static readonly object _Sync = new object();
+
         /// <summary>
         /// 商品名称
         /// </summary>
@@ -31,9 +33,12 @@ namespace ShSoft.Infrastructure.EventBaseTests.StubDomainEventHandlers
         /// <param name="eventSource">领域事件源</param>
         public void Handle(ProductCreatedEvent eventSource)
         {
-            ProductName = eventSource.ProductName;
+            lock (_Sync)
+            {
+                ProductName = eventSource.ProductName;
 
-            EventMediator.Suspend(new ProductCreatedEvent2(eventSource.ProductNo, eventSource.ProductName, eventSource.Price));
+                EventMediator.Suspend(new ProductCreatedEvent2(eventSource.ProductNo, eventSource.ProductName, eventSource.Price));
+            }
         }
     }
 }

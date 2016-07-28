@@ -23,9 +23,9 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         private const string RedisServerAppSettingKey = "RedisServer";
 
         /// <summary>
-        /// Redis客户端
+        /// Redis服务器地址
         /// </summary>
-        private static readonly IRedisClient _RedisClient;
+        private static readonly string[] _RedisServer;
 
         /// <summary>
         /// 静态构造器
@@ -39,14 +39,16 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             //判断是否为空
             if (string.IsNullOrWhiteSpace(ip))
             {
-                throw new SystemException("Redis服务端IP地址未配置！");
+                throw new ApplicationException("Redis服务端IP地址未配置！");
             }
 
-            string[] redisServer = ip.Split(',');
-
-            //实例化RedisClient
-            _RedisClient = new RedisClient(redisServer[0], int.Parse(redisServer[1]));
+            _RedisServer = ip.Split(',');
         }
+
+        /// <summary>
+        /// Redis客户端
+        /// </summary>
+        private readonly IRedisClient _redisClient;
 
         /// <summary>
         /// Redis类型客户端
@@ -59,18 +61,17 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         private readonly IRedisList<Event> _table;
 
         /// <summary>
-        /// 会话Id
-        /// </summary>
-        private readonly string _sessionId;
-
-        /// <summary>
         /// 构造器
         /// </summary>
         public RedisStoreProvider()
         {
-            this._sessionId = WebConfigSetting.CurrentSessionId.ToString();
-            this._redisTypedClient = _RedisClient.As<Event>();
-            this._table = this._redisTypedClient.Lists[this._sessionId];
+            //获取会话Id
+            string sessionId = WebConfigSetting.CurrentSessionId.ToString();
+
+            //实例化RedisClient
+            this._redisClient = new RedisClient(_RedisServer[0], int.Parse(_RedisServer[1]));
+            this._redisTypedClient = this._redisClient.As<Event>();
+            this._table = this._redisTypedClient.Lists[sessionId];
         }
 
         #endregion
@@ -132,7 +133,10 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public void Dispose()
         {
-
+            if (this._redisClient != null)
+            {
+                this._redisClient.Dispose();
+            }
         }
         #endregion
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using ShSoft.Infrastructure.EventBase;
+using ShSoft.Infrastructure.EventBaseTests.StubEntities;
 
 namespace ShSoft.Infrastructure.EventBaseTests.StubEventSources
 {

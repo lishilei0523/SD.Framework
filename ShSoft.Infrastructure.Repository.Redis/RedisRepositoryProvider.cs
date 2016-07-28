@@ -24,14 +24,13 @@ namespace ShSoft.Infrastructure.Repository.Redis
         private const string RedisServerAppSettingKey = "RedisServer";
 
         /// <summary>
-        /// Redis客户端
+        /// Redis服务器地址
         /// </summary>
-        private static readonly IRedisClient _RedisClient;
+        private static readonly string[] _RedisServer;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
-
         static RedisRepositoryProvider()
         {
             //读取配置文件中的Redis服务端IP地址、端口号
@@ -43,11 +42,14 @@ namespace ShSoft.Infrastructure.Repository.Redis
                 throw new SystemException("Redis服务端IP地址未配置！");
             }
 
-            string[] redisServer = ip.Split(',');
-
-            //实例化RedisClient
-            _RedisClient = new RedisClient(redisServer[0], int.Parse(redisServer[1]));
+            _RedisServer = ip.Split(',');
         }
+
+
+        /// <summary>
+        /// Redis客户端
+        /// </summary>
+        private readonly IRedisClient _redisClient;
 
         /// <summary>
         /// Redis类型客户端
@@ -59,7 +61,17 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// </summary>
         protected RedisRepositoryProvider()
         {
-            this._redisTypedClient = _RedisClient.As<T>();
+            //实例化RedisClient
+            this._redisClient = new RedisClient(_RedisServer[0], int.Parse(_RedisServer[1]));
+            this._redisTypedClient = this._redisClient.As<T>();
+        }
+
+        /// <summary>
+        /// 析构器
+        /// </summary>
+        ~RedisRepositoryProvider()
+        {
+            this.Dispose();
         }
 
         #endregion
@@ -1012,7 +1024,10 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// </summary>
         public void Dispose()
         {
-
+            if (this._redisClient != null)
+            {
+                this._redisClient.Dispose();
+            }
         }
         #endregion
 

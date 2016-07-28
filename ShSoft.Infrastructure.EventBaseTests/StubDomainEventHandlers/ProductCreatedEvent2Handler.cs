@@ -8,6 +8,8 @@ namespace ShSoft.Infrastructure.EventBaseTests.StubDomainEventHandlers
     /// </summary>
     public class ProductCreatedEvent2Handler : IEventHandler<ProductCreatedEvent2>
     {
+        private static readonly object _Sync = new object();
+
         /// <summary>
         /// 商品名称
         /// </summary>
@@ -30,7 +32,10 @@ namespace ShSoft.Infrastructure.EventBaseTests.StubDomainEventHandlers
         /// <param name="eventSource">领域事件源</param>
         public void Handle(ProductCreatedEvent2 eventSource)
         {
-            ProductName = eventSource.ProductName;
+            lock (_Sync)
+            {
+                ProductName = eventSource.ProductName;
+            }
         }
     }
 }
