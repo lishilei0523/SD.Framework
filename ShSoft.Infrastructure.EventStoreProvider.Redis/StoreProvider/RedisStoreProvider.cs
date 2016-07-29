@@ -87,7 +87,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// <param name="eventSource">领域事件源</param>
         public void Suspend<T>(T eventSource) where T : class, IEvent
         {
-            this._redisTypedClient.AddItemToList(this._table, eventSource as Event);
+            this._table.Append(eventSource as Event);
         }
         #endregion
 
@@ -103,11 +103,11 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             foreach (Event eventSource in eventSources.ToArray())
             {
                 EventMediator.Handle((IEvent)eventSource);
-                this._redisTypedClient.RemoveItemFromList(this._table, eventSource);
+                this._table.RemoveStart();
             }
 
             //递归
-            if (this._table.Any(x => !x.Handled))
+            if (this._table.Any())
             {
                 this.HandleUncompletedEvents();
             }
@@ -120,9 +120,9 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public void ClearUncompletedEvents()
         {
-            foreach (Event eventSource in this._table.GetAll().ToArray())
+            while (this._table.GetAll().Any())
             {
-                this._redisTypedClient.RemoveItemFromList(this._table, eventSource);
+                this._table.RemoveStart();
             }
         }
         #endregion
