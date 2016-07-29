@@ -37,6 +37,7 @@ namespace ShSoft.Infrastructure.Repository.RedisTests
         public void CleanUp()
         {
             this._productRep.RemoveAll();
+            this._productRep.Dispose();
         }
 
 
@@ -100,7 +101,7 @@ namespace ShSoft.Infrastructure.Repository.RedisTests
         [TestMethod]
         public void TestFind()
         {
-            int count = 1000;
+            int count = 10000;
 
             IList<Product> products = new List<Product>();
 
