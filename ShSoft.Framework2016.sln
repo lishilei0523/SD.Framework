@@ -104,6 +104,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Event
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.Redis", "ShSoft.Infrastructure.EventStoreProvider.Redis\ShSoft.Infrastructure.EventStoreProvider.Redis.csproj", "{78920B31-6D86-48D2-95B0-C5F19443225B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.MongoDB", "ShSoft.Infrastructure.Repository.MongoDB\ShSoft.Infrastructure.Repository.MongoDB.csproj", "{C5CAFB43-1A18-4D52-8B98-59215E0F1309}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.MongoDBTests", "ShSoft.Infrastructure.Repository.MongoDBTests\ShSoft.Infrastructure.Repository.MongoDBTests.csproj", "{D4673F34-2090-41E0-AE2C-746F0CA97F3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -198,6 +202,14 @@ Global
 		{78920B31-6D86-48D2-95B0-C5F19443225B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78920B31-6D86-48D2-95B0-C5F19443225B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78920B31-6D86-48D2-95B0-C5F19443225B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -231,5 +243,7 @@ Global
 		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{1BE52970-11B9-487C-A80E-D89EA2D1D10B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{78920B31-6D86-48D2-95B0-C5F19443225B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{C5CAFB43-1A18-4D52-8B98-59215E0F1309} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{D4673F34-2090-41E0-AE2C-746F0CA97F3C} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 	EndGlobalSection
 EndGlobal

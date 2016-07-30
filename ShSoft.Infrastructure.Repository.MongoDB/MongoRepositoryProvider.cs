@@ -1,75 +1,82 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
-using SD.Toolkits.Redis;
-using ServiceStack.Redis;
-using ServiceStack.Redis.Generic;
+using MongoDB.Driver;
 using ShSoft.Infrastructure.EntityBase;
 using ShSoft.Infrastructure.RepositoryBase;
 
-namespace ShSoft.Infrastructure.Repository.Redis
+namespace ShSoft.Infrastructure.Repository.MongoDB
 {
     /// <summary>
-    /// Redis简单仓储Provider
+    /// MongoDB简单仓储Provider
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
-    public abstract class RedisRepositoryProvider<T> : ISimpleRepository<T> where T : AggregateRootEntity
+    public class MongoRepositoryProvider<T> : ISimpleRepository<T> where T : AggregateRootEntity
     {
         #region # 字段及构造器
 
         /// <summary>
-        /// Redis客户端管理器
+        /// Mongo服务器与数据库名分隔符号
         /// </summary>
-        private static readonly IRedisClientsManager _ClientsManager;
+        private const string Separator = "::";
+
+        /// <summary>
+        /// MongoDB连接字符串键
+        /// </summary>
+        private const string MongoConnectionStringKey = "MongoConnection";
+
+        /// <summary>
+        /// MongoDB连接字符串
+        /// </summary>
+        private static readonly string _ConnectionString;
+
+        /// <summary>
+        /// 默认排序定义
+        /// </summary>
+        private static readonly SortDefinition<T> _DefaultSortDefinition;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static RedisRepositoryProvider()
+        static MongoRepositoryProvider()
         {
-            _ClientsManager = RedisManager.CreateClientsManager();
+            SortDefinitionBuilder<T> sortBuilder = new SortDefinitionBuilder<T>();
+            SortDefinition<T> sortBySort = sortBuilder.Descending(x => x.Sort);
+            SortDefinition<T> sortByAddedTime = sortBuilder.Descending(x => x.AddedTime);
+            _DefaultSortDefinition = sortBuilder.Combine(sortBySort, sortByAddedTime);
+
+            string connStr = ConfigurationManager.ConnectionStrings[MongoConnectionStringKey].ConnectionString;
+
+            if (string.IsNullOrWhiteSpace(connStr))
+            {
+                throw new ApplicationException(string.Format("MongoDB连接字符串未设置，默认连接字符串键为\"{0}\"！", MongoConnectionStringKey));
+            }
+            _ConnectionString = connStr;
         }
 
 
         /// <summary>
-        /// Redis（写）客户端
+        /// MongoDB实体对象集合
         /// </summary>
-        private readonly IRedisClient _redisWriteClient;
-
-        /// <summary>
-        /// Redis（读）客户端
-        /// </summary>
-        private readonly IRedisClient _redisReadClient;
-
-        /// <summary>
-        /// Redis（写）类型客户端
-        /// </summary>
-        private readonly IRedisTypedClient<T> _redisWriteTypedClient;
-
-        /// <summary>
-        /// Redis（读）类型客户端
-        /// </summary>
-        private readonly IRedisTypedClient<T> _redisReadTypedClient;
+        private readonly IMongoCollection<T> _collection;
 
         /// <summary>
         /// 构造器
         /// </summary>
-        protected RedisRepositoryProvider()
+        protected MongoRepositoryProvider()
         {
-            //实例化RedisClient
-            this._redisWriteClient = _ClientsManager.GetClient();
-            this._redisReadClient = _ClientsManager.GetReadOnlyClient();
-            this._redisWriteTypedClient = this._redisWriteClient.As<T>();
-            this._redisReadTypedClient = this._redisReadClient.As<T>();
-        }
+            string[] connStr = _ConnectionString.Split(new[] { Separator }, StringSplitOptions.None);
 
-        /// <summary>
-        /// 析构器
-        /// </summary>
-        ~RedisRepositoryProvider()
-        {
-            this.Dispose();
+            if (connStr.Length != 2)
+            {
+                throw new ApplicationException(string.Format("连接字符串格式不正确，请使用\"{0}\"来分隔服务器地址与数据库名称！", Separator));
+            }
+
+            MongoClient client = new MongoClient(connStr[0]);
+            IMongoDatabase database = client.GetDatabase(connStr[1]);
+            this._collection = database.GetCollection<T>(typeof(T).FullName);
         }
 
         #endregion
@@ -80,7 +87,6 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <summary>
         /// 添加单个实体对象
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="entity">新实体对象</param>
         /// <exception cref="ArgumentNullException">新实体对象为空</exception>
         public void Add(T entity)
@@ -95,14 +101,14 @@ namespace ShSoft.Infrastructure.Repository.Redis
             {
                 throw new ArgumentNullException("Id", string.Format(@"要添加的{0}实体对象Id不可为空！", typeof(T).Name));
             }
-            if (this.Exists(x => x.Id == entity.Id))
+            if (this.Exists(entity.Id))
             {
                 throw new ArgumentOutOfRangeException("Id", string.Format("Id为\"{0}\"的实体已存在！", entity.Id));
             }
 
             #endregion
 
-            this._redisWriteTypedClient.Store(entity);
+            this._collection.InsertOneAsync(entity).Wait();
         }
         #endregion
 
@@ -124,7 +130,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            this._redisWriteTypedClient.StoreAll(entities);
+            this._collection.InsertMany(entities);
         }
         #endregion
 
@@ -132,7 +138,6 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <summary>
         /// 保存单个实体对象
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="entity">实体对象</param>
         /// <exception cref="ArgumentNullException">实体对象为空</exception>
         /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
@@ -144,20 +149,18 @@ namespace ShSoft.Infrastructure.Repository.Redis
             {
                 throw new ArgumentNullException("entity", string.Format("要保存的{0}实体对象不可为空！", typeof(T).Name));
             }
-
             if (entity.Id == Guid.Empty)
             {
                 throw new ArgumentNullException("Id", string.Format(@"要保存的{0}实体对象Id不可为空！", typeof(T).Name));
             }
-
-            if (this.FindAllInner().All(x => x.Id != entity.Id))
+            if (!this.Exists(entity.Id))
             {
                 throw new NullReferenceException(string.Format("不存在Id为{0}的{1}实体对象，请尝试添加操作！", entity.Id, typeof(T).Name));
             }
 
             #endregion
 
-            this._redisWriteTypedClient.Store(entity);
+            this._collection.FindOneAndReplaceAsync(x => x.Id == entity.Id, entity).Wait();
         }
         #endregion
 
@@ -180,7 +183,10 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            this._redisWriteTypedClient.StoreAll(entities);
+            foreach (T entity in entities)
+            {
+                this.Save(entity);
+            }
         }
         #endregion
 
@@ -188,15 +194,12 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <summary>
         /// 删除单行
         /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
         /// <exception cref="ArgumentNullException">id为空</exception>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void Remove(Guid id)
         {
-            T entity = this.Single(id);
-
-            this._redisWriteTypedClient.Delete(entity);
+            this._collection.FindOneAndDeleteAsync(x => x.Id == id).Wait();
         }
         #endregion
 
@@ -204,15 +207,12 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <summary>
         /// 删除单行
         /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void Remove(string number)
         {
-            T entity = this.Single(number);
-
-            this._redisWriteTypedClient.Delete(entity);
+            this._collection.FindOneAndDeleteAsync(x => x.Number == number).Wait();
         }
         #endregion
 
@@ -234,7 +234,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            this._redisWriteTypedClient.DeleteByIds(ids);
+            this._collection.DeleteManyAsync(x => ids.Contains(x.Id)).Wait();
         }
         #endregion
 
@@ -256,17 +256,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            using (IRedisTypedTransaction<T> trans = this._redisWriteTypedClient.CreateTransaction())
-            {
-                foreach (string number in numbers)
-                {
-                    T entity = this.Single(number);
-
-                    trans.QueueCommand(x => x.Delete(entity));
-                }
-
-                trans.Commit();
-            }
+            this._collection.DeleteManyAsync(x => numbers.Contains(x.Number)).Wait();
         }
         #endregion
 
@@ -276,18 +266,13 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// </summary>
         public void RemoveAll()
         {
-            foreach (T entity in this.FindAll().ToArray())
-            {
-                this.Remove(entity.Id);
-            }
+            this._collection.DeleteManyAsync(x => true).Wait();
         }
         #endregion
 
         #endregion
 
         #region # 查询部分
-
-        #region # Public
 
         //Single部分
 
@@ -312,7 +297,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this._redisReadTypedClient.GetById(id);
+            return this.Find(x => x.Id == id).SingleOrDefault();
         }
         #endregion
 
@@ -335,7 +320,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this.SingleOrDefault<TSub>(x => x.Id == id);
+            return this.Find<TSub>(x => x.Id == id).SingleOrDefault();
         }
         #endregion
 
@@ -358,7 +343,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this.SingleOrDefault(x => x.Number == number);
+            return this.Find(x => x.Number == number).SingleOrDefault();
         }
         #endregion
 
@@ -381,7 +366,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this.SingleOrDefault<TSub>(x => x.Number == number);
+            return this.Find<TSub>(x => x.Number == number).SingleOrDefault();
         }
         #endregion
 
@@ -504,7 +489,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this.SingleOrDefault(x => x.Name == name);
+            return this.Find(x => x.Name == name).SingleOrDefault();
         }
         #endregion
 
@@ -557,7 +542,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// </summary>
         public virtual T FirstOrDefault()
         {
-            return this.FindAllInner().FirstOrDefault();
+            return this.FindAndSort(x => true).FirstOrDefault();
         }
         #endregion
 
@@ -568,7 +553,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// </summary>
         public virtual TSub FirstOrDefault<TSub>() where TSub : T
         {
-            return this.FindAllInner<TSub>().FirstOrDefault();
+            return this.FindAndSort<TSub>(x => true).FirstOrDefault();
         }
         #endregion
 
@@ -582,7 +567,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <returns>实体对象集合</returns>
         public IEnumerable<T> FindAll()
         {
-            return this.FindAllInner().AsEnumerable();
+            return this.FindAndSort(x => true).ToEnumerable();
         }
         #endregion
 
@@ -594,7 +579,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <returns>子类对象集合</returns>
         public IEnumerable<TSub> FindAll<TSub>() where TSub : T
         {
-            return this.FindAllInner<TSub>().AsEnumerable();
+            return this.FindAndSort<TSub>(x => true).ToEnumerable();
         }
         #endregion
 
@@ -607,7 +592,8 @@ namespace ShSoft.Infrastructure.Repository.Redis
         {
             Expression<Func<T, bool>> condition =
                 x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
-            return this.Find(condition).AsEnumerable();
+
+            return this.FindAndSort(condition).ToEnumerable();
         }
         #endregion
 
@@ -618,7 +604,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <returns>实体对象集合</returns>
         public IEnumerable<T> Find(IEnumerable<Guid> ids)
         {
-            return this.Find(x => ids.Contains(x.Id)).AsEnumerable();
+            return this.FindAndSort(x => ids.Contains(x.Id)).ToEnumerable();
         }
         #endregion
 
@@ -629,7 +615,9 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <returns>子类对象集合</returns>
         public IEnumerable<TSub> Find<TSub>(IEnumerable<Guid> ids) where TSub : T
         {
-            return this.Find<TSub>(x => ids.Contains(x.Id)).AsEnumerable();
+            IEnumerable<T> entities = this.FindAndSort(x => x is TSub && ids.Contains(x.Id)).ToEnumerable();
+
+            return entities.OfType<TSub>();
         }
         #endregion
 
@@ -640,7 +628,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <returns>实体对象集合</returns>
         public IEnumerable<T> Find(IEnumerable<string> numbers)
         {
-            return this.Find(x => numbers.Contains(x.Number)).AsEnumerable();
+            return this.FindAndSort(x => numbers.Contains(x.Number)).ToEnumerable();
         }
         #endregion
 
@@ -651,7 +639,9 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <returns>子类对象集合</returns>
         public IEnumerable<TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T
         {
-            return this.Find<TSub>(x => numbers.Contains(x.Number)).AsEnumerable();
+            IEnumerable<T> entities = this.FindAndSort(x => x is TSub && numbers.Contains(x.Number)).ToEnumerable();
+
+            return entities.OfType<TSub>();
         }
         #endregion
 
@@ -664,8 +654,10 @@ namespace ShSoft.Infrastructure.Repository.Redis
         public IEnumerable<TSub> Find<TSub>(string keywords) where TSub : T
         {
             Expression<Func<TSub, bool>> condition =
-                x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
-            return this.Find(condition).AsEnumerable();
+                x =>
+                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+
+            return this.FindAndSort<TSub>(condition).ToEnumerable();
         }
         #endregion
 
@@ -685,6 +677,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         {
             Expression<Func<T, bool>> condition =
                 x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+
             return this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
         }
         #endregion
@@ -706,8 +699,10 @@ namespace ShSoft.Infrastructure.Repository.Redis
             out int pageCount) where TSub : T
         {
             Expression<Func<TSub, bool>> condition =
-                x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
-            return this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
+                x =>
+                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+
+            return this.FindByPage<TSub>(condition, pageIndex, pageSize, out rowCount, out pageCount);
         }
         #endregion
 
@@ -723,7 +718,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         {
             IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
 
-            foreach (T entity in this.FindAllInner())
+            foreach (T entity in this.FindAll())
             {
                 dictionary.Add(entity.Id, entity.Name);
             }
@@ -744,7 +739,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         {
             IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
 
-            foreach (TSub entity in this.FindAllInner<TSub>())
+            foreach (TSub entity in this.FindAll<TSub>())
             {
                 dictionary.Add(entity.Id, entity.Name);
             }
@@ -763,7 +758,9 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <returns>总记录条数</returns>
         public int Count()
         {
-            return this.Count(x => true);
+            long count = this.Find(x => true).Count();
+
+            return unchecked((int)count);
         }
         #endregion
 
@@ -774,7 +771,9 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <returns>子类记录条数</returns>
         public int Count<TSub>() where TSub : T
         {
-            return this.Count<TSub>(x => true);
+            long count = this.Find<TSub>(x => true).Count();
+
+            return unchecked((int)count);
         }
         #endregion
 
@@ -799,7 +798,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this.Exists(x => x.Id == id);
+            return this.Find(x => x.Id == id).Any();
         }
         #endregion
 
@@ -821,7 +820,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this.Exists<TSub>(x => x.Id == id);
+            return this.Find<TSub>(x => x.Id == id).Any();
         }
         #endregion
 
@@ -843,7 +842,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this.Exists(x => x.Number == number);
+            return this.Find(x => x.Number == number).Any();
         }
         #endregion
 
@@ -865,7 +864,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this.Exists<TSub>(x => x.Number == number);
+            return this.Find<TSub>(x => x.Number == number).Any();
         }
         #endregion
 
@@ -886,7 +885,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this.Exists(x => x.Name == name);
+            return this.Find(x => x.Name == name).Any();
         }
         #endregion
 
@@ -907,7 +906,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this.Exists<TSub>(x => x.Name == name);
+            return this.Find<TSub>(x => x.Name == name).Any();
         }
         #endregion
 
@@ -1012,7 +1011,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <exception cref="ArgumentNullException">SQL语句为空</exception>
         public IEnumerable<T> ExecuteSqlQuery(string sql, params object[] parameters)
         {
-            throw new NotSupportedException("Redis不支持SQL");
+            throw new NotSupportedException("MongoDB不支持SQL");
         }
         #endregion
 
@@ -1022,438 +1021,102 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// </summary>
         public void Dispose()
         {
-            if (this._redisWriteClient != null)
-            {
-                this._redisWriteClient.Dispose();
-            }
-            if (this._redisReadClient != null)
-            {
-                this._redisReadClient.Dispose();
-            }
+
         }
         #endregion
 
-        #endregion
 
-        #region # Protected
+        //Protected
 
-        //Single部分
-
-        #region # 根据条件获取唯一实体对象（查看时用） —— T SingleOrDefault(...
+        #region # 获取实体对象列表默认排序 —— IFindFluent<T, T> FindAndSort(...
         /// <summary>
-        /// 根据条件获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
+        /// 获取实体对象列表默认排序
         /// </summary>
-        /// <param name="predicate">条件</param>
-        /// <returns>唯一实体对象</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NullReferenceException">查询不到任何实体对象</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
-        protected T SingleOrDefault(Expression<Func<T, bool>> predicate)
+        /// <param name="condition">条件表达式</param>
+        /// <returns>实体对象列表</returns>
+        protected IFindFluent<T, T> FindAndSort(Expression<Func<T, bool>> condition)
         {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            if (this.Count(predicate) > 1)
-            {
-                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
-            }
-
-            #endregion
-
-            return this.FindAllInner().SingleOrDefault(predicate);
+            return this._collection.Find(condition).Sort(_DefaultSortDefinition);
         }
         #endregion
 
-        #region # 根据条件获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(...
+        #region # 获取子类对象列表默认排序 —— IFindFluent<TSub, TSub> FindAndSort<TSub>(...
         /// <summary>
-        /// 根据条件获取唯一子类对象（查看时用），
-        /// 无该对象时返回null
+        /// 获取子类对象列表默认排序
         /// </summary>
-        /// <param name="predicate">条件</param>
-        /// <returns>唯一子类对象</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NullReferenceException">查询不到任何子类对象</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的子类对象</exception>
-        protected TSub SingleOrDefault<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
+        /// <param name="condition">条件表达式</param>
+        /// <returns>子类对象列表</returns>
+        protected IFindFluent<TSub, TSub> FindAndSort<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
-            #region # 验证参数
+            SortDefinitionBuilder<TSub> sortBuilder = new SortDefinitionBuilder<TSub>();
+            SortDefinition<TSub> sortBySort = sortBuilder.Descending(x => x.Sort);
+            SortDefinition<TSub> sortByAddedTime = sortBuilder.Descending(x => x.AddedTime);
+            SortDefinition<TSub> defaultSortDefinition = sortBuilder.Combine(sortBySort, sortByAddedTime);
 
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            if (this.Count(predicate) > 1)
-            {
-                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
-            }
-
-            #endregion
-
-            return this.FindAllInner<TSub>().SingleOrDefault(predicate);
+            return this._collection.OfType<TSub>().Find<TSub>(condition).Sort(defaultSortDefinition);
         }
         #endregion
 
-        #region # 根据条件获取第一个实体对象（查看时用） —— T FirstOrDefault(...
+        #region # 获取实体对象列表 —— IFindFluent<T, T> Find(...
         /// <summary>
-        /// 根据条件获取第一个实体对象（查看时用），
-        /// 无该对象时返回null
+        /// 获取实体对象列表
         /// </summary>
-        /// <param name="predicate">条件</param>
-        /// <returns>实体对象</returns>
-        protected T FirstOrDefault(Expression<Func<T, bool>> predicate)
+        /// <param name="condition">条件表达式</param>
+        /// <returns>实体对象列表</returns>
+        protected IFindFluent<T, T> Find(Expression<Func<T, bool>> condition)
         {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            #endregion
-
-            return this.Find(predicate).FirstOrDefault();
+            return this._collection.Find(condition);
         }
         #endregion
 
-        #region # 根据条件获取第一个子类对象（查看时用） —— TSub FirstOrDefault<TSub>(...
+        #region # 获取子类对象列表 —— IFindFluent<TSub, TSub> Find<TSub>(...
         /// <summary>
-        /// 根据条件获取第一个子类对象（查看时用），
-        /// 无该对象时返回null
+        /// 获取子类对象列表
         /// </summary>
-        /// <typeparam name="TSub">子类类型</typeparam>
-        /// <param name="predicate">条件</param>
-        /// <returns>子类对象</returns>
-        protected TSub FirstOrDefault<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
+        /// <param name="condition">条件表达式</param>
+        /// <returns>子类对象列表</returns>
+        protected IFindFluent<TSub, TSub> Find<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            #endregion
-
-            return this.Find(predicate).FirstOrDefault();
+            return this._collection.OfType<TSub>().Find(condition);
         }
         #endregion
 
-
-        //IQueryable部分
-
-        #region # 获取实体对象集合 —— virtual IQueryable<T> FindAllInner()
+        #region # 分页获取实体对象列表 —— IEnumerable<T> FindByPage(...
         /// <summary>
-        /// 获取实体对象集合
+        /// 分页获取实体对象列表
         /// </summary>
-        /// <returns>实体对象集合</returns>
-        protected virtual IQueryable<T> FindAllInner()
-        {
-            return this._redisReadTypedClient.GetAll().Where(x => !x.Deleted).OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime).AsQueryable();
-        }
-        #endregion
-
-        #region # 获取给定类型子类对象集合 —— IQueryable<TSub> FindAllInner<TSub>()
-        /// <summary>
-        /// 获取给定类型子类对象集合
-        /// </summary>
-        /// <typeparam name="TSub">子类类型</typeparam>
-        /// <returns>子类对象集合</returns>
-        protected IQueryable<TSub> FindAllInner<TSub>() where TSub : T
-        {
-            return this.FindAllInner().OfType<TSub>();
-        }
-        #endregion
-
-        #region # 根据条件获取实体对象集合 —— IQueryable<T> Find(Expression<Func<T, bool>> predicate)
-        /// <summary>
-        /// 根据条件获取实体对象集合
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>实体对象集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected IQueryable<T> Find(Expression<Func<T, bool>> predicate)
-        {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            #endregion
-
-            return this.FindAllInner().Where(predicate);
-        }
-        #endregion
-
-        #region # 根据条件获取子类对象集合 —— IQueryable<TSub> Find<TSub>(...
-        /// <summary>
-        /// 根据条件获取子类对象集合
-        /// </summary>
-        /// <typeparam name="TSub">子类类型</typeparam>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>子类对象集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected IQueryable<TSub> Find<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
-        {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            #endregion
-
-            return this.FindAllInner<TSub>().Where(predicate);
-        }
-        #endregion
-
-        #region # 根据条件获取实体对象Id集合 —— IQueryable<Guid> FindIds(Expression...
-        /// <summary>
-        /// 根据条件获取实体对象Id集合
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>实体对象Id集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected IQueryable<Guid> FindIds(Expression<Func<T, bool>> predicate)
-        {
-            return this.Find(predicate).Select(x => x.Id);
-        }
-        #endregion
-
-        #region # 根据条件获取子类对象Id集合 —— IQueryable<Guid> FindIds<TSub>(...
-        /// <summary>
-        /// 根据条件获取子类对象Id集合
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>子类对象Id集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected IQueryable<Guid> FindIds<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
-        {
-            return this.Find(predicate).Select(x => x.Id);
-        }
-        #endregion
-
-        #region # 根据条件获取实体对象编号集合 —— IQueryable<string> FindNos(...
-        /// <summary>
-        /// 根据条件获取实体对象编号集合
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>实体对象编号集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected IQueryable<string> FindNos(Expression<Func<T, bool>> predicate)
-        {
-            return this.Find(predicate).Select(x => x.Number);
-        }
-        #endregion
-
-        #region # 根据条件获取子类对象编号集合 —— IQueryable<string> FindNos<TSub>(...
-        /// <summary>
-        /// 根据条件获取子类对象编号集合
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>子类对象编号集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected IQueryable<string> FindNos<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
-        {
-            return this.Find(predicate).Select(x => x.Number);
-        }
-        #endregion
-
-        #region # 根据条件分页获取实体对象集合 + 输出记录条数与页数 —— IQueryable<T> FindByPage(...
-        /// <summary>
-        /// 根据条件获取实体对象集合 + 分页 + 输出记录条数与页数
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
-        /// <returns>实体对象集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected IQueryable<T> FindByPage(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount)
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
+        /// <returns>实体对象列表</returns>
+        protected IEnumerable<T> FindByPage(Expression<Func<T, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
-            return this.FindAllInner().ToPage(predicate, pageIndex, pageSize, out rowCount, out pageCount);
+            IFindFluent<T, T> list = this.FindAndSort(condition);
+            rowCount = unchecked((int)list.Count());
+            pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
+            return list.Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToEnumerable();
         }
         #endregion
 
-        #region # 根据条件分页获取子类对象集合 + 输出记录条数与页数 —— IQueryable<TSub> FindByPage(...
+        #region # 分页获取子类对象列表 —— IEnumerable<TSub> FindByPage<TSub>(...
         /// <summary>
-        /// 根据条件分页获取子类对象集合 + 分页 + 输出记录条数与页数
+        /// 分页获取子类对象列表
         /// </summary>
-        /// <typeparam name="TSub">子类类型</typeparam>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
-        /// <returns>实体对象集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected IQueryable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
+        /// <returns>子类对象列表</returns>
+        protected IEnumerable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
         {
-            return this.FindAllInner<TSub>().ToPage(predicate, pageIndex, pageSize, out rowCount, out pageCount);
+            IFindFluent<TSub, TSub> list = this.FindAndSort(condition);
+            rowCount = unchecked((int)list.Count());
+            pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
+            return list.Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToEnumerable();
         }
-        #endregion
-
-        #region # 获取给定条件的Id与Name字典 —— IDictionary<Guid, string> FindDictionary(Expression...
-        /// <summary>
-        /// 获取给定条件的Id与Name字典
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        protected IDictionary<Guid, string> FindDictionary(Expression<Func<T, bool>> predicate)
-        {
-            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
-
-            foreach (T entity in this.Find(predicate))
-            {
-                dictionary.Add(entity.Id, entity.Name);
-            }
-
-            return dictionary;
-        }
-        #endregion
-
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary<TSub>(Expression...
-        /// <summary>
-        /// 获取给定条件的Id与Name字典
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        protected IDictionary<Guid, string> FindDictionary<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
-        {
-            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
-
-            foreach (TSub entity in this.Find(predicate))
-            {
-                dictionary.Add(entity.Id, entity.Name);
-            }
-
-            return dictionary;
-        }
-        #endregion
-
-
-        //Count部分
-
-        #region # 根据条件获取记录条数 —— int Count(Expression<Func<T, bool>> predicate)
-        /// <summary>
-        /// 根据条件获取记录条数
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>符合条件的记录条数</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected int Count(Expression<Func<T, bool>> predicate)
-        {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            #endregion
-
-            return this.FindAllInner().Count(predicate);
-        }
-        #endregion
-
-        #region # 根据条件获取子类记录条数 —— int Count(Expression<Func<T, bool>> predicate)
-        /// <summary>
-        /// 根据条件获取子类记录条数
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>符合条件的子类记录条数</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected int Count<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
-        {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            #endregion
-
-            return this.FindAllInner<TSub>().Count(predicate);
-        }
-        #endregion
-
-
-        //Exists部分
-
-        #region # 判断是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> predicate)
-        /// <summary>
-        /// 判断是否存在给定条件的实体对象
-        /// </summary>
-        /// <param name="predicate">条件</param>
-        /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected bool Exists(Expression<Func<T, bool>> predicate)
-        {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            #endregion
-
-            return this.FindAllInner().Any(predicate);
-        }
-        #endregion
-
-        #region # 判断是否存在给定条件的子类对象 —— bool Exists<TSub>(Expression<Func<TSub...
-        /// <summary>
-        /// 判断是否存在给定条件的子类对象
-        /// </summary>
-        /// <param name="predicate">条件</param>
-        /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected bool Exists<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
-        {
-            #region # 验证参数
-
-            if (predicate == null)
-            {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
-            }
-
-            #endregion
-
-            return this.FindAllInner<TSub>().Any(predicate);
-        }
-        #endregion
-
         #endregion
 
         #endregion

@@ -1,0 +1,7 @@
+﻿<configuration>
+  <connectionStrings>
+    <!--MongoDB连接字符串-->
+    <!--使用::分隔服务器与数据库名-->
+    <add name="MongoConnection" connectionString="" />
+  </connectionStrings>
+</configuration>
