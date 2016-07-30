@@ -1157,33 +1157,32 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         {
             //加载实体所在程序集
             Assembly entityAssembly = Assembly.Load(WebConfigSetting.EntityAssembly);
+            Type[] types = entityAssembly.GetTypes();
 
-            //查询所有抽象类
-            Func<Type, bool> abstractTypeQuery =
+            //查询所有实体抽象基类
+            Func<Type, bool> baseTypeQuery =
                  type =>
-                    type != typeof(PlainEntity) &&
-                    type != typeof(AggregateRootEntity) &&
-                    type.IsAbstract &&
-                    type.IsSubclassOf(typeof(PlainEntity));
+                     type.IsAbstract &&
+                     type.BaseType == typeof(AggregateRootEntity);
 
-            IEnumerable<Type> abstractTypes = entityAssembly.GetTypes().Where(abstractTypeQuery);
+            IEnumerable<Type> baseTypes = types.Where(baseTypeQuery);
 
-            //查询所有具体类
-            List<Type> concreteTypes = new List<Type>();
-
-            //注册抽象类
-            foreach (Type type in abstractTypes)
+            //注册实体类
+            foreach (Type baseType in baseTypes)
             {
-                BsonClassMap.RegisterClassMap(new BsonClassMap(type));
+                BsonClassMap baseMap = new BsonClassMap(baseType);
+                baseMap.AutoMap();
+                baseMap.SetIsRootClass(true);
+                BsonClassMap.RegisterClassMap(baseMap);
 
-                IEnumerable<Type> specConcreteTypes = entityAssembly.GetTypes().Where(x => x.IsSubclassOf(type));
-                concreteTypes.AddRange(specConcreteTypes);
-            }
-
-            //注册具体类
-            foreach (Type type in concreteTypes)
-            {
-                BsonClassMap.RegisterClassMap(new BsonClassMap(type));
+                IEnumerable<Type> subTypes = types.Where(x => x.IsSubclassOf(baseType));
+                foreach (Type subType in subTypes)
+                {
+                    BsonClassMap subMap = new BsonClassMap(subType);
+                    subMap.AutoMap();
+                    subMap.SetIsRootClass(false);
+                    BsonClassMap.RegisterClassMap(subMap);
+                }
             }
         }
         #endregion

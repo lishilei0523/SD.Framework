@@ -108,6 +108,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.MongoDBTests", "ShSoft.Infrastructure.Repository.MongoDBTests\ShSoft.Infrastructure.Repository.MongoDBTests.csproj", "{D4673F34-2090-41E0-AE2C-746F0CA97F3C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.MongoDB", "ShSoft.Infrastructure.EventStoreProvider.MongoDB\ShSoft.Infrastructure.EventStoreProvider.MongoDB.csproj", "{6FFDD579-EECE-44E2-AE8A-54695806B7AA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -210,6 +212,10 @@ Global
 		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -245,5 +251,6 @@ Global
 		{78920B31-6D86-48D2-95B0-C5F19443225B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{C5CAFB43-1A18-4D52-8B98-59215E0F1309} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{D4673F34-2090-41E0-AE2C-746F0CA97F3C} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
+		{6FFDD579-EECE-44E2-AE8A-54695806B7AA} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 	EndGlobalSection
 EndGlobal
