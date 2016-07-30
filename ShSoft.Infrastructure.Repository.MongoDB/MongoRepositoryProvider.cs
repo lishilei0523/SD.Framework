@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
+using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using ShSoft.Infrastructure.Constants;
 using ShSoft.Infrastructure.EntityBase;
 using ShSoft.Infrastructure.RepositoryBase;
 
@@ -54,6 +57,9 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
                 throw new ApplicationException(string.Format("MongoDB连接字符串未设置，默认连接字符串键为\"{0}\"！", MongoConnectionStringKey));
             }
             _ConnectionString = connStr;
+
+            //注册实体类型
+            RegisterTypes();
         }
 
 
@@ -183,10 +189,18 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
 
             #endregion
 
+            IList<WriteModel<T>> bulkWrites = new List<WriteModel<T>>();
+
             foreach (T entity in entities)
             {
-                this.Save(entity);
+                FilterDefinitionBuilder<T> builder = new FilterDefinitionBuilder<T>();
+                FilterDefinition<T> filter = builder.Eq(x => x.Id, entity.Id);
+                WriteModel<T> writeModel = new ReplaceOneModel<T>(filter, entity);
+
+                bulkWrites.Add(writeModel);
             }
+
+            this.BulkWrite(bulkWrites);
         }
         #endregion
 
@@ -678,7 +692,7 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
             Expression<Func<T, bool>> condition =
                 x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
 
-            return this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
+            return this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToEnumerable();
         }
         #endregion
 
@@ -702,7 +716,7 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
                 x =>
                     string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
 
-            return this.FindByPage<TSub>(condition, pageIndex, pageSize, out rowCount, out pageCount);
+            return this.FindByPage<TSub>(condition, pageIndex, pageSize, out rowCount, out pageCount).ToEnumerable();
         }
         #endregion
 
@@ -1025,8 +1039,20 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #endregion
 
-        //Protected
+        #region # Protected
+
+        #region # 批量操作 —— void BulkWrite(IEnumerable<WriteModel<T>> requests)
+        /// <summary>
+        /// 批量操作
+        /// </summary>
+        /// <param name="requests">批量操作请求</param>
+        protected void BulkWrite(IEnumerable<WriteModel<T>> requests)
+        {
+            this._collection.BulkWriteAsync(requests).Wait();
+        }
+        #endregion
 
         #region # 获取实体对象列表默认排序 —— IFindFluent<T, T> FindAndSort(...
         /// <summary>
@@ -1081,7 +1107,7 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 分页获取实体对象列表 —— IEnumerable<T> FindByPage(...
+        #region # 分页获取实体对象列表 —— IFindFluent<T, T> FindByPage(...
         /// <summary>
         /// 分页获取实体对象列表
         /// </summary>
@@ -1091,16 +1117,16 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         /// <param name="rowCount">总记录条数</param>
         /// <param name="pageCount">总页数</param>
         /// <returns>实体对象列表</returns>
-        protected IEnumerable<T> FindByPage(Expression<Func<T, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount)
+        protected IFindFluent<T, T> FindByPage(Expression<Func<T, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
             IFindFluent<T, T> list = this.FindAndSort(condition);
             rowCount = unchecked((int)list.Count());
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
-            return list.Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToEnumerable();
+            return list.Skip((pageIndex - 1) * pageSize).Limit(pageSize);
         }
         #endregion
 
-        #region # 分页获取子类对象列表 —— IEnumerable<TSub> FindByPage<TSub>(...
+        #region # 分页获取子类对象列表 —— IFindFluent<TSub, TSub> FindByPage<TSub>(...
         /// <summary>
         /// 分页获取子类对象列表
         /// </summary>
@@ -1110,12 +1136,55 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         /// <param name="rowCount">总记录条数</param>
         /// <param name="pageCount">总页数</param>
         /// <returns>子类对象列表</returns>
-        protected IEnumerable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
+        protected IFindFluent<TSub, TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
         {
             IFindFluent<TSub, TSub> list = this.FindAndSort(condition);
             rowCount = unchecked((int)list.Count());
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
-            return list.Skip((pageIndex - 1) * pageSize).Limit(pageSize).ToEnumerable();
+            return list.Skip((pageIndex - 1) * pageSize).Limit(pageSize);
+        }
+        #endregion
+
+        #endregion
+
+        #region # Private
+
+        #region # 注册实体类型 —— static void RegisterTypes()
+        /// <summary>
+        /// 注册实体类型
+        /// </summary>
+        private static void RegisterTypes()
+        {
+            //加载实体所在程序集
+            Assembly entityAssembly = Assembly.Load(WebConfigSetting.EntityAssembly);
+
+            //查询所有抽象类
+            Func<Type, bool> abstractTypeQuery =
+                 type =>
+                    type != typeof(PlainEntity) &&
+                    type != typeof(AggregateRootEntity) &&
+                    type.IsAbstract &&
+                    type.IsSubclassOf(typeof(PlainEntity));
+
+            IEnumerable<Type> abstractTypes = entityAssembly.GetTypes().Where(abstractTypeQuery);
+
+            //查询所有具体类
+            List<Type> concreteTypes = new List<Type>();
+
+            //注册抽象类
+            foreach (Type type in abstractTypes)
+            {
+                BsonClassMap.RegisterClassMap(new BsonClassMap(type));
+
+                IEnumerable<Type> specConcreteTypes = entityAssembly.GetTypes().Where(x => x.IsSubclassOf(type));
+                concreteTypes.AddRange(specConcreteTypes);
+            }
+
+            //注册具体类
+            foreach (Type type in concreteTypes)
+            {
+                BsonClassMap.RegisterClassMap(new BsonClassMap(type));
+            }
         }
         #endregion
 
