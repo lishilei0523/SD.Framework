@@ -13,7 +13,7 @@ namespace ShSoft.Infrastructure.Repository.RedisTests
     [TestClass]
     public class RedisRepositoryTests
     {
-        /*******************************初始化部分*******************************/
+        #region # 初始化部分
 
         /// <summary>
         /// 商品仓储
@@ -40,8 +40,9 @@ namespace ShSoft.Infrastructure.Repository.RedisTests
             this._productRep.Dispose();
         }
 
+        #endregion
 
-        /*******************************用例部分*******************************/
+        #region # 用例部分
 
         /// <summary>
         /// 创建
@@ -101,7 +102,7 @@ namespace ShSoft.Infrastructure.Repository.RedisTests
         [TestMethod]
         public void TestFind()
         {
-            int count = 10000;
+            int count = 1000;
 
             IList<Product> products = new List<Product>();
 
@@ -116,5 +117,7 @@ namespace ShSoft.Infrastructure.Repository.RedisTests
             IEnumerable<Product> specProducts = this._productRep.FindAll();
             Assert.IsTrue(specProducts.Count() == count);
         }
+
+        #endregion
     }
 }
