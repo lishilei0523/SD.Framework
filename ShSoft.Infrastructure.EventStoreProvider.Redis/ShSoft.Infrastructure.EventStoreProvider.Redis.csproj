@@ -34,6 +34,10 @@
     <DocumentationFile>bin\Release\ShSoft.Infrastructure.EventStoreProvider.Redis.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="SD.Toolkits.Redis, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SD.Toolkits.Redis.1.0.1\lib\net45\SD.Toolkits.Redis.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="ServiceStack.Common, Version=3.9.71.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.Common.3.9.71\lib\net35\ServiceStack.Common.dll</HintPath>
       <Private>True</Private>
@@ -59,6 +63,7 @@
     <Compile Include="StoreProvider\RedisStoreProvider.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="App.config.transform" />
     <None Include="packages.config" />
     <None Include="Web.config.transform" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
+using SD.Toolkits.Redis;
 using ServiceStack.Redis;
 using ServiceStack.Redis.Generic;
 using ShSoft.Infrastructure.EntityBase;
@@ -19,42 +20,38 @@ namespace ShSoft.Infrastructure.Repository.Redis
         #region # 字段及构造器
 
         /// <summary>
-        /// Redis服务器地址AppSetting键
+        /// Redis客户端管理器
         /// </summary>
-        private const string RedisServerAppSettingKey = "RedisServer";
-
-        /// <summary>
-        /// Redis服务器地址
-        /// </summary>
-        private static readonly string[] _RedisServer;
+        private static readonly IRedisClientsManager _ClientsManager;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
         static RedisRepositoryProvider()
         {
-            //读取配置文件中的Redis服务端IP地址、端口号
-            string ip = ConfigurationManager.AppSettings[RedisServerAppSettingKey];   //127.0.0.1,6379
-
-            //判断是否为空
-            if (string.IsNullOrWhiteSpace(ip))
-            {
-                throw new SystemException("Redis服务端IP地址未配置！");
-            }
-
-            _RedisServer = ip.Split(',');
+            _ClientsManager = RedisManager.CreateClientsManager();
         }
 
 
         /// <summary>
-        /// Redis客户端
+        /// Redis（写）客户端
         /// </summary>
-        private readonly IRedisClient _redisClient;
+        private readonly IRedisClient _redisWriteClient;
 
         /// <summary>
-        /// Redis类型客户端
+        /// Redis（读）客户端
         /// </summary>
-        private readonly IRedisTypedClient<T> _redisTypedClient;
+        private readonly IRedisClient _redisReadClient;
+
+        /// <summary>
+        /// Redis（写）类型客户端
+        /// </summary>
+        private readonly IRedisTypedClient<T> _redisWriteTypedClient;
+
+        /// <summary>
+        /// Redis（读）类型客户端
+        /// </summary>
+        private readonly IRedisTypedClient<T> _redisReadTypedClient;
 
         /// <summary>
         /// 构造器
@@ -62,8 +59,10 @@ namespace ShSoft.Infrastructure.Repository.Redis
         protected RedisRepositoryProvider()
         {
             //实例化RedisClient
-            this._redisClient = new RedisClient(_RedisServer[0], int.Parse(_RedisServer[1]));
-            this._redisTypedClient = this._redisClient.As<T>();
+            this._redisWriteClient = _ClientsManager.GetClient();
+            this._redisReadClient = _ClientsManager.GetReadOnlyClient();
+            this._redisWriteTypedClient = this._redisWriteClient.As<T>();
+            this._redisReadTypedClient = this._redisReadClient.As<T>();
         }
 
         /// <summary>
@@ -104,7 +103,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            this._redisTypedClient.Store(entity);
+            this._redisWriteTypedClient.Store(entity);
         }
         #endregion
 
@@ -126,7 +125,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            this._redisTypedClient.StoreAll(entities);
+            this._redisWriteTypedClient.StoreAll(entities);
         }
         #endregion
 
@@ -159,7 +158,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            this._redisTypedClient.Store(entity);
+            this._redisWriteTypedClient.Store(entity);
         }
         #endregion
 
@@ -182,7 +181,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            this._redisTypedClient.StoreAll(entities);
+            this._redisWriteTypedClient.StoreAll(entities);
         }
         #endregion
 
@@ -198,7 +197,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         {
             T entity = this.Single(id);
 
-            this._redisTypedClient.Delete(entity);
+            this._redisWriteTypedClient.Delete(entity);
         }
         #endregion
 
@@ -214,7 +213,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         {
             T entity = this.Single(number);
 
-            this._redisTypedClient.Delete(entity);
+            this._redisWriteTypedClient.Delete(entity);
         }
         #endregion
 
@@ -236,7 +235,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            this._redisTypedClient.DeleteByIds(ids);
+            this._redisWriteTypedClient.DeleteByIds(ids);
         }
         #endregion
 
@@ -258,7 +257,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            using (IRedisTypedTransaction<T> trans = this._redisTypedClient.CreateTransaction())
+            using (IRedisTypedTransaction<T> trans = this._redisWriteTypedClient.CreateTransaction())
             {
                 foreach (string number in numbers)
                 {
@@ -314,7 +313,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
 
             #endregion
 
-            return this._redisTypedClient.GetById(id);
+            return this._redisReadTypedClient.GetById(id);
         }
         #endregion
 
@@ -1024,9 +1023,13 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// </summary>
         public void Dispose()
         {
-            if (this._redisClient != null)
+            if (this._redisWriteClient != null)
             {
-                this._redisClient.Dispose();
+                this._redisWriteClient.Dispose();
+            }
+            if (this._redisReadClient != null)
+            {
+                this._redisReadClient.Dispose();
             }
         }
         #endregion
@@ -1154,7 +1157,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <returns>实体对象集合</returns>
         protected virtual IQueryable<T> FindAllInner()
         {
-            return this._redisTypedClient.GetAll().Where(x => !x.Deleted).OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime).AsQueryable();
+            return this._redisReadTypedClient.GetAll().Where(x => !x.Deleted).OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime).AsQueryable();
         }
         #endregion
 

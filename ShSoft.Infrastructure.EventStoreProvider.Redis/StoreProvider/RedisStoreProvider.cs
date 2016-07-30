@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Configuration;
 using System.Linq;
+using SD.Toolkits.Redis;
 using ServiceStack.Redis;
 using ServiceStack.Redis.Generic;
 using ShSoft.Infrastructure.Constants;
@@ -18,14 +19,9 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         #region # 字段及构造器
 
         /// <summary>
-        /// Redis服务器地址AppSetting键
+        /// Redis客户端管理器
         /// </summary>
-        private const string RedisServerAppSettingKey = "RedisServer";
-
-        /// <summary>
-        /// Redis服务器地址
-        /// </summary>
-        private static readonly string[] _RedisServer;
+        private static readonly IRedisClientsManager _ClientsManager;
 
         /// <summary>
         /// 静态构造器
@@ -33,16 +29,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
 
         static RedisStoreProvider()
         {
-            //读取配置文件中的Redis服务端IP地址、端口号
-            string ip = ConfigurationManager.AppSettings[RedisServerAppSettingKey];   //127.0.0.1,6379
-
-            //判断是否为空
-            if (string.IsNullOrWhiteSpace(ip))
-            {
-                throw new ApplicationException("Redis服务端IP地址未配置！");
-            }
-
-            _RedisServer = ip.Split(',');
+            _ClientsManager = RedisManager.CreateClientsManager();
         }
 
         /// <summary>
@@ -69,7 +56,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             string sessionId = WebConfigSetting.CurrentSessionId.ToString();
 
             //实例化RedisClient
-            this._redisClient = new RedisClient(_RedisServer[0], int.Parse(_RedisServer[1]));
+            this._redisClient = _ClientsManager.GetClient();
             this._redisTypedClient = this._redisClient.As<Event>();
             this._table = this._redisTypedClient.Lists[sessionId];
         }
