@@ -36,20 +36,10 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         private static readonly string _ConnectionString;
 
         /// <summary>
-        /// 默认排序定义
-        /// </summary>
-        private static readonly SortDefinition<T> _DefaultSortDefinition;
-
-        /// <summary>
         /// 静态构造器
         /// </summary>
         static MongoRepositoryProvider()
         {
-            SortDefinitionBuilder<T> sortBuilder = new SortDefinitionBuilder<T>();
-            SortDefinition<T> sortBySort = sortBuilder.Descending(x => x.Sort);
-            SortDefinition<T> sortByAddedTime = sortBuilder.Descending(x => x.AddedTime);
-            _DefaultSortDefinition = sortBuilder.Combine(sortBySort, sortByAddedTime);
-
             string connStr = ConfigurationManager.ConnectionStrings[MongoConnectionStringKey].ConnectionString;
 
             if (string.IsNullOrWhiteSpace(connStr))
@@ -1062,7 +1052,7 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         /// <returns>实体对象列表</returns>
         protected IFindFluent<T, T> FindAndSort(Expression<Func<T, bool>> condition)
         {
-            return this._collection.Find(condition).Sort(_DefaultSortDefinition);
+            return this._collection.Find(condition).SortByDescending(x => x.Sort).SortByDescending(x => x.AddedTime);
         }
         #endregion
 
@@ -1074,12 +1064,7 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         /// <returns>子类对象列表</returns>
         protected IFindFluent<TSub, TSub> FindAndSort<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
-            SortDefinitionBuilder<TSub> sortBuilder = new SortDefinitionBuilder<TSub>();
-            SortDefinition<TSub> sortBySort = sortBuilder.Descending(x => x.Sort);
-            SortDefinition<TSub> sortByAddedTime = sortBuilder.Descending(x => x.AddedTime);
-            SortDefinition<TSub> defaultSortDefinition = sortBuilder.Combine(sortBySort, sortByAddedTime);
-
-            return this._collection.OfType<TSub>().Find<TSub>(condition).Sort(defaultSortDefinition);
+            return this._collection.OfType<TSub>().Find<TSub>(condition).SortByDescending(x => x.Sort).SortByDescending(x => x.AddedTime);
         }
         #endregion
 
