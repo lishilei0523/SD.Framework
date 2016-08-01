@@ -102,7 +102,7 @@ namespace ShSoft.Infrastructure.Repository.RedisTests
         [TestMethod]
         public void TestFind()
         {
-            int count = 10000;
+            int count = 100;
 
             IList<Product> products = new List<Product>();
 
