@@ -358,18 +358,22 @@ namespace ShSoft.Common.PoweredByLee
         }
         #endregion
 
-        #region # DataTable转换泛型集合扩展方法 —— static IEnumerable<T> ToList<T>(this DataTable...
+        #region # DataTable转换泛型集合扩展方法 —— static IList<T> ToList<T>(this DataTable...
         /// <summary>
         /// DataTable转换泛型集合扩展方法
         /// </summary>
         /// <typeparam name="T">类型</typeparam>
         /// <param name="dataTable">数据表</param>
         /// <returns>泛型集合</returns>
-        public static IEnumerable<T> ToList<T>(this DataTable dataTable) where T : new()
+        public static IList<T> ToList<T>(this DataTable dataTable)
         {
             //获取类型与属性信息
             Type currentType = typeof(T);
             PropertyInfo[] properties = currentType.GetProperties();
+
+            //获取无参构造函数
+            ConstructorInfo[] constructors = currentType.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            ConstructorInfo noParamCtor = constructors.Single(x => x.GetParameters().Length == 0);
 
             #region # 验证
 
@@ -393,14 +397,18 @@ namespace ShSoft.Common.PoweredByLee
 
             #endregion
 
-            ICollection<T> collection = new List<T>();
+            IList<T> collection = new List<T>();
 
             foreach (DataRow row in dataTable.Rows)
             {
-                T instance = Activator.CreateInstance<T>();
+                T instance = (T)noParamCtor.Invoke(null);
+
                 foreach (PropertyInfo property in properties)
                 {
-                    property.SetValue(instance, row[property.Name]);
+                    if (dataTable.Columns.Contains(property.Name))
+                    {
+                        property.SetValue(instance, row[property.Name]);
+                    }
                 }
                 collection.Add(instance);
             }

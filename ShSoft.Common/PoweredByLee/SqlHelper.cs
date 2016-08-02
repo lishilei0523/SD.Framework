@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -192,6 +193,32 @@ namespace ShSoft.Common.PoweredByLee
         public DataSet GetDataSetSP(string proc, params SqlParameter[] args)
         {
             return this.GetDataSet(proc, CommandType.StoredProcedure, args);
+        }
+        #endregion
+
+        #region 13.执行SQL语句返回泛型集合 —— IList<T> GetList<T>(string sql...
+        /// <summary>
+        /// GetDataTable —— Sql语句
+        /// </summary>
+        /// <param name="sql">Sql语句</param>
+        /// <param name="args">参数</param>
+        /// <returns>泛型集合</returns>
+        public IList<T> GetList<T>(string sql, params SqlParameter[] args) where T : new()
+        {
+            return this.GetDataTable(sql, CommandType.Text, args).ToList<T>();
+        }
+        #endregion
+
+        #region 14.执行存储过程返回泛型集合 —— IList<T> GetListSP<T>(string proc...
+        /// <summary>
+        /// GetDataTable —— 存储过程
+        /// </summary>
+        /// <param name="proc">存储过程名称</param>
+        /// <param name="args">参数</param>
+        /// <returns>泛型集合</returns>
+        public IList<T> GetListSP<T>(string proc, params SqlParameter[] args) where T : new()
+        {
+            return this.GetDataTable(proc, CommandType.StoredProcedure, args).ToList<T>();
         }
         #endregion
 
