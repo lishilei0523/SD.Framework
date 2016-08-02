@@ -55,7 +55,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="SD.Toolkits.EntityFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SD.Toolkits.EntityFramework.1.0.0.0\lib\net45\SD.Toolkits.EntityFramework.dll</HintPath>
+      <HintPath>..\packages\SD.Toolkits.EntityFramework.1.0.1\lib\net45\SD.Toolkits.EntityFramework.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
