@@ -394,7 +394,12 @@ namespace ShSoft.Common.PoweredByLee
                 {
                     if (dataTable.Columns.Contains(property.Name))
                     {
-                        property.SetValue(instance, row[property.Name]);
+                        MethodInfo setter = property.GetSetMethod(true);
+                        if (setter != null)
+                        {
+                            object value = row[property.Name] == DBNull.Value ? null : row[property.Name];
+                            setter.Invoke(instance, new[] { value });
+                        }
                     }
                 }
                 collection.Add(instance);
