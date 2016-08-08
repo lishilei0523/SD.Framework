@@ -21,16 +21,7 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// <summary>
         /// Redis客户端管理器
         /// </summary>
-        private static readonly IRedisClientsManager _ClientsManager;
-
-        /// <summary>
-        /// 静态构造器
-        /// </summary>
-        static RedisRepositoryProvider()
-        {
-            _ClientsManager = RedisManager.CreateClientsManager();
-        }
-
+        private readonly IRedisClientsManager _clientsManager;
 
         /// <summary>
         /// Redis（写）客户端
@@ -57,9 +48,11 @@ namespace ShSoft.Infrastructure.Repository.Redis
         /// </summary>
         protected RedisRepositoryProvider()
         {
+            this._clientsManager = RedisManager.CreateClientsManager();
+
             //实例化RedisClient
-            this._redisWriteClient = _ClientsManager.GetClient();
-            this._redisReadClient = _ClientsManager.GetReadOnlyClient();
+            this._redisWriteClient = this._clientsManager.GetClient();
+            this._redisReadClient = this._clientsManager.GetReadOnlyClient();
             this._redisWriteTypedClient = this._redisWriteClient.As<T>();
             this._redisReadTypedClient = this._redisReadClient.As<T>();
         }
@@ -1029,6 +1022,10 @@ namespace ShSoft.Infrastructure.Repository.Redis
             if (this._redisReadClient != null)
             {
                 this._redisReadClient.Dispose();
+            }
+            if (this._clientsManager != null)
+            {
+                this._clientsManager.Dispose();
             }
         }
         #endregion

@@ -21,16 +21,7 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// <summary>
         /// Redis客户端管理器
         /// </summary>
-        private static readonly IRedisClientsManager _ClientsManager;
-
-        /// <summary>
-        /// 静态构造器
-        /// </summary>
-
-        static RedisStoreProvider()
-        {
-            _ClientsManager = RedisManager.CreateClientsManager();
-        }
+        private readonly IRedisClientsManager _clientsManager;
 
         /// <summary>
         /// Redis客户端
@@ -52,11 +43,13 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public RedisStoreProvider()
         {
+            this._clientsManager = RedisManager.CreateClientsManager();
+
             //获取会话Id
             string sessionId = WebConfigSetting.CurrentSessionId.ToString();
 
             //实例化RedisClient
-            this._redisClient = _ClientsManager.GetClient();
+            this._redisClient = this._clientsManager.GetClient();
             this._redisTypedClient = this._redisClient.As<Event>();
             this._table = this._redisTypedClient.Lists[sessionId];
         }
@@ -123,6 +116,10 @@ namespace ShSoft.Infrastructure.EventStoreProvider
             if (this._redisClient != null)
             {
                 this._redisClient.Dispose();
+            }
+            if (this._clientsManager != null)
+            {
+                this._clientsManager.Dispose();
             }
         }
         #endregion
