@@ -203,7 +203,7 @@ namespace ShSoft.Common.PoweredByLee
         /// <param name="sql">Sql语句</param>
         /// <param name="args">参数</param>
         /// <returns>泛型集合</returns>
-        public IList<T> GetList<T>(string sql, params SqlParameter[] args) where T : new()
+        public IList<T> GetList<T>(string sql, params SqlParameter[] args)
         {
             return this.GetDataTable(sql, CommandType.Text, args).ToList<T>();
         }
@@ -216,7 +216,7 @@ namespace ShSoft.Common.PoweredByLee
         /// <param name="proc">存储过程名称</param>
         /// <param name="args">参数</param>
         /// <returns>泛型集合</returns>
-        public IList<T> GetListSP<T>(string proc, params SqlParameter[] args) where T : new()
+        public IList<T> GetListSP<T>(string proc, params SqlParameter[] args)
         {
             return this.GetDataTable(proc, CommandType.StoredProcedure, args).ToList<T>();
         }

@@ -382,19 +382,6 @@ namespace ShSoft.Common.PoweredByLee
                 throw new ArgumentNullException("dataTable", "数据表不可为null！");
             }
 
-            if (dataTable.Columns.Count != properties.Length)
-            {
-                throw new ArgumentOutOfRangeException("dataTable", "列数与属性数不匹配，请检查程序！");
-            }
-
-            IEnumerable<string> propertyNames = properties.Select(x => x.Name);
-            IEnumerable<string> columnNames = from DataColumn column in dataTable.Columns select column.ColumnName;
-
-            if (propertyNames.EqualsTo(columnNames))
-            {
-                throw new InvalidOperationException("列名与属性名不完全一致，请检查程序！");
-            }
-
             #endregion
 
             IList<T> collection = new List<T>();
