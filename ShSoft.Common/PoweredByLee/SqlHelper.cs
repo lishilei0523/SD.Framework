@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -20,19 +21,21 @@ namespace ShSoft.Common.PoweredByLee
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="connectionString">连接字符串</param>
-        public SqlHelper(string connectionString)
+        /// <param name="connectionName">连接字符串名称</param>
+        public SqlHelper(string connectionName)
         {
+            ConnectionStringSettings connstrSetting = ConfigurationManager.ConnectionStrings[connectionName];
+
             #region # 验证参数
 
-            if (string.IsNullOrWhiteSpace(connectionString))
+            if (connstrSetting == null)
             {
-                throw new ArgumentNullException("connectionString", @"连接字符串不可为空！");
+                throw new ApplicationException(@"连接字符串不存在！");
             }
 
             #endregion
 
-            this._connectionString = connectionString;
+            this._connectionString = connstrSetting.ConnectionString;
         }
 
         #endregion
