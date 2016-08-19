@@ -65,7 +65,6 @@
     <Compile Include="EntityBase\AggregateRootEntity.cs" />
     <Compile Include="EntityBase\PlainEntity.cs" />
     <Compile Include="EntityBase\IValueObject.cs" />
-    <Compile Include="EntityBase\IVersionControl.cs" />
     <Compile Include="EventBase\IEventHandler.cs" />
     <Compile Include="RepositoryBase\IRepository.cs" />
     <Compile Include="RepositoryBase\ISimpleRepository.cs" />

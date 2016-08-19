@@ -10,7 +10,7 @@ namespace ShSoft.Infrastructure.AOP.Aspects.ForAny
     /// <remarks>发生异常时记录日志</remarks>
     [Serializable]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    public sealed class NonThrowExceptionAspect : ExceptionAspect
+    public class NonThrowExceptionAspect : ExceptionAspect
     {
         /// <summary>
         /// 异常过滤器

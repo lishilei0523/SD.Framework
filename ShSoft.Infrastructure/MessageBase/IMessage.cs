@@ -7,8 +7,6 @@ namespace ShSoft.Infrastructure.MessageBase
     /// </summary>
     public interface IMessage
     {
-        #region # 属性
-
         #region 标识 —— Guid Id
         /// <summary>
         /// 标识
@@ -42,8 +40,6 @@ namespace ShSoft.Infrastructure.MessageBase
         /// 添加时间
         /// </summary>
         DateTime AddedTime { get; }
-        #endregion
-
         #endregion
     }
 }

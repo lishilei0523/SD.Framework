@@ -1,6 +1,4 @@
-﻿using System;
-using System.Configuration;
-using System.Linq;
+﻿using System.Linq;
 using SD.Toolkits.Redis;
 using ServiceStack.Redis;
 using ServiceStack.Redis.Generic;

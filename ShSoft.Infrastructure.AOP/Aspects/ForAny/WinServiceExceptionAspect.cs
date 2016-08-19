@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using PostSharp.Aspects;
-using SD.AOP.Core.Aspects.ForAny;
 
 namespace ShSoft.Infrastructure.AOP.Aspects.ForAny
 {
@@ -11,7 +10,7 @@ namespace ShSoft.Infrastructure.AOP.Aspects.ForAny
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
-    public class WinServiceExceptionAspect : ExceptionAspect
+    public class WinServiceExceptionAspect : NonThrowExceptionAspect
     {
         /// <summary>
         /// 异常过滤器
@@ -19,6 +18,8 @@ namespace ShSoft.Infrastructure.AOP.Aspects.ForAny
         /// <param name="eventArgs">方法元数据</param>
         public override void OnException(MethodExecutionArgs eventArgs)
         {
+            base.OnException(eventArgs);
+
             //日志记录到文件中
             string log = AppDomain.CurrentDomain.BaseDirectory + "Logs\\Log_" + DateTime.Now.Date.ToString("yyyyMMdd") + ".txt";
 
@@ -30,9 +31,6 @@ namespace ShSoft.Infrastructure.AOP.Aspects.ForAny
                                           + Environment.NewLine + "［当前方法］" + eventArgs.Exception.TargetSite
                                           + Environment.NewLine + "［堆栈信息］" + eventArgs.Exception.StackTrace
                                           + Environment.NewLine, true);
-
-            //记录日志，不抛出异常
-            eventArgs.FlowBehavior = FlowBehavior.Continue;
         }
 
         /// <summary>

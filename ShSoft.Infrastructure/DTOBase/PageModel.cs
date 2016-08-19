@@ -26,6 +26,7 @@ namespace ShSoft.Infrastructure.DTOBase
         /// <param name="pageCount">总页数</param>
         /// <param name="rowCount">总记录条数</param>
         public PageModel(IEnumerable<T> datas, int pageIndex, int pageSize, int pageCount, int rowCount)
+            : this()
         {
             this.Datas = datas;
             this.PageIndex = pageIndex;

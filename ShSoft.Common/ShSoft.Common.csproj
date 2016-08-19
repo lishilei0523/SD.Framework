@@ -46,12 +46,11 @@
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SD.Toolkits.CommonLibraries, Version=2.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\SD.Toolkits.CommonLibraries.1.0.0\lib\net45\SD.Toolkits.CommonLibraries.dll</HintPath>
+    <Reference Include="ShSoft.Common.Libraries, Version=2.9.2.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\ShSoft.Common.Libraries.1.0.3\lib\net45\ShSoft.Common.Libraries.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
@@ -63,7 +62,6 @@
     <Compile Include="PoweredByLee\CollectionExtension.cs" />
     <Compile Include="PoweredByLee\CommonExtension.cs" />
     <Compile Include="PoweredByLee\EnumExtension.cs" />
-    <Compile Include="PoweredByLee\ExcelAssistant.cs" />
     <Compile Include="PoweredByLee\FileAssistant.cs" />
     <Compile Include="PoweredByLee\ImageAssistant.cs" />
     <Compile Include="PoweredByLee\NumbericExtension.cs" />
