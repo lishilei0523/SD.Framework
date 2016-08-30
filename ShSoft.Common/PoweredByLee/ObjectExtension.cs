@@ -29,13 +29,14 @@ namespace ShSoft.Common.PoweredByLee
 
         #endregion
 
-        #region # object序列化JSON字符串扩展方法 —— static string ToJson(this object instance)
+        #region # object序列化JSON字符串扩展方法 —— static string ToJson(this object instance...
         /// <summary>
         /// object序列化JSON字符串扩展方法
         /// </summary>
         /// <param name="instance">object及其子类对象</param>
+        /// <param name="dateFormatString">时间格式字符串</param>
         /// <returns>JSON字符串</returns>
-        public static string ToJson(this object instance)
+        public static string ToJson(this object instance, string dateFormatString = null)
         {
             #region # 验证参数
 
@@ -48,7 +49,14 @@ namespace ShSoft.Common.PoweredByLee
 
             try
             {
-                JsonSerializerSettings settting = new JsonSerializerSettings { ReferenceLoopHandling = ReferenceLoopHandling.Ignore };
+                JsonSerializerSettings settting = new JsonSerializerSettings();
+                settting.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+
+                if (!string.IsNullOrWhiteSpace(dateFormatString))
+                {
+                    settting.DateFormatString = dateFormatString;
+                }
+
                 return JsonConvert.SerializeObject(instance, Formatting.None, settting);
             }
             catch (InvalidOperationException)
