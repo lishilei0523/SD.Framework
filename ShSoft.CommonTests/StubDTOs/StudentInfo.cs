@@ -1,4 +1,6 @@
-﻿namespace ShSoft.CommonTests.StubDTOs
+﻿using System;
+
+namespace ShSoft.CommonTests.StubDTOs
 {
     public class StudentInfo
     {
@@ -6,6 +8,6 @@
 
         public string Name { get; set; }
 
-        public string BirthDay { get; set; }
+        public DateTime BirthDay { get; set; }
     }
 }

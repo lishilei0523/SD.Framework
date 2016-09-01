@@ -55,6 +55,7 @@
     <Compile Include="StubEntities\Student.cs" />
     <Compile Include="TestCases\EqualsTests.cs" />
     <Compile Include="TestCases\MapperTests.cs" />
+    <Compile Include="TestCases\JsonSerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ShSoft.Common\ShSoft.Common.csproj">
