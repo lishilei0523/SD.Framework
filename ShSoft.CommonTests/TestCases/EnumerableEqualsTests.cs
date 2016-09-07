@@ -9,10 +9,10 @@ using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 namespace ShSoft.CommonTests.TestCases
 {
     /// <summary>
-    /// 比较集合与字典相等测试
+    /// 比较序列相等测试
     /// </summary>
     [TestClass]
-    public class EqualsTests
+    public class EnumerableEqualsTests
     {
         #region # 字段与初始化器
 
