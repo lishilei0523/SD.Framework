@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShSoft.Infrastructure.Repository.MongoDBTests.Entities;
-using ShSoft.Infrastructure.Repository.MongoDBTests.IRepositories;
-using ShSoft.Infrastructure.Repository.MongoDBTests.Repositories;
+using ShSoft.Infrastructure.Repository.RedisTests.Entities;
+using ShSoft.Infrastructure.Repository.RedisTests.IRepositories;
+using ShSoft.Infrastructure.Repository.RedisTests.Repositories;
 
-namespace ShSoft.Infrastructure.Repository.MongoDBTests
+namespace ShSoft.Infrastructure.Repository.RedisTests.TestCases
 {
     /// <summary>
-    /// MongoDB仓储测试
+    /// Redis仓储测试
     /// </summary>
     [TestClass]
-    public class MongoRepositoryTests
+    public class RedisRepositoryTests
     {
         #region # 初始化部分
 
@@ -86,7 +86,7 @@ namespace ShSoft.Infrastructure.Repository.MongoDBTests
 
             Product currentProduct = this._productRep.Single(product.Id);
 
-            currentProduct.UpdateInfo("商品3", 20);
+            currentProduct.UpdateInfo("商品2", 20);
 
             this._productRep.Save(currentProduct);
 
@@ -102,7 +102,7 @@ namespace ShSoft.Infrastructure.Repository.MongoDBTests
         [TestMethod]
         public void TestFind()
         {
-            int count = 10000;
+            int count = 100;
 
             IList<Product> products = new List<Product>();
 

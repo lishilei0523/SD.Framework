@@ -71,7 +71,7 @@
     <Compile Include="Entities\Product.cs" />
     <Compile Include="IRepositories\IProductRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
-    <Compile Include="RedisRepositoryTests.cs" />
+    <Compile Include="TestCases\RedisRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

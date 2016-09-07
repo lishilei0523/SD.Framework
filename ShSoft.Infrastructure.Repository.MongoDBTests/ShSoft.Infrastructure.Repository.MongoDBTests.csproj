@@ -52,7 +52,7 @@
   <ItemGroup>
     <Compile Include="Entities\Product.cs" />
     <Compile Include="IRepositories\IProductRepository.cs" />
-    <Compile Include="MongoRepositoryTests.cs" />
+    <Compile Include="TestCases\MongoRepositoryTests.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
