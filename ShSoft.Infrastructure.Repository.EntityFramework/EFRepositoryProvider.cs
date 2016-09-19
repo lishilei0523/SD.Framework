@@ -1,11 +1,11 @@
-﻿using System;
+﻿using ShSoft.Infrastructure.EntityBase;
+using ShSoft.Infrastructure.Repository.EntityFramework.Base;
+using ShSoft.Infrastructure.RepositoryBase;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using ShSoft.Infrastructure.EntityBase;
-using ShSoft.Infrastructure.Repository.EntityFramework.Base;
-using ShSoft.Infrastructure.RepositoryBase;
 
 namespace ShSoft.Infrastructure.Repository.EntityFramework
 {
@@ -1082,14 +1082,10 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         /// </remarks>
         protected IDictionary<Guid, string> FindDictionary(Expression<Func<T, bool>> predicate)
         {
-            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
+            var idNames = from entity in this.Find(predicate)
+                          select new { entity.Id, entity.Name };
 
-            foreach (T entity in this.Find(predicate))
-            {
-                dictionary.Add(entity.Id, entity.Name);
-            }
-
-            return dictionary;
+            return idNames.ToDictionary(x => x.Id, x => x.Name);
         }
         #endregion
 
@@ -1104,14 +1100,10 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         /// </remarks>
         protected IDictionary<Guid, string> FindDictionary<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
-            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
+            var idNames = from entity in this.Find<TSub>(predicate)
+                          select new { entity.Id, entity.Name };
 
-            foreach (TSub entity in this.Find(predicate))
-            {
-                dictionary.Add(entity.Id, entity.Name);
-            }
-
-            return dictionary;
+            return idNames.ToDictionary(x => x.Id, x => x.Name);
         }
         #endregion
 
