@@ -365,50 +365,6 @@ namespace ShSoft.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 根据Id集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<Guid> ids)
-        /// <summary>
-        /// 根据Id集获取实体对象集合
-        /// </summary>
-        /// <returns>实体对象集合</returns>
-        public IEnumerable<T> Find(IEnumerable<Guid> ids)
-        {
-            return this.Find(x => ids.Contains(x.Id)).AsEnumerable();
-        }
-        #endregion
-
-        #region # 根据Id集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<Guid> ids)
-        /// <summary>
-        /// 根据Id集获取子类对象集合
-        /// </summary>
-        /// <returns>子类对象集合</returns>
-        public IEnumerable<TSub> Find<TSub>(IEnumerable<Guid> ids) where TSub : T
-        {
-            return this.Find<TSub>(x => ids.Contains(x.Id)).AsEnumerable();
-        }
-        #endregion
-
-        #region # 根据编号集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<string> numbers)
-        /// <summary>
-        /// 根据编号集获取实体对象集合
-        /// </summary>
-        /// <returns>实体对象集合</returns>
-        public IEnumerable<T> Find(IEnumerable<string> numbers)
-        {
-            return this.Find(x => numbers.Contains(x.Number)).AsEnumerable();
-        }
-        #endregion
-
-        #region # 根据编号集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<string>...
-        /// <summary>
-        /// 根据编号集获取子类对象集合
-        /// </summary>
-        /// <returns>子类对象集合</returns>
-        public IEnumerable<TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T
-        {
-            return this.Find<TSub>(x => numbers.Contains(x.Number)).AsEnumerable();
-        }
-        #endregion
-
         #region # 根据关键字获取给定类型子类对象集合 —— IEnumerable<TSub> Find<TSub>(string keywords)
         /// <summary>
         /// 根据关键字获取给定类型子类对象集合
@@ -465,7 +421,118 @@ namespace ShSoft.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary()
+
+        //IDictionary部分
+
+        #region # 根据Id集获取实体对象字典 —— IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 根据Id集获取实体对象字典
+        /// </summary>
+        /// <returns>实体对象字典</returns>
+        /// <remarks>IDictionary[Guid, T]，[Id, 实体对象]</remarks>
+        public IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
+        {
+            #region # 验证
+
+            if (ids == null)
+            {
+                throw new ArgumentNullException("ids", "Id集合不可为null！");
+            }
+
+            #endregion
+
+            ids = ids.Distinct();
+
+            var entities = from entity in this.FindAllInner()
+                           where ids.Contains(entity.Id)
+                           select new { entity.Id, entity };
+
+            return entities.ToDictionary(x => x.Id, x => x.entity);
+        }
+        #endregion
+
+        #region # 根据Id集获取子类对象字典 —— IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 根据Id集获取子类对象字典
+        /// </summary>
+        /// <returns>子类对象字典</returns>
+        /// <remarks>IDictionary[Guid, TSub]，[Id, 子类对象]</remarks>
+        public IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids) where TSub : T
+        {
+            #region # 验证
+
+            if (ids == null)
+            {
+                throw new ArgumentNullException("ids", "Id集合不可为null！");
+            }
+
+            #endregion
+
+            ids = ids.Distinct();
+
+            var entities = from entity in this.FindAllInner<TSub>()
+                           where ids.Contains(entity.Id)
+                           select new { entity.Id, entity };
+
+            return entities.ToDictionary(x => x.Id, x => x.entity);
+        }
+        #endregion
+
+        #region # 根据编号集获取实体对象字典 —— IDictionary<string, T> Find(IEnumerable<string> numbers)
+        /// <summary>
+        /// 根据编号集获取实体对象字典
+        /// </summary>
+        /// <returns>实体对象字典</returns>
+        /// <remarks>IDictionary[string, T]，[编号, 实体对象]</remarks>
+        public IDictionary<string, T> Find(IEnumerable<string> numbers)
+        {
+            #region # 验证
+
+            if (numbers == null)
+            {
+                throw new ArgumentNullException("numbers", "编号集合不可为null！");
+            }
+
+            #endregion
+
+            numbers = numbers.Distinct();
+
+            var entities = from entity in this.FindAllInner()
+                           where numbers.Contains(entity.Number)
+                           select new { entity.Number, entity };
+
+            return entities.ToDictionary(x => x.Number, x => x.entity);
+        }
+        #endregion
+
+        #region # 根据编号集获取子类对象字典 —— IDictionary<string, TSub> Find<TSub>(IEnumerable<string>...
+        /// <summary>
+        /// 根据编号集获取子类对象字典
+        /// </summary>
+        /// <returns>子类对象字典</returns>
+        /// <remarks>IDictionary[string, TSub]，[编号, 子类对象]</remarks>
+        public IDictionary<string, TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T
+        {
+            #region # 验证
+
+            if (numbers == null)
+            {
+                throw new ArgumentNullException("numbers", "编号集合不可为null！");
+            }
+
+            #endregion
+
+            numbers = numbers.Distinct();
+
+            var entities = from entity in this.FindAllInner<TSub>()
+                           where numbers.Contains(entity.Number)
+                           select new { entity.Number, entity };
+
+            return entities.ToDictionary(x => x.Number, x => x.entity);
+        }
+        #endregion
+
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames()
         /// <summary>
         /// 获取Id与Name字典
         /// </summary>
@@ -473,7 +540,7 @@ namespace ShSoft.Infrastructure.Repository.RavenDB
         /// <remarks>
         /// IDictionary[Guid, string]，键：Id，值：Name
         /// </remarks>
-        public IDictionary<Guid, string> FindDictionary()
+        public IDictionary<Guid, string> FindIdNames()
         {
             IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
 
@@ -486,7 +553,7 @@ namespace ShSoft.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary<TSub>()
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames<TSub>()
         /// <summary>
         /// 获取Id与Name字典
         /// </summary>
@@ -494,7 +561,7 @@ namespace ShSoft.Infrastructure.Repository.RavenDB
         /// <remarks>
         /// IDictionary[Guid, string]，键：Id，值：Name
         /// </remarks>
-        public IDictionary<Guid, string> FindDictionary<TSub>() where TSub : T
+        public IDictionary<Guid, string> FindIdNames<TSub>() where TSub : T
         {
             IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
 

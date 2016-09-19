@@ -601,54 +601,6 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<Guid> ids)
-        /// <summary>
-        /// 根据Id集获取实体对象集合
-        /// </summary>
-        /// <returns>实体对象集合</returns>
-        public IEnumerable<T> Find(IEnumerable<Guid> ids)
-        {
-            return this.FindAndSort(x => ids.Contains(x.Id)).ToEnumerable();
-        }
-        #endregion
-
-        #region # 根据Id集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<Guid> ids)
-        /// <summary>
-        /// 根据Id集获取子类对象集合
-        /// </summary>
-        /// <returns>子类对象集合</returns>
-        public IEnumerable<TSub> Find<TSub>(IEnumerable<Guid> ids) where TSub : T
-        {
-            IEnumerable<T> entities = this.FindAndSort(x => x is TSub && ids.Contains(x.Id)).ToEnumerable();
-
-            return entities.OfType<TSub>();
-        }
-        #endregion
-
-        #region # 根据编号集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<string> numbers)
-        /// <summary>
-        /// 根据编号集获取实体对象集合
-        /// </summary>
-        /// <returns>实体对象集合</returns>
-        public IEnumerable<T> Find(IEnumerable<string> numbers)
-        {
-            return this.FindAndSort(x => numbers.Contains(x.Number)).ToEnumerable();
-        }
-        #endregion
-
-        #region # 根据编号集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<string>...
-        /// <summary>
-        /// 根据编号集获取子类对象集合
-        /// </summary>
-        /// <returns>子类对象集合</returns>
-        public IEnumerable<TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T
-        {
-            IEnumerable<T> entities = this.FindAndSort(x => x is TSub && numbers.Contains(x.Number)).ToEnumerable();
-
-            return entities.OfType<TSub>();
-        }
-        #endregion
-
         #region # 根据关键字获取给定类型子类对象集合 —— IEnumerable<TSub> Find<TSub>(string keywords)
         /// <summary>
         /// 根据关键字获取给定类型子类对象集合
@@ -710,7 +662,144 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary()
+
+        //IDictionary部分
+
+        #region # 根据Id集获取实体对象字典 —— IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 根据Id集获取实体对象字典
+        /// </summary>
+        /// <returns>实体对象字典</returns>
+        /// <remarks>IDictionary[Guid, T]，[Id, 实体对象]</remarks>
+        public IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
+        {
+            #region # 验证
+
+            if (ids == null)
+            {
+                throw new ArgumentNullException("ids", "Id集合不可为null！");
+            }
+
+            #endregion
+
+            ids = ids.Distinct();
+
+            IEnumerable<T> entities = this.FindAndSort(x => ids.Contains(x.Id)).ToList();
+
+            IDictionary<Guid, T> dictionary = new Dictionary<Guid, T>();
+
+            foreach (Guid id in ids)
+            {
+                T entity = entities.Single(x => x.Id == id);
+                dictionary.Add(id, entity);
+            }
+
+
+            return dictionary;
+        }
+        #endregion
+
+        #region # 根据Id集获取子类对象字典 —— IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 根据Id集获取子类对象字典
+        /// </summary>
+        /// <returns>子类对象字典</returns>
+        /// <remarks>IDictionary[Guid, TSub]，[Id, 子类对象]</remarks>
+        public IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids) where TSub : T
+        {
+            #region # 验证
+
+            if (ids == null)
+            {
+                throw new ArgumentNullException("ids", "Id集合不可为null！");
+            }
+
+            #endregion
+
+            ids = ids.Distinct();
+
+            IEnumerable<TSub> entities = this.FindAndSort(x => x is TSub && ids.Contains(x.Id)).ToEnumerable().OfType<TSub>().ToArray();
+
+            IDictionary<Guid, TSub> dictionary = new Dictionary<Guid, TSub>();
+
+            foreach (Guid id in ids)
+            {
+                TSub entity = entities.Single(x => x.Id == id);
+                dictionary.Add(id, entity);
+            }
+
+
+            return dictionary;
+        }
+        #endregion
+
+        #region # 根据编号集获取实体对象字典 —— IDictionary<string, T> Find(IEnumerable<string> numbers)
+        /// <summary>
+        /// 根据编号集获取实体对象字典
+        /// </summary>
+        /// <returns>实体对象字典</returns>
+        /// <remarks>IDictionary[string, T]，[编号, 实体对象]</remarks>
+        public IDictionary<string, T> Find(IEnumerable<string> numbers)
+        {
+            #region # 验证
+
+            if (numbers == null)
+            {
+                throw new ArgumentNullException("numbers", "编号集合不可为null！");
+            }
+
+            #endregion
+
+            numbers = numbers.Distinct();
+
+            IEnumerable<T> entities = this.FindAndSort(x => numbers.Contains(x.Number)).ToList();
+
+            IDictionary<string, T> dictionary = new Dictionary<string, T>();
+
+            foreach (string number in numbers)
+            {
+                T entity = entities.Single(x => x.Number == number);
+                dictionary.Add(number, entity);
+            }
+
+            return dictionary;
+        }
+        #endregion
+
+        #region # 根据编号集获取子类对象字典 —— IDictionary<string, TSub> Find<TSub>(IEnumerable<string>...
+        /// <summary>
+        /// 根据编号集获取子类对象字典
+        /// </summary>
+        /// <returns>子类对象字典</returns>
+        /// <remarks>IDictionary[string, TSub]，[编号, 子类对象]</remarks>
+        public IDictionary<string, TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T
+        {
+            #region # 验证
+
+            if (numbers == null)
+            {
+                throw new ArgumentNullException("numbers", "编号集合不可为null！");
+            }
+
+            #endregion
+
+            numbers = numbers.Distinct();
+
+            IEnumerable<TSub> entities = this.FindAndSort(x => x is TSub && numbers.Contains(x.Number)).ToEnumerable().OfType<TSub>().ToArray();
+
+            IDictionary<string, TSub> dictionary = new Dictionary<string, TSub>();
+
+            foreach (string number in numbers)
+            {
+                TSub entity = entities.Single(x => x.Number == number);
+                dictionary.Add(number, entity);
+            }
+
+            return dictionary;
+        }
+        #endregion
+
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames()
         /// <summary>
         /// 获取Id与Name字典
         /// </summary>
@@ -718,7 +807,7 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         /// <remarks>
         /// IDictionary[Guid, string]，键：Id，值：Name
         /// </remarks>
-        public IDictionary<Guid, string> FindDictionary()
+        public IDictionary<Guid, string> FindIdNames()
         {
             IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
 
@@ -731,7 +820,7 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary<TSub>()
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames<TSub>()
         /// <summary>
         /// 获取Id与Name字典
         /// </summary>
@@ -739,7 +828,7 @@ namespace ShSoft.Infrastructure.Repository.MongoDB
         /// <remarks>
         /// IDictionary[Guid, string]，键：Id，值：Name
         /// </remarks>
-        public IDictionary<Guid, string> FindDictionary<TSub>() where TSub : T
+        public IDictionary<Guid, string> FindIdNames<TSub>() where TSub : T
         {
             IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
 

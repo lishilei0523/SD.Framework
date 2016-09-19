@@ -188,38 +188,6 @@ namespace ShSoft.Infrastructure.RepositoryBase
         IEnumerable<T> Find(string keywords);
         #endregion
 
-        #region # 根据Id集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<Guid> ids)
-        /// <summary>
-        /// 根据Id集获取实体对象集合
-        /// </summary>
-        /// <returns>实体对象集合</returns>
-        IEnumerable<T> Find(IEnumerable<Guid> ids);
-        #endregion
-
-        #region # 根据Id集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<Guid> ids)
-        /// <summary>
-        /// 根据Id集获取子类对象集合
-        /// </summary>
-        /// <returns>子类对象集合</returns>
-        IEnumerable<TSub> Find<TSub>(IEnumerable<Guid> ids) where TSub : T;
-        #endregion
-
-        #region # 根据编号集获取实体对象集合 —— IEnumerable<T> Find(IEnumerable<string> numbers)
-        /// <summary>
-        /// 根据编号集获取实体对象集合
-        /// </summary>
-        /// <returns>实体对象集合</returns>
-        IEnumerable<T> Find(IEnumerable<string> numbers);
-        #endregion
-
-        #region # 根据编号集获取子类对象集合 —— IEnumerable<TSub> Find<TSub>(IEnumerable<string>...
-        /// <summary>
-        /// 根据编号集获取子类对象集合
-        /// </summary>
-        /// <returns>子类对象集合</returns>
-        IEnumerable<TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T;
-        #endregion
-
         #region # 根据关键字获取给定类型子类对象集合 —— IEnumerable<TSub> Find<TSub>(string keywords)
         /// <summary>
         /// 根据关键字获取给定类型子类对象集合
@@ -260,18 +228,46 @@ namespace ShSoft.Infrastructure.RepositoryBase
         IEnumerable<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T;
         #endregion
 
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary()
+
+        //IDictionary部分
+
+        #region # 根据Id集获取实体对象字典 —— IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
         /// <summary>
-        /// 获取Id与Name字典
+        /// 根据Id集获取实体对象字典
         /// </summary>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        IDictionary<Guid, string> FindDictionary();
+        /// <returns>实体对象字典</returns>
+        /// <remarks>IDictionary[Guid, T]，[Id, 实体对象]</remarks>
+        IDictionary<Guid, T> Find(IEnumerable<Guid> ids);
         #endregion
 
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary<TSub>()
+        #region # 根据Id集获取子类对象字典 —— IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 根据Id集获取子类对象字典
+        /// </summary>
+        /// <returns>子类对象字典</returns>
+        /// <remarks>IDictionary[Guid, TSub]，[Id, 子类对象]</remarks>
+        IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids) where TSub : T;
+        #endregion
+
+        #region # 根据编号集获取实体对象字典 —— IDictionary<string, T> Find(IEnumerable<string> numbers)
+        /// <summary>
+        /// 根据编号集获取实体对象字典
+        /// </summary>
+        /// <returns>实体对象字典</returns>
+        /// <remarks>IDictionary[string, T]，[编号, 实体对象]</remarks>
+        IDictionary<string, T> Find(IEnumerable<string> numbers);
+        #endregion
+
+        #region # 根据编号集获取子类对象字典 —— IDictionary<string, TSub> Find<TSub>(IEnumerable<string>...
+        /// <summary>
+        /// 根据编号集获取子类对象字典
+        /// </summary>
+        /// <returns>子类对象字典</returns>
+        /// <remarks>IDictionary[string, TSub]，[编号, 子类对象]</remarks>
+        IDictionary<string, TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T;
+        #endregion
+
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames()
         /// <summary>
         /// 获取Id与Name字典
         /// </summary>
@@ -279,7 +275,18 @@ namespace ShSoft.Infrastructure.RepositoryBase
         /// <remarks>
         /// IDictionary[Guid, string]，键：Id，值：Name
         /// </remarks>
-        IDictionary<Guid, string> FindDictionary<TSub>() where TSub : T;
+        IDictionary<Guid, string> FindIdNames();
+        #endregion
+
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames<TSub>()
+        /// <summary>
+        /// 获取Id与Name字典
+        /// </summary>
+        /// <returns>Id与Name字典</returns>
+        /// <remarks>
+        /// IDictionary[Guid, string]，键：Id，值：Name
+        /// </remarks>
+        IDictionary<Guid, string> FindIdNames<TSub>() where TSub : T;
         #endregion
 
 
