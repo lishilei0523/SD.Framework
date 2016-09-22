@@ -7,16 +7,6 @@
     public static class CacheConstants
     {
         /// <summary>
-        /// 验证码Session键
-        /// </summary>
-        public const string ValidCodeKey = "ValidCode";
-
-        /// <summary>
-        /// 当前登录用户Session键
-        /// </summary>
-        public const string CurrentUserKey = "CurrentUser";
-
-        /// <summary>
         /// 会话Id缓存键
         /// </summary>
         public const string SessionIdKey = "SessionIdKey";
