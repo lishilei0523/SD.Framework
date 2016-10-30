@@ -439,12 +439,20 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException("ids", "Id集合不可为null！");
             }
 
+            Guid[] newIds = ids.Distinct().ToArray();
+
+            foreach (Guid id in newIds)
+            {
+                if (!this.Exists(id))
+                {
+                    throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(T).Name));
+                }
+            }
+
             #endregion
 
-            ids = ids.Distinct();
-
             var entities = from entity in this.FindAllInner()
-                           where ids.Contains(entity.Id)
+                           where newIds.Contains(entity.Id)
                            select new { entity.Id, entity };
 
             return entities.ToDictionary(x => x.Id, x => x.entity);
@@ -466,12 +474,20 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException("ids", "Id集合不可为null！");
             }
 
+            Guid[] newIds = ids.Distinct().ToArray();
+
+            foreach (Guid id in newIds)
+            {
+                if (!this.Exists(id))
+                {
+                    throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(TSub).Name));
+                }
+            }
+
             #endregion
 
-            ids = ids.Distinct();
-
             var entities = from entity in this.FindAllInner<TSub>()
-                           where ids.Contains(entity.Id)
+                           where newIds.Contains(entity.Id)
                            select new { entity.Id, entity };
 
             return entities.ToDictionary(x => x.Id, x => x.entity);
@@ -493,12 +509,20 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException("numbers", "编号集合不可为null！");
             }
 
+            string[] newNumbers = numbers.Distinct().ToArray();
+
+            foreach (string number in newNumbers)
+            {
+                if (!this.Exists(number))
+                {
+                    throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(T).Name));
+                }
+            }
+
             #endregion
 
-            numbers = numbers.Distinct();
-
             var entities = from entity in this.FindAllInner()
-                           where numbers.Contains(entity.Number)
+                           where newNumbers.Contains(entity.Number)
                            select new { entity.Number, entity };
 
             return entities.ToDictionary(x => x.Number, x => x.entity);
@@ -520,12 +544,20 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException("numbers", "编号集合不可为null！");
             }
 
+            string[] newNumbers = numbers.Distinct().ToArray();
+
+            foreach (string number in newNumbers)
+            {
+                if (!this.Exists(number))
+                {
+                    throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(TSub).Name));
+                }
+            }
+
             #endregion
 
-            numbers = numbers.Distinct();
-
             var entities = from entity in this.FindAllInner<TSub>()
-                           where numbers.Contains(entity.Number)
+                           where newNumbers.Contains(entity.Number)
                            select new { entity.Number, entity };
 
             return entities.ToDictionary(x => x.Number, x => x.entity);
