@@ -29,7 +29,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 - Documentations", "00 -
 		docs\基于此框架的项目架构图.vsdx = docs\基于此框架的项目架构图.vsdx
 		docs\开发规范.doc = docs\开发规范.doc
 		docs\解决方案模板使用说明.doc = docs\解决方案模板使用说明.doc
-		docs\项目依赖关系图.png = docs\项目依赖关系图.png
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Common", "sources\ShSoft.Common\ShSoft.Common.csproj", "{37402463-F73A-4788-B9DE-5C57EC18604F}"
