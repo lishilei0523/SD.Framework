@@ -58,7 +58,7 @@
     <Compile Include="TestCases\JsonSerializationTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShSoft.Common\ShSoft.Common.csproj">
+    <ProjectReference Include="..\..\..\sources\ShSoft.Common\ShSoft.Common.csproj">
       <Project>{37402463-f73a-4788-b9de-5c57ec18604f}</Project>
       <Name>ShSoft.Common</Name>
     </ProjectReference>

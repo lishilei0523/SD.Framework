@@ -24,91 +24,63 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Event", "02 - Event", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 - Documentations", "00 - Documentations", "{C6AD4D54-74CC-4D0E-8310-5321A041CA3B}"
 	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-		ShSoft.Framework2016.Documentations\ShSoft.Framework.Documentation.chm = ShSoft.Framework2016.Documentations\ShSoft.Framework.Documentation.chm
-		ShSoft.Framework2016.Documentations\ShSoft.FrameworkTemplate.Extension.vsix = ShSoft.Framework2016.Documentations\ShSoft.FrameworkTemplate.Extension.vsix
-		ShSoft.Framework2016.Documentations\基于此框架的项目架构图.vsd = ShSoft.Framework2016.Documentations\基于此框架的项目架构图.vsd
-		ShSoft.Framework2016.Documentations\基于此框架的项目架构图.vsdx = ShSoft.Framework2016.Documentations\基于此框架的项目架构图.vsdx
-		ShSoft.Framework2016.Documentations\开发规范.doc = ShSoft.Framework2016.Documentations\开发规范.doc
-		ShSoft.Framework2016.Documentations\解决方案模板使用说明.doc = ShSoft.Framework2016.Documentations\解决方案模板使用说明.doc
-		ShSoft.Framework2016.Documentations\项目依赖关系图.png = ShSoft.Framework2016.Documentations\项目依赖关系图.png
+		docs\ShSoft.FrameworkTemplate.Extension.vsix = docs\ShSoft.FrameworkTemplate.Extension.vsix
+		docs\基于此框架的项目架构图.vsd = docs\基于此框架的项目架构图.vsd
+		docs\基于此框架的项目架构图.vsdx = docs\基于此框架的项目架构图.vsdx
+		docs\开发规范.doc = docs\开发规范.doc
+		docs\解决方案模板使用说明.doc = docs\解决方案模板使用说明.doc
+		docs\项目依赖关系图.png = docs\项目依赖关系图.png
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Templates", "Templates", "{060AF274-FB3F-42A8-9F9C-67E4DDF6786C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Common", "sources\ShSoft.Common\ShSoft.Common.csproj", "{37402463-F73A-4788-B9DE-5C57EC18604F}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ItemTemplates", "ItemTemplates", "{1A20FD38-4085-441F-86D2-C502538778B8}"
-	ProjectSection(SolutionItems) = preProject
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.AggregateRootTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.AggregateRootTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.DomainEventHandlerTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.DomainEventHandlerTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.DomainEventTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.DomainEventTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.DomainServiceImplementTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.DomainServiceImplementTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.DomainServiceInterfaceTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.DomainServiceInterfaceTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.EntityConfigurationTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.EntityConfigurationTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.EntityMapTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.EntityMapTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.InputDTOTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.InputDTOTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.OutputDTOTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.OutputDTOTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.PlainEntityTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.PlainEntityTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.RepositoryImplementTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.RepositoryImplementTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.RepositoryInterfaceTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.RepositoryInterfaceTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.WcfHostTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.WcfHostTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.WcfImplementTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.WcfImplementTemplate.zip
-		ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.WcfInterfaceTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ItemTemplates\ShSoft.WcfInterfaceTemplate.zip
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure", "sources\ShSoft.Infrastructure\ShSoft.Infrastructure.csproj", "{F9FF05F0-1900-4D24-859A-B3202F2208D7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProjectTemplates", "ProjectTemplates", "{9F8972BD-EE7B-42F4-86DB-B0C067BA6042}"
-	ProjectSection(SolutionItems) = preProject
-		ShSoft.Framework2016.Documentations\Templates\ProjectTemplates\ShSoft.FrameworkTemplate.zip = ShSoft.Framework2016.Documentations\Templates\ProjectTemplates\ShSoft.FrameworkTemplate.zip
-	EndProjectSection
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.AOP", "sources\ShSoft.Infrastructure.AOP\ShSoft.Infrastructure.AOP.csproj", "{90EEAC8D-C4F0-4003-B09B-A4D4C8B312BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.CommandBase", "ShSoft.Infrastructure.CommandBase\ShSoft.Infrastructure.CommandBase.csproj", "{C4AD70CE-A849-4BBD-8229-C01D2F0E6908}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.CommandBase", "sources\ShSoft.Infrastructure.CommandBase\ShSoft.Infrastructure.CommandBase.csproj", "{C4AD70CE-A849-4BBD-8229-C01D2F0E6908}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.CommandBaseTests", "ShSoft.Infrastructure.CommandBaseTests\ShSoft.Infrastructure.CommandBaseTests.csproj", "{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventBase", "sources\ShSoft.Infrastructure.EventBase\ShSoft.Infrastructure.EventBase.csproj", "{79DC5E40-2857-4748-A895-49BB675CDC68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Common", "ShSoft.Common\ShSoft.Common.csproj", "{37402463-F73A-4788-B9DE-5C57EC18604F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.EntityFramework", "sources\ShSoft.Infrastructure.EventStoreProvider.EntityFramework\ShSoft.Infrastructure.EventStoreProvider.EntityFramework.csproj", "{F7A08DAE-580F-46D1-9ADE-DCDB2A828994}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure", "ShSoft.Infrastructure\ShSoft.Infrastructure.csproj", "{F9FF05F0-1900-4D24-859A-B3202F2208D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.MongoDB", "sources\ShSoft.Infrastructure.EventStoreProvider.MongoDB\ShSoft.Infrastructure.EventStoreProvider.MongoDB.csproj", "{6FFDD579-EECE-44E2-AE8A-54695806B7AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.AOP", "ShSoft.Infrastructure.AOP\ShSoft.Infrastructure.AOP.csproj", "{90EEAC8D-C4F0-4003-B09B-A4D4C8B312BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.RabbitMQ", "sources\ShSoft.Infrastructure.EventStoreProvider.RabbitMQ\ShSoft.Infrastructure.EventStoreProvider.RabbitMQ.csproj", "{7D78CE29-610B-4709-8950-3AEAF405C89B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.EntityFramework", "ShSoft.Infrastructure.EventStoreProvider.EntityFramework\ShSoft.Infrastructure.EventStoreProvider.EntityFramework.csproj", "{F7A08DAE-580F-46D1-9ADE-DCDB2A828994}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.RavenDB", "sources\ShSoft.Infrastructure.EventStoreProvider.RavenDB\ShSoft.Infrastructure.EventStoreProvider.RavenDB.csproj", "{1BE52970-11B9-487C-A80E-D89EA2D1D10B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.RabbitMQ", "ShSoft.Infrastructure.EventStoreProvider.RabbitMQ\ShSoft.Infrastructure.EventStoreProvider.RabbitMQ.csproj", "{7D78CE29-610B-4709-8950-3AEAF405C89B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.Redis", "sources\ShSoft.Infrastructure.EventStoreProvider.Redis\ShSoft.Infrastructure.EventStoreProvider.Redis.csproj", "{78920B31-6D86-48D2-95B0-C5F19443225B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Global", "ShSoft.Infrastructure.Global\ShSoft.Infrastructure.Global.csproj", "{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Global", "sources\ShSoft.Infrastructure.Global\ShSoft.Infrastructure.Global.csproj", "{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.EntityFramework", "ShSoft.Infrastructure.Repository.EntityFramework\ShSoft.Infrastructure.Repository.EntityFramework.csproj", "{972CFDBB-1E0F-43CD-987A-458E9D1543B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.EntityFramework", "sources\ShSoft.Infrastructure.Repository.EntityFramework\ShSoft.Infrastructure.Repository.EntityFramework.csproj", "{972CFDBB-1E0F-43CD-987A-458E9D1543B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.WCF.Server", "ShSoft.Infrastructure.WCF.Server\ShSoft.Infrastructure.WCF.Server.csproj", "{9A78B517-AD18-4BC7-B687-4DC245F4DB57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.MongoDB", "sources\ShSoft.Infrastructure.Repository.MongoDB\ShSoft.Infrastructure.Repository.MongoDB.csproj", "{C5CAFB43-1A18-4D52-8B98-59215E0F1309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.CommonTests", "ShSoft.CommonTests\ShSoft.CommonTests.csproj", "{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.RavenDB", "sources\ShSoft.Infrastructure.Repository.RavenDB\ShSoft.Infrastructure.Repository.RavenDB.csproj", "{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.StubIAppService", "ShSoft.Infrastructure.StubIAppService\ShSoft.Infrastructure.StubIAppService.csproj", "{04BFA4D7-86C8-4341-B34C-3F1D88D19827}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.Redis", "sources\ShSoft.Infrastructure.Repository.Redis\ShSoft.Infrastructure.Repository.Redis.csproj", "{6C90E036-5969-4A31-A685-B845923B51DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.StubAppService", "ShSoft.Infrastructure.StubAppService\ShSoft.Infrastructure.StubAppService.csproj", "{A9F7D041-ECF8-434D-B083-5F57AD348564}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.WCF.Server", "sources\ShSoft.Infrastructure.WCF.Server\ShSoft.Infrastructure.WCF.Server.csproj", "{9A78B517-AD18-4BC7-B687-4DC245F4DB57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests", "ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests\ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests.csproj", "{E1EC6A9F-80F6-44FA-BDE1-4327E8FF3BAF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.CommonTests", "tests\UnitTests\ShSoft.CommonTests\ShSoft.CommonTests.csproj", "{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.WCFTests", "ShSoft.Infrastructure.WCFTests\ShSoft.Infrastructure.WCFTests.csproj", "{44C612E2-18F5-4A15-8D2E-0AF325370FC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.CommandBaseTests", "tests\UnitTests\ShSoft.Infrastructure.CommandBaseTests\ShSoft.Infrastructure.CommandBaseTests.csproj", "{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventBase", "ShSoft.Infrastructure.EventBase\ShSoft.Infrastructure.EventBase.csproj", "{79DC5E40-2857-4748-A895-49BB675CDC68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventBaseTests", "tests\UnitTests\ShSoft.Infrastructure.EventBaseTests\ShSoft.Infrastructure.EventBaseTests.csproj", "{1182A916-10CD-482C-B8AA-1A630C5C739C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventBaseTests", "ShSoft.Infrastructure.EventBaseTests\ShSoft.Infrastructure.EventBaseTests.csproj", "{1182A916-10CD-482C-B8AA-1A630C5C739C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.MongoDBTests", "tests\UnitTests\ShSoft.Infrastructure.Repository.MongoDBTests\ShSoft.Infrastructure.Repository.MongoDBTests.csproj", "{D4673F34-2090-41E0-AE2C-746F0CA97F3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.Redis", "ShSoft.Infrastructure.Repository.Redis\ShSoft.Infrastructure.Repository.Redis.csproj", "{6C90E036-5969-4A31-A685-B845923B51DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.RedisTests", "tests\UnitTests\ShSoft.Infrastructure.Repository.RedisTests\ShSoft.Infrastructure.Repository.RedisTests.csproj", "{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.RedisTests", "ShSoft.Infrastructure.Repository.RedisTests\ShSoft.Infrastructure.Repository.RedisTests.csproj", "{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.StubIAppService", "tests\IntegrationTests\ShSoft.Infrastructure.StubIAppService\ShSoft.Infrastructure.StubIAppService.csproj", "{04BFA4D7-86C8-4341-B34C-3F1D88D19827}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.RavenDB", "ShSoft.Infrastructure.Repository.RavenDB\ShSoft.Infrastructure.Repository.RavenDB.csproj", "{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.StubAppService", "tests\IntegrationTests\ShSoft.Infrastructure.StubAppService\ShSoft.Infrastructure.StubAppService.csproj", "{A9F7D041-ECF8-434D-B083-5F57AD348564}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.RavenDB", "ShSoft.Infrastructure.EventStoreProvider.RavenDB\ShSoft.Infrastructure.EventStoreProvider.RavenDB.csproj", "{1BE52970-11B9-487C-A80E-D89EA2D1D10B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests", "tests\IntegrationTests\ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests\ShSoft.Infrastructure.EventStoreProvider.EntityFrameworkTests.csproj", "{E1EC6A9F-80F6-44FA-BDE1-4327E8FF3BAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.Redis", "ShSoft.Infrastructure.EventStoreProvider.Redis\ShSoft.Infrastructure.EventStoreProvider.Redis.csproj", "{78920B31-6D86-48D2-95B0-C5F19443225B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.MongoDB", "ShSoft.Infrastructure.Repository.MongoDB\ShSoft.Infrastructure.Repository.MongoDB.csproj", "{C5CAFB43-1A18-4D52-8B98-59215E0F1309}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.Repository.MongoDBTests", "ShSoft.Infrastructure.Repository.MongoDBTests\ShSoft.Infrastructure.Repository.MongoDBTests.csproj", "{D4673F34-2090-41E0-AE2C-746F0CA97F3C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.EventStoreProvider.MongoDB", "ShSoft.Infrastructure.EventStoreProvider.MongoDB\ShSoft.Infrastructure.EventStoreProvider.MongoDB.csproj", "{6FFDD579-EECE-44E2-AE8A-54695806B7AA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShSoft.Infrastructure.WCFTests", "tests\IntegrationTests\ShSoft.Infrastructure.WCFTests\ShSoft.Infrastructure.WCFTests.csproj", "{44C612E2-18F5-4A15-8D2E-0AF325370FC7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,14 +88,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{C4AD70CE-A849-4BBD-8229-C01D2F0E6908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C4AD70CE-A849-4BBD-8229-C01D2F0E6908}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C4AD70CE-A849-4BBD-8229-C01D2F0E6908}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C4AD70CE-A849-4BBD-8229-C01D2F0E6908}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{37402463-F73A-4788-B9DE-5C57EC18604F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{37402463-F73A-4788-B9DE-5C57EC18604F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37402463-F73A-4788-B9DE-5C57EC18604F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -136,14 +100,34 @@ Global
 		{90EEAC8D-C4F0-4003-B09B-A4D4C8B312BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{90EEAC8D-C4F0-4003-B09B-A4D4C8B312BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{90EEAC8D-C4F0-4003-B09B-A4D4C8B312BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C4AD70CE-A849-4BBD-8229-C01D2F0E6908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C4AD70CE-A849-4BBD-8229-C01D2F0E6908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C4AD70CE-A849-4BBD-8229-C01D2F0E6908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C4AD70CE-A849-4BBD-8229-C01D2F0E6908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79DC5E40-2857-4748-A895-49BB675CDC68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79DC5E40-2857-4748-A895-49BB675CDC68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79DC5E40-2857-4748-A895-49BB675CDC68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79DC5E40-2857-4748-A895-49BB675CDC68}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F7A08DAE-580F-46D1-9ADE-DCDB2A828994}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F7A08DAE-580F-46D1-9ADE-DCDB2A828994}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7A08DAE-580F-46D1-9ADE-DCDB2A828994}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7A08DAE-580F-46D1-9ADE-DCDB2A828994}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7D78CE29-610B-4709-8950-3AEAF405C89B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7D78CE29-610B-4709-8950-3AEAF405C89B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7D78CE29-610B-4709-8950-3AEAF405C89B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7D78CE29-610B-4709-8950-3AEAF405C89B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78920B31-6D86-48D2-95B0-C5F19443225B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78920B31-6D86-48D2-95B0-C5F19443225B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78920B31-6D86-48D2-95B0-C5F19443225B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78920B31-6D86-48D2-95B0-C5F19443225B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -152,6 +136,18 @@ Global
 		{972CFDBB-1E0F-43CD-987A-458E9D1543B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{972CFDBB-1E0F-43CD-987A-458E9D1543B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{972CFDBB-1E0F-43CD-987A-458E9D1543B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C90E036-5969-4A31-A685-B845923B51DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C90E036-5969-4A31-A685-B845923B51DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C90E036-5969-4A31-A685-B845923B51DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C90E036-5969-4A31-A685-B845923B51DD}.Release|Any CPU.Build.0 = Release|Any CPU
 		{9A78B517-AD18-4BC7-B687-4DC245F4DB57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{9A78B517-AD18-4BC7-B687-4DC245F4DB57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A78B517-AD18-4BC7-B687-4DC245F4DB57}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -160,6 +156,22 @@ Global
 		{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{04BFA4D7-86C8-4341-B34C-3F1D88D19827}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{04BFA4D7-86C8-4341-B34C-3F1D88D19827}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{04BFA4D7-86C8-4341-B34C-3F1D88D19827}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -176,46 +188,6 @@ Global
 		{44C612E2-18F5-4A15-8D2E-0AF325370FC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44C612E2-18F5-4A15-8D2E-0AF325370FC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44C612E2-18F5-4A15-8D2E-0AF325370FC7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{79DC5E40-2857-4748-A895-49BB675CDC68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{79DC5E40-2857-4748-A895-49BB675CDC68}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{79DC5E40-2857-4748-A895-49BB675CDC68}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{79DC5E40-2857-4748-A895-49BB675CDC68}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1182A916-10CD-482C-B8AA-1A630C5C739C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6C90E036-5969-4A31-A685-B845923B51DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C90E036-5969-4A31-A685-B845923B51DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C90E036-5969-4A31-A685-B845923B51DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6C90E036-5969-4A31-A685-B845923B51DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1BE52970-11B9-487C-A80E-D89EA2D1D10B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{78920B31-6D86-48D2-95B0-C5F19443225B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78920B31-6D86-48D2-95B0-C5F19443225B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78920B31-6D86-48D2-95B0-C5F19443225B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78920B31-6D86-48D2-95B0-C5F19443225B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C5CAFB43-1A18-4D52-8B98-59215E0F1309}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D4673F34-2090-41E0-AE2C-746F0CA97F3C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6FFDD579-EECE-44E2-AE8A-54695806B7AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -224,33 +196,30 @@ Global
 		{8F39A4B5-03D4-4E84-9B35-D7A5AE0D3AED} = {30953907-39FD-4F6F-933A-4F418FA1E03A}
 		{7D849A44-01DC-44B0-A680-772E1A1B91EA} = {30953907-39FD-4F6F-933A-4F418FA1E03A}
 		{CB8E26CC-0718-4A50-A105-155F36A7F9A4} = {30953907-39FD-4F6F-933A-4F418FA1E03A}
-		{060AF274-FB3F-42A8-9F9C-67E4DDF6786C} = {C6AD4D54-74CC-4D0E-8310-5321A041CA3B}
-		{1A20FD38-4085-441F-86D2-C502538778B8} = {060AF274-FB3F-42A8-9F9C-67E4DDF6786C}
-		{9F8972BD-EE7B-42F4-86DB-B0C067BA6042} = {060AF274-FB3F-42A8-9F9C-67E4DDF6786C}
-		{C4AD70CE-A849-4BBD-8229-C01D2F0E6908} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{37402463-F73A-4788-B9DE-5C57EC18604F} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{F9FF05F0-1900-4D24-859A-B3202F2208D7} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{90EEAC8D-C4F0-4003-B09B-A4D4C8B312BA} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{C4AD70CE-A849-4BBD-8229-C01D2F0E6908} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{79DC5E40-2857-4748-A895-49BB675CDC68} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{F7A08DAE-580F-46D1-9ADE-DCDB2A828994} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{6FFDD579-EECE-44E2-AE8A-54695806B7AA} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{7D78CE29-610B-4709-8950-3AEAF405C89B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{1BE52970-11B9-487C-A80E-D89EA2D1D10B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{78920B31-6D86-48D2-95B0-C5F19443225B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{972CFDBB-1E0F-43CD-987A-458E9D1543B8} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{C5CAFB43-1A18-4D52-8B98-59215E0F1309} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{6C90E036-5969-4A31-A685-B845923B51DD} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{9A78B517-AD18-4BC7-B687-4DC245F4DB57} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{7A8901CC-494E-46AC-AA04-4CDCDD5484BC} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
+		{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
+		{1182A916-10CD-482C-B8AA-1A630C5C739C} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
+		{D4673F34-2090-41E0-AE2C-746F0CA97F3C} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
+		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{04BFA4D7-86C8-4341-B34C-3F1D88D19827} = {7D849A44-01DC-44B0-A680-772E1A1B91EA}
 		{A9F7D041-ECF8-434D-B083-5F57AD348564} = {7D849A44-01DC-44B0-A680-772E1A1B91EA}
 		{E1EC6A9F-80F6-44FA-BDE1-4327E8FF3BAF} = {CB8E26CC-0718-4A50-A105-155F36A7F9A4}
 		{44C612E2-18F5-4A15-8D2E-0AF325370FC7} = {8F39A4B5-03D4-4E84-9B35-D7A5AE0D3AED}
-		{79DC5E40-2857-4748-A895-49BB675CDC68} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{1182A916-10CD-482C-B8AA-1A630C5C739C} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
-		{6C90E036-5969-4A31-A685-B845923B51DD} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
-		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{1BE52970-11B9-487C-A80E-D89EA2D1D10B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{78920B31-6D86-48D2-95B0-C5F19443225B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{C5CAFB43-1A18-4D52-8B98-59215E0F1309} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{D4673F34-2090-41E0-AE2C-746F0CA97F3C} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
-		{6FFDD579-EECE-44E2-AE8A-54695806B7AA} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 	EndGlobalSection
 EndGlobal

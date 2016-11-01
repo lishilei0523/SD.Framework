@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}</ProjectGuid>
+    <ProjectGuid>{1182A916-10CD-482C-B8AA-1A630C5C739C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>ShSoft.Infrastructure.Repository.RedisTests</RootNamespace>
-    <AssemblyName>ShSoft.Infrastructure.Repository.RedisTests</AssemblyName>
+    <RootNamespace>ShSoft.Infrastructure.EventBaseTests</RootNamespace>
+    <AssemblyName>ShSoft.Infrastructure.EventBaseTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -16,6 +16,10 @@
     <ReferencePath>$(ProgramFiles)\Common Files\microsoft shared\VSTT\$(VisualStudioVersion)\UITestExtensionPackages</ReferencePath>
     <IsCodedUITest>False</IsCodedUITest>
     <TestProjectType>UnitTest</TestProjectType>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
   </PropertyGroup>
@@ -37,6 +41,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
     <Reference Include="ServiceStack.Common, Version=3.9.71.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ServiceStack.Common.3.9.71\lib\net35\ServiceStack.Common.dll</HintPath>
       <Private>True</Private>
@@ -54,6 +61,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Transactions" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
@@ -68,19 +76,33 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="Entities\Product.cs" />
-    <Compile Include="IRepositories\IProductRepository.cs" />
-    <Compile Include="Repositories\ProductRepository.cs" />
-    <Compile Include="TestCases\RedisRepositoryTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="StubDomainEventHandlers\ProductCreatedEvent2Handler.cs" />
+    <Compile Include="StubDomainEventHandlers\ProductCreatedEventHandler.cs" />
+    <Compile Include="StubEntities\Product.cs" />
+    <Compile Include="StubEventSources\ProductCreatedEvent2.cs" />
+    <Compile Include="StubEventSources\ProductCreatedEvent.cs" />
+    <Compile Include="TestCases\ProductCreateTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShSoft.Infrastructure.Repository.Redis\ShSoft.Infrastructure.Repository.Redis.csproj">
-      <Project>{6c90e036-5969-4a31-a685-b845923b51dd}</Project>
-      <Name>ShSoft.Infrastructure.Repository.Redis</Name>
+    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure.EventBase\ShSoft.Infrastructure.EventBase.csproj">
+      <Project>{79dc5e40-2857-4748-a895-49bb675cdc68}</Project>
+      <Name>ShSoft.Infrastructure.EventBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Infrastructure\ShSoft.Infrastructure.csproj">
-      <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
+    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure.EventStoreProvider.MongoDB\ShSoft.Infrastructure.EventStoreProvider.MongoDB.csproj">
+      <Project>{6ffdd579-eece-44e2-ae8a-54695806b7aa}</Project>
+      <Name>ShSoft.Infrastructure.EventStoreProvider.MongoDB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure.EventStoreProvider.Redis\ShSoft.Infrastructure.EventStoreProvider.Redis.csproj">
+      <Project>{78920b31-6d86-48d2-95b0-c5f19443225b}</Project>
+      <Name>ShSoft.Infrastructure.EventStoreProvider.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure.Global\ShSoft.Infrastructure.Global.csproj">
+      <Project>{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}</Project>
+      <Name>ShSoft.Infrastructure.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure\ShSoft.Infrastructure.csproj">
+      <Project>{F9FF05F0-1900-4D24-859A-B3202F2208D7}</Project>
       <Name>ShSoft.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>

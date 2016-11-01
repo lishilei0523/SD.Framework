@@ -85,11 +85,11 @@
       <Project>{04BFA4D7-86C8-4341-B34C-3F1D88D19827}</Project>
       <Name>ShSoft.Infrastructure.StubIAppService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Infrastructure.WCF.Server\ShSoft.Infrastructure.WCF.Server.csproj">
+    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure.WCF.Server\ShSoft.Infrastructure.WCF.Server.csproj">
       <Project>{9a78b517-ad18-4bc7-b687-4dc245f4db57}</Project>
       <Name>ShSoft.Infrastructure.WCF.Server</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Infrastructure\ShSoft.Infrastructure.csproj">
+    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure\ShSoft.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
       <Name>ShSoft.Infrastructure</Name>
     </ProjectReference>

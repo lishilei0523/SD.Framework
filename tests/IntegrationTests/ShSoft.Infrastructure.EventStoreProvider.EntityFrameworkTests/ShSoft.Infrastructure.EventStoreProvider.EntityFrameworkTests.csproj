@@ -64,23 +64,23 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ShSoft.Common\ShSoft.Common.csproj">
+    <ProjectReference Include="..\..\..\sources\ShSoft.Common\ShSoft.Common.csproj">
       <Project>{37402463-F73A-4788-B9DE-5C57EC18604F}</Project>
       <Name>ShSoft.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Infrastructure.EventBase\ShSoft.Infrastructure.EventBase.csproj">
+    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure.EventBase\ShSoft.Infrastructure.EventBase.csproj">
       <Project>{79DC5E40-2857-4748-A895-49BB675CDC68}</Project>
       <Name>ShSoft.Infrastructure.EventBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Infrastructure.EventStoreProvider.EntityFramework\ShSoft.Infrastructure.EventStoreProvider.EntityFramework.csproj">
+    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure.EventStoreProvider.EntityFramework\ShSoft.Infrastructure.EventStoreProvider.EntityFramework.csproj">
       <Project>{f7a08dae-580f-46d1-9ade-dcdb2a828994}</Project>
       <Name>ShSoft.Infrastructure.EventStoreProvider.EntityFramework</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Infrastructure.Global\ShSoft.Infrastructure.Global.csproj">
+    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure.Global\ShSoft.Infrastructure.Global.csproj">
       <Project>{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}</Project>
       <Name>ShSoft.Infrastructure.Global</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ShSoft.Infrastructure\ShSoft.Infrastructure.csproj">
+    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure\ShSoft.Infrastructure.csproj">
       <Project>{F9FF05F0-1900-4D24-859A-B3202F2208D7}</Project>
       <Name>ShSoft.Infrastructure</Name>
     </ProjectReference>
