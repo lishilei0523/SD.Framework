@@ -39,15 +39,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AutoMapper, Version=4.1.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <HintPath>..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
+      <HintPath>..\..\packages\AutoMapper.4.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="ShSoft.Common.Libraries, Version=2.9.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ShSoft.Common.Libraries.1.0.3\lib\net45\ShSoft.Common.Libraries.dll</HintPath>
+      <HintPath>..\..\packages\ShSoft.Common.Libraries.1.0.3\lib\net45\ShSoft.Common.Libraries.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
