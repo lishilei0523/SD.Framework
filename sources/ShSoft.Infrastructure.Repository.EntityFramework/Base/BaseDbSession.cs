@@ -15,7 +15,18 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework.Base
     {
         #region # 常量与构造器
 
-        #region 00.常量
+        /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync;
+
+        /// <summary>
+        /// 静态构造器
+        /// </summary>
+        static BaseDbSession()
+        {
+            _Sync = new object();
+        }
 
         /// <summary>
         /// EF（写）上下文对象缓存键
@@ -27,9 +38,6 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         internal const string QueryInstanceKey = "QueryInstance";
 
-        #endregion
-
-        #region 01.基础构造器
         /// <summary>
         /// 基础构造器
         /// </summary>
@@ -38,7 +46,6 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework.Base
         {
 
         }
-        #endregion
 
         #endregion
 
@@ -52,13 +59,16 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework.Base
         {
             get
             {
-                DbContext dbContext = CallContext.GetData(CommandInstanceKey) as DbContext;
-                if (dbContext == null)
+                lock (_Sync)
                 {
-                    dbContext = ResolveMediator.Resolve<BaseDbSession>();
-                    CallContext.SetData(CommandInstanceKey, dbContext);
+                    DbContext dbContext = CallContext.GetData(CommandInstanceKey) as DbContext;
+                    if (dbContext == null)
+                    {
+                        dbContext = ResolveMediator.Resolve<BaseDbSession>();
+                        CallContext.SetData(CommandInstanceKey, dbContext);
+                    }
+                    return dbContext;
                 }
-                return dbContext;
             }
         }
         #endregion
@@ -71,15 +81,18 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework.Base
         {
             get
             {
-                DbContext dbContext = CallContext.GetData(QueryInstanceKey) as DbContext;
-                if (dbContext == null)
+                lock (_Sync)
                 {
-                    dbContext = ResolveMediator.Resolve<BaseDbSession>();
-                    //关闭自动跟踪实体变化状态
-                    dbContext.Configuration.AutoDetectChangesEnabled = false;
-                    CallContext.SetData(QueryInstanceKey, dbContext);
+                    DbContext dbContext = CallContext.GetData(QueryInstanceKey) as DbContext;
+                    if (dbContext == null)
+                    {
+                        dbContext = ResolveMediator.Resolve<BaseDbSession>();
+                        //关闭自动跟踪实体变化状态
+                        dbContext.Configuration.AutoDetectChangesEnabled = false;
+                        CallContext.SetData(QueryInstanceKey, dbContext);
+                    }
+                    return dbContext;
                 }
-                return dbContext;
             }
         }
         #endregion

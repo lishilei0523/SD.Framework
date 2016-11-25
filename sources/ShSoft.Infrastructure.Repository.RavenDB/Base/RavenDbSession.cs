@@ -36,6 +36,11 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
         #region # 字段及构造器
 
         /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync;
+
+        /// <summary>
         /// RavenDB文档存储延迟加载字段
         /// </summary>
         private static readonly IDocumentStore _Store;
@@ -45,6 +50,8 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
         /// </summary>
         static RavenDbSession()
         {
+            _Sync = new object();
+
             #region # 验证
 
             ConnectionStringSettings connectionString = ConfigurationManager.ConnectionStrings[ConnectionStringName];
@@ -79,13 +86,16 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
         {
             get
             {
-                IDocumentSession dbSession = CallContext.GetData(CommandInstanceKey) as IDocumentSession;
-                if (dbSession == null)
+                lock (_Sync)
                 {
-                    dbSession = _Store.OpenSession();
-                    CallContext.SetData(CommandInstanceKey, dbSession);
+                    IDocumentSession dbSession = CallContext.GetData(CommandInstanceKey) as IDocumentSession;
+                    if (dbSession == null)
+                    {
+                        dbSession = _Store.OpenSession();
+                        CallContext.SetData(CommandInstanceKey, dbSession);
+                    }
+                    return dbSession;
                 }
-                return dbSession;
             }
         }
         #endregion
@@ -98,13 +108,16 @@ namespace ShSoft.Infrastructure.Repository.RavenDB.Base
         {
             get
             {
-                IAsyncDocumentSession dbSession = CallContext.GetData(QueryInstanceKey) as IAsyncDocumentSession;
-                if (dbSession == null)
+                lock (_Sync)
                 {
-                    dbSession = _Store.OpenAsyncSession();
-                    CallContext.SetData(QueryInstanceKey, dbSession);
+                    IAsyncDocumentSession dbSession = CallContext.GetData(QueryInstanceKey) as IAsyncDocumentSession;
+                    if (dbSession == null)
+                    {
+                        dbSession = _Store.OpenAsyncSession();
+                        CallContext.SetData(QueryInstanceKey, dbSession);
+                    }
+                    return dbSession;
                 }
-                return dbSession;
             }
         }
         #endregion
