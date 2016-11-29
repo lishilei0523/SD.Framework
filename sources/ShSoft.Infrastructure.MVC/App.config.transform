@@ -1,0 +1,8 @@
+﻿<configuration>
+  <appSettings>
+    <!--默认登录页-->
+    <add key="LoginPage" value="/User/Login" />
+    <!--默认错误页-->
+    <add key="ErrorPage" value="/Error.html" />
+  </appSettings>
+</configuration>

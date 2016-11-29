@@ -47,6 +47,7 @@
     <Compile Include="CommandBase\ICommandExecutor.cs" />
     <Compile Include="Constants\CacheConstants.cs" />
     <Compile Include="Constants\CommonConstants.cs" />
+    <Compile Include="Constants\LoginInfo.cs" />
     <Compile Include="Constants\WebConfigSetting.cs" />
     <Compile Include="CustomExceptions\AppServiceException.cs" />
     <Compile Include="CustomExceptions\UIException.cs" />
@@ -56,6 +57,7 @@
     <Compile Include="EventBase\IEvent.cs" />
     <Compile Include="EventBase\IEventStore.cs" />
     <Compile Include="MessageBase\IMessage.cs" />
+    <Compile Include="PresenterBase\IPresenter.cs" />
     <Compile Include="RepositoryBase\IDataInitializer.cs" />
     <Compile Include="RepositoryBase\IDbCleaner.cs" />
     <Compile Include="AppServiceBase\IApplicationService.cs" />
