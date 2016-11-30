@@ -1,6 +1,7 @@
 ﻿using System;
 
-namespace ShSoft.Infrastructure.PresenterBase
+// ReSharper disable once CheckNamespace
+namespace ShSoft.Infrastructure
 {
     /// <summary>
     /// 视图模型基类
