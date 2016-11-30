@@ -58,6 +58,7 @@
     <Compile Include="EventBase\IEventStore.cs" />
     <Compile Include="MessageBase\IMessage.cs" />
     <Compile Include="PresenterBase\IPresenter.cs" />
+    <Compile Include="PresenterBase\ViewModel.cs" />
     <Compile Include="RepositoryBase\IDataInitializer.cs" />
     <Compile Include="RepositoryBase\IDbCleaner.cs" />
     <Compile Include="AppServiceBase\IApplicationService.cs" />
