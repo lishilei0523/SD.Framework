@@ -91,12 +91,13 @@ namespace ShSoft.Infrastructure.MVC.Toolkits
         }
         #endregion
 
-        #region # 生成验证码图片（返回字节数组） —— static byte[] GenerateStream(string validCode)
+        #region # 生成验证码图片 —— static byte[] GenerateStream(string validCode)
         /// <summary>
-        /// 生成验证码图片（返回字节数组）
+        /// 生成验证码图片
         /// </summary>
         /// <param name="validCode">验证码字符串</param>
         /// <returns>验证码图片序列化后的字节数组</returns>
+        /// <remarks>返回字节数组</remarks>
         public static byte[] GenerateStream(string validCode)
         {
             Bitmap image = new Bitmap((int)Math.Ceiling(validCode.Length * 12.0), 22);
@@ -117,7 +118,7 @@ namespace ShSoft.Infrastructure.MVC.Toolkits
         }
         #endregion
 
-        #region # 绘制验证码 —— Stream DrawValidCode(string validCode...
+        #region # 绘制验证码 —— MemoryStream DrawValidCode(string validCode...
         /// <summary>
         /// 绘制验证码
         /// </summary>

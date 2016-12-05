@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Configuration;
 using System.Net;
+using System.ServiceModel;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace ShSoft.Infrastructure.MVC.Filters
 {
@@ -24,10 +27,16 @@ namespace ShSoft.Infrastructure.MVC.Filters
         private static readonly string _ErrorPage;
 
         /// <summary>
+        /// JSON序列化器
+        /// </summary>
+        private static readonly JavaScriptSerializer _JsonSerializer;
+
+        /// <summary>
         /// 静态构造器
         /// </summary>
         static ExceptionFilterAttribute()
         {
+            _JsonSerializer = new JavaScriptSerializer();
             string errorPage = ConfigurationManager.AppSettings[ErrorPageAppSettingKey];
 
             #region # 验证
@@ -51,6 +60,30 @@ namespace ShSoft.Infrastructure.MVC.Filters
         /// <param name="filterContext">过滤器上下文</param>
         public void OnException(ExceptionContext filterContext)
         {
+            #region # 处理异常消息
+
+            string errorMessage;
+
+            if (filterContext.Exception is FaultException)
+            {
+                IDictionary json = _JsonSerializer.DeserializeObject(filterContext.Exception.Message) as IDictionary;
+
+                if (json != null && json.Contains("ErrorMessage"))
+                {
+                    errorMessage = json["ErrorMessage"].ToString();
+                }
+                else
+                {
+                    errorMessage = filterContext.Exception.Message;
+                }
+            }
+            else
+            {
+                errorMessage = filterContext.Exception.Message;
+            }
+
+            #endregion
+
             //Ajax请求
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
@@ -61,7 +94,7 @@ namespace ShSoft.Infrastructure.MVC.Filters
                 filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
 
                 //响应
-                filterContext.HttpContext.Response.Write(filterContext.Exception.Message);
+                filterContext.HttpContext.Response.Write(errorMessage);
 
                 //异常已处理
                 filterContext.ExceptionHandled = true;
@@ -69,7 +102,7 @@ namespace ShSoft.Infrastructure.MVC.Filters
             else
             {
                 //跳转至错误页
-                filterContext.HttpContext.Response.Redirect(_ErrorPage);
+                filterContext.HttpContext.Response.Redirect(string.Format("{0}?message={1}", _ErrorPage, errorMessage));
             }
         }
         #endregion

@@ -15,10 +15,22 @@ namespace ShSoft.Infrastructure.MVC.Toolkits
         /// <typeparam name="T">特性标签类型</typeparam>
         /// <param name="action">ActionDescriptor</param>
         /// <returns>是否拥有该特性</returns>
-        public static bool HasAttr<T>(this ActionDescriptor action)
+        public static bool HasAttr<T>(this ActionDescriptor action) where T : Attribute
         {
             Type type = typeof(T);
-            return action.IsDefined(type, false) || action.ControllerDescriptor.IsDefined(type, false);
+
+            //Action方法上定义了
+            if (action.IsDefined(type, false))
+            {
+                return true;
+            }
+            //Controller上定义了
+            if (action.ControllerDescriptor.IsDefined(type, false))
+            {
+                return true;
+            }
+
+            return false;
         }
         #endregion
     }
