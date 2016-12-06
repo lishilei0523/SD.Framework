@@ -1,5 +1,5 @@
 ﻿// ReSharper disable once CheckNamespace
-namespace ShSoft.Infrastructure
+namespace ShSoft.Infrastructure.MVC
 {
     /// <summary>
     /// 呈现器基接口

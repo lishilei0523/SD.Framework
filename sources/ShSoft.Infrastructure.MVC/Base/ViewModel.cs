@@ -1,7 +1,7 @@
 ﻿using System;
 
 // ReSharper disable once CheckNamespace
-namespace ShSoft.Infrastructure
+namespace ShSoft.Infrastructure.MVC
 {
     /// <summary>
     /// 视图模型基类

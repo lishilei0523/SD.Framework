@@ -1,8 +1,8 @@
-﻿using System;
+﻿using ShSoft.Infrastructure.MVC.Constants;
+using ShSoft.Infrastructure.MVC.Toolkits;
+using System;
 using System.Configuration;
 using System.Web.Mvc;
-using ShSoft.Infrastructure.Constants;
-using ShSoft.Infrastructure.MVC.Toolkits;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Infrastructure.MVC
@@ -56,13 +56,13 @@ namespace ShSoft.Infrastructure.MVC
             get
             {
                 return
-                    base.Session[CacheConstants.ValidCodeKey] == null ?
+                    base.Session[SessionConstants.ValidCodeKey] == null ?
                     null :
-                    base.Session[CacheConstants.ValidCodeKey].ToString();
+                    base.Session[SessionConstants.ValidCodeKey].ToString();
             }
             set
             {
-                base.Session[CacheConstants.ValidCodeKey] = value;
+                base.Session[SessionConstants.ValidCodeKey] = value;
             }
         }
         #endregion
@@ -75,11 +75,11 @@ namespace ShSoft.Infrastructure.MVC
         {
             get
             {
-                return base.Session[CacheConstants.CurrentUserKey] as LoginInfo; ;
+                return base.Session[SessionConstants.CurrentUserKey] as LoginInfo; ;
             }
             set
             {
-                base.Session[CacheConstants.CurrentUserKey] = value;
+                base.Session[SessionConstants.CurrentUserKey] = value;
             }
         }
         #endregion
@@ -163,7 +163,7 @@ namespace ShSoft.Infrastructure.MVC
         /// </summary>
         protected void ClearValidCode()
         {
-            this.Session.Remove(CacheConstants.ValidCodeKey);
+            this.Session.Remove(SessionConstants.ValidCodeKey);
         }
         #endregion
 
