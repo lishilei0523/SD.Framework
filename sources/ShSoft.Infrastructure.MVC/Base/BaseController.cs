@@ -3,6 +3,7 @@ using ShSoft.Infrastructure.MVC.Toolkits;
 using System;
 using System.Configuration;
 using System.Web.Mvc;
+using ShSoft.Infrastructure.Constants;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Infrastructure.MVC
