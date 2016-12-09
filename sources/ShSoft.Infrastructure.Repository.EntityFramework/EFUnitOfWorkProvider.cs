@@ -1,13 +1,13 @@
-﻿using System;
+﻿using ShSoft.Infrastructure.EntityBase;
+using ShSoft.Infrastructure.Repository.EntityFramework.Base;
+using ShSoft.Infrastructure.RepositoryBase;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using ShSoft.Infrastructure.EntityBase;
-using ShSoft.Infrastructure.Repository.EntityFramework.Base;
-using ShSoft.Infrastructure.RepositoryBase;
 
 namespace ShSoft.Infrastructure.Repository.EntityFramework
 {
@@ -17,6 +17,19 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
     public abstract class EFUnitOfWorkProvider : IUnitOfWork
     {
         #region # 创建EF（写）上下文对象
+
+        /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync;
+
+        /// <summary>
+        /// 静态构造器
+        /// </summary>
+        static EFUnitOfWorkProvider()
+        {
+            _Sync = new object();
+        }
 
         /// <summary>
         /// EF（写）上下文对象字段
@@ -593,7 +606,10 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
+            lock (_Sync)
+            {
+                return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
+            }
         }
         #endregion
 
@@ -628,7 +644,10 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).Single(predicate);
+            lock (_Sync)
+            {
+                return this._dbContext.Set<T>().Where(x => !x.Deleted).Single(predicate);
+            }
         }
         #endregion
     }

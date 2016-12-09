@@ -18,6 +18,19 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
         #region # 创建EF（读）上下文对象
 
         /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync;
+
+        /// <summary>
+        /// 静态构造器
+        /// </summary>
+        static EFRepositoryProvider()
+        {
+            _Sync = new object();
+        }
+
+        /// <summary>
         /// EF（读）上下文对象
         /// </summary>
         private readonly DbContext _dbContext;
@@ -924,7 +937,10 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.FindAllInner().SingleOrDefault(predicate);
+            lock (_Sync)
+            {
+                return this.FindAllInner().SingleOrDefault(predicate);
+            }
         }
         #endregion
 
@@ -955,7 +971,10 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.FindAllInner<TSub>().SingleOrDefault(predicate);
+            lock (_Sync)
+            {
+                return this.FindAllInner<TSub>().SingleOrDefault(predicate);
+            }
         }
         #endregion
 
@@ -977,7 +996,10 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.Find(predicate).FirstOrDefault();
+            lock (_Sync)
+            {
+                return this.Find(predicate).FirstOrDefault();
+            }
         }
         #endregion
 
@@ -1000,7 +1022,10 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.Find(predicate).FirstOrDefault();
+            lock (_Sync)
+            {
+                return this.Find(predicate).FirstOrDefault();
+            }
         }
         #endregion
 
@@ -1277,7 +1302,10 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.FindAllInner().Any(predicate);
+            lock (_Sync)
+            {
+                return this.FindAllInner().Any(predicate);
+            }
         }
         #endregion
 
@@ -1300,7 +1328,10 @@ namespace ShSoft.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.FindAllInner<TSub>().Any(predicate);
+            lock (_Sync)
+            {
+                return this.FindAllInner<TSub>().Any(predicate);
+            }
         }
         #endregion
 
