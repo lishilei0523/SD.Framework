@@ -22,5 +22,10 @@ namespace ShSoft.Infrastructure.MVC
         /// 名称
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 添加时间
+        /// </summary>
+        public DateTime AddedTime { get; set; }
     }
 }
