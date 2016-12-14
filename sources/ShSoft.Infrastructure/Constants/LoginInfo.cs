@@ -6,6 +6,7 @@ namespace ShSoft.Infrastructure.Constants
     /// <summary>
     /// 登录信息
     /// </summary>
+    [Serializable]
     [DataContract]
     public class LoginInfo
     {

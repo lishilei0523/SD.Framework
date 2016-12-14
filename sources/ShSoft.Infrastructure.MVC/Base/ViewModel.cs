@@ -6,6 +6,7 @@ namespace ShSoft.Infrastructure.MVC
     /// <summary>
     /// 视图模型基类
     /// </summary>
+    [Serializable]
     public abstract class ViewModel
     {
         /// <summary>

@@ -6,6 +6,7 @@ namespace ShSoft.Infrastructure.DTOBase
     /// <summary>
     /// 数据传输对象基类
     /// </summary>
+    [Serializable]
     [DataContract]
     public abstract class BaseDTO
     {
