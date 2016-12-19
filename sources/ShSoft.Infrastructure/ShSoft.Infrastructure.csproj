@@ -51,7 +51,7 @@
     <Compile Include="Constants\WebConfigSetting.cs" />
     <Compile Include="CustomExceptions\AppServiceException.cs" />
     <Compile Include="CustomExceptions\UIException.cs" />
-    <Compile Include="CustomExceptions\BusinessException.cs" />
+    <Compile Include="CustomExceptions\PresentationException.cs" />
     <Compile Include="CustomExceptions\DomainException.cs" />
     <Compile Include="CustomExceptions\RepositoryException.cs" />
     <Compile Include="EventBase\IEvent.cs" />

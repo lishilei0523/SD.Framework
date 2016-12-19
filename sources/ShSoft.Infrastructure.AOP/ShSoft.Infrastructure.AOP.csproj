@@ -59,7 +59,7 @@
   <ItemGroup>
     <Compile Include="Aspects\ForAny\UIExceptionAspect.cs" />
     <Compile Include="Aspects\ForAny\AppServiceExceptionAspect.cs" />
-    <Compile Include="Aspects\ForAny\BusinessExceptionAspect.cs" />
+    <Compile Include="Aspects\ForAny\PresentationExceptionAspect.cs" />
     <Compile Include="Aspects\ForAny\DomainExceptionAspect.cs" />
     <Compile Include="Aspects\ForAny\RepositoryExceptionAspect.cs" />
     <Compile Include="Aspects\ForAny\NonThrowExceptionAspect.cs" />
