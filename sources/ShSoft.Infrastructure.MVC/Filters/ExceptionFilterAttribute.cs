@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Configuration;
 using System.Net;
-using System.ServiceModel;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 
@@ -64,7 +64,7 @@ namespace ShSoft.Infrastructure.MVC.Filters
 
             string errorMessage;
 
-            if (filterContext.Exception is FaultException)
+            try
             {
                 IDictionary json = _JsonSerializer.DeserializeObject(filterContext.Exception.Message) as IDictionary;
 
@@ -77,33 +77,40 @@ namespace ShSoft.Infrastructure.MVC.Filters
                     errorMessage = filterContext.Exception.Message;
                 }
             }
-            else
+            catch
             {
                 errorMessage = filterContext.Exception.Message;
             }
 
             #endregion
 
+            //设置状态码为500
+            filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+            //IIS处理
+            filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
+
             //Ajax请求
             if (filterContext.HttpContext.Request.IsAjaxRequest())
             {
-                //设置状态码为500
-                filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-                //IIS处理
-                filterContext.HttpContext.Response.TrySkipIisCustomErrors = true;
-
                 //响应
                 filterContext.HttpContext.Response.Write(errorMessage);
-
-                //异常已处理
-                filterContext.ExceptionHandled = true;
             }
             else
             {
+                //构造脚本
+                StringBuilder scriptBuilder = new StringBuilder();
+                scriptBuilder.Append("<script type=\"text/javascript\">");
+                scriptBuilder.Append("window.top.location.href=");
+                scriptBuilder.Append(string.Format("\"{0}?message={1}\"", _ErrorPage, errorMessage));
+                scriptBuilder.Append("</script>");
+
                 //跳转至错误页
-                filterContext.HttpContext.Response.Redirect(string.Format("{0}?message={1}", _ErrorPage, errorMessage));
+                filterContext.HttpContext.Response.Write(scriptBuilder.ToString());
             }
+
+            //异常已处理
+            filterContext.ExceptionHandled = true;
         }
         #endregion
     }

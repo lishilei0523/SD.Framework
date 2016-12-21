@@ -1,9 +1,10 @@
-﻿using ShSoft.Infrastructure.MVC.Constants;
+﻿using ShSoft.Infrastructure.Constants;
+using ShSoft.Infrastructure.MVC.Constants;
 using ShSoft.Infrastructure.MVC.Toolkits;
 using System;
 using System.Configuration;
+using System.Text;
 using System.Web.Mvc;
-using ShSoft.Infrastructure.Constants;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Infrastructure.MVC
@@ -152,8 +153,15 @@ namespace ShSoft.Infrastructure.MVC
                     throw new InvalidOperationException("未登录，请重新登录！");
                 }
 
+                //构造脚本
+                StringBuilder scriptBuilder = new StringBuilder();
+                scriptBuilder.Append("<script type=\"text/javascript\">");
+                scriptBuilder.Append("window.top.location.href=");
+                scriptBuilder.Append(string.Format("\"{0}\"", _LoginPage));
+                scriptBuilder.Append("</script>");
+
                 //跳转至登录页
-                filterContext.HttpContext.Response.Redirect(_LoginPage);
+                filterContext.HttpContext.Response.Write(scriptBuilder.ToString());
             }
         }
         #endregion
