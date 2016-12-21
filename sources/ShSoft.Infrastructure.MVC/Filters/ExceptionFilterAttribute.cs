@@ -60,29 +60,9 @@ namespace ShSoft.Infrastructure.MVC.Filters
         /// <param name="filterContext">过滤器上下文</param>
         public void OnException(ExceptionContext filterContext)
         {
-            #region # 处理异常消息
-
-            string errorMessage;
-
-            try
-            {
-                IDictionary json = _JsonSerializer.DeserializeObject(filterContext.Exception.Message) as IDictionary;
-
-                if (json != null && json.Contains("ErrorMessage"))
-                {
-                    errorMessage = json["ErrorMessage"].ToString();
-                }
-                else
-                {
-                    errorMessage = filterContext.Exception.Message;
-                }
-            }
-            catch
-            {
-                errorMessage = filterContext.Exception.Message;
-            }
-
-            #endregion
+            //处理异常消息
+            string errorMessage = string.Empty;
+            errorMessage = GetErrorMessage(filterContext.Exception.Message, ref errorMessage);
 
             //设置状态码为500
             filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
@@ -111,6 +91,40 @@ namespace ShSoft.Infrastructure.MVC.Filters
 
             //异常已处理
             filterContext.ExceptionHandled = true;
+        }
+        #endregion
+
+        #region # 递归获取错误消息 —— static string GetErrorMessage(string exceptionMessage...
+        /// <summary>
+        /// 递归获取错误消息
+        /// </summary>
+        /// <param name="exceptionMessage">异常消息</param>
+        /// <param name="errorMessage">错误消息</param>
+        /// <returns>错误消息</returns>
+        private static string GetErrorMessage(string exceptionMessage, ref string errorMessage)
+        {
+            try
+            {
+                IDictionary json = _JsonSerializer.DeserializeObject(exceptionMessage) as IDictionary;
+
+                if (json != null && json.Contains("ErrorMessage"))
+                {
+                    errorMessage = json["ErrorMessage"].ToString();
+                }
+                else
+                {
+                    errorMessage = exceptionMessage;
+                }
+
+                GetErrorMessage(errorMessage, ref errorMessage);
+
+                return errorMessage;
+            }
+            catch
+            {
+
+                return errorMessage;
+            }
         }
         #endregion
     }
