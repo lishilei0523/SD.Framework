@@ -1,5 +1,4 @@
 ﻿using ShSoft.Infrastructure.Constants;
-using ShSoft.Infrastructure.MVC.Constants;
 using ShSoft.Infrastructure.MVC.Toolkits;
 using System;
 using System.Configuration;
@@ -58,13 +57,13 @@ namespace ShSoft.Infrastructure.MVC
             get
             {
                 return
-                    base.Session[SessionConstants.ValidCodeKey] == null ?
+                    base.Session[CacheConstants.ValidCodeKey] == null ?
                     null :
-                    base.Session[SessionConstants.ValidCodeKey].ToString();
+                    base.Session[CacheConstants.ValidCodeKey].ToString();
             }
             set
             {
-                base.Session[SessionConstants.ValidCodeKey] = value;
+                base.Session[CacheConstants.ValidCodeKey] = value;
             }
         }
         #endregion
@@ -77,11 +76,11 @@ namespace ShSoft.Infrastructure.MVC
         {
             get
             {
-                return base.Session[SessionConstants.CurrentUserKey] as LoginInfo; ;
+                return base.Session[CacheConstants.CurrentUserKey] as LoginInfo;
             }
             set
             {
-                base.Session[SessionConstants.CurrentUserKey] = value;
+                base.Session[CacheConstants.CurrentUserKey] = value;
             }
         }
         #endregion
@@ -172,7 +171,7 @@ namespace ShSoft.Infrastructure.MVC
         /// </summary>
         protected void ClearValidCode()
         {
-            this.Session.Remove(SessionConstants.ValidCodeKey);
+            this.Session.Remove(CacheConstants.ValidCodeKey);
         }
         #endregion
 
