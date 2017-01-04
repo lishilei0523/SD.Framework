@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using ShSoft.Infrastructure.EventBase;
+using ShSoft.Infrastructure.EventBase.Mediator;
+using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
-using ShSoft.Infrastructure.EventBase;
-using ShSoft.Infrastructure.EventBase.Mediator;
 
 // ReSharper disable once CheckNamespace
 namespace ShSoft.Infrastructure.EventStoreProvider
@@ -12,7 +12,12 @@ namespace ShSoft.Infrastructure.EventStoreProvider
     /// </summary>
     public class MemoryStoreProvider : IEventStore
     {
-        #region # 常量
+        #region # 字段与常量
+
+        /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync = new object();
 
         /// <summary>
         /// 领域事件存储Session键
@@ -42,20 +47,23 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// <param name="eventSource">领域事件源</param>
         public void Suspend<T>(T eventSource) where T : class, IEvent
         {
-            //获取线程缓存
-            object eventSources = CallContext.GetData(EventSessionKey);
-
-            //如果缓存不为空，则将事件源队列变量赋值为缓存
-            if (eventSources != null)
+            lock (_Sync)
             {
-                this._eventSources = (IList<Event>)eventSources;
+                //获取线程缓存
+                object eventSources = CallContext.GetData(EventSessionKey);
+
+                //如果缓存不为空，则将事件源队列变量赋值为缓存
+                if (eventSources != null)
+                {
+                    this._eventSources = (IList<Event>)eventSources;
+                }
+
+                //将新事件源添加到队列
+                this._eventSources.Add(eventSource as Event);
+
+                //将新队列添加到缓存
+                CallContext.SetData(EventSessionKey, this._eventSources);
             }
-
-            //将新事件源添加到队列
-            this._eventSources.Add(eventSource as Event);
-
-            //将新队列添加到缓存
-            CallContext.SetData(EventSessionKey, this._eventSources);
         }
         #endregion
 
@@ -65,36 +73,39 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public void HandleUncompletedEvents()
         {
-            //获取线程缓存
-            object eventSources = CallContext.GetData(EventSessionKey);
-
-            //如果缓存中没有数据，则终止方法
-            if (eventSources == null)
+            lock (_Sync)
             {
-                return;
-            }
+                //获取线程缓存
+                object eventSources = CallContext.GetData(EventSessionKey);
 
-            //如果缓存不为空，则将事件源队列变量赋值为缓存
-            this._eventSources = (IList<Event>)eventSources;
-
-            //如果有未处理的
-            if (this._eventSources.Any(x => !x.Handled))
-            {
-                foreach (Event eventSource in this._eventSources.Where(x => !x.Handled))
+                //如果缓存中没有数据，则终止方法
+                if (eventSources == null)
                 {
-                    EventMediator.Handle((IEvent)eventSource);
-                    eventSource.Handled = true;
+                    return;
                 }
-            }
 
-            //递归
-            if (this._eventSources.Any(x => !x.Handled))
-            {
-                this.HandleUncompletedEvents();
-            }
+                //如果缓存不为空，则将事件源队列变量赋值为缓存
+                this._eventSources = (IList<Event>)eventSources;
 
-            //处理完毕后置空缓存
-            CallContext.FreeNamedDataSlot(EventSessionKey);
+                //如果有未处理的
+                if (this._eventSources.Any(x => !x.Handled))
+                {
+                    foreach (Event eventSource in this._eventSources.Where(x => !x.Handled))
+                    {
+                        EventMediator.Handle((IEvent)eventSource);
+                        eventSource.Handled = true;
+                    }
+                }
+
+                //递归
+                if (this._eventSources.Any(x => !x.Handled))
+                {
+                    this.HandleUncompletedEvents();
+                }
+
+                //处理完毕后置空缓存
+                CallContext.FreeNamedDataSlot(EventSessionKey);
+            }
         }
         #endregion
 
@@ -104,8 +115,11 @@ namespace ShSoft.Infrastructure.EventStoreProvider
         /// </summary>
         public void ClearUncompletedEvents()
         {
-            //置空缓存
-            CallContext.FreeNamedDataSlot(EventSessionKey);
+            lock (_Sync)
+            {
+                //置空缓存
+                CallContext.FreeNamedDataSlot(EventSessionKey);
+            }
         }
         #endregion
 

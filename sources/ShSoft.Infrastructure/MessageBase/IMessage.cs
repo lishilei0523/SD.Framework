@@ -28,13 +28,6 @@ namespace ShSoft.Infrastructure.MessageBase
         Guid SessionId { get; }
         #endregion
 
-        #region 触发时间 —— DateTime? TriggerTime
-        /// <summary>
-        /// 触发时间
-        /// </summary>
-        DateTime? TriggerTime { get; }
-        #endregion
-
         #region 添加时间 —— DateTime AddedTime
         /// <summary>
         /// 添加时间

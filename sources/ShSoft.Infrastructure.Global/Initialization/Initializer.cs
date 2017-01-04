@@ -1,8 +1,8 @@
-﻿using System;
-using System.Runtime.Remoting.Messaging;
-using SD.IOC.Core.Mediator;
+﻿using SD.IOC.Core.Mediator;
 using ShSoft.Infrastructure.Constants;
 using ShSoft.Infrastructure.RepositoryBase;
+using System;
+using System.Runtime.Remoting.Messaging;
 
 namespace ShSoft.Infrastructure.Global
 {
@@ -11,6 +11,11 @@ namespace ShSoft.Infrastructure.Global
     /// </summary>
     public static class Initializer
     {
+        /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync = new object();
+
         /// <summary>
         /// 初始化数据库
         /// </summary>
@@ -25,8 +30,11 @@ namespace ShSoft.Infrastructure.Global
         /// </summary>
         public static void InitSessionId()
         {
-            CallContext.FreeNamedDataSlot(CacheConstants.SessionIdKey);
-            CallContext.SetData(CacheConstants.SessionIdKey, Guid.NewGuid());
+            lock (_Sync)
+            {
+                CallContext.FreeNamedDataSlot(CacheConstants.SessionIdKey);
+                CallContext.SetData(CacheConstants.SessionIdKey, Guid.NewGuid());
+            }
         }
     }
 }

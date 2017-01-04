@@ -54,6 +54,10 @@
     <Compile Include="CustomExceptions\PresentationException.cs" />
     <Compile Include="CustomExceptions\DomainException.cs" />
     <Compile Include="CustomExceptions\RepositoryException.cs" />
+    <Compile Include="EntityBase\INameable.cs" />
+    <Compile Include="EntityBase\INumerable.cs" />
+    <Compile Include="EntityBase\ISearchable.cs" />
+    <Compile Include="EntityBase\ISortable.cs" />
     <Compile Include="EventBase\IEvent.cs" />
     <Compile Include="EventBase\IEventStore.cs" />
     <Compile Include="MessageBase\IMessage.cs" />

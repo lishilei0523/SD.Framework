@@ -72,10 +72,6 @@
       <Project>{79DC5E40-2857-4748-A895-49BB675CDC68}</Project>
       <Name>ShSoft.Infrastructure.EventBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure.EventStoreProvider.EntityFramework\ShSoft.Infrastructure.EventStoreProvider.EntityFramework.csproj">
-      <Project>{f7a08dae-580f-46d1-9ade-dcdb2a828994}</Project>
-      <Name>ShSoft.Infrastructure.EventStoreProvider.EntityFramework</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\..\sources\ShSoft.Infrastructure.Global\ShSoft.Infrastructure.Global.csproj">
       <Project>{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}</Project>
       <Name>ShSoft.Infrastructure.Global</Name>

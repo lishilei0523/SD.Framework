@@ -6,7 +6,7 @@ namespace ShSoft.Infrastructure.EntityBase
     /// 领域实体基类
     /// </summary>
     [Serializable]
-    public abstract class PlainEntity
+    public abstract class PlainEntity : INumerable, INameable, ISearchable, ISortable
     {
         #region # 构造器
         /// <summary>
@@ -91,45 +91,6 @@ namespace ShSoft.Infrastructure.EntityBase
         #endregion
 
         #region # 方法
-
-        #region 验证编号 —— void CheckNumber(string number)
-        /// <summary>
-        /// 验证编号
-        /// </summary>
-        /// <param name="number">编号</param>
-        protected void CheckNumber(string number)
-        {
-            if (string.IsNullOrWhiteSpace(number))
-            {
-                throw new ArgumentNullException("number", @"编号不可为空！");
-            }
-
-        }
-        #endregion
-
-        #region 验证名称 —— void CheckName(string name, int minLength, int maxLength)
-        /// <summary>
-        /// 验证名称
-        /// </summary>
-        /// <param name="name">名称</param>
-        /// <param name="minLength">最小长度</param>
-        /// <param name="maxLength">最大长度</param>
-        protected void CheckName(string name, int minLength = 2, int maxLength = 20)
-        {
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException("name", @"名称不可为空！");
-            }
-            if (name.Length < minLength)
-            {
-                throw new ArgumentOutOfRangeException("name", string.Format("名称不可小于{0}个字符！", minLength));
-            }
-            if (name.Length > maxLength)
-            {
-                throw new ArgumentOutOfRangeException("name", string.Format("名称不可大于{0}个字符！", maxLength));
-            }
-        }
-        #endregion
 
         #region 设置关键字 —— void SetKeywords(string keywords)
         /// <summary>

@@ -43,14 +43,6 @@ namespace ShSoft.Infrastructure.CommandBase
         public bool Handled { get; set; }
         #endregion
 
-        #region 触发时间 —— DateTime? TriggerTime
-        /// <summary>
-        /// 触发时间
-        /// </summary>
-        [DataMember]
-        public DateTime? TriggerTime { get; set; }
-        #endregion
-
         #region 添加时间 —— DateTime AddedTime
         /// <summary>
         /// 添加时间
