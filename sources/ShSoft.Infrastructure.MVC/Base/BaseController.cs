@@ -16,6 +16,11 @@ namespace ShSoft.Infrastructure.MVC
         #region # 常量、字段及构造器
 
         /// <summary>
+        /// 开启身份认证AppSetting键
+        /// </summary>
+        private const string EnableAuthAppSettingKey = "EnableAuth";
+
+        /// <summary>
         /// 登录页AppSetting键
         /// </summary>
         private const string LoginPageAppSettingKey = "LoginPage";
@@ -142,8 +147,21 @@ namespace ShSoft.Infrastructure.MVC
         /// <param name="filterContext"></param>
         protected override void OnAuthorization(AuthorizationContext filterContext)
         {
-            //判断用户是否登录，Action上是否贴有无需过滤标签，
-            if (!this.Logined &&
+            #region # 读取开启身份认证配置
+
+            string enableAuthStr = ConfigurationManager.AppSettings[EnableAuthAppSettingKey];
+            bool enableAuth;
+
+            if (!bool.TryParse(enableAuthStr, out enableAuth))
+            {
+                enableAuth = false;
+            }
+
+            #endregion
+
+            //判断是否开启身份认证，用户是否登录，Action上是否贴有无需过滤标签，
+            if (enableAuth &&
+                !this.Logined &&
                 !filterContext.ActionDescriptor.HasAttr<AllowAnonymousAttribute>())
             {
                 //是不是Ajax请求
