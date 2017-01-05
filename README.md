@@ -1,75 +1,70 @@
-#ÏîÄ¿¸ÅÊö
+#é¡¹ç›®æ¦‚è¿°    è¿™æ˜¯ä¸€ä¸ªæ¡†æ¶
 
-	±¾¿ò¼ÜÖÂÁ¦ÓÚÌáÉı¿ª·¢Ğ§ÂÊ£¬¼õÉÙÁìÓòÇı¶¯Éè¼ÆÊµÏÖµÄ¸´ÔÓĞÔ¡£
+	æœ¬æ¡†æ¶è‡´åŠ›äºæå‡å¼€å‘æ•ˆç‡ï¼Œå‡å°‘é¢†åŸŸé©±åŠ¨è®¾è®¡å®ç°çš„å¤æ‚æ€§ã€‚
 	
-	»ùÓÚ¸öÈË³¤ÆÚÊ¹ÓÃµÄ¾­Ñé£¬×ñÑ­ÃæÏò¶ÔÏóµÄÉè¼ÆÔ­Ôò£¬²»¶Ï´ÓÒµÎñÏîÄ¿ÖĞÌáÈ¡£¬Öğ½¥Ñİ±äÎª¸Ã¿ò¼Ü¡£
+	åŸºäºä¸ªäººé•¿æœŸä½¿ç”¨çš„ç»éªŒï¼Œéµå¾ªé¢å‘å¯¹è±¡çš„è®¾è®¡åŸåˆ™ï¼Œä¸æ–­ä»ä¸šåŠ¡é¡¹ç›®ä¸­æå–ï¼Œé€æ¸æ¼”å˜ä¸ºè¯¥æ¡†æ¶ã€‚
 
-	¿ò¼ÜÖĞÖ÷ÒªÉæ¼°Factory¡¢Mediator¡¢Provider¡¢Facade¡¢²ã³¬ÀàĞÍµÈÄ£Ê½¡£
+	æ¡†æ¶ä¸­ä¸»è¦æ¶‰åŠFactoryã€Mediatorã€Providerã€Facadeã€å±‚è¶…ç±»å‹ç­‰æ¨¡å¼ã€‚
 
 
-1¡¢ShSoft.Common
+1ã€ShSoft.Common
 	
-	¹«¹²»ù´¡Àà¿â£¬°üº¬Ò»Ğ©³£ÓÃÀ©Õ¹¹¤¾ß¡£
+	å…¬å…±åŸºç¡€ç±»åº“ï¼ŒåŒ…å«ä¸€äº›å¸¸ç”¨æ‰©å±•å·¥å…·ã€‚
 
-	NuGet°üµØÖ·£ºhttps://www.nuget.org/packages/ShSoft.Common
-
-
-2¡¢ShSoft.Infrastructure
-
-	»ù´¡ÉèÊ©£¬°üº¬ÏµÍ³³£Á¿¡¢×Ô¶¨ÒåÒì³£¡¢»ù½Ó¿ÚÓë»ùÀà¡£
-
-	NuGet°üµØÖ·£ºhttps://www.nuget.org/packages/ShSoft.Infrastructure
+	NuGetåŒ…åœ°å€ï¼šhttps://www.nuget.org/packages/ShSoft.Common
 
 
-3¡¢ShSoft.Infrastructure.AOP
+2ã€ShSoft.Infrastructure
 
-	AOP»ù´¡ÉèÊ©£¬°üº¬Îª²»Í¬ÏîÄ¿·â×°µÄ²»Í¬´¦ÀíÒì³£µÄ·½Ê½¡£
+	åŸºç¡€è®¾æ–½ï¼ŒåŒ…å«ç³»ç»Ÿå¸¸é‡ã€è‡ªå®šä¹‰å¼‚å¸¸ã€åŸºæ¥å£ä¸åŸºç±»ã€‚
 
-	NuGet°üµØÖ·£ºhttps://www.nuget.org/packages/ShSoft.Infrastructure.AOP
-
-4¡¢ShSoft.Infrastructure.CommandBase
-
-	ÃüÁî»ù´¡ÉèÊ©£¬°üº¬ÃüÁî»ùÀà¡¢ÃüÁîÖ´ĞĞÕß¹¤³§¡¢ÃüÁîÖĞ½éÕß¡£
-
-	NuGet°üµØÖ·£ºhttps://www.nuget.org/packages/ShSoft.Infrastructure.CommandBase
+	NuGetåŒ…åœ°å€ï¼šhttps://www.nuget.org/packages/ShSoft.Infrastructure
 
 
-5¡¢ShSoft.Infrastructure.EventBase
+3ã€ShSoft.Infrastructure.AOP
 
-	ÁìÓòÊÂ¼ş»ù´¡£¬°üº¬ÁìÓòÊÂ¼ş»ùÀà¡¢ÁìÓòÊÂ¼ş´¦ÀíÕß¹¤³§¡¢ÁìÓòÊÂ¼şÖĞ½éÕß¡¢Session´æ´¢Ìá¹©Õß¡£
+	AOPåŸºç¡€è®¾æ–½ï¼ŒåŒ…å«ä¸ºä¸åŒé¡¹ç›®å°è£…çš„ä¸åŒå¤„ç†å¼‚å¸¸çš„æ–¹å¼ã€‚
 
-	NuGet°üµØÖ·£ºhttps://www.nuget.org/packages/ShSoft.Infrastructure.EventBase
-
-
-6¡¢ShSoft.Infrastructure.EventStoreProvider.EntityFramework
-
-	EntityFrameworkÁìÓòÊÂ¼ş´æ´¢Ìá¹©Õß¡£
-
-	NuGet°üµØÖ·£ºhttps://www.nuget.org/packages/ShSoft.Infrastructure.EventStoreProvider.EntityFramework
-
-7¡¢ShSoft.Infrastructure.EventStoreProvider.RabbitMQ
-
-	RabbitMQÁìÓòÊÂ¼ş´æ´¢Ìá¹©Õß¡£
-
-	NuGet°üµØÖ·£ºhttps://www.nuget.org/packages/ShSoft.Infrastructure.EventStoreProvider.RabbitMQ
+	NuGetåŒ…åœ°å€ï¼šhttps://www.nuget.org/packages/ShSoft.Infrastructure.AOP
 
 
-8¡¢ShSoft.Infrastructure.Global
+4ã€ShSoft.Infrastructure.CommandBase
 
-	È«¾Ö²Ù×÷»ù´¡ÉèÊ©£¬°üÀ¨È«¾Ö³õÊ¼»¯¡¢ÊÍ·Å×ÊÔ´¡¢ÊÂÎñ¡£
+	å‘½ä»¤åŸºç¡€è®¾æ–½ï¼ŒåŒ…å«å‘½ä»¤åŸºç±»ã€å‘½ä»¤æ‰§è¡Œè€…å·¥å‚ã€å‘½ä»¤ä¸­ä»‹è€…ã€‚
 
-	NuGet°üµØÖ·£ºhttps://www.nuget.org/packages/ShSoft.Infrastructure.Global
-
-
-9¡¢ShSoft.Infrastructure.Repository.EntityFramework
-
-	²Ö´¢»ù´¡ÉèÊ©£¬°üº¬EntityFramework DbContextµÄÈı´Î·â×°¡¢Êı¾İ¿âÇåÀíÕß¡¢EntityFramework²Ö´¢Ìá¹©Õß¡¢EntityFramework UnitOfWorkÌá¹©Õß¡£
-
-	NuGet°üµØÖ·£ºhttps://www.nuget.org/packages/ShSoft.Infrastructure.Repository.EntityFramework
+	NuGetåŒ…åœ°å€ï¼šhttps://www.nuget.org/packages/ShSoft.Infrastructure.CommandBase
 
 
-10¡¢ShSoft.Infrastructure.WCF.Server
+5ã€ShSoft.Infrastructure.EventBase
 
-	WCF·şÎñ¶Ë»ù´¡ÉèÊ©¡£
+	é¢†åŸŸäº‹ä»¶åŸºç¡€ï¼ŒåŒ…å«é¢†åŸŸäº‹ä»¶åŸºç±»ã€é¢†åŸŸäº‹ä»¶å¤„ç†è€…å·¥å‚ã€é¢†åŸŸäº‹ä»¶ä¸­ä»‹è€…ã€Sessionå­˜å‚¨æä¾›è€…ã€‚
 
-	NuGet°üµØÖ·£ºhttps://www.nuget.org/packages/ShSoft.Infrastructure.WCF.Server
+	NuGetåŒ…åœ°å€ï¼šhttps://www.nuget.org/packages/ShSoft.Infrastructure.EventBase
+
+
+6ã€ShSoft.Infrastructure.EventStoreProvider.RabbitMQ
+
+	RabbitMQé¢†åŸŸäº‹ä»¶å­˜å‚¨æä¾›è€…ã€‚
+
+	NuGetåŒ…åœ°å€ï¼šhttps://www.nuget.org/packages/ShSoft.Infrastructure.EventStoreProvider.RabbitMQ
+
+
+7ã€ShSoft.Infrastructure.Global
+
+	å…¨å±€æ“ä½œåŸºç¡€è®¾æ–½ï¼ŒåŒ…æ‹¬å…¨å±€åˆå§‹åŒ–ã€é‡Šæ”¾èµ„æºã€äº‹åŠ¡ã€‚
+
+	NuGetåŒ…åœ°å€ï¼šhttps://www.nuget.org/packages/ShSoft.Infrastructure.Global
+
+
+8ã€ShSoft.Infrastructure.Repository.EntityFramework
+
+	ä»“å‚¨åŸºç¡€è®¾æ–½ï¼ŒåŒ…å«EntityFramework DbContextçš„ä¸‰æ¬¡å°è£…ã€æ•°æ®åº“æ¸…ç†è€…ã€EntityFrameworkä»“å‚¨æä¾›è€…ã€EntityFramework UnitOfWorkæä¾›è€…ã€‚
+
+	NuGetåŒ…åœ°å€ï¼šhttps://www.nuget.org/packages/ShSoft.Infrastructure.Repository.EntityFramework
+
+
+9ã€ShSoft.Infrastructure.WCF.Server
+
+	WCFæœåŠ¡ç«¯åŸºç¡€è®¾æ–½ã€‚
+
+	NuGetåŒ…åœ°å€ï¼šhttps://www.nuget.org/packages/ShSoft.Infrastructure.WCF.Server
