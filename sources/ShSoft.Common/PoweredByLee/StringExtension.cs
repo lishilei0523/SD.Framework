@@ -1,15 +1,15 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using PanGu;
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Serialization;
-using Lucene.Net.Analysis;
-using Lucene.Net.Analysis.PanGu;
-using Newtonsoft.Json;
 
 namespace ShSoft.Common.PoweredByLee
 {
@@ -179,24 +179,18 @@ namespace ShSoft.Common.PoweredByLee
         }
         #endregion
 
-        #region # 字符串分词扩展方法 —— static string[] SplitWord(this string str)
+        #region # 字符串分词扩展方法 —— static string[] SplitWord(this string text)
         /// <summary>
         /// 字符串分词扩展方法
         /// </summary>
-        /// <param name="str">字符串</param>
+        /// <param name="text">字符串</param>
         /// <returns>分词后的字符串数组</returns>
-        public static string[] SplitWord(this string str)
+        public static string[] SplitWord(this string text)
         {
-            StringReader strReader = new StringReader(str);
-            Analyzer analyzer = new PanGuAnalyzer();
-            TokenStream tokenStream = analyzer.TokenStream(string.Empty, strReader);
-            Token token;
-            List<string> strs = new List<string>();
-            while ((token = tokenStream.Next()) != null)
-            {
-                strs.Add(token.Term());
-            }
-            return strs.ToArray();
+            Segment segment = new Segment();
+            ICollection<WordInfo> words = segment.DoSegment(text);
+
+            return words.Select(x => x.Word).ToArray();
         }
         #endregion
 

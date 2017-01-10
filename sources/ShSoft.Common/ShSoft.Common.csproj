@@ -46,8 +46,8 @@
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="ShSoft.Common.Libraries, Version=2.9.2.2, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\ShSoft.Common.Libraries.1.0.3\lib\net45\ShSoft.Common.Libraries.dll</HintPath>
+    <Reference Include="PanGu, Version=2.3.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SD.PanGu.2.3.1\lib\net20\PanGu.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
