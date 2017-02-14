@@ -10,6 +10,7 @@
 
 
 ###技术交流群：558010476
+####示例项目：http://git.oschina.net/lishilei0523/ShSoft.UAC
 -----------------------------------
 
 1、ShSoft.Common
