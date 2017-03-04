@@ -1,6 +1,10 @@
-一对一关系必须配置Fluent API
+一对一关系必须配置Fluent API（具体参考Entity Framework的Fluent API）
 
-多对多关系最好配置Fluent API，控制下生成中间表的名称
+多对多关系最好配置Fluent API，控制下生成中间表的名称（具体参考Entity Framework的Fluent API）
+
+DataInitializer只会在应用程序第一次启动时执行
+
+因为创建数据库是在DbSession的构造函数里执行，所以如果需要应用程序启动即创建数据库，需要在DataInitializer里将DbSession实例化
 
 不同Context之间的类，不允许有导航属性引用，只能存Id
 
@@ -39,3 +43,4 @@ UnitOfWork.UnitedCommit只能在AppService里调用，其余地方用UnitOfWork.
 		    return base.FindAllInner().Where(x => x.Order != null && !x.Order.Deleted);
 		}
 	}
+
