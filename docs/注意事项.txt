@@ -1,0 +1,41 @@
+一对一关系必须配置Fluent API
+
+多对多关系最好配置Fluent API，控制下生成中间表的名称
+
+不同Context之间的类，不允许有导航属性引用，只能存Id
+
+导航属性层级不宜过多，最好限定在三级以内
+
+WCF不支持方法重载，所以接口方法命名要唯一
+
+领域服务里尽量不要调用Repository和UnitOfWork，除非是业务必要
+
+被继承的类必须是抽象类
+
+多对多强关系尽量避免，复杂性太高
+
+仓储不能调用仓储，如果需要合并结果集，在领域服务里处理
+
+UnitOfWork.UnitedCommit只能在AppService里调用，其余地方用UnitOfWork.Commit。它俩的区别在于UnitedCommit会把挂起的领域事件顺序处理，Commit不会处理领域事件
+
+继承关系的一系列类，只需要为最上层基类建一个仓储即可，通过泛型方法即可区分子类
+
+为实体（PlainEntity）建立仓储时，如果涉及删除的，override下base.FindAllInner()方法，将关联的聚合根为null的或Deleted的实体对象过滤掉
+	比如Order与OrderDetail，Order是聚合根，OrderDetail是普通实体
+	Order中有RemoveDetail(Guid detailId)方法，删除订单明细
+	此时如果要为OrderDetail建立仓储时，需要以下写法
+
+	/// <summary>
+	/// 订单明细仓储实现
+	/// </summary>
+	public class OrderDetailRepository : EFRepositoryProvider<OrderDetail>, IOrderDetailRepository
+	{
+		/// <summary>
+		/// 获取订单明细列表
+		/// </summary>
+		/// <returns>订单明细列表</returns>
+		protected override IQueryable<OrderDetail> FindAllInner()
+		{
+		    return base.FindAllInner().Where(x => x.Order != null && !x.Order.Deleted);
+		}
+	}
