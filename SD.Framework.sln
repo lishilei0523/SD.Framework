@@ -22,6 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Stubs", "01 - Stubs", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 - Documentations", "00 - Documentations", "{C6AD4D54-74CC-4D0E-8310-5321A041CA3B}"
 	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
 		docs\SD.FrameworkTemplate.Extension.vsix = docs\SD.FrameworkTemplate.Extension.vsix
 		docs\基于此框架的项目架构图.vsd = docs\基于此框架的项目架构图.vsd
 		docs\基于此框架的项目架构图.vsdx = docs\基于此框架的项目架构图.vsdx
