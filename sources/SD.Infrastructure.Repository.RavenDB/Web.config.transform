@@ -1,0 +1,11 @@
+﻿<configuration>
+  <connectionStrings>
+    <!--RavenDB连接字符串-->
+    <add name="RavenConnection" connectionString="" />
+  </connectionStrings>
+  <injectionRegisterConfiguration>
+    <asInterfaceTypes>
+      <type name="SD.Infrastructure.Repository.RavenDB.DbCleaner" assembly="SD.Infrastructure.Repository.RavenDB" />
+    </asInterfaceTypes>
+  </injectionRegisterConfiguration>
+</configuration>

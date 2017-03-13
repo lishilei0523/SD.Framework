@@ -1,0 +1,10 @@
+﻿<configuration>
+  <system.serviceModel>
+    <extensions>
+      <behaviorExtensions>
+        <!--初始化扩展配置-->
+        <add name="initialization" type="SD.Infrastructure.WCF.Server.InitializationBehaviorElement, SD.Infrastructure.WCF.Server" />
+      </behaviorExtensions>
+    </extensions>
+  </system.serviceModel>
+</configuration>

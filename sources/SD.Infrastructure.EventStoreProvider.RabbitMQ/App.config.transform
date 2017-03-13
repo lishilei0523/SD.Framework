@@ -1,0 +1,13 @@
+﻿<configuration>
+  <configSections>
+    <!--RabbitMQ配置节点-->
+    <section name="rabbitConfiguration" type="SD.Infrastructure.EventStoreProvider.RabbitConfiguration,SD.Infrastructure.EventStoreProvider.RabbitMQ"/>
+  </configSections>
+  <!--RabbitMQ配置-->
+  <rabbitConfiguration hostName="" userName="" password="" />
+  <injectionRegisterConfiguration>
+    <asInterfaceTypes>
+      <type name="SD.Infrastructure.EventStoreProvider.RabbitStoreProvider" assembly="SD.Infrastructure.EventStoreProvider.RabbitMQ" />
+    </asInterfaceTypes>
+  </injectionRegisterConfiguration>
+</configuration>

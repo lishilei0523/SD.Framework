@@ -1,7 +1,0 @@
-﻿<configuration>
-  <injectionRegisterConfiguration>
-    <asInterfaceTypes>
-      <type name="ShSoft.Infrastructure.EventStoreProvider.RedisStoreProvider" assembly="ShSoft.Infrastructure.EventStoreProvider.Redis" />
-    </asInterfaceTypes>
-  </injectionRegisterConfiguration>
-</configuration>
