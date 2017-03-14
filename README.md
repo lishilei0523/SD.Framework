@@ -11,66 +11,67 @@
 
 ###技术交流群：558010476
 ####示例项目：http://git.oschina.net/lishilei0523/ShSoft.UAC
+####项目模板：http://git.oschina.net/lishilei0523/SD.Framework.Template
 -----------------------------------
 
-1、ShSoft.Common
+1、SD.Common
 	
 	公共基础类库，包含一些常用扩展工具。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Common
+	NuGet包地址：https://www.nuget.org/packages/SD.Common
 
 
-2、ShSoft.Infrastructure
+2、SD.Infrastructure
 
 	基础设施，包含系统常量、自定义异常、基接口与基类。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure
 
 
-3、ShSoft.Infrastructure.AOP
+3、SD.Infrastructure.AOP
 
 	AOP基础设施，包含为不同项目封装的不同处理异常的方式。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.AOP
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.AOP
 
 
-4、ShSoft.Infrastructure.CommandBase
+4、SD.Infrastructure.CommandBase
 
 	命令基础设施，包含命令基类、命令执行者工厂、命令中介者。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.CommandBase
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.CommandBase
 
 
-5、ShSoft.Infrastructure.EventBase
+5、SD.Infrastructure.EventBase
 
 	领域事件基础，包含领域事件基类、领域事件处理者工厂、领域事件中介者、Session存储提供者。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.EventBase
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventBase
 
 
-6、ShSoft.Infrastructure.EventStoreProvider.RabbitMQ
+6、SD.Infrastructure.EventStoreProvider.RabbitMQ
 
 	RabbitMQ领域事件存储提供者。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.EventStoreProvider.RabbitMQ
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventStoreProvider.RabbitMQ
 
 
-7、ShSoft.Infrastructure.Global
+7、SD.Infrastructure.Global
 
 	全局操作基础设施，包括全局初始化、释放资源、事务。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.Global
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Global
 
 
-8、ShSoft.Infrastructure.Repository.EntityFramework
+8、SD.Infrastructure.Repository.EntityFramework
 
 	仓储基础设施，包含EntityFramework DbContext的三次封装、数据库清理者、EntityFramework仓储提供者、EntityFramework UnitOfWork提供者。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.Repository.EntityFramework
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.EntityFramework
 
 
-9、ShSoft.Infrastructure.WCF.Server
+9、SD.Infrastructure.WCF.Server
 
 	WCF服务端基础设施。
 
-	NuGet包地址：https://www.nuget.org/packages/ShSoft.Infrastructure.WCF.Server
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.WCF.Server
