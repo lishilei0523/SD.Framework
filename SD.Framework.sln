@@ -56,21 +56,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repositor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WCF.Server", "sources\SD.Infrastructure.WCF.Server\SD.Infrastructure.WCF.Server.csproj", "{9A78B517-AD18-4BC7-B687-4DC245F4DB57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Common.Tests", "tests\UnitTests\SD.CommonTests\SD.Common.Tests.csproj", "{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Common.Tests", "tests\UnitTests\SD.Common.Tests\SD.Common.Tests.csproj", "{7A8901CC-494E-46AC-AA04-4CDCDD5484BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.CommandBase.Tests", "tests\UnitTests\SD.Infrastructure.CommandBaseTests\SD.Infrastructure.CommandBase.Tests.csproj", "{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.CommandBase.Tests", "tests\UnitTests\SD.Infrastructure.CommandBase.Tests\SD.Infrastructure.CommandBase.Tests.csproj", "{D8F7B85E-6D5A-4EA1-B318-E304E87FD71A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventBase.Tests", "tests\UnitTests\SD.Infrastructure.EventBaseTests\SD.Infrastructure.EventBase.Tests.csproj", "{1182A916-10CD-482C-B8AA-1A630C5C739C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventBase.Tests", "tests\UnitTests\SD.Infrastructure.EventBase.Tests\SD.Infrastructure.EventBase.Tests.csproj", "{1182A916-10CD-482C-B8AA-1A630C5C739C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.MongoDB.Tests", "tests\UnitTests\SD.Infrastructure.Repository.MongoDBTests\SD.Infrastructure.Repository.MongoDB.Tests.csproj", "{D4673F34-2090-41E0-AE2C-746F0CA97F3C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.MongoDB.Tests", "tests\UnitTests\SD.Infrastructure.Repository.MongoDB.Tests\SD.Infrastructure.Repository.MongoDB.Tests.csproj", "{D4673F34-2090-41E0-AE2C-746F0CA97F3C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.Redis.Tests", "tests\UnitTests\SD.Infrastructure.Repository.RedisTests\SD.Infrastructure.Repository.Redis.Tests.csproj", "{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.Redis.Tests", "tests\UnitTests\SD.Infrastructure.Repository.Redis.Tests\SD.Infrastructure.Repository.Redis.Tests.csproj", "{EB280BB1-F289-4C76-8B96-9D71FFE15D0B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.StubIAppService", "tests\IntegrationTests\SD.Infrastructure.StubIAppService\SD.Infrastructure.StubIAppService.csproj", "{04BFA4D7-86C8-4341-B34C-3F1D88D19827}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.StubAppService", "tests\IntegrationTests\SD.Infrastructure.StubAppService\SD.Infrastructure.StubAppService.csproj", "{A9F7D041-ECF8-434D-B083-5F57AD348564}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WCF.Tests", "tests\IntegrationTests\SD.Infrastructure.WCFTests\SD.Infrastructure.WCF.Tests.csproj", "{44C612E2-18F5-4A15-8D2E-0AF325370FC7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WCF.Tests", "tests\IntegrationTests\SD.Infrastructure.WCF.Tests\SD.Infrastructure.WCF.Tests.csproj", "{44C612E2-18F5-4A15-8D2E-0AF325370FC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.MVC", "sources\SD.Infrastructure.MVC\SD.Infrastructure.MVC.csproj", "{5B231572-46D6-432B-81B1-C583C699D925}"
 EndProject
