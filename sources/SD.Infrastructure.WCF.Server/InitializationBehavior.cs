@@ -19,11 +19,11 @@ namespace SD.Infrastructure.WCF.Server
         /// <param name="serviceHostBase">服务主机</param>
         public void ApplyDispatchBehavior(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
         {
-            //初始化数据库
-            Initializer.InitDataBase();
-
             //初始化SessionId
             Initializer.InitSessionId();
+
+            //初始化数据库
+            Initializer.InitDataBase();
 
             //注册事件
             InstanceProvider.OnGetInstance += InstanceProvider_OnGetInstance;
