@@ -1,9 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using SD.Infrastructure.Global;
+using SD.IOC.Integration.WCF;
+using System.Collections.ObjectModel;
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
-using SD.IOC.Integration.WCF;
-using SD.Infrastructure.Global;
 
 namespace SD.Infrastructure.WCF.Server
 {
@@ -21,6 +21,9 @@ namespace SD.Infrastructure.WCF.Server
         {
             //初始化数据库
             Initializer.InitDataBase();
+
+            //初始化SessionId
+            Initializer.InitSessionId();
 
             //注册事件
             InstanceProvider.OnGetInstance += InstanceProvider_OnGetInstance;
