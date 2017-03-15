@@ -48,29 +48,55 @@
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventBase
 
-
 6、SD.Infrastructure.EventStoreProvider.RabbitMQ
 
 	RabbitMQ领域事件存储提供者。
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventStoreProvider.RabbitMQ
 
+7、SD.Infrastructure.EventStoreProvider.Redis
 
-7、SD.Infrastructure.Global
+	Redis领域事件存储提供者。
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventStoreProvider.Redis
+
+8、SD.Infrastructure.Global
 
 	全局操作基础设施，包括全局初始化、释放资源、事务。
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Global
 
+9、SD.Infrastructure.MVC
 
-8、SD.Infrastructure.Repository.EntityFramework
+	MVC基础。
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.MVC
+
+10、SD.Infrastructure.Repository.EntityFramework
 
 	仓储基础设施，包含EntityFramework DbContext的三次封装、数据库清理者、EntityFramework仓储提供者、EntityFramework UnitOfWork提供者。
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.EntityFramework
 
+11、SD.Infrastructure.Repository.MongoDB
 
-9、SD.Infrastructure.WCF.Server
+	仓储基础 - MongoDB实现。
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.MongoDB
+
+12、SD.Infrastructure.Repository.RavenDB
+
+	仓储基础 - RavenDB实现。
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.RavenDB
+
+13、SD.Infrastructure.Repository.Redis
+
+	仓储基础 - Redis实现。
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.Redis
+
+14、SD.Infrastructure.WCF.Server
 
 	WCF服务端基础设施。
 
