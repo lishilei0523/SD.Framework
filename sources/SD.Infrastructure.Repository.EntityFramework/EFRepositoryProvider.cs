@@ -786,13 +786,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>是否已存在</returns>
         public bool ExistsName(Guid? id, string name)
         {
-            if (id == null)
+            id = id ?? Guid.Empty;
+
+            T current = this.SingleOrDefault(id.Value);
+
+            if (current != null && current.Name == name)
             {
-                return this.ExistsName(name);
+                return false;
             }
 
-            T current = this.Single(id.Value);
-            return current.Name != name;
+            return this.ExistsName(name);
         }
         #endregion
 
@@ -805,13 +808,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>是否已存在</returns>
         public bool ExistsName<TSub>(Guid? id, string name) where TSub : T
         {
-            if (id == null)
+            id = id ?? Guid.Empty;
+
+            TSub current = this.SingleOrDefault<TSub>(id.Value);
+
+            if (current != null && current.Name == name)
             {
-                return this.ExistsName<TSub>(name);
+                return false;
             }
 
-            TSub current = this.Single<TSub>(id.Value);
-            return current.Name != name;
+            return this.ExistsName(name);
         }
         #endregion
 
@@ -824,13 +830,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>是否已存在</returns>
         public bool ExistsName(string number, string name)
         {
-            if (string.IsNullOrWhiteSpace(number))
+            number = string.IsNullOrWhiteSpace(number) ? Guid.NewGuid().ToString().Substring(0, 10) : number;
+
+            T current = this.SingleOrDefault(number);
+
+            if (current != null && current.Name == name)
             {
-                return this.ExistsName(name);
+                return false;
             }
 
-            T current = this.Single(number);
-            return current.Name != name;
+            return this.ExistsName(name);
         }
         #endregion
 
@@ -843,13 +852,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>是否已存在</returns>
         public bool ExistsName<TSub>(string number, string name) where TSub : T
         {
-            if (string.IsNullOrWhiteSpace(number))
+            number = string.IsNullOrWhiteSpace(number) ? Guid.NewGuid().ToString().Substring(0, 10) : number;
+
+            TSub current = this.SingleOrDefault<TSub>(number);
+
+            if (current != null && current.Name == name)
             {
-                return this.ExistsName<TSub>(name);
+                return false;
             }
 
-            TSub current = this.Single<TSub>(number);
-            return current.Name != name;
+            return this.ExistsName(name);
         }
         #endregion
 
