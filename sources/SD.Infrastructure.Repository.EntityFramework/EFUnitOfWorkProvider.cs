@@ -1,4 +1,5 @@
-﻿using SD.Infrastructure.EntityBase;
+﻿using SD.Infrastructure.Constants;
+using SD.Infrastructure.EntityBase;
 using SD.Infrastructure.Repository.EntityFramework.Base;
 using SD.Infrastructure.RepositoryBase;
 using System;
@@ -17,6 +18,11 @@ namespace SD.Infrastructure.Repository.EntityFramework
     public abstract class EFUnitOfWorkProvider : IUnitOfWork
     {
         #region # 创建EF（写）上下文对象
+
+        /// <summary>
+        /// 获取操作人信息
+        /// </summary>
+        public static event Func<LoginInfo> GetLoginInfo;
 
         /// <summary>
         /// 同步锁
@@ -55,6 +61,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
         #endregion
 
+
         //Public
 
         #region # 注册添加单个实体对象 —— void RegisterAdd<T>(T entity)
@@ -80,6 +87,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
+            #region # 设置操作人信息
+
+            if (GetLoginInfo != null)
+            {
+                LoginInfo loginInfo = GetLoginInfo.Invoke();
+                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+            }
+
+            #endregion
+
             this._dbContext.Set<T>().Add(entity);
         }
         #endregion
@@ -95,9 +112,25 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证参数
 
-            if (entities == null || !entities.Any())
+            entities = entities == null ? new T[0] : entities.ToArray();
+
+            if (!entities.Any())
             {
                 throw new ArgumentNullException("entities", string.Format("要添加的{0}实体对象集合不可为空！", typeof(T).Name));
+            }
+
+            #endregion
+
+            #region # 设置操作人信息
+
+            if (GetLoginInfo != null)
+            {
+                LoginInfo loginInfo = GetLoginInfo.Invoke();
+
+                foreach (T entity in entities)
+                {
+                    entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                }
             }
 
             #endregion
@@ -135,6 +168,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
+            #region # 设置操作人信息
+
+            if (GetLoginInfo != null)
+            {
+                LoginInfo loginInfo = GetLoginInfo.Invoke();
+                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+            }
+
+            #endregion
+
             entity.SavedTime = DateTime.Now;
             DbEntityEntry entry = this._dbContext.Entry<T>(entity);
             entry.State = EntityState.Modified;
@@ -153,15 +196,29 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证参数
 
-            if (entities == null || !entities.Any())
+            entities = entities == null ? new T[0] : entities.ToArray();
+
+            if (!entities.Any())
             {
                 throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象集合不可为空！", typeof(T).Name));
             }
 
             #endregion
 
+            LoginInfo loginInfo = null;
+
+            #region # 获取操作人信息
+
+            if (GetLoginInfo != null)
+            {
+                loginInfo = GetLoginInfo.Invoke();
+            }
+
+            #endregion
+
             foreach (T entity in entities)
             {
+                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
                 this.RegisterSave(entity);
             }
         }
@@ -237,7 +294,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证参数
 
-            if (ids == null || !ids.Any())
+            ids = ids == null ? new Guid[0] : ids.ToArray();
+
+            if (!ids.Any())
             {
                 throw new ArgumentNullException("ids", string.Format("要删除的{0}的id集合不可为空！", typeof(T).Name));
             }
@@ -288,6 +347,17 @@ namespace SD.Infrastructure.Repository.EntityFramework
             #endregion
 
             T entity = this.Single<T>(x => x.Id == id);
+
+            #region # 设置操作人信息
+
+            if (GetLoginInfo != null)
+            {
+                LoginInfo loginInfo = GetLoginInfo.Invoke();
+                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+            }
+
+            #endregion
+
             entity.Deleted = true;
             entity.DeletedTime = DateTime.Now;
             DbEntityEntry entry = this._dbContext.Entry<T>(entity);
@@ -320,6 +390,17 @@ namespace SD.Infrastructure.Repository.EntityFramework
             #endregion
 
             T entity = this.Single<T>(x => x.Number == number);
+
+            #region # 设置操作人信息
+
+            if (GetLoginInfo != null)
+            {
+                LoginInfo loginInfo = GetLoginInfo.Invoke();
+                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+            }
+
+            #endregion
+
             entity.Deleted = true;
             entity.DeletedTime = DateTime.Now;
             DbEntityEntry entry = this._dbContext.Entry<T>(entity);
@@ -338,16 +419,35 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证参数
 
-            if (ids == null || !ids.Any())
+            Guid[] entityIds = ids == null ? new Guid[0] : ids.ToArray();
+
+            if (!entityIds.Any())
             {
                 throw new ArgumentNullException("ids", string.Format("要删除的{0}的id集合不可为空！", typeof(T).Name));
             }
 
             #endregion
 
-            foreach (Guid id in ids)
+            LoginInfo loginInfo = null;
+
+            #region # 获取操作人信息
+
+            if (GetLoginInfo != null)
             {
-                this.RegisterRemove<T>(id);
+                loginInfo = GetLoginInfo.Invoke();
+            }
+
+            #endregion
+
+            IQueryable<T> entities = this.ResolveRange<T>(x => entityIds.Contains(x.Id));
+
+            foreach (T entity in entities)
+            {
+                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                entity.Deleted = true;
+                entity.DeletedTime = DateTime.Now;
+                DbEntityEntry entry = this._dbContext.Entry<T>(entity);
+                entry.State = EntityState.Modified;
             }
         }
         #endregion
@@ -559,9 +659,21 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
+            LoginInfo loginInfo = null;
+
+            #region # 获取操作人信息
+
+            if (GetLoginInfo != null)
+            {
+                loginInfo = GetLoginInfo.Invoke();
+            }
+
+            #endregion
+
             IQueryable<T> list = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
             foreach (T entity in list)
             {
+                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
                 entity.Deleted = true;
                 entity.DeletedTime = DateTime.Now;
                 DbEntityEntry entry = this._dbContext.Entry<T>(entity);

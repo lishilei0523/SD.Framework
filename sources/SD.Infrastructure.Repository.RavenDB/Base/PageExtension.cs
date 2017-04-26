@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Raven.Client.Linq;
+using SD.Infrastructure.EntityBase;
+using System;
 using System.Linq;
 using System.Linq.Expressions;
-using Raven.Client.Linq;
-using SD.Infrastructure.EntityBase;
 
 namespace SD.Infrastructure.Repository.RavenDB.Base
 {
@@ -29,7 +29,7 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
             IRavenQueryable<T> list = queryable.Where(predicate);
             rowCount = list.Count();
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
-            return list.OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+            return list.OrderByDescending(x => x.AddedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }
         #endregion
     }

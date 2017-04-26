@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using Raven.Client;
+﻿using Raven.Client;
 using Raven.Client.Linq;
 using SD.Infrastructure.EntityBase;
 using SD.Infrastructure.Repository.RavenDB.Base;
 using SD.Infrastructure.RepositoryBase;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace SD.Infrastructure.Repository.RavenDB
 {
@@ -976,8 +976,7 @@ namespace SD.Infrastructure.Repository.RavenDB
             IRavenQueryable<T> entities = this._dbContext.Query<T>();
 
             entities = entities.Where(x => !x.Deleted);
-            entities = entities.OrderByDescending(x => x.Sort);
-            entities = entities.ThenByDescending(x => x.AddedTime);
+            entities = entities.OrderByDescending(x => x.AddedTime);
 
             return entities;
         }
@@ -994,8 +993,7 @@ namespace SD.Infrastructure.Repository.RavenDB
             IRavenQueryable<TSub> entities = this._dbContext.Query<TSub>();
 
             entities = entities.Where(x => !x.Deleted);
-            entities = entities.OrderByDescending(x => x.Sort);
-            entities = entities.ThenByDescending(x => x.AddedTime);
+            entities = entities.OrderByDescending(x => x.AddedTime);
 
             return entities;
         }

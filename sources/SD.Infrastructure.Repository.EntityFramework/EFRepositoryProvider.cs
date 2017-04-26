@@ -1051,7 +1051,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象集合</returns>
         protected virtual IQueryable<T> FindAllInner()
         {
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime);
+            return this._dbContext.Set<T>().Where(x => !x.Deleted).OrderByDescending(x => x.AddedTime);
         }
         #endregion
 

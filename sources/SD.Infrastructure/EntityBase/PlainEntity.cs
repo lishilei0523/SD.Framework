@@ -6,7 +6,7 @@ namespace SD.Infrastructure.EntityBase
     /// 领域实体基类
     /// </summary>
     [Serializable]
-    public abstract class PlainEntity : INumerable, INameable, ISearchable, ISortable
+    public abstract class PlainEntity : INumerable, INameable, ISearchable
     {
         #region # 构造器
         /// <summary>
@@ -15,7 +15,6 @@ namespace SD.Infrastructure.EntityBase
         protected PlainEntity()
         {
             this.Id = Guid.NewGuid();
-            this.Sort = int.MinValue;
             this.AddedTime = DateTime.Now;
             this.SavedTime = DateTime.Now;
             this.Deleted = false;
@@ -53,13 +52,6 @@ namespace SD.Infrastructure.EntityBase
         public string Keywords { get; private set; }
         #endregion
 
-        #region 排序 —— int Sort
-        /// <summary>
-        /// 排序
-        /// </summary>
-        public int Sort { get; protected set; }
-        #endregion
-
         #region 添加时间 —— DateTime AddedTime
         /// <summary>
         /// 添加时间
@@ -71,21 +63,21 @@ namespace SD.Infrastructure.EntityBase
         /// <summary>
         /// 保存时间
         /// </summary>
-        public DateTime SavedTime { get; set; }
+        public DateTime SavedTime { get; protected internal set; }
         #endregion
 
         #region 逻辑删除标记 —— bool Deleted
         /// <summary>
         /// 逻辑删除标记
         /// </summary>
-        public bool Deleted { get; set; }
+        public bool Deleted { get; protected internal set; }
         #endregion
 
         #region 删除时间 —— DateTime? DeletedTime
         /// <summary>
         /// 删除时间
         /// </summary>
-        public DateTime? DeletedTime { get; set; }
+        public DateTime? DeletedTime { get; protected internal set; }
         #endregion
 
         #endregion

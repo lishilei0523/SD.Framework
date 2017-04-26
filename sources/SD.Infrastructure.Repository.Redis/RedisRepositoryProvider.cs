@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
+﻿using SD.Infrastructure.EntityBase;
+using SD.Infrastructure.RepositoryBase;
 using SD.Toolkits.Redis;
 using ServiceStack.Redis;
 using ServiceStack.Redis.Generic;
-using SD.Infrastructure.EntityBase;
-using SD.Infrastructure.RepositoryBase;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace SD.Infrastructure.Repository.Redis
 {
@@ -1220,7 +1220,7 @@ namespace SD.Infrastructure.Repository.Redis
         /// <returns>实体对象集合</returns>
         protected virtual IQueryable<T> FindAllInner()
         {
-            return this._redisReadTypedClient.GetAll().Where(x => !x.Deleted).OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime).AsQueryable();
+            return this._redisReadTypedClient.GetAll().Where(x => !x.Deleted).OrderByDescending(x => x.AddedTime).AsQueryable();
         }
         #endregion
 

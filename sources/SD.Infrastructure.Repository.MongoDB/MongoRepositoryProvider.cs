@@ -1,14 +1,14 @@
-﻿using System;
+﻿using MongoDB.Bson.Serialization;
+using MongoDB.Driver;
+using SD.Infrastructure.Constants;
+using SD.Infrastructure.EntityBase;
+using SD.Infrastructure.RepositoryBase;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
-using MongoDB.Bson.Serialization;
-using MongoDB.Driver;
-using SD.Infrastructure.Constants;
-using SD.Infrastructure.EntityBase;
-using SD.Infrastructure.RepositoryBase;
 
 namespace SD.Infrastructure.Repository.MongoDB
 {
@@ -156,6 +156,8 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             #endregion
 
+            entity.SavedTime = DateTime.Now;
+
             this._collection.FindOneAndReplaceAsync(x => x.Id == entity.Id, entity).Wait();
         }
         #endregion
@@ -172,7 +174,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证参数
 
-            if (entities == null || !entities.Any())
+            entities = entities == null ? new T[0] : entities.ToArray();
+
+            if (!entities.Any())
             {
                 throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象集合不可为空！", typeof(T).Name));
             }
@@ -183,6 +187,8 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             foreach (T entity in entities)
             {
+                entity.SavedTime = DateTime.Now;
+
                 FilterDefinitionBuilder<T> builder = new FilterDefinitionBuilder<T>();
                 FilterDefinition<T> filter = builder.Eq(x => x.Id, entity.Id);
                 WriteModel<T> writeModel = new ReplaceOneModel<T>(filter, entity);
@@ -1141,7 +1147,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>实体对象列表</returns>
         protected IFindFluent<T, T> FindAndSort(Expression<Func<T, bool>> condition)
         {
-            return this._collection.Find(condition).SortByDescending(x => x.Sort).SortByDescending(x => x.AddedTime);
+            return this._collection.Find(condition).SortByDescending(x => x.AddedTime);
         }
         #endregion
 
@@ -1153,7 +1159,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>子类对象列表</returns>
         protected IFindFluent<TSub, TSub> FindAndSort<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
-            return this._collection.OfType<TSub>().Find<TSub>(condition).SortByDescending(x => x.Sort).SortByDescending(x => x.AddedTime);
+            return this._collection.OfType<TSub>().Find<TSub>(condition).SortByDescending(x => x.AddedTime);
         }
         #endregion
 

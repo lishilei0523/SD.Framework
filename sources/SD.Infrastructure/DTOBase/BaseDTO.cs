@@ -34,14 +34,6 @@ namespace SD.Infrastructure.DTOBase
         public string Name { get; set; }
         #endregion
 
-        #region # 排序 —— int Sort
-        /// <summary>
-        /// 排序
-        /// </summary>
-        [DataMember]
-        public int Sort { get; set; }
-        #endregion
-
         #region # 添加时间 —— DateTime AddedTime
         /// <summary>
         /// 添加时间

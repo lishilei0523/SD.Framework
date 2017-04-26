@@ -1,8 +1,8 @@
-﻿using System;
+﻿using SD.Infrastructure.EntityBase;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using SD.Infrastructure.EntityBase;
 
 namespace SD.Infrastructure.RepositoryBase
 {
@@ -29,7 +29,7 @@ namespace SD.Infrastructure.RepositoryBase
             T[] list = enumerable.Where(predicate).ToArray();
             rowCount = list.Length;
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
-            return list.OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+            return list.OrderByDescending(x => x.AddedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }
         #endregion
 
@@ -51,7 +51,7 @@ namespace SD.Infrastructure.RepositoryBase
             IQueryable<T> list = queryable.Where(predicate);
             rowCount = list.Count();
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
-            return list.OrderByDescending(x => x.Sort).ThenByDescending(x => x.AddedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize);
+            return list.OrderByDescending(x => x.AddedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }
         #endregion
     }

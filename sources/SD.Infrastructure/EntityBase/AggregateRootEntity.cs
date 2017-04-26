@@ -8,6 +8,11 @@ namespace SD.Infrastructure.EntityBase
     [Serializable]
     public abstract class AggregateRootEntity : PlainEntity
     {
-
+        #region 操作人账号 —— string OperatorAccount
+        /// <summary>
+        /// 操作人账号
+        /// </summary>
+        public string OperatorAccount { get; protected internal set; }
+        #endregion
     }
 }
