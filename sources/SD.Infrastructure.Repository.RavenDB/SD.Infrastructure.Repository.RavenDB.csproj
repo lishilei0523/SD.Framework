@@ -51,7 +51,8 @@
     <Compile Include="Base\DbCleaner.cs" />
     <Compile Include="Base\PageExtension.cs" />
     <Compile Include="Base\RavenDbSession.cs" />
-    <Compile Include="RavenRepositoryProvider.cs" />
+    <Compile Include="RavenAggRootRepositoryProvider.cs" />
+    <Compile Include="RavenEntityRepositoryProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RavenUnitOfWorkProvider.cs" />
   </ItemGroup>

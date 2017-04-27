@@ -70,7 +70,8 @@
     <Compile Include="EntityBase\AggregateRootEntity.cs" />
     <Compile Include="EntityBase\PlainEntity.cs" />
     <Compile Include="EventBase\IEventHandler.cs" />
-    <Compile Include="RepositoryBase\IRepository.cs" />
+    <Compile Include="RepositoryBase\IAggRootRepository.cs" />
+    <Compile Include="RepositoryBase\IEntityRepository.cs" />
     <Compile Include="RepositoryBase\ISimpleRepository.cs" />
     <Compile Include="RepositoryBase\IUnitOfWork.cs" />
     <Compile Include="RepositoryBase\PageExtension.cs" />

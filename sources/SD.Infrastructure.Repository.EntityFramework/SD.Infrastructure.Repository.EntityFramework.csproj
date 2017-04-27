@@ -63,7 +63,8 @@
   <ItemGroup>
     <Compile Include="Base\DbCleaner.cs" />
     <Compile Include="Base\BaseDbSession.cs" />
-    <Compile Include="EFRepositoryProvider.cs" />
+    <Compile Include="EFEntityRepositoryProvider.cs" />
+    <Compile Include="EFAggRootRepositoryProvider.cs" />
     <Compile Include="EFUnitOfWorkProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

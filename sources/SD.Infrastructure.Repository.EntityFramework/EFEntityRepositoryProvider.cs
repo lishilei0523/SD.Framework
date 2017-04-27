@@ -10,10 +10,10 @@ using System.Linq.Expressions;
 namespace SD.Infrastructure.Repository.EntityFramework
 {
     /// <summary>
-    /// EF仓储Provider
+    /// EF普通实体仓储Provider
     /// </summary>
-    /// <typeparam name="T">实体类型</typeparam>
-    public abstract class EFRepositoryProvider<T> : IRepository<T> where T : PlainEntity
+    /// <typeparam name="T">普通实体类型</typeparam>
+    public abstract class EFEntityRepositoryProvider<T> : IEntityRepository<T> where T : PlainEntity
     {
         #region # 创建EF（读）上下文对象
 
@@ -25,7 +25,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static EFRepositoryProvider()
+        static EFEntityRepositoryProvider()
         {
             _Sync = new object();
         }
@@ -38,7 +38,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 构造器
         /// </summary>
-        protected EFRepositoryProvider()
+        protected EFEntityRepositoryProvider()
         {
             //EF（读）上下文对象
             this._dbContext = BaseDbSession.QueryInstance;
@@ -47,7 +47,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 析构器
         /// </summary>
-        ~EFRepositoryProvider()
+        ~EFEntityRepositoryProvider()
         {
             this.Dispose();
         }
@@ -106,52 +106,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据编号获取唯一实体对象（查看时用） —— T SingleOrDefault(string number)
-        /// <summary>
-        /// 根据编号获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
-        /// </summary>
-        /// <param name="number">编号</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        public T SingleOrDefault(string number)
-        {
-            #region # 验证参数
-
-            if (string.IsNullOrWhiteSpace(number))
-            {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
-            }
-
-            #endregion
-
-            return this.SingleOrDefault(x => x.Number == number);
-        }
-        #endregion
-
-        #region # 根据编号获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(string number)
-        /// <summary>
-        /// 根据编号获取唯一子类对象（查看时用），
-        /// 无该对象时返回null
-        /// </summary>
-        /// <param name="number">编号</param>
-        /// <returns>唯一子类对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        public TSub SingleOrDefault<TSub>(string number) where TSub : T
-        {
-            #region # 验证参数
-
-            if (string.IsNullOrWhiteSpace(number))
-            {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(TSub).Name));
-            }
-
-            #endregion
-
-            return this.SingleOrDefault<TSub>(x => x.Number == number);
-        }
-        #endregion
-
         #region # 根据Id获取唯一实体对象（查看时用） —— T Single(Guid id)
         /// <summary>
         /// 根据Id获取唯一实体对象（查看时用），
@@ -199,121 +153,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
             #endregion
 
             return current;
-        }
-        #endregion
-
-        #region # 根据编号获取唯一实体对象（查看时用） —— T Single(string number)
-        /// <summary>
-        /// 根据编号获取唯一实体对象（查看时用），
-        /// </summary>
-        /// <param name="number">编号</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
-        public T Single(string number)
-        {
-            T current = this.SingleOrDefault(number);
-
-            #region # 非空验证
-
-            if (current == null)
-            {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(T).Name));
-            }
-
-            #endregion
-
-            return current;
-        }
-        #endregion
-
-        #region # 根据编号获取唯一子类对象（查看时用） —— TSub Single<TSub>(string number)
-        /// <summary>
-        /// 根据编号获取唯一子类对象（查看时用），
-        /// </summary>
-        /// <param name="number">编号</param>
-        /// <returns>单个子类对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
-        public TSub Single<TSub>(string number) where TSub : T
-        {
-            TSub current = this.SingleOrDefault<TSub>(number);
-
-            #region # 非空验证
-
-            if (current == null)
-            {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(TSub).Name));
-            }
-
-            #endregion
-
-            return current;
-        }
-        #endregion
-
-        #region # 根据名称获取唯一实体对象（查看时用） —— T SingleByName(string name)
-        /// <summary>
-        /// 根据名称获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
-        /// </summary>
-        /// <param name="name">名称</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">名称为空</exception>
-        public T SingleByName(string name)
-        {
-            #region # 验证参数
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException("name", string.Format("{0}的名称不可为空！", typeof(T).Name));
-            }
-
-            #endregion
-
-            return this.SingleOrDefault(x => x.Name == name);
-        }
-        #endregion
-
-        #region # 根据Id获取唯一实体对象Name —— string GetName(Guid id)
-        /// <summary>
-        /// 根据Id获取唯一实体对象Name
-        /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>实体对象Name</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
-        public string GetName(Guid id)
-        {
-            return this.Single(id).Name;
-        }
-        #endregion
-
-        #region # 根据编号获取唯一实体对象Name —— string GetName(string number)
-        /// <summary>
-        /// 根据编号获取唯一实体对象Name
-        /// </summary>
-        /// <param name="number">编号</param>
-        /// <returns>实体对象Name</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
-        public string GetName(string number)
-        {
-            return this.Single(number).Name;
-        }
-        #endregion
-
-        #region # 根据Id获取唯一实体对象Number —— string GetNumber(Guid id)
-        /// <summary>
-        /// 根据Id获取唯一实体对象Number
-        /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>实体对象Number</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
-        public string GetNumber(Guid id)
-        {
-            return this.Single(id).Number;
         }
         #endregion
 
@@ -507,118 +346,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据编号集获取实体对象字典 —— IDictionary<string, T> Find(IEnumerable<string> numbers)
-        /// <summary>
-        /// 根据编号集获取实体对象字典
-        /// </summary>
-        /// <returns>实体对象字典</returns>
-        /// <remarks>IDictionary[string, T]，[编号, 实体对象]</remarks>
-        public IDictionary<string, T> Find(IEnumerable<string> numbers)
-        {
-            #region # 验证
-
-            if (numbers == null)
-            {
-                throw new ArgumentNullException("numbers", "编号集合不可为null！");
-            }
-
-            string[] newNumbers = numbers.Distinct().ToArray();
-
-            foreach (string number in newNumbers)
-            {
-                if (!this.Exists(number))
-                {
-                    throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(T).Name));
-                }
-            }
-
-            #endregion
-
-            var entities = from entity in this.FindAllInner()
-                           where newNumbers.Contains(entity.Number)
-                           select new { entity.Number, entity };
-
-            return entities.ToDictionary(x => x.Number, x => x.entity);
-        }
-        #endregion
-
-        #region # 根据编号集获取子类对象字典 —— IDictionary<string, TSub> Find<TSub>(IEnumerable<string>...
-        /// <summary>
-        /// 根据编号集获取子类对象字典
-        /// </summary>
-        /// <returns>子类对象字典</returns>
-        /// <remarks>IDictionary[string, TSub]，[编号, 子类对象]</remarks>
-        public IDictionary<string, TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T
-        {
-            #region # 验证
-
-            if (numbers == null)
-            {
-                throw new ArgumentNullException("numbers", "编号集合不可为null！");
-            }
-
-            string[] newNumbers = numbers.Distinct().ToArray();
-
-            foreach (string number in newNumbers)
-            {
-                if (!this.Exists(number))
-                {
-                    throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(TSub).Name));
-                }
-            }
-
-            #endregion
-
-            var entities = from entity in this.FindAllInner<TSub>()
-                           where newNumbers.Contains(entity.Number)
-                           select new { entity.Number, entity };
-
-            return entities.ToDictionary(x => x.Number, x => x.entity);
-        }
-        #endregion
-
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames()
-        /// <summary>
-        /// 获取Id与Name字典
-        /// </summary>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        public IDictionary<Guid, string> FindIdNames()
-        {
-            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
-
-            foreach (T entity in this.FindAllInner())
-            {
-                dictionary.Add(entity.Id, entity.Name);
-            }
-
-            return dictionary;
-        }
-        #endregion
-
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames<TSub>()
-        /// <summary>
-        /// 获取Id与Name字典
-        /// </summary>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        public IDictionary<Guid, string> FindIdNames<TSub>() where TSub : T
-        {
-            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
-
-            foreach (TSub entity in this.FindAllInner<TSub>())
-            {
-                dictionary.Add(entity.Id, entity.Name);
-            }
-
-            return dictionary;
-        }
-        #endregion
-
 
         //Count部分
 
@@ -688,192 +415,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
             #endregion
 
             return this.Exists<TSub>(x => x.Id == id);
-        }
-        #endregion
-
-        #region # 判断是否存在给定编号的实体对象 —— bool Exists(string number)
-        /// <summary>
-        /// 判断是否存在给定编号的实体对象
-        /// </summary>
-        /// <param name="number">编号</param>
-        /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        public bool Exists(string number)
-        {
-            #region # 验证参数
-
-            if (string.IsNullOrWhiteSpace(number))
-            {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
-            }
-
-            #endregion
-
-            return this.Exists(x => x.Number == number);
-        }
-        #endregion
-
-        #region # 判断是否存在给定编号的子类对象 —— bool Exists<TSub>(string number)
-        /// <summary>
-        /// 判断是否存在给定编号的子类对象
-        /// </summary>
-        /// <param name="number">编号</param>
-        /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        public bool Exists<TSub>(string number) where TSub : T
-        {
-            #region # 验证参数
-
-            if (string.IsNullOrWhiteSpace(number))
-            {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
-            }
-
-            #endregion
-
-            return this.Exists<TSub>(x => x.Number == number);
-        }
-        #endregion
-
-        #region # 判断是否存在给定名称的实体对象 —— bool ExistsName(string name)
-        /// <summary>
-        /// 判断是否存在给定名称的实体对象
-        /// </summary>
-        /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
-        public bool ExistsName(string name)
-        {
-            #region # 验证参数
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException("name", string.Format("{0}的名称不可为空！", typeof(T).Name));
-            }
-
-            #endregion
-
-            return this.Exists(x => x.Name == name);
-        }
-        #endregion
-
-        #region # 判断是否存在给定名称的子类对象 —— bool ExistsName<TSub>(string name)
-        /// <summary>
-        /// 判断是否存在给定名称的子类对象
-        /// </summary>
-        /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
-        public bool ExistsName<TSub>(string name) where TSub : T
-        {
-            #region # 验证参数
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException("name", string.Format("{0}的名称不可为空！", typeof(T).Name));
-            }
-
-            #endregion
-
-            return this.Exists<TSub>(x => x.Name == name);
-        }
-        #endregion
-
-        #region # 判断是否存在给定名称的实体对象 —— bool ExistsName(Guid? id, string name)
-        /// <summary>
-        /// 判断是否存在给定名称的实体对象
-        /// </summary>
-        /// <param name="id">标识id</param>
-        /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
-        public bool ExistsName(Guid? id, string name)
-        {
-            if (id != null)
-            {
-                T current = this.SingleOrDefault(id.Value);
-
-                if (current != null && current.Name == name)
-                {
-                    return false;
-                }
-
-                return this.ExistsName(name);
-            }
-
-            return this.ExistsName(name);
-        }
-        #endregion
-
-        #region # 判断是否存在给定名称的子类对象 —— bool ExistsName<TSub>(Guid? id, string name)
-        /// <summary>
-        /// 判断是否存在给定名称的子类对象
-        /// </summary>
-        /// <param name="id">标识id</param>
-        /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
-        public bool ExistsName<TSub>(Guid? id, string name) where TSub : T
-        {
-            if (id != null)
-            {
-                TSub current = this.SingleOrDefault<TSub>(id.Value);
-
-                if (current != null && current.Name == name)
-                {
-                    return false;
-                }
-
-                return this.ExistsName(name);
-            }
-
-            return this.ExistsName(name);
-        }
-        #endregion
-
-        #region # 判断是否存在给定名称的实体对象 —— bool ExistsName(string number, string name)
-        /// <summary>
-        /// 判断是否存在给定名称的实体对象
-        /// </summary>
-        /// <param name="number">编号</param>
-        /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
-        public bool ExistsName(string number, string name)
-        {
-            if (!string.IsNullOrWhiteSpace(number))
-            {
-                T current = this.SingleOrDefault(number);
-
-                if (current != null && current.Name == name)
-                {
-                    return false;
-                }
-
-                return this.ExistsName(name);
-            }
-
-            return this.ExistsName(name);
-        }
-        #endregion
-
-        #region # 判断是否存在给定名称的子类对象 —— bool ExistsName<TSub>(string number, string name)
-        /// <summary>
-        /// 判断是否存在给定名称的子类对象
-        /// </summary>
-        /// <param name="number">编号</param>
-        /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
-        public bool ExistsName<TSub>(string number, string name) where TSub : T
-        {
-            if (!string.IsNullOrWhiteSpace(number))
-            {
-                TSub current = this.SingleOrDefault<TSub>(number);
-
-                if (current != null && current.Name == name)
-                {
-                    return false;
-                }
-
-                return this.ExistsName(name);
-            }
-
-            return this.ExistsName(name);
         }
         #endregion
 
@@ -1051,7 +592,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象集合</returns>
         protected virtual IQueryable<T> FindAllInner()
         {
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).OrderByDescending(x => x.AddedTime);
+            return this._dbContext.Set<T>().OrderByDescending(x => x.AddedTime);
         }
         #endregion
 
@@ -1142,34 +683,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取实体对象编号集合 —— IQueryable<string> FindNos(Expression<Func<T, bool>> predicate)
-        /// <summary>
-        /// 根据条件获取实体对象编号集合
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>实体对象编号集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected IQueryable<string> FindNos(Expression<Func<T, bool>> predicate)
-        {
-            return this.Find(predicate).Select(x => x.Number);
-        }
-        #endregion
-
-        #region # 根据条件获取子类对象编号集合 —— IQueryable<string> FindNos<TSub>(Expression<Func<TSub...
-        /// <summary>
-        /// 根据条件获取子类对象编号集合
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>子类对象编号集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        protected IQueryable<string> FindNos<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
-        {
-            return this.Find(predicate).Select(x => x.Number);
-        }
-        #endregion
-
         #region # 根据条件分页获取实体对象集合 + 输出记录条数与页数 —— IQueryable<T> FindByPage(...
         /// <summary>
         /// 根据条件获取实体对象集合 + 分页 + 输出记录条数与页数
@@ -1204,42 +717,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         protected IQueryable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
         {
             return this.FindAllInner<TSub>().ToPage(predicate, pageIndex, pageSize, out rowCount, out pageCount);
-        }
-        #endregion
-
-        #region # 获取给定条件的Id与Name字典 —— IDictionary<Guid, string> FindDictionary(Expression...
-        /// <summary>
-        /// 获取给定条件的Id与Name字典
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        protected IDictionary<Guid, string> FindDictionary(Expression<Func<T, bool>> predicate)
-        {
-            var idNames = from entity in this.Find(predicate)
-                          select new { entity.Id, entity.Name };
-
-            return idNames.ToDictionary(x => x.Id, x => x.Name);
-        }
-        #endregion
-
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary<TSub>(Expression...
-        /// <summary>
-        /// 获取给定条件的Id与Name字典
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        protected IDictionary<Guid, string> FindDictionary<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
-        {
-            var idNames = from entity in this.Find<TSub>(predicate)
-                          select new { entity.Id, entity.Name };
-
-            return idNames.ToDictionary(x => x.Id, x => x.Name);
         }
         #endregion
 

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Threading.Tasks;
-using Raven.Client;
+﻿using Raven.Client;
 using Raven.Client.Linq;
 using SD.Infrastructure.EntityBase;
 using SD.Infrastructure.Repository.RavenDB.Base;
 using SD.Infrastructure.RepositoryBase;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace SD.Infrastructure.Repository.RavenDB
 {
@@ -40,6 +40,7 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
 
         #endregion
+
 
         //Public
 

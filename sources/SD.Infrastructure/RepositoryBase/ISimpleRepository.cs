@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SD.Infrastructure.EntityBase;
+using System;
 using System.Collections.Generic;
-using SD.Infrastructure.EntityBase;
 
 namespace SD.Infrastructure.RepositoryBase
 {
@@ -8,7 +8,7 @@ namespace SD.Infrastructure.RepositoryBase
     /// 简单仓储层基接口
     /// </summary>
     /// <typeparam name="T">实体类型</typeparam>
-    public interface ISimpleRepository<T> : IRepository<T> where T : AggregateRootEntity
+    public interface ISimpleRepository<T> : IAggRootRepository<T> where T : AggregateRootEntity
     {
         #region # 添加单个实体对象 —— void Add(T entity)
         /// <summary>
