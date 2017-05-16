@@ -48,7 +48,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\sources\SD.Infrastructure\SD.Infrastructure.csproj">
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj">
       <Project>{F9FF05F0-1900-4D24-859A-B3202F2208D7}</Project>
       <Name>SD.Infrastructure</Name>
     </ProjectReference>

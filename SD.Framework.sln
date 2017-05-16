@@ -74,7 +74,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WCF.Tests
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.MVC", "sources\SD.Infrastructure.MVC\SD.Infrastructure.MVC.csproj", "{5B231572-46D6-432B-81B1-C583C699D925}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Membership", "SD.Infrastructure.Membership\SD.Infrastructure.Membership.csproj", "{F787DB2F-AC75-4F19-908C-A1E837E5A958}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Membership", "sources\SD.Infrastructure.Membership\SD.Infrastructure.Membership.csproj", "{F787DB2F-AC75-4F19-908C-A1E837E5A958}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
