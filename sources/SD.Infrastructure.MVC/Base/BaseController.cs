@@ -62,13 +62,13 @@ namespace SD.Infrastructure.MVC
             get
             {
                 return
-                    base.Session[CacheConstants.ValidCodeKey] == null ?
+                    base.Session[SessionKey.ValidCode] == null ?
                     null :
-                    base.Session[CacheConstants.ValidCodeKey].ToString();
+                    base.Session[SessionKey.ValidCode].ToString();
             }
             set
             {
-                base.Session[CacheConstants.ValidCodeKey] = value;
+                base.Session[SessionKey.ValidCode] = value;
             }
         }
         #endregion
@@ -81,11 +81,11 @@ namespace SD.Infrastructure.MVC
         {
             get
             {
-                return base.Session[CacheConstants.CurrentUserKey] as LoginInfo;
+                return base.Session[SessionKey.CurrentUser] as LoginInfo;
             }
             set
             {
-                base.Session[CacheConstants.CurrentUserKey] = value;
+                base.Session[SessionKey.CurrentUser] = value;
             }
         }
         #endregion
@@ -189,7 +189,7 @@ namespace SD.Infrastructure.MVC
         /// </summary>
         protected void ClearValidCode()
         {
-            this.Session.Remove(CacheConstants.ValidCodeKey);
+            this.Session.Remove(SessionKey.ValidCode);
         }
         #endregion
 

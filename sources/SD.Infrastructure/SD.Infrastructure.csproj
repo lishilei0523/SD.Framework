@@ -43,13 +43,17 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Attributes\RequireAuthorizationAttribute.cs" />
     <Compile Include="CommandBase\ICommand.cs" />
     <Compile Include="CommandBase\ICommandExecutor.cs" />
+    <Compile Include="Constants\ApplicationType.cs" />
     <Compile Include="Constants\CacheConstants.cs" />
     <Compile Include="Constants\CommonConstants.cs" />
     <Compile Include="Constants\LoginInfo.cs" />
+    <Compile Include="Constants\SessionKey.cs" />
     <Compile Include="Constants\WebConfigSetting.cs" />
     <Compile Include="CustomExceptions\AppServiceException.cs" />
+    <Compile Include="CustomExceptions\NoPermissionException.cs" />
     <Compile Include="CustomExceptions\UIException.cs" />
     <Compile Include="CustomExceptions\PresentationException.cs" />
     <Compile Include="CustomExceptions\DomainException.cs" />
