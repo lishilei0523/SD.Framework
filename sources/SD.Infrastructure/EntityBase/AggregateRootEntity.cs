@@ -6,7 +6,7 @@ namespace SD.Infrastructure.EntityBase
     /// 聚合根实体基类
     /// </summary>
     [Serializable]
-    public abstract class AggregateRootEntity : PlainEntity, INumerable, INameable
+    public abstract class AggregateRootEntity : PlainEntity, INumerable, INameable, ISearchable
     {
         #region # 构造器
         /// <summary>
@@ -36,6 +36,13 @@ namespace SD.Infrastructure.EntityBase
         public string Name { get; protected set; }
         #endregion
 
+        #region 关键字 —— string Keywords
+        /// <summary>
+        /// 关键字
+        /// </summary>
+        public string Keywords { get; private set; }
+        #endregion
+
         #region 保存时间 —— DateTime SavedTime
         /// <summary>
         /// 保存时间
@@ -62,6 +69,21 @@ namespace SD.Infrastructure.EntityBase
         /// 操作人账号
         /// </summary>
         public string OperatorAccount { get; protected internal set; }
+        #endregion
+
+        #endregion
+
+        #region # 方法
+
+        #region 设置关键字 —— void SetKeywords(string keywords)
+        /// <summary>
+        /// 设置关键字
+        /// </summary>
+        /// <param name="keywords">关键字</param>
+        public void SetKeywords(string keywords)
+        {
+            this.Keywords = keywords;
+        }
         #endregion
 
         #endregion

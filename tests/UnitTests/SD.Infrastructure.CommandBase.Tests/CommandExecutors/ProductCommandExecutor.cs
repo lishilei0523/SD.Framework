@@ -1,4 +1,5 @@
-﻿using SD.Infrastructure.CommandBase.Tests.Commands;
+﻿using SD.Infrastructure.AppServiceBase;
+using SD.Infrastructure.CommandBase.Tests.Commands;
 
 namespace SD.Infrastructure.CommandBase.Tests.CommandExecutors
 {

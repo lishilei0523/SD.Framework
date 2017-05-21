@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 
 namespace SD.Infrastructure.Constants
@@ -6,6 +7,7 @@ namespace SD.Infrastructure.Constants
     /// <summary>
     /// 应用程序类型
     /// </summary>
+    [Serializable]
     [DataContract]
     public enum ApplicationType
     {

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Linq.Expressions;
 using System.Reflection;
-using AutoMapper;
 
 namespace SD.Common.PoweredByLee
 {
@@ -12,7 +12,7 @@ namespace SD.Common.PoweredByLee
     /// <typeparam name="TTarget">目标实例类型</typeparam>
     public static class Transform<TSource, TTarget>
     {
-        #region # 映射 —— static TTarget Map(TSource sourceInstance, Action<TSource, TTarget> beforeMapEventHandler...
+        #region # 映射 —— static TTarget Map(TSource sourceInstance, Action<TSource, TTarget> beforeMa...
         /// <summary>
         /// 映射
         /// </summary>

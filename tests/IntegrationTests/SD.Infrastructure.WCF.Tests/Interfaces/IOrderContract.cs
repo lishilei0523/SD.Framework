@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using SD.Infrastructure.AppServiceBase;
+using System.ServiceModel;
 
 namespace SD.Infrastructure.WCF.Tests.Interfaces
 {

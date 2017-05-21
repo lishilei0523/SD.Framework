@@ -231,7 +231,7 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region # AddRange扩展方法 —— static void AddRange<T>(this ICollection<T> collection, IEnumerable<T> enumerable)
+        #region # AddRange扩展方法 —— static void AddRange<T>(this ICollection<T> collection...
         /// <summary>
         /// ICollection的AddRange扩展方法
         /// </summary>

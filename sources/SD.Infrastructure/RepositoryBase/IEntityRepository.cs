@@ -92,54 +92,6 @@ namespace SD.Infrastructure.RepositoryBase
         IEnumerable<TSub> FindAll<TSub>() where TSub : T;
         #endregion
 
-        #region # 根据关键字获取实体对象集合 —— IEnumerable<T> Find(string keywords)
-        /// <summary>
-        /// 根据关键字获取实体对象集合
-        /// </summary>
-        /// <returns>实体对象集合</returns>
-        IEnumerable<T> Find(string keywords);
-        #endregion
-
-        #region # 根据关键字获取给定类型子类对象集合 —— IEnumerable<TSub> Find<TSub>(string keywords)
-        /// <summary>
-        /// 根据关键字获取给定类型子类对象集合
-        /// </summary>
-        /// <typeparam name="TSub">子类类型</typeparam>
-        /// <returns>子类对象集合</returns>
-        IEnumerable<TSub> Find<TSub>(string keywords) where TSub : T;
-        #endregion
-
-        #region # 根据关键字分页获取实体对象集合 + 输出记录条数与页数 —— IEnumerable<T> FindByPage(...
-        /// <summary>
-        /// 根据关键字获取实体对象集合 + 分页 + 输出记录条数与页数
-        /// </summary>
-        /// <param name="keywords">关键字</param>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
-        /// <returns>实体对象集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        IEnumerable<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount);
-        #endregion
-
-        #region # 根据关键字分页获取子类对象集合 + 输出记录条数与页数 —— IEnumerable<TSub> FindByPage...
-        /// <summary>
-        /// 根据关键字分页获取子类对象集合 + 分页 + 输出记录条数与页数
-        /// </summary>
-        /// <typeparam name="TSub">子类类型</typeparam>
-        /// <param name="keywords">关键字</param>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
-        /// <returns>实体对象集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        IEnumerable<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T;
-        #endregion
-
 
         //IDictionary部分
 

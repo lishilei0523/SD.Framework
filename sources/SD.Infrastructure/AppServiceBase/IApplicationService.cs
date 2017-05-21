@@ -1,5 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-namespace SD.Infrastructure
+﻿namespace SD.Infrastructure.AppServiceBase
 {
     /// <summary>
     /// 应用程序服务基接口

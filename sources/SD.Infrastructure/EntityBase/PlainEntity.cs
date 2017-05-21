@@ -6,7 +6,7 @@ namespace SD.Infrastructure.EntityBase
     /// 领域实体基类
     /// </summary>
     [Serializable]
-    public abstract class PlainEntity : ISearchable
+    public abstract class PlainEntity
     {
         #region # 构造器
         /// <summary>
@@ -28,13 +28,6 @@ namespace SD.Infrastructure.EntityBase
         public Guid Id { get; protected set; }
         #endregion
 
-        #region 关键字 —— string Keywords
-        /// <summary>
-        /// 关键字
-        /// </summary>
-        public string Keywords { get; private set; }
-        #endregion
-
         #region 添加时间 —— DateTime AddedTime
         /// <summary>
         /// 添加时间
@@ -45,17 +38,6 @@ namespace SD.Infrastructure.EntityBase
         #endregion
 
         #region # 方法
-
-        #region 设置关键字 —— void SetKeywords(string keywords)
-        /// <summary>
-        /// 设置关键字
-        /// </summary>
-        /// <param name="keywords">关键字</param>
-        public void SetKeywords(string keywords)
-        {
-            this.Keywords = keywords;
-        }
-        #endregion
 
         #region 设置标识Id，慎用！ —— void SetId(Guid id)
         /// <summary>

@@ -1,9 +1,6 @@
 ﻿using Newtonsoft.Json;
-using PanGu;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Security.Cryptography;
@@ -176,21 +173,6 @@ namespace SD.Common.PoweredByLee
             {
                 throw new InvalidOperationException(string.Format("无法将源JSON反序列化为给定类型\"{0}\"，请检查类型后重试！", typeof(T).Name));
             }
-        }
-        #endregion
-
-        #region # 字符串分词扩展方法 —— static string[] SplitWord(this string text)
-        /// <summary>
-        /// 字符串分词扩展方法
-        /// </summary>
-        /// <param name="text">字符串</param>
-        /// <returns>分词后的字符串数组</returns>
-        public static string[] SplitWord(this string text)
-        {
-            Segment segment = new Segment();
-            ICollection<WordInfo> words = segment.DoSegment(text);
-
-            return words.Select(x => x.Word).ToArray();
         }
         #endregion
 
