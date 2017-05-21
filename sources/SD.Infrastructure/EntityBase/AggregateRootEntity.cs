@@ -64,6 +64,13 @@ namespace SD.Infrastructure.EntityBase
         public DateTime? DeletedTime { get; protected internal set; }
         #endregion
 
+        #region 创建人账号 —— string CreatorAccount
+        /// <summary>
+        /// 创建人账号
+        /// </summary>
+        public string CreatorAccount { get; protected internal set; }
+        #endregion
+
         #region 操作人账号 —— string OperatorAccount
         /// <summary>
         /// 操作人账号

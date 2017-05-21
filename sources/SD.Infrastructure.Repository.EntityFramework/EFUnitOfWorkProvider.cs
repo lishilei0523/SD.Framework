@@ -87,11 +87,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            #region # 设置操作人信息
+            #region # 设置创建/操作人信息
 
             if (GetLoginInfo != null)
             {
                 LoginInfo loginInfo = GetLoginInfo.Invoke();
+                entity.CreatorAccount = loginInfo == null ? null : loginInfo.LoginId;
                 entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
             }
 
@@ -121,7 +122,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            #region # 设置操作人信息
+            #region # 设置创建/操作人信息
 
             if (GetLoginInfo != null)
             {
@@ -129,6 +130,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
                 foreach (T entity in entities)
                 {
+                    entity.CreatorAccount = loginInfo == null ? null : loginInfo.LoginId;
                     entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
                 }
             }
