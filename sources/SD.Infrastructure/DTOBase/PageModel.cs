@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -11,7 +10,7 @@ namespace SD.Infrastructure.DTOBase
     /// <typeparam name="T">类型</typeparam>
     [Serializable]
     [DataContract]
-    public class PageModel<T> : IEnumerable<T>
+    public class PageModel<T>
     {
         #region # 构造器
 
@@ -78,28 +77,6 @@ namespace SD.Infrastructure.DTOBase
         /// </summary>
         [DataMember]
         public int RowCount { get; set; }
-        #endregion
-
-        #region # Implementation of IEnumerable
-
-        /// <summary>
-        /// Returns an enumerator that iterates through the collection.
-        /// </summary>
-        /// <returns>An enumerator that can be used to iterate through the collection.</returns>
-        public IEnumerator<T> GetEnumerator()
-        {
-            return this.Datas.GetEnumerator();
-        }
-
-        /// <summary>
-        /// Returns an enumerator that iterates through a collection.
-        /// </summary>
-        /// <returns>An object that can be used to iterate through the collection.</returns>
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
         #endregion
     }
 }
