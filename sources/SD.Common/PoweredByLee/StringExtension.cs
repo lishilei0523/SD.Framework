@@ -54,6 +54,23 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
+        #region # 计算16位MD5值 —— static string ToHash16(this string str)
+        /// <summary>
+        /// 计算16位MD5值
+        /// </summary>
+        /// <param name="str">待转换的字符串</param>
+        /// <returns>16位MD5值</returns>
+        public static string ToHash16(this string str)
+        {
+            MD5CryptoServiceProvider md5Crypto = new MD5CryptoServiceProvider();
+            byte[] buffer = md5Crypto.ComputeHash(Encoding.Default.GetBytes(str));
+            string hash = BitConverter.ToString(buffer, 4, 8);
+            hash = hash.Replace("-", "");
+
+            return hash;
+        }
+        #endregion
+
         #region # 忽略大小写比较字符串是否相等扩展方法 —— static bool EqualsTo(this string source...
         /// <summary>
         /// 忽略大小写比较字符串是否相等扩展方法
