@@ -1,10 +1,10 @@
-﻿using System;
-using System.Data.Entity;
-using System.Runtime.Remoting.Messaging;
+﻿using SD.Infrastructure.Constants;
+using SD.Infrastructure.EntityBase;
 using SD.IOC.Core.Mediator;
 using SD.Toolkits.EntityFramework.Base;
-using SD.Infrastructure.Constants;
-using SD.Infrastructure.EntityBase;
+using System;
+using System.Data.Entity;
+using System.Runtime.Remoting.Messaging;
 
 namespace SD.Infrastructure.Repository.EntityFramework.Base
 {
@@ -44,7 +44,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         protected BaseDbSession()
             : base(CommonConstants.DbSessionConstructorArg)
         {
-
+            this.Configuration.ValidateOnSaveEnabled = false;
         }
 
         #endregion
@@ -87,8 +87,10 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
                     if (dbContext == null)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
+
                         //关闭自动跟踪实体变化状态
                         dbContext.Configuration.AutoDetectChangesEnabled = false;
+
                         CallContext.SetData(QueryInstanceKey, dbContext);
                     }
                     return dbContext;

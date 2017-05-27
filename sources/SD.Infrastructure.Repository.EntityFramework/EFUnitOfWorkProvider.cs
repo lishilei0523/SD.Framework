@@ -157,15 +157,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
             {
                 throw new ArgumentNullException("entity", string.Format("要保存的{0}实体对象不可为空！", typeof(T).Name));
             }
-
             if (entity.Id == Guid.Empty)
             {
                 throw new ArgumentNullException("Id", string.Format(@"要保存的{0}实体对象Id不可为空！", typeof(T).Name));
-            }
-
-            if (this._dbContext.Set<T>().Where(x => !x.Deleted).All(x => x.Id != entity.Id))
-            {
-                throw new NullReferenceException(string.Format("不存在Id为{0}的{1}实体对象，请尝试添加操作！", entity.Id, typeof(T).Name));
             }
 
             #endregion
