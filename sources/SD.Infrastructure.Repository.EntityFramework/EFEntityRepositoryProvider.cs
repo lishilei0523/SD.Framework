@@ -421,10 +421,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            lock (_Sync)
-            {
-                return this.FindAllInner().SingleOrDefault(predicate);
-            }
+            return this.FindAllInner().SingleOrDefault(predicate);
         }
         #endregion
 
@@ -455,10 +452,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            lock (_Sync)
-            {
-                return this.FindAllInner<TSub>().SingleOrDefault(predicate);
-            }
+            return this.FindAllInner<TSub>().SingleOrDefault(predicate);
         }
         #endregion
 
@@ -480,10 +474,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            lock (_Sync)
-            {
-                return this.Find(predicate).FirstOrDefault();
-            }
+            return this.Find(predicate).FirstOrDefault();
         }
         #endregion
 
@@ -506,10 +497,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            lock (_Sync)
-            {
-                return this.Find(predicate).FirstOrDefault();
-            }
+            return this.Find(predicate).FirstOrDefault();
         }
         #endregion
 

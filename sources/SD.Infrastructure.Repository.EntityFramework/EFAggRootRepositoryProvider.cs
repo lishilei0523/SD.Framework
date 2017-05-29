@@ -1,9 +1,7 @@
 ﻿using SD.Infrastructure.EntityBase;
-using SD.Infrastructure.Repository.EntityFramework.Base;
 using SD.Infrastructure.RepositoryBase;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 
@@ -15,28 +13,14 @@ namespace SD.Infrastructure.Repository.EntityFramework
     /// <typeparam name="T">聚合根类型</typeparam>
     public abstract class EFAggRootRepositoryProvider<T> : EFEntityRepositoryProvider<T>, IAggRootRepository<T> where T : AggregateRootEntity
     {
-        #region # 创建EF（读）上下文对象
-
-        /// <summary>
-        /// EF（读）上下文对象
-        /// </summary>
-        private readonly DbContext _dbContext;
-
-        /// <summary>
-        /// 构造器
-        /// </summary>
-        protected EFAggRootRepositoryProvider()
-        {
-            //EF（读）上下文对象
-            this._dbContext = BaseDbSession.QueryInstance;
-        }
+        #region # 析构器
 
         /// <summary>
         /// 析构器
         /// </summary>
         ~EFAggRootRepositoryProvider()
         {
-            this.Dispose();
+            base.Dispose();
         }
 
         #endregion
@@ -64,7 +48,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.SingleOrDefault(x => x.Number == number);
+            return base.SingleOrDefault(x => x.Number == number);
         }
         #endregion
 
@@ -87,7 +71,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.SingleOrDefault<TSub>(x => x.Number == number);
+            return base.SingleOrDefault<TSub>(x => x.Number == number);
         }
         #endregion
 
@@ -160,7 +144,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.SingleOrDefault(x => x.Name == name);
+            return base.SingleOrDefault(x => x.Name == name);
         }
         #endregion
 
@@ -174,7 +158,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <exception cref="NullReferenceException">无该对象</exception>
         public string GetName(Guid id)
         {
-            return this.Single(id).Name;
+            return base.Find(x => x.Id == id).Select(x => x.Name).SingleOrDefault();
         }
         #endregion
 
@@ -188,7 +172,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <exception cref="NullReferenceException">无该对象</exception>
         public string GetName(string number)
         {
-            return this.Single(number).Name;
+            return base.Find(x => x.Number == number).Select(x => x.Name).SingleOrDefault();
         }
         #endregion
 
@@ -202,7 +186,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <exception cref="NullReferenceException">无该对象</exception>
         public string GetNumber(Guid id)
         {
-            return this.Single(id).Number;
+            return base.Find(x => x.Id == id).Select(x => x.Number).SingleOrDefault();
         }
         #endregion
 
@@ -217,8 +201,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
         public IEnumerable<T> Find(string keywords)
         {
             Expression<Func<T, bool>> condition =
-                x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
-            return this.Find(condition).AsEnumerable();
+                x =>
+                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+
+            return base.Find(condition).AsEnumerable();
         }
         #endregion
 
@@ -231,8 +217,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
         public IEnumerable<TSub> Find<TSub>(string keywords) where TSub : T
         {
             Expression<Func<TSub, bool>> condition =
-                x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
-            return this.Find(condition).AsEnumerable();
+                x =>
+                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+
+            return base.Find<TSub>(condition).AsEnumerable();
         }
         #endregion
 
@@ -251,8 +239,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
         public IEnumerable<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
             Expression<Func<T, bool>> condition =
-                x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
-            return this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
+                x =>
+                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+
+            return base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
         }
         #endregion
 
@@ -273,8 +263,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
             out int pageCount) where TSub : T
         {
             Expression<Func<TSub, bool>> condition =
-                x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
-            return this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
+                x =>
+                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+
+            return base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
         }
         #endregion
 
@@ -361,14 +353,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </remarks>
         public IDictionary<Guid, string> FindIdNames()
         {
-            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
+            var idNames = from entity in this.FindAllInner()
+                          select new { entity.Id, entity.Name };
 
-            foreach (T entity in this.FindAllInner())
-            {
-                dictionary.Add(entity.Id, entity.Name);
-            }
-
-            return dictionary;
+            return idNames.ToDictionary(x => x.Id, x => x.Name);
         }
         #endregion
 
@@ -382,14 +370,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </remarks>
         public IDictionary<Guid, string> FindIdNames<TSub>() where TSub : T
         {
-            IDictionary<Guid, string> dictionary = new Dictionary<Guid, string>();
+            var idNames = from entity in this.FindAllInner<TSub>()
+                          select new { entity.Id, entity.Name };
 
-            foreach (TSub entity in this.FindAllInner<TSub>())
-            {
-                dictionary.Add(entity.Id, entity.Name);
-            }
-
-            return dictionary;
+            return idNames.ToDictionary(x => x.Id, x => x.Name);
         }
         #endregion
 
@@ -414,7 +398,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.Exists(x => x.Number == number);
+            return base.Exists(x => x.Number == number);
         }
         #endregion
 
@@ -436,7 +420,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.Exists<TSub>(x => x.Number == number);
+            return base.Exists<TSub>(x => x.Number == number);
         }
         #endregion
 
@@ -457,7 +441,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.Exists(x => x.Name == name);
+            return base.Exists(x => x.Name == name);
         }
         #endregion
 
@@ -478,7 +462,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this.Exists<TSub>(x => x.Name == name);
+            return base.Exists<TSub>(x => x.Name == name);
         }
         #endregion
 
@@ -588,14 +572,14 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
         //IQueryable部分
 
-        #region # 获取实体对象集合 —— virtual IQueryable<T> FindAllInner()
+        #region # 获取实体对象集合 —— override IQueryable<T> FindAllInner()
         /// <summary>
         /// 获取实体对象集合
         /// </summary>
         /// <returns>实体对象集合</returns>
         protected override IQueryable<T> FindAllInner()
         {
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).OrderByDescending(x => x.AddedTime);
+            return base.FindAllInner().Where(x => !x.Deleted).OrderByDescending(x => x.AddedTime);
         }
         #endregion
 
@@ -609,7 +593,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<string> FindNos(Expression<Func<T, bool>> predicate)
         {
-            return this.Find(predicate).Select(x => x.Number);
+            return base.Find(predicate).Select(x => x.Number);
         }
         #endregion
 
@@ -623,13 +607,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<string> FindNos<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
-            return this.Find(predicate).Select(x => x.Number);
+            return base.Find<TSub>(predicate).Select(x => x.Number);
         }
         #endregion
 
-        #region # 获取给定条件的Id与Name字典 —— IDictionary<Guid, string> FindDictionary(Expression...
+        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary(Expression...
         /// <summary>
-        /// 获取给定条件的Id与Name字典
+        /// 获取Id与Name字典
         /// </summary>
         /// <param name="predicate">条件表达式</param>
         /// <returns>Id与Name字典</returns>
@@ -638,7 +622,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </remarks>
         protected IDictionary<Guid, string> FindDictionary(Expression<Func<T, bool>> predicate)
         {
-            var idNames = from entity in this.Find(predicate)
+            var idNames = from entity in base.Find(predicate)
                           select new { entity.Id, entity.Name };
 
             return idNames.ToDictionary(x => x.Id, x => x.Name);
@@ -656,7 +640,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </remarks>
         protected IDictionary<Guid, string> FindDictionary<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
-            var idNames = from entity in this.Find(predicate)
+            var idNames = from entity in base.Find<TSub>(predicate)
                           select new { entity.Id, entity.Name };
 
             return idNames.ToDictionary(x => x.Id, x => x.Name);
