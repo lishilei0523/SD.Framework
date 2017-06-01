@@ -725,5 +725,31 @@ namespace SD.Infrastructure.Repository.EntityFramework
             }
         }
         #endregion
+
+        #region # 判断是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> predicate)
+        /// <summary>
+        /// 判断是否存在给定条件的实体对象
+        /// </summary>
+        /// <param name="predicate">条件</param>
+        /// <returns>是否存在</returns>
+        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
+        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
+        protected bool Exists<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        {
+            #region # 验证参数
+
+            if (predicate == null)
+            {
+                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+            }
+
+            #endregion
+
+            lock (_Sync)
+            {
+                return this._dbContext.Set<T>().Where(x => !x.Deleted).Any(predicate);
+            }
+        }
+        #endregion
     }
 }
