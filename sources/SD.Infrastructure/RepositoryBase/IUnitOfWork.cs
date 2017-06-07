@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SD.Infrastructure.EntityBase;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using SD.Infrastructure.EntityBase;
 
 namespace SD.Infrastructure.RepositoryBase
 {
@@ -148,6 +148,16 @@ namespace SD.Infrastructure.RepositoryBase
         T Resolve<T>(Guid id) where T : AggregateRootEntity;
         #endregion
 
+        #region # 根据Id集获取实体对象集合（修改时用） —— IEnumerable<T> ResolveRange<T>(...
+        /// <summary>
+        /// 根据Id集获取实体对象集合（修改时用）
+        /// </summary>
+        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <param name="ids">Id集</param>
+        /// <returns>实体对象集合</returns>
+        IEnumerable<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
+        #endregion
+
         #region # 获取全部实体对象（修改时用） —— IEnumerable<T> ResolveAll<T>()
         /// <summary>
         /// 获取全部实体对象（修改时用）
@@ -166,6 +176,16 @@ namespace SD.Infrastructure.RepositoryBase
         /// <returns>单个实体对象</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
         T Resolve<T>(string number) where T : AggregateRootEntity;
+        #endregion
+
+        #region # 根据编号集获取实体对象集合（修改时用） —— IEnumerable<T> ResolveRange<T>(...
+        /// <summary>
+        /// 根据编号集获取实体对象集合（修改时用）
+        /// </summary>
+        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <param name="numbers">编号集</param>
+        /// <returns>实体对象集合</returns>
+        IEnumerable<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity;
         #endregion
 
         #region # 统一事务处理保存更改 —— void Commit()

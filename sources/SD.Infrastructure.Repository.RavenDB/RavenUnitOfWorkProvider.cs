@@ -388,6 +388,19 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
+        #region # 根据Id集获取实体对象集合（修改时用） —— IEnumerable<T> ResolveRange<T>(...
+        /// <summary>
+        /// 根据Id集获取实体对象集合（修改时用）
+        /// </summary>
+        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <param name="ids">Id集</param>
+        /// <returns>实体对象集合</returns>
+        public IEnumerable<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
+        {
+            return this.ResolveRange<T>(x => ids.Contains(x.Id)).AsEnumerable();
+        }
+        #endregion
+
         #region # 根据编号获取唯一实体对象（修改时用） —— T Resolve<T>(string number)
         /// <summary>
         /// 根据编号获取唯一实体对象（修改时用）
@@ -412,6 +425,19 @@ namespace SD.Infrastructure.Repository.RavenDB
             #endregion
 
             return this.Single<T>(x => x.Number == number);
+        }
+        #endregion
+
+        #region # 根据编号集获取实体对象集合（修改时用） —— IEnumerable<T> ResolveRange<T>(...
+        /// <summary>
+        /// 根据编号集获取实体对象集合（修改时用）
+        /// </summary>
+        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <param name="numbers">编号集</param>
+        /// <returns>实体对象集合</returns>
+        public IEnumerable<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
+        {
+            return this.ResolveRange<T>(x => numbers.Contains(x.Number)).AsEnumerable();
         }
         #endregion
 
