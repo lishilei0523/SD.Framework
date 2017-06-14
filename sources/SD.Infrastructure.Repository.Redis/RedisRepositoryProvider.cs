@@ -1,7 +1,6 @@
 ﻿using SD.Infrastructure.EntityBase;
+using SD.Infrastructure.Repository.Redis.Base;
 using SD.Infrastructure.RepositoryBase;
-using SD.Toolkits.Redis;
-using ServiceStack.Redis;
 using ServiceStack.Redis.Generic;
 using System;
 using System.Collections.Generic;
@@ -19,19 +18,9 @@ namespace SD.Infrastructure.Repository.Redis
         #region # 字段及构造器
 
         /// <summary>
-        /// Redis客户端管理器
+        /// Redis上下文对象
         /// </summary>
-        private readonly IRedisClientsManager _clientsManager;
-
-        /// <summary>
-        /// Redis（写）客户端
-        /// </summary>
-        private readonly IRedisClient _redisWriteClient;
-
-        /// <summary>
-        /// Redis（读）客户端
-        /// </summary>
-        private readonly IRedisClient _redisReadClient;
+        private readonly RedisSession _redisSession;
 
         /// <summary>
         /// Redis（写）类型客户端
@@ -48,13 +37,10 @@ namespace SD.Infrastructure.Repository.Redis
         /// </summary>
         protected RedisRepositoryProvider()
         {
-            this._clientsManager = RedisManager.CreateClientsManager();
+            this._redisSession = RedisSession.Current;
 
-            //实例化RedisClient
-            this._redisWriteClient = this._clientsManager.GetClient();
-            this._redisReadClient = this._clientsManager.GetReadOnlyClient();
-            this._redisWriteTypedClient = this._redisWriteClient.As<T>();
-            this._redisReadTypedClient = this._redisReadClient.As<T>();
+            this._redisWriteTypedClient = this._redisSession.RedisWriteClient.As<T>();
+            this._redisReadTypedClient = this._redisSession.RedisReadClient.As<T>();
         }
 
         /// <summary>
@@ -1082,17 +1068,9 @@ namespace SD.Infrastructure.Repository.Redis
         /// </summary>
         public void Dispose()
         {
-            if (this._redisWriteClient != null)
+            if (this._redisSession != null)
             {
-                this._redisWriteClient.Dispose();
-            }
-            if (this._redisReadClient != null)
-            {
-                this._redisReadClient.Dispose();
-            }
-            if (this._clientsManager != null)
-            {
-                this._clientsManager.Dispose();
+                this._redisSession.Dispose();
             }
         }
         #endregion

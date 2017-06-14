@@ -1,0 +1,7 @@
+﻿<configuration>
+  <injectionRegisterConfiguration>
+    <asInterfaceTypes>
+      <type name="SD.Infrastructure.Repository.Redis.DbCleaner" assembly="SD.Infrastructure.Repository.Redis" />
+    </asInterfaceTypes>
+  </injectionRegisterConfiguration>
+</configuration>
