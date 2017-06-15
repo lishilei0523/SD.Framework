@@ -2,15 +2,14 @@
 ###这是一个框架
 ---
 
-	本框架致力于提升开发效率，减少领域驱动设计实现的复杂性。
+        本框架致力于提升开发效率，减少领域驱动设计实现的复杂性。
 	
-	基于个人长期使用的经验，遵循面向对象的设计原则，不断从业务项目中提取，逐渐演变为该框架。
+        基于个人长期使用的经验，遵循面向对象的设计原则，不断从业务项目中提取，逐渐演变为该框架。
 
         框架中主要涉及泛型、反射、委托、事件、特性、Lambda表达式、EntityFramework、WCF行为扩展、ASP.NET HttpModule等.NET技术。
-
         涉及Autofac、Postsharp、Redis等第三方技术。
 
-	涉及Factory、Mediator、Adapter、Provider、Facade、、规约、层超类型等模式。
+        涉及Factory、Mediator、Adapter、Provider、Facade、、规约、层超类型等模式。
 
 
 ###技术交流群：558010476
