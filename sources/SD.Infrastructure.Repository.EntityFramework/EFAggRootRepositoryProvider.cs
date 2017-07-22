@@ -579,7 +579,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象集合</returns>
         protected override IQueryable<T> FindAllInner()
         {
-            return base.FindAllInner().Where(x => !x.Deleted).OrderByDescending(x => x.AddedTime);
+            return base.FindAllInner().Where(x => !x.Deleted);
         }
         #endregion
 

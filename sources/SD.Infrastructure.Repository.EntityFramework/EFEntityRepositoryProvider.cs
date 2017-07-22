@@ -163,7 +163,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         public virtual T FirstOrDefault()
         {
-            return this.FindAllInner().FirstOrDefault();
+            return this.FindAllBySort().FirstOrDefault();
         }
         #endregion
 
@@ -511,7 +511,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象集合</returns>
         protected virtual IQueryable<T> FindAllInner()
         {
-            return this._dbContext.Set<T>().OrderByDescending(x => x.AddedTime);
+            return this._dbContext.Set<T>();
         }
         #endregion
 
@@ -524,6 +524,29 @@ namespace SD.Infrastructure.Repository.EntityFramework
         protected IQueryable<TSub> FindAllInner<TSub>() where TSub : T
         {
             return this.FindAllInner().OfType<TSub>();
+        }
+        #endregion
+
+        #region # 获取实体对象集合（默认排序） —— IOrderedQueryable<T> FindAllBySort()
+        /// <summary>
+        /// 获取实体对象集合（默认排序）
+        /// </summary>
+        /// <returns>实体对象集合</returns>
+        protected IOrderedQueryable<T> FindAllBySort()
+        {
+            return this.FindAllInner().OrderByDescending(x => x.AddedTime);
+        }
+        #endregion
+
+        #region # 获取给定类型子类对象集合（默认排序） —— IOrderedQueryable<TSub> FindAllBySort<TSub>()
+        /// <summary>
+        /// 获取给定类型子类对象集合（默认排序）
+        /// </summary>
+        /// <typeparam name="TSub">子类类型</typeparam>
+        /// <returns>子类对象集合</returns>
+        protected IOrderedQueryable<TSub> FindAllBySort<TSub>() where TSub : T
+        {
+            return this.FindAllInner<TSub>().OrderByDescending(x => x.AddedTime);
         }
         #endregion
 
@@ -574,6 +597,28 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
+        #region # 根据条件获取实体对象集合（默认排序） —— IOrderedQueryable<T> FindBySort(...
+        /// <summary>
+        /// 根据条件获取实体对象集合（默认排序）
+        /// </summary>
+        /// <returns>实体对象集合</returns>
+        protected IOrderedQueryable<T> FindBySort(Expression<Func<T, bool>> condition)
+        {
+            return this.Find(condition).OrderByDescending(x => x.AddedTime);
+        }
+        #endregion
+
+        #region # 根据条件获取子类对象集合（默认排序） —— IOrderedQueryable<TSub> FindBySort<TSub>(...
+        /// <summary>
+        /// 根据条件获取子类对象集合（默认排序）
+        /// </summary>
+        /// <returns>实体对象集合</returns>
+        protected IOrderedQueryable<TSub> FindBySort<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
+        {
+            return this.Find<TSub>(condition).OrderByDescending(x => x.AddedTime);
+        }
+        #endregion
+
         #region # 根据条件获取实体对象Id集合 —— IQueryable<Guid> FindIds(Expression<Func<T, bool>> predicate)
         /// <summary>
         /// 根据条件获取实体对象Id集合
@@ -616,7 +661,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<T> FindByPage(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
-            return this.FindAllInner().ToPage(predicate, pageIndex, pageSize, out rowCount, out pageCount);
+            return this.FindBySort(predicate).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
         }
         #endregion
 
@@ -635,7 +680,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
         {
-            return this.FindAllInner<TSub>().ToPage(predicate, pageIndex, pageSize, out rowCount, out pageCount);
+            return this.FindBySort<TSub>(predicate).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
         }
         #endregion
 
