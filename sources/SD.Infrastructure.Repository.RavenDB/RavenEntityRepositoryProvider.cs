@@ -323,7 +323,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
         //其他
 
-        #region # 执行SQL查询 —— IEnumerable<T> ExecuteSqlQuery(string sql...
+        #region # 执行SQL查询 —— IEnumerable<TT> ExecuteSqlQuery<TT>(string sql...
         /// <summary>
         /// 执行SQL查询
         /// </summary>
@@ -331,7 +331,7 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// <param name="parameters">参数</param>
         /// <returns>实体对象集合</returns>
         /// <exception cref="ArgumentNullException">SQL语句为空</exception>
-        public IEnumerable<T> ExecuteSqlQuery(string sql, params object[] parameters)
+        public IEnumerable<TT> ExecuteSqlQuery<TT>(string sql, params object[] parameters)
         {
             throw new NotSupportedException("RavenDB不支持SQL查询！");
         }

@@ -158,7 +158,7 @@ namespace SD.Infrastructure.RepositoryBase
 
         //其他
 
-        #region # 执行SQL查询 —— IEnumerable<T> ExecuteSqlQuery(string sql...
+        #region # 执行SQL查询 —— IEnumerable<TT> ExecuteSqlQuery<TT>(string sql...
         /// <summary>
         /// 执行SQL查询
         /// </summary>
@@ -166,7 +166,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="parameters">参数</param>
         /// <returns>实体对象数组</returns>
         /// <exception cref="ArgumentNullException">SQL语句为空</exception>
-        IEnumerable<T> ExecuteSqlQuery(string sql, params object[] parameters);
+        IEnumerable<TT> ExecuteSqlQuery<TT>(string sql, params object[] parameters);
         #endregion
     }
 }
