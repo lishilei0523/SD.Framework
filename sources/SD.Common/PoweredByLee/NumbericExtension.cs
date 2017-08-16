@@ -208,7 +208,10 @@ namespace SD.Common.PoweredByLee
         /// <returns>保留位数后的数值</returns>
         public static float KeepDigits(this float number, int digits)
         {
-            return (float)Math.Round(number, digits, MidpointRounding.AwayFromZero);
+            decimal dec = unchecked((decimal)number);
+            decimal result = Math.Round(dec, digits, MidpointRounding.AwayFromZero);
+
+            return unchecked((float)result);
         }
         #endregion
 
@@ -221,7 +224,10 @@ namespace SD.Common.PoweredByLee
         /// <returns>保留位数后的数值</returns>
         public static double KeepDigits(this double number, int digits)
         {
-            return Math.Round(number, digits, MidpointRounding.AwayFromZero);
+            decimal dec = unchecked((decimal)number);
+            decimal result = Math.Round(dec, digits, MidpointRounding.AwayFromZero);
+
+            return unchecked((double)result);
         }
         #endregion
 
