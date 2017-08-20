@@ -32,10 +32,10 @@ namespace SD.Common.PoweredByLee
 
             #endregion
 
-            if (Mapper.FindTypeMapFor<TSource, TTarget>() == null)
+            Mapper.Initialize(x =>
             {
                 //创建映射关系
-                IMappingExpression<TSource, TTarget> mapConfig = Mapper.CreateMap<TSource, TTarget>();
+                IMappingExpression<TSource, TTarget> mapConfig = x.CreateMap<TSource, TTarget>();
 
                 #region # 忽略映射成员处理
 
@@ -58,9 +58,9 @@ namespace SD.Common.PoweredByLee
                 }
 
                 #endregion
-            }
+            });
 
-            return Mapper.Map<TSource, TTarget>(sourceInstance);
+            return Mapper.Map<TTarget>(sourceInstance);
         }
         #endregion
 
