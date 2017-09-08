@@ -69,6 +69,14 @@ namespace SD.Infrastructure.Constants
             ConfigurationManager.AppSettings[CommonConstants.TablePrefixAppSettingKey];
         #endregion
 
+        #region # 身份认证过期时间 —— static readonly string AuthenticationTimeout
+        /// <summary>
+        /// 身份认证过期时间
+        /// </summary>
+        public static readonly string AuthenticationTimeout =
+            ConfigurationManager.AppSettings[CommonConstants.AuthenticationTimeoutAppSettingKey];
+        #endregion
+
         #region # 当前SessionId —— static Guid CurrentSessionId
         /// <summary>
         /// 当前SessionId

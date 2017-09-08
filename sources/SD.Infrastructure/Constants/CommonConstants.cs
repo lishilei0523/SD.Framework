@@ -34,6 +34,11 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         public const string AutoMigrationAppSettingKey = "AutoMigration";
 
+        /// <summary>
+        /// 身份认证过期时间AppSetting键
+        /// </summary>
+        public const string AuthenticationTimeoutAppSettingKey = "AuthenticationTimeout";
+
         #endregion
 
         #region # 数据库相关
