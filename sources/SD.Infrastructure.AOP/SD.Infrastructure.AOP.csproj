@@ -49,8 +49,8 @@
       <Private>True</Private>
       <Private>True</Private>
     </Reference>
-    <Reference Include="SD.AOP.Core">
-      <HintPath>..\..\packages\SD.AOP.Core.1.0.5\lib\net45\SD.AOP.Core.dll</HintPath>
+    <Reference Include="SD.AOP.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SD.AOP.Core.1.0.9\lib\net45\SD.AOP.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -73,7 +73,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="..\..\packages\PostSharp.4.1.15\tools\PostSharp.targets" Condition="Exists('..\..\packages\PostSharp.4.1.15\tools\PostSharp.targets')" />
