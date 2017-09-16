@@ -597,23 +597,23 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取实体对象集合（默认排序） —— IOrderedQueryable<T> FindBySort(...
+        #region # 根据条件获取实体对象集合（默认排序） —— virtual IOrderedQueryable<T> FindBySort(...
         /// <summary>
         /// 根据条件获取实体对象集合（默认排序）
         /// </summary>
         /// <returns>实体对象集合</returns>
-        protected IOrderedQueryable<T> FindBySort(Expression<Func<T, bool>> condition)
+        protected virtual IOrderedQueryable<T> FindBySort(Expression<Func<T, bool>> condition)
         {
             return this.Find(condition).OrderByDescending(x => x.AddedTime);
         }
         #endregion
 
-        #region # 根据条件获取子类对象集合（默认排序） —— IOrderedQueryable<TSub> FindBySort<TSub>(...
+        #region # 根据条件获取子类对象集合（默认排序） —— virtual IOrderedQueryable<TSub> FindBySort<TSub>(...
         /// <summary>
         /// 根据条件获取子类对象集合（默认排序）
         /// </summary>
         /// <returns>实体对象集合</returns>
-        protected IOrderedQueryable<TSub> FindBySort<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
+        protected virtual IOrderedQueryable<TSub> FindBySort<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
             return this.Find<TSub>(condition).OrderByDescending(x => x.AddedTime);
         }
