@@ -156,9 +156,9 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 注册删除单行（物理删除） —— void RegisterPhysicsRemove<T>(Guid id)
+        #region # 注册删除单个实体对象（物理删除） —— void RegisterPhysicsRemove<T>(Guid id)
         /// <summary>
-        /// 注册删除单行（物理删除）
+        /// 注册删除单个实体对象（物理删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
@@ -185,9 +185,9 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 注册删除单行（物理删除） —— void RegisterPhysicsRemove<T>(string number)
+        #region # 注册删除单个实体对象（物理删除） —— void RegisterPhysicsRemove<T>(string number)
         /// <summary>
-        /// 注册删除单行（物理删除）
+        /// 注册删除单个实体对象（物理删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
@@ -214,9 +214,30 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 注册删除多行（物理删除） —— void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids)
+        #region # 注册删除单个实体对象（物理删除） —— void RegisterPhysicsRemove<T>(T entity)
         /// <summary>
-        /// 注册删除多行（物理删除）
+        /// 注册删除单个实体对象（物理删除）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="entity">实体对象</param>
+        public void RegisterPhysicsRemove<T>(T entity) where T : AggregateRootEntity
+        {
+            #region # 验证参数
+
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity", string.Format(@"要删除的{0}实体对象不可为空！", typeof(T).Name));
+            }
+
+            #endregion
+
+            this._dbContext.Delete(entity);
+        }
+        #endregion
+
+        #region # 注册删除多个实体对象（物理删除） —— void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 注册删除多个实体对象（物理删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集合</param>
@@ -257,9 +278,9 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 注册删除单行（逻辑删除） —— void RegisterRemove<T>(Guid id)
+        #region # 注册删除单个实体对象（逻辑删除） —— void RegisterRemove<T>(Guid id)
         /// <summary>
-        /// 注册删除单行（逻辑删除）
+        /// 注册删除单个实体对象（逻辑删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
@@ -286,9 +307,9 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 注册删除单行（逻辑删除） —— void RegisterRemove<T>(string number)
+        #region # 注册删除单个实体对象（逻辑删除） —— void RegisterRemove<T>(string number)
         /// <summary>
-        /// 注册删除单行（逻辑删除）
+        /// 注册删除单个实体对象（逻辑删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
@@ -316,9 +337,31 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 注册删除多行（逻辑删除） —— void RegisterRemoveRange<T>(IEnumerable<Guid> ids)
+        #region # 注册删除单个实体对象（逻辑删除） —— void RegisterRemove<T>(T entity)
         /// <summary>
-        /// 注册删除多行（逻辑删除）
+        /// 注册删除单个实体对象（逻辑删除）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="entity">实体对象</param>
+        public void RegisterRemove<T>(T entity) where T : AggregateRootEntity
+        {
+            #region # 验证参数
+
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity", string.Format(@"要删除的{0}实体对象不可为空！", typeof(T).Name));
+            }
+
+            #endregion
+
+            entity.Deleted = true;
+            entity.DeletedTime = DateTime.Now;
+        }
+        #endregion
+
+        #region # 注册删除多个实体对象（逻辑删除） —— void RegisterRemoveRange<T>(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 注册删除多个实体对象（逻辑删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集合</param>
