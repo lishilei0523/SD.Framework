@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Management;
 using System.Net;
 using System.Net.Sockets;
+using System.Text;
 
 namespace SD.Common.PoweredByLee
 {
@@ -133,6 +135,33 @@ namespace SD.Common.PoweredByLee
             }
 
             return macAddresses;
+        }
+        #endregion
+
+        #region # 获取机器唯一码 —— static string GetMachineCode()
+        /// <summary>
+        /// 获取机器唯一码
+        /// </summary>
+        /// <returns>机器唯一码</returns>
+        public static string GetMachineCode()
+        {
+            ICollection<string> hardDiskIds = GetHardDiskIds();
+            ICollection<string> macs = GetMacAddresses();
+
+            StringBuilder builder = new StringBuilder();
+
+            if (hardDiskIds.Any())
+            {
+                builder.Append(hardDiskIds.First());
+            }
+            if (macs.Any())
+            {
+                builder.Append(macs.First());
+            }
+
+            string machineCode = builder.ToString().ToMD5();
+
+            return machineCode;
         }
         #endregion
     }
