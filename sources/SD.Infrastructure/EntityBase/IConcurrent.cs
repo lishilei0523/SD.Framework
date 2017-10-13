@@ -3,7 +3,7 @@
     /// <summary>
     /// 可并发接口
     /// </summary>
-    public interface IConcurrency
+    public interface IConcurrent
     {
         /// <summary>
         /// 行版本
