@@ -58,6 +58,7 @@
     <Compile Include="CustomExceptions\PresentationException.cs" />
     <Compile Include="CustomExceptions\DomainException.cs" />
     <Compile Include="CustomExceptions\RepositoryException.cs" />
+    <Compile Include="EntityBase\IConcurrency.cs" />
     <Compile Include="EntityBase\INameable.cs" />
     <Compile Include="EntityBase\INumerable.cs" />
     <Compile Include="EntityBase\ISearchable.cs" />
