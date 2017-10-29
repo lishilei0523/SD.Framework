@@ -1,6 +1,6 @@
-﻿using System;
+﻿using SD.Infrastructure.MVC.Base;
+using System;
 using System.Collections;
-using System.Configuration;
 using System.Net;
 using System.Text;
 using System.Web.Mvc;
@@ -12,19 +12,9 @@ namespace SD.Infrastructure.MVC.Filters
     /// 异常过滤器
     /// </summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
-    public class ExceptionFilterAttribute : ActionFilterAttribute, IExceptionFilter
+    public class ExceptionFilterAttribute : ActionFilterAttribute
     {
-        #region # 常量、字段及构造器
-
-        /// <summary>
-        /// 错误页AppSetting键
-        /// </summary>
-        private const string ErrorPageAppSettingKey = "ErrorPage";
-
-        /// <summary>
-        /// 错误页地址
-        /// </summary>
-        private static readonly string _ErrorPage;
+        #region # 字段及构造器
 
         /// <summary>
         /// JSON序列化器
@@ -37,18 +27,6 @@ namespace SD.Infrastructure.MVC.Filters
         static ExceptionFilterAttribute()
         {
             _JsonSerializer = new JavaScriptSerializer();
-            string errorPage = ConfigurationManager.AppSettings[ErrorPageAppSettingKey];
-
-            #region # 验证
-
-            if (string.IsNullOrWhiteSpace(errorPage))
-            {
-                throw new ApplicationException("默认错误页未配置，请联系管理员！");
-            }
-
-            #endregion
-
-            _ErrorPage = errorPage;
         }
 
         #endregion
@@ -82,7 +60,7 @@ namespace SD.Infrastructure.MVC.Filters
                 StringBuilder scriptBuilder = new StringBuilder();
                 scriptBuilder.Append("<script type=\"text/javascript\">");
                 scriptBuilder.Append("window.top.location.href=");
-                scriptBuilder.Append(string.Format("\"{0}?message={1}\"", _ErrorPage, errorMessage));
+                scriptBuilder.Append(string.Format("\"{0}?message={1}\"", OperationContext.ErrorPage, errorMessage));
                 scriptBuilder.Append("</script>");
 
                 //跳转至错误页
