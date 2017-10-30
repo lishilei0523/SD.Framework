@@ -5,7 +5,8 @@ using System.Configuration;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SD.Infrastructure.MVC.Base
+// ReSharper disable once CheckNamespace
+namespace SD.Infrastructure.MVC
 {
     /// <summary>
     /// MVC操作上下文

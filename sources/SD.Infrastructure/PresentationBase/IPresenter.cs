@@ -1,5 +1,4 @@
-﻿// ReSharper disable once CheckNamespace
-namespace SD.Infrastructure.MVC
+﻿namespace SD.Infrastructure.PresentationBase
 {
     /// <summary>
     /// 呈现器基接口

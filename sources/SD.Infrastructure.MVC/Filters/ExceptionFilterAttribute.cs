@@ -1,5 +1,4 @@
-﻿using SD.Infrastructure.MVC.Base;
-using System;
+﻿using System;
 using System.Collections;
 using System.Net;
 using System.Text;
@@ -60,7 +59,7 @@ namespace SD.Infrastructure.MVC.Filters
                 StringBuilder scriptBuilder = new StringBuilder();
                 scriptBuilder.Append("<script type=\"text/javascript\">");
                 scriptBuilder.Append("window.top.location.href=");
-                scriptBuilder.Append(string.Format("\"{0}?message={1}\"", OperationContext.ErrorPage, errorMessage));
+                scriptBuilder.AppendFormat("\"{0}?message={1}\"", OperationContext.ErrorPage, errorMessage);
                 scriptBuilder.Append("</script>");
 
                 //跳转至错误页

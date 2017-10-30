@@ -45,9 +45,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Base\IPresenter.cs" />
-    <Compile Include="Base\OperationContext.cs" />
-    <Compile Include="Base\ViewModel.cs" />
+    <Compile Include="Toolkits\OperationContext.cs" />
     <Compile Include="Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="Filters\AuthorizationFilterAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -65,6 +63,7 @@
       <Name>SD.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
