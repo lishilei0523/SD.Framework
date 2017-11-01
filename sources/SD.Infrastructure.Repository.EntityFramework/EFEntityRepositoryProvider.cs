@@ -534,7 +534,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象集合</returns>
         protected IOrderedQueryable<T> FindAllBySort()
         {
-            return this.FindAllInner().OrderByDescending(x => x.AddedTime);
+            return this.FindBySort(x => true);
         }
         #endregion
 
@@ -546,7 +546,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>子类对象集合</returns>
         protected IOrderedQueryable<TSub> FindAllBySort<TSub>() where TSub : T
         {
-            return this.FindAllInner<TSub>().OrderByDescending(x => x.AddedTime);
+            return this.FindBySort<TSub>(x => true);
         }
         #endregion
 
