@@ -11,7 +11,7 @@ namespace SD.Infrastructure.MVC.Filters
     /// 异常过滤器
     /// </summary>
     [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class)]
-    public class ExceptionFilterAttribute : ActionFilterAttribute
+    public class ExceptionFilterAttribute : HandleErrorAttribute
     {
         #region # 字段及构造器
 
@@ -35,7 +35,7 @@ namespace SD.Infrastructure.MVC.Filters
         /// 发生异常事件
         /// </summary>
         /// <param name="filterContext">过滤器上下文</param>
-        public void OnException(ExceptionContext filterContext)
+        public override void OnException(ExceptionContext filterContext)
         {
             //处理异常消息
             string errorMessage = string.Empty;
@@ -100,7 +100,7 @@ namespace SD.Infrastructure.MVC.Filters
             catch
             {
 
-                return errorMessage;
+                return exceptionMessage;
             }
         }
         #endregion
