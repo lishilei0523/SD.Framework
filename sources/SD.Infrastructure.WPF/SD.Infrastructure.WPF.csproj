@@ -89,6 +89,7 @@
     <Compile Include="Base\IFlyoutManager.cs" />
     <Compile Include="Interfaces\IInitialize.cs" />
     <Compile Include="Interfaces\IPageable.cs" />
+    <Compile Include="Toolkits\DelegateCommand.cs" />
     <Compile Include="Toolkits\PasswordHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Toolkits\RelayCommand.cs" />
