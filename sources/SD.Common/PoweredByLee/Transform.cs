@@ -1,4 +1,7 @@
-﻿using AutoMapper;
+﻿
+
+using AutoMapper;
+using AutoMapper.Configuration;
 using System;
 using System.Linq.Expressions;
 using System.Reflection;
@@ -32,35 +35,33 @@ namespace SD.Common.PoweredByLee
 
             #endregion
 
-            Mapper.Initialize(x =>
+            MapperConfigurationExpression config = new MapperConfigurationExpression();
+            IMappingExpression<TSource, TTarget> mapConfig = config.CreateMap<TSource, TTarget>();
+
+            #region # 忽略映射成员处理
+
+            foreach (Expression<Func<TTarget, object>> ignoreMember in ignoreMembers)
             {
-                //创建映射关系
-                IMappingExpression<TSource, TTarget> mapConfig = x.CreateMap<TSource, TTarget>();
+                mapConfig.ForMember(ignoreMember, source => source.Ignore());
+            }
 
-                #region # 忽略映射成员处理
+            #endregion
 
-                foreach (Expression<Func<TTarget, object>> ignoreMember in ignoreMembers)
-                {
-                    mapConfig.ForMember(ignoreMember, source => source.Ignore());
-                }
+            #region # 映射前后事件处理
 
-                #endregion
+            if (beforeMapEventHandler != null)
+            {
+                mapConfig.BeforeMap(beforeMapEventHandler);
+            }
+            if (afterMapEventHandler != null)
+            {
+                mapConfig.AfterMap(afterMapEventHandler);
+            }
 
-                #region # 映射前后事件处理
+            #endregion
 
-                if (beforeMapEventHandler != null)
-                {
-                    mapConfig.BeforeMap(beforeMapEventHandler);
-                }
-                if (afterMapEventHandler != null)
-                {
-                    mapConfig.AfterMap(afterMapEventHandler);
-                }
-
-                #endregion
-            });
-
-            return Mapper.Map<TTarget>(sourceInstance);
+            IMapper mapper = new Mapper(new MapperConfiguration(config));
+            return mapper.Map<TTarget>(sourceInstance);
         }
         #endregion
 
