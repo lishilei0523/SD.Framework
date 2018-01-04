@@ -115,47 +115,47 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region # 断言字符串不为空 —— void IsNotNull(string str, string errorMessage = null)
+        #region # 断言字符串不为空 —— void IsNotNull(string text, string errorMessage = null)
         /// <summary>
         /// 断言字符串不为空
         /// </summary>
-        /// <param name="str">字符串</param>
+        /// <param name="text">字符串</param>
         /// <param name="errorMessage">错误消息</param>
-        public static void IsNotNull(string str, string errorMessage = null)
+        public static void IsNotNull(string text, string errorMessage = null)
         {
-            if (string.IsNullOrWhiteSpace(str))
+            if (string.IsNullOrWhiteSpace(text))
             {
                 throw new AssertFailedException(errorMessage);
             }
         }
         #endregion
 
-        #region # 断言字符串长度短于给定值 —— void IsShorterThan(string str, uint length, string errorMessage = null)
+        #region # 断言字符串长度短于给定值 —— void IsShorterThan(string text, uint length, string errorMessage = null)
         /// <summary>
         /// 断言字符串长度短于给定值
         /// </summary>
-        /// <param name="str">字符串</param>
+        /// <param name="text">字符串</param>
         /// <param name="length">给定长度</param>
         /// <param name="errorMessage">错误消息</param>
-        public static void IsShorterThan(string str, uint length, string errorMessage = null)
+        public static void IsShorterThan(string text, uint length, string errorMessage = null)
         {
-            if (str != null && str.Length > length)
+            if (text != null && text.Length > length)
             {
                 throw new AssertFailedException(errorMessage);
             }
         }
         #endregion
 
-        #region # 断言字符串长度长于给定值 —— void IsLongerThan(string str, uint length, string errorMessage = null)
+        #region # 断言字符串长度长于给定值 —— void IsLongerThan(string text, uint length, string errorMessage = null)
         /// <summary>
         /// 断言字符串长度长于给定值
         /// </summary>
-        /// <param name="str">字符串</param>
+        /// <param name="text">字符串</param>
         /// <param name="length">给定长度</param>
         /// <param name="errorMessage">错误消息</param>
-        public static void IsLongerThan(string str, uint length, string errorMessage = null)
+        public static void IsLongerThan(string text, uint length, string errorMessage = null)
         {
-            if ((str != null && str.Length < length) || str == null)
+            if ((text != null && text.Length < length) || text == null)
             {
                 throw new AssertFailedException(errorMessage);
             }

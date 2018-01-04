@@ -1,6 +1,4 @@
-﻿
-
-using AutoMapper;
+﻿using AutoMapper;
 using AutoMapper.Configuration;
 using System;
 using System.Linq.Expressions;

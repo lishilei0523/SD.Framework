@@ -1,9 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
-using Newtonsoft.Json;
 
 namespace SD.Common.PoweredByLee
 {
@@ -49,8 +49,10 @@ namespace SD.Common.PoweredByLee
 
             try
             {
-                JsonSerializerSettings settting = new JsonSerializerSettings();
-                settting.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                JsonSerializerSettings settting = new JsonSerializerSettings
+                {
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                };
 
                 if (!string.IsNullOrWhiteSpace(dateFormatString))
                 {

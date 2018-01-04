@@ -32,15 +32,15 @@ namespace SD.Common.PoweredByLee
 
         #endregion
 
-        #region # 计算字符串MD5值扩展方法 —— static string ToMD5(this string str)
+        #region # 计算字符串MD5值扩展方法 —— static string ToMD5(this string text)
         /// <summary>
         /// 计算字符串MD5值扩展方法
         /// </summary>
-        /// <param name="str">待转换的字符串</param>
+        /// <param name="text">待转换的字符串</param>
         /// <returns>MD5值</returns>
-        public static string ToMD5(this string str)
+        public static string ToMD5(this string text)
         {
-            byte[] buffer = Encoding.Default.GetBytes(str);
+            byte[] buffer = Encoding.Default.GetBytes(text);
             using (MD5 md5 = MD5.Create())
             {
                 buffer = md5.ComputeHash(buffer);
@@ -54,16 +54,16 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region # 计算16位MD5值 —— static string ToHash16(this string str)
+        #region # 计算16位MD5值扩展方法 —— static string ToHash16(this string text)
         /// <summary>
-        /// 计算16位MD5值
+        /// 计算16位MD5值扩展方法
         /// </summary>
-        /// <param name="str">待转换的字符串</param>
+        /// <param name="text">待转换的字符串</param>
         /// <returns>16位MD5值</returns>
-        public static string ToHash16(this string str)
+        public static string ToHash16(this string text)
         {
             MD5CryptoServiceProvider md5Crypto = new MD5CryptoServiceProvider();
-            byte[] buffer = md5Crypto.ComputeHash(Encoding.Default.GetBytes(str));
+            byte[] buffer = md5Crypto.ComputeHash(Encoding.Default.GetBytes(text));
             string hash = BitConverter.ToString(buffer, 4, 8);
             hash = hash.Replace("-", "");
 
@@ -193,30 +193,30 @@ namespace SD.Common.PoweredByLee
         }
         #endregion
 
-        #region # 字符串过滤Html标签扩展方法 —— static string FilterHtml(this string str)
+        #region # 字符串过滤Html标签扩展方法 —— static string FilterHtml(this string text)
         /// <summary>
         /// 字符串过滤Html标签扩展方法
         /// </summary>
-        /// <param name="str">待过虑的字符串</param>
+        /// <param name="text">待过虑的字符串</param>
         /// <returns>过滤后的字符串</returns>
-        public static string FilterHtml(this string str)
+        public static string FilterHtml(this string text)
         {
-            if (string.IsNullOrWhiteSpace(str))
+            if (string.IsNullOrWhiteSpace(text))
             {
                 return string.Empty;
             }
-            str = Regex.Replace(str, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
-            str = Regex.Replace(str, @"<style[^>]*?>", "", RegexOptions.IgnoreCase);
-            str = Regex.Replace(str, @"</style>", "", RegexOptions.IgnoreCase);
-            str = Regex.Replace(str, @"<p[^>]*?>", "", RegexOptions.IgnoreCase);
-            str = Regex.Replace(str, @"<div[^>]*?>", "", RegexOptions.IgnoreCase);
-            str = Regex.Replace(str, @"</p>", "", RegexOptions.IgnoreCase);
-            str = Regex.Replace(str, @"</div>", "", RegexOptions.IgnoreCase);
-            str = Regex.Replace(str, @"-->", "", RegexOptions.IgnoreCase);
-            str = Regex.Replace(str, @"<!--.*", "", RegexOptions.IgnoreCase);
-            str = Regex.Replace(str, "<[^>]*>", "", RegexOptions.Compiled);
-            str = Regex.Replace(str, @"([\r\n])[\s]+", " ", RegexOptions.Compiled);
-            return str.Replace("&nbsp;", " ");
+            text = Regex.Replace(text, @"<script[^>]*?>.*?</script>", "", RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"<style[^>]*?>", "", RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"</style>", "", RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"<p[^>]*?>", "", RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"<div[^>]*?>", "", RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"</p>", "", RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"</div>", "", RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"-->", "", RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, @"<!--.*", "", RegexOptions.IgnoreCase);
+            text = Regex.Replace(text, "<[^>]*>", "", RegexOptions.Compiled);
+            text = Regex.Replace(text, @"([\r\n])[\s]+", " ", RegexOptions.Compiled);
+            return text.Replace("&nbsp;", " ");
         }
         #endregion
 
@@ -229,6 +229,79 @@ namespace SD.Common.PoweredByLee
         public static string FilterSql(this string sql)
         {
             return sql.Replace("'", string.Empty);
+        }
+        #endregion
+
+        #region # 字符串加密扩展方法 —— static string Encrypt(this string text...
+        /// <summary>
+        /// 字符串加密扩展方法
+        /// </summary>
+        public static string Encrypt(this string text, string key = null)
+        {
+            key = string.IsNullOrWhiteSpace(key) ? "744FBCAD-3BA6-40FB-9A75-B6C81E25403E" : key;
+
+            using (DESCryptoServiceProvider desCryptoService = new DESCryptoServiceProvider())
+            {
+                string keyHash8 = key.ToHash16().Substring(0, 8);
+                desCryptoService.Key = Encoding.ASCII.GetBytes(keyHash8);
+                desCryptoService.IV = Encoding.ASCII.GetBytes(keyHash8);
+
+                byte[] inputByteArray = Encoding.Default.GetBytes(text);
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, desCryptoService.CreateEncryptor(), CryptoStreamMode.Write))
+                    {
+                        cryptoStream.Write(inputByteArray, 0, inputByteArray.Length);
+                        cryptoStream.FlushFinalBlock();
+
+                        StringBuilder stringBuilder = new StringBuilder();
+
+                        foreach (byte byt in memoryStream.ToArray())
+                        {
+                            stringBuilder.AppendFormat("{0:X2}", byt);
+                        }
+
+                        return stringBuilder.ToString();
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region # 字符串解密扩展方法 —— static string Decrypt(this string text...
+        /// <summary>
+        /// 字符串解密扩展方法
+        /// </summary>
+        public static string Decrypt(this string text, string key = null)
+        {
+            key = string.IsNullOrWhiteSpace(key) ? "744FBCAD-3BA6-40FB-9A75-B6C81E25403E" : key;
+            int length = text.Length / 2;
+
+            byte[] inputByteArray = new byte[length];
+
+            for (int index = 0; index < length; index++)
+            {
+                inputByteArray[index] = Convert.ToByte(text.Substring(index * 2, 2), 16);
+            }
+
+            using (DESCryptoServiceProvider desCryptoService = new DESCryptoServiceProvider())
+            {
+                string keyHash8 = key.ToHash16().Substring(0, 8);
+                desCryptoService.Key = Encoding.ASCII.GetBytes(keyHash8);
+                desCryptoService.IV = Encoding.ASCII.GetBytes(keyHash8);
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    using (CryptoStream cryptoStream = new CryptoStream(memoryStream, desCryptoService.CreateDecryptor(), CryptoStreamMode.Write))
+                    {
+                        cryptoStream.Write(inputByteArray, 0, inputByteArray.Length);
+                        cryptoStream.FlushFinalBlock();
+
+                        return Encoding.Default.GetString(memoryStream.ToArray());
+                    }
+                }
+            }
         }
         #endregion
     }
