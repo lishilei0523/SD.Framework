@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace SD.Infrastructure.Constants
@@ -21,12 +22,16 @@ namespace SD.Infrastructure.Constants
         /// <param name="loginId">登录名</param>
         /// <param name="realName">真实姓名</param>
         /// <param name="publicKey">公钥</param>
-        public LoginInfo(string loginId, string realName, Guid publicKey)
+        /// <param name="loginMenuInfos">菜单树</param>
+        /// <param name="authorityPaths">权限列表</param>
+        public LoginInfo(string loginId, string realName, Guid publicKey, IList<LoginMenuInfo> loginMenuInfos, IList<string> authorityPaths)
             : this()
         {
             this.LoginId = loginId;
             this.RealName = realName;
             this.PublicKey = publicKey;
+            this.LoginMenuInfos = loginMenuInfos;
+            this.AuthorityPaths = authorityPaths;
         }
 
 
@@ -47,5 +52,17 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         [DataMember]
         public Guid PublicKey { get; set; }
+
+        /// <summary>
+        /// 菜单树
+        /// </summary>
+        [DataMember]
+        public IList<LoginMenuInfo> LoginMenuInfos { get; set; }
+
+        /// <summary>
+        /// 权限列表
+        /// </summary>
+        [DataMember]
+        public IList<string> AuthorityPaths { get; set; }
     }
 }
