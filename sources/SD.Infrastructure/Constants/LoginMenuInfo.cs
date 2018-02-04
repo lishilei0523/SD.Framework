@@ -16,7 +16,7 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         public LoginMenuInfo()
         {
-            this.SubMenuInfos = new List<LoginMenuInfo>();
+            this.SubMenuInfos = new HashSet<LoginMenuInfo>();
         }
 
         /// <summary>
@@ -65,6 +65,6 @@ namespace SD.Infrastructure.Constants
         /// 子菜单集
         /// </summary>
         [DataMember]
-        public IList<LoginMenuInfo> SubMenuInfos { get; set; }
+        public ICollection<LoginMenuInfo> SubMenuInfos { get; set; }
     }
 }

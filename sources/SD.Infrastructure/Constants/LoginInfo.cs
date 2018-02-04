@@ -14,7 +14,11 @@ namespace SD.Infrastructure.Constants
         /// <summary>
         /// 无参构造器
         /// </summary>
-        public LoginInfo() { }
+        public LoginInfo()
+        {
+            this.LoginMenuInfos = new HashSet<LoginMenuInfo>();
+            this.AuthorityPaths = new HashSet<string>();
+        }
 
         /// <summary>
         /// 创建登录信息构造器
@@ -22,16 +26,12 @@ namespace SD.Infrastructure.Constants
         /// <param name="loginId">登录名</param>
         /// <param name="realName">真实姓名</param>
         /// <param name="publicKey">公钥</param>
-        /// <param name="loginMenuInfos">菜单树</param>
-        /// <param name="authorityPaths">权限列表</param>
-        public LoginInfo(string loginId, string realName, Guid publicKey, IList<LoginMenuInfo> loginMenuInfos, IList<string> authorityPaths)
+        public LoginInfo(string loginId, string realName, Guid publicKey)
             : this()
         {
             this.LoginId = loginId;
             this.RealName = realName;
             this.PublicKey = publicKey;
-            this.LoginMenuInfos = loginMenuInfos;
-            this.AuthorityPaths = authorityPaths;
         }
 
 
@@ -57,12 +57,12 @@ namespace SD.Infrastructure.Constants
         /// 菜单树
         /// </summary>
         [DataMember]
-        public IList<LoginMenuInfo> LoginMenuInfos { get; set; }
+        public ICollection<LoginMenuInfo> LoginMenuInfos { get; set; }
 
         /// <summary>
         /// 权限列表
         /// </summary>
         [DataMember]
-        public IList<string> AuthorityPaths { get; set; }
+        public ICollection<string> AuthorityPaths { get; set; }
     }
 }
