@@ -16,7 +16,7 @@ namespace SD.Infrastructure.MemberShip
         /// </summary>
         public LoginInfo()
         {
-            this.SystemInfos = new Dictionary<string, string>();
+            this.LoginSystemInfos = new HashSet<LoginSystemInfo>();
             this.LoginMenuInfos = new HashSet<LoginMenuInfo>();
             this.LoginAuthorityInfos = new Dictionary<string, LoginAuthorityInfo[]>();
         }
@@ -57,14 +57,11 @@ namespace SD.Infrastructure.MemberShip
         /// <summary>
         /// 信息系统列表
         /// </summary>
-        /// <remarks>
-        /// 键：信息系统编号，值：信息系统名称
-        /// </remarks>
         [DataMember]
-        public IDictionary<string, string> SystemInfos { get; set; }
+        public ICollection<LoginSystemInfo> LoginSystemInfos { get; set; }
 
         /// <summary>
-        /// 菜单树
+        /// 菜单列表
         /// </summary>
         [DataMember]
         public ICollection<LoginMenuInfo> LoginMenuInfos { get; set; }

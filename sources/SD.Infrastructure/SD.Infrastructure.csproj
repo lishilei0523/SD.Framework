@@ -67,6 +67,7 @@
     <Compile Include="EntityBase\ISortable.cs" />
     <Compile Include="EventBase\IEvent.cs" />
     <Compile Include="EventBase\IEventStore.cs" />
+    <Compile Include="MemberShip\LoginSystemInfo.cs" />
     <Compile Include="MessageBase\IMessage.cs" />
     <Compile Include="PresentationBase\IPresenter.cs" />
     <Compile Include="PresentationBase\ViewModel.cs" />
