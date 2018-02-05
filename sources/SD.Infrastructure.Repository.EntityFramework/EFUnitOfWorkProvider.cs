@@ -1,5 +1,5 @@
-﻿using SD.Infrastructure.Constants;
-using SD.Infrastructure.EntityBase;
+﻿using SD.Infrastructure.EntityBase;
+using SD.Infrastructure.MemberShip;
 using SD.Infrastructure.Repository.EntityFramework.Base;
 using SD.Infrastructure.RepositoryBase;
 using System;

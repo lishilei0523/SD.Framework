@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace SD.Infrastructure.Constants
+namespace SD.Infrastructure.MemberShip
 {
     /// <summary>
-    /// 登录菜单树
+    /// 登录菜单信息
     /// </summary>
     [DataContract]
     [Serializable]
@@ -18,6 +18,13 @@ namespace SD.Infrastructure.Constants
         {
             this.SubMenuInfos = new HashSet<LoginMenuInfo>();
         }
+
+
+        /// <summary>
+        /// 信息系统编号
+        /// </summary>
+        [DataMember]
+        public string SystemNo { get; set; }
 
         /// <summary>
         /// 标识Id

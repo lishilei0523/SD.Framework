@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace SD.Infrastructure.Constants
+namespace SD.Infrastructure.MemberShip
 {
     /// <summary>
     /// 登录信息
@@ -16,8 +16,9 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         public LoginInfo()
         {
+            this.SystemInfos = new Dictionary<string, string>();
             this.LoginMenuInfos = new HashSet<LoginMenuInfo>();
-            this.AuthorityPaths = new HashSet<string>();
+            this.LoginAuthorityInfos = new Dictionary<string, LoginAuthorityInfo[]>();
         }
 
         /// <summary>
@@ -54,6 +55,15 @@ namespace SD.Infrastructure.Constants
         public Guid PublicKey { get; set; }
 
         /// <summary>
+        /// 信息系统列表
+        /// </summary>
+        /// <remarks>
+        /// 键：信息系统编号，值：信息系统名称
+        /// </remarks>
+        [DataMember]
+        public IDictionary<string, string> SystemInfos { get; set; }
+
+        /// <summary>
         /// 菜单树
         /// </summary>
         [DataMember]
@@ -62,7 +72,10 @@ namespace SD.Infrastructure.Constants
         /// <summary>
         /// 权限列表
         /// </summary>
+        /// <remarks>
+        /// 键：信息系统编号，值：权限列表
+        /// </remarks>
         [DataMember]
-        public ICollection<string> AuthorityPaths { get; set; }
+        public IDictionary<string, LoginAuthorityInfo[]> LoginAuthorityInfos { get; set; }
     }
 }

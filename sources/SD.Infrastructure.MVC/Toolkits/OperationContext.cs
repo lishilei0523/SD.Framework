@@ -1,4 +1,5 @@
 ﻿using SD.Infrastructure.Constants;
+using SD.Infrastructure.MemberShip;
 using SD.Infrastructure.MVC.Toolkits;
 using System;
 using System.Configuration;

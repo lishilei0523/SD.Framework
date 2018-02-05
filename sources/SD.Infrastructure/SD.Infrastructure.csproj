@@ -49,8 +49,9 @@
     <Compile Include="Constants\ApplicationType.cs" />
     <Compile Include="Constants\CacheConstants.cs" />
     <Compile Include="Constants\CommonConstants.cs" />
-    <Compile Include="Constants\LoginInfo.cs" />
-    <Compile Include="Constants\LoginMenuInfo.cs" />
+    <Compile Include="MemberShip\LoginAuthorityInfo.cs" />
+    <Compile Include="MemberShip\LoginInfo.cs" />
+    <Compile Include="MemberShip\LoginMenuInfo.cs" />
     <Compile Include="Constants\SessionKey.cs" />
     <Compile Include="Constants\WebConfigSetting.cs" />
     <Compile Include="CustomExceptions\AppServiceException.cs" />
