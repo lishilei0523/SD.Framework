@@ -14,8 +14,8 @@
 
 
 ### 技术交流群：[558010476](//shang.qq.com/wpa/qunwpa?idkey=22cd396d1b7d25fb7632c45c4e40c95ffe2bfa6e48b47a18b7b31c5d4c8d1065)
-#### 示例项目：http://git.oschina.net/lishilei0523/ShSoft.UAC
-#### 项目模板：http://git.oschina.net/lishilei0523/SD.Framework.Template
+#### 示例项目：https://gitee.com/lishilei0523/ShSoft.UAC
+#### 项目模板：https://gitee.com/lishilei0523/SD.Framework.Template
 -----------------------------------
 
 1、SD.Common
