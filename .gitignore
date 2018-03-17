@@ -187,3 +187,8 @@ FakesAssemblies/
 GeneratedArtifacts/
 _Pvt_Extensions/
 ModelManifest.xml
+/.vs/config/applicationhost.config
+/.vs/SD.Framework/v15/Server/sqlite3/db.lock
+/.vs/SD.Framework/v15/Server/sqlite3/storage.ide
+/.vs/SD.Framework/v15/Server/sqlite3/storage.ide-shm
+/.vs/SD.Framework/v15/Server/sqlite3/storage.ide-wal
