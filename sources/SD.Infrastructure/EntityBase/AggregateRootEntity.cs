@@ -71,11 +71,25 @@ namespace SD.Infrastructure.EntityBase
         public string CreatorAccount { get; protected internal set; }
         #endregion
 
+        #region 创建人姓名 —— string CreatorName
+        /// <summary>
+        /// 创建人姓名
+        /// </summary>
+        public string CreatorName { get; protected internal set; }
+        #endregion
+
         #region 操作人账号 —— string OperatorAccount
         /// <summary>
         /// 操作人账号
         /// </summary>
         public string OperatorAccount { get; protected internal set; }
+        #endregion
+
+        #region 操作人姓名 —— string OperatorName
+        /// <summary>
+        /// 操作人姓名
+        /// </summary>
+        public string OperatorName { get; protected internal set; }
         #endregion
 
         #endregion

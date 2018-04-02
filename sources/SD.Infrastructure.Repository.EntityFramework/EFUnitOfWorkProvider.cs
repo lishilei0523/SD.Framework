@@ -70,14 +70,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="entity">新实体对象</param>
-        /// <exception cref="ArgumentNullException">新实体对象为空</exception>
         public void RegisterAdd<T>(T entity) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", string.Format(@"要添加的{0}实体对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $"要添加的{typeof(T).Name}实体对象不可为空！");
             }
 
             #endregion
@@ -87,8 +86,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
             if (GetLoginInfo != null)
             {
                 LoginInfo loginInfo = GetLoginInfo.Invoke();
-                entity.CreatorAccount = loginInfo == null ? null : loginInfo.LoginId;
-                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                entity.CreatorAccount = loginInfo?.LoginId;
+                entity.CreatorName = loginInfo?.RealName;
+                entity.OperatorAccount = loginInfo?.LoginId;
+                entity.OperatorName = loginInfo?.RealName;
             }
 
             #endregion
@@ -103,16 +104,15 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="entities">实体对象集合</param>
-        /// <exception cref="ArgumentNullException">实体对象集合为null或长度为0</exception>
         public void RegisterAddRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
             #region # 验证参数
 
-            entities = entities == null ? new T[0] : entities.ToArray();
+            entities = entities?.ToArray() ?? new T[0];
 
             if (!entities.Any())
             {
-                throw new ArgumentNullException("entities", string.Format("要添加的{0}实体对象集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entities), $"要添加的{typeof(T).Name}实体对象集合不可为空！");
             }
 
             #endregion
@@ -125,8 +125,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
                 foreach (T entity in entities)
                 {
-                    entity.CreatorAccount = loginInfo == null ? null : loginInfo.LoginId;
-                    entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                    entity.CreatorAccount = loginInfo?.LoginId;
+                    entity.CreatorName = loginInfo?.RealName;
+                    entity.OperatorAccount = loginInfo?.LoginId;
+                    entity.OperatorName = loginInfo?.RealName;
                 }
             }
 
@@ -142,15 +144,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="entity">实体对象</param>
-        /// <exception cref="ArgumentNullException">实体对象为空</exception>
-        /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         public void RegisterSave<T>(T entity) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", string.Format("要保存的{0}实体对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $"要保存的{typeof(T).Name}实体对象不可为空！");
             }
 
             #endregion
@@ -160,7 +160,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
             if (GetLoginInfo != null)
             {
                 LoginInfo loginInfo = GetLoginInfo.Invoke();
-                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                entity.OperatorAccount = loginInfo?.LoginId;
+                entity.OperatorName = loginInfo?.RealName;
             }
 
             #endregion
@@ -177,17 +178,15 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="entities">实体对象集合</param>
-        /// <exception cref="ArgumentNullException">实体对象集合</exception>
-        /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         public void RegisterSaveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
             #region # 验证参数
 
-            entities = entities == null ? new T[0] : entities.ToArray();
+            entities = entities?.ToArray() ?? new T[0];
 
             if (!entities.Any())
             {
-                throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entities), $"要保存的{typeof(T).Name}实体对象集合不可为空！");
             }
 
             #endregion
@@ -205,7 +204,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             foreach (T entity in entities)
             {
-                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                entity.OperatorAccount = loginInfo?.LoginId;
+                entity.OperatorName = loginInfo?.RealName;
                 entity.SavedTime = DateTime.Now;
                 DbEntityEntry entry = this._dbContext.Entry<T>(entity);
                 entry.State = EntityState.Modified;
@@ -219,15 +219,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterPhysicsRemove<T>(Guid id) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("要删除的{0}实体对象id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"要删除的{typeof(T).Name}实体对象id不可为空！");
             }
 
             #endregion
@@ -243,15 +241,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterPhysicsRemove<T>(string number) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("要删除的{0}实体对象编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $"要删除的{typeof(T).Name}实体对象编号不可为空！");
             }
 
             #endregion
@@ -273,7 +269,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", string.Format(@"要删除的{0}实体对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $"要删除的{typeof(T).Name}实体对象不可为空！");
             }
 
             #endregion
@@ -288,17 +284,15 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集合</param>
-        /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
             #region # 验证参数
 
-            ids = ids == null ? new Guid[0] : ids.ToArray();
+            ids = ids?.ToArray() ?? new Guid[0];
 
             if (!ids.Any())
             {
-                throw new ArgumentNullException("ids", string.Format("要删除的{0}的id集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的Id集合不可为空！");
             }
 
             #endregion
@@ -315,7 +309,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// 注册删除全部（物理删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterPhysicsRemoveAll<T>() where T : AggregateRootEntity
         {
             this.RegisterPhysicsRemove<T>(x => true);
@@ -328,15 +321,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterRemove<T>(Guid id) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("要删除的{0}实体对象Id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"要删除的{typeof(T).Name}实体对象Id不可为空！");
             }
 
             #endregion
@@ -347,7 +338,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (entity == null)
             {
-                throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(T).Name));
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
             }
 
             #endregion
@@ -357,7 +348,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
             if (GetLoginInfo != null)
             {
                 LoginInfo loginInfo = GetLoginInfo.Invoke();
-                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                entity.OperatorAccount = loginInfo?.LoginId;
+                entity.OperatorName = loginInfo?.RealName;
             }
 
             #endregion
@@ -375,15 +367,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterRemove<T>(string number) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format(@"要删除的{0}实体对象编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $"要删除的{typeof(T).Name}实体对象编号不可为空！");
             }
 
             #endregion
@@ -394,7 +384,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (entity == null)
             {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(T).Name));
+                throw new NullReferenceException($"编号为\"{number}\"的{typeof(T).Name}实体不存在！");
             }
 
             #endregion
@@ -404,7 +394,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
             if (GetLoginInfo != null)
             {
                 LoginInfo loginInfo = GetLoginInfo.Invoke();
-                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                entity.OperatorAccount = loginInfo?.LoginId;
+                entity.OperatorName = loginInfo?.RealName;
             }
 
             #endregion
@@ -428,7 +419,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", string.Format(@"要删除的{0}实体对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $"要删除的{typeof(T).Name}实体对象不可为空！");
             }
 
             #endregion
@@ -438,7 +429,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
             if (GetLoginInfo != null)
             {
                 LoginInfo loginInfo = GetLoginInfo.Invoke();
-                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                entity.OperatorAccount = loginInfo?.LoginId;
+                entity.OperatorName = loginInfo?.RealName;
             }
 
             #endregion
@@ -456,16 +448,15 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集合</param>
-        /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
         public void RegisterRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
             #region # 验证参数
 
-            Guid[] entityIds = ids == null ? new Guid[0] : ids.ToArray();
+            Guid[] entityIds = ids?.ToArray() ?? new Guid[0];
 
             if (!entityIds.Any())
             {
-                throw new ArgumentNullException("ids", string.Format("要删除的{0}的id集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的Id集合不可为空！");
             }
 
             #endregion
@@ -485,7 +476,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             foreach (T entity in entities)
             {
-                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                entity.OperatorAccount = loginInfo?.LoginId;
+                entity.OperatorName = loginInfo?.RealName;
                 entity.Deleted = true;
                 entity.DeletedTime = DateTime.Now;
                 DbEntityEntry entry = this._dbContext.Entry<T>(entity);
@@ -516,7 +508,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             foreach (T entity in entities)
             {
-                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                entity.OperatorAccount = loginInfo?.LoginId;
+                entity.OperatorName = loginInfo?.RealName;
                 entity.Deleted = true;
                 entity.DeletedTime = DateTime.Now;
                 DbEntityEntry entry = this._dbContext.Entry<T>(entity);
@@ -532,17 +525,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="id">Id</param>
         /// <returns>唯一实体对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">查询不到任何实体对象</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象、查询到的实体对象已被删除</exception>
         public T Resolve<T>(Guid id) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
             }
 
             #endregion
@@ -553,7 +542,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (entity == null)
             {
-                throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(T).Name));
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
             }
 
             #endregion
@@ -582,14 +571,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="number">编号</param>
         /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
         public T Resolve<T>(string number) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
             }
 
             #endregion
@@ -600,7 +588,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (entity == null)
             {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(T).Name));
+                throw new NullReferenceException($"编号为\"{number}\"的{typeof(T).Name}实体不存在！");
             }
 
             #endregion
@@ -690,15 +678,14 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// 执行SQL命令（无需Commit）
         /// </summary>
         /// <param name="sql">SQL语句</param>
-        /// <param name="parameters">参数</param>
-        /// <exception cref="ArgumentNullException">SQL语句为空</exception>
+        /// <param name="parameters">参数列表</param>
         public void ExecuteSqlCommand(string sql, params object[] parameters)
         {
             #region # 验证参数
 
             if (string.IsNullOrWhiteSpace(sql))
             {
-                throw new ArgumentNullException("sql", @"SQL语句不可为空！");
+                throw new ArgumentNullException(nameof(sql), "SQL语句不可为空！");
             }
 
             #endregion
@@ -713,10 +700,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         public void Dispose()
         {
-            if (this._dbContext != null)
-            {
-                this._dbContext.Dispose();
-            }
+            this._dbContext?.Dispose();
         }
         #endregion
 
@@ -729,21 +713,20 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="predicate">条件表达式</param>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         protected void RegisterPhysicsRemove<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
             }
 
             #endregion
 
-            IQueryable<T> list = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
-            foreach (T entity in list)
+            IQueryable<T> queryable = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
+
+            foreach (T entity in queryable)
             {
                 this._dbContext.Set<T>().Attach(entity);
                 this._dbContext.Set<T>().Remove(entity);
@@ -757,14 +740,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="predicate">条件表达式</param>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         protected void RegisterRemove<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
             }
 
             #endregion
@@ -780,10 +762,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            IQueryable<T> list = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
-            foreach (T entity in list)
+            IQueryable<T> queryable = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
+
+            foreach (T entity in queryable)
             {
-                entity.OperatorAccount = loginInfo == null ? null : loginInfo.LoginId;
+                entity.OperatorAccount = loginInfo?.LoginId;
+                entity.OperatorName = loginInfo?.RealName;
                 entity.Deleted = true;
                 entity.DeletedTime = DateTime.Now;
                 DbEntityEntry entry = this._dbContext.Entry<T>(entity);
@@ -805,7 +789,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
             }
 
             #endregion
@@ -823,16 +807,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>实体对象集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
         protected IQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
             }
 
             #endregion
@@ -850,15 +831,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected bool Exists<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
             }
 
             #endregion

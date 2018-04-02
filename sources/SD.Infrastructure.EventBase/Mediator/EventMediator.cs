@@ -1,10 +1,10 @@
-﻿using System;
+﻿using SD.Infrastructure.EventBase.Factories;
+using SD.IOC.Core.Mediator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Transactions;
-using SD.IOC.Core.Mediator;
-using SD.Infrastructure.EventBase.Factories;
 
 namespace SD.Infrastructure.EventBase.Mediator
 {
@@ -72,8 +72,7 @@ namespace SD.Infrastructure.EventBase.Mediator
                     Type handlerType = handler.GetType();
 
                     MethodInfo methodInfo = handlerType.GetMethod("Handle", new[] { eventSource.GetType() });
-
-                    methodInfo.Invoke(handler, new object[] { eventSource });
+                    methodInfo?.Invoke(handler, new object[] { eventSource });
                 }
                 catch (TargetInvocationException ex)
                 {

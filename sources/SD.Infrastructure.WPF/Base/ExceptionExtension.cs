@@ -24,6 +24,12 @@ namespace SD.Infrastructure.WPF.Base
 
         #endregion
 
+        #region # 获取最底层内部异常 —— static Exception GetInnerException(this Exception exception)
+        /// <summary>
+        /// 获取最底层内部异常
+        /// </summary>
+        /// <param name="exception">异常</param>
+        /// <returns>最底层内部异常</returns>
         public static Exception GetInnerException(this Exception exception)
         {
             if (exception != null)
@@ -38,21 +44,7 @@ namespace SD.Infrastructure.WPF.Base
 
             return null;
         }
-
-        public static string GetErrorMessage(this Exception exception)
-        {
-            Exception innerException = exception.GetInnerException();
-
-            string errorMessage = string.Empty;
-
-            if (innerException != null)
-            {
-                errorMessage = GetErrorMessage(innerException.Message, ref errorMessage);
-                return errorMessage;
-            }
-
-            return errorMessage;
-        }
+        #endregion
 
         #region # 递归获取错误消息 —— static string GetErrorMessage(string exceptionMessage...
         /// <summary>

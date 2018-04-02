@@ -72,7 +72,6 @@
     <Compile Include="PoweredByLee\Transform.cs" />
     <Compile Include="PoweredByLee\ValidCodeGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PoweredByLee\HttpAssitant.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -18,7 +18,7 @@ namespace SD.Infrastructure.MVC.Server
         {
             if (context == null)
             {
-                throw new ArgumentNullException("context");
+                throw new ArgumentNullException(nameof(context));
             }
 
             //≥ı ºªØSessionId

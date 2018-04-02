@@ -74,9 +74,8 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 删除多行
         /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集合</param>
-        /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
+        /// <exception cref="ArgumentNullException">Id集为null或长度为0</exception>
         void RemoveRange(IEnumerable<Guid> ids);
         #endregion
 

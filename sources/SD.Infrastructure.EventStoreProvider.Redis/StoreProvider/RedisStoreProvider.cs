@@ -1,10 +1,10 @@
-﻿using System.Linq;
+﻿using SD.Infrastructure.Constants;
+using SD.Infrastructure.EventBase;
+using SD.Infrastructure.EventBase.Mediator;
 using SD.Toolkits.Redis;
 using ServiceStack.Redis;
 using ServiceStack.Redis.Generic;
-using SD.Infrastructure.Constants;
-using SD.Infrastructure.EventBase;
-using SD.Infrastructure.EventBase.Mediator;
+using System.Linq;
 
 // ReSharper disable once CheckNamespace
 namespace SD.Infrastructure.EventStoreProvider
@@ -27,11 +27,6 @@ namespace SD.Infrastructure.EventStoreProvider
         private readonly IRedisClient _redisClient;
 
         /// <summary>
-        /// Redis类型客户端
-        /// </summary>
-        private readonly IRedisTypedClient<Event> _redisTypedClient;
-
-        /// <summary>
         /// Redis表
         /// </summary>
         private readonly IRedisList<Event> _table;
@@ -48,8 +43,10 @@ namespace SD.Infrastructure.EventStoreProvider
 
             //实例化RedisClient
             this._redisClient = this._clientsManager.GetClient();
-            this._redisTypedClient = this._redisClient.As<Event>();
-            this._table = this._redisTypedClient.Lists[sessionId];
+
+            //实例化Table
+            IRedisTypedClient<Event> redisTypedClient = this._redisClient.As<Event>();
+            this._table = redisTypedClient.Lists[sessionId];
         }
 
         #endregion
@@ -111,14 +108,8 @@ namespace SD.Infrastructure.EventStoreProvider
         /// </summary>
         public void Dispose()
         {
-            if (this._redisClient != null)
-            {
-                this._redisClient.Dispose();
-            }
-            if (this._clientsManager != null)
-            {
-                this._clientsManager.Dispose();
-            }
+            this._redisClient?.Dispose();
+            this._clientsManager?.Dispose();
         }
         #endregion
     }

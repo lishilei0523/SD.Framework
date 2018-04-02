@@ -1,7 +1,7 @@
-﻿using System;
+﻿using PostSharp.Aspects;
+using System;
 using System.IO;
 using System.Text;
-using PostSharp.Aspects;
 
 namespace SD.Infrastructure.AOP.Aspects.ForAny
 {
@@ -46,7 +46,7 @@ namespace SD.Infrastructure.AOP.Aspects.ForAny
 
             if (string.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentNullException("path", @"路径不可为空！");
+                throw new ArgumentNullException(nameof(path), @"路径不可为空！");
             }
 
             #endregion
@@ -61,19 +61,22 @@ namespace SD.Infrastructure.AOP.Aspects.ForAny
             {
                 //获取文件目录并判断是否存在
                 string directory = Path.GetDirectoryName(path);
+
+                if (string.IsNullOrEmpty(directory))
+                {
+                    throw new ArgumentNullException(nameof(path), "目录不可为空！");
+                }
                 if (!Directory.Exists(directory))
                 {
                     Directory.CreateDirectory(directory);
                 }
+
                 writer = append ? file.AppendText() : new StreamWriter(path, false, Encoding.UTF8);
                 writer.Write(content);
             }
             finally
             {
-                if (writer != null)
-                {
-                    writer.Dispose();
-                }
+                writer?.Dispose();
             }
         }
     }

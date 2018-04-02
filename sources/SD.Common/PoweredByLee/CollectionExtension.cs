@@ -27,11 +27,11 @@ namespace SD.Common.PoweredByLee
 
             if (enumerable == null)
             {
-                throw new ArgumentNullException("enumerable", string.Format("源{0}集合对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(enumerable), $"源{typeof(T).Name}集合对象不可为空！");
             }
             if (action == null)
             {
-                throw new ArgumentNullException("action", @"操作表达式不可为空！");
+                throw new ArgumentNullException(nameof(action), "操作表达式不可为空！");
             }
 
             #endregion
@@ -58,12 +58,12 @@ namespace SD.Common.PoweredByLee
 
             if (sourceList == null)
             {
-                throw new ArgumentNullException("sourceList", string.Format(@"源{0}集合对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(sourceList), $"源{typeof(T).Name}集合对象不可为空！");
             }
 
             if (targetList == null)
             {
-                throw new ArgumentNullException("targetList", string.Format(@"目标{0}集合对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(targetList), $"目标{typeof(T).Name}集合对象不可为空！");
             }
 
             #endregion
@@ -132,12 +132,12 @@ namespace SD.Common.PoweredByLee
 
             if (sourceDict == null)
             {
-                throw new ArgumentNullException("sourceDict", "源字典对象不可为空！");
+                throw new ArgumentNullException(nameof(sourceDict), "源字典对象不可为空！");
             }
 
             if (targetDict == null)
             {
-                throw new ArgumentNullException("targetDict", "目标字典对象不可为空！");
+                throw new ArgumentNullException(nameof(targetDict), "目标字典对象不可为空！");
             }
 
             #endregion
@@ -145,7 +145,7 @@ namespace SD.Common.PoweredByLee
             #region 01.长度对比
 
             //长度不相等
-            if (sourceDict.Count() != targetDict.Count())
+            if (sourceDict.Count != targetDict.Count)
             {
                 return false;
             }
@@ -158,10 +158,11 @@ namespace SD.Common.PoweredByLee
 
             #endregion
 
+
             #region 02.深度对比
 
-            IOrderedEnumerable<KeyValuePair<TKey, TValue>> sourceKeyValues = sourceDict.OrderBy(x => x.Key);
-            IOrderedEnumerable<KeyValuePair<TKey, TValue>> targetKeyValues = targetDict.OrderBy(x => x.Key);
+            KeyValuePair<TKey, TValue>[] sourceKeyValues = sourceDict.OrderBy(x => x.Key).ToArray();
+            KeyValuePair<TKey, TValue>[] targetKeyValues = targetDict.OrderBy(x => x.Key).ToArray();
 
             //获取键集合
             IEnumerable<TKey> sourceKeys = sourceKeyValues.Select(x => x.Key);
@@ -216,12 +217,12 @@ namespace SD.Common.PoweredByLee
 
             if (enumerable == null)
             {
-                throw new ArgumentNullException("enumerable", string.Format("源{0}集合对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(enumerable), $"源{typeof(T).Name}集合对象不可为空！");
             }
 
             if (keySelector == null)
             {
-                throw new ArgumentNullException("keySelector", @"参照字段表达式不可为空！");
+                throw new ArgumentNullException(nameof(keySelector), @"参照字段表达式不可为空！");
             }
 
             #endregion
@@ -245,11 +246,11 @@ namespace SD.Common.PoweredByLee
 
             if (collection == null)
             {
-                throw new ArgumentNullException("collection", string.Format("源{0}集合对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(collection), $"源{typeof(T).Name}集合对象不可为空！");
             }
             if (enumerable == null)
             {
-                throw new ArgumentNullException("enumerable", string.Format("要添加的{0}集合项不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(enumerable), $"要添加的{typeof(T).Name}集合项不可为空！");
             }
 
             #endregion
@@ -280,29 +281,29 @@ namespace SD.Common.PoweredByLee
 
             if (enumerable == null)
             {
-                throw new ArgumentNullException("enumerable", @"源集合对象不可为空！");
+                throw new ArgumentNullException(nameof(enumerable), "源集合对象不可为空！");
             }
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"查询条件对象不可为空！");
+                throw new ArgumentNullException(nameof(predicate), "查询条件对象不可为空！");
             }
             if (keySelectorOne == null || keySelectorTwo == null)
             {
-                throw new ArgumentNullException("keySelector", @"参照字段表达式不可为空！");
+                throw new ArgumentNullException(nameof(keySelectorOne), "参照字段表达式不可为空！");
             }
             if (pageIndex.IsZeroOrMinus())
             {
-                throw new ArgumentOutOfRangeException("pageIndex", @"页码不可为0或负数！");
+                throw new ArgumentOutOfRangeException(nameof(pageIndex), "页码不可为0或负数！");
             }
             if (pageSize.IsZeroOrMinus())
             {
-                throw new ArgumentOutOfRangeException("pageSize", @"页容量不可为0或负数！");
+                throw new ArgumentOutOfRangeException(nameof(pageSize), "页容量不可为0或负数！");
             }
 
             #endregion
 
             T[] list = enumerable.Where(predicate).ToArray();
-            rowCount = list.Count();
+            rowCount = list.Length;
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
             return list.OrderByDescending(keySelectorOne).ThenByDescending(keySelectorTwo).Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }
@@ -330,23 +331,23 @@ namespace SD.Common.PoweredByLee
 
             if (queryable == null)
             {
-                throw new ArgumentNullException("queryable", @"源集合对象不可为空！");
+                throw new ArgumentNullException(nameof(queryable), "源集合对象不可为空！");
             }
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"查询条件对象不可为空！");
+                throw new ArgumentNullException(nameof(predicate), "查询条件对象不可为空！");
             }
             if (keySelectorOne == null || keySelectorTwo == null)
             {
-                throw new ArgumentNullException("keySelector", @"参照字段表达式不可为空！");
+                throw new ArgumentNullException(nameof(keySelectorOne), "参照字段表达式不可为空！");
             }
             if (pageIndex.IsZeroOrMinus())
             {
-                throw new ArgumentOutOfRangeException("pageIndex", @"页码不可为0或负数！");
+                throw new ArgumentOutOfRangeException(nameof(pageIndex), "页码不可为0或负数！");
             }
             if (pageSize.IsZeroOrMinus())
             {
-                throw new ArgumentOutOfRangeException("pageSize", @"页容量不可为0或负数！");
+                throw new ArgumentOutOfRangeException(nameof(pageSize), "页容量不可为0或负数！");
             }
 
             #endregion
@@ -379,7 +380,7 @@ namespace SD.Common.PoweredByLee
 
             if (dataTable == null)
             {
-                throw new ArgumentNullException("dataTable", "数据表不可为null！");
+                throw new ArgumentNullException(nameof(dataTable), "数据表不可为null！");
             }
 
             #endregion
@@ -421,7 +422,7 @@ namespace SD.Common.PoweredByLee
 
             if (enumerable == null)
             {
-                throw new ArgumentNullException("enumerable", "集合不可为null！");
+                throw new ArgumentNullException(nameof(enumerable), "集合不可为null！");
             }
 
             #endregion

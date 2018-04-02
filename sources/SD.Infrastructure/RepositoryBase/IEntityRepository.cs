@@ -19,7 +19,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         T SingleOrDefault(Guid id);
         #endregion
 
@@ -30,7 +30,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>唯一子类对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         TSub SingleOrDefault<TSub>(Guid id) where TSub : T;
         #endregion
 
@@ -40,7 +40,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         /// <exception cref="NullReferenceException">无该对象</exception>
         T Single(Guid id);
         #endregion
@@ -51,7 +51,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>单个子类对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         /// <exception cref="NullReferenceException">无该对象</exception>
         TSub Single<TSub>(Guid id) where TSub : T;
         #endregion
@@ -141,7 +141,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         bool Exists(Guid id);
         #endregion
 
@@ -151,7 +151,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         bool Exists<TSub>(Guid id) where TSub : T;
         #endregion
 

@@ -1,7 +1,7 @@
-﻿using System;
+﻿using SD.IOC.Core.Mediator;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using SD.IOC.Core.Mediator;
 
 namespace SD.Infrastructure.EventBase.Factories
 {
@@ -35,7 +35,7 @@ namespace SD.Infrastructure.EventBase.Factories
 
             if (!typeof(IEvent).IsAssignableFrom(eventType))
             {
-                throw new InvalidOperationException(string.Format("类型\"{0}\"不实现领域事件基接口！", eventType.FullName));
+                throw new InvalidOperationException($"类型\"{eventType.FullName}\"不实现领域事件基接口！");
             }
 
             #endregion

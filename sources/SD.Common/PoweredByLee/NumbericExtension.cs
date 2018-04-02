@@ -208,10 +208,10 @@ namespace SD.Common.PoweredByLee
         /// <returns>保留位数后的数值</returns>
         public static float KeepDigits(this float number, int digits)
         {
-            decimal dec = unchecked((decimal)number);
+            decimal dec = (decimal)number;
             decimal result = Math.Round(dec, digits, MidpointRounding.AwayFromZero);
 
-            return unchecked((float)result);
+            return (float)result;
         }
         #endregion
 
@@ -224,10 +224,10 @@ namespace SD.Common.PoweredByLee
         /// <returns>保留位数后的数值</returns>
         public static double KeepDigits(this double number, int digits)
         {
-            decimal dec = unchecked((decimal)number);
+            decimal dec = (decimal)number;
             decimal result = Math.Round(dec, digits, MidpointRounding.AwayFromZero);
 
-            return unchecked((double)result);
+            return (double)result;
         }
         #endregion
 
@@ -256,7 +256,7 @@ namespace SD.Common.PoweredByLee
         {
             if (min > max)
             {
-                throw new ArgumentOutOfRangeException("min", @"最小值不可大于最大值！");
+                throw new ArgumentOutOfRangeException(nameof(min), "最小值不可大于最大值！");
             }
             if (number >= min && number <= max)
             {
@@ -278,7 +278,7 @@ namespace SD.Common.PoweredByLee
         {
             if (min > max)
             {
-                throw new ArgumentOutOfRangeException("min", @"最小值不可大于最大值！");
+                throw new ArgumentOutOfRangeException(nameof(min), "最小值不可大于最大值！");
             }
             if (number >= min && number <= max)
             {
@@ -300,7 +300,7 @@ namespace SD.Common.PoweredByLee
         {
             if (min > max)
             {
-                throw new ArgumentOutOfRangeException("min", @"最小值不可大于最大值！");
+                throw new ArgumentOutOfRangeException(nameof(min), "最小值不可大于最大值！");
             }
             if (number >= min && number <= max)
             {
@@ -322,7 +322,7 @@ namespace SD.Common.PoweredByLee
         {
             if (min > max)
             {
-                throw new ArgumentOutOfRangeException("min", @"最小值不可大于最大值！");
+                throw new ArgumentOutOfRangeException(nameof(min), "最小值不可大于最大值！");
             }
             if (number >= min && number <= max)
             {
@@ -344,7 +344,7 @@ namespace SD.Common.PoweredByLee
         {
             if (min > max)
             {
-                throw new ArgumentOutOfRangeException("min", @"最小值不可大于最大值！");
+                throw new ArgumentOutOfRangeException(nameof(min), "最小值不可大于最大值！");
             }
             if (number >= min && number <= max)
             {
@@ -366,7 +366,7 @@ namespace SD.Common.PoweredByLee
         {
             if (min > max)
             {
-                throw new ArgumentOutOfRangeException("min", @"最小值不可大于最大值！");
+                throw new ArgumentOutOfRangeException(nameof(min), "最小值不可大于最大值！");
             }
             if (number >= min && number <= max)
             {
@@ -388,7 +388,7 @@ namespace SD.Common.PoweredByLee
         {
             if (min > max)
             {
-                throw new ArgumentOutOfRangeException("min", @"最小值不可大于最大值！");
+                throw new ArgumentOutOfRangeException(nameof(min), "最小值不可大于最大值！");
             }
             if (number >= min && number <= max)
             {

@@ -22,12 +22,13 @@ namespace SD.Common.PoweredByLee
 
             if (string.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentNullException("path", @"路径不可为空！");
+                throw new ArgumentNullException(nameof(path), @"路径不可为空！");
             }
 
             #endregion
 
             StreamReader reader = null;
+
             try
             {
                 reader = new StreamReader(path, Encoding.UTF8);
@@ -36,10 +37,7 @@ namespace SD.Common.PoweredByLee
             }
             finally
             {
-                if (reader != null)
-                {
-                    reader.Dispose();
-                }
+                reader?.Dispose();
             }
         }
         #endregion
@@ -58,13 +56,14 @@ namespace SD.Common.PoweredByLee
 
             if (string.IsNullOrWhiteSpace(path))
             {
-                throw new ArgumentNullException("path", @"路径不可为空！");
+                throw new ArgumentNullException(nameof(path), "路径不可为空！");
             }
 
             #endregion
 
             FileInfo file = new FileInfo(path);
             StreamWriter writer = null;
+
             if (file.Exists && !append)
             {
                 file.Delete();
@@ -73,19 +72,22 @@ namespace SD.Common.PoweredByLee
             {
                 //获取文件目录并判断是否存在
                 string directory = Path.GetDirectoryName(path);
+
+                if (string.IsNullOrEmpty(directory))
+                {
+                    throw new ArgumentNullException(nameof(path), "目录不可为空！");
+                }
                 if (!Directory.Exists(directory))
                 {
                     Directory.CreateDirectory(directory);
                 }
+
                 writer = append ? file.AppendText() : new StreamWriter(path, false, Encoding.UTF8);
                 writer.Write(content);
             }
             finally
             {
-                if (writer != null)
-                {
-                    writer.Dispose();
-                }
+                writer?.Dispose();
             }
         }
         #endregion
@@ -102,12 +104,12 @@ namespace SD.Common.PoweredByLee
 
             if (string.IsNullOrWhiteSpace(sourcePath))
             {
-                throw new ArgumentNullException("sourcePath", @"源路径不可为空！");
+                throw new ArgumentNullException(nameof(sourcePath), "源路径不可为空！");
             }
 
             if (string.IsNullOrWhiteSpace(targetPath))
             {
-                throw new ArgumentNullException("targetPath", @"目标路径不可为空！");
+                throw new ArgumentNullException(nameof(targetPath), "目标路径不可为空！");
             }
 
             #endregion
@@ -123,14 +125,14 @@ namespace SD.Common.PoweredByLee
             FileInfo[] fileArray = sourceDir.GetFiles();
             foreach (FileInfo file in fileArray)
             {
-                file.CopyTo(string.Format("{0}\\{1}", targetPath, file.Name), true);
+                file.CopyTo($"{targetPath}\\{file.Name}", true);
             }
 
             //03.递归循环子文件夹
             DirectoryInfo[] subDirArray = sourceDir.GetDirectories();
             foreach (DirectoryInfo subDir in subDirArray)
             {
-                CopyFolder(subDir.FullName, string.Format("{0}//{1}", targetPath, subDir.Name));
+                CopyFolder(subDir.FullName, $"{targetPath}//{subDir.Name}");
             }
         }
         #endregion

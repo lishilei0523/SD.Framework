@@ -57,15 +57,15 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", string.Format(@"要添加的{0}实体对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $@"要添加的{typeof(T).Name}实体对象不可为空！");
             }
             if (entity.Id == Guid.Empty)
             {
-                throw new ArgumentNullException("Id", string.Format(@"要添加的{0}实体对象Id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $@"要添加的{typeof(T).Name}实体对象Id不可为空！");
             }
             if (this.Exists<T>(x => x.Id == entity.Id))
             {
-                throw new ArgumentOutOfRangeException("Id", string.Format("Id为\"{0}\"的实体已存在！", entity.Id));
+                throw new ArgumentOutOfRangeException(nameof(entity), $"Id为\"{entity.Id}\"的实体已存在！");
             }
 
             #endregion
@@ -85,9 +85,11 @@ namespace SD.Infrastructure.Repository.RavenDB
         {
             #region # 验证参数
 
-            if (entities == null || !entities.Any())
+            entities = entities?.ToArray() ?? new T[0];
+
+            if (!entities.Any())
             {
-                throw new ArgumentNullException("entities", string.Format("要添加的{0}实体对象集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entities), $"要添加的{typeof(T).Name}实体对象集合不可为空！");
             }
 
             #endregion
@@ -113,17 +115,17 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", string.Format("要保存的{0}实体对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $"要保存的{typeof(T).Name}实体对象不可为空！");
             }
 
             if (entity.Id == Guid.Empty)
             {
-                throw new ArgumentNullException("Id", string.Format(@"要保存的{0}实体对象Id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $@"要保存的{typeof(T).Name}实体对象Id不可为空！");
             }
 
             if (!this.Exists<T>(entity.Id))
             {
-                throw new NullReferenceException(string.Format("不存在Id为{0}的{1}实体对象，请尝试添加操作！", entity.Id, typeof(T).Name));
+                throw new NullReferenceException($"不存在Id为{entity.Id}的{typeof(T).Name}实体对象，请尝试添加操作！");
             }
 
             #endregion
@@ -142,9 +144,11 @@ namespace SD.Infrastructure.Repository.RavenDB
         {
             #region # 验证参数
 
-            if (entities == null || !entities.Any())
+            entities = entities?.ToArray() ?? new T[0];
+
+            if (!entities.Any())
             {
-                throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entities), $"要保存的{typeof(T).Name}实体对象集合不可为空！");
             }
 
             #endregion
@@ -170,12 +174,12 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("要删除的{0}实体对象id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"要删除的{typeof(T).Name}实体对象id不可为空！");
             }
 
             if (!this.Exists<T>(id))
             {
-                throw new NullReferenceException(string.Format("Id为{0}的{1}实体对象不存在，请重试！", id, typeof(T).Name));
+                throw new NullReferenceException($"Id为{id}的{typeof(T).Name}实体对象不存在，请重试！");
             }
 
             #endregion
@@ -199,12 +203,12 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("要删除的{0}实体对象编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $"要删除的{typeof(T).Name}实体对象编号不可为空！");
             }
 
             if (!this.Exists<T>(number))
             {
-                throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", number, typeof(T).Name));
+                throw new NullReferenceException($"编号为{number}的{typeof(T).Name}实体对象不存在，请重试！");
             }
 
             #endregion
@@ -226,7 +230,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", string.Format(@"要删除的{0}实体对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $@"要删除的{typeof(T).Name}实体对象不可为空！");
             }
 
             #endregion
@@ -247,9 +251,11 @@ namespace SD.Infrastructure.Repository.RavenDB
         {
             #region # 验证参数
 
-            if (ids == null || !ids.Any())
+            ids = ids?.ToArray() ?? new Guid[0];
+
+            if (!ids.Any())
             {
-                throw new ArgumentNullException("ids", string.Format("要删除的{0}的id集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的Id集合不可为空！");
             }
 
             #endregion
@@ -292,11 +298,11 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("要删除的{0}实体对象id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"要删除的{typeof(T).Name}实体对象id不可为空！");
             }
             if (!this.Exists<T>(id))
             {
-                throw new NullReferenceException(string.Format("Id为{0}的{1}实体对象不存在，请重试！", id, typeof(T).Name));
+                throw new NullReferenceException($"Id为{id}的{typeof(T).Name}实体对象不存在，请重试！");
             }
 
             #endregion
@@ -321,12 +327,12 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format(@"要删除的{0}实体对象编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $@"要删除的{typeof(T).Name}实体对象编号不可为空！");
             }
 
             if (!this.Exists<T>(number))
             {
-                throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", number, typeof(T).Name));
+                throw new NullReferenceException($"编号为{number}的{typeof(T).Name}实体对象不存在，请重试！");
             }
 
             #endregion
@@ -349,7 +355,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", string.Format(@"要删除的{0}实体对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $@"要删除的{typeof(T).Name}实体对象不可为空！");
             }
 
             #endregion
@@ -370,9 +376,11 @@ namespace SD.Infrastructure.Repository.RavenDB
         {
             #region # 验证参数
 
-            if (ids == null || !ids.Any())
+            ids = ids?.ToArray() ?? new Guid[0];
+
+            if (!ids.Any())
             {
-                throw new ArgumentNullException("ids", string.Format("要删除的{0}的id集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的Id集合不可为空！");
             }
 
             #endregion
@@ -396,7 +404,7 @@ namespace SD.Infrastructure.Repository.RavenDB
             foreach (T entity in queryable)
             {
                 entity.Deleted = true;
-                entity.DeletedTime = DateTime.Now; ;
+                entity.DeletedTime = DateTime.Now;
             }
         }
         #endregion
@@ -418,11 +426,11 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
             }
             if (!this.Exists<T>(id))
             {
-                throw new NullReferenceException(string.Format("Id为{0}的{1}实体对象不存在，请重试！", id, typeof(T).Name));
+                throw new NullReferenceException($"Id为{id}的{typeof(T).Name}实体对象不存在，请重试！");
             }
 
             #endregion
@@ -458,11 +466,11 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
             }
             if (!this.Exists<T>(number))
             {
-                throw new NullReferenceException(string.Format("编号为{0}的{1}实体对象不存在，请重试！", number, typeof(T).Name));
+                throw new NullReferenceException($"编号为{number}的{typeof(T).Name}实体对象不存在，请重试！");
             }
 
             #endregion
@@ -563,10 +571,7 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// </summary>
         public void Dispose()
         {
-            if (this._dbContext != null)
-            {
-                this._dbContext.Dispose();
-            }
+            this._dbContext?.Dispose();
         }
         #endregion
 
@@ -589,15 +594,15 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
             if (!this.Exists<T>(predicate))
             {
-                throw new NullReferenceException(string.Format("给定的条件\"{0}\"中查询不到任何{1}实体对象！", predicate, typeof(T).Name));
+                throw new NullReferenceException($"给定的条件\"{predicate}\"中查询不到任何{typeof(T).Name}实体对象！");
             }
             if (this.Count(predicate) > 1)
             {
-                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
+                throw new InvalidOperationException($"给定的条件\"{predicate}\"中查询到1个以上的{typeof(T).Name}实体对象！");
             }
 
             #endregion
@@ -621,7 +626,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion

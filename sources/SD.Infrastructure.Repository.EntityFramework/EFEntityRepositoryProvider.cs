@@ -65,7 +65,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
         public T SingleOrDefault(Guid id)
@@ -74,7 +74,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的Id不可为空！");
             }
 
             #endregion
@@ -90,14 +90,14 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>唯一子类对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         public TSub SingleOrDefault<TSub>(Guid id) where TSub : T
         {
             #region # 验证参数
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(TSub).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(TSub).Name}的Id不可为空！");
             }
 
             #endregion
@@ -112,7 +112,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         /// <exception cref="NullReferenceException">无该对象</exception>
         public T Single(Guid id)
         {
@@ -122,7 +122,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(T).Name));
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
             }
 
             #endregion
@@ -137,7 +137,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>单个子类对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         /// <exception cref="NullReferenceException">无该对象</exception>
         public TSub Single<TSub>(Guid id) where TSub : T
         {
@@ -147,7 +147,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(TSub).Name));
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(TSub).Name}实体不存在！");
             }
 
             #endregion
@@ -219,7 +219,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (ids == null)
             {
-                throw new ArgumentNullException("ids", "Id集合不可为null！");
+                throw new ArgumentNullException(nameof(ids), "Id集合不可为null！");
             }
 
             Guid[] newIds = ids.Distinct().ToArray();
@@ -228,7 +228,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
             {
                 if (!this.Exists(id))
                 {
-                    throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(T).Name));
+                    throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
                 }
             }
 
@@ -254,7 +254,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (ids == null)
             {
-                throw new ArgumentNullException("ids", "Id集合不可为null！");
+                throw new ArgumentNullException(nameof(ids), "Id集合不可为null！");
             }
 
             Guid[] newIds = ids.Distinct().ToArray();
@@ -263,7 +263,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
             {
                 if (!this.Exists(id))
                 {
-                    throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(TSub).Name));
+                    throw new NullReferenceException($"Id为\"{id}\"的{typeof(TSub).Name}实体不存在！");
                 }
             }
 
@@ -311,14 +311,14 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         public bool Exists(Guid id)
         {
             #region # 验证参数
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的Id不可为空！");
             }
 
             #endregion
@@ -333,14 +333,14 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <exception cref="ArgumentNullException">Id为空</exception>
         public bool Exists<TSub>(Guid id) where TSub : T
         {
             #region # 验证参数
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的Id不可为空！");
             }
 
             #endregion
@@ -366,7 +366,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (string.IsNullOrWhiteSpace(sql))
             {
-                throw new ArgumentNullException("sql", @"SQL语句不可为空！");
+                throw new ArgumentNullException(nameof(sql), @"SQL语句不可为空！");
             }
 
             #endregion
@@ -381,10 +381,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         public void Dispose()
         {
-            if (this._dbContext != null)
-            {
-                this._dbContext.Dispose();
-            }
+            this._dbContext?.Dispose();
         }
         #endregion
 
@@ -411,12 +408,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             if (this.Count(predicate) > 1)
             {
-                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
+                throw new InvalidOperationException($"给定的条件\"{predicate}\"中查询到1个以上的{typeof(T).Name}实体对象！");
             }
 
             #endregion
@@ -442,12 +439,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             if (this.Count(predicate) > 1)
             {
-                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
+                throw new InvalidOperationException($"给定的条件\"{predicate}\"中查询到1个以上的{typeof(T).Name}实体对象！");
             }
 
             #endregion
@@ -469,7 +466,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -492,7 +489,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -564,7 +561,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -588,7 +585,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -701,7 +698,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -724,7 +721,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -750,7 +747,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -776,7 +773,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion

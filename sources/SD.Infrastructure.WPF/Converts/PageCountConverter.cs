@@ -17,7 +17,7 @@ namespace SD.Infrastructure.WPF.Converts
             int pageSize = string.IsNullOrWhiteSpace(pageSizeStr) ? 10 : int.Parse(pageSizeStr);
             int rowCount = string.IsNullOrWhiteSpace(rowCountStr) ? int.MaxValue : int.Parse(rowCountStr);
 
-            int pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize); ;
+            int pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
 
             return pageCount.ToString();
         }

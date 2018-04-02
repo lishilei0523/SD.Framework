@@ -1,12 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using RabbitMQ.Client;
+﻿using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using SD.Infrastructure.Constants;
 using SD.Infrastructure.EventBase;
 using SD.Infrastructure.EventBase.Mediator;
+using System;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 // ReSharper disable once CheckNamespace
 namespace SD.Infrastructure.EventStoreProvider
@@ -151,7 +151,7 @@ namespace SD.Infrastructure.EventStoreProvider
 
             if (instance == null)
             {
-                throw new ArgumentNullException("instance", @"源对象不可为空！");
+                throw new ArgumentNullException(nameof(instance), @"源对象不可为空！");
             }
 
             #endregion
@@ -165,7 +165,7 @@ namespace SD.Infrastructure.EventStoreProvider
                 }
                 catch (SerializationException)
                 {
-                    throw new SerializationException(string.Format("给定对象类型\"{0}\"未标记\"Serializable\"特性！", instance.GetType().Name));
+                    throw new SerializationException($"给定对象类型\"{instance.GetType().Name}\"未标记\"Serializable\"特性！");
                 }
             }
         }
@@ -184,7 +184,7 @@ namespace SD.Infrastructure.EventStoreProvider
 
             if (buffer == null)
             {
-                throw new ArgumentNullException("buffer", @"byte数组不可为null！");
+                throw new ArgumentNullException(nameof(buffer), @"byte数组不可为null！");
             }
 
             #endregion
