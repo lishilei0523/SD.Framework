@@ -63,7 +63,6 @@
     <Compile Include="Aspects\ForAny\DomainExceptionAspect.cs" />
     <Compile Include="Aspects\ForAny\RepositoryExceptionAspect.cs" />
     <Compile Include="Aspects\ForAny\NonThrowExceptionAspect.cs" />
-    <Compile Include="Aspects\ForAny\WinServiceExceptionAspect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
