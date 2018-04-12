@@ -46,7 +46,7 @@ namespace SD.Infrastructure.Constants
         /// <summary>
         /// DbSession构造函数默认参数
         /// </summary>
-        public static readonly string DbSessionConstructorArg = string.Format("name={0}", DefaultConnectionStringName);
+        public static readonly string DbSessionConstructorArg = $"name={DefaultConnectionStringName}";
 
         /// <summary>
         /// 默认连接字符串名称

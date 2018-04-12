@@ -44,8 +44,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Attributes\RequireAuthorizationAttribute.cs" />
-    <Compile Include="CommandBase\ICommand.cs" />
-    <Compile Include="CommandBase\ICommandExecutor.cs" />
     <Compile Include="Constants\ApplicationType.cs" />
     <Compile Include="Constants\CacheConstants.cs" />
     <Compile Include="Constants\CommonConstants.cs" />
@@ -68,7 +66,6 @@
     <Compile Include="EventBase\IEvent.cs" />
     <Compile Include="EventBase\IEventStore.cs" />
     <Compile Include="MemberShip\LoginSystemInfo.cs" />
-    <Compile Include="MessageBase\IMessage.cs" />
     <Compile Include="PresentationBase\IPresenter.cs" />
     <Compile Include="PresentationBase\ViewModel.cs" />
     <Compile Include="RepositoryBase\IDataInitializer.cs" />

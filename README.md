@@ -39,42 +39,41 @@
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.AOP
 
 
-4、SD.Infrastructure.CommandBase
-
-	命令基础设施，包含命令基类、命令执行者工厂、命令中介者。
-
-	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.CommandBase
-
-
-5、SD.Infrastructure.EventBase
+4、SD.Infrastructure.EventBase
 
 	领域事件基础，包含领域事件基类、领域事件处理者工厂、领域事件中介者、Session存储提供者。
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventBase
 
-6、SD.Infrastructure.EventStoreProvider.RabbitMQ
+5、SD.Infrastructure.EventStoreProvider.RabbitMQ
 
 	RabbitMQ领域事件存储提供者。
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventStoreProvider.RabbitMQ
 
-7、SD.Infrastructure.EventStoreProvider.Redis
+6、SD.Infrastructure.EventStoreProvider.Redis
 
 	Redis领域事件存储提供者。
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventStoreProvider.Redis
 
-8、SD.Infrastructure.Global
+7、SD.Infrastructure.Global
 
 	全局操作基础设施，包括全局初始化、释放资源、事务。
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Global
 
-9、SD.Infrastructure.MVC
+8、SD.Infrastructure.MVC
 
 	MVC基础。
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.MVC
+
+9、SD.Infrastructure.MVC.Server
+	
+	MVC服务端基础。
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.MVC.Server
 
 10、SD.Infrastructure.Repository.EntityFramework
 
@@ -105,3 +104,9 @@
 	WCF服务端基础设施。
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.WCF.Server
+
+15、SD.Infrastructure.WPF
+	
+	WPF客户端基础设施。
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.WPF
