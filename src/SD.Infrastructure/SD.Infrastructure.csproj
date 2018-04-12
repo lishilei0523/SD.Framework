@@ -46,7 +46,11 @@
     <Compile Include="Attributes\RequireAuthorizationAttribute.cs" />
     <Compile Include="Constants\ApplicationType.cs" />
     <Compile Include="Constants\CacheConstants.cs" />
+    <Compile Include="Constants\CheckStatus.cs" />
     <Compile Include="Constants\CommonConstants.cs" />
+    <Compile Include="EntityBase\ICheckable.cs" />
+    <Compile Include="EntityBase\IDisable.cs" />
+    <Compile Include="EntityBase\InterfaceExtension.cs" />
     <Compile Include="MemberShip\LoginAuthorityInfo.cs" />
     <Compile Include="MemberShip\LoginInfo.cs" />
     <Compile Include="MemberShip\LoginMenuInfo.cs" />
