@@ -19,6 +19,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -85,11 +86,11 @@
       <Project>{04BFA4D7-86C8-4341-B34C-3F1D88D19827}</Project>
       <Name>SD.Infrastructure.StubIAppService</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\sources\SD.Infrastructure.WCF.Server\SD.Infrastructure.WCF.Server.csproj">
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure.WCF.Server\SD.Infrastructure.WCF.Server.csproj">
       <Project>{9a78b517-ad18-4bc7-b687-4dc245f4db57}</Project>
       <Name>SD.Infrastructure.WCF.Server</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\sources\SD.Infrastructure\SD.Infrastructure.csproj">
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure\SD.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
       <Name>SD.Infrastructure</Name>
     </ProjectReference>

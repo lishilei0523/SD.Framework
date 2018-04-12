@@ -95,7 +95,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\sources\SD.Infrastructure.WPF\SD.Infrastructure.WPF.csproj">
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure.WPF\SD.Infrastructure.WPF.csproj">
       <Project>{3e708acc-ce46-4dc3-9b89-db40947ffbbc}</Project>
       <Name>SD.Infrastructure.WPF</Name>
     </ProjectReference>

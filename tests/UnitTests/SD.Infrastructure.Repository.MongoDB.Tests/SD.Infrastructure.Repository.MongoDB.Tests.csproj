@@ -60,11 +60,11 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\sources\SD.Infrastructure.Repository.MongoDB\SD.Infrastructure.Repository.MongoDB.csproj">
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure.Repository.MongoDB\SD.Infrastructure.Repository.MongoDB.csproj">
       <Project>{C5CAFB43-1A18-4D52-8B98-59215E0F1309}</Project>
       <Name>SD.Infrastructure.Repository.MongoDB</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\sources\SD.Infrastructure\SD.Infrastructure.csproj">
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure\SD.Infrastructure.csproj">
       <Project>{F9FF05F0-1900-4D24-859A-B3202F2208D7}</Project>
       <Name>SD.Infrastructure</Name>
     </ProjectReference>

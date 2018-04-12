@@ -75,11 +75,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\sources\SD.Infrastructure.Repository.Redis\SD.Infrastructure.Repository.Redis.csproj">
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure.Repository.Redis\SD.Infrastructure.Repository.Redis.csproj">
       <Project>{6c90e036-5969-4a31-a685-b845923b51dd}</Project>
       <Name>SD.Infrastructure.Repository.Redis</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\sources\SD.Infrastructure\SD.Infrastructure.csproj">
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure\SD.Infrastructure.csproj">
       <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
       <Name>SD.Infrastructure</Name>
     </ProjectReference>

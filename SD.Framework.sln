@@ -5,7 +5,7 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Infrastructures", "01 - Infrastructures", "{F04B3910-0A27-4C2D-8ED1-6CC7095691E5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - UnitTests", "02 - UnitTests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - UnitTests", "05 - UnitTests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FF4ABECC-5097-4064-95CA-9BF579AEE43C}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FF4ABE
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - IntegrationTests", "03 - IntegrationTests", "{30953907-39FD-4F6F-933A-4F418FA1E03A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 - IntegrationTests", "06 - IntegrationTests", "{30953907-39FD-4F6F-933A-4F418FA1E03A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - WCF", "02 - WCF", "{8F39A4B5-03D4-4E84-9B35-D7A5AE0D3AED}"
 EndProject
@@ -30,27 +30,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 - Documentations", "00 -
 		docs\解决方案模板使用说明.doc = docs\解决方案模板使用说明.doc
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure", "sources\SD.Infrastructure\SD.Infrastructure.csproj", "{F9FF05F0-1900-4D24-859A-B3202F2208D7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure", "src\SD.Infrastructure\SD.Infrastructure.csproj", "{F9FF05F0-1900-4D24-859A-B3202F2208D7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.AOP", "sources\SD.Infrastructure.AOP\SD.Infrastructure.AOP.csproj", "{90EEAC8D-C4F0-4003-B09B-A4D4C8B312BA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.AOP", "src\SD.Infrastructure.AOP\SD.Infrastructure.AOP.csproj", "{90EEAC8D-C4F0-4003-B09B-A4D4C8B312BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventBase", "sources\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj", "{79DC5E40-2857-4748-A895-49BB675CDC68}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventBase", "src\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj", "{79DC5E40-2857-4748-A895-49BB675CDC68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventStoreProvider.RabbitMQ", "sources\SD.Infrastructure.EventStoreProvider.RabbitMQ\SD.Infrastructure.EventStoreProvider.RabbitMQ.csproj", "{7D78CE29-610B-4709-8950-3AEAF405C89B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventStoreProvider.RabbitMQ", "src\SD.Infrastructure.EventStoreProvider.RabbitMQ\SD.Infrastructure.EventStoreProvider.RabbitMQ.csproj", "{7D78CE29-610B-4709-8950-3AEAF405C89B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventStoreProvider.Redis", "sources\SD.Infrastructure.EventStoreProvider.Redis\SD.Infrastructure.EventStoreProvider.Redis.csproj", "{78920B31-6D86-48D2-95B0-C5F19443225B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventStoreProvider.Redis", "src\SD.Infrastructure.EventStoreProvider.Redis\SD.Infrastructure.EventStoreProvider.Redis.csproj", "{78920B31-6D86-48D2-95B0-C5F19443225B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Global", "sources\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj", "{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Global", "src\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj", "{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.EntityFramework", "sources\SD.Infrastructure.Repository.EntityFramework\SD.Infrastructure.Repository.EntityFramework.csproj", "{972CFDBB-1E0F-43CD-987A-458E9D1543B8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.EntityFramework", "src\SD.Infrastructure.Repository.EntityFramework\SD.Infrastructure.Repository.EntityFramework.csproj", "{972CFDBB-1E0F-43CD-987A-458E9D1543B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.MongoDB", "sources\SD.Infrastructure.Repository.MongoDB\SD.Infrastructure.Repository.MongoDB.csproj", "{C5CAFB43-1A18-4D52-8B98-59215E0F1309}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.MongoDB", "src\SD.Infrastructure.Repository.MongoDB\SD.Infrastructure.Repository.MongoDB.csproj", "{C5CAFB43-1A18-4D52-8B98-59215E0F1309}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.RavenDB", "sources\SD.Infrastructure.Repository.RavenDB\SD.Infrastructure.Repository.RavenDB.csproj", "{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.RavenDB", "src\SD.Infrastructure.Repository.RavenDB\SD.Infrastructure.Repository.RavenDB.csproj", "{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.Redis", "sources\SD.Infrastructure.Repository.Redis\SD.Infrastructure.Repository.Redis.csproj", "{6C90E036-5969-4A31-A685-B845923B51DD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.Redis", "src\SD.Infrastructure.Repository.Redis\SD.Infrastructure.Repository.Redis.csproj", "{6C90E036-5969-4A31-A685-B845923B51DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WCF.Server", "sources\SD.Infrastructure.WCF.Server\SD.Infrastructure.WCF.Server.csproj", "{9A78B517-AD18-4BC7-B687-4DC245F4DB57}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WCF.Server", "src\SD.Infrastructure.WCF.Server\SD.Infrastructure.WCF.Server.csproj", "{9A78B517-AD18-4BC7-B687-4DC245F4DB57}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventBase.Tests", "tests\UnitTests\SD.Infrastructure.EventBase.Tests\SD.Infrastructure.EventBase.Tests.csproj", "{1182A916-10CD-482C-B8AA-1A630C5C739C}"
 EndProject
@@ -64,13 +64,19 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.StubAppSe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WCF.Tests", "tests\IntegrationTests\SD.Infrastructure.WCF.Tests\SD.Infrastructure.WCF.Tests.csproj", "{44C612E2-18F5-4A15-8D2E-0AF325370FC7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.MVC", "sources\SD.Infrastructure.MVC\SD.Infrastructure.MVC.csproj", "{5B231572-46D6-432B-81B1-C583C699D925}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.MVC", "src\SD.Infrastructure.MVC\SD.Infrastructure.MVC.csproj", "{5B231572-46D6-432B-81B1-C583C699D925}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.MVC.Server", "sources\SD.Infrastructure.MVC.Server\SD.Infrastructure.MVC.Server.csproj", "{BE2F2103-F9F6-49B7-8389-D1D909F35464}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.MVC.Server", "src\SD.Infrastructure.MVC.Server\SD.Infrastructure.MVC.Server.csproj", "{BE2F2103-F9F6-49B7-8389-D1D909F35464}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WPF", "sources\SD.Infrastructure.WPF\SD.Infrastructure.WPF.csproj", "{3E708ACC-CE46-4DC3-9B89-DB40947FFBBC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WPF", "src\SD.Infrastructure.WPF\SD.Infrastructure.WPF.csproj", "{3E708ACC-CE46-4DC3-9B89-DB40947FFBBC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WPF.Tests", "tests\UnitTests\SD.Infrastructure.WPF.Tests\SD.Infrastructure.WPF.Tests.csproj", "{BCF72253-2D5A-4FE2-8636-09667CC6FF39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Events", "02 - Events", "{937234D3-F5FB-49DA-8B45-9F426E246004}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Servers", "03 - Servers", "{AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Repositories", "04 - Repositories", "{88B56539-567B-4B32-BCFC-CB39C1158534}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -171,15 +177,15 @@ Global
 		{7D849A44-01DC-44B0-A680-772E1A1B91EA} = {30953907-39FD-4F6F-933A-4F418FA1E03A}
 		{F9FF05F0-1900-4D24-859A-B3202F2208D7} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{90EEAC8D-C4F0-4003-B09B-A4D4C8B312BA} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{79DC5E40-2857-4748-A895-49BB675CDC68} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{7D78CE29-610B-4709-8950-3AEAF405C89B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{78920B31-6D86-48D2-95B0-C5F19443225B} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{79DC5E40-2857-4748-A895-49BB675CDC68} = {937234D3-F5FB-49DA-8B45-9F426E246004}
+		{7D78CE29-610B-4709-8950-3AEAF405C89B} = {937234D3-F5FB-49DA-8B45-9F426E246004}
+		{78920B31-6D86-48D2-95B0-C5F19443225B} = {937234D3-F5FB-49DA-8B45-9F426E246004}
 		{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{972CFDBB-1E0F-43CD-987A-458E9D1543B8} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{C5CAFB43-1A18-4D52-8B98-59215E0F1309} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{6C90E036-5969-4A31-A685-B845923B51DD} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{9A78B517-AD18-4BC7-B687-4DC245F4DB57} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{972CFDBB-1E0F-43CD-987A-458E9D1543B8} = {88B56539-567B-4B32-BCFC-CB39C1158534}
+		{C5CAFB43-1A18-4D52-8B98-59215E0F1309} = {88B56539-567B-4B32-BCFC-CB39C1158534}
+		{95BEC4B8-4036-4701-9C1F-5A6E09AE5EF6} = {88B56539-567B-4B32-BCFC-CB39C1158534}
+		{6C90E036-5969-4A31-A685-B845923B51DD} = {88B56539-567B-4B32-BCFC-CB39C1158534}
+		{9A78B517-AD18-4BC7-B687-4DC245F4DB57} = {AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}
 		{1182A916-10CD-482C-B8AA-1A630C5C739C} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{D4673F34-2090-41E0-AE2C-746F0CA97F3C} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{EB280BB1-F289-4C76-8B96-9D71FFE15D0B} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
@@ -187,7 +193,7 @@ Global
 		{A9F7D041-ECF8-434D-B083-5F57AD348564} = {7D849A44-01DC-44B0-A680-772E1A1B91EA}
 		{44C612E2-18F5-4A15-8D2E-0AF325370FC7} = {8F39A4B5-03D4-4E84-9B35-D7A5AE0D3AED}
 		{5B231572-46D6-432B-81B1-C583C699D925} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{BE2F2103-F9F6-49B7-8389-D1D909F35464} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{BE2F2103-F9F6-49B7-8389-D1D909F35464} = {AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}
 		{3E708ACC-CE46-4DC3-9B89-DB40947FFBBC} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{BCF72253-2D5A-4FE2-8636-09667CC6FF39} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 	EndGlobalSection
