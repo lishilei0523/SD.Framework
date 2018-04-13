@@ -1,9 +1,9 @@
-﻿using System.Transactions;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Infrastructure.EventBase.Mediator;
 using SD.Infrastructure.EventBase.Tests.StubDomainEventHandlers;
 using SD.Infrastructure.EventBase.Tests.StubEntities;
 using SD.Infrastructure.Global;
+using System.Transactions;
 
 namespace SD.Infrastructure.EventBase.Tests.TestCases
 {
@@ -21,7 +21,7 @@ namespace SD.Infrastructure.EventBase.Tests.TestCases
         {
             for (int i = 0; i < 100; i++)
             {
-                using (TransactionScope scope = new TransactionScope())
+                using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
                     Initializer.InitSessionId();
 

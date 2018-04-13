@@ -19,7 +19,7 @@ namespace SD.Infrastructure.Global.Transaction
             try
             {
                 //开启事务
-                using (TransactionScope scope = new TransactionScope())
+                using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
                     //提交工作单元
                     unitOfWork.Commit();
