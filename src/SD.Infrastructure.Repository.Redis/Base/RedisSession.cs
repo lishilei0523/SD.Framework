@@ -53,11 +53,11 @@ namespace SD.Infrastructure.Repository.Redis.Base
             {
                 lock (_Sync)
                 {
-                    RedisSession redisSession = CallContext.GetData(CurrentInstanceKey) as RedisSession;
+                    RedisSession redisSession = CallContext.LogicalGetData(CurrentInstanceKey) as RedisSession;
                     if (redisSession == null)
                     {
                         redisSession = new RedisSession();
-                        CallContext.SetData(CurrentInstanceKey, redisSession);
+                        CallContext.LogicalSetData(CurrentInstanceKey, redisSession);
                     }
                     return redisSession;
                 }

@@ -85,7 +85,7 @@ namespace SD.Infrastructure.Constants
         {
             get
             {
-                object sessionIdCache = CallContext.GetData(CacheConstants.SessionIdKey);
+                object sessionIdCache = CallContext.LogicalGetData(CacheConstants.SessionIdKey);
 
                 if (sessionIdCache == null)
                 {

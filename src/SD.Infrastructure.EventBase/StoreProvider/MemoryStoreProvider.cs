@@ -50,7 +50,7 @@ namespace SD.Infrastructure.EventStoreProvider
             lock (_Sync)
             {
                 //获取线程缓存
-                object eventSources = CallContext.GetData(EventSessionKey);
+                object eventSources = CallContext.LogicalGetData(EventSessionKey);
 
                 //如果缓存不为空，则将事件源队列变量赋值为缓存
                 if (eventSources != null)
@@ -62,7 +62,7 @@ namespace SD.Infrastructure.EventStoreProvider
                 this._eventSources.Add(eventSource as Event);
 
                 //将新队列添加到缓存
-                CallContext.SetData(EventSessionKey, this._eventSources);
+                CallContext.LogicalSetData(EventSessionKey, this._eventSources);
             }
         }
         #endregion
@@ -76,7 +76,7 @@ namespace SD.Infrastructure.EventStoreProvider
             lock (_Sync)
             {
                 //获取线程缓存
-                object eventSources = CallContext.GetData(EventSessionKey);
+                object eventSources = CallContext.LogicalGetData(EventSessionKey);
 
                 //如果缓存中没有数据，则终止方法
                 if (eventSources == null)

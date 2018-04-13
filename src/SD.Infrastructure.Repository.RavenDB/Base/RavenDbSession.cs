@@ -1,11 +1,11 @@
-﻿using System;
-using System.Configuration;
-using System.Reflection;
-using System.Runtime.Remoting.Messaging;
-using Raven.Client;
+﻿using Raven.Client;
 using Raven.Client.Document;
 using Raven.Client.Indexes;
 using SD.Infrastructure.Constants;
+using System;
+using System.Configuration;
+using System.Reflection;
+using System.Runtime.Remoting.Messaging;
 
 namespace SD.Infrastructure.Repository.RavenDB.Base
 {
@@ -88,11 +88,11 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
             {
                 lock (_Sync)
                 {
-                    IDocumentSession dbSession = CallContext.GetData(CommandInstanceKey) as IDocumentSession;
+                    IDocumentSession dbSession = CallContext.LogicalGetData(CommandInstanceKey) as IDocumentSession;
                     if (dbSession == null)
                     {
                         dbSession = _Store.OpenSession();
-                        CallContext.SetData(CommandInstanceKey, dbSession);
+                        CallContext.LogicalSetData(CommandInstanceKey, dbSession);
                     }
                     return dbSession;
                 }
@@ -110,11 +110,11 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
             {
                 lock (_Sync)
                 {
-                    IAsyncDocumentSession dbSession = CallContext.GetData(QueryInstanceKey) as IAsyncDocumentSession;
+                    IAsyncDocumentSession dbSession = CallContext.LogicalGetData(QueryInstanceKey) as IAsyncDocumentSession;
                     if (dbSession == null)
                     {
                         dbSession = _Store.OpenAsyncSession();
-                        CallContext.SetData(QueryInstanceKey, dbSession);
+                        CallContext.LogicalSetData(QueryInstanceKey, dbSession);
                     }
                     return dbSession;
                 }

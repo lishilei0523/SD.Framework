@@ -61,11 +61,11 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
             {
                 lock (_Sync)
                 {
-                    DbContext dbContext = CallContext.GetData(CommandInstanceKey) as DbContext;
+                    DbContext dbContext = CallContext.LogicalGetData(CommandInstanceKey) as DbContext;
                     if (dbContext == null)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
-                        CallContext.SetData(CommandInstanceKey, dbContext);
+                        CallContext.LogicalSetData(CommandInstanceKey, dbContext);
                     }
                     return dbContext;
                 }
@@ -83,15 +83,13 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
             {
                 lock (_Sync)
                 {
-                    DbContext dbContext = CallContext.GetData(QueryInstanceKey) as DbContext;
+                    DbContext dbContext = CallContext.LogicalGetData(QueryInstanceKey) as DbContext;
                     if (dbContext == null)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
+                        dbContext.Configuration.AutoDetectChangesEnabled = false;/*关闭自动跟踪实体变化状态*/
 
-                        //关闭自动跟踪实体变化状态
-                        dbContext.Configuration.AutoDetectChangesEnabled = false;
-
-                        CallContext.SetData(QueryInstanceKey, dbContext);
+                        CallContext.LogicalSetData(QueryInstanceKey, dbContext);
                     }
                     return dbContext;
                 }
