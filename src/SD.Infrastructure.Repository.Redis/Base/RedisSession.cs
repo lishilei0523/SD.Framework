@@ -8,7 +8,8 @@ namespace SD.Infrastructure.Repository.Redis.Base
     /// <summary>
     /// Redis上下文对象
     /// </summary>
-    internal class RedisSession : IDisposable
+    [Serializable]
+    public class RedisSession : IDisposable
     {
         #region # 常量、字段及构造器
 
