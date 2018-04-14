@@ -56,50 +56,6 @@ namespace SD.Infrastructure.RepositoryBase
         TSub Single<TSub>(string number) where TSub : T;
         #endregion
 
-        #region # 根据名称获取唯一实体对象（查看时用） —— T SingleByName(string name)
-        /// <summary>
-        /// 根据名称获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
-        /// </summary>
-        /// <param name="name">名称</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">名称为空</exception>
-        T SingleByName(string name);
-        #endregion
-
-        #region # 根据Id获取唯一实体对象Name —— string GetName(Guid id)
-        /// <summary>
-        /// 根据Id获取唯一实体对象Name
-        /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>实体对象Name</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
-        string GetName(Guid id);
-        #endregion
-
-        #region # 根据编号获取唯一实体对象Name —— string GetName(string number)
-        /// <summary>
-        /// 根据编号获取唯一实体对象Name
-        /// </summary>
-        /// <param name="number">编号</param>
-        /// <returns>实体对象Name</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
-        string GetName(string number);
-        #endregion
-
-        #region # 根据Id获取唯一实体对象Number —— string GetNumber(Guid id)
-        /// <summary>
-        /// 根据Id获取唯一实体对象Number
-        /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>实体对象Number</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
-        string GetNumber(Guid id);
-        #endregion
-
 
         //IEnumerable部分
 
@@ -170,28 +126,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// <returns>子类对象字典</returns>
         /// <remarks>IDictionary[string, TSub]，[编号, 子类对象]</remarks>
         IDictionary<string, TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T;
-        #endregion
-
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames()
-        /// <summary>
-        /// 获取Id与Name字典
-        /// </summary>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        IDictionary<Guid, string> FindIdNames();
-        #endregion
-
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames<TSub>()
-        /// <summary>
-        /// 获取Id与Name字典
-        /// </summary>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        IDictionary<Guid, string> FindIdNames<TSub>() where TSub : T;
         #endregion
 
 

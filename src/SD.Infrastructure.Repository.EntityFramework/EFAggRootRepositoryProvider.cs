@@ -125,71 +125,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据名称获取唯一实体对象（查看时用） —— T SingleByName(string name)
-        /// <summary>
-        /// 根据名称获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
-        /// </summary>
-        /// <param name="name">名称</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">名称为空</exception>
-        public T SingleByName(string name)
-        {
-            #region # 验证参数
-
-            if (string.IsNullOrWhiteSpace(name))
-            {
-                throw new ArgumentNullException("name", string.Format("{0}的名称不可为空！", typeof(T).Name));
-            }
-
-            #endregion
-
-            return base.SingleOrDefault(x => x.Name == name);
-        }
-        #endregion
-
-        #region # 根据Id获取唯一实体对象Name —— string GetName(Guid id)
-        /// <summary>
-        /// 根据Id获取唯一实体对象Name
-        /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>实体对象Name</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
-        public string GetName(Guid id)
-        {
-            return base.Find(x => x.Id == id).Select(x => x.Name).SingleOrDefault();
-        }
-        #endregion
-
-        #region # 根据编号获取唯一实体对象Name —— string GetName(string number)
-        /// <summary>
-        /// 根据编号获取唯一实体对象Name
-        /// </summary>
-        /// <param name="number">编号</param>
-        /// <returns>实体对象Name</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
-        public string GetName(string number)
-        {
-            return base.Find(x => x.Number == number).Select(x => x.Name).SingleOrDefault();
-        }
-        #endregion
-
-        #region # 根据Id获取唯一实体对象Number —— string GetNumber(Guid id)
-        /// <summary>
-        /// 根据Id获取唯一实体对象Number
-        /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>实体对象Number</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
-        public string GetNumber(Guid id)
-        {
-            return base.Find(x => x.Id == id).Select(x => x.Number).SingleOrDefault();
-        }
-        #endregion
-
 
         //IEnumerable部分
 
@@ -340,40 +275,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
                            select new { entity.Number, entity };
 
             return entities.ToDictionary(x => x.Number, x => x.entity);
-        }
-        #endregion
-
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames()
-        /// <summary>
-        /// 获取Id与Name字典
-        /// </summary>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        public IDictionary<Guid, string> FindIdNames()
-        {
-            var idNames = from entity in this.FindAllInner()
-                          select new { entity.Id, entity.Name };
-
-            return idNames.ToDictionary(x => x.Id, x => x.Name);
-        }
-        #endregion
-
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindIdNames<TSub>()
-        /// <summary>
-        /// 获取Id与Name字典
-        /// </summary>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        public IDictionary<Guid, string> FindIdNames<TSub>() where TSub : T
-        {
-            var idNames = from entity in this.FindAllInner<TSub>()
-                          select new { entity.Id, entity.Name };
-
-            return idNames.ToDictionary(x => x.Id, x => x.Name);
         }
         #endregion
 
@@ -608,42 +509,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         protected IQueryable<string> FindNos<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
             return base.Find<TSub>(predicate).Select(x => x.Number);
-        }
-        #endregion
-
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary(Expression...
-        /// <summary>
-        /// 获取Id与Name字典
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        protected IDictionary<Guid, string> FindDictionary(Expression<Func<T, bool>> predicate)
-        {
-            var idNames = from entity in base.Find(predicate)
-                          select new { entity.Id, entity.Name };
-
-            return idNames.ToDictionary(x => x.Id, x => x.Name);
-        }
-        #endregion
-
-        #region # 获取Id与Name字典 —— IDictionary<Guid, string> FindDictionary<TSub>(Expression...
-        /// <summary>
-        /// 获取给定条件的Id与Name字典
-        /// </summary>
-        /// <param name="predicate">条件表达式</param>
-        /// <returns>Id与Name字典</returns>
-        /// <remarks>
-        /// IDictionary[Guid, string]，键：Id，值：Name
-        /// </remarks>
-        protected IDictionary<Guid, string> FindDictionary<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
-        {
-            var idNames = from entity in base.Find<TSub>(predicate)
-                          select new { entity.Id, entity.Name };
-
-            return idNames.ToDictionary(x => x.Id, x => x.Name);
         }
         #endregion
 
