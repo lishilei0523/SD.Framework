@@ -62,13 +62,15 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #endregion
 
 
-        //Public
+        /**********Public**********/
+
+        //Register部分
 
         #region # 注册添加单个实体对象 —— void RegisterAdd<T>(T entity)
         /// <summary>
         /// 注册添加单个实体对象
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entity">新实体对象</param>
         public void RegisterAdd<T>(T entity) where T : AggregateRootEntity
         {
@@ -102,7 +104,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 注册添加实体对象集合
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entities">实体对象集合</param>
         public void RegisterAddRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
@@ -142,7 +144,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 注册保存单个实体对象
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entity">实体对象</param>
         public void RegisterSave<T>(T entity) where T : AggregateRootEntity
         {
@@ -176,7 +178,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 注册保存实体对象集合
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entities">实体对象集合</param>
         public void RegisterSaveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
@@ -202,11 +204,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
+            DateTime savedTime = DateTime.Now;
+
             foreach (T entity in entities)
             {
                 entity.OperatorAccount = loginInfo?.LoginId;
                 entity.OperatorName = loginInfo?.RealName;
-                entity.SavedTime = DateTime.Now;
+                entity.SavedTime = savedTime;
                 DbEntityEntry entry = this._dbContext.Entry<T>(entity);
                 entry.State = EntityState.Modified;
             }
@@ -225,7 +229,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(id), $"要删除的{typeof(T).Name}实体对象id不可为空！");
+                throw new ArgumentNullException(nameof(id), $"要删除的{typeof(T).Name}实体对象Id不可为空！");
             }
 
             #endregion
@@ -297,21 +301,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            foreach (Guid id in ids)
-            {
-                this.RegisterPhysicsRemove<T>(id);
-            }
-        }
-        #endregion
+            IEnumerable<T> entities = this.ResolveRange<T>(ids);
 
-        #region # 注册删除全部（物理删除） —— void RegisterPhysicsRemoveAll<T>()
-        /// <summary>
-        /// 注册删除全部（物理删除）
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        public void RegisterPhysicsRemoveAll<T>() where T : AggregateRootEntity
-        {
-            this.RegisterPhysicsRemove<T>(x => true);
+            foreach (T entity in entities)
+            {
+                this._dbContext.Set<T>().Remove(entity);
+            }
         }
         #endregion
 
@@ -473,56 +468,28 @@ namespace SD.Infrastructure.Repository.EntityFramework
             #endregion
 
             IQueryable<T> entities = this.ResolveRange<T>(x => entityIds.Contains(x.Id));
+            DateTime deletedTime = DateTime.Now;
 
             foreach (T entity in entities)
             {
                 entity.OperatorAccount = loginInfo?.LoginId;
                 entity.OperatorName = loginInfo?.RealName;
                 entity.Deleted = true;
-                entity.DeletedTime = DateTime.Now;
+                entity.DeletedTime = deletedTime;
                 DbEntityEntry entry = this._dbContext.Entry<T>(entity);
                 entry.State = EntityState.Modified;
             }
         }
         #endregion
 
-        #region # 注册删除全部（逻辑删除） —— void RegisterRemoveAll<T>()
-        /// <summary>
-        /// 注册删除全部（逻辑删除）
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        public void RegisterRemoveAll<T>() where T : AggregateRootEntity
-        {
-            LoginInfo loginInfo = null;
 
-            #region # 获取操作人信息
-
-            if (GetLoginInfo != null)
-            {
-                loginInfo = GetLoginInfo.Invoke();
-            }
-
-            #endregion
-
-            IQueryable<T> entities = this.ResolveRange<T>(x => true);
-
-            foreach (T entity in entities)
-            {
-                entity.OperatorAccount = loginInfo?.LoginId;
-                entity.OperatorName = loginInfo?.RealName;
-                entity.Deleted = true;
-                entity.DeletedTime = DateTime.Now;
-                DbEntityEntry entry = this._dbContext.Entry<T>(entity);
-                entry.State = EntityState.Modified;
-            }
-        }
-        #endregion
+        //Resolve部分
 
         #region # 根据Id获取唯一实体对象（修改时用） —— T Resolve<T>(Guid id)
         /// <summary>
         /// 根据Id获取唯一实体对象（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">Id</param>
         /// <returns>唯一实体对象</returns>
         public T Resolve<T>(Guid id) where T : AggregateRootEntity
@@ -551,16 +518,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id集获取实体对象集合（修改时用） —— IEnumerable<T> ResolveRange<T>(...
+        #region # 根据Id集获取实体对象集合（修改时用） —— ICollection<T> ResolveRange<T>(...
         /// <summary>
         /// 根据Id集获取实体对象集合（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">Id集</param>
         /// <returns>实体对象集合</returns>
-        public IEnumerable<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
+        public ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
-            return this.ResolveRange<T>(x => ids.Contains(x.Id)).AsEnumerable();
+            return this.ResolveRange<T>(x => ids.Contains(x.Id)).ToListAsync().Result;
         }
         #endregion
 
@@ -568,7 +535,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 根据编号获取唯一实体对象（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
         /// <returns>单个实体对象</returns>
         public T Resolve<T>(string number) where T : AggregateRootEntity
@@ -597,30 +564,114 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据编号集获取实体对象集合（修改时用） —— IEnumerable<T> ResolveRange<T>(...
+        #region # 根据编号集获取实体对象集合（修改时用） —— ICollection<T> ResolveRange<T>(...
         /// <summary>
         /// 根据编号集获取实体对象集合（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>
         /// <returns>实体对象集合</returns>
-        public IEnumerable<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
+        public ICollection<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
         {
-            return this.ResolveRange<T>(x => numbers.Contains(x.Number)).AsEnumerable();
+            return this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToListAsync().Result;
         }
         #endregion
 
-        #region # 获取全部实体对象（修改时用） —— IEnumerable<T> ResolveAll<T>()
+        #region # 异步根据Id获取唯一实体对象（修改时用） —— async Task<T> ResolveAsync<T>(Guid id)
         /// <summary>
-        /// 获取全部实体对象（修改时用）
+        /// 异步根据Id获取唯一实体对象（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
-        /// <returns>实体对象集合</returns>
-        public IEnumerable<T> ResolveAll<T>() where T : AggregateRootEntity
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="id">Id</param>
+        /// <returns>唯一实体对象</returns>
+        public async Task<T> ResolveAsync<T>(Guid id) where T : AggregateRootEntity
         {
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).AsEnumerable();
+            #region # 验证参数
+
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
+            }
+
+            #endregion
+
+            T entity = await this.ResolveOptionalAsync<T>(x => x.Id == id);
+
+            #region # 验证为null
+
+            if (entity == null)
+            {
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return entity;
         }
         #endregion
+
+        #region # 异步根据Id集获取实体对象集合（修改时用） —— async Task<ICollection<T>> ResolveRangeAsync<T>(...
+        /// <summary>
+        /// 异步根据Id集获取实体对象集合（修改时用）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="ids">Id集</param>
+        /// <returns>实体对象集合</returns>
+        public async Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
+        {
+            return await this.ResolveRange<T>(x => ids.Contains(x.Id)).ToListAsync();
+        }
+        #endregion
+
+        #region # 异步根据编号获取唯一实体对象（修改时用） —— async Task<T> ResolveAsync<T>(string number)
+
+        /// <summary>
+        /// 异步根据编号获取唯一实体对象（修改时用）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="number">编号</param>
+        /// <returns>单个实体对象</returns>
+        public async Task<T> ResolveAsync<T>(string number) where T : AggregateRootEntity
+        {
+            #region # 验证参数
+
+            if (string.IsNullOrWhiteSpace(number))
+            {
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
+            }
+
+            #endregion
+
+            T entity = await this.ResolveOptionalAsync<T>(x => x.Number == number);
+
+            #region # 验证为null
+
+            if (entity == null)
+            {
+                throw new NullReferenceException($"编号为\"{number}\"的{typeof(T).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return entity;
+        }
+        #endregion
+
+        #region # 异步根据编号集获取实体对象集合（修改时用） —— async Task<ICollection<T>> ResolveRangeAsync<T>(...
+        /// <summary>
+        /// 异步根据编号集获取实体对象集合（修改时用）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="numbers">编号集</param>
+        /// <returns>实体对象集合</returns>
+        public async Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
+        {
+            return await this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToListAsync();
+        }
+        #endregion
+
+
+        //Commit部分
 
         #region # 统一事务处理保存更改 —— void Commit()
         /// <summary>
@@ -694,6 +745,27 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
+        #region # 异步执行SQL命令（无需Commit） —— Task ExecuteSqlCommandAsync(string sql...
+        /// <summary>
+        /// 异步执行SQL命令（无需Commit）
+        /// </summary>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="parameters">参数</param>
+        public async Task ExecuteSqlCommandAsync(string sql, params object[] parameters)
+        {
+            #region # 验证参数
+
+            if (string.IsNullOrWhiteSpace(sql))
+            {
+                throw new ArgumentNullException(nameof(sql), "SQL语句不可为空！");
+            }
+
+            #endregion
+
+            await this._dbContext.Database.ExecuteSqlCommandAsync(sql, parameters);
+        }
+        #endregion
+
         #region # 释放资源 —— void Dispose()
         /// <summary>
         /// 释放资源
@@ -705,7 +777,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #endregion
 
 
-        //Protected
+        /**********Protected**********/
 
         #region # 注册条件删除（物理删除） —— void RegisterPhysicsRemove<T>(...
         /// <summary>
@@ -763,13 +835,14 @@ namespace SD.Infrastructure.Repository.EntityFramework
             #endregion
 
             IQueryable<T> queryable = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
+            DateTime deletedTime = DateTime.Now;
 
             foreach (T entity in queryable)
             {
                 entity.OperatorAccount = loginInfo?.LoginId;
                 entity.OperatorName = loginInfo?.RealName;
                 entity.Deleted = true;
-                entity.DeletedTime = DateTime.Now;
+                entity.DeletedTime = deletedTime;
                 DbEntityEntry entry = this._dbContext.Entry<T>(entity);
                 entry.State = EntityState.Modified;
             }
@@ -794,10 +867,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            lock (_Sync)
-            {
-                return this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefault(predicate);
-            }
+            return this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefault(predicate);
         }
         #endregion
 
@@ -818,10 +888,29 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            lock (_Sync)
+            return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
+        }
+        #endregion
+
+        #region # 异步根据条件获取唯一实体对象（修改时用） —— async Task<T> ResolveOptionalAsync<T>(...
+        /// <summary>
+        /// 异步根据条件获取唯一实体对象（修改时用）
+        /// </summary>
+        /// <param name="predicate">条件</param>
+        /// <returns>实体对象</returns>
+        ///<remarks>查询不到将返回null</remarks>
+        protected async Task<T> ResolveOptionalAsync<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        {
+            #region # 验证参数
+
+            if (predicate == null)
             {
-                return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
+                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
             }
+
+            #endregion
+
+            return await this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefaultAsync(predicate);
         }
         #endregion
 

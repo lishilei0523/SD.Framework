@@ -22,7 +22,7 @@ namespace SD.Infrastructure.EventStoreProvider
         /// <summary>
         /// 领域事件存储Session键
         /// </summary>
-        private const string EventSessionKey = "Event";
+        private const string EventSessionKey = "EventSessionKey";
 
         /// <summary>
         /// 领域事件源集合

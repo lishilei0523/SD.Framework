@@ -19,7 +19,9 @@ namespace SD.Infrastructure.EventBase.Factories
         /// <returns>领域事件处理者集合</returns>
         public static IEnumerable<IEventHandler<T>> GetEventHandlersFor<T>(T eventSource) where T : class, IEvent
         {
-            return ResolveMediator.ResolveAll<IEventHandler<T>>();
+            IEnumerable<IEventHandler<T>> handlers = ResolveMediator.ResolveAll<IEventHandler<T>>();
+
+            return handlers;
         }
         #endregion
 
@@ -41,10 +43,10 @@ namespace SD.Infrastructure.EventBase.Factories
             #endregion
 
             Type handlerType = typeof(IEventHandler<>).MakeGenericType(eventType);
+            IEnumerable<object> handlerInstances = ResolveMediator.ResolveAll(handlerType);
+            IEnumerable<IEventHandler> handlers = handlerInstances.Select(handler => (IEventHandler)handler);
 
-            IEnumerable<object> handlers = ResolveMediator.ResolveAll(handlerType);
-
-            return handlers.Select(handler => (IEventHandler)handler);
+            return handlers;
         }
         #endregion
     }

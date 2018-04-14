@@ -16,10 +16,13 @@ namespace SD.Infrastructure.Global.Transaction
         /// <param name="unitOfWork">工作单元实例</param>
         public static void UnitedCommit(this IUnitOfWork unitOfWork)
         {
+            TransactionOptions transactionOption = new TransactionOptions { IsolationLevel = IsolationLevel.Snapshot };
+            TransactionScopeAsyncFlowOption asyncFlowOption = TransactionScopeAsyncFlowOption.Enabled;
+
             try
             {
                 //开启事务
-                using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, transactionOption, asyncFlowOption))
                 {
                     //提交工作单元
                     unitOfWork.Commit();
@@ -34,7 +37,7 @@ namespace SD.Infrastructure.Global.Transaction
             catch
             {
                 //不参与事务
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress, transactionOption))
                 {
                     //回滚工作单元
                     unitOfWork.RollBack();
@@ -55,7 +58,40 @@ namespace SD.Infrastructure.Global.Transaction
         /// <param name="unitOfWork">工作单元实例</param>
         public static async Task UnitedCommitAsync(this IUnitOfWork unitOfWork)
         {
-            await Task.Run(() => UnitedCommit(unitOfWork));
+            TransactionOptions transactionOption = new TransactionOptions { IsolationLevel = IsolationLevel.Snapshot };
+            TransactionScopeAsyncFlowOption asyncFlowOption = TransactionScopeAsyncFlowOption.Enabled;
+
+            try
+            {
+                //开启事务
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, transactionOption, asyncFlowOption))
+                {
+                    //提交工作单元
+                    await unitOfWork.CommitAsync();
+
+                    //处理领域事件
+                    await EventMediator.HandleUncompletedEventsAsync();
+
+                    //事务完成
+                    scope.Complete();
+                }
+            }
+            catch
+            {
+                //不参与事务
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress, transactionOption))
+                {
+                    //回滚工作单元
+                    unitOfWork.RollBack();
+
+                    //清空未处理的领域事件
+                    EventMediator.ClearUncompletedEvents();
+
+                    //事务完成 
+                    scope.Complete();
+                }
+                throw;
+            }
         }
     }
 }

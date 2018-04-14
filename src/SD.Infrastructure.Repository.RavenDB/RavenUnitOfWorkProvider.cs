@@ -42,15 +42,16 @@ namespace SD.Infrastructure.Repository.RavenDB
         #endregion
 
 
-        //Public
+        /**********Public**********/
+
+        //Register部分
 
         #region # 注册添加单个实体对象 —— void RegisterAdd<T>(T entity)
         /// <summary>
         /// 注册添加单个实体对象
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entity">新实体对象</param>
-        /// <exception cref="ArgumentNullException">新实体对象为空</exception>
         public void RegisterAdd<T>(T entity) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -78,9 +79,8 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// <summary>
         /// 注册添加实体对象集合
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entities">实体对象集合</param>
-        /// <exception cref="ArgumentNullException">实体对象集合为null或长度为0</exception>
         public void RegisterAddRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -105,10 +105,8 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// <summary>
         /// 注册保存单个实体对象
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entity">实体对象</param>
-        /// <exception cref="ArgumentNullException">实体对象为空</exception>
-        /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         public void RegisterSave<T>(T entity) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -136,10 +134,8 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// <summary>
         /// 注册保存实体对象集合
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entities">实体对象集合</param>
-        /// <exception cref="ArgumentNullException">实体对象集合</exception>
-        /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         public void RegisterSaveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -166,8 +162,6 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterPhysicsRemove<T>(Guid id) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -195,8 +189,6 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterPhysicsRemove<T>(string number) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -245,8 +237,6 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集合</param>
-        /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -267,31 +257,12 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 注册删除全部（物理删除） —— void RegisterPhysicsRemoveAll<T>()
-        /// <summary>
-        /// 注册删除全部（物理删除）
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        public void RegisterPhysicsRemoveAll<T>() where T : AggregateRootEntity
-        {
-            IRavenQueryable<T> queryable = this.FindAll<T>();
-
-            foreach (T entity in queryable)
-            {
-                this._dbContext.Delete(entity);
-            }
-        }
-        #endregion
-
         #region # 注册删除单个实体对象（逻辑删除） —— void RegisterRemove<T>(Guid id)
         /// <summary>
         /// 注册删除单个实体对象（逻辑删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterRemove<T>(Guid id) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -319,8 +290,6 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void RegisterRemove<T>(string number) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -371,7 +340,6 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集合</param>
-        /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
         public void RegisterRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -392,34 +360,16 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 注册删除全部（逻辑删除） —— void RegisterRemoveAll<T>()
-        /// <summary>
-        /// 注册删除全部（逻辑删除）
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        public void RegisterRemoveAll<T>() where T : AggregateRootEntity
-        {
-            IRavenQueryable<T> queryable = this.FindAll<T>();
 
-            foreach (T entity in queryable)
-            {
-                entity.Deleted = true;
-                entity.DeletedTime = DateTime.Now;
-            }
-        }
-        #endregion
+        //Resolve部分
 
         #region # 根据Id获取唯一实体对象（修改时用） —— T Resolve<T>(Guid id)
         /// <summary>
         /// 根据Id获取唯一实体对象（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">Id</param>
         /// <returns>唯一实体对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">查询不到任何实体对象</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象、查询到的实体对象已被删除</exception>
         public T Resolve<T>(Guid id) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -439,16 +389,16 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 根据Id集获取实体对象集合（修改时用） —— IEnumerable<T> ResolveRange<T>(...
+        #region # 根据Id集获取实体对象集合（修改时用） —— ICollection<T> ResolveRange<T>(...
         /// <summary>
         /// 根据Id集获取实体对象集合（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">Id集</param>
         /// <returns>实体对象集合</returns>
-        public IEnumerable<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
+        public ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
-            return this.ResolveRange<T>(x => ids.Contains(x.Id)).AsEnumerable();
+            return this.ResolveRange<T>(x => ids.Contains(x.Id)).ToListAsync().Result;
         }
         #endregion
 
@@ -456,10 +406,9 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// <summary>
         /// 根据编号获取唯一实体对象（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
         /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
         public T Resolve<T>(string number) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -479,30 +428,113 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 根据编号集获取实体对象集合（修改时用） —— IEnumerable<T> ResolveRange<T>(...
+        #region # 根据编号集获取实体对象集合（修改时用） —— ICollection<T> ResolveRange<T>(...
         /// <summary>
         /// 根据编号集获取实体对象集合（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>
         /// <returns>实体对象集合</returns>
-        public IEnumerable<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
+        public ICollection<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
         {
-            return this.ResolveRange<T>(x => numbers.Contains(x.Number)).AsEnumerable();
+            return this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToListAsync().Result;
         }
         #endregion
 
-        #region # 获取全部实体对象（修改时用） —— IEnumerable<T> ResolveAll<T>()
+        #region # 异步根据Id获取唯一实体对象（修改时用） —— async Task<T> ResolveAsync<T>(Guid id)
         /// <summary>
-        /// 获取全部实体对象（修改时用）
+        /// 异步根据Id获取唯一实体对象（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
-        /// <returns>实体对象集合</returns>
-        public IEnumerable<T> ResolveAll<T>() where T : AggregateRootEntity
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="id">Id</param>
+        /// <returns>唯一实体对象</returns>
+        public async Task<T> ResolveAsync<T>(Guid id) where T : AggregateRootEntity
         {
-            return Queryable.Where(this._dbContext.Query<T>(), x => !x.Deleted).AsEnumerable();
+            #region # 验证参数
+
+            if (id == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
+            }
+
+            #endregion
+
+            T entity = await this.SingleAsync<T>(x => x.Id == id);
+
+            #region # 验证为null
+
+            if (entity == null)
+            {
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return entity;
         }
         #endregion
+
+        #region # 异步根据Id集获取实体对象集合（修改时用） —— async Task<ICollection<T>> ResolveRangeAsync<T>(...
+        /// <summary>
+        /// 异步根据Id集获取实体对象集合（修改时用）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="ids">Id集</param>
+        /// <returns>实体对象集合</returns>
+        public async Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
+        {
+            return await this.ResolveRange<T>(x => ids.Contains(x.Id)).ToListAsync();
+        }
+        #endregion
+
+        #region # 异步根据编号获取唯一实体对象（修改时用） —— async Task<T> ResolveAsync<T>(string number)
+        /// <summary>
+        /// 异步根据编号获取唯一实体对象（修改时用）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="number">编号</param>
+        /// <returns>单个实体对象</returns>
+        public async Task<T> ResolveAsync<T>(string number) where T : AggregateRootEntity
+        {
+            #region # 验证参数
+
+            if (string.IsNullOrWhiteSpace(number))
+            {
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
+            }
+
+            #endregion
+
+            T entity = await this.SingleAsync<T>(x => x.Number == number);
+
+            #region # 验证为null
+
+            if (entity == null)
+            {
+                throw new NullReferenceException($"编号为\"{number}\"的{typeof(T).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return entity;
+        }
+        #endregion
+
+        #region # 异步根据编号集获取实体对象集合（修改时用） —— async Task<ICollection<T>> ResolveRangeAsync<T>(...
+        /// <summary>
+        /// 异步根据编号集获取实体对象集合（修改时用）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="numbers">编号集</param>
+        /// <returns>实体对象集合</returns>
+        public async Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
+        {
+            return await this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToListAsync();
+        }
+        #endregion
+
+
+        //Commit部分
 
         #region # 统一事务处理保存更改 —— void Commit()
         /// <summary>
@@ -565,6 +597,19 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
+        #region # 异步执行SQL命令（无需Commit） —— Task ExecuteSqlCommandAsync(string sql...
+        /// <summary>
+        /// 异步执行SQL命令（无需Commit）
+        /// </summary>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="parameters">参数</param>
+        /// <exception cref="ArgumentNullException">SQL语句为空</exception>
+        public Task ExecuteSqlCommandAsync(string sql, params object[] parameters)
+        {
+            throw new NotSupportedException("RavenDB不支持SQL命令！");
+        }
+        #endregion
+
         #region # 释放资源 —— void Dispose()
         /// <summary>
         /// 释放资源
@@ -576,7 +621,7 @@ namespace SD.Infrastructure.Repository.RavenDB
         #endregion
 
 
-        //Protected
+        /**********Protected**********/
 
         #region # 根据条件获取唯一实体对象（修改时用） —— T Single<T>(...
         /// <summary>
@@ -584,10 +629,6 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>实体对象集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NullReferenceException">查询不到任何实体对象</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
         protected T Single<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -611,15 +652,41 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
+        #region # 异步根据条件获取唯一实体对象（修改时用） —— async Task<T> SingleAsync<T>(...
+        /// <summary>
+        /// 异步根据条件获取唯一实体对象（修改时用）
+        /// </summary>
+        /// <param name="predicate">条件</param>
+        /// <returns>实体对象集合</returns>
+        protected async Task<T> SingleAsync<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        {
+            #region # 验证参数
+
+            if (predicate == null)
+            {
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
+            }
+            if (!this.Exists<T>(predicate))
+            {
+                throw new NullReferenceException($"给定的条件\"{predicate}\"中查询不到任何{typeof(T).Name}实体对象！");
+            }
+            if (this.Count(predicate) > 1)
+            {
+                throw new InvalidOperationException($"给定的条件\"{predicate}\"中查询到1个以上的{typeof(T).Name}实体对象！");
+            }
+
+            #endregion
+
+            return await this.FindAll<T>().SingleAsync(predicate);
+        }
+        #endregion
+
         #region # 根据条件获取实体对象集合（修改时用） —— IRavenQueryable<T> ResolveRange<T>(...
         /// <summary>
         /// 根据条件获取实体对象集合（修改时用）
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>实体对象集合</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
         protected IRavenQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -636,7 +703,7 @@ namespace SD.Infrastructure.Repository.RavenDB
         #endregion
 
 
-        //Private
+        /**********Private**********/
 
         #region # 获取全部实体对象集合 —— IRavenQueryable<T> FindAll<T>()
         /// <summary>

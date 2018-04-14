@@ -10,13 +10,14 @@ namespace SD.Infrastructure.RepositoryBase
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
+        //Register部分
+
         #region # 注册添加单个实体对象 —— void RegisterAdd<T>(T entity)
         /// <summary>
         /// 注册添加单个实体对象
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entity">新实体对象</param>
-        /// <exception cref="ArgumentNullException">新实体对象为空</exception>
         void RegisterAdd<T>(T entity) where T : AggregateRootEntity;
         #endregion
 
@@ -24,9 +25,8 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 注册添加实体对象集合
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entities">实体对象集合</param>
-        /// <exception cref="ArgumentNullException">实体对象集合为null或长度为0</exception>
         void RegisterAddRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity;
         #endregion
 
@@ -34,10 +34,8 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 注册保存单个实体对象
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entity">实体对象</param>
-        /// <exception cref="ArgumentNullException">实体对象为空</exception>
-        /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         void RegisterSave<T>(T entity) where T : AggregateRootEntity;
         #endregion
 
@@ -45,10 +43,8 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 注册保存实体对象集合
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entities">实体对象集合</param>
-        /// <exception cref="ArgumentNullException">实体对象集合</exception>
-        /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         void RegisterSaveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity;
         #endregion
 
@@ -58,8 +54,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         void RegisterPhysicsRemove<T>(Guid id) where T : AggregateRootEntity;
         #endregion
 
@@ -69,8 +63,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         void RegisterPhysicsRemove<T>(string number) where T : AggregateRootEntity;
         #endregion
 
@@ -89,18 +81,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集合</param>
-        /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
-        #endregion
-
-        #region # 注册删除全部（物理删除） —— void RegisterPhysicsRemoveAll<T>()
-        /// <summary>
-        /// 注册删除全部（物理删除）
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
-        void RegisterPhysicsRemoveAll<T>() where T : AggregateRootEntity;
         #endregion
 
         #region # 注册删除单个实体对象（逻辑删除） —— void RegisterRemove<T>(Guid id)
@@ -109,8 +90,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         void RegisterRemove<T>(Guid id) where T : AggregateRootEntity;
         #endregion
 
@@ -120,8 +99,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         void RegisterRemove<T>(string number) where T : AggregateRootEntity;
         #endregion
 
@@ -140,71 +117,94 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集合</param>
-        /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
         void RegisterRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
         #endregion
 
-        #region # 注册删除全部（逻辑删除） —— void RegisterRemoveAll<T>()
-        /// <summary>
-        /// 注册删除全部（逻辑删除）
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        void RegisterRemoveAll<T>() where T : AggregateRootEntity;
-        #endregion
+
+        //Resolve部分
 
         #region # 根据Id获取唯一实体对象（修改时用） —— T Resolve<T>(Guid id)
         /// <summary>
         /// 根据Id获取唯一实体对象（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">Id</param>
         /// <returns>唯一实体对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">查询不到任何实体对象</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象、查询到的实体对象已被删除</exception>
         T Resolve<T>(Guid id) where T : AggregateRootEntity;
         #endregion
 
-        #region # 根据Id集获取实体对象集合（修改时用） —— IEnumerable<T> ResolveRange<T>(...
+        #region # 根据Id集获取实体对象集合（修改时用） —— ICollection<T> ResolveRange<T>(...
         /// <summary>
         /// 根据Id集获取实体对象集合（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">Id集</param>
         /// <returns>实体对象集合</returns>
-        IEnumerable<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
-        #endregion
-
-        #region # 获取全部实体对象（修改时用） —— IEnumerable<T> ResolveAll<T>()
-        /// <summary>
-        /// 获取全部实体对象（修改时用）
-        /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
-        /// <returns>实体对象集合</returns>
-        IEnumerable<T> ResolveAll<T>() where T : AggregateRootEntity;
+        ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
         #endregion
 
         #region # 根据编号获取唯一实体对象（修改时用） —— T Resolve<T>(string number)
         /// <summary>
         /// 根据编号获取唯一实体对象（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
         /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
         T Resolve<T>(string number) where T : AggregateRootEntity;
         #endregion
 
-        #region # 根据编号集获取实体对象集合（修改时用） —— IEnumerable<T> ResolveRange<T>(...
+        #region # 根据编号集获取实体对象集合（修改时用） —— ICollection<T> ResolveRange<T>(...
         /// <summary>
         /// 根据编号集获取实体对象集合（修改时用）
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>
         /// <returns>实体对象集合</returns>
-        IEnumerable<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity;
+        ICollection<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity;
         #endregion
+
+        #region # 异步根据Id获取唯一实体对象（修改时用） —— Task<T> ResolveAsync<T>(Guid id)
+        /// <summary>
+        /// 异步根据Id获取唯一实体对象（修改时用）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="id">Id</param>
+        /// <returns>唯一实体对象</returns>
+        Task<T> ResolveAsync<T>(Guid id) where T : AggregateRootEntity;
+        #endregion
+
+        #region # 异步根据Id集获取实体对象集合（修改时用） —— Task<ICollection<T>> ResolveRangeAsync<T>(...
+        /// <summary>
+        /// 异步根据Id集获取实体对象集合（修改时用）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="ids">Id集</param>
+        /// <returns>实体对象集合</returns>
+        Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
+        #endregion
+
+        #region # 异步根据编号获取唯一实体对象（修改时用） —— Task<T> ResolveAsync<T>(string number)
+        /// <summary>
+        /// 异步根据编号获取唯一实体对象（修改时用）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="number">编号</param>
+        /// <returns>单个实体对象</returns>
+        Task<T> ResolveAsync<T>(string number) where T : AggregateRootEntity;
+        #endregion
+
+        #region # 异步根据编号集获取实体对象集合（修改时用） —— Task<ICollection<T>> ResolveRangeAsync<T>(...
+        /// <summary>
+        /// 异步根据编号集获取实体对象集合（修改时用）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="numbers">编号集</param>
+        /// <returns>实体对象集合</returns>
+        Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<string> numbers) where T : AggregateRootEntity;
+        #endregion
+
+
+        //Commit部分
 
         #region # 统一事务处理保存更改 —— void Commit()
         /// <summary>
@@ -233,8 +233,16 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <param name="sql">SQL语句</param>
         /// <param name="parameters">参数</param>
-        /// <exception cref="ArgumentNullException">SQL语句为空</exception>
         void ExecuteSqlCommand(string sql, params object[] parameters);
+        #endregion
+
+        #region # 异步执行SQL命令（无需Commit） —— Task ExecuteSqlCommandAsync(string sql...
+        /// <summary>
+        /// 异步执行SQL命令（无需Commit）
+        /// </summary>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="parameters">参数</param>
+        Task ExecuteSqlCommandAsync(string sql, params object[] parameters);
         #endregion
     }
 }

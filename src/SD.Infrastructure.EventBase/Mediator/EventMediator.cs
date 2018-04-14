@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Transactions;
 
 namespace SD.Infrastructure.EventBase.Mediator
@@ -26,10 +27,31 @@ namespace SD.Infrastructure.EventBase.Mediator
                 using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
                 {
                     eventStorer.Suspend(eventSource);
-
                     scope.Complete();
                 }
             }
+        }
+        #endregion
+
+        #region # 挂起领域事件（异步） —— async Task SuspendAsync<T>(T eventSource)
+        /// <summary>
+        /// 挂起领域事件（异步）
+        /// </summary>
+        /// <typeparam name="T">领域事件源类型</typeparam>
+        /// <param name="eventSource">领域事件源</param>
+        public static async Task SuspendAsync<T>(T eventSource) where T : class, IEvent
+        {
+            await Task.Run(() =>
+            {
+                using (IEventStore eventStorer = ResolveMediator.Resolve<IEventStore>())
+                {
+                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
+                    {
+                        eventStorer.Suspend(eventSource);
+                        scope.Complete();
+                    }
+                }
+            });
         }
         #endregion
 
@@ -42,8 +64,7 @@ namespace SD.Infrastructure.EventBase.Mediator
         public static void Handle<T>(T eventSource) where T : class, IEvent
         {
             //获取相应事件处理者实例集合
-            IEnumerable<IEventHandler<T>> eventHandlers =
-                EventHandlerFactory.GetEventHandlersFor(eventSource).OrderByDescending(x => x.Sort);
+            IEnumerable<IEventHandler<T>> eventHandlers = EventHandlerFactory.GetEventHandlersFor(eventSource).OrderByDescending(x => x.Sort);
 
             //顺序处理事件
             foreach (IEventHandler<T> handler in eventHandlers)
@@ -96,6 +117,22 @@ namespace SD.Infrastructure.EventBase.Mediator
             {
                 eventStorer.HandleUncompletedEvents();
             }
+        }
+        #endregion
+
+        #region # 处理未处理的领域事件（异步） —— Task HandleUncompletedEventsAsync()
+        /// <summary>
+        /// 处理未处理的领域事件（异步）
+        /// </summary>
+        internal static async Task HandleUncompletedEventsAsync()
+        {
+            await Task.Run(() =>
+            {
+                using (IEventStore eventStorer = ResolveMediator.Resolve<IEventStore>())
+                {
+                    eventStorer.HandleUncompletedEvents();
+                }
+            });
         }
         #endregion
 
