@@ -62,12 +62,6 @@ SD.Infrastructure.MVC
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.MVC
 
-SD.Infrastructure.MVC.Server
-	
-	MVC服务端基础。
-
-	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.MVC.Server
-
 SD.Infrastructure.Repository.EntityFramework
 
 	仓储基础设施，包含EntityFramework DbContext的三次封装、数据库清理者、EntityFramework仓储提供者、EntityFramework UnitOfWork提供者。
@@ -91,6 +85,18 @@ SD.Infrastructure.Repository.Redis
 	仓储基础 - Redis实现。
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.Redis
+
+SD.Infrastructure.MVC.Server
+	
+	MVC服务端基础。
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.MVC.Server
+
+SD.Infrastructure.WebApi.Server
+	
+	WebApi服务端基础。
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.WebApi.Server
 
 SD.Infrastructure.WCF.Server
 
