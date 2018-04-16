@@ -17,7 +17,27 @@
 #### 示例项目：https://gitee.com/lishilei0523/ShSoft.UAC
 #### 项目模板：https://gitee.com/lishilei0523/SD.Framework.Template
 -----------------------------------
+##### 2018.04.16 - 框架近期调整说明
 
+1、聚合根实体增加创建人姓名、操作人姓名；
+
+2、增加可审核接口与可停用接口；
+
+3、使用CallContext.LogicalSetData()/LogicalGetData()，为异步编程做准备；
+
+4、增加WebApi服务端基础；
+
+5、.NET Framework版本升级至4.6.1；
+
+6、调整事务隔离级别为快照，增加异步事务流转支持；
+
+7、UnitOfWork/UnitOfWorkExtension增加异步操作接口；
+
+8、领域事件增加异步操作理接口；
+
+9、精简仓储API；
+
+-----------------------------------
 SD.Infrastructure
 
 	基础设施，包含系统常量、自定义异常、基接口与基类。
