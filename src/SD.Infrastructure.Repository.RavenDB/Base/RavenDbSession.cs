@@ -65,9 +65,9 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
             IDocumentStore documentStore = new DocumentStore { ConnectionStringName = ConnectionStringName };
             documentStore.Initialize();
 
-            if (!string.IsNullOrWhiteSpace(WebConfigSetting.EntityConfigAssembly))
+            if (!string.IsNullOrWhiteSpace(GlobalSetting.EntityConfigAssembly))
             {
-                Assembly assembly = Assembly.Load(WebConfigSetting.EntityConfigAssembly);
+                Assembly assembly = Assembly.Load(GlobalSetting.EntityConfigAssembly);
                 IndexCreation.CreateIndexes(assembly, documentStore);
             }
 

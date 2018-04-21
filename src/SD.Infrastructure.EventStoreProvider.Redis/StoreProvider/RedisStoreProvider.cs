@@ -39,7 +39,7 @@ namespace SD.Infrastructure.EventStoreProvider
             this._clientsManager = RedisManager.CreateClientsManager();
 
             //获取会话Id
-            string sessionId = WebConfigSetting.CurrentSessionId.ToString();
+            string sessionId = GlobalSetting.CurrentSessionId.ToString();
 
             //实例化RedisClient
             this._redisClient = this._clientsManager.GetClient();

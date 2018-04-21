@@ -7,7 +7,7 @@ namespace SD.Infrastructure.Constants
     /// <summary>
     /// WebConfig设置
     /// </summary>
-    public static class WebConfigSetting
+    public static class GlobalSetting
     {
         #region # 默认连接字符串 —— static string DefaultConnectionString
 

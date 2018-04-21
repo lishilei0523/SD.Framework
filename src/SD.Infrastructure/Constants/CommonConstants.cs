@@ -44,11 +44,6 @@ namespace SD.Infrastructure.Constants
         #region # 数据库相关
 
         /// <summary>
-        /// DbSession构造函数默认参数
-        /// </summary>
-        public static readonly string DbSessionConstructorArg = $"name={DefaultConnectionStringName}";
-
-        /// <summary>
         /// 默认连接字符串名称
         /// </summary>
         public const string DefaultConnectionStringName = "DefaultConnection";

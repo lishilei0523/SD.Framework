@@ -42,7 +42,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// 基础构造器
         /// </summary>
         protected BaseDbSession()
-            : base(CommonConstants.DbSessionConstructorArg)
+            : base(GlobalSetting.DefaultConnectionString)
         {
             this.Configuration.ValidateOnSaveEnabled = false;
         }
@@ -107,7 +107,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         public override string EntityAssembly
         {
-            get { return WebConfigSetting.EntityAssembly; }
+            get { return GlobalSetting.EntityAssembly; }
         }
         #endregion
 
@@ -117,7 +117,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         public override string EntityConfigAssembly
         {
-            get { return WebConfigSetting.EntityConfigAssembly; }
+            get { return GlobalSetting.EntityConfigAssembly; }
         }
         #endregion
 
@@ -143,7 +143,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         public override string TablePrefix
         {
-            get { return WebConfigSetting.TablePrefix; }
+            get { return GlobalSetting.TablePrefix; }
         }
         #endregion
 

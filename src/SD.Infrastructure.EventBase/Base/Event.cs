@@ -20,7 +20,7 @@ namespace SD.Infrastructure.EventBase
             this.Id = Guid.NewGuid();
             this.Handled = false;
             this.AddedTime = DateTime.Now;
-            this.SessionId = WebConfigSetting.CurrentSessionId;
+            this.SessionId = GlobalSetting.CurrentSessionId;
         }
         #endregion
 

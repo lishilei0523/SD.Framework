@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SD.Infrastructure</RootNamespace>
     <AssemblyName>SD.Infrastructure</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SccProjectName>SAK</SccProjectName>
     <SccLocalPath>SAK</SccLocalPath>
@@ -17,6 +17,7 @@
     <SccProvider>SAK</SccProvider>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\..\..\ShanHeSoftWareJune\HDIPlatform_June\11SupplierSystem\FrontTerminals\</SolutionDir>
     <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -55,7 +56,7 @@
     <Compile Include="MemberShip\LoginInfo.cs" />
     <Compile Include="MemberShip\LoginMenuInfo.cs" />
     <Compile Include="Constants\SessionKey.cs" />
-    <Compile Include="Constants\WebConfigSetting.cs" />
+    <Compile Include="Constants\GlobalSetting.cs" />
     <Compile Include="CustomExceptions\AppServiceException.cs" />
     <Compile Include="CustomExceptions\NoPermissionException.cs" />
     <Compile Include="CustomExceptions\UIException.cs" />

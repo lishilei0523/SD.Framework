@@ -68,7 +68,7 @@ namespace SD.Infrastructure.EventStoreProvider
         /// </summary>
         public RabbitStoreProvider()
         {
-            this._sessionId = WebConfigSetting.CurrentSessionId.ToString();
+            this._sessionId = GlobalSetting.CurrentSessionId.ToString();
             this._connection = _ConnectionFactory.CreateConnection();
             this._channel = this._connection.CreateModel();
             this._queue = this._channel.QueueDeclare(this._sessionId, true, false, true, null);

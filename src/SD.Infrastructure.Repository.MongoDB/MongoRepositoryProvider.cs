@@ -1129,7 +1129,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         private static void RegisterTypes()
         {
             //加载实体所在程序集
-            Assembly entityAssembly = Assembly.Load(WebConfigSetting.EntityAssembly);
+            Assembly entityAssembly = Assembly.Load(GlobalSetting.EntityAssembly);
             Type[] types = entityAssembly.GetTypes();
 
             //查询所有实体抽象基类
