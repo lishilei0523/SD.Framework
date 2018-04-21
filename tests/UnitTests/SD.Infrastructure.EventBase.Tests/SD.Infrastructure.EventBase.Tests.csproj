@@ -87,10 +87,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StubDomainEventHandlers\ProductCreatedEvent2Handler.cs" />
+    <Compile Include="StubDomainEventHandlers\ServiceCreatedEventHandler.cs" />
     <Compile Include="StubDomainEventHandlers\ProductCreatedEventHandler.cs" />
     <Compile Include="StubEntities\Product.cs" />
-    <Compile Include="StubEventSources\ProductCreatedEvent2.cs" />
+    <Compile Include="StubEntities\Service.cs" />
+    <Compile Include="StubEventSources\ServiceCreatedEvent.cs" />
     <Compile Include="StubEventSources\ProductCreatedEvent.cs" />
     <Compile Include="TestCases\ProductCreateTests.cs" />
   </ItemGroup>

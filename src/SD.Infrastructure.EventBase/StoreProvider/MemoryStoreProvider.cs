@@ -49,20 +49,17 @@ namespace SD.Infrastructure.EventStoreProvider
         {
             lock (_Sync)
             {
-                //获取线程缓存
-                object eventSources = CallContext.LogicalGetData(EventSessionKey);
-
                 //如果缓存不为空，则将事件源队列变量赋值为缓存
-                if (eventSources != null)
+                if (this.MemoryEventSources != null)
                 {
-                    this._eventSources = (IList<Event>)eventSources;
+                    this._eventSources = this.MemoryEventSources;
                 }
 
                 //将新事件源添加到队列
                 this._eventSources.Add(eventSource as Event);
 
                 //将新队列添加到缓存
-                CallContext.LogicalSetData(EventSessionKey, this._eventSources);
+                this.MemoryEventSources = this._eventSources;
             }
         }
         #endregion
@@ -75,22 +72,16 @@ namespace SD.Infrastructure.EventStoreProvider
         {
             lock (_Sync)
             {
-                //获取线程缓存
-                object eventSources = CallContext.LogicalGetData(EventSessionKey);
-
                 //如果缓存中没有数据，则终止方法
-                if (eventSources == null)
+                if (this.MemoryEventSources == null)
                 {
                     return;
                 }
 
-                //如果缓存不为空，则将事件源队列变量赋值为缓存
-                this._eventSources = (IList<Event>)eventSources;
-
                 //如果有未处理的
-                if (this._eventSources.Any(x => !x.Handled))
+                if (this.MemoryEventSources.Any(x => !x.Handled))
                 {
-                    foreach (Event eventSource in this._eventSources.Where(x => !x.Handled))
+                    foreach (Event eventSource in this.MemoryEventSources.Where(x => !x.Handled))
                     {
                         EventMediator.Handle((IEvent)eventSource);
                         eventSource.Handled = true;
@@ -98,13 +89,13 @@ namespace SD.Infrastructure.EventStoreProvider
                 }
 
                 //递归
-                if (this._eventSources.Any(x => !x.Handled))
+                if (this.MemoryEventSources.Any(x => !x.Handled))
                 {
                     this.HandleUncompletedEvents();
                 }
 
                 //处理完毕后置空缓存
-                CallContext.FreeNamedDataSlot(EventSessionKey);
+                this.FreeMemoryEventSources();
             }
         }
         #endregion
@@ -118,7 +109,7 @@ namespace SD.Infrastructure.EventStoreProvider
             lock (_Sync)
             {
                 //置空缓存
-                CallContext.FreeNamedDataSlot(EventSessionKey);
+                this.FreeMemoryEventSources();
             }
         }
         #endregion
@@ -128,6 +119,30 @@ namespace SD.Infrastructure.EventStoreProvider
         /// 释放资源
         /// </summary>
         public void Dispose() { }
+        #endregion
+
+
+        //Private
+
+        #region # 内存领域事件源队列 —— IList<Event> MemoryEventSources
+        /// <summary>
+        /// 内存领域事件源队列
+        /// </summary>
+        private IList<Event> MemoryEventSources
+        {
+            get { return CallContext.LogicalGetData(EventSessionKey) as IList<Event>; }
+            set { CallContext.LogicalSetData(EventSessionKey, value); }
+        }
+        #endregion
+
+        #region # 置空内存领域事件源队列 —— void FreeMemoryEventSources()
+        /// <summary>
+        /// 置空内存领域事件源队列
+        /// </summary>
+        private void FreeMemoryEventSources()
+        {
+            CallContext.FreeNamedDataSlot(EventSessionKey);
+        }
         #endregion
     }
 }

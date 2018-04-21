@@ -3,6 +3,7 @@ using SD.Infrastructure.EventBase.Mediator;
 using SD.Infrastructure.EventBase.Tests.StubDomainEventHandlers;
 using SD.Infrastructure.EventBase.Tests.StubEntities;
 using SD.Infrastructure.Global;
+using System.Threading.Tasks;
 using System.Transactions;
 
 namespace SD.Infrastructure.EventBase.Tests.TestCases
@@ -19,7 +20,7 @@ namespace SD.Infrastructure.EventBase.Tests.TestCases
         [TestMethod]
         public void CreateProduct()
         {
-            for (int i = 0; i < 100; i++)
+            Parallel.For(0, 50, i =>
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
@@ -30,12 +31,12 @@ namespace SD.Infrastructure.EventBase.Tests.TestCases
                     EventMediator.HandleUncompletedEvents();
 
                     //断言会触发领域事件，并修改目标参数的值
-                    Assert.IsTrue(ProductCreatedEventHandler.ProductName == product.Name);
-                    Assert.IsTrue(ProductCreatedEvent2Handler.ProductName == product.Name);
+                    Assert.IsTrue(ProductCreatedEventHandler.ProductName.Value == product.Name);
+                    Assert.IsTrue(ServiceCreatedEventHandler.ServiceName.Value == product.Name);
 
                     scope.Complete();
                 }
-            }
+            });
         }
     }
 }

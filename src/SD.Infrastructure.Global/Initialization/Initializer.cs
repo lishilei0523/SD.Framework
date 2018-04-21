@@ -1,8 +1,6 @@
 ﻿using SD.Infrastructure.Constants;
 using SD.Infrastructure.RepositoryBase;
 using SD.IOC.Core.Mediator;
-using System;
-using System.Runtime.Remoting.Messaging;
 
 namespace SD.Infrastructure.Global
 {
@@ -32,8 +30,8 @@ namespace SD.Infrastructure.Global
         {
             lock (_Sync)
             {
-                CallContext.FreeNamedDataSlot(CacheConstants.SessionIdKey);
-                CallContext.LogicalSetData(CacheConstants.SessionIdKey, Guid.NewGuid());
+                GlobalSetting.FreeCurrentSessionId();
+                GlobalSetting.InitCurrentSessionId();
             }
         }
     }

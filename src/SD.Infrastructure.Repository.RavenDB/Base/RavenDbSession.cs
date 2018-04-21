@@ -78,6 +78,28 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
 
         #region # 访问器
 
+        #region Raven（写）上下文对象访问器 —— static object CommandInstanceCall
+        /// <summary>
+        /// Raven（写）上下文对象访问器
+        /// </summary>
+        private static object CommandInstanceCall
+        {
+            get { return CallContext.LogicalGetData(CommandInstanceKey); }
+            set { CallContext.LogicalSetData(CommandInstanceKey, value); }
+        }
+        #endregion
+
+        #region Raven（读）上下文对象访问器 —— static object QueryInstanceCall
+        /// <summary>
+        /// Raven（读）上下文对象访问器
+        /// </summary>
+        private static object QueryInstanceCall
+        {
+            get { return CallContext.LogicalGetData(QueryInstanceKey); }
+            set { CallContext.LogicalSetData(QueryInstanceKey, value); }
+        }
+        #endregion
+
         #region Raven（写）上下文对象 —— static IDocumentSession CommandInstance
         /// <summary>
         /// Raven（写）上下文对象
@@ -88,12 +110,14 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
             {
                 lock (_Sync)
                 {
-                    IDocumentSession dbSession = CallContext.LogicalGetData(CommandInstanceKey) as IDocumentSession;
+                    IDocumentSession dbSession = CommandInstanceCall as IDocumentSession;
+
                     if (dbSession == null)
                     {
                         dbSession = _Store.OpenSession();
-                        CallContext.LogicalSetData(CommandInstanceKey, dbSession);
+                        CommandInstanceCall = dbSession;
                     }
+
                     return dbSession;
                 }
             }
@@ -110,15 +134,45 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
             {
                 lock (_Sync)
                 {
-                    IAsyncDocumentSession dbSession = CallContext.LogicalGetData(QueryInstanceKey) as IAsyncDocumentSession;
+                    IAsyncDocumentSession dbSession = QueryInstanceCall as IAsyncDocumentSession;
+
                     if (dbSession == null)
                     {
                         dbSession = _Store.OpenAsyncSession();
-                        CallContext.LogicalSetData(QueryInstanceKey, dbSession);
+                        QueryInstanceCall = dbSession;
                     }
+
                     return dbSession;
                 }
             }
+        }
+        #endregion
+
+        #region 释放Raven（写）上下文对象 —— static void FreeCommandInstanceCall()
+        /// <summary>
+        /// 释放Raven（写）上下文对象
+        /// </summary>
+        public static void FreeCommandInstanceCall()
+        {
+            if (CommandInstance != null)
+            {
+                CommandInstance.Dispose();
+            }
+            CallContext.FreeNamedDataSlot(CommandInstanceKey);
+        }
+        #endregion
+
+        #region 释放Raven（读）上下文对象 —— static void FreeQueryInstanceCall()
+        /// <summary>
+        /// 释放Raven（读）上下文对象
+        /// </summary>
+        public static void FreeQueryInstanceCall()
+        {
+            if (QueryInstance != null)
+            {
+                QueryInstance.Dispose();
+            }
+            CallContext.FreeNamedDataSlot(QueryInstanceKey);
         }
         #endregion
 

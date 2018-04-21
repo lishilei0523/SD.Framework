@@ -3,38 +3,38 @@
 namespace SD.Infrastructure.EventBase.Tests.StubEventSources
 {
     /// <summary>
-    /// 商品已创建事件
+    /// 服务已创建事件
     /// </summary>
     [Serializable]
-    public class ProductCreatedEvent2 : Event
+    public class ServiceCreatedEvent : Event
     {
         /// <summary>
         /// 无参构造器
         /// </summary>
-        protected ProductCreatedEvent2() { }
+        protected ServiceCreatedEvent() { }
 
         /// <summary>
         /// 基础构造器
         /// </summary>
-        public ProductCreatedEvent2(string productNo, string productName, decimal price)
+        public ServiceCreatedEvent(string serviceNo, string serviceName, decimal price)
         {
-            this.ProductNo = productNo;
-            this.ProductName = productName;
+            this.ServiceNo = serviceNo;
+            this.ServiceName = serviceName;
             this.Price = price;
         }
 
         /// <summary>
-        /// 商品编号
+        /// 服务编号
         /// </summary>
-        public string ProductNo { get; private set; }
+        public string ServiceNo { get; private set; }
 
         /// <summary>
-        /// 商品名称
+        /// 服务名称
         /// </summary>
-        public string ProductName { get; private set; }
+        public string ServiceName { get; private set; }
 
         /// <summary>
-        /// 商品价格
+        /// 服务价格
         /// </summary>
         public decimal Price { get; private set; }
     }

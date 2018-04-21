@@ -51,6 +51,28 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
 
         #region # 访问器
 
+        #region EF（写）上下文对象访问器 —— static object CommandInstanceCall
+        /// <summary>
+        /// EF（写）上下文对象访问器
+        /// </summary>
+        private static object CommandInstanceCall
+        {
+            get { return CallContext.LogicalGetData(CommandInstanceKey); }
+            set { CallContext.LogicalSetData(CommandInstanceKey, value); }
+        }
+        #endregion
+
+        #region EF（读）上下文对象访问器 —— static object QueryInstanceCall
+        /// <summary>
+        /// EF（读）上下文对象访问器
+        /// </summary>
+        private static object QueryInstanceCall
+        {
+            get { return CallContext.LogicalGetData(QueryInstanceKey); }
+            set { CallContext.LogicalSetData(QueryInstanceKey, value); }
+        }
+        #endregion
+
         #region EF（写）上下文对象 —— static DbContext CommandInstance
         /// <summary>
         /// EF（写）上下文对象
@@ -61,12 +83,14 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
             {
                 lock (_Sync)
                 {
-                    DbContext dbContext = CallContext.LogicalGetData(CommandInstanceKey) as DbContext;
+                    DbContext dbContext = CommandInstanceCall as DbContext;
+
                     if (dbContext == null)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
-                        CallContext.LogicalSetData(CommandInstanceKey, dbContext);
+                        CommandInstanceCall = dbContext;
                     }
+
                     return dbContext;
                 }
             }
@@ -83,17 +107,47 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
             {
                 lock (_Sync)
                 {
-                    DbContext dbContext = CallContext.LogicalGetData(QueryInstanceKey) as DbContext;
+                    DbContext dbContext = QueryInstanceCall as DbContext;
+
                     if (dbContext == null)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
                         dbContext.Configuration.AutoDetectChangesEnabled = false;/*关闭自动跟踪实体变化状态*/
 
-                        CallContext.LogicalSetData(QueryInstanceKey, dbContext);
+                        QueryInstanceCall = dbContext;
                     }
+
                     return dbContext;
                 }
             }
+        }
+        #endregion
+
+        #region 释放EF（写）上下文对象 —— static void FreeCommandInstanceCall()
+        /// <summary>
+        /// 释放EF（写）上下文对象
+        /// </summary>
+        public static void FreeCommandInstanceCall()
+        {
+            if (CommandInstance != null)
+            {
+                CommandInstance.Dispose();
+            }
+            CallContext.FreeNamedDataSlot(CommandInstanceKey);
+        }
+        #endregion
+
+        #region 释放EF（读）上下文对象 —— static void FreeQueryInstanceCall()
+        /// <summary>
+        /// 释放EF（读）上下文对象
+        /// </summary>
+        public static void FreeQueryInstanceCall()
+        {
+            if (QueryInstance != null)
+            {
+                QueryInstance.Dispose();
+            }
+            CallContext.FreeNamedDataSlot(QueryInstanceKey);
         }
         #endregion
 

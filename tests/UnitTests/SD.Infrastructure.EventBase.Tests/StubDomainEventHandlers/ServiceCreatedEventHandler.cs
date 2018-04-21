@@ -1,21 +1,20 @@
 ﻿using SD.Infrastructure.EventBase.Tests.StubEventSources;
+using System.Threading;
 
 namespace SD.Infrastructure.EventBase.Tests.StubDomainEventHandlers
 {
     /// <summary>
-    /// 商品已创建事件处理者
+    /// 服务已创建事件处理者
     /// </summary>
-    public class ProductCreatedEvent2Handler : IEventHandler<ProductCreatedEvent2>
+    public class ServiceCreatedEventHandler : IEventHandler<ServiceCreatedEvent>
     {
-        private static readonly object _Sync = new object();
-
         /// <summary>
-        /// 商品名称
+        /// 服务名称
         /// </summary>
         /// <remarks>
-        /// 测试用例参数，默认为null，事件触发后会将其赋值为商品名称
+        /// 测试用例参数，默认为null，事件触发后会将其赋值为服务名称
         /// </remarks>
-        public static string ProductName;
+        public static readonly ThreadLocal<string> ServiceName = new ThreadLocal<string>();
 
         /// <summary>
         /// 执行顺序，倒序排列
@@ -29,12 +28,9 @@ namespace SD.Infrastructure.EventBase.Tests.StubDomainEventHandlers
         /// 领域事件处理方法
         /// </summary>
         /// <param name="eventSource">领域事件源</param>
-        public void Handle(ProductCreatedEvent2 eventSource)
+        public void Handle(ServiceCreatedEvent eventSource)
         {
-            lock (_Sync)
-            {
-                ProductName = eventSource.ProductName;
-            }
+            ServiceName.Value = eventSource.ServiceName;
         }
     }
 }

@@ -1,5 +1,7 @@
-﻿using SD.Infrastructure.EventBase.Mediator;
+﻿using SD.Infrastructure.EventBase.Tests.StubEntities;
 using SD.Infrastructure.EventBase.Tests.StubEventSources;
+using System.Diagnostics;
+using System.Threading;
 
 namespace SD.Infrastructure.EventBase.Tests.StubDomainEventHandlers
 {
@@ -16,7 +18,7 @@ namespace SD.Infrastructure.EventBase.Tests.StubDomainEventHandlers
         /// <remarks>
         /// 测试用例参数，默认为null，事件触发后会将其赋值为商品名称
         /// </remarks>
-        public static string ProductName;
+        public static ThreadLocal<string> ProductName = new ThreadLocal<string>();
 
         /// <summary>
         /// 执行顺序，倒序排列
@@ -34,9 +36,10 @@ namespace SD.Infrastructure.EventBase.Tests.StubDomainEventHandlers
         {
             lock (_Sync)
             {
-                ProductName = eventSource.ProductName;
+                ProductName.Value = eventSource.ProductName;
 
-                EventMediator.Suspend(new ProductCreatedEvent2(eventSource.ProductNo, eventSource.ProductName, eventSource.Price));
+                Service service = new Service(eventSource.ProductNo, eventSource.ProductName, eventSource.Price);
+                Trace.WriteLine(service);
             }
         }
     }

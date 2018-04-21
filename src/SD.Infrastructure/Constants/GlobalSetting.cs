@@ -94,6 +94,30 @@ namespace SD.Infrastructure.Constants
 
                 return (Guid)sessionIdCache;
             }
+            private set
+            {
+                CallContext.LogicalSetData(CacheConstants.SessionIdKey, value);
+            }
+        }
+        #endregion
+
+        #region # 置空当前SessionId —— static void FreeCurrentSessionId()
+        /// <summary>
+        /// 置空当前SessionId
+        /// </summary>
+        public static void FreeCurrentSessionId()
+        {
+            CallContext.FreeNamedDataSlot(CacheConstants.SessionIdKey);
+        }
+        #endregion
+
+        #region # 初始化当前SessionId —— static void InitCurrentSessionId()
+        /// <summary>
+        /// 初始化当前SessionId
+        /// </summary>
+        public static void InitCurrentSessionId()
+        {
+            CurrentSessionId = Guid.NewGuid();
         }
         #endregion
     }
