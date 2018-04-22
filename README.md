@@ -16,6 +16,23 @@
 ### 技术交流群：[558010476](//shang.qq.com/wpa/qunwpa?idkey=22cd396d1b7d25fb7632c45c4e40c95ffe2bfa6e48b47a18b7b31c5d4c8d1065)
 #### 示例项目：https://gitee.com/lishilei0523/ShSoft.UAC
 #### 项目模板：https://gitee.com/lishilei0523/SD.Framework.Template
+
+-----------------------------------
+##### 2018.04.22 - 框架近期调整说明
+1、恢复UnitedCommit默认事务隔离级别，因为快照隔离级别不支持分布式事务；
+
+2、干掉Redis仓储实现，没什么用；
+
+3、Framework版本全部升级至4.6.1；
+
+4、WebConfigSetting重命名为GlobalSetting；
+
+5、涉及TransactionScope地方全部启用异步支持；
+
+6、CallContext.LogicalSet/GetData整体替换为AsyncLocal<T>；
+
+7、使用StackExchange.Redis替换ServiceStack.Redis；
+
 -----------------------------------
 ##### 2018.04.16 - 框架近期调整说明
 
