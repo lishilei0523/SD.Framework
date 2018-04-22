@@ -24,7 +24,7 @@ namespace SD.Infrastructure.EventBase.Mediator
         {
             using (IEventStore eventStorer = ResolveMediator.Resolve<IEventStore>())
             {
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress, TransactionScopeAsyncFlowOption.Enabled))
                 {
                     eventStorer.Suspend(eventSource);
                     scope.Complete();
@@ -45,7 +45,7 @@ namespace SD.Infrastructure.EventBase.Mediator
             {
                 using (IEventStore eventStorer = ResolveMediator.Resolve<IEventStore>())
                 {
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
+                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress, TransactionScopeAsyncFlowOption.Enabled))
                     {
                         eventStorer.Suspend(eventSource);
                         scope.Complete();

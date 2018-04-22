@@ -36,7 +36,7 @@ namespace SD.Infrastructure.Global.Transaction
             catch
             {
                 //不参与事务
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress, asyncFlowOption))
                 {
                     //回滚工作单元
                     unitOfWork.RollBack();
@@ -77,7 +77,7 @@ namespace SD.Infrastructure.Global.Transaction
             catch
             {
                 //不参与事务
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress))
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress, asyncFlowOption))
                 {
                     //回滚工作单元
                     unitOfWork.RollBack();
