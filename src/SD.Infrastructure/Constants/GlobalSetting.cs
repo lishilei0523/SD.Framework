@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Configuration;
-using System.Runtime.Remoting.Messaging;
+using System.Threading;
 
 namespace SD.Infrastructure.Constants
 {
@@ -9,6 +9,23 @@ namespace SD.Infrastructure.Constants
     /// </summary>
     public static class GlobalSetting
     {
+        #region # 字段及静态构造器
+
+        /// <summary>
+        /// SeesionId线程静态字段
+        /// </summary>
+        private static readonly AsyncLocal<Guid> _SessionId;
+
+        /// <summary>
+        /// 静态构造器
+        /// </summary>
+        static GlobalSetting()
+        {
+            _SessionId = new AsyncLocal<Guid>();
+        }
+
+        #endregion
+
         #region # 默认连接字符串 —— static string DefaultConnectionString
 
         /// <summary>
@@ -85,18 +102,12 @@ namespace SD.Infrastructure.Constants
         {
             get
             {
-                object sessionIdCache = CallContext.LogicalGetData(CacheConstants.SessionIdKey);
-
-                if (sessionIdCache == null)
+                if (_SessionId.Value == default(Guid))
                 {
                     throw new ApplicationException("SessionId未设置，请检查程序！");
                 }
 
-                return (Guid)sessionIdCache;
-            }
-            private set
-            {
-                CallContext.LogicalSetData(CacheConstants.SessionIdKey, value);
+                return _SessionId.Value;
             }
         }
         #endregion
@@ -107,7 +118,7 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         public static void FreeCurrentSessionId()
         {
-            CallContext.FreeNamedDataSlot(CacheConstants.SessionIdKey);
+            _SessionId.Value = default(Guid);
         }
         #endregion
 
@@ -117,7 +128,7 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         public static void InitCurrentSessionId()
         {
-            CurrentSessionId = Guid.NewGuid();
+            _SessionId.Value = Guid.NewGuid();
         }
         #endregion
     }

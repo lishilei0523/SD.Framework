@@ -46,7 +46,6 @@
   <ItemGroup>
     <Compile Include="Attributes\RequireAuthorizationAttribute.cs" />
     <Compile Include="Constants\ApplicationType.cs" />
-    <Compile Include="Constants\CacheConstants.cs" />
     <Compile Include="Constants\CheckStatus.cs" />
     <Compile Include="Constants\CommonConstants.cs" />
     <Compile Include="EntityBase\ICheckable.cs" />

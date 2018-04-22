@@ -1,9 +1,9 @@
 ﻿using SD.Infrastructure.Constants;
 using SD.Infrastructure.EventBase;
 using SD.Infrastructure.EventBase.Mediator;
+using SD.Infrastructure.EventStoreProvider.Redis.Toolkits;
 using SD.Toolkits.Redis;
-using ServiceStack.Redis;
-using ServiceStack.Redis.Generic;
+using StackExchange.Redis;
 using System.Linq;
 
 // ReSharper disable once CheckNamespace
@@ -17,52 +17,35 @@ namespace SD.Infrastructure.EventStoreProvider
         #region # 字段及构造器
 
         /// <summary>
-        /// Redis客户端管理器
-        /// </summary>
-        private readonly IRedisClientsManager _clientsManager;
-
-        /// <summary>
         /// Redis客户端
         /// </summary>
-        private readonly IRedisClient _redisClient;
+        private readonly IDatabase _redisClient;
 
         /// <summary>
-        /// Redis表
+        /// 会话Id
         /// </summary>
-        private readonly IRedisList<Event> _table;
+        private readonly string _sessionId;
 
         /// <summary>
         /// 构造器
         /// </summary>
         public RedisStoreProvider()
         {
-            this._clientsManager = RedisManager.CreateClientsManager();
-
-            //获取会话Id
-            string sessionId = GlobalSetting.CurrentSessionId.ToString();
-
-            //实例化RedisClient
-            this._redisClient = this._clientsManager.GetClient();
-
-            //实例化Table
-            IRedisTypedClient<Event> redisTypedClient = this._redisClient.As<Event>();
-            this._table = redisTypedClient.Lists[sessionId];
+            this._redisClient = RedisManager.GetDatabase();
+            this._sessionId = GlobalSetting.CurrentSessionId.ToString();
         }
 
         #endregion
-
-
-        //Implements
 
         #region # 挂起领域事件 —— void Suspend<T>(T eventSource)
         /// <summary>
         /// 挂起领域事件
         /// </summary>
         /// <typeparam name="T">领域事件源类型</typeparam>
-        /// <param name="eventSource">领域事件源</param>
+        /// <param name="eventSource"></param>
         public void Suspend<T>(T eventSource) where T : class, IEvent
         {
-            this._table.Append(eventSource as Event);
+            this._redisClient.ListRightPush(this._sessionId, eventSource.EventToJson());
         }
         #endregion
 
@@ -72,17 +55,19 @@ namespace SD.Infrastructure.EventStoreProvider
         /// </summary>
         public void HandleUncompletedEvents()
         {
-            IOrderedEnumerable<Event> eventSources = this._table.OrderByDescending(x => x.AddedTime);
+            RedisValue[] eventSourcesStr = this._redisClient.ListRange(this._sessionId);
 
-            //如果有未处理的
-            foreach (Event eventSource in eventSources.ToArray())
+            foreach (string eventSourceStr in eventSourcesStr)
             {
-                EventMediator.Handle((IEvent)eventSource);
-                this._table.RemoveStart();
+                IEvent eventSource = eventSourceStr.JsonToEvent();
+                EventMediator.Handle(eventSource);
+
+                this._redisClient.ListRemove(this._sessionId, eventSourceStr);
             }
 
-            //递归
-            if (this._table.Any())
+            RedisValue[] newEventSourcesStr = this._redisClient.ListRange(this._sessionId);
+
+            if (newEventSourcesStr.Any())
             {
                 this.HandleUncompletedEvents();
             }
@@ -95,10 +80,7 @@ namespace SD.Infrastructure.EventStoreProvider
         /// </summary>
         public void ClearUncompletedEvents()
         {
-            while (this._table.GetAll().Any())
-            {
-                this._table.RemoveStart();
-            }
+            this._redisClient.KeyDelete(this._sessionId);
         }
         #endregion
 
@@ -106,11 +88,7 @@ namespace SD.Infrastructure.EventStoreProvider
         /// <summary>
         /// 释放资源
         /// </summary>
-        public void Dispose()
-        {
-            this._redisClient?.Dispose();
-            this._clientsManager?.Dispose();
-        }
+        public void Dispose() { }
         #endregion
     }
 }

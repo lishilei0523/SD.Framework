@@ -24,7 +24,7 @@ namespace SD.Infrastructure.EventBase.Tests.TestCases
         [TestMethod]
         public void CreateProduct()
         {
-            const int runCount = 50;
+            const int runCount = 1000;
 
             IList<Guid> sessionIds = new List<Guid>();
 

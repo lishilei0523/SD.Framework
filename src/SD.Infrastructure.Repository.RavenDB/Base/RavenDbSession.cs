@@ -5,7 +5,7 @@ using SD.Infrastructure.Constants;
 using System;
 using System.Configuration;
 using System.Reflection;
-using System.Runtime.Remoting.Messaging;
+using System.Threading;
 
 namespace SD.Infrastructure.Repository.RavenDB.Base
 {
@@ -15,16 +15,6 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
     internal static class RavenDbSession
     {
         #region # 常量
-
-        /// <summary>
-        /// Raven（写）上下文对象缓存键
-        /// </summary>
-        internal const string CommandInstanceKey = "RavenCommandInstance";
-
-        /// <summary>
-        /// Raven（读）上下文对象缓存键
-        /// </summary>
-        internal const string QueryInstanceKey = "RavenQueryInstance";
 
         /// <summary>
         /// RavenDB连接字符串名称
@@ -41,6 +31,16 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
         private static readonly object _Sync;
 
         /// <summary>
+        /// Raven（写）上下文对象访问器线程缓存
+        /// </summary>
+        private static readonly AsyncLocal<IDocumentSession> _CommandInstanceCall;
+
+        /// <summary>
+        /// Raven（读）上下文对象访问器线程缓存
+        /// </summary>
+        private static readonly AsyncLocal<IAsyncDocumentSession> _QueryInstanceCall;
+
+        /// <summary>
         /// RavenDB文档存储延迟加载字段
         /// </summary>
         private static readonly IDocumentStore _Store;
@@ -51,6 +51,8 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
         static RavenDbSession()
         {
             _Sync = new object();
+            _CommandInstanceCall = new AsyncLocal<IDocumentSession>();
+            _QueryInstanceCall = new AsyncLocal<IAsyncDocumentSession>();
 
             #region # 验证
 
@@ -78,28 +80,6 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
 
         #region # 访问器
 
-        #region Raven（写）上下文对象访问器 —— static object CommandInstanceCall
-        /// <summary>
-        /// Raven（写）上下文对象访问器
-        /// </summary>
-        private static object CommandInstanceCall
-        {
-            get { return CallContext.LogicalGetData(CommandInstanceKey); }
-            set { CallContext.LogicalSetData(CommandInstanceKey, value); }
-        }
-        #endregion
-
-        #region Raven（读）上下文对象访问器 —— static object QueryInstanceCall
-        /// <summary>
-        /// Raven（读）上下文对象访问器
-        /// </summary>
-        private static object QueryInstanceCall
-        {
-            get { return CallContext.LogicalGetData(QueryInstanceKey); }
-            set { CallContext.LogicalSetData(QueryInstanceKey, value); }
-        }
-        #endregion
-
         #region Raven（写）上下文对象 —— static IDocumentSession CommandInstance
         /// <summary>
         /// Raven（写）上下文对象
@@ -110,12 +90,12 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
             {
                 lock (_Sync)
                 {
-                    IDocumentSession dbSession = CommandInstanceCall as IDocumentSession;
+                    IDocumentSession dbSession = _CommandInstanceCall.Value;
 
                     if (dbSession == null)
                     {
                         dbSession = _Store.OpenSession();
-                        CommandInstanceCall = dbSession;
+                        _CommandInstanceCall.Value = dbSession;
                     }
 
                     return dbSession;
@@ -134,12 +114,12 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
             {
                 lock (_Sync)
                 {
-                    IAsyncDocumentSession dbSession = QueryInstanceCall as IAsyncDocumentSession;
+                    IAsyncDocumentSession dbSession = _QueryInstanceCall.Value;
 
                     if (dbSession == null)
                     {
                         dbSession = _Store.OpenAsyncSession();
-                        QueryInstanceCall = dbSession;
+                        _QueryInstanceCall.Value = dbSession;
                     }
 
                     return dbSession;
@@ -158,7 +138,8 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
             {
                 CommandInstance.Dispose();
             }
-            CallContext.FreeNamedDataSlot(CommandInstanceKey);
+
+            _CommandInstanceCall.Value = null;
         }
         #endregion
 
@@ -172,7 +153,8 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
             {
                 QueryInstance.Dispose();
             }
-            CallContext.FreeNamedDataSlot(QueryInstanceKey);
+
+            _QueryInstanceCall.Value = null;
         }
         #endregion
 

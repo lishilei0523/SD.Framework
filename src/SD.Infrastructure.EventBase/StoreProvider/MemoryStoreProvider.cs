@@ -2,7 +2,7 @@
 using SD.Infrastructure.EventBase.Mediator;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
+using System.Threading;
 
 // ReSharper disable once CheckNamespace
 namespace SD.Infrastructure.EventStoreProvider
@@ -20,9 +20,9 @@ namespace SD.Infrastructure.EventStoreProvider
         private static readonly object _Sync = new object();
 
         /// <summary>
-        /// 领域事件存储Session键
+        /// 内存领域事件源队列线程缓存字段
         /// </summary>
-        private const string EventSessionKey = "EventSessionKey";
+        private static readonly AsyncLocal<object> _MemoryEventSources = new AsyncLocal<object>();
 
         /// <summary>
         /// 领域事件源集合
@@ -130,8 +130,8 @@ namespace SD.Infrastructure.EventStoreProvider
         /// </summary>
         private IList<Event> MemoryEventSources
         {
-            get { return CallContext.LogicalGetData(EventSessionKey) as IList<Event>; }
-            set { CallContext.LogicalSetData(EventSessionKey, value); }
+            get { return _MemoryEventSources.Value as IList<Event>; }
+            set { _MemoryEventSources.Value = value; }
         }
         #endregion
 
@@ -141,7 +141,7 @@ namespace SD.Infrastructure.EventStoreProvider
         /// </summary>
         private void FreeMemoryEventSources()
         {
-            CallContext.FreeNamedDataSlot(EventSessionKey);
+            _MemoryEventSources.Value = null;
         }
         #endregion
     }

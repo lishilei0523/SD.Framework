@@ -4,7 +4,7 @@ using SD.IOC.Core.Mediator;
 using SD.Toolkits.EntityFramework.Base;
 using System;
 using System.Data.Entity;
-using System.Runtime.Remoting.Messaging;
+using System.Threading;
 
 namespace SD.Infrastructure.Repository.EntityFramework.Base
 {
@@ -21,22 +21,24 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         private static readonly object _Sync;
 
         /// <summary>
+        /// EF（写）上下文对象访问器线程缓存
+        /// </summary>
+        private static readonly AsyncLocal<DbContext> _CommandInstanceCall;
+
+        /// <summary>
+        /// EF（读）上下文对象访问器线程缓存
+        /// </summary>
+        private static readonly AsyncLocal<DbContext> _QueryInstanceCall;
+
+        /// <summary>
         /// 静态构造器
         /// </summary>
         static BaseDbSession()
         {
             _Sync = new object();
+            _CommandInstanceCall = new AsyncLocal<DbContext>();
+            _QueryInstanceCall = new AsyncLocal<DbContext>();
         }
-
-        /// <summary>
-        /// EF（写）上下文对象缓存键
-        /// </summary>
-        internal const string CommandInstanceKey = "CommandInstance";
-
-        /// <summary>
-        /// EF（读）上下文对象缓存键
-        /// </summary>
-        internal const string QueryInstanceKey = "QueryInstance";
 
         /// <summary>
         /// 基础构造器
@@ -51,28 +53,6 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
 
         #region # 访问器
 
-        #region EF（写）上下文对象访问器 —— static object CommandInstanceCall
-        /// <summary>
-        /// EF（写）上下文对象访问器
-        /// </summary>
-        private static object CommandInstanceCall
-        {
-            get { return CallContext.LogicalGetData(CommandInstanceKey); }
-            set { CallContext.LogicalSetData(CommandInstanceKey, value); }
-        }
-        #endregion
-
-        #region EF（读）上下文对象访问器 —— static object QueryInstanceCall
-        /// <summary>
-        /// EF（读）上下文对象访问器
-        /// </summary>
-        private static object QueryInstanceCall
-        {
-            get { return CallContext.LogicalGetData(QueryInstanceKey); }
-            set { CallContext.LogicalSetData(QueryInstanceKey, value); }
-        }
-        #endregion
-
         #region EF（写）上下文对象 —— static DbContext CommandInstance
         /// <summary>
         /// EF（写）上下文对象
@@ -83,12 +63,12 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
             {
                 lock (_Sync)
                 {
-                    DbContext dbContext = CommandInstanceCall as DbContext;
+                    DbContext dbContext = _CommandInstanceCall.Value;
 
                     if (dbContext == null)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
-                        CommandInstanceCall = dbContext;
+                        _CommandInstanceCall.Value = dbContext;
                     }
 
                     return dbContext;
@@ -107,14 +87,14 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
             {
                 lock (_Sync)
                 {
-                    DbContext dbContext = QueryInstanceCall as DbContext;
+                    DbContext dbContext = _QueryInstanceCall.Value;
 
                     if (dbContext == null)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
                         dbContext.Configuration.AutoDetectChangesEnabled = false;/*关闭自动跟踪实体变化状态*/
 
-                        QueryInstanceCall = dbContext;
+                        _QueryInstanceCall.Value = dbContext;
                     }
 
                     return dbContext;
@@ -133,7 +113,8 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
             {
                 CommandInstance.Dispose();
             }
-            CallContext.FreeNamedDataSlot(CommandInstanceKey);
+
+            _CommandInstanceCall.Value = null;
         }
         #endregion
 
@@ -147,7 +128,8 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
             {
                 QueryInstance.Dispose();
             }
-            CallContext.FreeNamedDataSlot(QueryInstanceKey);
+
+            _QueryInstanceCall.Value = null;
         }
         #endregion
 
