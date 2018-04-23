@@ -1,9 +1,12 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Infrastructure.Constants;
 using SD.Infrastructure.EventBase.Mediator;
 using SD.Infrastructure.EventBase.Tests.StubDomainEventHandlers;
 using SD.Infrastructure.EventBase.Tests.StubEntities;
 using SD.Infrastructure.Global;
+using SD.IOC.Core.Mediators;
+using SD.IOC.Extension.NetFx;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +21,21 @@ namespace SD.Infrastructure.EventBase.Tests.TestCases
     [TestClass]
     public class ProductCreateTests
     {
+        /// <summary>
+        /// 测试初始化
+        /// </summary>
+        [TestInitialize]
+        public void Init()
+        {
+            if (!ResolveMediator.ContainerBuilt)
+            {
+                IServiceCollection builder = ResolveMediator.GetServiceCollection();
+                builder.RegisterConfigs();
+
+                ResolveMediator.Build();
+            }
+        }
+
         /// <summary>
         /// 测试商品创建
         /// </summary>
