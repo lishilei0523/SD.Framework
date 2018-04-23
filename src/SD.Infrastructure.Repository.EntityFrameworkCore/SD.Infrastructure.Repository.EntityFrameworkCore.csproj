@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.0.2" />
-    <PackageReference Include="SD.IOC.Standard" Version="1.0.0" />
+    <PackageReference Include="SD.IOC.Core" Version="2.0.0" />
     <PackageReference Include="SD.Toolkits.EntityFrameworkCore" Version="1.0.0" />
   </ItemGroup>
 

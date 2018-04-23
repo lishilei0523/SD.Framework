@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using SD.Infrastructure.Constants;
 using SD.Infrastructure.EntityBase;
-using SD.IOC.Standard.Mediator;
+using SD.IOC.Core.Mediators;
 using SD.Toolkits.EntityFrameworkCore.Base;
 using System;
 using System.Threading;

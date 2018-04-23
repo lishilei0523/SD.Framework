@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <PackageReference Include="SD.AOP.Core" Version="2.0.0" />
-    <PackageReference Include="SD.IOC.Core" Version="2.0.0" />
   </ItemGroup>
 
   <ItemGroup>
