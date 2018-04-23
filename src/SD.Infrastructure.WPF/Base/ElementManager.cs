@@ -1,7 +1,7 @@
 ﻿using Caliburn.Micro;
 using MahApps.Metro.Controls;
 using MahApps.Metro.Controls.Dialogs;
-using SD.IOC.Core.Mediator;
+using SD.IOC.Core.Mediators;
 using System;
 using System.Threading.Tasks;
 using System.Windows;

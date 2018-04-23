@@ -1,5 +1,5 @@
 ﻿using Caliburn.Micro;
-using SD.IOC.Core.Mediator;
+using SD.IOC.Core.Mediators;
 using System;
 using System.Linq;
 

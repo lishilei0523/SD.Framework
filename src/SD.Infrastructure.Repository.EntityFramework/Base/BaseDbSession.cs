@@ -1,6 +1,6 @@
 ﻿using SD.Infrastructure.Constants;
 using SD.Infrastructure.EntityBase;
-using SD.IOC.Core.Mediator;
+using SD.IOC.Core.Mediators;
 using SD.Toolkits.EntityFramework.Base;
 using System;
 using System.Data.Entity;
