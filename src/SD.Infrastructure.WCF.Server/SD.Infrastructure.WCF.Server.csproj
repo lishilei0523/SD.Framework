@@ -66,18 +66,22 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj">
-      <Project>{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}</Project>
-      <Name>SD.Infrastructure.Global</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="App.config.transform" />
     <None Include="packages.config" />
     <None Include="Web.config.transform" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj">
+      <Project>{94fface5-5f2a-49db-ad7e-aa7c724cdcb3}</Project>
+      <Name>SD.Infrastructure.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj">
+      <Project>{77b51895-dc26-4ee1-87c9-f5d0171fad5a}</Project>
+      <Name>SD.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

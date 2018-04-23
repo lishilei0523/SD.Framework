@@ -1,5 +1,6 @@
-﻿using Raven.Client;
-using Raven.Client.Linq;
+﻿using Raven.Client.Documents;
+using Raven.Client.Documents.Linq;
+using Raven.Client.Documents.Session;
 using SD.Infrastructure.EntityBase;
 using SD.Infrastructure.Repository.RavenDB.Base;
 using SD.Infrastructure.RepositoryBase;
@@ -278,7 +279,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             #endregion
 
-            T entity = this._dbContext.Load<T>(id);
+            T entity = this._dbContext.Load<T>(id.ToString());
             entity.Deleted = true;
             entity.DeletedTime = DateTime.Now;
         }
@@ -385,7 +386,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             #endregion
 
-            return this._dbContext.Load<T>(id);
+            return this._dbContext.Load<T>(id.ToString());
         }
         #endregion
 
@@ -726,7 +727,7 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// <returns>是否存在</returns>
         private bool Exists<T>(Guid id) where T : AggregateRootEntity
         {
-            return this._dbContext.Load<T>(id) != null;
+            return this._dbContext.Load<T>(id.ToString()) != null;
         }
         #endregion
 

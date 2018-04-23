@@ -1,5 +1,6 @@
-﻿using Raven.Client;
-using Raven.Client.Linq;
+﻿using Raven.Client.Documents;
+using Raven.Client.Documents.Linq;
+using Raven.Client.Documents.Session;
 using SD.Infrastructure.EntityBase;
 using SD.Infrastructure.Repository.RavenDB.Base;
 using SD.Infrastructure.RepositoryBase;
@@ -66,7 +67,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             #endregion
 
-            return this._dbContext.LoadAsync<T>(id).Result;
+            return this._dbContext.LoadAsync<T>(id.ToString()).Result;
         }
         #endregion
 
@@ -89,7 +90,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             #endregion
 
-            return this._dbContext.LoadAsync<TSub>(id).Result;
+            return this._dbContext.LoadAsync<TSub>(id.ToString()).Result;
         }
         #endregion
 

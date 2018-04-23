@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ServiceModel;
 
 namespace SD.Infrastructure.CustomExceptions
 {
@@ -7,7 +6,7 @@ namespace SD.Infrastructure.CustomExceptions
     /// 应用程序服务层异常基类
     /// </summary>
     [Serializable]
-    public class AppServiceException : FaultException
+    public class AppServiceException : ApplicationException
     {
         /// <summary>
         /// 无参构造器

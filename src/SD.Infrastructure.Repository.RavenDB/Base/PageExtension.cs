@@ -1,4 +1,4 @@
-﻿using Raven.Client.Linq;
+﻿using Raven.Client.Documents.Linq;
 using SD.Infrastructure.EntityBase;
 using System;
 using System.Linq;

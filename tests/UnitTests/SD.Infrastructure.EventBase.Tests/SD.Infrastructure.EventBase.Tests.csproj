@@ -80,28 +80,28 @@
     <Compile Include="TestCases\ProductCreateTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj">
-      <Project>{79dc5e40-2857-4748-a895-49bb675cdc68}</Project>
-      <Name>SD.Infrastructure.EventBase</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure.EventStoreProvider.Redis\SD.Infrastructure.EventStoreProvider.Redis.csproj">
-      <Project>{78920b31-6d86-48d2-95b0-c5f19443225b}</Project>
-      <Name>SD.Infrastructure.EventStoreProvider.Redis</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj">
-      <Project>{17C748AF-D2E4-4F35-925C-2D0C1D5A51B4}</Project>
-      <Name>SD.Infrastructure.Global</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure\SD.Infrastructure.csproj">
-      <Project>{F9FF05F0-1900-4D24-859A-B3202F2208D7}</Project>
-      <Name>SD.Infrastructure</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj">
+      <Project>{f04a5dab-4e7c-43e5-bebb-09300757f273}</Project>
+      <Name>SD.Infrastructure.EventBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure.EventStoreProvider.Redis\SD.Infrastructure.EventStoreProvider.Redis.csproj">
+      <Project>{33d9927c-7a43-4ff5-b9e2-99b66ead6651}</Project>
+      <Name>SD.Infrastructure.EventStoreProvider.Redis</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj">
+      <Project>{94fface5-5f2a-49db-ad7e-aa7c724cdcb3}</Project>
+      <Name>SD.Infrastructure.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure\SD.Infrastructure.csproj">
+      <Project>{77b51895-dc26-4ee1-87c9-f5d0171fad5a}</Project>
+      <Name>SD.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

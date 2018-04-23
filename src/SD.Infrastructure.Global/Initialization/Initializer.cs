@@ -1,7 +1,8 @@
 ﻿using SD.Infrastructure.Constants;
 using SD.Infrastructure.RepositoryBase;
-using SD.IOC.Core.Mediator;
+using SD.IOC.Core.Mediators;
 
+// ReSharper disable once CheckNamespace
 namespace SD.Infrastructure.Global
 {
     /// <summary>

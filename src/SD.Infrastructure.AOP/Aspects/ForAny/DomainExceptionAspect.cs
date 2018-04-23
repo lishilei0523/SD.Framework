@@ -1,7 +1,7 @@
-﻿using System;
-using PostSharp.Aspects;
+﻿using ArxOne.MrAdvice.Advice;
 using SD.AOP.Core.Aspects.ForAny;
 using SD.Infrastructure.CustomExceptions;
+using System;
 
 namespace SD.Infrastructure.AOP.Aspects.ForAny
 {
@@ -12,14 +12,13 @@ namespace SD.Infrastructure.AOP.Aspects.ForAny
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public sealed class DomainExceptionAspect : ExceptionAspect
     {
-        /// <summary>
-        /// 异常过滤器
-        /// </summary>
-        /// <param name="eventArgs">方法元数据</param>
-        public override void OnException(MethodExecutionArgs eventArgs)
+        /// <summary>发生异常事件</summary>
+        /// <param name="context">方法元数据</param>
+        /// <param name="exception">异常实例</param>
+        protected override void OnException(MethodAdviceContext context, Exception exception)
         {
             //抛出异常
-            throw new DomainException(eventArgs.Exception.Message, eventArgs.Exception);
+            throw new DomainException(exception.Message, exception);
         }
     }
 }

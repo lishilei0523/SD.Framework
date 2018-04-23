@@ -62,11 +62,11 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\SD.Infrastructure.Repository.MongoDB\SD.Infrastructure.Repository.MongoDB.csproj">
-      <Project>{C5CAFB43-1A18-4D52-8B98-59215E0F1309}</Project>
+      <Project>{48554f64-b4da-4a38-818a-72b8c5297724}</Project>
       <Name>SD.Infrastructure.Repository.MongoDB</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\src\SD.Infrastructure\SD.Infrastructure.csproj">
-      <Project>{F9FF05F0-1900-4D24-859A-B3202F2208D7}</Project>
+      <Project>{77b51895-dc26-4ee1-87c9-f5d0171fad5a}</Project>
       <Name>SD.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>

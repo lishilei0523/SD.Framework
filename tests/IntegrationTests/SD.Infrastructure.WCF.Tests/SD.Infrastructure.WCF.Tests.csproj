@@ -86,6 +86,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure\SD.Infrastructure.csproj">
+      <Project>{77b51895-dc26-4ee1-87c9-f5d0171fad5a}</Project>
+      <Name>SD.Infrastructure</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SD.Infrastructure.StubAppService\SD.Infrastructure.StubAppService.csproj">
       <Project>{a9f7d041-ecf8-434d-b083-5f57ad348564}</Project>
       <Name>SD.Infrastructure.StubAppService</Name>
@@ -97,10 +101,6 @@
     <ProjectReference Include="..\..\..\src\SD.Infrastructure.WCF.Server\SD.Infrastructure.WCF.Server.csproj">
       <Project>{9a78b517-ad18-4bc7-b687-4dc245f4db57}</Project>
       <Name>SD.Infrastructure.WCF.Server</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure\SD.Infrastructure.csproj">
-      <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
-      <Name>SD.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

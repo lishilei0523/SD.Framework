@@ -88,8 +88,12 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj">
-      <Project>{17c748af-d2e4-4f35-925c-2d0c1d5a51b4}</Project>
+      <Project>{94fface5-5f2a-49db-ad7e-aa7c724cdcb3}</Project>
       <Name>SD.Infrastructure.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj">
+      <Project>{77b51895-dc26-4ee1-87c9-f5d0171fad5a}</Project>
+      <Name>SD.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

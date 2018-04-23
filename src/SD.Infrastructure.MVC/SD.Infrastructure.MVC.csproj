@@ -60,11 +60,10 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj">
-      <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
+      <Project>{77b51895-dc26-4ee1-87c9-f5d0171fad5a}</Project>
       <Name>SD.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

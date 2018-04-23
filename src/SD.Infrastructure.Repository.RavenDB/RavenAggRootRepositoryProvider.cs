@@ -1,5 +1,5 @@
-﻿using Raven.Client;
-using Raven.Client.Linq;
+﻿using Raven.Client.Documents.Linq;
+using Raven.Client.Documents.Session;
 using SD.Infrastructure.EntityBase;
 using SD.Infrastructure.Repository.RavenDB.Base;
 using SD.Infrastructure.RepositoryBase;

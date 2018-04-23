@@ -1,6 +1,6 @@
-﻿using System.Collections.Generic;
-using SD.IOC.Core.Mediator;
-using SD.Infrastructure.RepositoryBase;
+﻿using SD.Infrastructure.RepositoryBase;
+using SD.IOC.Core.Mediators;
+using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
 namespace SD.Infrastructure.Global

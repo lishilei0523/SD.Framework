@@ -1,5 +1,5 @@
 ﻿using SD.Infrastructure.EventBase.Factories;
-using SD.IOC.Core.Mediator;
+using SD.IOC.Core.Mediators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
