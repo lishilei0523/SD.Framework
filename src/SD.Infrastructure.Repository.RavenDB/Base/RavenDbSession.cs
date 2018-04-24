@@ -2,6 +2,7 @@
 using Raven.Client.Documents.Indexes;
 using Raven.Client.Documents.Session;
 using SD.Infrastructure.Constants;
+using SD.Infrastructure.Repository.RavenDB.Toolkits;
 using System;
 using System.Configuration;
 using System.Reflection;
@@ -64,8 +65,15 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
 
             #endregion
 
-            //TODO 查询API进行调整，如何创建连接字符串
-            IDocumentStore documentStore = new DocumentStore();
+            ConnectionStringParser parser = new ConnectionStringParser(connectionString.ConnectionString);
+            RavenConnectionStringOptions options = parser.Parse();
+
+            IDocumentStore documentStore = new DocumentStore
+            {
+                Urls = options.Urls,
+                Database = options.DefaultDatabase
+            };
+
             documentStore.Initialize();
 
             if (!string.IsNullOrWhiteSpace(GlobalSetting.EntityConfigAssembly))
