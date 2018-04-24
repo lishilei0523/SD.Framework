@@ -6,6 +6,7 @@
     <Company>SD</Company>
     <Description>基础设施 - ASP.NET Core服务端基础</Description>
     <Copyright>Copyright © SD 2018</Copyright>
+    <Version>0.0.1</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
