@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SD")]
 [assembly: AssemblyProduct("SD.Infrastructure.MVC")]
-[assembly: AssemblyCopyright("Copyright © SD 2016")]
+[assembly: AssemblyCopyright("Copyright © SD 2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

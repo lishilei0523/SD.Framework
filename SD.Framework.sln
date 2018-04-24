@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Infrastructures", "01 - Infrastructures", "{F04B3910-0A27-4C2D-8ED1-6CC7095691E5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - UnitTests", "05 - UnitTests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 - UnitTests", "06 - UnitTests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FF4ABECC-5097-4064-95CA-9BF579AEE43C}"
 	ProjectSection(SolutionItems) = preProject
@@ -14,7 +14,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FF4ABE
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 - IntegrationTests", "06 - IntegrationTests", "{30953907-39FD-4F6F-933A-4F418FA1E03A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07 - IntegrationTests", "07 - IntegrationTests", "{30953907-39FD-4F6F-933A-4F418FA1E03A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - WCF", "02 - WCF", "{8F39A4B5-03D4-4E84-9B35-D7A5AE0D3AED}"
 EndProject
@@ -62,21 +62,25 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WebApi.Se
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repository.EntityFrameworkCore", "src\SD.Infrastructure.Repository.EntityFrameworkCore\SD.Infrastructure.Repository.EntityFrameworkCore.csproj", "{AD3A8A7D-0DC2-480E-9477-FC5CE93007D8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure", "src\SD.Infrastructure\SD.Infrastructure.csproj", "{77B51895-DC26-4EE1-87C9-F5D0171FAD5A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure", "src\SD.Infrastructure\SD.Infrastructure.csproj", "{77B51895-DC26-4EE1-87C9-F5D0171FAD5A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.AOP", "src\SD.Infrastructure.AOP\SD.Infrastructure.AOP.csproj", "{34AEF366-607C-4D69-BA60-6CF3332143DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AOP", "src\SD.Infrastructure.AOP\SD.Infrastructure.AOP.csproj", "{34AEF366-607C-4D69-BA60-6CF3332143DC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Global", "src\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj", "{94FFACE5-5F2A-49DB-AD7E-AA7C724CDCB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Global", "src\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj", "{94FFACE5-5F2A-49DB-AD7E-AA7C724CDCB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventBase", "src\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj", "{F04A5DAB-4E7C-43E5-BEBB-09300757F273}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.EventBase", "src\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj", "{F04A5DAB-4E7C-43E5-BEBB-09300757F273}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventStoreProvider.RabbitMQ", "src\SD.Infrastructure.EventStoreProvider.RabbitMQ\SD.Infrastructure.EventStoreProvider.RabbitMQ.csproj", "{971F03BF-C107-4F51-8767-1AB7E74A3DE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.EventStoreProvider.RabbitMQ", "src\SD.Infrastructure.EventStoreProvider.RabbitMQ\SD.Infrastructure.EventStoreProvider.RabbitMQ.csproj", "{971F03BF-C107-4F51-8767-1AB7E74A3DE0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventStoreProvider.Redis", "src\SD.Infrastructure.EventStoreProvider.Redis\SD.Infrastructure.EventStoreProvider.Redis.csproj", "{33D9927C-7A43-4FF5-B9E2-99B66EAD6651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.EventStoreProvider.Redis", "src\SD.Infrastructure.EventStoreProvider.Redis\SD.Infrastructure.EventStoreProvider.Redis.csproj", "{33D9927C-7A43-4FF5-B9E2-99B66EAD6651}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.MongoDB", "src\SD.Infrastructure.Repository.MongoDB\SD.Infrastructure.Repository.MongoDB.csproj", "{48554F64-B4DA-4A38-818A-72B8C5297724}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repository.MongoDB", "src\SD.Infrastructure.Repository.MongoDB\SD.Infrastructure.Repository.MongoDB.csproj", "{48554F64-B4DA-4A38-818A-72B8C5297724}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.RavenDB", "src\SD.Infrastructure.Repository.RavenDB\SD.Infrastructure.Repository.RavenDB.csproj", "{6DFB202E-E47B-4698-98E3-A8E05A6F784D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repository.RavenDB", "src\SD.Infrastructure.Repository.RavenDB\SD.Infrastructure.Repository.RavenDB.csproj", "{6DFB202E-E47B-4698-98E3-A8E05A6F784D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AspNetCore.Server", "src\SD.Infrastructure.AspNetCore.Server\SD.Infrastructure.AspNetCore.Server.csproj", "{6D1119F5-A53D-4D15-9896-FF735FBB1E3C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - Presentations", "05 - Presentations", "{ADD07228-3F19-4814-BB60-0F7D18C99D77}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -168,6 +172,10 @@ Global
 		{6DFB202E-E47B-4698-98E3-A8E05A6F784D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DFB202E-E47B-4698-98E3-A8E05A6F784D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DFB202E-E47B-4698-98E3-A8E05A6F784D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D1119F5-A53D-4D15-9896-FF735FBB1E3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D1119F5-A53D-4D15-9896-FF735FBB1E3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D1119F5-A53D-4D15-9896-FF735FBB1E3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D1119F5-A53D-4D15-9896-FF735FBB1E3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -182,9 +190,9 @@ Global
 		{04BFA4D7-86C8-4341-B34C-3F1D88D19827} = {7D849A44-01DC-44B0-A680-772E1A1B91EA}
 		{A9F7D041-ECF8-434D-B083-5F57AD348564} = {7D849A44-01DC-44B0-A680-772E1A1B91EA}
 		{44C612E2-18F5-4A15-8D2E-0AF325370FC7} = {8F39A4B5-03D4-4E84-9B35-D7A5AE0D3AED}
-		{5B231572-46D6-432B-81B1-C583C699D925} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{5B231572-46D6-432B-81B1-C583C699D925} = {ADD07228-3F19-4814-BB60-0F7D18C99D77}
 		{BE2F2103-F9F6-49B7-8389-D1D909F35464} = {AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}
-		{3E708ACC-CE46-4DC3-9B89-DB40947FFBBC} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{3E708ACC-CE46-4DC3-9B89-DB40947FFBBC} = {ADD07228-3F19-4814-BB60-0F7D18C99D77}
 		{BCF72253-2D5A-4FE2-8636-09667CC6FF39} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{7363465F-FEE0-4EAB-AEC5-1AE488540C9D} = {AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}
 		{AD3A8A7D-0DC2-480E-9477-FC5CE93007D8} = {88B56539-567B-4B32-BCFC-CB39C1158534}
@@ -196,6 +204,7 @@ Global
 		{33D9927C-7A43-4FF5-B9E2-99B66EAD6651} = {937234D3-F5FB-49DA-8B45-9F426E246004}
 		{48554F64-B4DA-4A38-818A-72B8C5297724} = {88B56539-567B-4B32-BCFC-CB39C1158534}
 		{6DFB202E-E47B-4698-98E3-A8E05A6F784D} = {88B56539-567B-4B32-BCFC-CB39C1158534}
+		{6D1119F5-A53D-4D15-9896-FF735FBB1E3C} = {AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B5E3D78-0B5E-4D21-BFEF-9B2A85D15716}
