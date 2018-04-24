@@ -18,7 +18,19 @@
 #### 项目模板：https://gitee.com/lishilei0523/SD.Framework.Template
 
 -----------------------------------
+##### 2018.04.24 - 框架近期调整说明
+
+1、全面开启v2.0
+
+2、框架核心类库迁移到.NET Standard 2.0，详见项目列表；
+
+3、增加EF Core仓储实现；
+
+4、增加ASP.NET Core服务端基础中间件；
+
+-----------------------------------
 ##### 2018.04.22 - 框架近期调整说明
+
 1、恢复UnitedCommit默认事务隔离级别，因为快照隔离级别不支持分布式事务；
 
 2、干掉Redis仓储实现，没什么用；
@@ -55,94 +67,96 @@
 9、精简仓储API；
 
 -----------------------------------
-SD.Infrastructure
+
+#### 项目列表
+
+
+- 基础设施部分
+
+SD.Infrastructure（.NET Standard 2.0）
 
 	基础设施，包含系统常量、自定义异常、基接口与基类。
-
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure
 
-
-SD.Infrastructure.AOP
+SD.Infrastructure.AOP（.NET Standard 2.0）
 
 	AOP基础设施，包含为不同项目封装的不同处理异常的方式。
-
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.AOP
 
-
-SD.Infrastructure.EventBase
-
-	领域事件基础，包含领域事件基类、领域事件处理者工厂、领域事件中介者、Session存储提供者。
-
-	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventBase
-
-SD.Infrastructure.EventStoreProvider.RabbitMQ
-
-	RabbitMQ领域事件存储提供者。
-
-	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventStoreProvider.RabbitMQ
-
-SD.Infrastructure.EventStoreProvider.Redis
-
-	Redis领域事件存储提供者。
-
-	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventStoreProvider.Redis
-
-SD.Infrastructure.Global
+SD.Infrastructure.Global（.NET Standard 2.0）
 
 	全局操作基础设施，包括全局初始化、释放资源、事务。
-
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Global
 
-SD.Infrastructure.MVC
+- 领域事件部分
 
-	MVC基础。
+SD.Infrastructure.EventBase（.NET Standard 2.0）
 
-	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.MVC
+	领域事件基础，包含领域事件基类、领域事件处理者工厂、领域事件中介者、Session存储提供者。
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventBase
 
-SD.Infrastructure.Repository.EntityFramework
+SD.Infrastructure.EventStoreProvider.RabbitMQ（.NET Standard 2.0）
 
-	仓储基础设施，包含EntityFramework DbContext的三次封装、数据库清理者、EntityFramework仓储提供者、EntityFramework UnitOfWork提供者。
+	RabbitMQ领域事件存储提供者。
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventStoreProvider.RabbitMQ
 
-	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.EntityFramework
+SD.Infrastructure.EventStoreProvider.Redis（.NET Standard 2.0）
 
-SD.Infrastructure.Repository.MongoDB
+	Redis领域事件存储提供者。
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventStoreProvider.Redis
 
-	仓储基础 - MongoDB实现。
+- 服务端部分
 
-	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.MongoDB
+SD.Infrastructure.AspNetCore.Server（.NET Core 2.0）
 
-SD.Infrastructure.Repository.RavenDB
+	ASP.NET Core服务端基础。
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.AspNetCore.Server
 
-	仓储基础 - RavenDB实现。
-
-	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.RavenDB
-
-SD.Infrastructure.Repository.Redis
-
-	仓储基础 - Redis实现。
-
-	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.Redis
-
-SD.Infrastructure.MVC.Server
+SD.Infrastructure.MVC.Server（.NET Framework 4.6.1）
 	
-	MVC服务端基础。
-
+	ASP.NET MVC 5服务端基础。
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.MVC.Server
 
-SD.Infrastructure.WebApi.Server
+SD.Infrastructure.WebApi.Server（.NET Framework 4.6.1）
 	
-	WebApi服务端基础。
-
+	ASP.NET WebApi 2.0服务端基础。
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.WebApi.Server
 
-SD.Infrastructure.WCF.Server
+SD.Infrastructure.WCF.Server（.NET Framework 4.6.1）
 
 	WCF服务端基础设施。
-
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.WCF.Server
 
-SD.Infrastructure.WPF
-	
-	WPF客户端基础设施。
+- 仓储部分
 
+SD.Infrastructure.Repository.EntityFramework（.NET Framework 4.6.1）
+
+	仓储基础设施，包含EntityFramework DbContext的三次封装、数据库清理者、EntityFramework仓储提供者、EntityFramework UnitOfWork提供者。
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.EntityFramework
+
+SD.Infrastructure.Repository.EntityFrameworkCore（.NET Core 2.0）
+
+	仓储基础 - EF Core实现。
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.EntityFrameworkCore
+
+SD.Infrastructure.Repository.MongoDB（.NET Standard 2.0）
+
+	仓储基础 - MongoDB实现。
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.MongoDB
+
+SD.Infrastructure.Repository.RavenDB（.NET Standard 2.0）
+
+	仓储基础 - RavenDB实现。
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.Repository.RavenDB
+
+- 表现层部分
+
+SD.Infrastructure.MVC（.NET Framework 4.6.1）
+
+	ASP.NET MVC 5表现层基础。
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.MVC
+
+SD.Infrastructure.WPF（.NET Framework 4.6.1）
+	
+	WPF表现层基础。
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.WPF
