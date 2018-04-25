@@ -143,9 +143,9 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
         /// </summary>
         public static void FreeCommandInstanceCall()
         {
-            if (CommandInstance != null)
+            if (_CommandInstanceCall.Value != null)
             {
-                CommandInstance.Dispose();
+                _CommandInstanceCall.Value.Dispose();
             }
 
             _CommandInstanceCall.Value = null;
@@ -158,9 +158,9 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
         /// </summary>
         public static void FreeQueryInstanceCall()
         {
-            if (QueryInstance != null)
+            if (_QueryInstanceCall.Value != null)
             {
-                QueryInstance.Dispose();
+                _QueryInstanceCall.Value.Dispose();
             }
 
             _QueryInstanceCall.Value = null;

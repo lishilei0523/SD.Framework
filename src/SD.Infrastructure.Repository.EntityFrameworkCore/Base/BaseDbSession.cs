@@ -23,12 +23,12 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// <summary>
         /// EF（写）上下文对象访问器线程缓存
         /// </summary>
-        private static readonly AsyncLocal<DbContext> _CommandInstanceCall;
+        private static readonly AsyncLocal<BaseDbSession> _CommandInstanceCall;
 
         /// <summary>
         /// EF（读）上下文对象访问器线程缓存
         /// </summary>
-        private static readonly AsyncLocal<DbContext> _QueryInstanceCall;
+        private static readonly AsyncLocal<BaseDbSession> _QueryInstanceCall;
 
         /// <summary>
         /// 静态构造器
@@ -36,19 +36,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         static BaseDbSession()
         {
             _Sync = new object();
-            _CommandInstanceCall = new AsyncLocal<DbContext>();
-            _QueryInstanceCall = new AsyncLocal<DbContext>();
+            _CommandInstanceCall = new AsyncLocal<BaseDbSession>();
+            _QueryInstanceCall = new AsyncLocal<BaseDbSession>();
         }
-
-        /// <summary>
-        /// EF（写）上下文对象缓存键
-        /// </summary>
-        internal const string CommandInstanceKey = "CommandInstance";
-
-        /// <summary>
-        /// EF（读）上下文对象缓存键
-        /// </summary>
-        internal const string QueryInstanceKey = "QueryInstance";
 
         /// <summary>
         /// 基础构造器
@@ -71,19 +61,19 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
 
         #region # 访问器
 
-        #region EF（写）上下文对象 —— static DbContext CommandInstance
+        #region EF（写）上下文对象 —— static BaseDbSession CommandInstance
         /// <summary>
         /// EF（写）上下文对象
         /// </summary>
-        public static DbContext CommandInstance
+        public static BaseDbSession CommandInstance
         {
             get
             {
                 lock (_Sync)
                 {
-                    DbContext dbContext = _CommandInstanceCall.Value;
+                    BaseDbSession dbContext = _CommandInstanceCall.Value;
 
-                    if (dbContext == null)
+                    if (dbContext == null || dbContext.Diposed)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
                         _CommandInstanceCall.Value = dbContext;
@@ -95,19 +85,19 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         }
         #endregion
 
-        #region EF（读）上下文对象 —— static DbContext QueryInstance
+        #region EF（读）上下文对象 —— static BaseDbSession QueryInstance
         /// <summary>
         /// EF（读）上下文对象
         /// </summary>
-        public static DbContext QueryInstance
+        public static BaseDbSession QueryInstance
         {
             get
             {
                 lock (_Sync)
                 {
-                    DbContext dbContext = _QueryInstanceCall.Value;
+                    BaseDbSession dbContext = _QueryInstanceCall.Value;
 
-                    if (dbContext == null)
+                    if (dbContext == null || dbContext.Diposed)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
                         dbContext.ChangeTracker.AutoDetectChangesEnabled = false;/*关闭自动跟踪实体变化状态*/
@@ -127,9 +117,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public static void FreeCommandInstanceCall()
         {
-            if (CommandInstance != null)
+            if (_CommandInstanceCall.Value != null)
             {
-                CommandInstance.Dispose();
+                _CommandInstanceCall.Value.Dispose();
             }
 
             _CommandInstanceCall.Value = null;
@@ -142,9 +132,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public static void FreeQueryInstanceCall()
         {
-            if (QueryInstance != null)
+            if (_QueryInstanceCall.Value != null)
             {
-                QueryInstance.Dispose();
+                _QueryInstanceCall.Value.Dispose();
             }
 
             _QueryInstanceCall.Value = null;

@@ -34,7 +34,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// </summary>
         static EFUnitOfWorkProvider()
         {
-            EFUnitOfWorkProvider._Sync = new object();
+            _Sync = new object();
         }
 
         /// <summary>
@@ -306,17 +306,6 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 注册删除全部（物理删除） —— void RegisterPhysicsRemoveAll<T>()
-        /// <summary>
-        /// 注册删除全部（物理删除）
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        public void RegisterPhysicsRemoveAll<T>() where T : AggregateRootEntity
-        {
-            this.RegisterPhysicsRemove<T>(x => true);
-        }
-        #endregion
-
         #region # 注册删除单个实体对象（逻辑删除） —— void RegisterRemove<T>(Guid id)
         /// <summary>
         /// 注册删除单个实体对象（逻辑删除）
@@ -475,38 +464,6 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             IQueryable<T> entities = this.ResolveRange<T>(x => entityIds.Contains(x.Id));
-
-            foreach (T entity in entities)
-            {
-                entity.OperatorAccount = loginInfo?.LoginId;
-                entity.OperatorName = loginInfo?.RealName;
-                entity.Deleted = true;
-                entity.DeletedTime = DateTime.Now;
-                EntityEntry entry = this._dbContext.Entry<T>(entity);
-                entry.State = EntityState.Modified;
-            }
-        }
-        #endregion
-
-        #region # 注册删除全部（逻辑删除） —— void RegisterRemoveAll<T>()
-        /// <summary>
-        /// 注册删除全部（逻辑删除）
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        public void RegisterRemoveAll<T>() where T : AggregateRootEntity
-        {
-            LoginInfo loginInfo = null;
-
-            #region # 获取操作人信息
-
-            if (EFUnitOfWorkProvider.GetLoginInfo != null)
-            {
-                loginInfo = EFUnitOfWorkProvider.GetLoginInfo.Invoke();
-            }
-
-            #endregion
-
-            IQueryable<T> entities = this.ResolveRange<T>(x => true);
 
             foreach (T entity in entities)
             {
@@ -903,7 +860,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            lock (EFUnitOfWorkProvider._Sync)
+            lock (_Sync)
             {
                 return this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefault(predicate);
             }
@@ -927,7 +884,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            lock (EFUnitOfWorkProvider._Sync)
+            lock (_Sync)
             {
                 return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
             }
@@ -973,7 +930,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            lock (EFUnitOfWorkProvider._Sync)
+            lock (_Sync)
             {
                 return this._dbContext.Set<T>().Where(x => !x.Deleted).Any(predicate);
             }

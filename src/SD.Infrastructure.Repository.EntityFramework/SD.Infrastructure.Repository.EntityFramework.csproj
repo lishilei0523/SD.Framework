@@ -57,8 +57,7 @@
       <HintPath>..\..\packages\SD.IOC.Core.2.0.0\lib\netstandard2.0\SD.IOC.Core.dll</HintPath>
     </Reference>
     <Reference Include="SD.Toolkits.EntityFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SD.Toolkits.EntityFramework.1.0.3\lib\net45\SD.Toolkits.EntityFramework.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\..\packages\SD.Toolkits.EntityFramework.1.0.4\lib\net45\SD.Toolkits.EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />

@@ -32,7 +32,7 @@ namespace SD.Infrastructure.EntityBase
         /// <summary>
         /// 添加时间
         /// </summary>
-        public DateTime AddedTime { get; private set; }
+        public DateTime AddedTime { get; protected set; }
         #endregion
 
         #endregion
