@@ -1,5 +1,5 @@
 ## 项目概述
-### 这是一个框架
+### 这是一个框架（支持.NET Core）
 ---
 
         本框架致力于提升开发效率，减少领域驱动设计实现的复杂性。
@@ -16,6 +16,14 @@
 ### 技术交流群：[558010476](//shang.qq.com/wpa/qunwpa?idkey=22cd396d1b7d25fb7632c45c4e40c95ffe2bfa6e48b47a18b7b31c5d4c8d1065)
 #### 示例项目：https://gitee.com/lishilei0523/ShSoft.UAC
 #### 项目模板：https://gitee.com/lishilei0523/SD.Framework.Template
+#### ASP.NET Core练习项目： https://gitee.com/lishilei0523/AspNetCore.Practice
+
+-----------------------------------
+##### 2018.04.25 - 框架近期调整说明
+
+1、PlainEntity中AddedTime属性访问级别变更为protected，为了兼容EF Core；
+
+2、修复EF/EF Core仓储实现中实例已Dispose的bug；
 
 -----------------------------------
 ##### 2018.04.24 - 框架近期调整说明
