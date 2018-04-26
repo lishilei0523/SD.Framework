@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // 特性集控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("SD.Infrastructure.WPF")]
-[assembly: AssemblyDescription("基础设施 - WPF基础")]
+[assembly: AssemblyDescription("基础设施 - WPF表现层基础")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SD")]
 [assembly: AssemblyProduct("SD.Infrastructure.WPF")]
