@@ -19,6 +19,11 @@
 #### ASP.NET Core练习项目： https://gitee.com/lishilei0523/AspNetCore.Practice
 
 -----------------------------------
+##### 2018.04.26 - 框架近期调整说明
+
+增加ASP.NET Core表现层基础，包含常用扩展方法及异常过滤器、授权过滤器等等；
+
+-----------------------------------
 ##### 2018.04.25 - 框架近期调整说明
 
 1、PlainEntity中AddedTime属性访问级别变更为protected，为了兼容EF Core；
