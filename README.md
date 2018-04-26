@@ -178,6 +178,12 @@ SD.Infrastructure.Repository.RavenDB（.NET Standard 2.0）
 
 - 表现层部分
 
+SD.Infrastructure.AspNetCore（.NET Core 2.0）
+
+	ASP.NET Core表现层基础
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.AspNetCore
+
 SD.Infrastructure.MVC（.NET Framework 4.6.1）
 
 	ASP.NET MVC 5表现层基础。
