@@ -1,7 +1,0 @@
-﻿<configuration>
-  <injectionRegisterConfiguration>
-    <asInterfaceTypes>
-      <type name="SD.Infrastructure.EventStoreProvider.MemoryStoreProvider" assembly="SD.Infrastructure.EventBase" />
-    </asInterfaceTypes>
-  </injectionRegisterConfiguration>
-</configuration>
