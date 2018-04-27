@@ -7,13 +7,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Infrastructures", "01 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 - UnitTests", "06 - UnitTests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{FF4ABECC-5097-4064-95CA-9BF579AEE43C}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\NuGet.Config = .nuget\NuGet.Config
-		.nuget\NuGet.exe = .nuget\NuGet.exe
-		.nuget\NuGet.targets = .nuget\NuGet.targets
-	EndProjectSection
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07 - IntegrationTests", "07 - IntegrationTests", "{30953907-39FD-4F6F-933A-4F418FA1E03A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - WCF", "02 - WCF", "{8F39A4B5-03D4-4E84-9B35-D7A5AE0D3AED}"
@@ -82,7 +75,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AspNetCor
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - Presentations", "05 - Presentations", "{ADD07228-3F19-4814-BB60-0F7D18C99D77}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.AspNetCore", "src\SD.Infrastructure.AspNetCore\SD.Infrastructure.AspNetCore.csproj", "{EADA02E2-2254-4483-80C4-3CEA7073B833}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AspNetCore", "src\SD.Infrastructure.AspNetCore\SD.Infrastructure.AspNetCore.csproj", "{EADA02E2-2254-4483-80C4-3CEA7073B833}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
