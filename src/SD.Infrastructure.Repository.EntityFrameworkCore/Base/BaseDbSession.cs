@@ -53,8 +53,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(GlobalSetting.DefaultConnectionString);
             base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseLazyLoadingProxies().UseSqlServer(GlobalSetting.DefaultConnectionString);
         }
 
         #endregion

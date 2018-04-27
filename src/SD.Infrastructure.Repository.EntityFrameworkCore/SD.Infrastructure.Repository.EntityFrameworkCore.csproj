@@ -6,7 +6,7 @@
     <Company>SD</Company>
     <Description>基础设施 - 仓储基础 - Entity Framework Core实现</Description>
     <Copyright>Copyright © SD 2018</Copyright>
-    <Version>2.0.1-Preview</Version>
+    <Version>2.0.2-Preview</Version>
     <AssemblyVersion>2.0.0.0</AssemblyVersion>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <FileVersion>2.0.0.0</FileVersion>
@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0-preview1-final" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.0-preview1-final" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.1.0-preview1-final" />
     <PackageReference Include="SD.IOC.Core" Version="2.0.0" />
     <PackageReference Include="SD.Toolkits.EntityFrameworkCore" Version="1.0.1-Preview" />

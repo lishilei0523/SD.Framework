@@ -1,0 +1,11 @@
+﻿<configuration>
+  <connectionStrings>
+    <!--默认连接字符串-->
+    <add name="DefaultConnection" connectionString="" providerName="System.Data.SqlClient" />
+  </connectionStrings>
+  <injectionRegisterConfiguration>
+    <asInterfaceTypes>
+      <type name="SD.Infrastructure.Repository.EntityFrameworkCore.DbCleaner" assembly="SD.Infrastructure.Repository.EntityFrameworkCore" />
+    </asInterfaceTypes>
+  </injectionRegisterConfiguration>
+</configuration>
