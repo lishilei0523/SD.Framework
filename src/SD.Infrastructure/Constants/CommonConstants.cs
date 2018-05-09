@@ -68,6 +68,11 @@ namespace SD.Infrastructure.Constants
         public const string InitialPassword = "888888";
 
         /// <summary>
+        /// 许可证文件名
+        /// </summary>
+        public const string LicenseFileName = "License.key";
+
+        /// <summary>
         /// WCF身份认证消息头名称
         /// </summary>
         public const string WcfAuthHeaderName = "WcfAuthHeaderName";
