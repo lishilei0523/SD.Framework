@@ -77,6 +77,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - Presentations", "05 - 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AspNetCore", "src\SD.Infrastructure.AspNetCore\SD.Infrastructure.AspNetCore.csproj", "{EADA02E2-2254-4483-80C4-3CEA7073B833}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.NET45", "src\SD.Infrastructure.NET45\SD.Infrastructure.NET45.csproj", "{F9FF05F0-1900-4D24-859A-B3202F2208D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -175,6 +177,10 @@ Global
 		{EADA02E2-2254-4483-80C4-3CEA7073B833}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EADA02E2-2254-4483-80C4-3CEA7073B833}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EADA02E2-2254-4483-80C4-3CEA7073B833}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9FF05F0-1900-4D24-859A-B3202F2208D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9FF05F0-1900-4D24-859A-B3202F2208D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9FF05F0-1900-4D24-859A-B3202F2208D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9FF05F0-1900-4D24-859A-B3202F2208D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -205,6 +211,7 @@ Global
 		{6DFB202E-E47B-4698-98E3-A8E05A6F784D} = {88B56539-567B-4B32-BCFC-CB39C1158534}
 		{6D1119F5-A53D-4D15-9896-FF735FBB1E3C} = {AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}
 		{EADA02E2-2254-4483-80C4-3CEA7073B833} = {ADD07228-3F19-4814-BB60-0F7D18C99D77}
+		{F9FF05F0-1900-4D24-859A-B3202F2208D7} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B5E3D78-0B5E-4D21-BFEF-9B2A85D15716}
