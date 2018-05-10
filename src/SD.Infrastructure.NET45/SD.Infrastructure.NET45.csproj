@@ -67,9 +67,6 @@
     <Compile Include="..\SD.Infrastructure\EntityBase\InterfaceExtension.cs">
       <Link>EntityBase\InterfaceExtension.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Infrastructure\MemberShip\License.cs">
-      <Link>MemberShip\License.cs</Link>
-    </Compile>
     <Compile Include="..\SD.Infrastructure\MemberShip\LoginAuthorityInfo.cs">
       <Link>MemberShip\LoginAuthorityInfo.cs</Link>
     </Compile>
