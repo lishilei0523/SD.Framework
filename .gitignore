@@ -192,3 +192,4 @@ ModelManifest.xml
 /.vs/SD.Framework/v15/Server/sqlite3/storage.ide
 /.vs/SD.Framework/v15/Server/sqlite3/storage.ide-shm
 /.vs/SD.Framework/v15/Server/sqlite3/storage.ide-wal
+*.dtbcache
