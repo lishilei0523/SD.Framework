@@ -53,19 +53,8 @@
     <Compile Include="..\SD.Infrastructure\Constants\ApplicationType.cs">
       <Link>Constants\ApplicationType.cs</Link>
     </Compile>
-    <Compile Include="Constants\CacheConstants.cs" />
-    <Compile Include="..\SD.Infrastructure\Constants\CheckStatus.cs">
-      <Link>Constants\CheckStatus.cs</Link>
-    </Compile>
-    <Compile Include="Constants\CommonConstants.cs" />
-    <Compile Include="..\SD.Infrastructure\EntityBase\ICheckable.cs">
-      <Link>EntityBase\ICheckable.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Infrastructure\EntityBase\IDisable.cs">
-      <Link>EntityBase\IDisable.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Infrastructure\EntityBase\InterfaceExtension.cs">
-      <Link>EntityBase\InterfaceExtension.cs</Link>
+    <Compile Include="..\SD.Infrastructure\Constants\CommonConstants.cs">
+      <Link>Constants\CommonConstants.cs</Link>
     </Compile>
     <Compile Include="..\SD.Infrastructure\MemberShip\LoginAuthorityInfo.cs">
       <Link>MemberShip\LoginAuthorityInfo.cs</Link>
@@ -79,7 +68,7 @@
     <Compile Include="..\SD.Infrastructure\Constants\SessionKey.cs">
       <Link>Constants\SessionKey.cs</Link>
     </Compile>
-    <Compile Include="Constants\WebConfigSetting.cs" />
+    <Compile Include="Constants\GlobalSetting.cs" />
     <Compile Include="..\SD.Infrastructure\CustomExceptions\NoPermissionException.cs">
       <Link>CustomExceptions\NoPermissionException.cs</Link>
     </Compile>
@@ -88,6 +77,9 @@
     </Compile>
     <Compile Include="..\SD.Infrastructure\CustomExceptions\PresentationException.cs">
       <Link>CustomExceptions\PresentationException.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\CustomExceptions\AppServiceException.cs">
+      <Link>CustomExceptions\AppServiceException.cs</Link>
     </Compile>
     <Compile Include="..\SD.Infrastructure\CustomExceptions\DomainException.cs">
       <Link>CustomExceptions\DomainException.cs</Link>
@@ -164,7 +156,6 @@
     <Compile Include="..\SD.Infrastructure\RepositoryBase\PageExtension.cs">
       <Link>RepositoryBase\PageExtension.cs</Link>
     </Compile>
-    <Compile Include="CustomExceptions\AppServiceException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

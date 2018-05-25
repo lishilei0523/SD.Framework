@@ -5,9 +5,9 @@ using System.Runtime.Remoting.Messaging;
 namespace SD.Infrastructure.Constants
 {
     /// <summary>
-    /// WebConfig设置
+    /// 全局设置
     /// </summary>
-    public static class WebConfigSetting
+    public static class GlobalSetting
     {
         #region # 默认连接字符串 —— static string DefaultConnectionString
 
@@ -77,6 +77,13 @@ namespace SD.Infrastructure.Constants
             ConfigurationManager.AppSettings[CommonConstants.AuthenticationTimeoutAppSettingKey];
         #endregion
 
+        #region # SessionId缓存键 —— const string SessionIdKey
+        /// <summary>
+        /// SessionId缓存键
+        /// </summary>
+        public const string SessionIdKey = "SessionIdKey";
+        #endregion
+
         #region # 当前SessionId —— static Guid CurrentSessionId
         /// <summary>
         /// 当前SessionId
@@ -85,7 +92,7 @@ namespace SD.Infrastructure.Constants
         {
             get
             {
-                object sessionIdCache = CallContext.LogicalGetData(CacheConstants.SessionIdKey);
+                object sessionIdCache = CallContext.LogicalGetData(SessionIdKey);
 
                 if (sessionIdCache == null)
                 {
@@ -94,6 +101,27 @@ namespace SD.Infrastructure.Constants
 
                 return (Guid)sessionIdCache;
             }
+        }
+        #endregion
+
+        #region # 置空当前SessionId —— static void FreeCurrentSessionId()
+        /// <summary>
+        /// 置空当前SessionId
+        /// </summary>
+        public static void FreeCurrentSessionId()
+        {
+            CallContext.FreeNamedDataSlot(SessionIdKey);
+        }
+        #endregion
+
+        #region # 初始化当前SessionId —— static void InitCurrentSessionId()
+        /// <summary>
+        /// 初始化当前SessionId
+        /// </summary>
+        public static void InitCurrentSessionId()
+        {
+            Guid sessionId = Guid.NewGuid();
+            CallContext.LogicalSetData(SessionIdKey, sessionId);
         }
         #endregion
     }

@@ -5,7 +5,7 @@ using System.Threading;
 namespace SD.Infrastructure.Constants
 {
     /// <summary>
-    /// WebConfig设置
+    /// 全局设置
     /// </summary>
     public static class GlobalSetting
     {
