@@ -79,6 +79,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AspNetCor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.NET45", "src\SD.Infrastructure.NET45\SD.Infrastructure.NET45.csproj", "{F9FF05F0-1900-4D24-859A-B3202F2208D7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.NET46", "src\SD.Infrastructure.NET46\SD.Infrastructure.NET46.csproj", "{9F7AA219-1C9E-4591-8B54-07A0E69E0E42}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -181,6 +183,10 @@ Global
 		{F9FF05F0-1900-4D24-859A-B3202F2208D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F9FF05F0-1900-4D24-859A-B3202F2208D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F9FF05F0-1900-4D24-859A-B3202F2208D7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F7AA219-1C9E-4591-8B54-07A0E69E0E42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F7AA219-1C9E-4591-8B54-07A0E69E0E42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F7AA219-1C9E-4591-8B54-07A0E69E0E42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F7AA219-1C9E-4591-8B54-07A0E69E0E42}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -212,6 +218,7 @@ Global
 		{6D1119F5-A53D-4D15-9896-FF735FBB1E3C} = {AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}
 		{EADA02E2-2254-4483-80C4-3CEA7073B833} = {ADD07228-3F19-4814-BB60-0F7D18C99D77}
 		{F9FF05F0-1900-4D24-859A-B3202F2208D7} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
+		{9F7AA219-1C9E-4591-8B54-07A0E69E0E42} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B5E3D78-0B5E-4D21-BFEF-9B2A85D15716}
