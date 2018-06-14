@@ -80,6 +80,37 @@
 9、精简仓储API；
 
 -----------------------------------
+##### 2017.05.21 - 框架近期调整说明
+
+1、Common中干掉PanGu分词依赖；
+
+2、领域服务基接口干掉GetKeywords；
+
+3、PageModel实现IEnumerable接口；
+
+4、Keywords从PlainEntity转移至AggregateRootEntity中；
+
+5、调整相关仓储接口与实现；
+
+-----------------------------------
+##### 2017.04.28 - 框架近期调整说明
+
+1、聚合根中增加操作人账户（OperatorAccount）属性；
+
+2、普通实体基类中干掉排序（Sort）属性；
+
+3、调整SavedTime、Deleted、DeletedTime属性的访问级别为protected internal；
+
+4、EF仓储提供者中增加获取操作人信息事件，用于统一记录对聚合根执行增删改操作时的操作人信息；
+
+5、将原普通的实体的部分属性（Number、Name、SavedTime、Deleted、DeletedTime）移动至聚合根；
+
+6、拆分仓储接口，分为聚合仓储基接口与普通实体仓储基接口；
+
+7、将相应Entity Framework与RavenDB的仓储提供者拆分实现；
+
+-----------------------------------
+
 
 #### 项目列表
 
