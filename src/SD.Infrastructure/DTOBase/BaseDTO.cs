@@ -10,7 +10,7 @@ namespace SD.Infrastructure.DTOBase
     [DataContract]
     public abstract class BaseDTO
     {
-        #region # 标识Id —— Guid Id
+        #region 标识Id —— Guid Id
         /// <summary>
         /// 标识Id
         /// </summary>
@@ -18,7 +18,7 @@ namespace SD.Infrastructure.DTOBase
         public Guid Id { get; set; }
         #endregion
 
-        #region # 编号 —— string Number
+        #region 编号 —— string Number
         /// <summary>
         /// 编号
         /// </summary>
@@ -26,7 +26,7 @@ namespace SD.Infrastructure.DTOBase
         public string Number { get; set; }
         #endregion
 
-        #region # 名称 —— string Name
+        #region 名称 —— string Name
         /// <summary>
         /// 名称
         /// </summary>
@@ -34,7 +34,7 @@ namespace SD.Infrastructure.DTOBase
         public string Name { get; set; }
         #endregion
 
-        #region # 添加时间 —— DateTime AddedTime
+        #region 添加时间 —— DateTime AddedTime
         /// <summary>
         /// 添加时间
         /// </summary>

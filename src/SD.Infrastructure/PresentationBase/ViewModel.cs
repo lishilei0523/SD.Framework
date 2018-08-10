@@ -8,28 +8,28 @@ namespace SD.Infrastructure.PresentationBase
     [Serializable]
     public abstract class ViewModel
     {
-        #region # 标识Id —— Guid Id
+        #region 标识Id —— Guid Id
         /// <summary>
         /// 标识Id
         /// </summary>
         public Guid Id { get; set; }
         #endregion
 
-        #region # 编号 —— string Number
+        #region 编号 —— string Number
         /// <summary>
         /// 编号
         /// </summary>
         public string Number { get; set; }
         #endregion
 
-        #region # 名称 —— string Name
+        #region 名称 —— string Name
         /// <summary>
         /// 名称
         /// </summary>
         public string Name { get; set; }
         #endregion
 
-        #region # 添加时间 —— DateTime AddedTime
+        #region 添加时间 —— DateTime AddedTime
         /// <summary>
         /// 添加时间
         /// </summary>

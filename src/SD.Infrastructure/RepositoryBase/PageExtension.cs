@@ -10,7 +10,7 @@ namespace SD.Infrastructure.RepositoryBase
     /// </summary>
     public static class PageExtension
     {
-        #region # 分页扩展方法 —— static IEnumerable<T> ToPage<T>(this IEnumerable<T> enumerable...
+        #region # 分页扩展方法 —— static IEnumerable<T> ToPage<T>(this IOrderedEnumerable<T> enumerable...
         /// <summary>
         /// 分页扩展方法
         /// </summary>
@@ -21,7 +21,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="rowCount">总记录条数</param>
         /// <param name="pageCount">总页数</param>
         /// <returns>对象集合</returns>
-        public static IEnumerable<T> ToPage<T>(this IEnumerable<T> enumerable, int pageIndex, int pageSize, out int rowCount, out int pageCount)
+        public static IEnumerable<T> ToPage<T>(this IOrderedEnumerable<T> enumerable, int pageIndex, int pageSize, out int rowCount, out int pageCount)
             where T : PlainEntity
         {
             T[] list = enumerable.ToArray();

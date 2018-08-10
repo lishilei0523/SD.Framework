@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -10,15 +11,18 @@ namespace SD.Infrastructure.DTOBase
     /// <typeparam name="T">类型</typeparam>
     [Serializable]
     [DataContract]
-    public class PageModel<T>
+    public class PageModel<T> : IEnumerable<T>
     {
         #region # 构造器
 
+        #region 00.无参构造器
         /// <summary>
         /// 无参构造器
         /// </summary>
         public PageModel() { }
+        #endregion
 
+        #region 01.基础构造器
         /// <summary>
         /// 基础构造器
         /// </summary>
@@ -36,10 +40,13 @@ namespace SD.Infrastructure.DTOBase
             this.PageCount = pageCount;
             this.RowCount = rowCount;
         }
+        #endregion
 
         #endregion
 
-        #region # 数据集 —— IEnumerable<T> Datas
+        #region # 属性
+
+        #region 数据集 —— IEnumerable<T> Datas
         /// <summary>
         /// 数据集
         /// </summary>
@@ -47,7 +54,7 @@ namespace SD.Infrastructure.DTOBase
         public IEnumerable<T> Datas { get; set; }
         #endregion
 
-        #region # 页码 —— int PageIndex
+        #region 页码 —— int PageIndex
         /// <summary>
         /// 页码
         /// </summary>
@@ -55,7 +62,7 @@ namespace SD.Infrastructure.DTOBase
         public int PageIndex { get; set; }
         #endregion
 
-        #region # 页容量 —— int PageSize
+        #region 页容量 —— int PageSize
         /// <summary>
         /// 页容量
         /// </summary>
@@ -63,7 +70,7 @@ namespace SD.Infrastructure.DTOBase
         public int PageSize { get; set; }
         #endregion
 
-        #region # 总页数 —— int PageCount
+        #region 总页数 —— int PageCount
         /// <summary>
         /// 总页数
         /// </summary>
@@ -71,12 +78,40 @@ namespace SD.Infrastructure.DTOBase
         public int PageCount { get; set; }
         #endregion
 
-        #region # 总记录条数 —— int RowCount
+        #region 总记录条数 —— int RowCount
         /// <summary>
         /// 总记录条数
         /// </summary>
         [DataMember]
         public int RowCount { get; set; }
+        #endregion
+
+        #endregion
+
+        #region # 方法
+
+        #region 获取枚举器 —— IEnumerator GetEnumerator()
+        /// <summary>
+        /// 获取枚举器
+        /// </summary>
+        /// <returns>枚举器</returns>
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return this.GetEnumerator();
+        }
+        #endregion
+
+        #region 获取枚举器 —— IEnumerator<T> GetEnumerator()
+        /// <summary>
+        /// 获取枚举器
+        /// </summary>
+        /// <returns>枚举器</returns>
+        public IEnumerator<T> GetEnumerator()
+        {
+            return this.Datas.GetEnumerator();
+        }
+        #endregion
+
         #endregion
     }
 }
