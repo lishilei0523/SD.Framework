@@ -222,20 +222,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException(nameof(ids), "Id集合不可为null！");
             }
 
-            Guid[] newIds = ids.Distinct().ToArray();
-
-            foreach (Guid id in newIds)
-            {
-                if (!this.Exists(id))
-                {
-                    throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
-                }
-            }
-
             #endregion
 
             var entities = from entity in this.FindAllInner()
-                           where newIds.Contains(entity.Id)
+                           where ids.Contains(entity.Id)
                            select new { entity.Id, entity };
 
             return entities.ToDictionary(x => x.Id, x => x.entity);
@@ -257,20 +247,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException(nameof(ids), "Id集合不可为null！");
             }
 
-            Guid[] newIds = ids.Distinct().ToArray();
-
-            foreach (Guid id in newIds)
-            {
-                if (!this.Exists(id))
-                {
-                    throw new NullReferenceException($"Id为\"{id}\"的{typeof(TSub).Name}实体不存在！");
-                }
-            }
-
             #endregion
 
             var entities = from entity in this.FindAllInner<TSub>()
-                           where newIds.Contains(entity.Id)
+                           where ids.Contains(entity.Id)
                            select new { entity.Id, entity };
 
             return entities.ToDictionary(x => x.Id, x => x.entity);
@@ -411,11 +391,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
                 throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
-            if (this.Count(predicate) > 1)
-            {
-                throw new InvalidOperationException($"给定的条件\"{predicate}\"中查询到1个以上的{typeof(T).Name}实体对象！");
-            }
-
             #endregion
 
             return this.FindAllInner().SingleOrDefault(predicate);
@@ -440,11 +415,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
             if (predicate == null)
             {
                 throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
-            }
-
-            if (this.Count(predicate) > 1)
-            {
-                throw new InvalidOperationException($"给定的条件\"{predicate}\"中查询到1个以上的{typeof(T).Name}实体对象！");
             }
 
             #endregion

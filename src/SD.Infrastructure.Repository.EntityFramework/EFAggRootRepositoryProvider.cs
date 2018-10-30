@@ -43,7 +43,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
             }
 
             #endregion
@@ -66,7 +66,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(TSub).Name));
+                throw new ArgumentNullException(nameof(number), $"{typeof(TSub).Name}的编号不可为空！");
             }
 
             #endregion
@@ -91,7 +91,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(T).Name));
+                throw new NullReferenceException($"编号为\"{number}\"的{typeof(T).Name}实体不存在！");
             }
 
             #endregion
@@ -116,7 +116,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(TSub).Name));
+                throw new NullReferenceException($"编号为\"{number}\"的{typeof(TSub).Name}实体不存在！");
             }
 
             #endregion
@@ -220,23 +220,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (numbers == null)
             {
-                throw new ArgumentNullException("numbers", "编号集合不可为null！");
-            }
-
-            string[] newNumbers = numbers.Distinct().ToArray();
-
-            foreach (string number in newNumbers)
-            {
-                if (!this.Exists(number))
-                {
-                    throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(T).Name));
-                }
+                throw new ArgumentNullException(nameof(numbers), "编号集合不可为null！");
             }
 
             #endregion
 
             var entities = from entity in this.FindAllInner()
-                           where newNumbers.Contains(entity.Number)
+                           where numbers.Contains(entity.Number)
                            select new { entity.Number, entity };
 
             return entities.ToDictionary(x => x.Number, x => x.entity);
@@ -255,23 +245,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (numbers == null)
             {
-                throw new ArgumentNullException("numbers", "编号集合不可为null！");
-            }
-
-            string[] newNumbers = numbers.Distinct().ToArray();
-
-            foreach (string number in newNumbers)
-            {
-                if (!this.Exists(number))
-                {
-                    throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(TSub).Name));
-                }
+                throw new ArgumentNullException(nameof(numbers), "编号集合不可为null！");
             }
 
             #endregion
 
             var entities = from entity in this.FindAllInner<TSub>()
-                           where newNumbers.Contains(entity.Number)
+                           where numbers.Contains(entity.Number)
                            select new { entity.Number, entity };
 
             return entities.ToDictionary(x => x.Number, x => x.entity);
@@ -294,7 +274,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
             }
 
             #endregion
@@ -316,7 +296,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
             }
 
             #endregion
@@ -337,7 +317,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentNullException("name", string.Format("{0}的名称不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(name), $"{typeof(T).Name}的名称不可为空！");
             }
 
             #endregion
@@ -358,7 +338,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentNullException("name", string.Format("{0}的名称不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(name), $"{typeof(T).Name}的名称不可为空！");
             }
 
             #endregion

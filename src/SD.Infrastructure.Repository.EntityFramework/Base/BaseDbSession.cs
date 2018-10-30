@@ -12,7 +12,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
     /// </summary>
     public abstract class BaseDbSession : BaseDbContext
     {
-        #region # 常量与构造器
+        #region # 构造器
 
         /// <summary>
         /// 同步锁
