@@ -3,7 +3,7 @@ using SD.Infrastructure.SchedulerBase.Tests.StubCrontabs;
 using System;
 using System.Diagnostics;
 
-namespace SD.Infrastructure.SchedulerBase.Tests.StubCrontabSchedulerss
+namespace SD.Infrastructure.SchedulerBase.Tests.StubCrontabExecutors
 {
     public class ShowTimeCrontabExecutor : CrontabExecutor<ShowTimeCrontab>
     {
