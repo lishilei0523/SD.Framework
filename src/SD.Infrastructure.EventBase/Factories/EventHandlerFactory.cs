@@ -10,13 +10,13 @@ namespace SD.Infrastructure.EventBase.Factories
     /// </summary>
     internal static class EventHandlerFactory
     {
-        #region # 获取领域事件处理者实例集合 —— IEnumerable<IEventHandler<T>> GetEventHandlers...
+        #region # 获取领域事件处理者实例列表 —— IEnumerable<IEventHandler<T>> GetEventHandlers...
         /// <summary>
-        /// 获取领域事件处理者实例集合
+        /// 获取领域事件处理者实例列表
         /// </summary>
         /// <typeparam name="T">领域事件类型</typeparam>
         /// <param name="eventSource">领域事件源</param>
-        /// <returns>领域事件处理者集合</returns>
+        /// <returns>领域事件处理者列表</returns>
         public static IEnumerable<IEventHandler<T>> GetEventHandlersFor<T>(T eventSource) where T : class, IEvent
         {
             IEnumerable<IEventHandler<T>> handlers = ResolveMediator.ResolveAll<IEventHandler<T>>();
@@ -25,12 +25,12 @@ namespace SD.Infrastructure.EventBase.Factories
         }
         #endregion
 
-        #region # 获取领域事件处理者实例集合 —— IEnumerable<IEventHandler> GetEventHandlers...
+        #region # 获取领域事件处理者实例列表 —— IEnumerable<IEventHandler> GetEventHandlers...
         /// <summary>
-        /// 获取领域事件处理者实例集合
+        /// 获取领域事件处理者实例列表
         /// </summary>
         /// <param name="eventType">领域事件类型</param>
-        /// <returns>领域事件处理者集合</returns>
+        /// <returns>领域事件处理者列表</returns>
         public static IEnumerable<IEventHandler> GetEventHandlersFor(Type eventType)
         {
             #region # 验证类型
