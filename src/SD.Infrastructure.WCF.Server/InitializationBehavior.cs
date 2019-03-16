@@ -13,21 +13,48 @@ namespace SD.Infrastructure.WCF.Server
     internal class InitializationBehavior : IServiceBehavior
     {
         /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync = new object();
+
+        /// <summary>
+        /// 是否已初始化过
+        /// </summary>
+        private static bool _Initialized;
+
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        private static void Initialize()
+        {
+            lock (_Sync)
+            {
+                _Initialized = true;
+            }
+        }
+
+        /// <summary>
         /// 适用行为
         /// </summary>
         /// <param name="serviceDescription">服务描述</param>
         /// <param name="serviceHostBase">服务主机</param>
         public void ApplyDispatchBehavior(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
         {
-            //初始化SessionId
-            Initializer.InitSessionId();
+            if (!_Initialized)
+            {
+                //初始化SessionId
+                Initializer.InitSessionId();
 
-            //初始化数据库
-            Initializer.InitDataBase();
+                //初始化数据库
+                Initializer.InitDataBase();
 
-            //注册事件
-            InstanceProvider.OnGetInstance += InstanceProvider_OnGetInstance;
-            InstanceProvider.OnReleaseInstance += InstanceProvider_OnReleaseInstance;
+                //注册事件
+                InstanceProvider.OnGetInstance += InstanceProvider_OnGetInstance;
+                InstanceProvider.OnReleaseInstance += InstanceProvider_OnReleaseInstance;
+
+                //初始化完毕
+                Initialize();
+            }
         }
 
         /// <summary>
