@@ -19,6 +19,11 @@
 #### ASP.NET Core练习项目： https://gitee.com/lishilei0523/AspNetCore.Practice
 
 -----------------------------------
+##### 2019.03.20 - 框架近期调整说明
+
+增加定时任务功能组件，包含定时执行任务、Redis存储持久化等；
+
+-----------------------------------
 ##### 2018.04.26 - 框架近期调整说明
 
 增加ASP.NET Core表现层基础，包含常用扩展方法及异常过滤器、授权过滤器等等；
@@ -154,6 +159,20 @@ SD.Infrastructure.EventStoreProvider.Redis（.NET Standard 2.0）
 	Redis领域事件存储提供者。
 
 	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.EventStoreProvider.Redis
+
+- 定时任务部分
+
+SD.Infrastructure.CrontabBase（.NET Standard 2.0）
+
+	定时任务基础，包含定时任务基类、定时任务执行者工厂、调度中介者
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.CrontabBase
+
+SD.Infrastructure.CrontabStoreProvider.Redis（.NET Standard 2.0）
+
+	Redis定时任务存储提供者。
+
+	NuGet包地址：https://www.nuget.org/packages/SD.Infrastructure.CrontabStoreProvider.Redis
 
 - 服务端部分
 
