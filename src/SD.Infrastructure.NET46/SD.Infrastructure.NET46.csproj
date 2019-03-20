@@ -57,6 +57,15 @@
     <Compile Include="..\SD.Infrastructure\Constants\CommonConstants.cs">
       <Link>Constants\CommonConstants.cs</Link>
     </Compile>
+    <Compile Include="..\SD.Infrastructure\CrontabBase\ICrontab.cs">
+      <Link>CrontabBase\ICrontab.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\CrontabBase\ICrontabExecutor.cs">
+      <Link>CrontabBase\ICrontabExecutor.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\CrontabBase\ICrontabStore.cs">
+      <Link>CrontabBase\ICrontabStore.cs</Link>
+    </Compile>
     <Compile Include="..\SD.Infrastructure\MemberShip\LoginAuthorityInfo.cs">
       <Link>MemberShip\LoginAuthorityInfo.cs</Link>
     </Compile>
