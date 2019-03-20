@@ -1,8 +1,7 @@
-﻿using SD.Infrastructure.CrontabBase;
-using SD.Infrastructure.SchedulerBase.Toolkits;
-using System;
+﻿using System;
+using SD.Infrastructure.CrontabBase.Toolkits;
 
-namespace SD.Infrastructure.SchedulerBase.Tests.StubCrontabs
+namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
 {
     /// <summary>
     /// 闹钟任务

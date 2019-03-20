@@ -83,9 +83,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.NET46", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Schedulers", "03 - Schedulers", "{34CC044A-7B34-4CA7-8957-A89932868654}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.SchedulerBase", "src\SD.Infrastructure.SchedulerBase\SD.Infrastructure.SchedulerBase.csproj", "{7E5036CF-A00D-40F8-BB47-795688E02B2D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.CrontabBase", "src\SD.Infrastructure.CrontabBase\SD.Infrastructure.CrontabBase.csproj", "{7E5036CF-A00D-40F8-BB47-795688E02B2D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.SchedulerBase.Tests", "tests\UnitTests\SD.Infrastructure.SchedulerBase.Tests\SD.Infrastructure.SchedulerBase.Tests.csproj", "{70742727-3C93-44BA-9EB1-15F0CA78E3EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.CrontabBase.Tests", "tests\UnitTests\SD.Infrastructure.CrontabBase.Tests\SD.Infrastructure.CrontabBase.Tests.csproj", "{70742727-3C93-44BA-9EB1-15F0CA78E3EB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.CrontabStoreProvider.Redis", "src\SD.Infrastructure.CrontabStoreProvider.Redis\SD.Infrastructure.CrontabStoreProvider.Redis.csproj", "{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -201,6 +203,10 @@ Global
 		{70742727-3C93-44BA-9EB1-15F0CA78E3EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70742727-3C93-44BA-9EB1-15F0CA78E3EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70742727-3C93-44BA-9EB1-15F0CA78E3EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -235,6 +241,7 @@ Global
 		{9F7AA219-1C9E-4591-8B54-07A0E69E0E42} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{7E5036CF-A00D-40F8-BB47-795688E02B2D} = {34CC044A-7B34-4CA7-8957-A89932868654}
 		{70742727-3C93-44BA-9EB1-15F0CA78E3EB} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
+		{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E} = {34CC044A-7B34-4CA7-8957-A89932868654}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B5E3D78-0B5E-4D21-BFEF-9B2A85D15716}

@@ -1,9 +1,8 @@
-﻿using SD.Infrastructure.CrontabBase;
-using SD.Infrastructure.SchedulerBase.Tests.StubCrontabs;
+﻿using SD.Infrastructure.CrontabBase.Tests.StubCrontabs;
 using System;
 using System.Diagnostics;
 
-namespace SD.Infrastructure.SchedulerBase.Tests.StubCrontabExecutors
+namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabExecutors
 {
     public class ShowTimeCrontabExecutor : CrontabExecutor<ShowTimeCrontab>
     {

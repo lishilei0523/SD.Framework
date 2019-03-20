@@ -1,5 +1,5 @@
 ﻿using Quartz;
-using SD.Infrastructure.SchedulerBase.Aspects;
+using SD.Infrastructure.CrontabBase.Aspects;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;

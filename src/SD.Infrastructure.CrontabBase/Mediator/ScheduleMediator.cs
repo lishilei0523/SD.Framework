@@ -1,12 +1,11 @@
 ﻿using Quartz;
 using Quartz.Impl;
-using SD.Infrastructure.CrontabBase;
-using SD.Infrastructure.SchedulerBase.Factories;
+using SD.Infrastructure.CrontabBase.Factories;
 using SD.IOC.Core.Mediators;
 using System;
 using System.Collections.Generic;
 
-namespace SD.Infrastructure.SchedulerBase.Mediator
+namespace SD.Infrastructure.CrontabBase.Mediator
 {
     /// <summary>
     /// 调度中介者
@@ -25,7 +24,7 @@ namespace SD.Infrastructure.SchedulerBase.Mediator
         /// </summary>
         static ScheduleMediator()
         {
-            _Scheduler = StdSchedulerFactory.GetDefaultScheduler().Result;
+            ScheduleMediator._Scheduler = StdSchedulerFactory.GetDefaultScheduler().Result;
         }
 
         #endregion
@@ -43,7 +42,7 @@ namespace SD.Infrastructure.SchedulerBase.Mediator
             {
                 JobKey jobKey = new JobKey(crontab.Id.ToString());
 
-                if (!_Scheduler.CheckExists(jobKey).Result)
+                if (!ScheduleMediator._Scheduler.CheckExists(jobKey).Result)
                 {
                     Type jobType = scheduler.GetType();
                     JobBuilder jobBuilder = JobBuilder.Create(jobType);
@@ -60,14 +59,14 @@ namespace SD.Infrastructure.SchedulerBase.Mediator
                     ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(crontab.CronExpression).Build();
 
                     //为调度者添加任务明细与触发器
-                    _Scheduler.ScheduleJob(jobDetail, trigger);
+                    ScheduleMediator._Scheduler.ScheduleJob(jobDetail, trigger);
 
                     //开始调度
-                    _Scheduler.Start().Wait();
+                    ScheduleMediator._Scheduler.Start().Wait();
                 }
                 else
                 {
-                    _Scheduler.ResumeJob(jobKey);
+                    ScheduleMediator._Scheduler.ResumeJob(jobKey);
                 }
             }
 
@@ -93,7 +92,7 @@ namespace SD.Infrastructure.SchedulerBase.Mediator
             {
                 JobKey jobKey = new JobKey(crontab.Id.ToString());
 
-                if (!_Scheduler.CheckExists(jobKey).Result)
+                if (!ScheduleMediator._Scheduler.CheckExists(jobKey).Result)
                 {
                     Type jobType = scheduler.GetType();
                     JobBuilder jobBuilder = JobBuilder.Create(jobType);
@@ -110,14 +109,14 @@ namespace SD.Infrastructure.SchedulerBase.Mediator
                     ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(crontab.CronExpression).Build();
 
                     //为调度者添加任务明细与触发器
-                    _Scheduler.ScheduleJob(jobDetail, trigger);
+                    ScheduleMediator._Scheduler.ScheduleJob(jobDetail, trigger);
 
                     //开始调度
-                    _Scheduler.Start().Wait();
+                    ScheduleMediator._Scheduler.Start().Wait();
                 }
                 else
                 {
-                    _Scheduler.ResumeJob(jobKey);
+                    ScheduleMediator._Scheduler.ResumeJob(jobKey);
                 }
             }
 
@@ -138,9 +137,9 @@ namespace SD.Infrastructure.SchedulerBase.Mediator
         {
             JobKey jobKey = new JobKey(crontab.Id.ToString());
 
-            if (_Scheduler.CheckExists(jobKey).Result)
+            if (ScheduleMediator._Scheduler.CheckExists(jobKey).Result)
             {
-                _Scheduler.DeleteJob(jobKey);
+                ScheduleMediator._Scheduler.DeleteJob(jobKey);
             }
 
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
@@ -164,7 +163,7 @@ namespace SD.Infrastructure.SchedulerBase.Mediator
 
                     foreach (ICrontab crontab in crontabs)
                     {
-                        Schedule(crontab);
+                        ScheduleMediator.Schedule(crontab);
                     }
                 }
             }
@@ -177,7 +176,7 @@ namespace SD.Infrastructure.SchedulerBase.Mediator
         /// </summary>
         public static void Clear()
         {
-            _Scheduler.Clear();
+            ScheduleMediator._Scheduler.Clear();
 
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
             {

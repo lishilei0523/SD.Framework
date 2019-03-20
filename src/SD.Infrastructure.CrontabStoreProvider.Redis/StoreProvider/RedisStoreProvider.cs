@@ -1,0 +1,104 @@
+﻿using SD.Infrastructure.CrontabBase;
+using SD.Infrastructure.CrontabStoreProvider.Redis.Toolkits;
+using SD.Toolkits.Redis;
+using StackExchange.Redis;
+using System.Collections.Generic;
+using System.Diagnostics;
+
+// ReSharper disable once CheckNamespace
+namespace SD.Infrastructure.CrontabStoreProvider
+{
+    /// <summary>
+    /// 领域事件存储 - Redis提供者
+    /// </summary>
+    public class RedisStoreProvider : ICrontabStore
+    {
+        #region # 字段及构造器
+
+        /// <summary>
+        /// 缓存键
+        /// </summary>
+        private static readonly string _CacheKey = typeof(RedisStoreProvider).FullName;
+
+        /// <summary>
+        /// Redis客户端
+        /// </summary>
+        private readonly IDatabase _redisClient;
+
+        /// <summary>
+        /// 定时任务集
+        /// </summary>
+        private IList<ICrontab> _crontabs;
+
+        /// <summary>
+        /// 构造器
+        /// </summary>
+        public RedisStoreProvider()
+        {
+            this._redisClient = RedisManager.GetDatabase();
+            this._crontabs = new List<ICrontab>();
+        }
+
+        #endregion
+
+        #region # 保存定时任务 —— void Store(ICrontab crontab) 
+        /// <summary>
+        /// 挂起定时任务
+        /// </summary>
+        /// <param name="crontab">定时任务</param>
+        public void Store(ICrontab crontab)
+        {
+            this._redisClient.HashSet(_CacheKey, crontab.Id.ToString(), crontab.CrontabToJson());
+        }
+        #endregion
+
+        #region # 删除定时任务 —— void Remove(ICrontab crontab)
+        /// <summary>
+        /// 删除定时任务
+        /// </summary>
+        /// <param name="crontab">定时任务</param>
+        public void Remove(ICrontab crontab)
+        {
+            bool result = this._redisClient.HashDelete(_CacheKey, crontab.Id.ToString());
+            Trace.WriteLine(result);
+        }
+        #endregion
+
+        #region # 清空任务 —— void Clear()
+        /// <summary>
+        /// 清空任务
+        /// </summary>
+        public void Clear()
+        {
+            this._redisClient.KeyDelete(_CacheKey);
+        }
+        #endregion
+
+        #region # 获取全部定时任务列表 —— IList<ICrontab> FindAll()
+        /// <summary>
+        /// 获取全部定时任务列表
+        /// </summary>
+        /// <returns>定时任务列表</returns>
+        public IList<ICrontab> FindAll()
+        {
+            RedisValue[] crontabsStr = this._redisClient.HashValues(_CacheKey);
+            IList<ICrontab> crontabs = new List<ICrontab>();
+
+            foreach (string crontabStr in crontabsStr)
+            {
+                ICrontab specCrontab = crontabStr.JsonToCrontab();
+                crontabs.Add(specCrontab);
+            }
+
+            return crontabs;
+        }
+        #endregion
+
+        #region # 释放资源 —— void Dispose()
+        /// <summary>
+        /// 释放资源
+        /// </summary>
+        public void Dispose() { }
+        #endregion
+    }
+}

@@ -1,10 +1,9 @@
-﻿using SD.Infrastructure.CrontabBase;
-using SD.IOC.Core.Mediators;
+﻿using SD.IOC.Core.Mediators;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SD.Infrastructure.SchedulerBase.Factories
+namespace SD.Infrastructure.CrontabBase.Factories
 {
     /// <summary>
     /// 定时任务执行者工厂

@@ -45,7 +45,7 @@ namespace SD.Infrastructure.EventStoreProvider
         /// <param name="eventSource"></param>
         public void Suspend<T>(T eventSource) where T : class, IEvent
         {
-            this._redisClient.ListRightPush(this._sessionId, eventSource.EventToJson());
+            this._redisClient.HashSet(this._sessionId, eventSource.Id.ToString(), eventSource.EventToJson());
         }
         #endregion
 
@@ -55,17 +55,17 @@ namespace SD.Infrastructure.EventStoreProvider
         /// </summary>
         public void HandleUncompletedEvents()
         {
-            RedisValue[] eventSourcesStr = this._redisClient.ListRange(this._sessionId);
+            RedisValue[] eventSourcesStr = this._redisClient.HashValues(this._sessionId);
 
             foreach (string eventSourceStr in eventSourcesStr)
             {
                 IEvent eventSource = eventSourceStr.JsonToEvent();
                 EventMediator.Handle(eventSource);
 
-                this._redisClient.ListRemove(this._sessionId, eventSourceStr);
+                this._redisClient.HashDelete(this._sessionId, eventSource.Id.ToString());
             }
 
-            RedisValue[] newEventSourcesStr = this._redisClient.ListRange(this._sessionId);
+            RedisValue[] newEventSourcesStr = this._redisClient.HashValues(this._sessionId);
 
             if (newEventSourcesStr.Any())
             {

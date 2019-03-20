@@ -1,15 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>SD.Infrastructure.CrontabBase</AssemblyName>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Description>基础设施 - 定时任务基础</Description>
+    <Copyright>Copyright © SD 2019</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.SchedulerBase.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.CrontabBase.xml</DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.SchedulerBase.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.CrontabBase.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

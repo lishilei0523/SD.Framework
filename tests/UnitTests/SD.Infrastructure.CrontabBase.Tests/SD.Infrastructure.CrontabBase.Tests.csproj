@@ -8,8 +8,8 @@
     <ProjectGuid>{70742727-3C93-44BA-9EB1-15F0CA78E3EB}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SD.Infrastructure.SchedulerBase.Tests</RootNamespace>
-    <AssemblyName>SD.Infrastructure.SchedulerBase.Tests</AssemblyName>
+    <RootNamespace>SD.Infrastructure.CrontabBase.Tests</RootNamespace>
+    <AssemblyName>SD.Infrastructure.CrontabBase.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -70,6 +70,12 @@
     <Reference Include="SD.IOC.Extension.NetFx, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\SD.IOC.Extension.NetFx.1.0.0\lib\net461\SD.IOC.Extension.NetFx.dll</HintPath>
     </Reference>
+    <Reference Include="SD.Toolkits.Redis, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\SD.Toolkits.Redis.2.0.0\lib\netstandard2.0\SD.Toolkits.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis, Version=1.2.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\..\packages\StackExchange.Redis.1.2.6\lib\net46\StackExchange.Redis.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Configuration.ConfigurationManager, Version=4.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -80,6 +86,7 @@
     <Reference Include="System.Data.SqlClient, Version=4.2.0.2, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\..\..\packages\System.Data.SqlClient.4.4.3\lib\net461\System.Data.SqlClient.dll</HintPath>
     </Reference>
+    <Reference Include="System.IO.Compression, Version=4.2.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL" />
     <Reference Include="System.Runtime.Remoting" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -96,9 +103,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure.SchedulerBase\SD.Infrastructure.SchedulerBase.csproj">
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure.CrontabBase\SD.Infrastructure.CrontabBase.csproj">
       <Project>{7e5036cf-a00d-40f8-bb47-795688e02b2d}</Project>
-      <Name>SD.Infrastructure.SchedulerBase</Name>
+      <Name>SD.Infrastructure.CrontabBase</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\src\SD.Infrastructure.CrontabStoreProvider.Redis\SD.Infrastructure.CrontabStoreProvider.Redis.csproj">
+      <Project>{1405d1b2-5bee-4213-b6ea-d3d34f47f73e}</Project>
+      <Name>SD.Infrastructure.CrontabStoreProvider.Redis</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\src\SD.Infrastructure\SD.Infrastructure.csproj">
       <Project>{77b51895-dc26-4ee1-87c9-f5d0171fad5a}</Project>

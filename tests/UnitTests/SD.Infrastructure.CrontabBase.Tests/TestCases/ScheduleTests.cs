@@ -1,13 +1,14 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Infrastructure.SchedulerBase.Mediator;
-using SD.Infrastructure.SchedulerBase.Tests.StubCrontabs;
+using SD.Infrastructure.CrontabBase.Mediator;
+using SD.Infrastructure.CrontabBase.Tests.StubCrontabs;
 using SD.IOC.Core.Mediators;
 using SD.IOC.Extension.NetFx;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading;
 
-namespace SD.Infrastructure.SchedulerBase.Tests.TestCases
+namespace SD.Infrastructure.CrontabBase.Tests.TestCases
 {
     /// <summary>
     /// 调度测试
@@ -31,6 +32,22 @@ namespace SD.Infrastructure.SchedulerBase.Tests.TestCases
 
                 ResolveMediator.Build();
             }
+
+            ScheduleMediator.Clear();
+        }
+
+        /// <summary>
+        /// 测试清理
+        /// </summary>
+        [TestCleanup]
+        public void Cleanup()
+        {
+            if (ResolveMediator.ContainerBuilt)
+            {
+                ResolveMediator.Dispose();
+            }
+
+            ScheduleMediator.Clear();
         }
 
         /// <summary>
@@ -82,6 +99,63 @@ namespace SD.Infrastructure.SchedulerBase.Tests.TestCases
             Trace.WriteLine(showTimeCrontab.Count);
             Assert.IsTrue(showTimeCrontab.Handled);
             Assert.IsTrue(showTimeCrontab.Count == 3);
+        }
+
+        /// <summary>
+        /// 测试删除任务
+        /// </summary>
+        [TestMethod]
+        public void TestRemoveCrontab()
+        {
+            //清空调度任务
+            ScheduleMediator.Clear();
+
+            //开始调度
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !");
+
+            Assert.IsTrue(!showTimeCrontab.Handled);
+            Assert.IsTrue(showTimeCrontab.Count == 0);
+
+            ScheduleMediator.Schedule(showTimeCrontab);
+
+            //线程睡眠
+            Thread.Sleep(5100);
+
+            Trace.WriteLine(showTimeCrontab.Handled);
+            Trace.WriteLine(showTimeCrontab.Count);
+            Assert.IsTrue(showTimeCrontab.Handled);
+            Assert.IsTrue(showTimeCrontab.Count == 3);
+
+            ScheduleMediator.Remove(showTimeCrontab);
+
+            //线程睡眠
+            Thread.Sleep(5100);
+
+            Assert.IsTrue(showTimeCrontab.Handled);
+            Assert.IsTrue(showTimeCrontab.Count == 3);
+        }
+
+        /// <summary>
+        /// 测试获取全部任务
+        /// </summary>
+        [TestMethod]
+        public void TestFindAllCrontabs()
+        {
+            //清空调度任务
+            ScheduleMediator.Clear();
+
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !");
+            AlarmCrontab alarmCrontab = new AlarmCrontab("Hello World !");
+
+            ScheduleMediator.Schedule(showTimeCrontab);
+            ScheduleMediator.Schedule(alarmCrontab);
+
+            using (ICrontabStore crontabStore = ResolveMediator.Resolve<ICrontabStore>())
+            {
+                IList<ICrontab> crontabs = crontabStore.FindAll();
+
+                Assert.IsTrue(crontabs.Count == 2);
+            }
         }
 
         /// <summary>

@@ -5,7 +5,7 @@ using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SD.Infrastructure.SchedulerBase.Aspects
+namespace SD.Infrastructure.CrontabBase.Aspects
 {
     /// <summary>
     /// 运行日志特性类
