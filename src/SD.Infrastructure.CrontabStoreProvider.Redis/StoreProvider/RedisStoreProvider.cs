@@ -2,8 +2,8 @@
 using SD.Infrastructure.CrontabStoreProvider.Redis.Toolkits;
 using SD.Toolkits.Redis;
 using StackExchange.Redis;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 
 // ReSharper disable once CheckNamespace
 namespace SD.Infrastructure.CrontabStoreProvider
@@ -43,12 +43,28 @@ namespace SD.Infrastructure.CrontabStoreProvider
 
         #region # 保存定时任务 —— void Store(ICrontab crontab) 
         /// <summary>
-        /// 挂起定时任务
+        /// 保存定时任务
         /// </summary>
         /// <param name="crontab">定时任务</param>
         public void Store(ICrontab crontab)
         {
             this._redisClient.HashSet(_CacheKey, crontab.Id.ToString(), crontab.CrontabToJson());
+        }
+        #endregion
+
+        #region # 获取定时任务 —— T Get<T>(Guid crontabId)
+        /// <summary>
+        /// 获取定时任务
+        /// </summary>
+        /// <typeparam name="T">定时任务类型</typeparam>
+        /// <param name="crontabId">定时任务Id</param>
+        /// <returns>定时任务</returns>
+        public T Get<T>(Guid crontabId) where T : ICrontab
+        {
+            string crontabStr = this._redisClient.HashGet(_CacheKey, crontabId.ToString());
+            ICrontab crontab = crontabStr.JsonToCrontab();
+
+            return (T)crontab;
         }
         #endregion
 
@@ -59,8 +75,18 @@ namespace SD.Infrastructure.CrontabStoreProvider
         /// <param name="crontab">定时任务</param>
         public void Remove(ICrontab crontab)
         {
-            bool result = this._redisClient.HashDelete(_CacheKey, crontab.Id.ToString());
-            Trace.WriteLine(result);
+            this._redisClient.HashDelete(_CacheKey, crontab.Id.ToString());
+        }
+        #endregion
+
+        #region # 删除定时任务 —— void Remove(Guid crontabId)
+        /// <summary>
+        /// 删除定时任务
+        /// </summary>
+        /// <param name="crontabId">定时任务Id</param>
+        public void Remove(Guid crontabId)
+        {
+            this._redisClient.HashDelete(_CacheKey, crontabId.ToString());
         }
         #endregion
 

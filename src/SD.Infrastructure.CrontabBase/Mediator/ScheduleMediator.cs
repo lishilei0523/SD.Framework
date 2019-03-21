@@ -24,7 +24,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         /// </summary>
         static ScheduleMediator()
         {
-            ScheduleMediator._Scheduler = StdSchedulerFactory.GetDefaultScheduler().Result;
+            _Scheduler = StdSchedulerFactory.GetDefaultScheduler().Result;
         }
 
         #endregion
@@ -42,7 +42,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
             {
                 JobKey jobKey = new JobKey(crontab.Id.ToString());
 
-                if (!ScheduleMediator._Scheduler.CheckExists(jobKey).Result)
+                if (!_Scheduler.CheckExists(jobKey).Result)
                 {
                     Type jobType = scheduler.GetType();
                     JobBuilder jobBuilder = JobBuilder.Create(jobType);
@@ -59,14 +59,14 @@ namespace SD.Infrastructure.CrontabBase.Mediator
                     ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(crontab.CronExpression).Build();
 
                     //为调度者添加任务明细与触发器
-                    ScheduleMediator._Scheduler.ScheduleJob(jobDetail, trigger);
+                    _Scheduler.ScheduleJob(jobDetail, trigger).Wait();
 
                     //开始调度
-                    ScheduleMediator._Scheduler.Start().Wait();
+                    _Scheduler.Start().Wait();
                 }
                 else
                 {
-                    ScheduleMediator._Scheduler.ResumeJob(jobKey);
+                    _Scheduler.ResumeJob(jobKey).Wait();
                 }
             }
 
@@ -92,7 +92,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
             {
                 JobKey jobKey = new JobKey(crontab.Id.ToString());
 
-                if (!ScheduleMediator._Scheduler.CheckExists(jobKey).Result)
+                if (!_Scheduler.CheckExists(jobKey).Result)
                 {
                     Type jobType = scheduler.GetType();
                     JobBuilder jobBuilder = JobBuilder.Create(jobType);
@@ -109,14 +109,14 @@ namespace SD.Infrastructure.CrontabBase.Mediator
                     ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(crontab.CronExpression).Build();
 
                     //为调度者添加任务明细与触发器
-                    ScheduleMediator._Scheduler.ScheduleJob(jobDetail, trigger);
+                    _Scheduler.ScheduleJob(jobDetail, trigger).Wait();
 
                     //开始调度
-                    ScheduleMediator._Scheduler.Start().Wait();
+                    _Scheduler.Start().Wait();
                 }
                 else
                 {
-                    ScheduleMediator._Scheduler.ResumeJob(jobKey);
+                    _Scheduler.ResumeJob(jobKey).Wait();
                 }
             }
 
@@ -137,9 +137,9 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         {
             JobKey jobKey = new JobKey(crontab.Id.ToString());
 
-            if (ScheduleMediator._Scheduler.CheckExists(jobKey).Result)
+            if (_Scheduler.CheckExists(jobKey).Result)
             {
-                ScheduleMediator._Scheduler.DeleteJob(jobKey);
+                _Scheduler.DeleteJob(jobKey).Wait();
             }
 
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
@@ -149,22 +149,46 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         }
         #endregion
 
+        #region # 删除任务 —— static void Remove(Guid crontabId)
+        /// <summary>
+        /// 删除任务
+        /// </summary>
+        /// <param name="crontabId">定时任务Id</param>
+        public static void Remove(Guid crontabId)
+        {
+            JobKey jobKey = new JobKey(crontabId.ToString());
+
+            if (_Scheduler.CheckExists(jobKey).Result)
+            {
+                _Scheduler.DeleteJob(jobKey).Wait();
+            }
+
+            using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
+            {
+                crontabStore?.Remove(crontabId);
+            }
+        }
+        #endregion
+
         #region # 恢复全部任务 —— static void ResumeAll()
         /// <summary>
         /// 恢复全部任务
         /// </summary>
+        /// <remarks>需要CrontabStore持久化支持</remarks>
         public static void ResumeAll()
         {
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
             {
-                if (crontabStore != null)
+                if (crontabStore == null)
                 {
-                    IList<ICrontab> crontabs = crontabStore.FindAll();
+                    throw new NotImplementedException("未注册持久化存储提供者！");
+                }
 
-                    foreach (ICrontab crontab in crontabs)
-                    {
-                        ScheduleMediator.Schedule(crontab);
-                    }
+                IList<ICrontab> crontabs = crontabStore.FindAll();
+
+                foreach (ICrontab crontab in crontabs)
+                {
+                    ScheduleMediator.Schedule(crontab);
                 }
             }
         }
@@ -176,11 +200,57 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         /// </summary>
         public static void Clear()
         {
-            ScheduleMediator._Scheduler.Clear();
+            _Scheduler.Clear().Wait();
 
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
             {
                 crontabStore?.Clear();
+            }
+        }
+        #endregion
+
+        #region # 获取任务 —— T GetCrontab<T>(Guid crontabId)
+        /// <summary>
+        /// 获取任务
+        /// </summary>
+        /// <typeparam name="T">定时任务类型</typeparam>
+        /// <param name="crontabId">定时任务Id</param>
+        /// <returns>定时任务</returns>
+        /// <remarks>需要CrontabStore持久化支持</remarks>
+        public static T GetCrontab<T>(Guid crontabId) where T : ICrontab
+        {
+            using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
+            {
+                if (crontabStore == null)
+                {
+                    throw new NotImplementedException("未注册持久化存储提供者！");
+                }
+
+                T crontab = crontabStore.Get<T>(crontabId);
+
+                return crontab;
+            }
+        }
+        #endregion
+
+        #region # 获取全部任务列表 —— static IList<ICrontab> FindAll()
+        /// <summary>
+        /// 获取全部任务列表
+        /// </summary>
+        /// <returns>定时任务列表</returns>
+        /// <remarks>需要CrontabStore持久化支持</remarks>
+        public static IList<ICrontab> FindAll()
+        {
+            using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
+            {
+                if (crontabStore == null)
+                {
+                    throw new NotImplementedException("未注册持久化存储提供者！");
+                }
+
+                IList<ICrontab> crontabs = crontabStore.FindAll();
+
+                return crontabs;
             }
         }
         #endregion
