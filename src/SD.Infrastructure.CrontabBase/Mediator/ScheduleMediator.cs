@@ -128,6 +128,46 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         }
         #endregion
 
+        #region # 暂停任务 —— static void Pause(Guid crontabId)
+        /// <summary>
+        /// 暂停任务
+        /// </summary>
+        /// <param name="crontabId">定时任务Id</param>
+        public static void Pause(Guid crontabId)
+        {
+            JobKey jobKey = new JobKey(crontabId.ToString());
+
+            if (_Scheduler.CheckExists(jobKey).Result)
+            {
+                _Scheduler.PauseJob(jobKey).Wait();
+            }
+            else
+            {
+                throw new NullReferenceException($"Id为\"{crontabId}\"的任务不存在！");
+            }
+        }
+        #endregion
+
+        #region # 恢复任务 —— static void Resume(Guid crontabId)
+        /// <summary>
+        /// 恢复任务
+        /// </summary>
+        /// <param name="crontabId">定时任务Id</param>
+        public static void Resume(Guid crontabId)
+        {
+            JobKey jobKey = new JobKey(crontabId.ToString());
+
+            if (_Scheduler.CheckExists(jobKey).Result)
+            {
+                _Scheduler.ResumeJob(jobKey).Wait();
+            }
+            else
+            {
+                throw new NullReferenceException($"Id为\"{crontabId}\"的任务不存在！");
+            }
+        }
+        #endregion
+
         #region # 删除任务 —— static void Remove<T>(T crontab)
         /// <summary>
         /// 删除任务
