@@ -6,7 +6,6 @@ using SD.IOC.Core.Mediators;
 using SD.IOC.Extension.NetFx;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Threading;
 
@@ -110,7 +109,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             //开始调度
             ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !");
 
-            Assert.IsTrue(!showTimeCrontab.Handled);
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
             ScheduleMediator.Schedule(showTimeCrontab);
@@ -118,7 +116,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             //线程睡眠
             Thread.Sleep(5000);
 
-            Assert.IsTrue(showTimeCrontab.Handled);
             Assert.IsTrue(showTimeCrontab.Count == 3);
 
             //暂停
@@ -127,7 +124,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             //线程睡眠
             Thread.Sleep(3000);
 
-            Assert.IsTrue(showTimeCrontab.Handled);
             Assert.IsTrue(showTimeCrontab.Count == 3);
         }
         #endregion
@@ -142,7 +138,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             //开始调度
             ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !");
 
-            Assert.IsTrue(!showTimeCrontab.Handled);
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
             ScheduleMediator.Schedule(showTimeCrontab);
@@ -150,7 +145,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             //线程睡眠
             Thread.Sleep(5000);
 
-            Assert.IsTrue(showTimeCrontab.Handled);
             Assert.IsTrue(showTimeCrontab.Count == 3);
 
             //暂停
@@ -159,7 +153,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             //线程睡眠
             Thread.Sleep(5000);
 
-            Assert.IsTrue(showTimeCrontab.Handled);
             Assert.IsTrue(showTimeCrontab.Count == 3);
 
             //恢复
@@ -168,7 +161,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             //线程睡眠
             Thread.Sleep(5000);
 
-            Assert.IsTrue(showTimeCrontab.Handled);
             Assert.IsTrue(showTimeCrontab.Count > 3);
         }
         #endregion
@@ -183,7 +175,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             //开始调度
             ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !");
 
-            Assert.IsTrue(!showTimeCrontab.Handled);
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
             ScheduleMediator.Schedule(showTimeCrontab);
@@ -191,9 +182,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             //线程睡眠
             Thread.Sleep(5100);
 
-            Trace.WriteLine(showTimeCrontab.Handled);
-            Trace.WriteLine(showTimeCrontab.Count);
-            Assert.IsTrue(showTimeCrontab.Handled);
             Assert.IsTrue(showTimeCrontab.Count == 3);
 
             ScheduleMediator.Remove(showTimeCrontab);
@@ -201,7 +189,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             //线程睡眠
             Thread.Sleep(5100);
 
-            Assert.IsTrue(showTimeCrontab.Handled);
             Assert.IsTrue(showTimeCrontab.Count == 3);
         }
         #endregion
@@ -225,6 +212,20 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         }
         #endregion
 
+        #region # 测试恢复全部任务 —— void TestResumeAllCrontabs()
+        /// <summary>
+        /// 测试恢复全部任务
+        /// </summary>
+        [TestMethod]
+        public void TestResumeAllCrontabs()
+        {
+            ScheduleMediator.ResumeAll();
+
+            //线程睡眠
+            Thread.Sleep(6000);
+        }
+        #endregion
+
         #region # 测试异常 —— void TestException()
         /// <summary>
         /// 测试异常
@@ -232,6 +233,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         [TestMethod]
         public void TestException()
         {
+            string log = $"{AppDomain.CurrentDomain.BaseDirectory}\\ScheduleLogs\\ExceptionLogs\\{DateTime.Today:yyyyMMdd}.txt";
+
             //开始调度
             ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Exception");
             ScheduleMediator.Schedule(showTimeCrontab);
@@ -239,7 +242,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             //线程睡眠
             Thread.Sleep(5100);
 
-            string log = $"{AppDomain.CurrentDomain.BaseDirectory}\\ScheduleLogs\\Log_{DateTime.Now.Date:yyyyMMdd}.txt";
             Assert.IsTrue(File.Exists(log));
         }
         #endregion

@@ -13,9 +13,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabExecutors
         public override void Execute(ShowTimeCrontab crontab)
         {
             Trace.WriteLine(crontab.Text);
-            Console.WriteLine(crontab.Text);
-
-            crontab.Handled = true;
             crontab.Count++;
 
             if (crontab.Text == "Exception")

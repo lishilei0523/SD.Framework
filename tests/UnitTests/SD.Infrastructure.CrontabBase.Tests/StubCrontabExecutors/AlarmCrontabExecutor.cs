@@ -1,5 +1,4 @@
 ﻿using SD.Infrastructure.CrontabBase.Tests.StubCrontabs;
-using System;
 using System.Diagnostics;
 
 namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabExecutors
@@ -13,7 +12,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabExecutors
         public override void Execute(AlarmCrontab crontab)
         {
             Trace.WriteLine(crontab.Word);
-            Console.WriteLine(crontab.Word);
 
             crontab.Rung = true;
             crontab.Count++;

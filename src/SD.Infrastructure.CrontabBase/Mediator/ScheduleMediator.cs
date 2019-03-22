@@ -37,7 +37,8 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         public static void Schedule(ICrontab crontab)
         {
             //调度任务
-            IEnumerable<ICrontabExecutor> crontabSchedulers = CrontabExecutorFactory.GetCrontabExecutorsFor(crontab);
+            Type crontabType = crontab.GetType();
+            IEnumerable<ICrontabExecutor> crontabSchedulers = CrontabExecutorFactory.GetCrontabExecutorsFor(crontabType);
             foreach (ICrontabExecutor scheduler in crontabSchedulers)
             {
                 JobKey jobKey = new JobKey(crontab.Id.ToString());
@@ -163,7 +164,21 @@ namespace SD.Infrastructure.CrontabBase.Mediator
             }
             else
             {
-                throw new NullReferenceException($"Id为\"{crontabId}\"的任务不存在！");
+                using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
+                {
+                    if (crontabStore != null)
+                    {
+                        ICrontab crontab = crontabStore.Get<ICrontab>(crontabId);
+                        if (crontab != null)
+                        {
+                            ScheduleMediator.Schedule(crontab);
+                        }
+                        else
+                        {
+                            throw new NullReferenceException($"Id为\"{crontabId}\"的任务不存在！");
+                        }
+                    }
+                }
             }
         }
         #endregion

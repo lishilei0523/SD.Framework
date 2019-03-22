@@ -1,5 +1,5 @@
-﻿using System;
-using SD.Infrastructure.CrontabBase.Toolkits;
+﻿using SD.Infrastructure.CrontabBase.Toolkits;
+using System;
 
 namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
 {
