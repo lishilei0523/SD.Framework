@@ -25,7 +25,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.2.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.3" />
     <PackageReference Include="SD.IOC.Core" Version="2.0.0" />
-    <PackageReference Include="SD.Toolkits.EntityFrameworkCore" Version="1.0.1-Preview" />
+    <PackageReference Include="SD.Toolkits.EntityFrameworkCore" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
