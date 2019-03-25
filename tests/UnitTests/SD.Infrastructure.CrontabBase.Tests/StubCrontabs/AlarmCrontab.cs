@@ -8,16 +8,10 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
     /// </summary>
     public class AlarmCrontab : Crontab
     {
-        protected AlarmCrontab()
-        {
-            this.CronExpression = DateTime.Now.AddSeconds(2).ToCronExpression();
-        }
-
         /// <summary>
         /// 无参构造器
         /// </summary>
         public AlarmCrontab(string word)
-            : this()
         {
             this.Word = word;
         }
@@ -26,5 +20,13 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
         public int Count { get; set; }
         public bool Rung { get; set; }
         public string Word { get; set; }
+
+        /// <summary>
+        /// 获取Cron表达式
+        /// </summary>
+        protected override string GetCronExpression()
+        {
+            return DateTime.Now.AddSeconds(2).ToCronExpression();
+        }
     }
 }

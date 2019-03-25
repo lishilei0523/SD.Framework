@@ -36,6 +36,15 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         /// <param name="crontab">定时任务</param>
         public static void Schedule(ICrontab crontab)
         {
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(crontab.CronExpression))
+            {
+                throw new InvalidOperationException("Cron表达式不可为空！");
+            }
+
+            #endregion
+
             //调度任务
             Type crontabType = crontab.GetType();
             IEnumerable<ICrontabExecutor> crontabSchedulers = CrontabExecutorFactory.GetCrontabExecutorsFor(crontabType);
@@ -87,6 +96,15 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         /// <param name="crontab">定时任务</param>
         public static void Schedule<T>(T crontab) where T : class, ICrontab
         {
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(crontab.CronExpression))
+            {
+                throw new InvalidOperationException("Cron表达式不可为空！");
+            }
+
+            #endregion
+
             //调度任务
             IEnumerable<ICrontabExecutor<T>> crontabSchedulers = CrontabExecutorFactory.GetCrontabExecutorsFor(crontab);
             foreach (ICrontabExecutor<T> scheduler in crontabSchedulers)

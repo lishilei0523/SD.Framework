@@ -7,18 +7,20 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
     /// </summary>
     public class ShowTimeCrontab : Crontab
     {
-        protected ShowTimeCrontab()
-        {
-            this.CronExpression = Cron.Secondly(2);
-        }
-
         public ShowTimeCrontab(string text)
-            : this()
         {
             this.Text = text;
         }
 
         public int Count { get; set; }
         public string Text { get; set; }
+
+        /// <summary>
+        /// 获取Cron表达式
+        /// </summary>
+        protected override string GetCronExpression()
+        {
+            return Cron.Secondly(2);
+        }
     }
 }
