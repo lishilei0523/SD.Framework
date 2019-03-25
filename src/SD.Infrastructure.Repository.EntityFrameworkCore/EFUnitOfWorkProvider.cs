@@ -34,7 +34,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// </summary>
         static EFUnitOfWorkProvider()
         {
-            _Sync = new object();
+            EFUnitOfWorkProvider._Sync = new object();
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <summary>
         /// 注册添加单个实体对象
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entity">新实体对象</param>
         public void RegisterAdd<T>(T entity) where T : AggregateRootEntity
         {
@@ -104,7 +104,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <summary>
         /// 注册添加实体对象集合
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entities">实体对象集合</param>
         public void RegisterAddRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
@@ -144,7 +144,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <summary>
         /// 注册保存单个实体对象
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entity">实体对象</param>
         public void RegisterSave<T>(T entity) where T : AggregateRootEntity
         {
@@ -178,7 +178,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <summary>
         /// 注册保存实体对象集合
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
+        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="entities">实体对象集合</param>
         public void RegisterSaveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
@@ -204,11 +204,13 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
+            DateTime savedTime = DateTime.Now;
+
             foreach (T entity in entities)
             {
                 entity.OperatorAccount = loginInfo?.LoginId;
                 entity.OperatorName = loginInfo?.RealName;
-                entity.SavedTime = DateTime.Now;
+                entity.SavedTime = savedTime;
                 EntityEntry entry = this._dbContext.Entry<T>(entity);
                 entry.State = EntityState.Modified;
             }
@@ -227,7 +229,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(id), $"要删除的{typeof(T).Name}实体对象id不可为空！");
+                throw new ArgumentNullException(nameof(id), $"要删除的{typeof(T).Name}实体对象Id不可为空！");
             }
 
             #endregion
@@ -299,9 +301,11 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            foreach (Guid id in ids)
+            IEnumerable<T> entities = this.ResolveRange<T>(ids);
+
+            foreach (T entity in entities)
             {
-                this.RegisterPhysicsRemove<T>(id);
+                this._dbContext.Set<T>().Remove(entity);
             }
         }
         #endregion
@@ -464,13 +468,14 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             IQueryable<T> entities = this.ResolveRange<T>(x => entityIds.Contains(x.Id));
+            DateTime deletedTime = DateTime.Now;
 
             foreach (T entity in entities)
             {
                 entity.OperatorAccount = loginInfo?.LoginId;
                 entity.OperatorName = loginInfo?.RealName;
                 entity.Deleted = true;
-                entity.DeletedTime = DateTime.Now;
+                entity.DeletedTime = deletedTime;
                 EntityEntry entry = this._dbContext.Entry<T>(entity);
                 entry.State = EntityState.Modified;
             }
@@ -619,6 +624,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         #endregion
 
         #region # 异步根据编号获取唯一实体对象（修改时用） —— async Task<T> ResolveAsync<T>(string number)
+
         /// <summary>
         /// 异步根据编号获取唯一实体对象（修改时用）
         /// </summary>
@@ -771,7 +777,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         #endregion
 
 
-        //Protected
+        /**********Protected**********/
 
         #region # 注册条件删除（物理删除） —— void RegisterPhysicsRemove<T>(...
         /// <summary>
@@ -829,13 +835,14 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             IQueryable<T> queryable = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
+            DateTime deletedTime = DateTime.Now;
 
             foreach (T entity in queryable)
             {
                 entity.OperatorAccount = loginInfo?.LoginId;
                 entity.OperatorName = loginInfo?.RealName;
                 entity.Deleted = true;
-                entity.DeletedTime = DateTime.Now;
+                entity.DeletedTime = deletedTime;
                 EntityEntry entry = this._dbContext.Entry<T>(entity);
                 entry.State = EntityState.Modified;
             }
@@ -860,10 +867,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            lock (_Sync)
-            {
-                return this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefault(predicate);
-            }
+            return this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefault(predicate);
         }
         #endregion
 
@@ -884,10 +888,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            lock (_Sync)
-            {
-                return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
-            }
+            return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
         }
         #endregion
 
@@ -930,7 +931,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            lock (_Sync)
+            lock (EFUnitOfWorkProvider._Sync)
             {
                 return this._dbContext.Set<T>().Where(x => !x.Deleted).Any(predicate);
             }

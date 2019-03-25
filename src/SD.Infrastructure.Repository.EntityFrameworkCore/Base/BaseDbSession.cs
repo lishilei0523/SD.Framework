@@ -117,11 +117,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public static void FreeCommandInstanceCall()
         {
-            if (_CommandInstanceCall.Value != null)
-            {
-                _CommandInstanceCall.Value.Dispose();
-            }
-
+            _CommandInstanceCall.Value?.Dispose();
             _CommandInstanceCall.Value = null;
         }
         #endregion
@@ -132,11 +128,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public static void FreeQueryInstanceCall()
         {
-            if (_QueryInstanceCall.Value != null)
-            {
-                _QueryInstanceCall.Value.Dispose();
-            }
-
+            _QueryInstanceCall.Value?.Dispose();
             _QueryInstanceCall.Value = null;
         }
         #endregion
