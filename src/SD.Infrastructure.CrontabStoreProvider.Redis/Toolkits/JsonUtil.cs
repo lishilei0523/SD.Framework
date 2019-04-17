@@ -49,7 +49,8 @@ namespace SD.Infrastructure.CrontabStoreProvider.Redis.Toolkits
 
             JsonSerializerSettings settting = new JsonSerializerSettings
             {
-                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                TypeNameHandling = TypeNameHandling.All
             };
 
             var typedInstance = new
@@ -101,7 +102,13 @@ namespace SD.Infrastructure.CrontabStoreProvider.Redis.Toolkits
 
             #endregion
 
-            object instance = JsonConvert.DeserializeObject(instancePropertyValue, crontabType);
+            JsonSerializerSettings settting = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                TypeNameHandling = TypeNameHandling.All
+            };
+
+            object instance = JsonConvert.DeserializeObject(instancePropertyValue, crontabType, settting);
 
             return (ICrontab)instance;
         }

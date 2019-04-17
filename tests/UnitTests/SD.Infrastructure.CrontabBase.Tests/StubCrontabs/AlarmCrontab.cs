@@ -22,11 +22,14 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
         public string Word { get; set; }
 
         /// <summary>
-        /// 获取Cron表达式
+        /// 获取执行策略
         /// </summary>
-        protected override string GetCronExpression()
+        protected override ExecutionStrategy GetExecutionStrategy()
         {
-            return DateTime.Now.AddSeconds(2).ToCronExpression();
+            string cronExpression = DateTime.Now.AddSeconds(2).ToCronExpression();
+            CronExpressionStrategy strategy = new CronExpressionStrategy(cronExpression);
+
+            return strategy;
         }
     }
 }

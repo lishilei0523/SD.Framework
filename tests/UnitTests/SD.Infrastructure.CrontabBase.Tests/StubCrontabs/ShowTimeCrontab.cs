@@ -1,4 +1,4 @@
-﻿using SD.Infrastructure.CrontabBase.Toolkits;
+﻿using System;
 
 namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
 {
@@ -16,11 +16,14 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
         public string Text { get; set; }
 
         /// <summary>
-        /// 获取Cron表达式
+        /// 获取执行策略
         /// </summary>
-        protected override string GetCronExpression()
+        protected override ExecutionStrategy GetExecutionStrategy()
         {
-            return Cron.Secondly(2);
+            TimeSpan timeSpan = new TimeSpan(0, 0, 2);
+            TimeSpanStrategy strategy = new TimeSpanStrategy(timeSpan);
+
+            return strategy;
         }
     }
 }

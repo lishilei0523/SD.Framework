@@ -18,7 +18,7 @@ namespace SD.Infrastructure.CrontabBase
             //默认值
             this.Id = Guid.NewGuid();
             this.AddedTime = DateTime.Now;
-            this.CronExpression = this.GetCronExpression();
+            this.ExecutionStrategy = this.GetExecutionStrategy();
         }
         #endregion
 
@@ -31,11 +31,11 @@ namespace SD.Infrastructure.CrontabBase
         public Guid Id { get; set; }
         #endregion
 
-        #region Cron表达式 —— string CronExpression
+        #region 执行策略 —— ExecutionStrategy ExecutionStrategy
         /// <summary>
-        /// Cron表达式
+        /// 执行策略
         /// </summary>
-        public string CronExpression { get; set; }
+        public ExecutionStrategy ExecutionStrategy { get; set; }
         #endregion
 
         #region 添加时间 —— DateTime AddedTime
@@ -49,11 +49,11 @@ namespace SD.Infrastructure.CrontabBase
 
         #region # 方法
 
-        #region # 获取Cron表达式 —— abstract string GetCronExpression()
+        #region 获取执行策略 —— abstract ExecutionStrategy GetExecutionStrategy()
         /// <summary>
-        /// 获取Cron表达式
+        /// 获取执行策略
         /// </summary>
-        protected abstract string GetCronExpression();
+        protected abstract ExecutionStrategy GetExecutionStrategy();
         #endregion
 
         #endregion

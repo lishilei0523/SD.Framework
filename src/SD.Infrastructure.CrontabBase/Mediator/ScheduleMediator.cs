@@ -29,6 +29,9 @@ namespace SD.Infrastructure.CrontabBase.Mediator
 
         #endregion
 
+
+        //Public
+
         #region # 调度任务 —— static void Schedule(ICrontab crontab)
         /// <summary>
         /// 调度任务
@@ -38,9 +41,9 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         {
             #region # 验证
 
-            if (string.IsNullOrWhiteSpace(crontab.CronExpression))
+            if (crontab.ExecutionStrategy == null)
             {
-                throw new InvalidOperationException("Cron表达式不可为空！");
+                throw new InvalidOperationException("执行策略不可为空！");
             }
 
             #endregion
@@ -66,7 +69,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
                     IJobDetail jobDetail = jobBuilder.WithIdentity(jobKey).Build();
 
                     //创建触发器
-                    ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(crontab.CronExpression).Build();
+                    ITrigger trigger = GetTrigger(crontab.ExecutionStrategy);
 
                     //为调度者添加任务明细与触发器
                     _Scheduler.ScheduleJob(jobDetail, trigger).Wait();
@@ -98,9 +101,9 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         {
             #region # 验证
 
-            if (string.IsNullOrWhiteSpace(crontab.CronExpression))
+            if (crontab.ExecutionStrategy == null)
             {
-                throw new InvalidOperationException("Cron表达式不可为空！");
+                throw new InvalidOperationException("执行策略不可为空！");
             }
 
             #endregion
@@ -125,7 +128,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
                     IJobDetail jobDetail = jobBuilder.WithIdentity(jobKey).Build();
 
                     //创建触发器
-                    ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(crontab.CronExpression).Build();
+                    ITrigger trigger = GetTrigger(crontab.ExecutionStrategy);
 
                     //为调度者添加任务明细与触发器
                     _Scheduler.ScheduleJob(jobDetail, trigger).Wait();
@@ -325,6 +328,34 @@ namespace SD.Infrastructure.CrontabBase.Mediator
 
                 return crontabs;
             }
+        }
+        #endregion
+
+
+        //Private
+
+        #region # 获取触发器 —— static ITrigger GetTrigger(ExecutionStrategy strategy)
+        /// <summary>
+        /// 获取触发器
+        /// </summary>
+        /// <param name="strategy">执行策略</param>
+        /// <returns>触发器</returns>
+        private static ITrigger GetTrigger(ExecutionStrategy strategy)
+        {
+            if (strategy is TimeSpanStrategy timeSpanStrategy)
+            {
+                ITrigger trigger = TriggerBuilder.Create().WithSimpleSchedule(x => x.WithInterval(timeSpanStrategy.TimeSpan).RepeatForever()).Build();
+
+                return trigger;
+            }
+            if (strategy is CronExpressionStrategy cronExpressionStrategy)
+            {
+                ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(cronExpressionStrategy.CronExpression).Build();
+
+                return trigger;
+            }
+
+            throw new NotImplementedException("无当前类型执行策略！");
         }
         #endregion
     }

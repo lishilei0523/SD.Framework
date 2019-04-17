@@ -14,11 +14,11 @@ namespace SD.Infrastructure.CrontabBase
         Guid Id { get; }
         #endregion
 
-        #region Cron表达式 —— string CronExpression
+        #region 执行策略 —— ExecutionStrategy ExecutionStrategy
         /// <summary>
-        /// Cron表达式
+        /// 执行策略
         /// </summary>
-        string CronExpression { get; }
+        ExecutionStrategy ExecutionStrategy { get; }
         #endregion
 
         #region 添加时间 —— DateTime AddedTime
