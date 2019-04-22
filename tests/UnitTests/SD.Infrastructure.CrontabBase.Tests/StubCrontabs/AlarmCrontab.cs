@@ -1,7 +1,4 @@
-﻿using SD.Infrastructure.CrontabBase.Toolkits;
-using System;
-
-namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
+﻿namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
 {
     /// <summary>
     /// 闹钟任务
@@ -11,7 +8,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
         /// <summary>
         /// 无参构造器
         /// </summary>
-        public AlarmCrontab(string word)
+        public AlarmCrontab(string word, ExecutionStrategy executionStrategy)
+            : base(executionStrategy)
         {
             this.Word = word;
         }
@@ -20,16 +18,5 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabs
         public int Count { get; set; }
         public bool Rung { get; set; }
         public string Word { get; set; }
-
-        /// <summary>
-        /// 获取执行策略
-        /// </summary>
-        protected override ExecutionStrategy GetExecutionStrategy()
-        {
-            string cronExpression = DateTime.Now.AddSeconds(2).ToCronExpression();
-            CronExpressionStrategy strategy = new CronExpressionStrategy(cronExpression);
-
-            return strategy;
-        }
     }
 }

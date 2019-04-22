@@ -13,12 +13,12 @@ namespace SD.Infrastructure.CrontabBase
         /// <summary>
         /// 无参构造器
         /// </summary>
-        protected Crontab()
+        protected Crontab(ExecutionStrategy executionStrategy)
         {
             //默认值
             this.Id = Guid.NewGuid();
             this.AddedTime = DateTime.Now;
-            this.ExecutionStrategy = this.GetExecutionStrategy();
+            this.ExecutionStrategy = executionStrategy;
         }
         #endregion
 
@@ -43,17 +43,6 @@ namespace SD.Infrastructure.CrontabBase
         /// 添加时间
         /// </summary>
         public DateTime AddedTime { get; set; }
-        #endregion
-
-        #endregion
-
-        #region # 方法
-
-        #region 获取执行策略 —— abstract ExecutionStrategy GetExecutionStrategy()
-        /// <summary>
-        /// 获取执行策略
-        /// </summary>
-        protected abstract ExecutionStrategy GetExecutionStrategy();
         #endregion
 
         #endregion

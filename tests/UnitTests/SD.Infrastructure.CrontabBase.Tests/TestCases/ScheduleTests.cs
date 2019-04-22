@@ -2,6 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Infrastructure.CrontabBase.Mediator;
 using SD.Infrastructure.CrontabBase.Tests.StubCrontabs;
+using SD.Infrastructure.CrontabBase.Toolkits;
 using SD.IOC.Core.Mediators;
 using SD.IOC.Extension.NetFx;
 using System;
@@ -63,7 +64,9 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         public void TestScheduleTimePoint()
         {
             //开始调度
-            AlarmCrontab alarmCrontab = new AlarmCrontab("Hello World !");
+            string cronExpression = DateTime.Now.AddSeconds(2).ToCronExpression();
+            CronExpressionStrategy cronExpressionStrategy = new CronExpressionStrategy(cronExpression);
+            AlarmCrontab alarmCrontab = new AlarmCrontab("Hello World !", cronExpressionStrategy);
 
             Assert.IsTrue(alarmCrontab.Count == 0);
             Assert.IsFalse(alarmCrontab.Rung);
@@ -86,7 +89,9 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         public void TestScheduleInspect()
         {
             //开始调度
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !");
+            TimeSpan timeSpan = new TimeSpan(0, 0, 2);
+            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", timeSpanStrategy);
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
@@ -107,7 +112,9 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         public void TestPauseCrontab()
         {
             //开始调度
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !");
+            TimeSpan timeSpan = new TimeSpan(0, 0, 2);
+            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", timeSpanStrategy);
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
@@ -136,7 +143,9 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         public void TestResumeCrontab()
         {
             //开始调度
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !");
+            TimeSpan timeSpan = new TimeSpan(0, 0, 2);
+            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", timeSpanStrategy);
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
@@ -173,7 +182,9 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         public void TestRemoveCrontab()
         {
             //开始调度
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !");
+            TimeSpan timeSpan = new TimeSpan(0, 0, 2);
+            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", timeSpanStrategy);
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
@@ -200,8 +211,13 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         [TestMethod]
         public void TestFindAllCrontabs()
         {
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !");
-            AlarmCrontab alarmCrontab = new AlarmCrontab("Hello World !");
+            TimeSpan timeSpan = new TimeSpan(0, 0, 2);
+            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
+            string cronExpression = DateTime.Now.AddSeconds(2).ToCronExpression();
+            CronExpressionStrategy cronExpressionStrategy = new CronExpressionStrategy(cronExpression);
+
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", timeSpanStrategy);
+            AlarmCrontab alarmCrontab = new AlarmCrontab("Hello World !", cronExpressionStrategy);
 
             ScheduleMediator.Schedule(showTimeCrontab);
             ScheduleMediator.Schedule(alarmCrontab);
@@ -236,7 +252,9 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             string log = $"{AppDomain.CurrentDomain.BaseDirectory}\\ScheduleLogs\\ExceptionLogs\\{DateTime.Today:yyyyMMdd}.txt";
 
             //开始调度
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Exception");
+            TimeSpan timeSpan = new TimeSpan(0, 0, 2);
+            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Exception", timeSpanStrategy);
             ScheduleMediator.Schedule(showTimeCrontab);
 
             //线程睡眠
