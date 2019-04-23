@@ -53,7 +53,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
             IEnumerable<ICrontabExecutor> crontabSchedulers = CrontabExecutorFactory.GetCrontabExecutorsFor(crontabType);
             foreach (ICrontabExecutor scheduler in crontabSchedulers)
             {
-                JobKey jobKey = new JobKey(crontab.Id.ToString());
+                JobKey jobKey = new JobKey(crontab.Id);
 
                 if (!_Scheduler.CheckExists(jobKey).Result)
                 {
@@ -62,7 +62,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
 
                     //设置任务数据
                     IDictionary<string, object> dictionary = new Dictionary<string, object>();
-                    dictionary.Add(crontab.Id.ToString(), crontab);
+                    dictionary.Add(crontab.Id, crontab);
                     jobBuilder.SetJobData(new JobDataMap(dictionary));
 
                     //创建任务明细
@@ -112,7 +112,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
             IEnumerable<ICrontabExecutor<T>> crontabSchedulers = CrontabExecutorFactory.GetCrontabExecutorsFor(crontab);
             foreach (ICrontabExecutor<T> scheduler in crontabSchedulers)
             {
-                JobKey jobKey = new JobKey(crontab.Id.ToString());
+                JobKey jobKey = new JobKey(crontab.Id);
 
                 if (!_Scheduler.CheckExists(jobKey).Result)
                 {
@@ -121,7 +121,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
 
                     //设置任务数据
                     IDictionary<string, object> dictionary = new Dictionary<string, object>();
-                    dictionary.Add(crontab.Id.ToString(), crontab);
+                    dictionary.Add(crontab.Id, crontab);
                     jobBuilder.SetJobData(new JobDataMap(dictionary));
 
                     //创建任务明细
@@ -150,14 +150,14 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         }
         #endregion
 
-        #region # 暂停任务 —— static void Pause(Guid crontabId)
+        #region # 暂停任务 —— static void Pause(string crontabId)
         /// <summary>
         /// 暂停任务
         /// </summary>
         /// <param name="crontabId">定时任务Id</param>
-        public static void Pause(Guid crontabId)
+        public static void Pause(string crontabId)
         {
-            JobKey jobKey = new JobKey(crontabId.ToString());
+            JobKey jobKey = new JobKey(crontabId);
 
             if (_Scheduler.CheckExists(jobKey).Result)
             {
@@ -170,14 +170,14 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         }
         #endregion
 
-        #region # 恢复任务 —— static void Resume(Guid crontabId)
+        #region # 恢复任务 —— static void Resume(string crontabId)
         /// <summary>
         /// 恢复任务
         /// </summary>
         /// <param name="crontabId">定时任务Id</param>
-        public static void Resume(Guid crontabId)
+        public static void Resume(string crontabId)
         {
-            JobKey jobKey = new JobKey(crontabId.ToString());
+            JobKey jobKey = new JobKey(crontabId);
 
             if (_Scheduler.CheckExists(jobKey).Result)
             {
@@ -211,7 +211,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         /// <param name="crontab">定时任务</param>
         public static void Remove<T>(T crontab) where T : class, ICrontab
         {
-            JobKey jobKey = new JobKey(crontab.Id.ToString());
+            JobKey jobKey = new JobKey(crontab.Id);
 
             if (_Scheduler.CheckExists(jobKey).Result)
             {
@@ -225,14 +225,14 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         }
         #endregion
 
-        #region # 删除任务 —— static void Remove(Guid crontabId)
+        #region # 删除任务 —— static void Remove(string crontabId)
         /// <summary>
         /// 删除任务
         /// </summary>
         /// <param name="crontabId">定时任务Id</param>
-        public static void Remove(Guid crontabId)
+        public static void Remove(string crontabId)
         {
-            JobKey jobKey = new JobKey(crontabId.ToString());
+            JobKey jobKey = new JobKey(crontabId);
 
             if (_Scheduler.CheckExists(jobKey).Result)
             {
@@ -285,7 +285,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         }
         #endregion
 
-        #region # 获取任务 —— T GetCrontab<T>(Guid crontabId)
+        #region # 获取任务 —— T GetCrontab<T>(string crontabId)
         /// <summary>
         /// 获取任务
         /// </summary>
@@ -293,7 +293,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         /// <param name="crontabId">定时任务Id</param>
         /// <returns>定时任务</returns>
         /// <remarks>需要CrontabStore持久化支持</remarks>
-        public static T GetCrontab<T>(Guid crontabId) where T : ICrontab
+        public static T GetCrontab<T>(string crontabId) where T : ICrontab
         {
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
             {

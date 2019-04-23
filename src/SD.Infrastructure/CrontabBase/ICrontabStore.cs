@@ -16,14 +16,14 @@ namespace SD.Infrastructure.CrontabBase
         void Store(ICrontab crontab);
         #endregion
 
-        #region # 获取定时任务 —— T Get<T>(Guid crontabId)
+        #region # 获取定时任务 —— T Get<T>(string crontabId)
         /// <summary>
         /// 获取定时任务
         /// </summary>
         /// <typeparam name="T">定时任务类型</typeparam>
         /// <param name="crontabId">定时任务Id</param>
         /// <returns>定时任务</returns>
-        T Get<T>(Guid crontabId) where T : ICrontab;
+        T Get<T>(string crontabId) where T : ICrontab;
         #endregion
 
         #region # 删除定时任务 —— void Remove(ICrontab crontab)
@@ -34,12 +34,12 @@ namespace SD.Infrastructure.CrontabBase
         void Remove(ICrontab crontab);
         #endregion
 
-        #region # 删除定时任务 —— void Remove(Guid crontabId)
+        #region # 删除定时任务 —— void Remove(string crontabId)
         /// <summary>
         /// 删除定时任务
         /// </summary>
         /// <param name="crontabId">定时任务Id</param>
-        void Remove(Guid crontabId);
+        void Remove(string crontabId);
         #endregion
 
         #region # 清空任务 —— void Clear()

@@ -7,11 +7,11 @@ namespace SD.Infrastructure.CrontabBase
     /// </summary>
     public interface ICrontab
     {
-        #region 标识 —— Guid Id
+        #region 标识 —— string Id
         /// <summary>
         /// 标识
         /// </summary>
-        Guid Id { get; }
+        string Id { get; }
         #endregion
 
         #region 执行策略 —— ExecutionStrategy ExecutionStrategy

@@ -16,7 +16,7 @@ namespace SD.Infrastructure.CrontabBase
         protected Crontab(ExecutionStrategy executionStrategy)
         {
             //默认值
-            this.Id = Guid.NewGuid();
+            this.Id = Guid.NewGuid().ToString();
             this.AddedTime = DateTime.Now;
             this.ExecutionStrategy = executionStrategy;
         }
@@ -24,11 +24,11 @@ namespace SD.Infrastructure.CrontabBase
 
         #region # 属性
 
-        #region 标识 —— Guid Id
+        #region 标识 —— string Id
         /// <summary>
         /// 标识
         /// </summary>
-        public Guid Id { get; set; }
+        public string Id { get; set; }
         #endregion
 
         #region 执行策略 —— ExecutionStrategy ExecutionStrategy
