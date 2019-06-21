@@ -26,12 +26,12 @@ namespace SD.Infrastructure.CrontabBase.Aspects
         /// <summary>
         /// 运行日志路径
         /// </summary>
-        private static readonly string _RunningLogPath = $"{_LogDirectory}\\RunningLogs\\{DateTime.Today:yyyyMMdd}.txt";
+        private static readonly string _RunningLogPath = $"{_LogDirectory}\\RunningLogs\\{{0:yyyyMMdd}}.txt";
 
         /// <summary>
         /// 异常日志路径
         /// </summary>
-        private static readonly string _ExceptionLogPath = $"{_LogDirectory}\\ExceptionLogs\\{DateTime.Today:yyyyMMdd}.txt";
+        private static readonly string _ExceptionLogPath = $"{_LogDirectory}\\ExceptionLogs\\{{0:yyyyMMdd}}.txt";
 
         /// <summary>
         /// 同步锁
@@ -66,7 +66,7 @@ namespace SD.Infrastructure.CrontabBase.Aspects
                 StringBuilder logAppender = (StringBuilder)logAppenderfField.GetValue(context.Target);
                 Task.Run(() =>
                 {
-                    this.WriteFile(_RunningLogPath,
+                    this.WriteFile(string.Format(_RunningLogPath, DateTime.Today),
                         "===================================运行正常, 详细信息如下==================================="
                                         + Environment.NewLine + "［当前任务］" + crontabName
                                         + Environment.NewLine + "［开始时间］" + startTime
@@ -81,7 +81,7 @@ namespace SD.Infrastructure.CrontabBase.Aspects
                 StringBuilder logAppender = (StringBuilder)logAppenderfField.GetValue(context.Target);
                 Task.Run(() =>
                 {
-                    this.WriteFile(_ExceptionLogPath,
+                    this.WriteFile(string.Format(_ExceptionLogPath, DateTime.Today),
                         "===================================运行异常, 详细信息如下==================================="
                                         + Environment.NewLine + "［当前任务］" + crontabName
                                         + Environment.NewLine + "［异常时间］" + DateTime.Now
