@@ -15,6 +15,12 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabExecutors
             Trace.WriteLine(crontab.Text);
             crontab.Count++;
 
+            base._logAppender.Append("［测试日志］" + 1
+             + Environment.NewLine + "［测试日志］" + 2
+             + Environment.NewLine + "［测试日志］" + 3
+             + Environment.NewLine + "［测试日志］" + 4
+            );
+
             if (crontab.Text == "Exception")
             {
                 throw new NullReferenceException("测试异常！");

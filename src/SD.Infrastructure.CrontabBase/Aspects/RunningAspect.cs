@@ -3,6 +3,8 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SD.Infrastructure.CrontabBase.Aspects
@@ -14,22 +16,40 @@ namespace SD.Infrastructure.CrontabBase.Aspects
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public class RunningAspect : Attribute, IMethodAdvice
     {
+        #region # 字段
+
+        /// <summary>
+        /// 日志目录
+        /// </summary>
+        private static readonly string _LogDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\ScheduleLogs";
+
+        /// <summary>
+        /// 运行日志路径
+        /// </summary>
+        private static readonly string _RunningLogPath = $"{_LogDirectory}\\RunningLogs\\{DateTime.Today:yyyyMMdd}.txt";
+
+        /// <summary>
+        /// 异常日志路径
+        /// </summary>
+        private static readonly string _ExceptionLogPath = $"{_LogDirectory}\\ExceptionLogs\\{DateTime.Today:yyyyMMdd}.txt";
+
         /// <summary>
         /// 同步锁
         /// </summary>
         private static readonly object _Sync = new object();
 
+        #endregion
+
+        #region # 拦截方法 —— void Advise(MethodAdviceContext context)
         /// <summary>
         /// 拦截方法
         /// </summary>
         /// <param name="context">方法元数据</param>
         public void Advise(MethodAdviceContext context)
         {
-            string logDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\ScheduleLogs";
-            string runningLogPath = $"{logDirectory}\\RunningLogs\\{DateTime.Today:yyyyMMdd}.txt";
-            string exceptionLogPath = $"{logDirectory}\\ExceptionLogs\\{DateTime.Today:yyyyMMdd}.txt";
-
-            string crontabName = context.TargetMethod.DeclaringType.GenericTypeArguments.Single().Name;
+            Type executorType = context.TargetMethod.DeclaringType;
+            FieldInfo logAppenderfField = executorType.GetField("_logAppender", BindingFlags.NonPublic | BindingFlags.Instance);
+            string crontabName = executorType.GenericTypeArguments.Single().Name;
 
             Stopwatch watch = new Stopwatch();
 
@@ -43,32 +63,40 @@ namespace SD.Infrastructure.CrontabBase.Aspects
                 watch.Stop();
                 DateTime endTime = DateTime.Now;
 
+                StringBuilder logAppender = (StringBuilder)logAppenderfField.GetValue(context.Target);
                 Task.Run(() =>
                 {
-                    this.WriteFile(runningLogPath, "===================================运行正常, 详细信息如下==================================="
+                    this.WriteFile(_RunningLogPath,
+                        "===================================运行正常, 详细信息如下==================================="
                                         + Environment.NewLine + "［当前任务］" + crontabName
                                         + Environment.NewLine + "［开始时间］" + startTime
                                         + Environment.NewLine + "［结束时间］" + endTime
                                         + Environment.NewLine + "［运行耗时］" + watch.Elapsed
+                                        + Environment.NewLine + logAppender
                                         + Environment.NewLine + Environment.NewLine);
                 });
             }
             catch (Exception exception)
             {
+                StringBuilder logAppender = (StringBuilder)logAppenderfField.GetValue(context.Target);
                 Task.Run(() =>
                 {
-                    this.WriteFile(exceptionLogPath, "===================================运行异常, 详细信息如下==================================="
+                    this.WriteFile(_ExceptionLogPath,
+                        "===================================运行异常, 详细信息如下==================================="
                                         + Environment.NewLine + "［当前任务］" + crontabName
                                         + Environment.NewLine + "［异常时间］" + DateTime.Now
                                         + Environment.NewLine + "［异常消息］" + exception.Message
                                         + Environment.NewLine + "［异常明细］" + exception
                                         + Environment.NewLine + "［内部异常］" + exception.InnerException
                                         + Environment.NewLine + "［堆栈信息］" + exception.StackTrace
+                                        + Environment.NewLine + logAppender
                                         + Environment.NewLine + Environment.NewLine);
                 });
             }
         }
+        #endregion
 
+        #region # 写入文件方法 —— void WriteFile(string path, string content)
         /// <summary>
         /// 写入文件方法
         /// </summary>
@@ -104,5 +132,6 @@ namespace SD.Infrastructure.CrontabBase.Aspects
                 }
             }
         }
+        #endregion
     }
 }

@@ -2,6 +2,7 @@
 using SD.Infrastructure.CrontabBase.Aspects;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 // ReSharper disable once CheckNamespace
@@ -12,6 +13,23 @@ namespace SD.Infrastructure.CrontabBase
     /// </summary>
     public abstract class CrontabExecutor<T> : ICrontabExecutor<T>, IJob where T : Crontab
     {
+        #region # 字段及构造器
+
+        /// <summary>
+        /// 日志附着器
+        /// </summary>
+        protected StringBuilder _logAppender;
+
+        /// <summary>
+        /// 无参构造器
+        /// </summary>
+        protected CrontabExecutor()
+        {
+            this._logAppender = new StringBuilder();
+        }
+
+        #endregion
+
         #region # 执行任务 —— Task Execute(IJobExecutionContext context)
         /// <summary>
         /// 执行任务

@@ -1,4 +1,5 @@
 ﻿using SD.Infrastructure.CrontabBase.Tests.StubCrontabs;
+using System;
 using System.Diagnostics;
 
 namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabExecutors
@@ -15,6 +16,12 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabExecutors
 
             crontab.Rung = true;
             crontab.Count++;
+
+            base._logAppender.Append("［测试日志］" + 1
+            + Environment.NewLine + "［测试日志］" + 2
+            + Environment.NewLine + "［测试日志］" + 3
+            + Environment.NewLine + "［测试日志］" + 4
+            );
         }
     }
 }
