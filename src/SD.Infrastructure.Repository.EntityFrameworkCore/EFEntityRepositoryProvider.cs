@@ -33,7 +33,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <summary>
         /// EF（读）上下文对象
         /// </summary>
-        private readonly DbContext _dbContext;
+        protected readonly DbContext _dbContext;
 
         /// <summary>
         /// 构造器

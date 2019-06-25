@@ -40,7 +40,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// EF（写）上下文对象字段
         /// </summary>
-        private readonly DbContext _dbContext;
+        protected readonly DbContext _dbContext;
 
         /// <summary>
         /// 构造器
