@@ -453,17 +453,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
         //IQueryable部分
 
-        #region # 获取实体对象集合 —— override IQueryable<T> FindAllInner()
-        /// <summary>
-        /// 获取实体对象集合
-        /// </summary>
-        /// <returns>实体对象集合</returns>
-        protected override IQueryable<T> FindAllInner()
-        {
-            return base.FindAllInner().Where(x => !x.Deleted);
-        }
-        #endregion
-
         #region # 根据条件获取实体对象编号集合 —— IQueryable<string> FindNos(Expression<Func<T, bool>> predicate)
         /// <summary>
         /// 根据条件获取实体对象编号集合

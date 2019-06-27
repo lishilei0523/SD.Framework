@@ -478,7 +478,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象集合</returns>
         protected virtual IQueryable<T> FindAllInner()
         {
-            return this._dbContext.Set<T>();
+            Expression<Func<T, bool>> condition = RepositoryExtension.BuildFilterExpression<T>();
+            return this._dbContext.Set<T>().Where(condition);
         }
         #endregion
 
