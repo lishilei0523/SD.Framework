@@ -88,7 +88,7 @@ namespace SD.Infrastructure.RepositoryBase
             Expression seedExpression = null;
             foreach (Expression expression in expressions)
             {
-                seedExpression = seedExpression == null ? expression : Expression.And(seedExpression, expression);
+                seedExpression = seedExpression == null ? expression : Expression.AndAlso(seedExpression, expression);
             }
             if (seedExpression != null)
             {
