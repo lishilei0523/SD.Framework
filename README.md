@@ -19,6 +19,13 @@
 #### ASP.NET Core练习项目： https://gitee.com/lishilei0523/AspNetCore.Practice
 
 -----------------------------------
+##### 2019.06.27 - 框架近期调整说明
+
+1、修改DbContext访问级别为protected；
+
+2、增加构造实体过滤表达式方法，实体仓储无需override FindAllInner方法过滤关联的聚合根为null的或Deleted的实体对象；
+
+-----------------------------------
 ##### 2019.03.20 - 框架近期调整说明
 
 增加定时任务功能组件，包含定时执行任务、Redis存储持久化等；
