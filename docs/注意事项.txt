@@ -24,6 +24,8 @@ UnitOfWork.UnitedCommit只能在AppService里调用，其余地方用UnitOfWork.
 
 继承关系的一系列类，只需要为最上层基类建一个仓储即可，通过泛型方法即可区分子类
 
+
+//注意：2019.06.27 SD.Infrastructure.EntityFramework.2.0.2版本后，无需一下写法
 为实体（PlainEntity）建立仓储时，如果涉及删除的，override下base.FindAllInner()方法，将关联的聚合根为null的或Deleted的实体对象过滤掉
 	比如Order与OrderDetail，Order是聚合根，OrderDetail是普通实体
 	Order中有RemoveDetail(Guid detailId)方法，删除订单明细
