@@ -174,8 +174,8 @@
     <Compile Include="..\SD.Infrastructure\RepositoryBase\IUnitOfWork.cs">
       <Link>RepositoryBase\IUnitOfWork.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Infrastructure\RepositoryBase\PageExtension.cs">
-      <Link>RepositoryBase\PageExtension.cs</Link>
+    <Compile Include="..\SD.Infrastructure\RepositoryBase\RepositoryExtension.cs">
+      <Link>RepositoryBase\RepositoryExtension.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
