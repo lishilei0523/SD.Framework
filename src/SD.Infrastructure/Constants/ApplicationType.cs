@@ -51,6 +51,6 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         [EnumMember]
         [Description("复合应用程序")]
-        Complex = 4
+        Complex = 5
     }
 }
