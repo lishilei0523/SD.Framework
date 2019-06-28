@@ -44,6 +44,13 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         [EnumMember]
         [Description("Windows Phone应用程序")]
-        WindowsPhone = 4
+        WindowsPhone = 4,
+
+        /// <summary>
+        /// 复合应用程序
+        /// </summary>
+        [EnumMember]
+        [Description("复合应用程序")]
+        Complex = 4
     }
 }

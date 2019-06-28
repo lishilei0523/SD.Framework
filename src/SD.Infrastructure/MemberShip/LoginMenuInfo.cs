@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SD.Infrastructure.Constants;
+using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
@@ -25,6 +26,12 @@ namespace SD.Infrastructure.MemberShip
         /// </summary>
         [DataMember]
         public string SystemNo { get; set; }
+
+        /// <summary>
+        /// 应用程序类型
+        /// </summary>
+        [DataMember]
+        public ApplicationType ApplicationType { get; set; }
 
         /// <summary>
         /// 标识Id
