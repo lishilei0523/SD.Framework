@@ -114,7 +114,14 @@ namespace SD.Infrastructure.RepositoryBase
         private static void BuildFilterExpressionRecursively(Type type, Expression propertyProvider, HashSet<Expression> expressions)
         {
             //加载所有导航属性
-            IEnumerable<PropertyInfo> navProperties = type.GetProperties().Where(x => x.PropertyType.IsSubclassOf(typeof(PlainEntity)));
+            Func<PropertyInfo, bool> navPropertySelector =
+                x =>
+                    x.CanWrite &&
+                    x.GetGetMethod() != null &&
+                    x.GetGetMethod().IsVirtual &&
+                    x.PropertyType.IsSubclassOf(typeof(PlainEntity));
+
+            IEnumerable<PropertyInfo> navProperties = type.GetProperties().Where(navPropertySelector);
 
             foreach (PropertyInfo navProperty in navProperties)
             {
