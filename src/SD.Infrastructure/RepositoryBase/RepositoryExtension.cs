@@ -127,6 +127,14 @@ namespace SD.Infrastructure.RepositoryBase
             {
                 Type navPropertyType = navProperty.PropertyType;
 
+                //如果普通实体和普通实体有一对一关系，则忽略
+                if (navPropertyType.IsSubclassOf(typeof(PlainEntity)) &&
+                    !navPropertyType.IsSubclassOf(typeof(AggregateRootEntity)) &&
+                    navPropertyType.GetProperties().Any(x => x.PropertyType == type))
+                {
+                    continue;
+                }
+
                 MemberExpression navMember = Expression.Property(propertyProvider, navProperty.Name);
                 Expression navNotNullExpression = Expression.NotEqual(navMember, Expression.Constant(null));
 
