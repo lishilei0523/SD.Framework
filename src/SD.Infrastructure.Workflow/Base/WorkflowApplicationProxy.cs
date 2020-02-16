@@ -46,17 +46,6 @@ namespace SD.Infrastructure.Workflow.Base
 
             #endregion
 
-            string connectionString = ConfigurationManager.ConnectionStrings[connectionStringName].ConnectionString;
-
-            #region # 验证
-
-            if (string.IsNullOrWhiteSpace(connectionString))
-            {
-                throw new ApplicationException("工作流持久化连接字符串未设置！");
-            }
-
-            #endregion
-
             ConnectionStringSettings connectionStringSetting = ConfigurationManager.ConnectionStrings[connectionStringName];
 
             #region # 验证
@@ -68,7 +57,18 @@ namespace SD.Infrastructure.Workflow.Base
 
             #endregion
 
-            _WorkflowPersistenceConnectionString = connectionStringSetting.ConnectionString;
+            string connectionString = connectionStringSetting.ConnectionString;
+
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(connectionString))
+            {
+                throw new ApplicationException("工作流持久化连接字符串未设置！");
+            }
+
+            #endregion
+
+            _WorkflowPersistenceConnectionString = connectionString;
         }
 
         /// <summary>
