@@ -80,6 +80,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Toolkits\ActivityFactory.cs" />
     <Compile Include="Base\BookmarkActivity.cs" />
     <Compile Include="Base\WorkflowApplicationProxy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

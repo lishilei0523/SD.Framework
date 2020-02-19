@@ -78,6 +78,14 @@ namespace SD.Infrastructure.Constants
             ConfigurationManager.AppSettings[CommonConstants.EventSourceAssemblyAppSettingKey];
         #endregion
 
+        #region # 工作流所在程序集 —— static readonly string WorkflowAssembly
+        /// <summary>
+        /// 工作流所在程序集
+        /// </summary>
+        public static readonly string WorkflowAssembly =
+            ConfigurationManager.AppSettings[CommonConstants.WorkflowAssemblyAppSettingKey];
+        #endregion
+
         #region # 数据表名前缀 —— static readonly string TablePrefix
         /// <summary>
         /// 数据表名前缀

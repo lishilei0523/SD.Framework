@@ -153,6 +153,9 @@
     <Compile Include="..\SD.Infrastructure\DTOBase\PageModel.cs">
       <Link>DTOBase\PageModel.cs</Link>
     </Compile>
+    <Compile Include="..\SD.Infrastructure\DTOBase\Parameter.cs">
+      <Link>DTOBase\Parameter.cs</Link>
+    </Compile>
     <Compile Include="..\SD.Infrastructure\EntityBase\AggregateRootEntity.cs">
       <Link>EntityBase\AggregateRootEntity.cs</Link>
     </Compile>

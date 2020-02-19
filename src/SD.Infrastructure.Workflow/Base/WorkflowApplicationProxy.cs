@@ -6,7 +6,6 @@ using System.Activities;
 using System.Activities.DurableInstancing;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
 using System.Runtime.DurableInstancing;
 using System.Transactions;
 
@@ -174,28 +173,34 @@ namespace SD.Infrastructure.Workflow.Base
             }
             catch (InstancePersistenceCommandException exception)
             {
-                throw new ArgumentOutOfRangeException($"工作流实例\"{workflowInstanceId}\"不存在！", exception);
+                throw new ArgumentOutOfRangeException($"工作流实例\"{workflowInstanceId}\"存在异常！", exception);
             }
         }
         #endregion
 
-        #region 从书签恢复 —— BookmarkResumptionResult ResumeFromBookmark(...
+        #region 从书签恢复 —— void ResumeFromBookmark(string bookmarkName...
         /// <summary>
         /// 从书签恢复
         /// </summary>
         /// <param name="bookmarkName">书签名称</param>
-        /// <param name="parameter">参数</param>
+        /// <param name="parameters">参数字典</param>
         /// <returns>恢复结果</returns>
-        public BookmarkResumptionResult ResumeFromBookmark(string bookmarkName, dynamic parameter)
+        public void ResumeFromBookmark(string bookmarkName, IDictionary<string, object> parameters)
         {
-            BookmarkResumptionResult result = this.WorkflowApplication.ResumeBookmark(bookmarkName, parameter);
+            BookmarkResumptionResult result = this.WorkflowApplication.ResumeBookmark(bookmarkName, parameters);
 
-            if (result == BookmarkResumptionResult.NotFound || result == BookmarkResumptionResult.NotReady)
+            if (result == BookmarkResumptionResult.NotReady)
             {
                 this.WorkflowApplication.Unload();
-            }
 
-            return result;
+                throw new ArgumentOutOfRangeException(nameof(bookmarkName), $"工作流实例\"{this.WorkflowInstanceId}\"的书签\"{bookmarkName}\"未准备就绪，请稍后再试！");
+            }
+            if (result == BookmarkResumptionResult.NotFound)
+            {
+                this.WorkflowApplication.Unload();
+
+                throw new ArgumentOutOfRangeException(nameof(bookmarkName), $"工作流实例\"{this.WorkflowInstanceId}\"不存在书签\"{bookmarkName}\"！");
+            }
         }
         #endregion
 
@@ -242,23 +247,12 @@ namespace SD.Infrastructure.Workflow.Base
         /// 创建工作流应用程序
         /// </summary>
         /// <param name="activity">活动</param>
-        /// <param name="parameter">参数</param>
+        /// <param name="parameters">参数字典</param>
         /// <returns>工作流实例Id</returns>
-        public static Guid CreateWorkflowApplication(Activity activity, dynamic parameter)
+        /// <param name="definitionIdentity">工作流定义标识</param>
+        public static Guid CreateWorkflowApplication(Activity activity, IDictionary<string, object> parameters, WorkflowIdentity definitionIdentity = null)
         {
-            IDictionary<string, object> inputs = new Dictionary<string, object>();
-
-            if (parameter != null)
-            {
-                foreach (dynamic kv in parameter)
-                {
-                    inputs.Add(kv.Key, kv.Value);
-                }
-            }
-
-            WorkflowApplicationProxy proxy = inputs.Any()
-                ? new WorkflowApplicationProxy(activity, inputs)
-                : new WorkflowApplicationProxy(activity);
+            WorkflowApplicationProxy proxy = new WorkflowApplicationProxy(activity, parameters, definitionIdentity);
 
             proxy.Run();
 
@@ -266,22 +260,21 @@ namespace SD.Infrastructure.Workflow.Base
         }
         #endregion
 
-        #region 从书签恢复工作流应用程序 —— static BookmarkResumptionResult ResumeWorkflowApplicationFromBookmark(...
+        #region 从书签恢复工作流应用程序 —— static void ResumeWorkflowApplicationFromBookmark(Activity activity...
         /// <summary>
         /// 从书签恢复工作流应用程序
         /// </summary>
         /// <param name="activity">活动</param>
         /// <param name="workflowInstanceId">工作流实例Id</param>
         /// <param name="bookmarkName">书签名称</param>
-        /// <param name="parameter">参数</param>
-        /// <returns>恢复结果</returns>
-        public static BookmarkResumptionResult ResumeWorkflowApplicationFromBookmark(Activity activity, Guid workflowInstanceId, string bookmarkName, dynamic parameter)
+        /// <param name="parameters">参数字典</param>
+        /// <param name="definitionIdentity">工作流定义标识</param>
+        public static void ResumeWorkflowApplicationFromBookmark(Activity activity, Guid workflowInstanceId, string bookmarkName, IDictionary<string, object> parameters, WorkflowIdentity definitionIdentity = null)
         {
-            WorkflowApplicationProxy proxy = new WorkflowApplicationProxy(activity);
-            proxy.Load(workflowInstanceId);
-            BookmarkResumptionResult result = proxy.ResumeFromBookmark(bookmarkName, parameter);
+            WorkflowApplicationProxy proxy = new WorkflowApplicationProxy(activity, null, definitionIdentity);
 
-            return result;
+            proxy.Load(workflowInstanceId);
+            proxy.ResumeFromBookmark(bookmarkName, parameters);
         }
         #endregion 
 
