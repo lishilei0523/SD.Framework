@@ -27,5 +27,11 @@ namespace SD.Infrastructure.DTOBase
         /// </summary>
         [DataMember]
         public string Value { get; set; }
+
+        /// <summary>
+        /// 是否可空
+        /// </summary>
+        [DataMember]
+        public bool Required { get; set; }
     }
 }
