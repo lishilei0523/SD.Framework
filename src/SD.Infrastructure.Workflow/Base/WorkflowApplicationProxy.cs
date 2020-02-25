@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SD.Infrastructure.WorkflowBase;
+using System;
 using System.Activities;
 using System.Activities.DurableInstancing;
 using System.Collections.Generic;
@@ -84,8 +85,7 @@ namespace SD.Infrastructure.Workflow.Base
         /// <param name="workflowDefinition">工作流定义</param>
         /// <param name="parameters">参数字典</param>
         /// <param name="definitionIdentity">工作流定义标识</param>
-        /// <param name="persistenceMode">持久化模式</param>
-        public WorkflowApplicationProxy(Activity workflowDefinition, IDictionary<string, object> parameters = null, WorkflowIdentity definitionIdentity = null, InstanceCompletionAction persistenceMode = InstanceCompletionAction.DeleteNothing)
+        public WorkflowApplicationProxy(Activity workflowDefinition, IDictionary<string, object> parameters = null, WorkflowIdentity definitionIdentity = null)
         {
             //创建工作流应用程序
             if (workflowDefinition == null)
@@ -110,10 +110,11 @@ namespace SD.Infrastructure.Workflow.Base
             }
 
             //设置工作流持久化存储
+            InstanceCompletionAction instanceCompletionAction = GetInstanceCompletionAction();
             SqlWorkflowInstanceStore instanceStore = new SqlWorkflowInstanceStore()
             {
                 ConnectionString = _WorkflowPersistenceConnectionString,
-                InstanceCompletionAction = persistenceMode
+                InstanceCompletionAction = instanceCompletionAction
             };
 
             this.WorkflowApplication.InstanceStore = instanceStore;
@@ -225,10 +226,9 @@ namespace SD.Infrastructure.Workflow.Base
         /// <param name="parameters">参数字典</param>
         /// <returns>工作流实例Id</returns>
         /// <param name="definitionIdentity">工作流定义标识</param>
-        /// <param name="persistenceMode">持久化模式</param>
-        public static Guid CreateWorkflowApplication(Activity activity, IDictionary<string, object> parameters, WorkflowIdentity definitionIdentity = null, InstanceCompletionAction persistenceMode = InstanceCompletionAction.DeleteNothing)
+        public static Guid CreateWorkflowApplication(Activity activity, IDictionary<string, object> parameters, WorkflowIdentity definitionIdentity = null)
         {
-            WorkflowApplicationProxy proxy = new WorkflowApplicationProxy(activity, parameters, definitionIdentity, persistenceMode);
+            WorkflowApplicationProxy proxy = new WorkflowApplicationProxy(activity, parameters, definitionIdentity);
 
             proxy.Run();
 
@@ -245,10 +245,9 @@ namespace SD.Infrastructure.Workflow.Base
         /// <param name="bookmarkName">书签名称</param>
         /// <param name="parameters">参数字典</param>
         /// <param name="definitionIdentity">工作流定义标识</param>
-        /// <param name="persistenceMode">持久化模式</param>
-        public static void ResumeWorkflowApplicationFromBookmark(Activity activity, Guid workflowInstanceId, string bookmarkName, IDictionary<string, object> parameters, WorkflowIdentity definitionIdentity = null, InstanceCompletionAction persistenceMode = InstanceCompletionAction.DeleteNothing)
+        public static void ResumeWorkflowApplicationFromBookmark(Activity activity, Guid workflowInstanceId, string bookmarkName, IDictionary<string, object> parameters, WorkflowIdentity definitionIdentity = null)
         {
-            WorkflowApplicationProxy proxy = new WorkflowApplicationProxy(activity, null, definitionIdentity, persistenceMode);
+            WorkflowApplicationProxy proxy = new WorkflowApplicationProxy(activity, null, definitionIdentity);
 
             proxy.Load(workflowInstanceId);
             proxy.ResumeFromBookmark(bookmarkName, parameters);
@@ -257,6 +256,22 @@ namespace SD.Infrastructure.Workflow.Base
 
 
         //Private
+
+        #region 获取工作流持久化模式 —— static InstanceCompletionAction GetInstanceCompletionAction()
+        /// <summary>
+        /// 获取工作流持久化模式
+        /// </summary>
+        /// <returns>持久化模式</returns>
+        private static InstanceCompletionAction GetInstanceCompletionAction()
+        {
+            PersistenceMode persistenceMode = WorkflowExtension.GetPersistenceMode();
+            int enumValue = (int)persistenceMode;
+
+            InstanceCompletionAction instanceCompletionAction = (InstanceCompletionAction)enumValue;
+
+            return instanceCompletionAction;
+        }
+        #endregion
 
         #region 记录异常日志 —— static void LogException(WorkflowApplicationUnhandledExceptionEventArgs...
         /// <summary>

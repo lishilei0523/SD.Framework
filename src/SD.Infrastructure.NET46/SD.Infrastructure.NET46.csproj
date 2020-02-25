@@ -153,9 +153,6 @@
     <Compile Include="..\SD.Infrastructure\DTOBase\PageModel.cs">
       <Link>DTOBase\PageModel.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Infrastructure\DTOBase\Parameter.cs">
-      <Link>DTOBase\Parameter.cs</Link>
-    </Compile>
     <Compile Include="..\SD.Infrastructure\EntityBase\AggregateRootEntity.cs">
       <Link>EntityBase\AggregateRootEntity.cs</Link>
     </Compile>
@@ -179,6 +176,15 @@
     </Compile>
     <Compile Include="..\SD.Infrastructure\RepositoryBase\RepositoryExtension.cs">
       <Link>RepositoryBase\RepositoryExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\WorkflowBase\PersistenceMode.cs">
+      <Link>WorkflowBase\PersistenceMode.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\WorkflowBase\WorkflowExtension.cs">
+      <Link>WorkflowBase\WorkflowExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\WorkflowBase\WorkflowParameter.cs">
+      <Link>WorkflowBase\WorkflowParameter.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

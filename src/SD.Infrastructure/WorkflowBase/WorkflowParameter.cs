@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace SD.Infrastructure.DTOBase
+namespace SD.Infrastructure.WorkflowBase
 {
     /// <summary>
-    /// 参数
+    /// 工作流参数
     /// </summary>
     [Serializable]
     [DataContract]
-    public class Parameter
+    public class WorkflowParameter
     {
         /// <summary>
         /// 参数名称
