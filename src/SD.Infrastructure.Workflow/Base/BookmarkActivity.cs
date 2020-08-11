@@ -70,11 +70,9 @@ namespace SD.Infrastructure.Workflow.Base
         {
             if (bookmarkParameter != null)
             {
-                IDictionary<string, object> parameters = bookmarkParameter as IDictionary<string, object>;
-
                 #region # 验证
 
-                if (parameters == null)
+                if (!(bookmarkParameter is IDictionary<string, object> parameters))
                 {
                     throw new ArgumentOutOfRangeException(nameof(bookmarkParameter), "参数类型不正确，必须是\"IDictionary<string, object>\"类型！");
                 }

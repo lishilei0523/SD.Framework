@@ -15,7 +15,7 @@ namespace SD.Infrastructure.Workflow.Base
     /// </summary>
     public sealed class WorkflowApplicationProxy
     {
-        #region # 常量、字段及构造器
+        #region # 常量、字段、事件及构造器
 
         /// <summary>
         /// 工作流持久化数据库连接字符串名称AppSetting键
@@ -36,6 +36,24 @@ namespace SD.Infrastructure.Workflow.Base
         /// 工作流持久化数据库连接字符串
         /// </summary>
         private static readonly string _WorkflowPersistenceConnectionString;
+
+        /// <summary>
+        /// 工作流实例已卸载事件
+        /// </summary>
+        /// <remarks>[Guid, string]，[工作流实例Id，书签类型名称]</remarks>
+        public event Action<Guid, string> UnloadedEvent;
+
+        /// <summary>
+        /// 工作流实例书签异常事件
+        /// </summary>
+        /// <remarks>[Guid, string, string]，[工作流实例Id，书签类型名称，异常]</remarks>
+        public event Action<Guid, string, Exception> BookmarkExceptionEvent;
+
+        /// <summary>
+        /// 工作流实例已完成事件
+        /// </summary>
+        /// <remarks>[Guid, WorkflowApplicationCompletedEventArgs]，[工作流实例Id，工作流已完成事件参数]</remarks>
+        public event Action<Guid, WorkflowApplicationCompletedEventArgs> CompletedEvent;
 
         /// <summary>
         /// 静态构造器
@@ -122,9 +140,30 @@ namespace SD.Infrastructure.Workflow.Base
             //设置空闲时卸载持久化
             this.WorkflowApplication.PersistableIdle = eventArgs => PersistableIdleAction.Unload;
 
+            //设置空闲事件
+            this.WorkflowApplication.Idle = eventArgs =>
+            {
+                this.UnloadedEvent?.Invoke(this.WorkflowApplication.Id, eventArgs.Bookmarks[0].BookmarkName);
+            };
+
+            //设置完成事件
+            this.WorkflowApplication.Completed = eventArgs =>
+            {
+                this.CompletedEvent?.Invoke(this.WorkflowApplication.Id, eventArgs);
+            };
+
             //异常处理
             this.WorkflowApplication.OnUnhandledException = eventArgs =>
             {
+                if (eventArgs.ExceptionSource is BookmarkActivity bookmarkActivity)
+                {
+                    //书签异常事件
+                    Guid workflowInstanceId = this.WorkflowApplication.Id;
+                    string bookmarkName = bookmarkActivity.GetType().FullName;
+                    Exception unhandledException = eventArgs.UnhandledException;
+                    this.BookmarkExceptionEvent?.Invoke(workflowInstanceId, bookmarkName, unhandledException);
+                }
+
                 //记录日志
                 LogException(eventArgs);
 
@@ -218,48 +257,51 @@ namespace SD.Infrastructure.Workflow.Base
 
         //Public
 
-        #region 创建工作流应用程序 —— static Guid CreateWorkflowApplication(Activity activity...
+        #region 创建工作流应用程序 —— static WorkflowApplicationProxy CreateWorkflowApplication(...
         /// <summary>
         /// 创建工作流应用程序
         /// </summary>
         /// <param name="activity">活动</param>
         /// <param name="parameters">参数字典</param>
-        /// <returns>工作流实例Id</returns>
         /// <param name="definitionIdentity">工作流定义标识</param>
-        public static Guid CreateWorkflowApplication(Activity activity, IDictionary<string, object> parameters, WorkflowIdentity definitionIdentity = null)
+        /// <returns>工作流应用程序代理</returns>
+        public static WorkflowApplicationProxy CreateWorkflowApplication(Activity activity, IDictionary<string, object> parameters, WorkflowIdentity definitionIdentity = null)
         {
             WorkflowApplicationProxy proxy = new WorkflowApplicationProxy(activity, parameters, definitionIdentity);
 
             proxy.Run();
 
-            return proxy.WorkflowInstanceId;
+            return proxy;
         }
         #endregion
 
-        #region 从书签恢复工作流应用程序 —— static void ResumeWorkflowApplicationFromBookmark(Activity activity...
+        #region 恢复工作流应用程序 —— static WorkflowApplicationProxy ResumeWorkflowApplicationFromBookmark(...
         /// <summary>
-        /// 从书签恢复工作流应用程序
+        /// 恢复工作流应用程序
         /// </summary>
         /// <param name="activity">活动</param>
         /// <param name="workflowInstanceId">工作流实例Id</param>
         /// <param name="bookmarkName">书签名称</param>
         /// <param name="parameters">参数字典</param>
         /// <param name="definitionIdentity">工作流定义标识</param>
-        public static void ResumeWorkflowApplicationFromBookmark(Activity activity, Guid workflowInstanceId, string bookmarkName, IDictionary<string, object> parameters, WorkflowIdentity definitionIdentity = null)
+        /// <returns>工作流应用程序代理</returns>
+        public static WorkflowApplicationProxy ResumeWorkflowApplicationFromBookmark(Activity activity, Guid workflowInstanceId, string bookmarkName, IDictionary<string, object> parameters, WorkflowIdentity definitionIdentity = null)
         {
             WorkflowApplicationProxy proxy = new WorkflowApplicationProxy(activity, null, definitionIdentity);
 
             proxy.Load(workflowInstanceId);
             proxy.ResumeFromBookmark(bookmarkName, parameters);
+
+            return proxy;
         }
         #endregion
 
 
         //Private
 
-        #region 获取工作流持久化模式 —— static InstanceCompletionAction GetInstanceCompletionAction()
+        #region 获取持久化模式 —— static InstanceCompletionAction GetInstanceCompletionAction()
         /// <summary>
-        /// 获取工作流持久化模式
+        /// 获取持久化模式
         /// </summary>
         /// <returns>持久化模式</returns>
         private static InstanceCompletionAction GetInstanceCompletionAction()
@@ -273,7 +315,7 @@ namespace SD.Infrastructure.Workflow.Base
         }
         #endregion
 
-        #region 记录异常日志 —— static void LogException(WorkflowApplicationUnhandledExceptionEventArgs...
+        #region 记录异常日志 —— static void LogException(EventArgs...
         /// <summary>
         /// 记录异常日志
         /// </summary>
@@ -285,7 +327,8 @@ namespace SD.Infrastructure.Workflow.Base
             {
                 WriteFile(string.Format(_ExceptionLogPath, DateTime.Today),
                     "===================================工作流运行异常, 详细信息如下==================================="
-                    + Environment.NewLine + "［当前活动］" + eventArgs.ExceptionSource.DisplayName
+                    + Environment.NewLine + "［当前活动名称］" + eventArgs.ExceptionSource.DisplayName
+                    + Environment.NewLine + "［当前活动类型］" + eventArgs.ExceptionSource.GetType().FullName
                     + Environment.NewLine + "［工作流实例Id］" + eventArgs.InstanceId
                     + Environment.NewLine + "［异常时间］" + DateTime.Now
                     + Environment.NewLine + "［异常消息］" + exception.Message
