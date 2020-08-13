@@ -5,6 +5,7 @@ using System.Activities.DurableInstancing;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Runtime.DurableInstancing;
 using System.Threading.Tasks;
 
@@ -38,16 +39,16 @@ namespace SD.Infrastructure.Workflow.Base
         private static readonly string _WorkflowPersistenceConnectionString;
 
         /// <summary>
-        /// 工作流实例已卸载事件
+        /// 工作流实例书签卸载事件
         /// </summary>
         /// <remarks>[Guid, string]，[工作流实例Id，书签类型名称]</remarks>
-        public event Action<Guid, string> UnloadedEvent;
+        public event Action<Guid, string, WorkflowApplicationIdleEventArgs> BookmarkUnloadedEvent;
 
         /// <summary>
         /// 工作流实例书签异常事件
         /// </summary>
         /// <remarks>[Guid, string, string]，[工作流实例Id，书签类型名称，异常]</remarks>
-        public event Action<Guid, string, Exception> BookmarkExceptionEvent;
+        public event Action<Guid, string, Exception, WorkflowApplicationUnhandledExceptionEventArgs> BookmarkExceptionEvent;
 
         /// <summary>
         /// 工作流实例已完成事件
@@ -140,13 +141,16 @@ namespace SD.Infrastructure.Workflow.Base
             //设置空闲时卸载持久化
             this.WorkflowApplication.PersistableIdle = eventArgs => PersistableIdleAction.Unload;
 
-            //设置空闲事件
+            //设置书签卸载事件
             this.WorkflowApplication.Idle = eventArgs =>
             {
-                this.UnloadedEvent?.Invoke(this.WorkflowApplication.Id, eventArgs.Bookmarks[0].BookmarkName);
+                if (eventArgs.Bookmarks.Any())
+                {
+                    this.BookmarkUnloadedEvent?.Invoke(this.WorkflowApplication.Id, eventArgs.Bookmarks[0].BookmarkName, eventArgs);
+                }
             };
 
-            //设置完成事件
+            //设置工作流实例完成事件
             this.WorkflowApplication.Completed = eventArgs =>
             {
                 this.CompletedEvent?.Invoke(this.WorkflowApplication.Id, eventArgs);
@@ -157,11 +161,11 @@ namespace SD.Infrastructure.Workflow.Base
             {
                 if (eventArgs.ExceptionSource is BookmarkActivity bookmarkActivity)
                 {
-                    //书签异常事件
+                    //设置书签异常事件
                     Guid workflowInstanceId = this.WorkflowApplication.Id;
                     string bookmarkName = bookmarkActivity.GetType().FullName;
                     Exception unhandledException = eventArgs.UnhandledException;
-                    this.BookmarkExceptionEvent?.Invoke(workflowInstanceId, bookmarkName, unhandledException);
+                    this.BookmarkExceptionEvent?.Invoke(workflowInstanceId, bookmarkName, unhandledException, eventArgs);
                 }
 
                 //记录日志
