@@ -139,7 +139,16 @@ namespace SD.Infrastructure.Workflow.Base
             this.WorkflowApplication.InstanceStore = instanceStore;
 
             //设置空闲时卸载持久化
-            this.WorkflowApplication.PersistableIdle = eventArgs => PersistableIdleAction.Unload;
+            this.WorkflowApplication.PersistableIdle = eventArgs =>
+            {
+                //只有书签才持久化
+                if (eventArgs.Bookmarks.Any())
+                {
+                    return PersistableIdleAction.Unload;
+                }
+
+                return PersistableIdleAction.None;
+            };
 
             //设置书签卸载事件
             this.WorkflowApplication.Idle = eventArgs =>

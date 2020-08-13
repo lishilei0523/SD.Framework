@@ -48,6 +48,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Base\DelayActivity.cs" />
     <Compile Include="Toolkits\ActivityFactory.cs" />
     <Compile Include="Base\BookmarkActivity.cs" />
     <Compile Include="Base\WorkflowApplicationProxy.cs" />
