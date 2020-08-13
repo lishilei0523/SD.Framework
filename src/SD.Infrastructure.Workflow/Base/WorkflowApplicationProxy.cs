@@ -41,8 +41,8 @@ namespace SD.Infrastructure.Workflow.Base
         /// <summary>
         /// 工作流实例书签卸载事件
         /// </summary>
-        /// <remarks>[Guid, string]，[工作流实例Id，书签类型名称]</remarks>
-        public event Action<Guid, string, WorkflowApplicationIdleEventArgs> BookmarkUnloadedEvent;
+        /// <remarks>[Guid, string[]]，[工作流实例Id，书签类型名称集]</remarks>
+        public event Action<Guid, string[], WorkflowApplicationIdleEventArgs> BookmarksUnloadedEvent;
 
         /// <summary>
         /// 工作流实例书签异常事件
@@ -155,7 +155,8 @@ namespace SD.Infrastructure.Workflow.Base
             {
                 if (eventArgs.Bookmarks.Any())
                 {
-                    this.BookmarkUnloadedEvent?.Invoke(this.WorkflowApplication.Id, eventArgs.Bookmarks[0].BookmarkName, eventArgs);
+                    string[] bookmarkNames = eventArgs.Bookmarks.Select(x => x.BookmarkName).ToArray();
+                    this.BookmarksUnloadedEvent?.Invoke(this.WorkflowApplication.Id, bookmarkNames, eventArgs);
                 }
             };
 
