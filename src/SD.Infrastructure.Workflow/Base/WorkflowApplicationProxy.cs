@@ -7,6 +7,7 @@ using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Runtime.DurableInstancing;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SD.Infrastructure.Workflow.Base
@@ -228,14 +229,7 @@ namespace SD.Infrastructure.Workflow.Base
         /// <param name="workflowInstanceId">工作流实例Id</param>
         public void Load(Guid workflowInstanceId)
         {
-            try
-            {
-                this.WorkflowApplication.Load(workflowInstanceId);
-            }
-            catch (InstancePersistenceCommandException exception)
-            {
-                throw new InstancePersistenceCommandException($"工作流实例\"{workflowInstanceId}\"存在异常！", exception);
-            }
+            this.WorkflowApplication.Load(workflowInstanceId);
         }
         #endregion
 
@@ -301,12 +295,24 @@ namespace SD.Infrastructure.Workflow.Base
         /// <returns>工作流应用程序代理</returns>
         public static WorkflowApplicationProxy ResumeWorkflowApplicationFromBookmark(Activity activity, Guid workflowInstanceId, string bookmarkName, IDictionary<string, object> parameters, WorkflowIdentity definitionIdentity = null)
         {
-            WorkflowApplicationProxy proxy = new WorkflowApplicationProxy(activity, null, definitionIdentity);
+            try
+            {
+                WorkflowApplicationProxy proxy = new WorkflowApplicationProxy(activity, null, definitionIdentity);
 
-            proxy.Load(workflowInstanceId);
-            proxy.ResumeFromBookmark(bookmarkName, parameters);
+                proxy.Load(workflowInstanceId);
+                proxy.ResumeFromBookmark(bookmarkName, parameters);
 
-            return proxy;
+                return proxy;
+            }
+            catch (InstanceLockedException)
+            {
+                Thread.Sleep(200);
+                return ResumeWorkflowApplicationFromBookmark(activity, workflowInstanceId, bookmarkName, parameters, definitionIdentity);
+            }
+            catch (InstancePersistenceCommandException exception)
+            {
+                throw new InstancePersistenceCommandException($"工作流实例\"{workflowInstanceId}\"存在异常！", exception);
+            }
         }
         #endregion
 
