@@ -43,6 +43,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extensions\HubConnectionExtension.cs" />
     <Compile Include="Mediators\MessageMediator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
