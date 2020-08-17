@@ -1,25 +1,31 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
-// ReSharper disable once CheckNamespace
 namespace SD.Infrastructure.CrontabBase
 {
     /// <summary>
     /// 定时任务基类
     /// </summary>
     [Serializable]
+    [DataContract]
     public abstract class Crontab : ICrontab
     {
         #region # 构造器
+
+        #region 01.创建定时任务构造器
         /// <summary>
-        /// 无参构造器
+        /// 创建定时任务构造器
         /// </summary>
-        protected Crontab(ExecutionStrategy executionStrategy)
+        /// <param name="strategy">执行策略</param>
+        protected Crontab(ExecutionStrategy strategy)
         {
             //默认值
             this.Id = Guid.NewGuid().ToString();
             this.AddedTime = DateTime.Now;
-            this.ExecutionStrategy = executionStrategy;
+            this.ExecutionStrategy = strategy;
         }
+        #endregion
+
         #endregion
 
         #region # 属性
@@ -28,6 +34,7 @@ namespace SD.Infrastructure.CrontabBase
         /// <summary>
         /// 标识
         /// </summary>
+        [DataMember]
         public string Id { get; set; }
         #endregion
 
@@ -35,6 +42,7 @@ namespace SD.Infrastructure.CrontabBase
         /// <summary>
         /// 执行策略
         /// </summary>
+        [DataMember]
         public ExecutionStrategy ExecutionStrategy { get; set; }
         #endregion
 
@@ -42,6 +50,7 @@ namespace SD.Infrastructure.CrontabBase
         /// <summary>
         /// 添加时间
         /// </summary>
+        [DataMember]
         public DateTime AddedTime { get; set; }
         #endregion
 

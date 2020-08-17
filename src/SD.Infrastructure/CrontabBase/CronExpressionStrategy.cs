@@ -1,9 +1,12 @@
-﻿namespace SD.Infrastructure.CrontabBase
+﻿using System.Runtime.Serialization;
+
+namespace SD.Infrastructure.CrontabBase
 {
     /// <summary>
     /// Cron表达式策略
     /// </summary>
-    public class CronExpressionStrategy : ExecutionStrategy
+    [DataContract]
+    public sealed class CronExpressionStrategy : ExecutionStrategy
     {
         #region # 构造器
 
@@ -14,16 +17,17 @@
         public CronExpressionStrategy() { }
         #endregion
 
-        #region 01.基础构造器
+        #region 01.创建Cron表达式策略构造器
         /// <summary>
-        /// 基础构造器
+        /// 创建Cron表达式策略构造器
         /// </summary>
         /// <param name="cronExpression">Cron表达式</param>
         public CronExpressionStrategy(string cronExpression)
+            : this()
         {
             this.CronExpression = cronExpression;
         }
-        #endregion 
+        #endregion
 
         #endregion
 
@@ -33,6 +37,7 @@
         /// <summary>
         /// Cron表达式
         /// </summary>
+        [DataMember]
         public string CronExpression { get; set; }
         #endregion
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SD.Infrastructure.CrontabBase.Toolkits
+namespace SD.Infrastructure.CrontabBase
 {
     /// <summary>
     /// Cron表达式扩展

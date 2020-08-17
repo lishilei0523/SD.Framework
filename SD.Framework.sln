@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.27428.2002
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Infrastructures", "01 - Infrastructures", "{F04B3910-0A27-4C2D-8ED1-6CC7095691E5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08 - UnitTests", "08 - UnitTests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09 - UnitTests", "09 - UnitTests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "09 - IntegrationTests", "09 - IntegrationTests", "{30953907-39FD-4F6F-933A-4F418FA1E03A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "10 - IntegrationTests", "10 - IntegrationTests", "{30953907-39FD-4F6F-933A-4F418FA1E03A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - WCF", "02 - WCF", "{8F39A4B5-03D4-4E84-9B35-D7A5AE0D3AED}"
 EndProject
@@ -45,11 +45,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WPF", "sr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WPF.Tests", "tests\UnitTests\SD.Infrastructure.WPF.Tests\SD.Infrastructure.WPF.Tests.csproj", "{BCF72253-2D5A-4FE2-8636-09667CC6FF39}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Events", "02 - Events", "{937234D3-F5FB-49DA-8B45-9F426E246004}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - Events", "05 - Events", "{937234D3-F5FB-49DA-8B45-9F426E246004}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Servers", "04 - Servers", "{AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Servers", "02 - Servers", "{AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - Repositories", "05 - Repositories", "{88B56539-567B-4B32-BCFC-CB39C1158534}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Repositories", "03 - Repositories", "{88B56539-567B-4B32-BCFC-CB39C1158534}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WebApi.Server", "src\SD.Infrastructure.WebApi.Server\SD.Infrastructure.WebApi.Server.csproj", "{7363465F-FEE0-4EAB-AEC5-1AE488540C9D}"
 EndProject
@@ -73,7 +73,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repositor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AspNetCore.Server", "src\SD.Infrastructure.AspNetCore.Server\SD.Infrastructure.AspNetCore.Server.csproj", "{6D1119F5-A53D-4D15-9896-FF735FBB1E3C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 - Presentations", "06 - Presentations", "{ADD07228-3F19-4814-BB60-0F7D18C99D77}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Presentations", "04 - Presentations", "{ADD07228-3F19-4814-BB60-0F7D18C99D77}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AspNetCore", "src\SD.Infrastructure.AspNetCore\SD.Infrastructure.AspNetCore.csproj", "{EADA02E2-2254-4483-80C4-3CEA7073B833}"
 EndProject
@@ -81,7 +81,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.NET45", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.NET46", "src\SD.Infrastructure.NET46\SD.Infrastructure.NET46.csproj", "{9F7AA219-1C9E-4591-8B54-07A0E69E0E42}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Schedulers", "03 - Schedulers", "{34CC044A-7B34-4CA7-8957-A89932868654}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "08 - Crontabs", "08 - Crontabs", "{34CC044A-7B34-4CA7-8957-A89932868654}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.CrontabBase", "src\SD.Infrastructure.CrontabBase\SD.Infrastructure.CrontabBase.csproj", "{7E5036CF-A00D-40F8-BB47-795688E02B2D}"
 EndProject
@@ -89,9 +89,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.CrontabBa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.CrontabStoreProvider.Redis", "src\SD.Infrastructure.CrontabStoreProvider.Redis\SD.Infrastructure.CrontabStoreProvider.Redis.csproj", "{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07 - Workflows", "07 - Workflows", "{07605FAC-7B7B-4D12-ACCE-53DE17DDBC79}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 - Workflows", "06 - Workflows", "{07605FAC-7B7B-4D12-ACCE-53DE17DDBC79}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Workflow", "src\SD.Infrastructure.Workflow\SD.Infrastructure.Workflow.csproj", "{C5D4DF46-4EB8-4E4C-9A5A-C6AE4D7CDA08}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07 - Messages", "07 - Messages", "{294E687F-AAF6-4CFD-99CF-0D39F7CBE98B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.SignalR.Server", "src\SD.Infrastructure.SignalR.Server\SD.Infrastructure.SignalR.Server.csproj", "{E66E6C7F-1865-4ED0-872C-5D0EF9D97AEC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.SignalR.Client", "src\SD.Infrastructure.SignalR.Client\SD.Infrastructure.SignalR.Client.csproj", "{141285F8-0943-44BB-ACB3-E7907C4C8698}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -215,6 +221,14 @@ Global
 		{C5D4DF46-4EB8-4E4C-9A5A-C6AE4D7CDA08}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C5D4DF46-4EB8-4E4C-9A5A-C6AE4D7CDA08}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C5D4DF46-4EB8-4E4C-9A5A-C6AE4D7CDA08}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E66E6C7F-1865-4ED0-872C-5D0EF9D97AEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E66E6C7F-1865-4ED0-872C-5D0EF9D97AEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E66E6C7F-1865-4ED0-872C-5D0EF9D97AEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E66E6C7F-1865-4ED0-872C-5D0EF9D97AEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{141285F8-0943-44BB-ACB3-E7907C4C8698}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{141285F8-0943-44BB-ACB3-E7907C4C8698}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{141285F8-0943-44BB-ACB3-E7907C4C8698}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{141285F8-0943-44BB-ACB3-E7907C4C8698}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -251,6 +265,8 @@ Global
 		{70742727-3C93-44BA-9EB1-15F0CA78E3EB} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E} = {34CC044A-7B34-4CA7-8957-A89932868654}
 		{C5D4DF46-4EB8-4E4C-9A5A-C6AE4D7CDA08} = {07605FAC-7B7B-4D12-ACCE-53DE17DDBC79}
+		{E66E6C7F-1865-4ED0-872C-5D0EF9D97AEC} = {294E687F-AAF6-4CFD-99CF-0D39F7CBE98B}
+		{141285F8-0943-44BB-ACB3-E7907C4C8698} = {294E687F-AAF6-4CFD-99CF-0D39F7CBE98B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B5E3D78-0B5E-4D21-BFEF-9B2A85D15716}

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Activities;
 
-namespace SD.Infrastructure.Workflow.Toolkits
+namespace SD.Infrastructure.Workflow.Factories
 {
     /// <summary>
     /// 工作流活动工厂
@@ -40,7 +40,7 @@ namespace SD.Infrastructure.Workflow.Toolkits
             }
             if (!activityType.IsSubclassOf(typeof(Activity)))
             {
-                throw new ArgumentOutOfRangeException(nameof(typeName), "给定类型不是工作流活动类型");
+                throw new ArgumentOutOfRangeException(nameof(typeName), "给定类型不是工作流活动类型！");
             }
 
             #endregion

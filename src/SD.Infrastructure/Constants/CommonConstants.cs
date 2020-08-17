@@ -25,6 +25,11 @@ namespace SD.Infrastructure.Constants
         public const string EntityConfigAssemblyAppSettingKey = "EntityConfigAssembly";
 
         /// <summary>
+        /// 定时任务所在程序集AppSetting键
+        /// </summary>
+        public const string CrontabAssemblyAppSettingKey = "CrontabAssembly";
+
+        /// <summary>
         /// 工作流所在程序集AppSetting键
         /// </summary>
         public const string WorkflowAssemblyAppSettingKey = "WorkflowAssembly";
@@ -90,6 +95,16 @@ namespace SD.Infrastructure.Constants
         #endregion
 
         #region # 其他
+
+        /// <summary>
+        /// 消息交换者后缀
+        /// </summary>
+        public const string HubSuffix = "Hub";
+
+        /// <summary>
+        /// 交换消息方法名称
+        /// </summary>
+        public const string ExchangeMethodName = "Exchange";
 
         /// <summary>
         /// 日期 格式化 字符串

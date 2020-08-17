@@ -2,7 +2,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Infrastructure.CrontabBase.Mediator;
 using SD.Infrastructure.CrontabBase.Tests.StubCrontabs;
-using SD.Infrastructure.CrontabBase.Toolkits;
 using SD.IOC.Core.Mediators;
 using SD.IOC.Extension.NetFx;
 using System;
@@ -90,8 +89,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         {
             //开始调度
             TimeSpan timeSpan = new TimeSpan(0, 0, 2);
-            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", timeSpanStrategy);
+            RecurrenceStrategy recurrenceStrategy = new RecurrenceStrategy(timeSpan);
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", recurrenceStrategy);
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
@@ -113,8 +112,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         {
             //开始调度
             TimeSpan timeSpan = new TimeSpan(0, 0, 2);
-            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", timeSpanStrategy);
+            RecurrenceStrategy recurrenceStrategy = new RecurrenceStrategy(timeSpan);
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", recurrenceStrategy);
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
@@ -144,8 +143,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         {
             //开始调度
             TimeSpan timeSpan = new TimeSpan(0, 0, 2);
-            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", timeSpanStrategy);
+            RecurrenceStrategy recurrenceStrategy = new RecurrenceStrategy(timeSpan);
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", recurrenceStrategy);
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
@@ -183,8 +182,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         {
             //开始调度
             TimeSpan timeSpan = new TimeSpan(0, 0, 2);
-            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", timeSpanStrategy);
+            RecurrenceStrategy recurrenceStrategy = new RecurrenceStrategy(timeSpan);
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", recurrenceStrategy);
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
@@ -212,11 +211,11 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         public void TestFindAllCrontabs()
         {
             TimeSpan timeSpan = new TimeSpan(0, 0, 2);
-            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
+            RecurrenceStrategy recurrenceStrategy = new RecurrenceStrategy(timeSpan);
             string cronExpression = DateTime.Now.AddSeconds(2).ToCronExpression();
             CronExpressionStrategy cronExpressionStrategy = new CronExpressionStrategy(cronExpression);
 
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", timeSpanStrategy);
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", recurrenceStrategy);
             AlarmCrontab alarmCrontab = new AlarmCrontab("Hello World !", cronExpressionStrategy);
 
             ScheduleMediator.Schedule(showTimeCrontab);
@@ -253,8 +252,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
 
             //开始调度
             TimeSpan timeSpan = new TimeSpan(0, 0, 2);
-            TimeSpanStrategy timeSpanStrategy = new TimeSpanStrategy(timeSpan);
-            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Exception", timeSpanStrategy);
+            RecurrenceStrategy recurrenceStrategy = new RecurrenceStrategy(timeSpan);
+            ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Exception", recurrenceStrategy);
             ScheduleMediator.Schedule(showTimeCrontab);
 
             //线程睡眠

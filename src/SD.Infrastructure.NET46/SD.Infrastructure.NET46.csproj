@@ -57,11 +57,26 @@
     <Compile Include="..\SD.Infrastructure\Constants\CommonConstants.cs">
       <Link>Constants\CommonConstants.cs</Link>
     </Compile>
+    <Compile Include="..\SD.Infrastructure\Constants\GlobalSetting.cs">
+      <Link>Constants\GlobalSetting.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\Constants\SessionKey.cs">
+      <Link>Constants\SessionKey.cs</Link>
+    </Compile>
     <Compile Include="..\SD.Infrastructure\CrontabBase\CronExpressionStrategy.cs">
       <Link>CrontabBase\CronExpressionStrategy.cs</Link>
     </Compile>
+    <Compile Include="..\SD.Infrastructure\CrontabBase\CronExtension.cs">
+      <Link>CrontabBase\CronExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\CrontabBase\Crontab.cs">
+      <Link>CrontabBase\Crontab.cs</Link>
+    </Compile>
     <Compile Include="..\SD.Infrastructure\CrontabBase\ExecutionStrategy.cs">
       <Link>CrontabBase\ExecutionStrategy.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\CrontabBase\FixedTimeStrategy.cs">
+      <Link>CrontabBase\FixedTimeStrategy.cs</Link>
     </Compile>
     <Compile Include="..\SD.Infrastructure\CrontabBase\ICrontab.cs">
       <Link>CrontabBase\ICrontab.cs</Link>
@@ -72,8 +87,8 @@
     <Compile Include="..\SD.Infrastructure\CrontabBase\ICrontabStore.cs">
       <Link>CrontabBase\ICrontabStore.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Infrastructure\CrontabBase\TimeSpanStrategy.cs">
-      <Link>CrontabBase\TimeSpanStrategy.cs</Link>
+    <Compile Include="..\SD.Infrastructure\CrontabBase\RecurrenceStrategy.cs">
+      <Link>CrontabBase\RecurrenceStrategy.cs</Link>
     </Compile>
     <Compile Include="..\SD.Infrastructure\MemberShip\LoginAuthorityInfo.cs">
       <Link>MemberShip\LoginAuthorityInfo.cs</Link>
@@ -84,11 +99,20 @@
     <Compile Include="..\SD.Infrastructure\MemberShip\LoginMenuInfo.cs">
       <Link>MemberShip\LoginMenuInfo.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Infrastructure\Constants\SessionKey.cs">
-      <Link>Constants\SessionKey.cs</Link>
+    <Compile Include="..\SD.Infrastructure\MessageBase\IMessage.cs">
+      <Link>MessageBase\IMessage.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Infrastructure\Constants\GlobalSetting.cs">
-      <Link>Constants\GlobalSetting.cs</Link>
+    <Compile Include="..\SD.Infrastructure\MessageBase\IMessageHub.cs">
+      <Link>MessageBase\IMessageHub.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\MessageBase\MessageExtension.cs">
+      <Link>MessageBase\MessageExtension.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\MessageBase\PermanentMessage.cs">
+      <Link>MessageBase\PermanentMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\MessageBase\TransientMessage.cs">
+      <Link>MessageBase\TransientMessage.cs</Link>
     </Compile>
     <Compile Include="..\SD.Infrastructure\CustomExceptions\NoPermissionException.cs">
       <Link>CustomExceptions\NoPermissionException.cs</Link>

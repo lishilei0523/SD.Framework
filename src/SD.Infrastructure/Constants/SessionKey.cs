@@ -13,21 +13,21 @@
         /// <summary>
         /// 当前登录用户Session键
         /// </summary>
-        public static string CurrentUser = "CurrentUser";
+        public const string CurrentUser = "CurrentUser";
 
         /// <summary>
         /// 当前公钥Session键
         /// </summary>
-        public static string CurrentPublishKey = "CurrentPublishKey";
+        public const string CurrentPublishKey = "CurrentPublishKey";
 
         /// <summary>
         /// 当前用户菜单树Session键
         /// </summary>
-        public static string CurrentMenuTree = "CurrentMenus";
+        public const string CurrentMenuTree = "CurrentMenus";
 
         /// <summary>
         /// 当前用户权限集Session键
         /// </summary>
-        public static string CurrentAuthorities = "CurrentAuthorities";
+        public const string CurrentAuthorities = "CurrentAuthorities";
     }
 }

@@ -342,9 +342,16 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         /// <returns>触发器</returns>
         private static ITrigger GetTrigger(ExecutionStrategy strategy)
         {
-            if (strategy is TimeSpanStrategy timeSpanStrategy)
+            if (strategy is FixedTimeStrategy fixedTimeStrategy)
             {
-                ITrigger trigger = TriggerBuilder.Create().WithSimpleSchedule(x => x.WithInterval(timeSpanStrategy.TimeSpan).RepeatForever()).Build();
+                string cronExpression = fixedTimeStrategy.TriggerTime.ToCronExpression();
+                ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(cronExpression).Build();
+
+                return trigger;
+            }
+            if (strategy is RecurrenceStrategy recurrenceStrategy)
+            {
+                ITrigger trigger = TriggerBuilder.Create().WithSimpleSchedule(x => x.WithInterval(recurrenceStrategy.RecurrenceTimeInterval).RepeatForever()).Build();
 
                 return trigger;
             }
