@@ -50,15 +50,22 @@
       <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Security" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Base\MessageHub.cs" />
+    <Compile Include="Configurations\HostElement.cs" />
+    <Compile Include="Configurations\HostElementCollection.cs" />
+    <Compile Include="Configurations\SignalSection.cs" />
+    <Compile Include="Modules\ExceptionModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config.transform" />
     <None Include="packages.config" />
+    <None Include="Web.config.transform" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SD.Infrastructure.NET46\SD.Infrastructure.NET46.csproj">
