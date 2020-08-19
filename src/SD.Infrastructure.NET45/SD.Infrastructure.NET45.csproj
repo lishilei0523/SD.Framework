@@ -69,6 +69,9 @@
     <Compile Include="..\SD.Infrastructure\CrontabBase\Crontab.cs">
       <Link>CrontabBase\Crontab.cs</Link>
     </Compile>
+    <Compile Include="..\SD.Infrastructure\CrontabBase\CrontabStatus.cs">
+      <Link>CrontabBase\CrontabStatus.cs</Link>
+    </Compile>
     <Compile Include="..\SD.Infrastructure\CrontabBase\ExecutionStrategy.cs">
       <Link>CrontabBase\ExecutionStrategy.cs</Link>
     </Compile>

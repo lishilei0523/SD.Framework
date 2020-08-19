@@ -63,9 +63,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         public void TestScheduleTimePoint()
         {
             //开始调度
-            string cronExpression = DateTime.Now.AddSeconds(2).ToCronExpression();
-            CronExpressionStrategy cronExpressionStrategy = new CronExpressionStrategy(cronExpression);
-            AlarmCrontab alarmCrontab = new AlarmCrontab("Hello World !", cronExpressionStrategy);
+            FixedTimeStrategy fixedTimeStrategy = new FixedTimeStrategy(DateTime.Now.AddSeconds(3));
+            AlarmCrontab alarmCrontab = new AlarmCrontab("Hello World !", fixedTimeStrategy);
 
             Assert.IsTrue(alarmCrontab.Count == 0);
             Assert.IsFalse(alarmCrontab.Rung);
@@ -227,14 +226,14 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         }
         #endregion
 
-        #region # 测试恢复全部任务 —— void TestResumeAllCrontabs()
+        #region # 测试异常恢复任务 —— void TestRecoverCrontabs()
         /// <summary>
-        /// 测试恢复全部任务
+        /// 测试异常恢复任务
         /// </summary>
         [TestMethod]
-        public void TestResumeAllCrontabs()
+        public void TestRecoverCrontabs()
         {
-            ScheduleMediator.ResumeAll();
+            ScheduleMediator.Recover();
 
             //线程睡眠
             Thread.Sleep(6000);

@@ -16,7 +16,7 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
         /// <param name="publicKey">公钥</param>
         public static void RegisterPublicKey(this HubConnection connection, Guid publicKey)
         {
-            connection.Headers.Add(SessionKey.CurrentPublishKey, publicKey.ToString());
+            connection.Headers.Add(SessionKey.CurrentPublicKey, publicKey.ToString());
         }
     }
 }

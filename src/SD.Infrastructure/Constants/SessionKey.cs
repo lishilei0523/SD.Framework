@@ -18,7 +18,7 @@
         /// <summary>
         /// 当前公钥Session键
         /// </summary>
-        public const string CurrentPublishKey = "CurrentPublishKey";
+        public const string CurrentPublicKey = "CurrentPublicKey";
 
         /// <summary>
         /// 当前用户菜单树Session键

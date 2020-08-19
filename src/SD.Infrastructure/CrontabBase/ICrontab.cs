@@ -21,6 +21,13 @@ namespace SD.Infrastructure.CrontabBase
         ExecutionStrategy ExecutionStrategy { get; }
         #endregion
 
+        #region 状态 —— CrontabStatus Status
+        /// <summary>
+        /// 状态
+        /// </summary>
+        CrontabStatus Status { get; set; }
+        #endregion
+
         #region 添加时间 —— DateTime AddedTime
         /// <summary>
         /// 添加时间

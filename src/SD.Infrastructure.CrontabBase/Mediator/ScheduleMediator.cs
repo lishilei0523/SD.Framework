@@ -4,6 +4,7 @@ using SD.Infrastructure.CrontabBase.Factories;
 using SD.IOC.Core.Mediators;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace SD.Infrastructure.CrontabBase.Mediator
 {
@@ -31,6 +32,25 @@ namespace SD.Infrastructure.CrontabBase.Mediator
 
 
         //Public
+
+        #region # 保存任务 —— static void Store(ICrontab crontab)
+        /// <summary>
+        /// 保存任务
+        /// </summary>
+        /// <param name="crontab">定时任务</param>
+        public static void Store(ICrontab crontab)
+        {
+            using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
+            {
+                if (crontabStore == null)
+                {
+                    throw new NotImplementedException("未注册持久化存储提供者！");
+                }
+
+                crontabStore.Store(crontab);
+            }
+        }
+        #endregion
 
         #region # 调度任务 —— static void Schedule(ICrontab crontab)
         /// <summary>
@@ -86,18 +106,19 @@ namespace SD.Infrastructure.CrontabBase.Mediator
             //保存任务
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
             {
+                crontab.Status = CrontabStatus.Scheduled;
                 crontabStore?.Store(crontab);
             }
         }
         #endregion
 
-        #region # 调度任务 —— static void Schedule<T>(T crontab)
+        #region # 调度任务 —— static void ScheduleGenerally<T>(T crontab)
         /// <summary>
         /// 调度任务
         /// </summary>
         /// <typeparam name="T">定时任务类型</typeparam>
         /// <param name="crontab">定时任务</param>
-        public static void Schedule<T>(T crontab) where T : class, ICrontab
+        public static void ScheduleGenerally<T>(T crontab) where T : class, ICrontab
         {
             #region # 验证
 
@@ -145,6 +166,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
             //保存任务
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
             {
+                crontab.Status = CrontabStatus.Scheduled;
                 crontabStore?.Store(crontab);
             }
         }
@@ -166,6 +188,17 @@ namespace SD.Infrastructure.CrontabBase.Mediator
             else
             {
                 throw new NullReferenceException($"Id为\"{crontabId}\"的任务不存在！");
+            }
+
+            //保存任务
+            using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
+            {
+                if (crontabStore != null)
+                {
+                    ICrontab crontab = crontabStore.Get<ICrontab>(crontabId);
+                    crontab.Status = CrontabStatus.Paused;
+                    crontabStore.Store(crontab);
+                }
             }
         }
         #endregion
@@ -199,6 +232,17 @@ namespace SD.Infrastructure.CrontabBase.Mediator
                             throw new NullReferenceException($"Id为\"{crontabId}\"的任务不存在！");
                         }
                     }
+                }
+            }
+
+            //保存任务
+            using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
+            {
+                if (crontabStore != null)
+                {
+                    ICrontab crontab = crontabStore.Get<ICrontab>(crontabId);
+                    crontab.Status = CrontabStatus.Scheduled;
+                    crontabStore.Store(crontab);
                 }
             }
         }
@@ -246,12 +290,12 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         }
         #endregion
 
-        #region # 恢复全部任务 —— static void ResumeAll()
+        #region # 异常恢复 —— static void Recover()
         /// <summary>
-        /// 恢复全部任务
+        /// 异常恢复
         /// </summary>
         /// <remarks>需要CrontabStore持久化支持</remarks>
-        public static void ResumeAll()
+        public static void Recover()
         {
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
             {
@@ -261,8 +305,9 @@ namespace SD.Infrastructure.CrontabBase.Mediator
                 }
 
                 IList<ICrontab> crontabs = crontabStore.FindAll();
+                IEnumerable<ICrontab> scheduledCrontabs = crontabs.Where(x => x.Status == CrontabStatus.Scheduled);
 
-                foreach (ICrontab crontab in crontabs)
+                foreach (ICrontab crontab in scheduledCrontabs)
                 {
                     ScheduleMediator.Schedule(crontab);
                 }

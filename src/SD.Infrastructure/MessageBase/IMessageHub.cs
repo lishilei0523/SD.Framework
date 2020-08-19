@@ -6,10 +6,12 @@
     /// <typeparam name="T">消息类型</typeparam>
     public interface IMessageHub<in T> where T : IMessage
     {
+        #region # 交换消息 —— void Exchange(T message)
         /// <summary>
         /// 交换消息
         /// </summary>
         /// <param name="message">消息</param>
         void Exchange(T message);
+        #endregion
     }
 }

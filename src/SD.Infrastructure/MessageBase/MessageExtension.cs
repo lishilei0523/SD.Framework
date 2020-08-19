@@ -7,6 +7,7 @@ namespace SD.Infrastructure.MessageBase
     /// </summary>
     public static class MessageExtension
     {
+        #region # 获取Hub名称 —— static string GetHubName<T>()
         /// <summary>
         /// 获取Hub名称
         /// </summary>
@@ -22,5 +23,6 @@ namespace SD.Infrastructure.MessageBase
 
             return hubName;
         }
+        #endregion
     }
 }
