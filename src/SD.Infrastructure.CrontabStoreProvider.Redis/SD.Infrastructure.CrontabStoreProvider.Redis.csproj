@@ -5,7 +5,7 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>基础设施 - 定时任务基础 - Redis存储提供者</Description>
-    <Copyright>Copyright © SD 2019</Copyright>
+    <Copyright>Copyright © SD 2020</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
-    <PackageReference Include="SD.Toolkits.Redis" Version="2.0.1" />
+    <PackageReference Include="SD.Toolkits.Redis" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
