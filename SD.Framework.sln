@@ -9,15 +9,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 - UnitTests", "06 - Unit
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "07 - IntegrationTests", "07 - IntegrationTests", "{30953907-39FD-4F6F-933A-4F418FA1E03A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00 - Documentations", "00 - Documentations", "{C6AD4D54-74CC-4D0E-8310-5321A041CA3B}"
-	ProjectSection(SolutionItems) = preProject
-		README.md = README.md
-		docs\基于此框架的项目架构图.vsd = docs\基于此框架的项目架构图.vsd
-		docs\基于此框架的项目架构图.vsdx = docs\基于此框架的项目架构图.vsdx
-		docs\开发规范.doc = docs\开发规范.doc
-		docs\解决方案模板使用说明.doc = docs\解决方案模板使用说明.doc
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.EntityFramework", "src\SD.Infrastructure.Repository.EntityFramework\SD.Infrastructure.Repository.EntityFramework.csproj", "{972CFDBB-1E0F-43CD-987A-458E9D1543B8}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WCF.Server", "src\SD.Infrastructure.WCF.Server\SD.Infrastructure.WCF.Server.csproj", "{9A78B517-AD18-4BC7-B687-4DC245F4DB57}"
