@@ -180,15 +180,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure.CrontabBase\SD.Infrastructure.CrontabBase.csproj">
+    <ProjectReference Include="..\SD.Infrastructure.CrontabBase\SD.Infrastructure.CrontabBase.csproj">
       <Project>{7e5036cf-a00d-40f8-bb47-795688e02b2d}</Project>
       <Name>SD.Infrastructure.CrontabBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure.CrontabStoreProvider.Redis\SD.Infrastructure.CrontabStoreProvider.Redis.csproj">
+    <ProjectReference Include="..\SD.Infrastructure.CrontabStoreProvider.Redis\SD.Infrastructure.CrontabStoreProvider.Redis.csproj">
       <Project>{1405d1b2-5bee-4213-b6ea-d3d34f47f73e}</Project>
       <Name>SD.Infrastructure.CrontabStoreProvider.Redis</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure\SD.Infrastructure.csproj">
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj">
       <Project>{77b51895-dc26-4ee1-87c9-f5d0171fad5a}</Project>
       <Name>SD.Infrastructure</Name>
     </ProjectReference>

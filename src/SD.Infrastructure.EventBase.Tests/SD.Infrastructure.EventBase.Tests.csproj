@@ -148,19 +148,19 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj">
+    <ProjectReference Include="..\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj">
       <Project>{f04a5dab-4e7c-43e5-bebb-09300757f273}</Project>
       <Name>SD.Infrastructure.EventBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure.EventStoreProvider.Redis\SD.Infrastructure.EventStoreProvider.Redis.csproj">
+    <ProjectReference Include="..\SD.Infrastructure.EventStoreProvider.Redis\SD.Infrastructure.EventStoreProvider.Redis.csproj">
       <Project>{33d9927c-7a43-4ff5-b9e2-99b66ead6651}</Project>
       <Name>SD.Infrastructure.EventStoreProvider.Redis</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj">
+    <ProjectReference Include="..\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj">
       <Project>{94fface5-5f2a-49db-ad7e-aa7c724cdcb3}</Project>
       <Name>SD.Infrastructure.Global</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\src\SD.Infrastructure\SD.Infrastructure.csproj">
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj">
       <Project>{77b51895-dc26-4ee1-87c9-f5d0171fad5a}</Project>
       <Name>SD.Infrastructure</Name>
     </ProjectReference>
