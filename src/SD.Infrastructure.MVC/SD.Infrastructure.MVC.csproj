@@ -76,9 +76,9 @@
     <None Include="App.config.transform" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Infrastructure.NET45\SD.Infrastructure.NET45.csproj">
-      <Project>{f9ff05f0-1900-4d24-859a-b3202f2208d7}</Project>
-      <Name>SD.Infrastructure.NET45</Name>
+    <ProjectReference Include="..\SD.Infrastructure.NET46\SD.Infrastructure.NET46.csproj">
+      <Project>{9f7aa219-1c9e-4591-8b54-07a0e69e0e42}</Project>
+      <Name>SD.Infrastructure.NET46</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
