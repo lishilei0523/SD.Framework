@@ -85,12 +85,13 @@ namespace SD.Infrastructure.SignalR.Client.Mediators
 
         #region # 方法
 
-        #region 初始化Hub连接 —— static void InitHubConnection(string url)
+        #region 初始化Hub连接 —— static HubConnection InitHubConnection(string url)
         /// <summary>
         /// 初始化Hub连接
         /// </summary>
         /// <param name="url">连接地址</param>
-        public static void InitHubConnection(string url)
+        /// <returns>Hub连接</returns>
+        public static HubConnection InitHubConnection(string url)
         {
             #region # 验证
 
@@ -102,6 +103,8 @@ namespace SD.Infrastructure.SignalR.Client.Mediators
             #endregion
 
             _HubConnection = new HubConnection(url);
+
+            return _HubConnection;
         }
         #endregion
 
@@ -179,12 +182,11 @@ namespace SD.Infrastructure.SignalR.Client.Mediators
         }
         #endregion
 
-        #region 构建Hub连接 —— static HubConnection BuildHubConnection()
+        #region 构建Hub连接 —— static void BuildHubConnection()
         /// <summary>
         /// 构建Hub连接
         /// </summary>
-        /// <returns></returns>
-        public static HubConnection BuildHubConnection()
+        public static void BuildHubConnection()
         {
             #region # 验证
 
@@ -197,8 +199,6 @@ namespace SD.Infrastructure.SignalR.Client.Mediators
 
             _HubConnection.Start().Wait();
             _HubConnectionBuilt = true;
-
-            return _HubConnection;
         }
         #endregion
 
