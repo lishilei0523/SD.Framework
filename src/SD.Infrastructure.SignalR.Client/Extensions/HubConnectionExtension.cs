@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.SignalR.Client;
 using SD.Infrastructure.Constants;
 using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace SD.Infrastructure.SignalR.Client.Extensions
 {
@@ -9,6 +11,30 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
     /// </summary>
     public static class HubConnectionExtension
     {
+        #region # 常量、字段及构造器
+
+        /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync;
+
+        /// <summary>
+        /// 异常日志路径
+        /// </summary>
+        private static readonly string _ExceptionLogPath;
+
+        /// <summary>
+        /// 静态构造器
+        /// </summary>
+        static HubConnectionExtension()
+        {
+            _ExceptionLogPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\MessageClient.ExceptionLogs\\{{0:yyyy-MM-dd}}.txt";
+            _Sync = new object();
+        }
+
+        #endregion
+
+        #region # 注册公钥 —— static void RegisterPublicKey(this HubConnection connection...
         /// <summary>
         /// 注册公钥
         /// </summary>
@@ -18,5 +44,82 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
         {
             connection.Headers.Add(SessionKey.CurrentPublicKey, publicKey.ToString());
         }
+        #endregion
+
+        #region # 注册异常处理者 —— static void RegisterExceptionHandler(this HubConnection...
+        /// <summary>
+        /// 注册异常处理者
+        /// </summary>
+        /// <param name="connection">Hub连接</param>
+        /// <param name="exceptionHandler">异常处理者</param>
+        public static void RegisterExceptionHandler(this HubConnection connection, Action<Exception> exceptionHandler = null)
+        {
+            if (exceptionHandler == null)
+            {
+                connection.Error += exception =>
+                {
+                    Task.Run(() =>
+                    {
+                        WriteFile(string.Format(_ExceptionLogPath, DateTime.Today),
+                            "======================ASP.NET SignalR运行异常, 详细信息如下======================"
+                            + Environment.NewLine + "［连接Id］" + connection.ConnectionId
+                            + Environment.NewLine + "［连接URL］" + connection.Url
+                            + Environment.NewLine + "［连接状态］" + connection.State
+                            + Environment.NewLine + "［异常时间］" + DateTime.Now
+                            + Environment.NewLine + "［异常消息］" + exception.Message
+                            + Environment.NewLine + "［异常明细］" + exception
+                            + Environment.NewLine + "［内部异常］" + exception.InnerException
+                            + Environment.NewLine + "［堆栈信息］" + exception.StackTrace
+                            + Environment.NewLine + Environment.NewLine);
+                    });
+                };
+            }
+            else
+            {
+                connection.Error += exceptionHandler;
+            }
+        }
+        #endregion
+
+
+        //Private 
+
+        #region # 写入文件方法 —— static void WriteFile(string path, string content)
+        /// <summary>
+        /// 写入文件方法
+        /// </summary>
+        /// <param name="path">路径</param>
+        /// <param name="content">内容</param>
+        private static void WriteFile(string path, string content)
+        {
+            lock (_Sync)
+            {
+                FileInfo file = new FileInfo(path);
+                StreamWriter writer = null;
+
+                try
+                {
+                    //获取文件目录并判断是否存在
+                    string directory = Path.GetDirectoryName(path);
+
+                    if (string.IsNullOrEmpty(directory))
+                    {
+                        throw new ArgumentNullException(nameof(path), "目录不可为空！");
+                    }
+                    if (!Directory.Exists(directory))
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+
+                    writer = file.AppendText();
+                    writer.Write(content);
+                }
+                finally
+                {
+                    writer?.Dispose();
+                }
+            }
+        }
+        #endregion
     }
 }
