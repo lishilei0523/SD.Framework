@@ -46,6 +46,43 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
         }
         #endregion
 
+        #region # 注册状态变更处理者 —— static void RegisterStateChangedHandler(this HubConnection...
+        /// <summary>
+        /// 注册状态变更处理者
+        /// </summary>
+        /// <param name="connection">Hub连接</param>
+        /// <param name="stateChangedHandler">状态变更处理者</param>
+        public static void RegisterStateChangedHandler(this HubConnection connection, Action<StateChange> stateChangedHandler = null)
+        {
+            if (stateChangedHandler == null)
+            {
+                connection.StateChanged += state =>
+                {
+                    Task.Run(() =>
+                    {
+                        WriteFile(string.Format(_ExceptionLogPath, DateTime.Today),
+                            "======================ASP.NET SignalR 运行状态变更, 详细信息如下======================"
+                            + Environment.NewLine + "［连接Id］" + connection.ConnectionId
+                            + Environment.NewLine + "［连接URL］" + connection.Url
+                            + Environment.NewLine + "［原状态］" + state.OldState
+                            + Environment.NewLine + "［新状态］" + state.NewState
+                            + Environment.NewLine + "［变更时间］" + DateTime.Now
+                            + Environment.NewLine + Environment.NewLine);
+                    });
+
+                    if (state.NewState == ConnectionState.Disconnected)
+                    {
+                        connection.Start().Wait();
+                    }
+                };
+            }
+            else
+            {
+                connection.StateChanged += stateChangedHandler;
+            }
+        }
+        #endregion
+
         #region # 注册异常处理者 —— static void RegisterExceptionHandler(this HubConnection...
         /// <summary>
         /// 注册异常处理者
@@ -61,7 +98,7 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
                     Task.Run(() =>
                     {
                         WriteFile(string.Format(_ExceptionLogPath, DateTime.Today),
-                            "======================ASP.NET SignalR运行异常, 详细信息如下======================"
+                            "======================ASP.NET SignalR 运行异常, 详细信息如下======================"
                             + Environment.NewLine + "［连接Id］" + connection.ConnectionId
                             + Environment.NewLine + "［连接URL］" + connection.Url
                             + Environment.NewLine + "［连接状态］" + connection.State
