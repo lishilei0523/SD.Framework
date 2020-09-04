@@ -2,6 +2,7 @@
 using SD.Infrastructure.Constants;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace SD.Infrastructure.SignalR.Client.Extensions
@@ -19,16 +20,16 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
         private static readonly object _Sync;
 
         /// <summary>
-        /// 异常日志路径
+        /// 日志路径
         /// </summary>
-        private static readonly string _ExceptionLogPath;
+        private static readonly string _LogPath;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
         static HubConnectionExtension()
         {
-            _ExceptionLogPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\MessageClient.ExceptionLogs\\{{0:yyyy-MM-dd}}.txt";
+            _LogPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\SignalR.Logs\\{{0:yyyy-MM-dd}}.txt";
             _Sync = new object();
         }
 
@@ -46,75 +47,69 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
         }
         #endregion
 
-        #region # 注册状态变更处理者 —— static void RegisterStateChangedHandler(this HubConnection...
-        /// <summary>
-        /// 注册状态变更处理者
-        /// </summary>
-        /// <param name="connection">Hub连接</param>
-        /// <param name="stateChangedHandler">状态变更处理者</param>
-        public static void RegisterStateChangedHandler(this HubConnection connection, Action<StateChange> stateChangedHandler = null)
-        {
-            if (stateChangedHandler == null)
-            {
-                connection.StateChanged += state =>
-                {
-                    Task.Run(() =>
-                    {
-                        WriteFile(string.Format(_ExceptionLogPath, DateTime.Today),
-                            "======================ASP.NET SignalR 运行状态变更, 详细信息如下======================"
-                            + Environment.NewLine + "［连接Id］" + connection.ConnectionId
-                            + Environment.NewLine + "［连接URL］" + connection.Url
-                            + Environment.NewLine + "［原状态］" + state.OldState
-                            + Environment.NewLine + "［新状态］" + state.NewState
-                            + Environment.NewLine + "［变更时间］" + DateTime.Now
-                            + Environment.NewLine + Environment.NewLine);
-                    });
-
-                    if (state.NewState == ConnectionState.Disconnected)
-                    {
-                        connection.Start().Wait();
-                    }
-                };
-            }
-            else
-            {
-                connection.StateChanged += stateChangedHandler;
-            }
-        }
-        #endregion
-
         #region # 注册异常处理者 —— static void RegisterExceptionHandler(this HubConnection...
         /// <summary>
         /// 注册异常处理者
         /// </summary>
         /// <param name="connection">Hub连接</param>
-        /// <param name="exceptionHandler">异常处理者</param>
-        public static void RegisterExceptionHandler(this HubConnection connection, Action<Exception> exceptionHandler = null)
+        public static void RegisterExceptionHandler(this HubConnection connection)
         {
-            if (exceptionHandler == null)
+            connection.Error += exception =>
             {
-                connection.Error += exception =>
+                Task.Run(() =>
                 {
-                    Task.Run(() =>
-                    {
-                        WriteFile(string.Format(_ExceptionLogPath, DateTime.Today),
-                            "======================ASP.NET SignalR 运行异常, 详细信息如下======================"
-                            + Environment.NewLine + "［连接Id］" + connection.ConnectionId
-                            + Environment.NewLine + "［连接URL］" + connection.Url
-                            + Environment.NewLine + "［连接状态］" + connection.State
-                            + Environment.NewLine + "［异常时间］" + DateTime.Now
-                            + Environment.NewLine + "［异常消息］" + exception.Message
-                            + Environment.NewLine + "［异常明细］" + exception
-                            + Environment.NewLine + "［内部异常］" + exception.InnerException
-                            + Environment.NewLine + "［堆栈信息］" + exception.StackTrace
-                            + Environment.NewLine + Environment.NewLine);
-                    });
-                };
-            }
-            else
+                    WriteFile(string.Format(_LogPath, DateTime.Today),
+                        "----------------------ASP.NET SignalR 运行异常----------------------"
+                        + Environment.NewLine + "［连接Id］" + connection.ConnectionId
+                        + Environment.NewLine + "［连接URL］" + connection.Url
+                        + Environment.NewLine + "［连接状态］" + connection.State
+                        + Environment.NewLine + "［异常时间］" + DateTime.Now
+                        + Environment.NewLine + "［异常消息］" + exception.Message
+                        + Environment.NewLine + "［异常明细］" + exception
+                        + Environment.NewLine + "［内部异常］" + exception.InnerException
+                        + Environment.NewLine + "［堆栈信息］" + exception.StackTrace
+                        + Environment.NewLine + Environment.NewLine);
+                });
+            };
+        }
+        #endregion
+
+        #region # 注册保持断线重连 —— static void RegisterKeepReconnecting(this HubConnection...
+        /// <summary>
+        /// 注册保持断线重连
+        /// </summary>
+        /// <param name="connection">Hub连接</param>
+        public static void RegisterKeepReconnecting(this HubConnection connection)
+        {
+            connection.Closed += () =>
             {
-                connection.Error += exceptionHandler;
-            }
+                Thread.Sleep(5000);
+                connection.Start().Wait(new TimeSpan(0, 0, 0, 5));
+            };
+        }
+        #endregion
+
+        #region # 注册状态变更处理者 —— static void RegisterStateChangedHandler(this HubConnection...
+        /// <summary>
+        /// 注册状态变更处理者
+        /// </summary>
+        /// <param name="connection">Hub连接</param>
+        public static void RegisterStateChangedHandler(this HubConnection connection)
+        {
+            connection.StateChanged += stateChange =>
+            {
+                Task.Run(() =>
+                {
+                    WriteFile(string.Format(_LogPath, DateTime.Today),
+                        "----------------------ASP.NET SignalR 状态变更----------------------"
+                        + Environment.NewLine + "［连接Id］" + connection.ConnectionId
+                        + Environment.NewLine + "［连接URL］" + connection.Url
+                        + Environment.NewLine + "［旧状态］" + stateChange.OldState
+                        + Environment.NewLine + "［新状态］" + stateChange.NewState
+                        + Environment.NewLine + "［变更时间］" + DateTime.Now
+                        + Environment.NewLine + Environment.NewLine);
+                });
+            };
         }
         #endregion
 

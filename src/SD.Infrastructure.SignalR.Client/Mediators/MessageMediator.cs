@@ -210,9 +210,27 @@ namespace SD.Infrastructure.SignalR.Client.Mediators
         /// <param name="message">消息</param>
         public static void Send<T>(T message) where T : IMessage
         {
-            string hubName = MessageExtension.GetHubName<T>();
-            IHubProxy proxy = _SenderProxies[hubName];
+            #region # 验证
 
+            if (!_HubConnectionBuilt)
+            {
+                throw new InvalidOperationException("Hub连接未构建，不可发送消息！");
+            }
+
+            #endregion
+
+            string hubName = MessageExtension.GetHubName<T>();
+
+            #region # 验证
+
+            if (!_SenderProxies.ContainsKey(hubName))
+            {
+                throw new InvalidOperationException($"要发送的消息类型\"{typeof(T).Name}\"未注册！");
+            }
+
+            #endregion
+
+            IHubProxy proxy = _SenderProxies[hubName];
             proxy.Invoke(CommonConstants.ExchangeMethodName, message).Wait();
 
             //消息已发送事件
@@ -228,9 +246,27 @@ namespace SD.Infrastructure.SignalR.Client.Mediators
         /// <param name="message">消息</param>
         public static async Task SendAsync<T>(T message) where T : IMessage
         {
-            string hubName = MessageExtension.GetHubName<T>();
-            IHubProxy proxy = _SenderProxies[hubName];
+            #region # 验证
 
+            if (!_HubConnectionBuilt)
+            {
+                throw new InvalidOperationException("Hub连接未构建，不可发送消息！");
+            }
+
+            #endregion
+
+            string hubName = MessageExtension.GetHubName<T>();
+
+            #region # 验证
+
+            if (!_SenderProxies.ContainsKey(hubName))
+            {
+                throw new InvalidOperationException($"要发送的消息类型\"{typeof(T).Name}\"未注册！");
+            }
+
+            #endregion
+
+            IHubProxy proxy = _SenderProxies[hubName];
             await proxy.Invoke(CommonConstants.ExchangeMethodName, message);
 
             //消息已发送事件
@@ -246,9 +282,27 @@ namespace SD.Infrastructure.SignalR.Client.Mediators
         /// <param name="onReceive">消息接收事件</param>
         public static void Receive<T>(Action<T> onReceive) where T : IMessage
         {
-            string hubName = MessageExtension.GetHubName<T>();
-            IHubProxy proxy = _ReceiverProxies[hubName];
+            #region # 验证
 
+            if (!_HubConnectionBuilt)
+            {
+                throw new InvalidOperationException("Hub连接未构建，不可接收消息！");
+            }
+
+            #endregion
+
+            string hubName = MessageExtension.GetHubName<T>();
+
+            #region # 验证
+
+            if (!_ReceiverProxies.ContainsKey(hubName))
+            {
+                throw new InvalidOperationException($"要接收的消息类型\"{typeof(T).Name}\"未注册！");
+            }
+
+            #endregion
+
+            IHubProxy proxy = _ReceiverProxies[hubName];
             proxy.On<T>(CommonConstants.ExchangeMethodName, onReceive);
         }
         #endregion 

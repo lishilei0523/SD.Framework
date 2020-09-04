@@ -27,7 +27,7 @@ namespace SD.Infrastructure.SignalR.Server.Modules
         /// </summary>
         static ExceptionModule()
         {
-            _ExceptionLogPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\MessageService.ExceptionLogs\\{{0:yyyy-MM-dd}}.txt";
+            _ExceptionLogPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\SignalR.Logs\\{{0:yyyy-MM-dd}}.txt";
             _Sync = new object();
         }
 
@@ -43,7 +43,7 @@ namespace SD.Infrastructure.SignalR.Server.Modules
             Task.Run(() =>
             {
                 WriteFile(string.Format(_ExceptionLogPath, DateTime.Today),
-                    "======================ASP.NET SignalR运行异常, 详细信息如下======================"
+                    "----------------------ASP.NET SignalR 运行异常----------------------"
                     + Environment.NewLine + "［当前Hub］" + invokerContext.Hub.GetType().FullName
                     + Environment.NewLine + "［连接Id］" + invokerContext.Hub.Context.ConnectionId
                     + Environment.NewLine + "［异常时间］" + DateTime.Now
@@ -57,6 +57,9 @@ namespace SD.Infrastructure.SignalR.Server.Modules
             base.OnIncomingError(exceptionContext, invokerContext);
         }
         #endregion
+
+
+        //Private
 
         #region # 写入文件方法 —— static void WriteFile(string path, string content)
         /// <summary>
