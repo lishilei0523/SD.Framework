@@ -45,6 +45,7 @@
     <Reference Include="System.Net.Http.WebRequest" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Builders\HubConnectionBuilder.cs" />
     <Compile Include="Extensions\HubConnectionExtension.cs" />
     <Compile Include="Mediators\MessageMediator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -58,5 +59,6 @@
       <Name>SD.Infrastructure.NET46</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

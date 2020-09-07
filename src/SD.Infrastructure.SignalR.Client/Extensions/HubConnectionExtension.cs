@@ -79,12 +79,24 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
         /// 注册保持断线重连
         /// </summary>
         /// <param name="connection">Hub连接</param>
-        public static void RegisterKeepReconnecting(this HubConnection connection)
+        /// <param name="delay">延迟时间（单位：毫秒）</param>
+        /// <param name="timeout">超时时间（单位：毫秒）</param>
+        public static void RegisterKeepReconnecting(this HubConnection connection, int delay = 5000, int timeout = 5000)
         {
             connection.Closed += () =>
             {
-                Thread.Sleep(5000);
-                connection.Start().Wait(new TimeSpan(0, 0, 0, 5));
+                if (delay != 0)
+                {
+                    Thread.Sleep(delay);
+                }
+                if (timeout != 0)
+                {
+                    connection.Start().Wait(timeout);
+                }
+                else
+                {
+                    connection.Start().Wait();
+                }
             };
         }
         #endregion
