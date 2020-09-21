@@ -1,7 +1,7 @@
 ﻿using ArxOne.MrAdvice.Advice;
 using SD.AOP.Core.Aspects.ForAny;
-using SD.AOP.Core.Toolkits;
 using SD.Infrastructure.CustomExceptions;
+using SD.Toolkits.Json;
 using System;
 
 namespace SD.Infrastructure.AOP.Aspects.ForAny
@@ -13,7 +13,9 @@ namespace SD.Infrastructure.AOP.Aspects.ForAny
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
     public sealed class AppServiceExceptionAspect : ExceptionAspect
     {
-        /// <summary>发生异常事件</summary>
+        /// <summary>
+        /// 发生异常事件
+        /// </summary>
         /// <param name="context">方法元数据</param>
         /// <param name="exception">异常实例</param>
         protected override void OnException(MethodAdviceContext context, Exception exception)

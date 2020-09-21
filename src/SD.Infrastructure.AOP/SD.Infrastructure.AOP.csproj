@@ -18,7 +18,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.AOP.Core" Version="2.0.3" />
+    <PackageReference Include="SD.AOP.Core" Version="2.0.6" />
+    <PackageReference Include="SD.Toolkits.Json" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
