@@ -1,0 +1,15 @@
+﻿<configuration>
+  <configSections>
+    <!--WebApi服务器配置节点-->
+    <section name="webApiConfiguration" type="SD.Infrastructure.WebApi.WebApiSection, SD.Infrastructure.WebApi.SelfHost.Server" />
+  </configSections>
+
+  <!--WebApi服务器配置-->
+  <webApiConfiguration authorized="true">
+    <!--Host地址列表-->
+    <hosts>
+      <host url="http://localhost:33101" />
+      <host url="http://192.168.0.146:33101" />
+    </hosts>
+  </webApiConfiguration>
+</configuration>

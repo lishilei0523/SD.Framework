@@ -1,9 +1,8 @@
 using SD.Infrastructure.Global;
-using SD.IOC.Integration.WebApi;
 using System;
 using System.Web;
 
-namespace SD.Infrastructure.WebApi.Server
+namespace SD.Infrastructure.WebApi.WebHost.Server
 {
     /// <summary>
     /// 初始化HttpModule
@@ -28,23 +27,23 @@ namespace SD.Infrastructure.WebApi.Server
             Initializer.InitDataBase();
 
             //注册事件
-            WebApiDependencyResolver.OnGetInstance += this.WebApiDependencyResolver_OnGetInstance;
-            WebApiDependencyResolver.OnReleaseInstance += this.WebApiDependencyResolver_OnReleaseInstance;
+            context.BeginRequest += OnBeginRequest;
+            context.EndRequest += OnEndRequest;
         }
 
         /// <summary>
-        /// 获取服务实例事件
+        /// 请求开始事件
         /// </summary>
-        private void WebApiDependencyResolver_OnGetInstance()
+        private void OnBeginRequest(object sender, EventArgs e)
         {
             //初始化SessionId
             Initializer.InitSessionId();
         }
 
         /// <summary>
-        /// 销毁服务实例事件
+        /// 请求结束事件
         /// </summary>
-        private void WebApiDependencyResolver_OnReleaseInstance()
+        private void OnEndRequest(object sender, EventArgs e)
         {
             //清理数据库
             Finalizer.CleanDb();

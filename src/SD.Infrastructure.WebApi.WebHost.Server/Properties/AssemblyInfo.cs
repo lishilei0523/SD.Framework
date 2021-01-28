@@ -1,4 +1,4 @@
-﻿using SD.Infrastructure.WebApi.Server;
+﻿using SD.Infrastructure.WebApi.WebHost.Server;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Web;
@@ -6,12 +6,12 @@ using System.Web;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("SD.Infrastructure.WebApi.Server")]
-[assembly: AssemblyDescription("基础设施 - WebApi服务端基础")]
+[assembly: AssemblyTitle("SD.Infrastructure.WebApi.WebHost.Server")]
+[assembly: AssemblyDescription("基础设施 - ASP.NET WebApi WebHost服务端基础")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SD")]
-[assembly: AssemblyProduct("SD.Infrastructure.WebApi.Server")]
-[assembly: AssemblyCopyright("Copyright © SD 2018")]
+[assembly: AssemblyProduct("SD.Infrastructure.WebApi.WebHost.Server")]
+[assembly: AssemblyCopyright("Copyright © SD 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

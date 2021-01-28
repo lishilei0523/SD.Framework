@@ -1,7 +1,7 @@
 ﻿using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using System.ComponentModel;
 
-namespace SD.Infrastructure.WebApi.Server
+namespace SD.Infrastructure.WebApi.WebHost.Server
 {
     /// <summary>
     /// WebApi应用程序初始化
@@ -19,9 +19,9 @@ namespace SD.Infrastructure.WebApi.Server
         /// </summary>
         public static void Initialize()
         {
-            if (!_InitWasCalled)
+            if (!PreAppStart._InitWasCalled)
             {
-                _InitWasCalled = true;
+                PreAppStart._InitWasCalled = true;
                 DynamicModuleUtility.RegisterModule(typeof(InitializationHttpModule));
             }
         }
