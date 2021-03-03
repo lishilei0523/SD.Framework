@@ -25,6 +25,11 @@ namespace SD.Infrastructure.Workflow.Base
         private const string WorkflowPersistenceConnectionStringAppSettingKey = "WorkflowPersistenceConnection";
 
         /// <summary>
+        /// 最大实例锁定重试次数AppSetting键
+        /// </summary>
+        private const string MaxInstanceLockedRetriesCountAppSettingKey = "MaxInstanceLockedRetriesCount";
+
+        /// <summary>
         /// 同步锁
         /// </summary>
         private static readonly object _Sync = new object();
@@ -38,6 +43,17 @@ namespace SD.Infrastructure.Workflow.Base
         /// 工作流持久化数据库连接字符串
         /// </summary>
         private static readonly string _WorkflowPersistenceConnectionString;
+
+        /// <summary>
+        /// 最大实例锁定重试次数
+        /// </summary>
+        private static readonly int _MaxInstanceLockedRetriesCount;
+
+        /// <summary>
+        /// 实例锁定重试次数
+        /// </summary>
+        [ThreadStatic]
+        private static int _InstanceLockedRetriesCount;
 
         /// <summary>
         /// 工作流实例书签卸载事件
@@ -97,6 +113,14 @@ namespace SD.Infrastructure.Workflow.Base
             #endregion
 
             _WorkflowPersistenceConnectionString = connectionString;
+
+            //初始化最大实例锁定重试次数
+            string maxInstanceLockedRetriesCountStr = ConfigurationManager.AppSettings[MaxInstanceLockedRetriesCountAppSettingKey];
+            if (!int.TryParse(maxInstanceLockedRetriesCountStr, out _MaxInstanceLockedRetriesCount))
+            {
+                //默认20次
+                _MaxInstanceLockedRetriesCount = 20;
+            }
         }
 
         /// <summary>
@@ -304,10 +328,19 @@ namespace SD.Infrastructure.Workflow.Base
 
                 return proxy;
             }
-            catch (InstanceLockedException)
+            catch (InstanceLockedException exception)
             {
                 Thread.Sleep(200);
-                return ResumeWorkflowApplicationFromBookmark(activity, workflowInstanceId, bookmarkName, parameters, definitionIdentity);
+                _InstanceLockedRetriesCount++;
+
+                if (_InstanceLockedRetriesCount >= _MaxInstanceLockedRetriesCount)
+                {
+                    _InstanceLockedRetriesCount = 0;
+                    throw new InstanceLockedException($"工作流实例\"{workflowInstanceId}\"已锁定，无法恢复！", exception);
+                }
+
+                return ResumeWorkflowApplicationFromBookmark(activity, workflowInstanceId, bookmarkName, parameters,
+                    definitionIdentity);
             }
             catch (InstancePersistenceCommandException exception)
             {
