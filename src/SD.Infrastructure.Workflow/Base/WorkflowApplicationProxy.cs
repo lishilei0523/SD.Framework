@@ -339,8 +339,7 @@ namespace SD.Infrastructure.Workflow.Base
                     throw new InstanceLockedException($"工作流实例\"{workflowInstanceId}\"已锁定，无法恢复！", exception);
                 }
 
-                return ResumeWorkflowApplicationFromBookmark(activity, workflowInstanceId, bookmarkName, parameters,
-                    definitionIdentity);
+                return ResumeWorkflowApplicationFromBookmark(activity, workflowInstanceId, bookmarkName, parameters, definitionIdentity);
             }
             catch (InstancePersistenceCommandException exception)
             {
