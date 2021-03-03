@@ -6,11 +6,11 @@
 	
         基于个人长期使用的经验，遵循面向对象的设计原则，不断从业务项目中提取，逐渐演变为该框架；
 
-        框架中主要涉及泛型、反射、委托、事件、特性、Lambda表达式、EntityFramework、WCF行为扩展、ASP.NET HttpModule等.NET技术；
+        框架中主要涉及泛型、反射、委托、事件、特性、Lambda表达式、EntityFramework、WCF行为扩展、WF书签、ASP.NET HttpModule、OWIN Middleware等.NET技术；
 
         涉及Newtonsoft.Json、MrAdvice、Redis等第三方技术；
 
-        涉及Factory、Mediator、Adapter、Provider、Facade、、规约、层超类型等模式；
+        涉及Factory、Mediator、Adapter、Provider、Facade、规约、层超类型等模式；
 
 
 ### 技术交流群：[558010476](//shang.qq.com/wpa/qunwpa?idkey=22cd396d1b7d25fb7632c45c4e40c95ffe2bfa6e48b47a18b7b31c5d4c8d1065)
