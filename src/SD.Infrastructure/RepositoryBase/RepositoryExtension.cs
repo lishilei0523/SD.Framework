@@ -24,7 +24,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="pageSize">页容量</param>
         /// <param name="rowCount">总记录条数</param>
         /// <param name="pageCount">总页数</param>
-        /// <returns>对象集合</returns>
+        /// <returns>对象列表</returns>
         public static IEnumerable<T> ToPage<T>(this IOrderedEnumerable<T> enumerable, int pageIndex, int pageSize, out int rowCount, out int pageCount)
             where T : PlainEntity
         {
@@ -45,7 +45,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="pageSize">页容量</param>
         /// <param name="rowCount">总记录条数</param>
         /// <param name="pageCount">总页数</param>
-        /// <returns>对象集合</returns>
+        /// <returns>对象列表</returns>
         public static IQueryable<T> ToPage<T>(this IOrderedQueryable<T> queryable, int pageIndex, int pageSize, out int rowCount, out int pageCount)
             where T : PlainEntity
         {
@@ -114,12 +114,22 @@ namespace SD.Infrastructure.RepositoryBase
         private static void BuildFilterExpressionRecursively(Type type, Expression propertyProvider, HashSet<Expression> expressions)
         {
             //加载所有导航属性
-            Func<PropertyInfo, bool> navPropertySelector =
-                x =>
-                    x.CanWrite &&
-                    x.GetGetMethod() != null &&
-                    x.GetGetMethod().IsVirtual &&
-                    x.PropertyType.IsSubclassOf(typeof(PlainEntity));
+            Func<PropertyInfo, bool> navPropertySelector = typ =>
+            {
+                MethodInfo getMethod = typ.GetGetMethod(false) == null ? typ.GetGetMethod(true) : typ.GetGetMethod(false);
+                MethodInfo setMethod = typ.GetSetMethod(false) == null ? typ.GetSetMethod(true) : typ.GetSetMethod(false);
+
+                if (setMethod == null)
+                {
+                    return false;
+                }
+                if (getMethod == null)
+                {
+                    return false;
+                }
+
+                return getMethod.IsVirtual && !getMethod.IsFinal && !setMethod.IsFinal && (setMethod.IsPrivate || setMethod.IsVirtual);
+            };
 
             IEnumerable<PropertyInfo> navProperties = type.GetProperties().Where(navPropertySelector);
 

@@ -54,7 +54,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
 
         /// <summary>
-        /// MongoDB实体对象集合
+        /// MongoDB实体对象列表
         /// </summary>
         private readonly IMongoCollection<T> _collection;
 
@@ -108,20 +108,20 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 添加实体对象集合 —— void AddRange(IEnumerable<T> entities)
+        #region # 添加实体对象列表 —— void AddRange(IEnumerable<T> entities)
         /// <summary>
-        /// 添加实体对象集合
+        /// 添加实体对象列表
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
-        /// <param name="entities">实体对象集合</param>
-        /// <exception cref="ArgumentNullException">实体对象集合为null或长度为0</exception>
+        /// <param name="entities">实体对象列表</param>
+        /// <exception cref="ArgumentNullException">实体对象列表为null或长度为0</exception>
         public void AddRange(IEnumerable<T> entities)
         {
             #region # 验证参数
 
             if (entities == null || !entities.Any())
             {
-                throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象列表不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -162,13 +162,13 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 保存实体对象集合 —— void SaveRange(IEnumerable<T> entities)
+        #region # 保存实体对象列表 —— void SaveRange(IEnumerable<T> entities)
         /// <summary>
-        /// 保存实体对象集合
+        /// 保存实体对象列表
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
-        /// <param name="entities">实体对象集合</param>
-        /// <exception cref="ArgumentNullException">实体对象集合</exception>
+        /// <param name="entities">实体对象列表</param>
+        /// <exception cref="ArgumentNullException">实体对象列表</exception>
         /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         public void SaveRange(IEnumerable<T> entities)
         {
@@ -178,7 +178,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (!entities.Any())
             {
-                throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象列表不可为空！", typeof(T).Name));
             }
 
             #endregion
@@ -231,7 +231,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// 删除多行
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">标识Id集合</param>
+        /// <param name="ids">标识Id集</param>
         /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
         public void RemoveRange(IEnumerable<Guid> ids)
         {
@@ -505,34 +505,34 @@ namespace SD.Infrastructure.Repository.MongoDB
 
         //IEnumerable部分
 
-        #region # 获取实体对象集合 —— IEnumerable<T> FindAll()
+        #region # 获取实体对象列表 —— IEnumerable<T> FindAll()
         /// <summary>
-        /// 获取实体对象集合
+        /// 获取实体对象列表
         /// </summary>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         public IEnumerable<T> FindAll()
         {
             return this.FindAndSort(x => true).ToEnumerable();
         }
         #endregion
 
-        #region # 获取给定类型子类对象集合 —— IEnumerable<TSub> FindAll<TSub>()
+        #region # 获取给定类型子类对象列表 —— IEnumerable<TSub> FindAll<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象集合
+        /// 获取给定类型子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <returns>子类对象集合</returns>
+        /// <returns>子类对象列表</returns>
         public IEnumerable<TSub> FindAll<TSub>() where TSub : T
         {
             return this.FindAndSort<TSub>(x => true).ToEnumerable();
         }
         #endregion
 
-        #region # 根据关键字获取实体对象集合 —— IEnumerable<T> Find(string keywords)
+        #region # 根据关键字获取实体对象列表 —— IEnumerable<T> Find(string keywords)
         /// <summary>
-        /// 根据关键字获取实体对象集合
+        /// 根据关键字获取实体对象列表
         /// </summary>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         public IEnumerable<T> Find(string keywords)
         {
             Expression<Func<T, bool>> condition =
@@ -542,12 +542,12 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字获取给定类型子类对象集合 —— IEnumerable<TSub> Find<TSub>(string keywords)
+        #region # 根据关键字获取子类对象列表 —— IEnumerable<TSub> Find<TSub>(string keywords)
         /// <summary>
-        /// 根据关键字获取给定类型子类对象集合
+        /// 根据关键字获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <returns>子类对象集合</returns>
+        /// <returns>子类对象列表</returns>
         public IEnumerable<TSub> Find<TSub>(string keywords) where TSub : T
         {
             Expression<Func<TSub, bool>> condition =
@@ -558,16 +558,16 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字分页获取实体对象集合 + 输出记录条数与页数 —— IEnumerable<T> FindByPage(...
+        #region # 根据关键字分页获取实体对象列表 —— IEnumerable<T> FindByPage(...
         /// <summary>
-        /// 根据关键字获取实体对象集合 + 分页 + 输出记录条数与页数
+        /// 根据关键字分页获取实体对象列表
         /// </summary>
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
         /// <param name="rowCount">记录条数</param>
         /// <param name="pageCount">页数</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         public IEnumerable<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount)
@@ -579,9 +579,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字分页获取子类对象集合 + 输出记录条数与页数 —— IEnumerable<TSub> FindByPage...
+        #region # 根据关键字分页获取子类对象列表 —— IEnumerable<TSub> FindByPage...
         /// <summary>
-        /// 根据关键字分页获取子类对象集合 + 分页 + 输出记录条数与页数
+        /// 根据关键字分页获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="keywords">关键字</param>
@@ -589,7 +589,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <param name="pageSize">页容量</param>
         /// <param name="rowCount">记录条数</param>
         /// <param name="pageCount">页数</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         public IEnumerable<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount,
@@ -616,27 +616,17 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            if (ids == null)
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
+            if (!ids_.Any())
             {
-                throw new ArgumentNullException("ids", "Id集合不可为null！");
+                return new Dictionary<Guid, T>();
             }
 
             #endregion
 
-            ids = ids.Distinct();
+            IList<T> entities = this.Find(x => ids_.Contains(x.Id)).ToList();
 
-            IEnumerable<T> entities = this.FindAndSort(x => ids.Contains(x.Id)).ToList();
-
-            IDictionary<Guid, T> dictionary = new Dictionary<Guid, T>();
-
-            foreach (Guid id in ids)
-            {
-                T entity = entities.Single(x => x.Id == id);
-                dictionary.Add(id, entity);
-            }
-
-
-            return dictionary;
+            return entities.ToDictionary(x => x.Id, x => x);
         }
         #endregion
 
@@ -650,27 +640,17 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            if (ids == null)
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
+            if (!ids_.Any())
             {
-                throw new ArgumentNullException("ids", "Id集合不可为null！");
+                return new Dictionary<Guid, TSub>();
             }
 
             #endregion
 
-            ids = ids.Distinct();
+            IList<TSub> entities = this.Find<TSub>(x => ids_.Contains(x.Id)).ToList();
 
-            IEnumerable<TSub> entities = this.FindAndSort(x => x is TSub && ids.Contains(x.Id)).ToEnumerable().OfType<TSub>().ToArray();
-
-            IDictionary<Guid, TSub> dictionary = new Dictionary<Guid, TSub>();
-
-            foreach (Guid id in ids)
-            {
-                TSub entity = entities.Single(x => x.Id == id);
-                dictionary.Add(id, entity);
-            }
-
-
-            return dictionary;
+            return entities.ToDictionary(x => x.Id, x => x);
         }
         #endregion
 
@@ -684,26 +664,17 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            if (numbers == null)
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? new string[0];
+            if (!numbers_.Any())
             {
-                throw new ArgumentNullException("numbers", "编号集合不可为null！");
+                return new Dictionary<string, T>();
             }
 
             #endregion
 
-            numbers = numbers.Distinct();
+            IList<T> entities = this.Find<T>(x => numbers_.Contains(x.Number)).ToList();
 
-            IEnumerable<T> entities = this.FindAndSort(x => numbers.Contains(x.Number)).ToList();
-
-            IDictionary<string, T> dictionary = new Dictionary<string, T>();
-
-            foreach (string number in numbers)
-            {
-                T entity = entities.Single(x => x.Number == number);
-                dictionary.Add(number, entity);
-            }
-
-            return dictionary;
+            return entities.ToDictionary(x => x.Number, x => x);
         }
         #endregion
 
@@ -717,26 +688,17 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            if (numbers == null)
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? new string[0];
+            if (!numbers_.Any())
             {
-                throw new ArgumentNullException("numbers", "编号集合不可为null！");
+                return new Dictionary<string, TSub>();
             }
 
             #endregion
 
-            numbers = numbers.Distinct();
+            IList<TSub> entities = this.Find<TSub>(x => numbers_.Contains(x.Number)).ToList();
 
-            IEnumerable<TSub> entities = this.FindAndSort(x => x is TSub && numbers.Contains(x.Number)).ToEnumerable().OfType<TSub>().ToArray();
-
-            IDictionary<string, TSub> dictionary = new Dictionary<string, TSub>();
-
-            foreach (string number in numbers)
-            {
-                TSub entity = entities.Single(x => x.Number == number);
-                dictionary.Add(number, entity);
-            }
-
-            return dictionary;
+            return entities.ToDictionary(x => x.Number, x => x);
         }
         #endregion
 
@@ -772,9 +734,9 @@ namespace SD.Infrastructure.Repository.MongoDB
 
         //Exists部分
 
-        #region # 判断是否存在给定Id的实体对象 —— bool Exists(Guid id)
+        #region # 是否存在给定Id的实体对象 —— bool Exists(Guid id)
         /// <summary>
-        /// 判断是否存在给定Id的实体对象
+        /// 是否存在给定Id的实体对象
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>
@@ -794,9 +756,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 判断是否存在给定Id的子类对象 —— bool Exists<TSub>(Guid id)
+        #region # 是否存在给定Id的子类对象 —— bool Exists<TSub>(Guid id)
         /// <summary>
-        /// 判断是否存在给定Id的子类对象
+        /// 是否存在给定Id的子类对象
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>
@@ -816,14 +778,14 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 判断是否存在给定编号的实体对象 —— bool Exists(string number)
+        #region # 是否存在给定编号的实体对象 —— bool ExistsNo(string number)
         /// <summary>
-        /// 判断是否存在给定编号的实体对象
+        /// 是否存在给定编号的实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        public bool Exists(string number)
+        public bool ExistsNo(string number)
         {
             #region # 验证参数
 
@@ -838,14 +800,14 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 判断是否存在给定编号的子类对象 —— bool Exists<TSub>(string number)
+        #region # 是否存在给定编号的子类对象 —— bool ExistsNo<TSub>(string number)
         /// <summary>
-        /// 判断是否存在给定编号的子类对象
+        /// 是否存在给定编号的子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
         /// <exception cref="ArgumentNullException">编号为空</exception>
-        public bool Exists<TSub>(string number) where TSub : T
+        public bool ExistsNo<TSub>(string number) where TSub : T
         {
             #region # 验证参数
 
@@ -860,12 +822,62 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 判断是否存在给定名称的实体对象 —— bool ExistsName(string name)
+        #region # 是否存在给定编号的实体对象 —— bool ExistsNo(Guid? id, string number)
         /// <summary>
-        /// 判断是否存在给定名称的实体对象
+        /// 是否存在给定编号的实体对象
+        /// </summary>
+        /// <param name="id">标识id</param>
+        /// <param name="number">编号</param>
+        /// <returns>是否存在</returns>
+        public bool ExistsNo(Guid? id, string number)
+        {
+            if (id != null)
+            {
+                T current = this.SingleOrDefault(id.Value);
+
+                if (current != null && current.Number == number)
+                {
+                    return false;
+                }
+
+                return this.ExistsNo(number);
+            }
+
+            return this.ExistsNo(number);
+        }
+        #endregion
+
+        #region # 是否存在给定编号的子类对象 —— bool ExistsNo<TSub>(Guid? id, string number)
+        /// <summary>
+        /// 是否存在给定编号的子类对象
+        /// </summary>
+        /// <param name="id">标识id</param>
+        /// <param name="number">编号</param>
+        /// <returns>是否存在</returns>
+        public bool ExistsNo<TSub>(Guid? id, string number) where TSub : T
+        {
+            if (id != null)
+            {
+                TSub current = this.SingleOrDefault<TSub>(id.Value);
+
+                if (current != null && current.Number == number)
+                {
+                    return false;
+                }
+
+                return this.ExistsNo(number);
+            }
+
+            return this.ExistsNo(number);
+        }
+        #endregion
+
+        #region # 是否存在给定名称的实体对象 —— bool ExistsName(string name)
+        /// <summary>
+        /// 是否存在给定名称的实体对象
         /// </summary>
         /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
+        /// <returns>是否存在</returns>
         public bool ExistsName(string name)
         {
             #region # 验证参数
@@ -881,12 +893,12 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 判断是否存在给定名称的子类对象 —— bool ExistsName<TSub>(string name)
+        #region # 是否存在给定名称的子类对象 —— bool ExistsName<TSub>(string name)
         /// <summary>
-        /// 判断是否存在给定名称的子类对象
+        /// 是否存在给定名称的子类对象
         /// </summary>
         /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
+        /// <returns>是否存在</returns>
         public bool ExistsName<TSub>(string name) where TSub : T
         {
             #region # 验证参数
@@ -902,13 +914,13 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 判断是否存在给定名称的实体对象 —— bool ExistsName(Guid? id, string name)
+        #region # 是否存在给定名称的实体对象 —— bool ExistsName(Guid? id, string name)
         /// <summary>
-        /// 判断是否存在给定名称的实体对象
+        /// 是否存在给定名称的实体对象
         /// </summary>
         /// <param name="id">标识id</param>
         /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
+        /// <returns>是否存在</returns>
         public bool ExistsName(Guid? id, string name)
         {
             id = id ?? Guid.Empty;
@@ -924,13 +936,13 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 判断是否存在给定名称的子类对象 —— bool ExistsName<TSub>(Guid? id, string name)
+        #region # 是否存在给定名称的子类对象 —— bool ExistsName<TSub>(Guid? id, string name)
         /// <summary>
-        /// 判断是否存在给定名称的子类对象
+        /// 是否存在给定名称的子类对象
         /// </summary>
         /// <param name="id">标识id</param>
         /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
+        /// <returns>是否存在</returns>
         public bool ExistsName<TSub>(Guid? id, string name) where TSub : T
         {
             id = id ?? Guid.Empty;
@@ -946,13 +958,13 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 判断是否存在给定名称的实体对象 —— bool ExistsName(string number, string name)
+        #region # 是否存在给定名称的实体对象 —— bool ExistsName(string number, string name)
         /// <summary>
-        /// 判断是否存在给定名称的实体对象
+        /// 是否存在给定名称的实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
+        /// <returns>是否存在</returns>
         public bool ExistsName(string number, string name)
         {
             number = string.IsNullOrWhiteSpace(number) ? Guid.NewGuid().ToString().Substring(0, 10) : number;
@@ -968,13 +980,13 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 判断是否存在给定名称的子类对象 —— bool ExistsName<TSub>(string number, string name)
+        #region # 是否存在给定名称的子类对象 —— bool ExistsName<TSub>(string number, string name)
         /// <summary>
-        /// 判断是否存在给定名称的子类对象
+        /// 是否存在给定名称的子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <param name="name">名称</param>
-        /// <returns>是否已存在</returns>
+        /// <returns>是否存在</returns>
         public bool ExistsName<TSub>(string number, string name) where TSub : T
         {
             number = string.IsNullOrWhiteSpace(number) ? Guid.NewGuid().ToString().Substring(0, 10) : number;
@@ -999,7 +1011,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// </summary>
         /// <param name="sql">SQL语句</param>
         /// <param name="parameters">参数</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">SQL语句为空</exception>
         public IEnumerable<TT> ExecuteSqlQuery<TT>(string sql, params object[] parameters)
         {

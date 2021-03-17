@@ -181,23 +181,23 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
         //IEnumerable部分
 
-        #region # 获取实体对象集合 —— IEnumerable<T> FindAll()
+        #region # 获取实体对象列表 —— IEnumerable<T> FindAll()
         /// <summary>
-        /// 获取实体对象集合
+        /// 获取实体对象列表
         /// </summary>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         public IEnumerable<T> FindAll()
         {
             return this.FindAllInner().AsEnumerable();
         }
         #endregion
 
-        #region # 获取给定类型子类对象集合 —— IEnumerable<TSub> FindAll<TSub>()
+        #region # 获取给定类型子类对象列表 —— IEnumerable<TSub> FindAll<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象集合
+        /// 获取给定类型子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <returns>子类对象集合</returns>
+        /// <returns>子类对象列表</returns>
         public IEnumerable<TSub> FindAll<TSub>() where TSub : T
         {
             return this.FindAllInner<TSub>().AsEnumerable();
@@ -217,15 +217,16 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            if (ids == null)
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
+            if (!ids_.Any())
             {
-                throw new ArgumentNullException(nameof(ids), "Id集合不可为null！");
+                return new Dictionary<Guid, T>();
             }
 
             #endregion
 
             var entities = from entity in this.FindAllInner()
-                           where ids.Contains(entity.Id)
+                           where ids_.Contains(entity.Id)
                            select new { entity.Id, entity };
 
             return entities.ToDictionary(x => x.Id, x => x.entity);
@@ -242,15 +243,16 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            if (ids == null)
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
+            if (!ids_.Any())
             {
-                throw new ArgumentNullException(nameof(ids), "Id集合不可为null！");
+                return new Dictionary<Guid, TSub>();
             }
 
             #endregion
 
             var entities = from entity in this.FindAllInner<TSub>()
-                           where ids.Contains(entity.Id)
+                           where ids_.Contains(entity.Id)
                            select new { entity.Id, entity };
 
             return entities.ToDictionary(x => x.Id, x => x.entity);
@@ -285,9 +287,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
         //Exists部分
 
-        #region # 判断是否存在给定Id的实体对象 —— bool Exists(Guid id)
+        #region # 是否存在给定Id的实体对象 —— bool Exists(Guid id)
         /// <summary>
-        /// 判断是否存在给定Id的实体对象
+        /// 是否存在给定Id的实体对象
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>
@@ -307,9 +309,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 判断是否存在给定Id的子类对象 —— bool Exists<TSub>(Guid id)
+        #region # 是否存在给定Id的子类对象 —— bool Exists<TSub>(Guid id)
         /// <summary>
-        /// 判断是否存在给定Id的子类对象
+        /// 是否存在给定Id的子类对象
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>
@@ -338,7 +340,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// </summary>
         /// <param name="sql">SQL语句</param>
         /// <param name="parameters">参数</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">SQL语句为空</exception>
         public IEnumerable<TT> ExecuteSqlQuery<TT>(string sql, params object[] parameters)
         {
@@ -462,11 +464,11 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
         //IQueryable部分
 
-        #region # 获取实体对象集合 —— virtual IQueryable<T> FindAllInner()
+        #region # 获取实体对象列表 —— virtual IQueryable<T> FindAllInner()
         /// <summary>
-        /// 获取实体对象集合
+        /// 获取实体对象列表
         /// </summary>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         protected virtual IQueryable<T> FindAllInner()
         {
             Expression<Func<T, bool>> condition = RepositoryExtension.BuildFilterExpression<T>();
@@ -474,47 +476,47 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 获取给定类型子类对象集合 —— IQueryable<TSub> FindAllInner<TSub>()
+        #region # 获取给定类型子类对象列表 —— IQueryable<TSub> FindAllInner<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象集合
+        /// 获取给定类型子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <returns>子类对象集合</returns>
+        /// <returns>子类对象列表</returns>
         protected IQueryable<TSub> FindAllInner<TSub>() where TSub : T
         {
             return this.FindAllInner().OfType<TSub>();
         }
         #endregion
 
-        #region # 获取实体对象集合（默认排序） —— IOrderedQueryable<T> FindAllBySort()
+        #region # 获取实体对象列表（默认排序） —— IOrderedQueryable<T> FindAllBySort()
         /// <summary>
-        /// 获取实体对象集合（默认排序）
+        /// 获取实体对象列表（默认排序）
         /// </summary>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         protected IOrderedQueryable<T> FindAllBySort()
         {
             return this.FindBySort(x => true);
         }
         #endregion
 
-        #region # 获取给定类型子类对象集合（默认排序） —— IOrderedQueryable<TSub> FindAllBySort<TSub>()
+        #region # 获取给定类型子类对象列表（默认排序） —— IOrderedQueryable<TSub> FindAllBySort<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象集合（默认排序）
+        /// 获取给定类型子类对象列表（默认排序）
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <returns>子类对象集合</returns>
+        /// <returns>子类对象列表</returns>
         protected IOrderedQueryable<TSub> FindAllBySort<TSub>() where TSub : T
         {
             return this.FindBySort<TSub>(x => true);
         }
         #endregion
 
-        #region # 根据条件获取实体对象集合 —— IQueryable<T> Find(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取实体对象列表 —— IQueryable<T> Find(Expression<Func<T, bool>> predicate)
         /// <summary>
-        /// 根据条件获取实体对象集合
+        /// 根据条件获取实体对象列表
         /// </summary>
         /// <param name="predicate">条件表达式</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<T> Find(Expression<Func<T, bool>> predicate)
@@ -532,13 +534,13 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据条件获取子类对象集合 —— IQueryable<TSub> Find<TSub>(Expression<Func<TSub, bool>>...
+        #region # 根据条件获取子类对象列表 —— IQueryable<TSub> Find<TSub>(Expression<Func<TSub, bool>>...
         /// <summary>
-        /// 根据条件获取子类对象集合
+        /// 根据条件获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="predicate">条件表达式</param>
-        /// <returns>子类对象集合</returns>
+        /// <returns>子类对象列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<TSub> Find<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
@@ -556,34 +558,34 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据条件获取实体对象集合（默认排序） —— virtual IOrderedQueryable<T> FindBySort(...
+        #region # 根据条件获取实体对象列表（默认排序） —— virtual IOrderedQueryable<T> FindBySort(...
         /// <summary>
-        /// 根据条件获取实体对象集合（默认排序）
+        /// 根据条件获取实体对象列表（默认排序）
         /// </summary>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         protected virtual IOrderedQueryable<T> FindBySort(Expression<Func<T, bool>> condition)
         {
             return this.Find(condition).OrderByDescending(x => x.AddedTime);
         }
         #endregion
 
-        #region # 根据条件获取子类对象集合（默认排序） —— virtual IOrderedQueryable<TSub> FindBySort<TSub>(...
+        #region # 根据条件获取子类对象列表（默认排序） —— virtual IOrderedQueryable<TSub> FindBySort<TSub>(...
         /// <summary>
-        /// 根据条件获取子类对象集合（默认排序）
+        /// 根据条件获取子类对象列表（默认排序）
         /// </summary>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         protected virtual IOrderedQueryable<TSub> FindBySort<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
             return this.Find<TSub>(condition).OrderByDescending(x => x.AddedTime);
         }
         #endregion
 
-        #region # 根据条件获取实体对象Id集合 —— IQueryable<Guid> FindIds(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取实体对象Id列表 —— IQueryable<Guid> FindIds(Expression<Func<T, bool>> predicate)
         /// <summary>
-        /// 根据条件获取实体对象Id集合
+        /// 根据条件获取实体对象Id列表
         /// </summary>
         /// <param name="predicate">条件表达式</param>
-        /// <returns>实体对象Id集合</returns>
+        /// <returns>实体对象Id列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<Guid> FindIds(Expression<Func<T, bool>> predicate)
@@ -592,12 +594,12 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据条件获取子类对象Id集合 —— IQueryable<Guid> FindIds<TSub>(Expression<Func<...
+        #region # 根据条件获取子类对象Id列表 —— IQueryable<Guid> FindIds<TSub>(Expression<Func<...
         /// <summary>
-        /// 根据条件获取子类对象Id集合
+        /// 根据条件获取子类对象Id列表
         /// </summary>
         /// <param name="predicate">条件表达式</param>
-        /// <returns>子类对象Id集合</returns>
+        /// <returns>子类对象Id列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<Guid> FindIds<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
@@ -606,16 +608,16 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据条件分页获取实体对象集合 + 输出记录条数与页数 —— IQueryable<T> FindByPage(...
+        #region # 根据条件分页获取实体对象列表 + 输出记录条数与页数 —— IQueryable<T> FindByPage(...
         /// <summary>
-        /// 根据条件获取实体对象集合 + 分页 + 输出记录条数与页数
+        /// 根据条件获取实体对象列表 + 分页 + 输出记录条数与页数
         /// </summary>
         /// <param name="predicate">条件表达式</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
         /// <param name="rowCount">记录条数</param>
         /// <param name="pageCount">页数</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<T> FindByPage(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount)
@@ -624,9 +626,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据条件分页获取子类对象集合 + 输出记录条数与页数 —— IQueryable<TSub> FindByPage<TSub>(...
+        #region # 根据条件分页获取子类对象列表 + 输出记录条数与页数 —— IQueryable<TSub> FindByPage<TSub>(...
         /// <summary>
-        /// 根据条件分页获取子类对象集合 + 分页 + 输出记录条数与页数
+        /// 根据条件分页获取子类对象列表 + 分页 + 输出记录条数与页数
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="predicate">条件表达式</param>
@@ -634,7 +636,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="pageSize">页容量</param>
         /// <param name="rowCount">记录条数</param>
         /// <param name="pageCount">页数</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
@@ -695,9 +697,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
         //Exists部分
 
-        #region # 判断是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> predicate)
+        #region # 是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> predicate)
         /// <summary>
-        /// 判断是否存在给定条件的实体对象
+        /// 是否存在给定条件的实体对象
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>是否存在</returns>
@@ -721,9 +723,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 判断是否存在给定条件的子类对象 —— bool Exists<TSub>(Expression<Func<TSub, bool>> predicate)
+        #region # 是否存在给定条件的子类对象 —— bool Exists<TSub>(Expression<Func<TSub, bool>> predicate)
         /// <summary>
-        /// 判断是否存在给定条件的子类对象
+        /// 是否存在给定条件的子类对象
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>是否存在</returns>

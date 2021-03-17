@@ -75,20 +75,20 @@ namespace SD.Infrastructure.RepositoryBase
 
         //IEnumerable部分
 
-        #region # 获取实体对象集合 —— IEnumerable<T> FindAll()
+        #region # 获取实体对象列表 —— IEnumerable<T> FindAll()
         /// <summary>
-        /// 获取实体对象集合
+        /// 获取实体对象列表
         /// </summary>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         IEnumerable<T> FindAll();
         #endregion
 
-        #region # 获取给定类型子类对象集合 —— IEnumerable<TSub> FindAll<TSub>()
+        #region # 获取给定类型子类对象列表 —— IEnumerable<TSub> FindAll<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象集合
+        /// 获取给定类型子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <returns>子类对象集合</returns>
+        /// <returns>子类对象列表</returns>
         IEnumerable<TSub> FindAll<TSub>() where TSub : T;
         #endregion
 
@@ -135,9 +135,9 @@ namespace SD.Infrastructure.RepositoryBase
 
         //Exists部分
 
-        #region # 判断是否存在给定Id的实体对象 —— bool Exists(Guid id)
+        #region # 是否存在给定Id的实体对象 —— bool Exists(Guid id)
         /// <summary>
-        /// 判断是否存在给定Id的实体对象
+        /// 是否存在给定Id的实体对象
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>
@@ -145,9 +145,9 @@ namespace SD.Infrastructure.RepositoryBase
         bool Exists(Guid id);
         #endregion
 
-        #region # 判断是否存在给定Id的子类对象 —— bool Exists<TSub>(Guid id)
+        #region # 是否存在给定Id的子类对象 —— bool Exists<TSub>(Guid id)
         /// <summary>
-        /// 判断是否存在给定Id的子类对象
+        /// 是否存在给定Id的子类对象
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>

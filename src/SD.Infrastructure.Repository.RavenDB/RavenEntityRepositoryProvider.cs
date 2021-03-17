@@ -169,23 +169,23 @@ namespace SD.Infrastructure.Repository.RavenDB
 
         //IEnumerable部分
 
-        #region # 获取实体对象集合 —— IEnumerable<T> FindAll()
+        #region # 获取实体对象列表 —— IEnumerable<T> FindAll()
         /// <summary>
-        /// 获取实体对象集合
+        /// 获取实体对象列表
         /// </summary>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         public IEnumerable<T> FindAll()
         {
             return this.FindAllInner().AsEnumerable();
         }
         #endregion
 
-        #region # 获取给定类型子类对象集合 —— IEnumerable<TSub> FindAll<TSub>()
+        #region # 获取给定类型子类对象列表 —— IEnumerable<TSub> FindAll<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象集合
+        /// 获取给定类型子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <returns>子类对象集合</returns>
+        /// <returns>子类对象列表</returns>
         public IEnumerable<TSub> FindAll<TSub>() where TSub : T
         {
             return this.FindAllInner<TSub>().AsEnumerable();
@@ -207,7 +207,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (ids == null)
             {
-                throw new ArgumentNullException("ids", "Id集合不可为null！");
+                throw new ArgumentNullException("ids", "Id集不可为null！");
             }
 
             #endregion
@@ -234,7 +234,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (ids == null)
             {
-                throw new ArgumentNullException("ids", "Id集合不可为null！");
+                throw new ArgumentNullException("ids", "Id集不可为null！");
             }
 
             #endregion
@@ -277,9 +277,9 @@ namespace SD.Infrastructure.Repository.RavenDB
 
         //Exists部分
 
-        #region # 判断是否存在给定Id的实体对象 —— bool Exists(Guid id)
+        #region # 是否存在给定Id的实体对象 —— bool Exists(Guid id)
         /// <summary>
-        /// 判断是否存在给定Id的实体对象
+        /// 是否存在给定Id的实体对象
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>
@@ -299,9 +299,9 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 判断是否存在给定Id的子类对象 —— bool Exists<TSub>(Guid id)
+        #region # 是否存在给定Id的子类对象 —— bool Exists<TSub>(Guid id)
         /// <summary>
-        /// 判断是否存在给定Id的子类对象
+        /// 是否存在给定Id的子类对象
         /// </summary>
         /// <param name="id">Id</param>
         /// <returns>是否存在</returns>
@@ -330,7 +330,7 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// </summary>
         /// <param name="sql">SQL语句</param>
         /// <param name="parameters">参数</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">SQL语句为空</exception>
         public IEnumerable<TT> ExecuteSqlQuery<TT>(string sql, params object[] parameters)
         {
@@ -467,11 +467,11 @@ namespace SD.Infrastructure.Repository.RavenDB
 
         //IQueryable部分
 
-        #region # 获取实体对象集合 —— virtual IRavenQueryable<T> FindAllInner()
+        #region # 获取实体对象列表 —— virtual IRavenQueryable<T> FindAllInner()
         /// <summary>
-        /// 获取实体对象集合
+        /// 获取实体对象列表
         /// </summary>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         protected virtual IRavenQueryable<T> FindAllInner()
         {
             IRavenQueryable<T> entities = this._dbContext.Query<T>();
@@ -481,12 +481,12 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 获取给定类型子类对象集合 —— IRavenQueryable<TSub> FindAllInner<TSub>()
+        #region # 获取给定类型子类对象列表 —— IRavenQueryable<TSub> FindAllInner<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象集合
+        /// 获取给定类型子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <returns>子类对象集合</returns>
+        /// <returns>子类对象列表</returns>
         protected virtual IRavenQueryable<TSub> FindAllInner<TSub>() where TSub : T
         {
             IRavenQueryable<TSub> entities = this._dbContext.Query<TSub>();
@@ -496,12 +496,12 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 根据条件获取实体对象集合 —— IRavenQueryable<T> Find(...
+        #region # 根据条件获取实体对象列表 —— IRavenQueryable<T> Find(...
         /// <summary>
-        /// 根据条件获取实体对象集合
+        /// 根据条件获取实体对象列表
         /// </summary>
         /// <param name="predicate">条件表达式</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IRavenQueryable<T> Find(Expression<Func<T, bool>> predicate)
@@ -519,13 +519,13 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 根据条件获取子类对象集合 —— IRavenQueryable<TSub> Find<TSub>(...
+        #region # 根据条件获取子类对象列表 —— IRavenQueryable<TSub> Find<TSub>(...
         /// <summary>
-        /// 根据条件获取子类对象集合
+        /// 根据条件获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="predicate">条件表达式</param>
-        /// <returns>子类对象集合</returns>
+        /// <returns>子类对象列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IRavenQueryable<TSub> Find<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
@@ -543,12 +543,12 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 根据条件获取实体对象Id集合 —— IRavenQueryable<Guid> FindIds(...
+        #region # 根据条件获取实体对象Id列表 —— IRavenQueryable<Guid> FindIds(...
         /// <summary>
-        /// 根据条件获取实体对象Id集合
+        /// 根据条件获取实体对象Id列表
         /// </summary>
         /// <param name="predicate">条件表达式</param>
-        /// <returns>实体对象Id集合</returns>
+        /// <returns>实体对象Id列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IRavenQueryable<Guid> FindIds(Expression<Func<T, bool>> predicate)
@@ -557,12 +557,12 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 根据条件获取子类对象Id集合 —— IRavenQueryable<Guid> FindIds<TSub>(...
+        #region # 根据条件获取子类对象Id列表 —— IRavenQueryable<Guid> FindIds<TSub>(...
         /// <summary>
-        /// 根据条件获取子类对象Id集合
+        /// 根据条件获取子类对象Id列表
         /// </summary>
         /// <param name="predicate">条件表达式</param>
-        /// <returns>子类对象Id集合</returns>
+        /// <returns>子类对象Id列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IRavenQueryable<Guid> FindIds<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
@@ -571,16 +571,16 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 根据条件分页获取实体对象集合 + 输出记录条数与页数 —— IRavenQueryable<T> FindByPage(...
+        #region # 根据条件分页获取实体对象列表 + 输出记录条数与页数 —— IRavenQueryable<T> FindByPage(...
         /// <summary>
-        /// 根据条件获取实体对象集合 + 分页 + 输出记录条数与页数
+        /// 根据条件获取实体对象列表 + 分页 + 输出记录条数与页数
         /// </summary>
         /// <param name="predicate">条件表达式</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
         /// <param name="rowCount">记录条数</param>
         /// <param name="pageCount">页数</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IRavenQueryable<T> FindByPage(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount)
@@ -589,9 +589,9 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 根据条件分页获取子类对象集合 + 输出记录条数与页数 —— IRavenQueryable<TSub> FindByPage(...
+        #region # 根据条件分页获取子类对象列表 + 输出记录条数与页数 —— IRavenQueryable<TSub> FindByPage(...
         /// <summary>
-        /// 根据条件分页获取子类对象集合 + 分页 + 输出记录条数与页数
+        /// 根据条件分页获取子类对象列表 + 分页 + 输出记录条数与页数
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="predicate">条件表达式</param>
@@ -599,7 +599,7 @@ namespace SD.Infrastructure.Repository.RavenDB
         /// <param name="pageSize">页容量</param>
         /// <param name="rowCount">记录条数</param>
         /// <param name="pageCount">页数</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IRavenQueryable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
@@ -660,9 +660,9 @@ namespace SD.Infrastructure.Repository.RavenDB
 
         //Exists部分
 
-        #region # 判断是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> predicate)
+        #region # 是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> predicate)
         /// <summary>
-        /// 判断是否存在给定条件的实体对象
+        /// 是否存在给定条件的实体对象
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>是否存在</returns>
@@ -683,9 +683,9 @@ namespace SD.Infrastructure.Repository.RavenDB
         }
         #endregion
 
-        #region # 判断是否存在给定条件的子类对象 —— bool Exists<TSub>(Expression<Func<TSub...
+        #region # 是否存在给定条件的子类对象 —— bool Exists<TSub>(Expression<Func<TSub...
         /// <summary>
-        /// 判断是否存在给定条件的子类对象
+        /// 是否存在给定条件的子类对象
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>是否存在</returns>

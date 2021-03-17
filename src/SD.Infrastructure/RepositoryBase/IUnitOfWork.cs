@@ -21,12 +21,12 @@ namespace SD.Infrastructure.RepositoryBase
         void RegisterAdd<T>(T entity) where T : AggregateRootEntity;
         #endregion
 
-        #region # 注册添加实体对象集合 —— void RegisterAddRange<T>(IEnumerable<T> entities)
+        #region # 注册添加实体对象列表 —— void RegisterAddRange<T>(IEnumerable<T> entities)
         /// <summary>
-        /// 注册添加实体对象集合
+        /// 注册添加实体对象列表
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="entities">实体对象集合</param>
+        /// <param name="entities">实体对象列表</param>
         void RegisterAddRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity;
         #endregion
 
@@ -39,12 +39,12 @@ namespace SD.Infrastructure.RepositoryBase
         void RegisterSave<T>(T entity) where T : AggregateRootEntity;
         #endregion
 
-        #region # 注册保存实体对象集合 —— void RegisterSaveRange<T>(IEnumerable<T> entities)
+        #region # 注册保存实体对象列表 —— void RegisterSaveRange<T>(IEnumerable<T> entities)
         /// <summary>
-        /// 注册保存实体对象集合
+        /// 注册保存实体对象列表
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="entities">实体对象集合</param>
+        /// <param name="entities">实体对象列表</param>
         void RegisterSaveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity;
         #endregion
 
@@ -80,7 +80,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// 注册删除多个实体对象（物理删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">标识Id集合</param>
+        /// <param name="ids">标识Id集</param>
         void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
         #endregion
 
@@ -116,7 +116,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// 注册删除多个实体对象（逻辑删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">标识Id集合</param>
+        /// <param name="ids">标识Id集</param>
         void RegisterRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
         #endregion
 
@@ -133,13 +133,13 @@ namespace SD.Infrastructure.RepositoryBase
         T Resolve<T>(Guid id) where T : AggregateRootEntity;
         #endregion
 
-        #region # 根据Id集获取实体对象集合（修改时用） —— ICollection<T> ResolveRange<T>(...
+        #region # 根据Id集获取实体对象列表（修改时用） —— ICollection<T> ResolveRange<T>(...
         /// <summary>
-        /// 根据Id集获取实体对象集合（修改时用）
+        /// 根据Id集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">Id集</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
         #endregion
 
@@ -153,13 +153,13 @@ namespace SD.Infrastructure.RepositoryBase
         T Resolve<T>(string number) where T : AggregateRootEntity;
         #endregion
 
-        #region # 根据编号集获取实体对象集合（修改时用） —— ICollection<T> ResolveRange<T>(...
+        #region # 根据编号集获取实体对象列表（修改时用） —— ICollection<T> ResolveRange<T>(...
         /// <summary>
-        /// 根据编号集获取实体对象集合（修改时用）
+        /// 根据编号集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         ICollection<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity;
         #endregion
 
@@ -173,13 +173,13 @@ namespace SD.Infrastructure.RepositoryBase
         Task<T> ResolveAsync<T>(Guid id) where T : AggregateRootEntity;
         #endregion
 
-        #region # 异步根据Id集获取实体对象集合（修改时用） —— Task<ICollection<T>> ResolveRangeAsync<T>(...
+        #region # 异步根据Id集获取实体对象列表（修改时用） —— Task<ICollection<T>> ResolveRangeAsync<T>(...
         /// <summary>
-        /// 异步根据Id集获取实体对象集合（修改时用）
+        /// 异步根据Id集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">Id集</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
         #endregion
 
@@ -193,13 +193,13 @@ namespace SD.Infrastructure.RepositoryBase
         Task<T> ResolveAsync<T>(string number) where T : AggregateRootEntity;
         #endregion
 
-        #region # 异步根据编号集获取实体对象集合（修改时用） —— Task<ICollection<T>> ResolveRangeAsync<T>(...
+        #region # 异步根据编号集获取实体对象列表（修改时用） —— Task<ICollection<T>> ResolveRangeAsync<T>(...
         /// <summary>
-        /// 异步根据编号集获取实体对象集合（修改时用）
+        /// 异步根据编号集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<string> numbers) where T : AggregateRootEntity;
         #endregion
 

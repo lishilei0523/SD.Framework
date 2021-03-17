@@ -19,13 +19,13 @@ namespace SD.Infrastructure.RepositoryBase
         void Add(T entity);
         #endregion
 
-        #region # 添加实体对象集合 —— void AddRange(IEnumerable<T> entities)
+        #region # 添加实体对象列表 —— void AddRange(IEnumerable<T> entities)
         /// <summary>
-        /// 添加实体对象集合
+        /// 添加实体对象列表
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
-        /// <param name="entities">实体对象集合</param>
-        /// <exception cref="ArgumentNullException">实体对象集合为null或长度为0</exception>
+        /// <param name="entities">实体对象列表</param>
+        /// <exception cref="ArgumentNullException">实体对象列表为null或长度为0</exception>
         void AddRange(IEnumerable<T> entities);
         #endregion
 
@@ -39,13 +39,13 @@ namespace SD.Infrastructure.RepositoryBase
         void Save(T entity);
         #endregion
 
-        #region # 保存实体对象集合 —— void SaveRange(IEnumerable<T> entities)
+        #region # 保存实体对象列表 —— void SaveRange(IEnumerable<T> entities)
         /// <summary>
-        /// 保存实体对象集合
+        /// 保存实体对象列表
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
-        /// <param name="entities">实体对象集合</param>
-        /// <exception cref="ArgumentNullException">实体对象集合</exception>
+        /// <param name="entities">实体对象列表</param>
+        /// <exception cref="ArgumentNullException">实体对象列表</exception>
         /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         void SaveRange(IEnumerable<T> entities);
         #endregion
@@ -74,7 +74,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 删除多行
         /// </summary>
-        /// <param name="ids">标识Id集合</param>
+        /// <param name="ids">标识Id集</param>
         /// <exception cref="ArgumentNullException">Id集为null或长度为0</exception>
         void RemoveRange(IEnumerable<Guid> ids);
         #endregion

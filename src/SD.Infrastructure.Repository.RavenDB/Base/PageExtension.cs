@@ -22,7 +22,7 @@ namespace SD.Infrastructure.Repository.RavenDB.Base
         /// <param name="pageSize">页容量</param>
         /// <param name="rowCount">总记录条数</param>
         /// <param name="pageCount">总页数</param>
-        /// <returns>对象集合</returns>
+        /// <returns>对象列表</returns>
         public static IRavenQueryable<T> ToPage<T>(this IRavenQueryable<T> queryable, Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount)
             where T : PlainEntity
         {

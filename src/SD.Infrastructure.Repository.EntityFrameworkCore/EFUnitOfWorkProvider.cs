@@ -100,21 +100,20 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 注册添加实体对象集合 —— void RegisterAddRange<T>(IEnumerable<T> entities)
+        #region # 注册添加实体对象列表 —— void RegisterAddRange<T>(IEnumerable<T> entities)
         /// <summary>
-        /// 注册添加实体对象集合
+        /// 注册添加实体对象列表
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="entities">实体对象集合</param>
+        /// <param name="entities">实体对象列表</param>
         public void RegisterAddRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             entities = entities?.ToArray() ?? new T[0];
-
             if (!entities.Any())
             {
-                throw new ArgumentNullException(nameof(entities), $"要添加的{typeof(T).Name}实体对象集合不可为空！");
+                throw new ArgumentNullException(nameof(entities), $"要添加的{typeof(T).Name}实体对象列表不可为空！");
             }
 
             #endregion
@@ -174,21 +173,20 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 注册保存实体对象集合 —— void RegisterSaveRange<T>(IEnumerable<T> entities)
+        #region # 注册保存实体对象列表 —— void RegisterSaveRange<T>(IEnumerable<T> entities)
         /// <summary>
-        /// 注册保存实体对象集合
+        /// 注册保存实体对象列表
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="entities">实体对象集合</param>
+        /// <param name="entities">实体对象列表</param>
         public void RegisterSaveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
             #region # 验证参数
 
             entities = entities?.ToArray() ?? new T[0];
-
             if (!entities.Any())
             {
-                throw new ArgumentNullException(nameof(entities), $"要保存的{typeof(T).Name}实体对象集合不可为空！");
+                throw new ArgumentNullException(nameof(entities), $"要保存的{typeof(T).Name}实体对象列表不可为空！");
             }
 
             #endregion
@@ -225,15 +223,6 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="id">标识Id</param>
         public void RegisterPhysicsRemove<T>(Guid id) where T : AggregateRootEntity
         {
-            #region # 验证参数
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"要删除的{typeof(T).Name}实体对象Id不可为空！");
-            }
-
-            #endregion
-
             T entity = this._dbContext.Set<T>().Single(x => x.Id == id);
             this._dbContext.Set<T>().Remove(entity);
         }
@@ -287,7 +276,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// 注册删除多个实体对象（物理删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">标识Id集合</param>
+        /// <param name="ids">标识Id集</param>
         public void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -296,7 +285,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             if (!ids.Any())
             {
-                throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的Id集合不可为空！");
+                throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的Id集不可为空！");
             }
 
             #endregion
@@ -318,15 +307,6 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="id">标识Id</param>
         public void RegisterRemove<T>(Guid id) where T : AggregateRootEntity
         {
-            #region # 验证参数
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"要删除的{typeof(T).Name}实体对象Id不可为空！");
-            }
-
-            #endregion
-
             T entity = this.ResolveOptional<T>(x => x.Id == id);
 
             #region # 验证为null
@@ -442,7 +422,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// 注册删除多个实体对象（逻辑删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">标识Id集合</param>
+        /// <param name="ids">标识Id集</param>
         public void RegisterRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -451,7 +431,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             if (!entityIds.Any())
             {
-                throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的Id集合不可为空！");
+                throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的Id集不可为空！");
             }
 
             #endregion
@@ -494,15 +474,6 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>唯一实体对象</returns>
         public T Resolve<T>(Guid id) where T : AggregateRootEntity
         {
-            #region # 验证参数
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
-            }
-
-            #endregion
-
             T entity = this.ResolveOptional<T>(x => x.Id == id);
 
             #region # 验证为null
@@ -518,13 +489,13 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据Id集获取实体对象集合（修改时用） —— ICollection<T> ResolveRange<T>(...
+        #region # 根据Id集获取实体对象列表（修改时用） —— ICollection<T> ResolveRange<T>(...
         /// <summary>
-        /// 根据Id集获取实体对象集合（修改时用）
+        /// 根据Id集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">Id集</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         public ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
             return this.ResolveRange<T>(x => ids.Contains(x.Id)).ToListAsync().Result;
@@ -564,13 +535,13 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据编号集获取实体对象集合（修改时用） —— ICollection<T> ResolveRange<T>(...
+        #region # 根据编号集获取实体对象列表（修改时用） —— ICollection<T> ResolveRange<T>(...
         /// <summary>
-        /// 根据编号集获取实体对象集合（修改时用）
+        /// 根据编号集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         public ICollection<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
         {
             return this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToListAsync().Result;
@@ -586,15 +557,6 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>唯一实体对象</returns>
         public async Task<T> ResolveAsync<T>(Guid id) where T : AggregateRootEntity
         {
-            #region # 验证参数
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
-            }
-
-            #endregion
-
             T entity = await this.ResolveOptionalAsync<T>(x => x.Id == id);
 
             #region # 验证为null
@@ -610,13 +572,13 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 异步根据Id集获取实体对象集合（修改时用） —— async Task<ICollection<T>> ResolveRangeAsync<T>(...
+        #region # 异步根据Id集获取实体对象列表（修改时用） —— async Task<ICollection<T>> ResolveRangeAsync<T>(...
         /// <summary>
-        /// 异步根据Id集获取实体对象集合（修改时用）
+        /// 异步根据Id集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">Id集</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         public async Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
             return await this.ResolveRange<T>(x => ids.Contains(x.Id)).ToListAsync();
@@ -657,13 +619,13 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 异步根据编号集获取实体对象集合（修改时用） —— async Task<ICollection<T>> ResolveRangeAsync<T>(...
+        #region # 异步根据编号集获取实体对象列表（修改时用） —— async Task<ICollection<T>> ResolveRangeAsync<T>(...
         /// <summary>
-        /// 异步根据编号集获取实体对象集合（修改时用）
+        /// 异步根据编号集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         public async Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
         {
             return await this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToListAsync();
@@ -871,12 +833,12 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据条件获取实体对象集合（修改时用） —— IQueryable<T> ResolveRange<T>(...
+        #region # 根据条件获取实体对象列表（修改时用） —— IQueryable<T> ResolveRange<T>(...
         /// <summary>
-        /// 根据条件获取实体对象集合（修改时用）
+        /// 根据条件获取实体对象列表（修改时用）
         /// </summary>
         /// <param name="predicate">条件</param>
-        /// <returns>实体对象集合</returns>
+        /// <returns>实体对象列表</returns>
         protected IQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
             #region # 验证参数
@@ -914,9 +876,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 判断是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> predicate)
+        #region # 是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> predicate)
         /// <summary>
-        /// 判断是否存在给定条件的实体对象
+        /// 是否存在给定条件的实体对象
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>是否存在</returns>
