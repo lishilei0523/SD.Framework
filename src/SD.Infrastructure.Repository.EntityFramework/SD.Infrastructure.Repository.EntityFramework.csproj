@@ -1,84 +1,45 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{972CFDBB-1E0F-43CD-987A-458E9D1543B8}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SD.Infrastructure.Repository.EntityFramework</RootNamespace>
-    <AssemblyName>SD.Infrastructure.Repository.EntityFramework</AssemblyName>
-    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <SccProjectName>SAK</SccProjectName>
-    <SccLocalPath>SAK</SccLocalPath>
-    <SccAuxPath>SAK</SccAuxPath>
-    <SccProvider>SAK</SccProvider>
-    <TargetFrameworkProfile />
-    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
-    <RestorePackages>true</RestorePackages>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <Description>基础设施 - 仓储基础 - Entity Framework实现</Description>
+    <Company>SD</Company>
+    <Authors>Lee</Authors>
+    <Copyright>Copyright © SD 2021</Copyright>
+    <Version>2.0.0</Version>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\netstandard2.1\SD.Infrastructure.Repository.EntityFramework.xml</DocumentationFile>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\SD.Infrastructure.Repository.EntityFramework.xml</DocumentationFile>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.1\SD.Infrastructure.Repository.EntityFramework.xml</DocumentationFile>
   </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Extensions.DependencyInjection, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.2.2.0\lib\net461\Microsoft.Extensions.DependencyInjection.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.2.2.0\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
-    </Reference>
-    <Reference Include="SD.IOC.Core, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SD.IOC.Core.2.0.2\lib\net461\SD.IOC.Core.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="SD.Toolkits.EntityFramework, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\SD.Toolkits.EntityFramework.1.0.6\lib\net45\SD.Toolkits.EntityFramework.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
+    <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\Base\BaseDbSession.cs">
+      <Link>Base\BaseDbSession.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\Base\DbCleaner.cs">
+      <Link>Base\DbCleaner.cs</Link>
+    </Compile>
+     <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFAggRootRepositoryProvider.cs">
+      <Link>EFAggRootRepositoryProvider.cs</Link>
+    </Compile>
+       <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFEntityRepositoryProvider.cs">
+      <Link>EFEntityRepositoryProvider.cs</Link>
+    </Compile>
+       <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFUnitOfWorkProvider.cs">
+      <Link>EFUnitOfWorkProvider.cs</Link>
+    </Compile>
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Base\DbCleaner.cs" />
-    <Compile Include="Base\BaseDbSession.cs" />
-    <Compile Include="EFEntityRepositoryProvider.cs" />
-    <Compile Include="EFAggRootRepositoryProvider.cs" />
-    <Compile Include="EFUnitOfWorkProvider.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <PackageReference Include="SD.IOC.Core" Version="2.0.5" />
+    <PackageReference Include="SD.Toolkits.EntityFramework" Version="1.0.8" />
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="App.config.transform" />
-    <None Include="packages.config" />
-    <None Include="Web.config.transform" />
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\SD.Infrastructure.NET46\SD.Infrastructure.NET46.csproj">
-      <Project>{9f7aa219-1c9e-4591-8b54-07a0e69e0e42}</Project>
-      <Name>SD.Infrastructure.NET46</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
