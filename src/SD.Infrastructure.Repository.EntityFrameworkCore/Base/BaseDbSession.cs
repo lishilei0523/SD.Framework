@@ -41,20 +41,12 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         }
 
         /// <summary>
-        /// 基础构造器
-        /// </summary>
-        protected BaseDbSession()
-        {
-            base.Database.EnsureCreated();
-        }
-
-        /// <summary>
         /// 配置
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseLazyLoadingProxies().UseSqlServer(GlobalSetting.DefaultConnectionString);
+            optionsBuilder.UseLazyLoadingProxies();
         }
 
         #endregion
@@ -73,7 +65,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
                 {
                     BaseDbSession dbContext = _CommandInstanceCall.Value;
 
-                    if (dbContext == null || dbContext.Diposed)
+                    if (dbContext == null || dbContext.Disposed)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
                         _CommandInstanceCall.Value = dbContext;
@@ -97,7 +89,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
                 {
                     BaseDbSession dbContext = _QueryInstanceCall.Value;
 
-                    if (dbContext == null || dbContext.Diposed)
+                    if (dbContext == null || dbContext.Disposed)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
                         dbContext.ChangeTracker.AutoDetectChangesEnabled = false;/*关闭自动跟踪实体变化状态*/

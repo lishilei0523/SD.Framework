@@ -4,8 +4,11 @@ using SD.Infrastructure.Repository.EntityFrameworkCore.Base;
 using SD.Infrastructure.RepositoryBase;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace SD.Infrastructure.Repository.EntityFrameworkCore
 {
@@ -225,7 +228,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            var entities = from entity in this.FindAllInner()
+            var entities = from entity in this._dbContext.Set<T>()
                            where ids_.Contains(entity.Id)
                            select new { entity.Id, entity };
 
@@ -251,7 +254,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            var entities = from entity in this.FindAllInner<TSub>()
+            var entities = from entity in this._dbContext.Set<TSub>()
                            where ids_.Contains(entity.Id)
                            select new { entity.Id, entity };
 
@@ -344,7 +347,49 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <exception cref="ArgumentNullException">SQL语句为空</exception>
         public IEnumerable<TT> ExecuteSqlQuery<TT>(string sql, params object[] parameters)
         {
-            throw new NotImplementedException("未实现！");
+            #region # 验证参数
+
+            if (string.IsNullOrWhiteSpace(sql))
+            {
+                throw new ArgumentNullException(nameof(sql), "SQL语句不可为空！");
+            }
+
+            #endregion
+
+            DbConnection connection = this._dbContext.Database.GetDbConnection();
+            connection.Open();
+            DbCommand command = connection.CreateCommand();
+            command.CommandText = sql;
+
+            if (parameters != null && parameters.Any())
+            {
+                command.Parameters.AddRange(parameters);
+            }
+
+            DbDataReader reader = command.ExecuteReader();
+            DataTable dataTable = new DataTable();
+            dataTable.Load(reader);
+
+            reader.Close();
+            connection.Close();
+
+            PropertyInfo[] propertyInfos = typeof(TT).GetProperties();
+            IList<TT> list = new List<TT>();
+            foreach (DataRow row in dataTable.Rows)
+            {
+                TT instance = Activator.CreateInstance<TT>();
+                foreach (PropertyInfo propertyInfo in propertyInfos)
+                {
+                    if (dataTable.Columns.IndexOf(propertyInfo.Name) != -1 && row[propertyInfo.Name] != DBNull.Value)
+                    {
+                        propertyInfo.SetValue(instance, row[propertyInfo.Name]);
+                    }
+                }
+
+                list.Add(instance);
+            }
+
+            return list;
         }
         #endregion
 

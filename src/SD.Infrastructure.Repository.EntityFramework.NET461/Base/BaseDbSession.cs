@@ -64,7 +64,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
                 {
                     BaseDbSession dbContext = _CommandInstanceCall.Value;
 
-                    if (dbContext == null || dbContext.Diposed)
+                    if (dbContext == null || dbContext.Disposed)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
                         _CommandInstanceCall.Value = dbContext;
@@ -88,7 +88,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
                 {
                     BaseDbSession dbContext = _QueryInstanceCall.Value;
 
-                    if (dbContext == null || dbContext.Diposed)
+                    if (dbContext == null || dbContext.Disposed)
                     {
                         dbContext = ResolveMediator.Resolve<BaseDbSession>();
                         dbContext.Configuration.AutoDetectChangesEnabled = false;/*关闭自动跟踪实体变化状态*/

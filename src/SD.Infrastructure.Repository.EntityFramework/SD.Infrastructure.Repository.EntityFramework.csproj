@@ -36,7 +36,7 @@
 
   <ItemGroup>
     <PackageReference Include="SD.IOC.Core" Version="2.0.5" />
-    <PackageReference Include="SD.Toolkits.EntityFramework" Version="1.0.8" />
+    <PackageReference Include="SD.Toolkits.EntityFramework" Version="1.1.0" />
   </ItemGroup>
 
   <ItemGroup>

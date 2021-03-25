@@ -703,7 +703,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            this._dbContext.Database.ExecuteSqlCommand(sql, parameters);
+            this._dbContext.Database.ExecuteSqlRaw(sql, parameters);
         }
         #endregion
 
@@ -724,7 +724,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            await this._dbContext.Database.ExecuteSqlCommandAsync(sql, parameters);
+            await this._dbContext.Database.ExecuteSqlRawAsync(sql, parameters);
         }
         #endregion
 
