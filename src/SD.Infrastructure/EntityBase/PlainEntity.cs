@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SD.Infrastructure.EntityBase
 {
@@ -25,6 +26,7 @@ namespace SD.Infrastructure.EntityBase
         /// <summary>
         /// 标识
         /// </summary>
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public Guid Id { get; protected set; }
         #endregion
 
