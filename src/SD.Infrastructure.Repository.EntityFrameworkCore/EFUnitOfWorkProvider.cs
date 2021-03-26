@@ -34,7 +34,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// </summary>
         static EFUnitOfWorkProvider()
         {
-            EFUnitOfWorkProvider._Sync = new object();
+            _Sync = new object();
         }
 
         /// <summary>
@@ -85,9 +85,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #region # 设置创建/操作人信息
 
-            if (EFUnitOfWorkProvider.GetLoginInfo != null)
+            if (GetLoginInfo != null)
             {
-                LoginInfo loginInfo = EFUnitOfWorkProvider.GetLoginInfo.Invoke();
+                LoginInfo loginInfo = GetLoginInfo.Invoke();
                 entity.CreatorAccount = loginInfo?.LoginId;
                 entity.CreatorName = loginInfo?.RealName;
                 entity.OperatorAccount = loginInfo?.LoginId;
@@ -120,9 +120,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #region # 设置创建/操作人信息
 
-            if (EFUnitOfWorkProvider.GetLoginInfo != null)
+            if (GetLoginInfo != null)
             {
-                LoginInfo loginInfo = EFUnitOfWorkProvider.GetLoginInfo.Invoke();
+                LoginInfo loginInfo = GetLoginInfo.Invoke();
 
                 foreach (T entity in entities)
                 {
@@ -158,9 +158,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #region # 设置操作人信息
 
-            if (EFUnitOfWorkProvider.GetLoginInfo != null)
+            if (GetLoginInfo != null)
             {
-                LoginInfo loginInfo = EFUnitOfWorkProvider.GetLoginInfo.Invoke();
+                LoginInfo loginInfo = GetLoginInfo.Invoke();
                 entity.OperatorAccount = loginInfo?.LoginId;
                 entity.OperatorName = loginInfo?.RealName;
             }
@@ -195,9 +195,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #region # 获取操作人信息
 
-            if (EFUnitOfWorkProvider.GetLoginInfo != null)
+            if (GetLoginInfo != null)
             {
-                loginInfo = EFUnitOfWorkProvider.GetLoginInfo.Invoke();
+                loginInfo = GetLoginInfo.Invoke();
             }
 
             #endregion
@@ -320,9 +320,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #region # 设置操作人信息
 
-            if (EFUnitOfWorkProvider.GetLoginInfo != null)
+            if (GetLoginInfo != null)
             {
-                LoginInfo loginInfo = EFUnitOfWorkProvider.GetLoginInfo.Invoke();
+                LoginInfo loginInfo = GetLoginInfo.Invoke();
                 entity.OperatorAccount = loginInfo?.LoginId;
                 entity.OperatorName = loginInfo?.RealName;
             }
@@ -366,9 +366,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #region # 设置操作人信息
 
-            if (EFUnitOfWorkProvider.GetLoginInfo != null)
+            if (GetLoginInfo != null)
             {
-                LoginInfo loginInfo = EFUnitOfWorkProvider.GetLoginInfo.Invoke();
+                LoginInfo loginInfo = GetLoginInfo.Invoke();
                 entity.OperatorAccount = loginInfo?.LoginId;
                 entity.OperatorName = loginInfo?.RealName;
             }
@@ -401,9 +401,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #region # 设置操作人信息
 
-            if (EFUnitOfWorkProvider.GetLoginInfo != null)
+            if (GetLoginInfo != null)
             {
-                LoginInfo loginInfo = EFUnitOfWorkProvider.GetLoginInfo.Invoke();
+                LoginInfo loginInfo = GetLoginInfo.Invoke();
                 entity.OperatorAccount = loginInfo?.LoginId;
                 entity.OperatorName = loginInfo?.RealName;
             }
@@ -440,9 +440,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #region # 获取操作人信息
 
-            if (EFUnitOfWorkProvider.GetLoginInfo != null)
+            if (GetLoginInfo != null)
             {
-                loginInfo = EFUnitOfWorkProvider.GetLoginInfo.Invoke();
+                loginInfo = GetLoginInfo.Invoke();
             }
 
             #endregion
@@ -789,9 +789,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #region # 获取操作人信息
 
-            if (EFUnitOfWorkProvider.GetLoginInfo != null)
+            if (GetLoginInfo != null)
             {
-                loginInfo = EFUnitOfWorkProvider.GetLoginInfo.Invoke();
+                loginInfo = GetLoginInfo.Invoke();
             }
 
             #endregion
@@ -893,7 +893,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            lock (EFUnitOfWorkProvider._Sync)
+            lock (_Sync)
             {
                 return this._dbContext.Set<T>().Where(x => !x.Deleted).Any(predicate);
             }

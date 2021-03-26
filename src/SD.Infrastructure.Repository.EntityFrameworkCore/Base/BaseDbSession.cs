@@ -45,8 +45,10 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            base.OnConfiguring(optionsBuilder);
+            //开启代理类延迟加载
             optionsBuilder.UseLazyLoadingProxies();
+
+            base.OnConfiguring(optionsBuilder);
         }
 
         #endregion

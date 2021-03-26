@@ -70,15 +70,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
         public T SingleOrDefault(Guid id)
         {
-            #region # 验证参数
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的Id不可为空！");
-            }
-
-            #endregion
-
             return this.SingleOrDefault(x => x.Id == id);
         }
         #endregion
@@ -93,15 +84,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <exception cref="ArgumentNullException">Id为空</exception>
         public TSub SingleOrDefault<TSub>(Guid id) where TSub : T
         {
-            #region # 验证参数
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"{typeof(TSub).Name}的Id不可为空！");
-            }
-
-            #endregion
-
             return this.SingleOrDefault<TSub>(x => x.Id == id);
         }
         #endregion
@@ -296,15 +278,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <exception cref="ArgumentNullException">Id为空</exception>
         public bool Exists(Guid id)
         {
-            #region # 验证参数
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的Id不可为空！");
-            }
-
-            #endregion
-
             return this.Exists(x => x.Id == id);
         }
         #endregion
@@ -318,15 +291,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <exception cref="ArgumentNullException">Id为空</exception>
         public bool Exists<TSub>(Guid id) where TSub : T
         {
-            #region # 验证参数
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的Id不可为空！");
-            }
-
-            #endregion
-
             return this.Exists<TSub>(x => x.Id == id);
         }
         #endregion
