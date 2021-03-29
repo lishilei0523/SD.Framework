@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using SD.Infrastructure.Global;
+using SD.IOC.Core.Mediators;
 using System.Threading.Tasks;
 
 namespace SD.Infrastructure.AspNetCore.Server.Middlewares
@@ -40,6 +41,9 @@ namespace SD.Infrastructure.AspNetCore.Server.Middlewares
 
             //清理数据库
             Finalizer.CleanDb();
+
+            //清理依赖注入范围容器
+            ResolveMediator.Dispose();
         }
     }
 }

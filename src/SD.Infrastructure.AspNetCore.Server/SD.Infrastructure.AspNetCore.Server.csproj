@@ -1,20 +1,18 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>基础设施 - ASP.NET Core服务端基础</Description>
-    <Copyright>Copyright © SD 2018</Copyright>
+    <Copyright>Copyright © SD 2021</Copyright>
     <Version>1.0.0</Version>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netcoreapp2.0\SD.Infrastructure.AspNetCore.xml</DocumentationFile>
-  </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp2.0\SD.Infrastructure.AspNetCore.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.AspNetCore.Server.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.AspNetCore.Server.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -22,8 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj" />
     <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj" />
   </ItemGroup>
-
 </Project>
