@@ -51,8 +51,10 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Aspects\ForAny\WCFServiceExceptionAspect.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="..\SD.Infrastructure.AOP\Aspects\ForAny\AppServiceExceptionAspect.cs">
       <Link>Aspects\ForAny\AppServiceExceptionAspect.cs</Link>
