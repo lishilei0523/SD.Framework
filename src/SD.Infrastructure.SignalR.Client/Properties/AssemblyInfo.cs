@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("SD.Infrastructure.SignalR.Client")]
-[assembly: AssemblyDescription("基础设施 - SignalR客户端基础")]
+[assembly: AssemblyDescription("基础设施 - ASP.NET SignalR客户端基础")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SD.Infrastructure.SignalR.Client")]
-[assembly: AssemblyCopyright("Copyright © SD 2020")]
+[assembly: AssemblyCopyright("Copyright © SD 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
