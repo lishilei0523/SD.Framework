@@ -1,17 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <Description>基础设施 - 仓储基础 - Entity Framework实现</Description>
-    <Company>SD</Company>
-    <Authors>Lee</Authors>
-    <Copyright>Copyright © SD 2021</Copyright>
     <Version>2.0.0</Version>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Description>基础设施 - 仓储基础 - Entity Framework实现</Description>
+    <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netstandard2.1\SD.Infrastructure.Repository.EntityFramework.xml</DocumentationFile>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.1\SD.Infrastructure.Repository.EntityFramework.xml</DocumentationFile>
   </PropertyGroup>
@@ -23,20 +22,20 @@
     <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\Base\DbCleaner.cs">
       <Link>Base\DbCleaner.cs</Link>
     </Compile>
-     <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFAggRootRepositoryProvider.cs">
+    <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFAggRootRepositoryProvider.cs">
       <Link>EFAggRootRepositoryProvider.cs</Link>
     </Compile>
-       <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFEntityRepositoryProvider.cs">
+    <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFEntityRepositoryProvider.cs">
       <Link>EFEntityRepositoryProvider.cs</Link>
     </Compile>
-       <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFUnitOfWorkProvider.cs">
+    <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFUnitOfWorkProvider.cs">
       <Link>EFUnitOfWorkProvider.cs</Link>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.IOC.Core" Version="2.0.5" />
     <PackageReference Include="SD.Toolkits.EntityFramework" Version="1.1.0" />
+    <PackageReference Include="SD.IOC.Core" Version="2.0.5" />
   </ItemGroup>
 
   <ItemGroup>

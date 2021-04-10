@@ -1,18 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>基础设施 - 全局（初始化、清理、事务）基础</Description>
-    <Copyright>Copyright © SD 2018</Copyright>
     <Version>2.0.0</Version>
     <Authors>Lee</Authors>
     <Company>SD</Company>
+    <Description>基础设施 - 全局（初始化、清理、事务）基础</Description>
+    <Copyright>Copyright © SD 2018</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.Global.xml</DocumentationFile>
   </PropertyGroup>
-
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.Global.xml</DocumentationFile>
   </PropertyGroup>
@@ -21,5 +19,4 @@
     <ProjectReference Include="..\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj" />
     <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
   </ItemGroup>
-
 </Project>

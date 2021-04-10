@@ -1,29 +1,26 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Description>基础设施 - AOP基础</Description>
-    <Copyright>Copyright © SD 2018</Copyright>
+    <Version>2.0.0</Version>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Version>2.0.0</Version>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.AOP.xml</DocumentationFile>
+    <Description>基础设施 - AOP基础</Description>
+    <Copyright>Copyright © SD 2018</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.AOP.xml</DocumentationFile>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.AOP.xml</DocumentationFile>
+  </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.AOP.Core" Version="2.0.6" />
     <PackageReference Include="SD.Toolkits.Json" Version="1.0.0" />
+    <PackageReference Include="SD.AOP.Core" Version="2.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
   </ItemGroup>
-
 </Project>

@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Infrastructures", "01 - Infrastructures", "{F04B3910-0A27-4C2D-8ED1-6CC7095691E5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 - Tests", "06 - Tests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - Tests", "05 - Tests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.EntityFramework.NET461", "src\SD.Infrastructure.Repository.EntityFramework.NET461\SD.Infrastructure.Repository.EntityFramework.NET461.csproj", "{972CFDBB-1E0F-43CD-987A-458E9D1543B8}"
 EndProject
@@ -18,8 +18,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.StubIAppService", "src\SD.Infrastructure.StubIAppService\SD.Infrastructure.StubIAppService.csproj", "{04BFA4D7-86C8-4341-B34C-3F1D88D19827}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.StubAppService", "src\SD.Infrastructure.StubAppService\SD.Infrastructure.StubAppService.csproj", "{A9F7D041-ECF8-434D-B083-5F57AD348564}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.MVC", "src\SD.Infrastructure.MVC\SD.Infrastructure.MVC.csproj", "{5B231572-46D6-432B-81B1-C583C699D925}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.MVC.Server", "src\SD.Infrastructure.MVC.Server\SD.Infrastructure.MVC.Server.csproj", "{BE2F2103-F9F6-49B7-8389-D1D909F35464}"
 EndProject
@@ -46,8 +44,6 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repository.MongoDB", "src\SD.Infrastructure.Repository.MongoDB\SD.Infrastructure.Repository.MongoDB.csproj", "{48554F64-B4DA-4A38-818A-72B8C5297724}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repository.RavenDB", "src\SD.Infrastructure.Repository.RavenDB\SD.Infrastructure.Repository.RavenDB.csproj", "{6DFB202E-E47B-4698-98E3-A8E05A6F784D}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - Clients", "05 - Clients", "{ADD07228-3F19-4814-BB60-0F7D18C99D77}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.NET45", "src\SD.Infrastructure.NET45\SD.Infrastructure.NET45.csproj", "{F9FF05F0-1900-4D24-859A-B3202F2208D7}"
 EndProject
@@ -109,10 +105,6 @@ Global
 		{A9F7D041-ECF8-434D-B083-5F57AD348564}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9F7D041-ECF8-434D-B083-5F57AD348564}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9F7D041-ECF8-434D-B083-5F57AD348564}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5B231572-46D6-432B-81B1-C583C699D925}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5B231572-46D6-432B-81B1-C583C699D925}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5B231572-46D6-432B-81B1-C583C699D925}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5B231572-46D6-432B-81B1-C583C699D925}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BE2F2103-F9F6-49B7-8389-D1D909F35464}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BE2F2103-F9F6-49B7-8389-D1D909F35464}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BE2F2103-F9F6-49B7-8389-D1D909F35464}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -224,7 +216,6 @@ Global
 		{D4673F34-2090-41E0-AE2C-746F0CA97F3C} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{04BFA4D7-86C8-4341-B34C-3F1D88D19827} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{A9F7D041-ECF8-434D-B083-5F57AD348564} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
-		{5B231572-46D6-432B-81B1-C583C699D925} = {ADD07228-3F19-4814-BB60-0F7D18C99D77}
 		{BE2F2103-F9F6-49B7-8389-D1D909F35464} = {AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}
 		{7363465F-FEE0-4EAB-AEC5-1AE488540C9D} = {AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}
 		{AD3A8A7D-0DC2-480E-9477-FC5CE93007D8} = {88B56539-567B-4B32-BCFC-CB39C1158534}
