@@ -1,7 +1,7 @@
 ﻿using SD.Infrastructure.Constants;
 using SD.Infrastructure.EventBase;
 using SD.Infrastructure.EventBase.Mediator;
-using SD.Infrastructure.EventStoreProvider.Redis.Toolkits;
+using SD.Infrastructure.EventStore.Redis.Toolkits;
 using SD.Toolkits.Redis;
 using StackExchange.Redis;
 using System.Linq;

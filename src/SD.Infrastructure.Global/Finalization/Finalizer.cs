@@ -17,7 +17,6 @@ namespace SD.Infrastructure.Global
         public static void CleanDb()
         {
             IEnumerable<IDbCleaner> dbCleaners = ResolveMediator.ResolveAll<IDbCleaner>();
-
             foreach (IDbCleaner dbCleaner in dbCleaners)
             {
                 dbCleaner.Clean();

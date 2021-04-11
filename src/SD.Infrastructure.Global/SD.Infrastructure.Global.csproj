@@ -5,7 +5,7 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>基础设施 - 全局（初始化、清理、事务）基础</Description>
-    <Copyright>Copyright © SD 2018</Copyright>
+    <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,7 +16,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj" />
+    <PackageReference Include="SD.IOC.Core" Version="2.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj" />
   </ItemGroup>
 </Project>

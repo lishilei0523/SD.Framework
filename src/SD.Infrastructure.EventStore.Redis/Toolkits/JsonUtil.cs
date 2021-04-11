@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using SD.Infrastructure.EventBase;
 using System;
 
-namespace SD.Infrastructure.EventStoreProvider.Redis.Toolkits
+namespace SD.Infrastructure.EventStore.Redis.Toolkits
 {
     /// <summary>
     /// JSON工具

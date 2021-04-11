@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using SD.Infrastructure.CrontabBase;
 using System;
 
-namespace SD.Infrastructure.CrontabStoreProvider.Redis.Toolkits
+namespace SD.Infrastructure.CrontabStore.Redis.Toolkits
 {
     /// <summary>
     /// JSON工具

@@ -146,17 +146,17 @@
       <Project>{f04a5dab-4e7c-43e5-bebb-09300757f273}</Project>
       <Name>SD.Infrastructure.EventBase</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SD.Infrastructure.EventStoreProvider.Redis\SD.Infrastructure.EventStoreProvider.Redis.csproj">
+    <ProjectReference Include="..\SD.Infrastructure.EventStore.Redis\SD.Infrastructure.EventStore.Redis.csproj">
       <Project>{33d9927c-7a43-4ff5-b9e2-99b66ead6651}</Project>
-      <Name>SD.Infrastructure.EventStoreProvider.Redis</Name>
+      <Name>SD.Infrastructure.EventStore.Redis</Name>
     </ProjectReference>
     <ProjectReference Include="..\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj">
       <Project>{94fface5-5f2a-49db-ad7e-aa7c724cdcb3}</Project>
       <Name>SD.Infrastructure.Global</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj">
-      <Project>{77b51895-dc26-4ee1-87c9-f5d0171fad5a}</Project>
-      <Name>SD.Infrastructure</Name>
+    <ProjectReference Include="..\SD.Infrastructure.NET46\SD.Infrastructure.NET46.csproj">
+      <Project>{9f7aa219-1c9e-4591-8b54-07a0e69e0e42}</Project>
+      <Name>SD.Infrastructure.NET46</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

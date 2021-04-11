@@ -37,9 +37,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Global", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.EventBase", "src\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj", "{F04A5DAB-4E7C-43E5-BEBB-09300757F273}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.EventStoreProvider.RabbitMQ", "src\SD.Infrastructure.EventStoreProvider.RabbitMQ\SD.Infrastructure.EventStoreProvider.RabbitMQ.csproj", "{971F03BF-C107-4F51-8767-1AB7E74A3DE0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.EventStore.RabbitMQ", "src\SD.Infrastructure.EventStore.RabbitMQ\SD.Infrastructure.EventStore.RabbitMQ.csproj", "{971F03BF-C107-4F51-8767-1AB7E74A3DE0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.EventStoreProvider.Redis", "src\SD.Infrastructure.EventStoreProvider.Redis\SD.Infrastructure.EventStoreProvider.Redis.csproj", "{33D9927C-7A43-4FF5-B9E2-99B66EAD6651}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.EventStore.Redis", "src\SD.Infrastructure.EventStore.Redis\SD.Infrastructure.EventStore.Redis.csproj", "{33D9927C-7A43-4FF5-B9E2-99B66EAD6651}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repository.MongoDB", "src\SD.Infrastructure.Repository.MongoDB\SD.Infrastructure.Repository.MongoDB.csproj", "{48554F64-B4DA-4A38-818A-72B8C5297724}"
 EndProject
@@ -53,7 +53,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.CrontabBa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.CrontabBase.Tests", "src\SD.Infrastructure.CrontabBase.Tests\SD.Infrastructure.CrontabBase.Tests.csproj", "{70742727-3C93-44BA-9EB1-15F0CA78E3EB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.CrontabStoreProvider.Redis", "src\SD.Infrastructure.CrontabStoreProvider.Redis\SD.Infrastructure.CrontabStoreProvider.Redis.csproj", "{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.CrontabStore.Redis", "src\SD.Infrastructure.CrontabStore.Redis\SD.Infrastructure.CrontabStore.Redis.csproj", "{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Workflow", "src\SD.Infrastructure.Workflow\SD.Infrastructure.Workflow.csproj", "{C5D4DF46-4EB8-4E4C-9A5A-C6AE4D7CDA08}"
 EndProject
@@ -221,7 +221,7 @@ Global
 		{AD3A8A7D-0DC2-480E-9477-FC5CE93007D8} = {88B56539-567B-4B32-BCFC-CB39C1158534}
 		{77B51895-DC26-4EE1-87C9-F5D0171FAD5A} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{34AEF366-607C-4D69-BA60-6CF3332143DC} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
-		{94FFACE5-5F2A-49DB-AD7E-AA7C724CDCB3} = {AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}
+		{94FFACE5-5F2A-49DB-AD7E-AA7C724CDCB3} = {F04B3910-0A27-4C2D-8ED1-6CC7095691E5}
 		{F04A5DAB-4E7C-43E5-BEBB-09300757F273} = {5065859B-70BD-4391-8719-85C364652195}
 		{971F03BF-C107-4F51-8767-1AB7E74A3DE0} = {5065859B-70BD-4391-8719-85C364652195}
 		{33D9927C-7A43-4FF5-B9E2-99B66EAD6651} = {5065859B-70BD-4391-8719-85C364652195}

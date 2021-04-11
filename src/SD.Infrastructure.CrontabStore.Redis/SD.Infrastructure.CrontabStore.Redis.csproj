@@ -4,14 +4,16 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>基础设施 - 定时任务基础 - Redis存储提供者</Description>
-    <Copyright>Copyright © SD 2020</Copyright>
+    <Copyright>Copyright © SD 2021</Copyright>
+    <AssemblyName>SD.Infrastructure.CrontabStore.Redis</AssemblyName>
+    <RootNamespace>SD.Infrastructure.CrontabStore.Redis</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.CrontabStoreProvider.Redis.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.CrontabStore.Redis.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.CrontabStoreProvider.Redis.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.CrontabStore.Redis.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -4,18 +4,20 @@
     <Version>2.0.0</Version>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>基础设施 - 领域事件基础 - RabbitMQ提供者</Description>
-    <Copyright>Copyright © SD 2018</Copyright>
+    <Description>基础设施 - 领域事件基础 - RabbitMQ存储提供者</Description>
+    <Copyright>Copyright © SD 2021</Copyright>
+    <RootNamespace>SD.Infrastructure.EventStore.RabbitMQ</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.EventStoreProvider.RabbitMQ.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.EventStore.RabbitMQ.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.EventStoreProvider.RabbitMQ.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.EventStore.RabbitMQ.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
     <PackageReference Include="RabbitMQ.Client" Version="5.1.0" />
   </ItemGroup>
 
