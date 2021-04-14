@@ -161,28 +161,28 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #endregion
 
 
-        //IEnumerable部分
+        //ICollection部分
 
-        #region # 获取实体对象列表 —— IEnumerable<T> FindAll()
+        #region # 获取实体对象列表 —— ICollection<T> FindAll()
         /// <summary>
         /// 获取实体对象列表
         /// </summary>
         /// <returns>实体对象列表</returns>
-        public IEnumerable<T> FindAll()
+        public ICollection<T> FindAll()
         {
-            return this.FindAllInner().AsEnumerable();
+            return this.FindAllInner().ToList();
         }
         #endregion
 
-        #region # 获取给定类型子类对象列表 —— IEnumerable<TSub> FindAll<TSub>()
+        #region # 获取给定类型子类对象列表 —— ICollection<TSub> FindAll<TSub>()
         /// <summary>
         /// 获取给定类型子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
-        public IEnumerable<TSub> FindAll<TSub>() where TSub : T
+        public ICollection<TSub> FindAll<TSub>() where TSub : T
         {
-            return this.FindAllInner<TSub>().AsEnumerable();
+            return this.FindAllInner<TSub>().ToList();
         }
         #endregion
 
@@ -298,17 +298,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
         //其他
 
-        #region # 执行SQL查询 —— IEnumerable<TT> ExecuteSqlQuery<TT>(string sql...
+        #region # 执行SQL查询 —— ICollection<TEntity> ExecuteSqlQuery<TEntity>(string sql...
         /// <summary>
         /// 执行SQL查询
         /// </summary>
         /// <param name="sql">SQL语句</param>
-        /// <param name="parameters">参数</param>
+        /// <param name="parameters">参数集</param>
         /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">SQL语句为空</exception>
-        public IEnumerable<TT> ExecuteSqlQuery<TT>(string sql, params object[] parameters)
+        public ICollection<TEntity> ExecuteSqlQuery<TEntity>(string sql, params object[] parameters)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(sql))
             {
@@ -317,7 +316,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this._dbContext.Database.SqlQuery<TT>(sql, parameters).AsEnumerable();
+            return this._dbContext.Database.SqlQuery<TEntity>(sql, parameters).ToList();
         }
         #endregion
 

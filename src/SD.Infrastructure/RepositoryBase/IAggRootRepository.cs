@@ -57,26 +57,26 @@ namespace SD.Infrastructure.RepositoryBase
         #endregion
 
 
-        //IEnumerable部分
+        //ICollection部分
 
-        #region # 根据关键字获取实体对象列表 —— IEnumerable<T> Find(string keywords)
+        #region # 根据关键字获取实体对象列表 —— ICollection<T> Find(string keywords)
         /// <summary>
         /// 根据关键字获取实体对象列表
         /// </summary>
         /// <returns>实体对象列表</returns>
-        IEnumerable<T> Find(string keywords);
+        ICollection<T> Find(string keywords);
         #endregion
 
-        #region # 根据关键字获取子类对象列表 —— IEnumerable<TSub> Find<TSub>(string keywords)
+        #region # 根据关键字获取子类对象列表 —— ICollection<TSub> Find<TSub>(string keywords)
         /// <summary>
         /// 根据关键字获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
-        IEnumerable<TSub> Find<TSub>(string keywords) where TSub : T;
+        ICollection<TSub> Find<TSub>(string keywords) where TSub : T;
         #endregion
 
-        #region # 根据关键字分页获取实体对象列表 —— IEnumerable<T> FindByPage(...
+        #region # 根据关键字分页获取实体对象列表 —— ICollection<T> FindByPage(...
         /// <summary>
         /// 根据关键字分页获取实体对象列表
         /// </summary>
@@ -86,12 +86,10 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="rowCount">记录条数</param>
         /// <param name="pageCount">页数</param>
         /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        IEnumerable<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount);
+        ICollection<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount);
         #endregion
 
-        #region # 根据关键字分页获取子类对象列表 —— IEnumerable<TSub> FindByPage...
+        #region # 根据关键字分页获取子类对象列表 —— ICollection<TSub> FindByPage...
         /// <summary>
         /// 根据关键字分页获取子类对象列表
         /// </summary>
@@ -102,9 +100,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="rowCount">记录条数</param>
         /// <param name="pageCount">页数</param>
         /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        IEnumerable<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T;
+        ICollection<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T;
         #endregion
 
 

@@ -62,7 +62,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
             }
 
             #endregion
@@ -85,7 +85,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(TSub).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(TSub).Name}的id不可为空！");
             }
 
             #endregion
@@ -110,7 +110,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(T).Name));
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
             }
 
             #endregion
@@ -135,7 +135,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(TSub).Name));
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(TSub).Name}实体不存在！");
             }
 
             #endregion
@@ -167,28 +167,28 @@ namespace SD.Infrastructure.Repository.RavenDB
         #endregion
 
 
-        //IEnumerable部分
+        //ICollection部分
 
-        #region # 获取实体对象列表 —— IEnumerable<T> FindAll()
+        #region # 获取实体对象列表 —— ICollection<T> FindAll()
         /// <summary>
         /// 获取实体对象列表
         /// </summary>
         /// <returns>实体对象列表</returns>
-        public IEnumerable<T> FindAll()
+        public ICollection<T> FindAll()
         {
-            return this.FindAllInner().AsEnumerable();
+            return this.FindAllInner().ToList();
         }
         #endregion
 
-        #region # 获取给定类型子类对象列表 —— IEnumerable<TSub> FindAll<TSub>()
+        #region # 获取给定类型子类对象列表 —— ICollection<TSub> FindAll<TSub>()
         /// <summary>
         /// 获取给定类型子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
-        public IEnumerable<TSub> FindAll<TSub>() where TSub : T
+        public ICollection<TSub> FindAll<TSub>() where TSub : T
         {
-            return this.FindAllInner<TSub>().AsEnumerable();
+            return this.FindAllInner<TSub>().ToList();
         }
         #endregion
 
@@ -207,7 +207,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (ids == null)
             {
-                throw new ArgumentNullException("ids", "Id集不可为null！");
+                throw new ArgumentNullException(nameof(ids), "Id集不可为null！");
             }
 
             #endregion
@@ -234,7 +234,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (ids == null)
             {
-                throw new ArgumentNullException("ids", "Id集不可为null！");
+                throw new ArgumentNullException(nameof(ids), "Id集不可为null！");
             }
 
             #endregion
@@ -290,7 +290,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
             }
 
             #endregion
@@ -312,7 +312,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
             }
 
             #endregion
@@ -324,15 +324,14 @@ namespace SD.Infrastructure.Repository.RavenDB
 
         //其他
 
-        #region # 执行SQL查询 —— IEnumerable<TT> ExecuteSqlQuery<TT>(string sql...
+        #region # 执行SQL查询 —— ICollection<TEntity> ExecuteSqlQuery<TEntity>(string sql...
         /// <summary>
         /// 执行SQL查询
         /// </summary>
         /// <param name="sql">SQL语句</param>
-        /// <param name="parameters">参数</param>
+        /// <param name="parameters">参数集</param>
         /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">SQL语句为空</exception>
-        public IEnumerable<TT> ExecuteSqlQuery<TT>(string sql, params object[] parameters)
+        public ICollection<TEntity> ExecuteSqlQuery<TEntity>(string sql, params object[] parameters)
         {
             throw new NotSupportedException("RavenDB不支持SQL查询！");
         }
@@ -374,12 +373,12 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             if (this.Count(predicate) > 1)
             {
-                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
+                throw new InvalidOperationException($"给定的条件\"{predicate}\"中查询到1个以上的{typeof(T).Name}实体对象！");
             }
 
             #endregion
@@ -405,12 +404,12 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             if (this.Count(predicate) > 1)
             {
-                throw new InvalidOperationException(string.Format("给定的条件\"{0}\"中查询到1个以上的{1}实体对象！", predicate, typeof(T).Name));
+                throw new InvalidOperationException($"给定的条件\"{predicate}\"中查询到1个以上的{typeof(T).Name}实体对象！");
             }
 
             #endregion
@@ -432,7 +431,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -455,7 +454,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -510,7 +509,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -534,7 +533,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -625,7 +624,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -648,7 +647,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -674,7 +673,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion
@@ -697,7 +696,7 @@ namespace SD.Infrastructure.Repository.RavenDB
 
             if (predicate == null)
             {
-                throw new ArgumentNullException("predicate", @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
             }
 
             #endregion

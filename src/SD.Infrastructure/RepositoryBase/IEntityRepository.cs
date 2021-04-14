@@ -73,23 +73,23 @@ namespace SD.Infrastructure.RepositoryBase
         #endregion
 
 
-        //IEnumerable部分
+        //ICollection部分
 
-        #region # 获取实体对象列表 —— IEnumerable<T> FindAll()
+        #region # 获取实体对象列表 —— ICollection<T> FindAll()
         /// <summary>
         /// 获取实体对象列表
         /// </summary>
         /// <returns>实体对象列表</returns>
-        IEnumerable<T> FindAll();
+        ICollection<T> FindAll();
         #endregion
 
-        #region # 获取给定类型子类对象列表 —— IEnumerable<TSub> FindAll<TSub>()
+        #region # 获取给定类型子类对象列表 —— ICollection<TSub> FindAll<TSub>()
         /// <summary>
         /// 获取给定类型子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
-        IEnumerable<TSub> FindAll<TSub>() where TSub : T;
+        ICollection<TSub> FindAll<TSub>() where TSub : T;
         #endregion
 
 
@@ -158,15 +158,14 @@ namespace SD.Infrastructure.RepositoryBase
 
         //其他
 
-        #region # 执行SQL查询 —— IEnumerable<TT> ExecuteSqlQuery<TT>(string sql...
+        #region # 执行SQL查询 —— ICollection<TEntity> ExecuteSqlQuery<TEntity>(string sql...
         /// <summary>
         /// 执行SQL查询
         /// </summary>
         /// <param name="sql">SQL语句</param>
-        /// <param name="parameters">参数</param>
+        /// <param name="parameters">参数集</param>
         /// <returns>实体对象数组</returns>
-        /// <exception cref="ArgumentNullException">SQL语句为空</exception>
-        IEnumerable<TT> ExecuteSqlQuery<TT>(string sql, params object[] parameters);
+        ICollection<TEntity> ExecuteSqlQuery<TEntity>(string sql, params object[] parameters);
         #endregion
     }
 }

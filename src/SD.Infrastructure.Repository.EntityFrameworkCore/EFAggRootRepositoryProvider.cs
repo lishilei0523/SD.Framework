@@ -126,40 +126,40 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         #endregion
 
 
-        //IEnumerable部分
+        //ICollection部分
 
-        #region # 根据关键字获取实体对象列表 —— IEnumerable<T> Find(string keywords)
+        #region # 根据关键字获取实体对象列表 —— ICollection<T> Find(string keywords)
         /// <summary>
         /// 根据关键字获取实体对象列表
         /// </summary>
         /// <returns>实体对象列表</returns>
-        public IEnumerable<T> Find(string keywords)
+        public ICollection<T> Find(string keywords)
         {
             Expression<Func<T, bool>> condition =
                 x =>
-                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
 
-            return base.Find(condition).AsEnumerable();
+            return base.Find(condition).ToList();
         }
         #endregion
 
-        #region # 根据关键字获取子类对象列表 —— IEnumerable<TSub> Find<TSub>(string keywords)
+        #region # 根据关键字获取子类对象列表 —— ICollection<TSub> Find<TSub>(string keywords)
         /// <summary>
         /// 根据关键字获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
-        public IEnumerable<TSub> Find<TSub>(string keywords) where TSub : T
+        public ICollection<TSub> Find<TSub>(string keywords) where TSub : T
         {
             Expression<Func<TSub, bool>> condition =
                 x =>
-                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
 
-            return base.Find<TSub>(condition).AsEnumerable();
+            return base.Find<TSub>(condition).ToList();
         }
         #endregion
 
-        #region # 根据关键字分页获取实体对象列表 —— IEnumerable<T> FindByPage(...
+        #region # 根据关键字分页获取实体对象列表 —— ICollection<T> FindByPage(...
         /// <summary>
         /// 根据关键字分页获取实体对象列表
         /// </summary>
@@ -169,19 +169,17 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="rowCount">记录条数</param>
         /// <param name="pageCount">页数</param>
         /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        public IEnumerable<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount)
+        public ICollection<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
             Expression<Func<T, bool>> condition =
                 x =>
-                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
 
-            return base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
+            return base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToList();
         }
         #endregion
 
-        #region # 根据关键字分页获取子类对象列表 —— IEnumerable<TSub> FindByPage<TSub>(...
+        #region # 根据关键字分页获取子类对象列表 —— ICollection<TSub> FindByPage<TSub>(...
         /// <summary>
         /// 根据关键字分页获取子类对象列表
         /// </summary>
@@ -192,16 +190,14 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="rowCount">记录条数</param>
         /// <param name="pageCount">页数</param>
         /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        public IEnumerable<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount,
+        public ICollection<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount,
             out int pageCount) where TSub : T
         {
             Expression<Func<TSub, bool>> condition =
                 x =>
-                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
 
-            return base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).AsEnumerable();
+            return base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToList();
         }
         #endregion
 

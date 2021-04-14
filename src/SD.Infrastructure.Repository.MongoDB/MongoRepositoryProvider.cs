@@ -44,7 +44,8 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (string.IsNullOrWhiteSpace(connStr))
             {
-                throw new ApplicationException(string.Format("MongoDB连接字符串未设置，默认连接字符串键为\"{0}\"！", MongoConnectionStringKey));
+                throw new ApplicationException(
+                    $"MongoDB连接字符串未设置，默认连接字符串键为\"{MongoRepositoryProvider<T>.MongoConnectionStringKey}\"！");
             }
             _ConnectionString = connStr;
 
@@ -67,7 +68,8 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (connStr.Length != 2)
             {
-                throw new ApplicationException(string.Format("连接字符串格式不正确，请使用\"{0}\"来分隔服务器地址与数据库名称！", Separator));
+                throw new ApplicationException(
+                    $"连接字符串格式不正确，请使用\"{MongoRepositoryProvider<T>.Separator}\"来分隔服务器地址与数据库名称！");
             }
 
             MongoClient client = new MongoClient(connStr[0]);
@@ -91,15 +93,15 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", string.Format(@"要添加的{0}实体对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $@"要添加的{typeof(T).Name}实体对象不可为空！");
             }
             if (entity.Id == Guid.Empty)
             {
-                throw new ArgumentNullException("Id", string.Format(@"要添加的{0}实体对象Id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException("Id", $@"要添加的{typeof(T).Name}实体对象Id不可为空！");
             }
             if (this.Exists(entity.Id))
             {
-                throw new ArgumentOutOfRangeException("Id", string.Format("Id为\"{0}\"的实体已存在！", entity.Id));
+                throw new ArgumentOutOfRangeException("Id", $"Id为\"{entity.Id}\"的实体已存在！");
             }
 
             #endregion
@@ -121,7 +123,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (entities == null || !entities.Any())
             {
-                throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象列表不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entities), $"要保存的{typeof(T).Name}实体对象列表不可为空！");
             }
 
             #endregion
@@ -143,15 +145,15 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (entity == null)
             {
-                throw new ArgumentNullException("entity", string.Format("要保存的{0}实体对象不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entity), $"要保存的{typeof(T).Name}实体对象不可为空！");
             }
             if (entity.Id == Guid.Empty)
             {
-                throw new ArgumentNullException("Id", string.Format(@"要保存的{0}实体对象Id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException("Id", $@"要保存的{typeof(T).Name}实体对象Id不可为空！");
             }
             if (!this.Exists(entity.Id))
             {
-                throw new NullReferenceException(string.Format("不存在Id为{0}的{1}实体对象，请尝试添加操作！", entity.Id, typeof(T).Name));
+                throw new NullReferenceException($"不存在Id为{entity.Id}的{typeof(T).Name}实体对象，请尝试添加操作！");
             }
 
             #endregion
@@ -178,7 +180,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (!entities.Any())
             {
-                throw new ArgumentNullException("entities", string.Format("要保存的{0}实体对象列表不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(entities), $"要保存的{typeof(T).Name}实体对象列表不可为空！");
             }
 
             #endregion
@@ -239,7 +241,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (ids == null || !ids.Any())
             {
-                throw new ArgumentNullException("ids", string.Format("要删除的{0}的id集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的id集合不可为空！");
             }
 
             #endregion
@@ -261,7 +263,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (numbers == null || !numbers.Any())
             {
-                throw new ArgumentNullException("ids", string.Format("要删除的{0}的编号集合不可为空！", typeof(T).Name));
+                throw new ArgumentNullException("ids", $"要删除的{typeof(T).Name}的编号集合不可为空！");
             }
 
             #endregion
@@ -302,7 +304,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
             }
 
             #endregion
@@ -325,7 +327,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(TSub).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(TSub).Name}的id不可为空！");
             }
 
             #endregion
@@ -348,7 +350,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
             }
 
             #endregion
@@ -371,7 +373,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(TSub).Name));
+                throw new ArgumentNullException(nameof(number), $"{typeof(TSub).Name}的编号不可为空！");
             }
 
             #endregion
@@ -396,7 +398,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(T).Name));
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
             }
 
             #endregion
@@ -421,7 +423,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("Id为\"{0}\"的{1}实体不存在！", id, typeof(TSub).Name));
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(TSub).Name}实体不存在！");
             }
 
             #endregion
@@ -446,7 +448,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(T).Name));
+                throw new NullReferenceException($"编号为\"{number}\"的{typeof(T).Name}实体不存在！");
             }
 
             #endregion
@@ -471,7 +473,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (current == null)
             {
-                throw new NullReferenceException(string.Format("编号为\"{0}\"的{1}实体不存在！", number, typeof(TSub).Name));
+                throw new NullReferenceException($"编号为\"{number}\"的{typeof(TSub).Name}实体不存在！");
             }
 
             #endregion
@@ -503,62 +505,63 @@ namespace SD.Infrastructure.Repository.MongoDB
         #endregion
 
 
-        //IEnumerable部分
+        //ICollection部分
 
-        #region # 获取实体对象列表 —— IEnumerable<T> FindAll()
+        #region # 获取实体对象列表 —— ICollection<T> FindAll()
         /// <summary>
         /// 获取实体对象列表
         /// </summary>
         /// <returns>实体对象列表</returns>
-        public IEnumerable<T> FindAll()
+        public ICollection<T> FindAll()
         {
-            return this.FindAndSort(x => true).ToEnumerable();
+            return this.Find(x => true).ToList();
         }
         #endregion
 
-        #region # 获取给定类型子类对象列表 —— IEnumerable<TSub> FindAll<TSub>()
+        #region # 获取给定类型子类对象列表 —— ICollection<TSub> FindAll<TSub>()
         /// <summary>
         /// 获取给定类型子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
-        public IEnumerable<TSub> FindAll<TSub>() where TSub : T
+        public ICollection<TSub> FindAll<TSub>() where TSub : T
         {
-            return this.FindAndSort<TSub>(x => true).ToEnumerable();
+            return this.Find<TSub>(x => true).ToList();
         }
         #endregion
 
-        #region # 根据关键字获取实体对象列表 —— IEnumerable<T> Find(string keywords)
+        #region # 根据关键字获取实体对象列表 —— ICollection<T> Find(string keywords)
         /// <summary>
         /// 根据关键字获取实体对象列表
         /// </summary>
         /// <returns>实体对象列表</returns>
-        public IEnumerable<T> Find(string keywords)
+        public ICollection<T> Find(string keywords)
         {
             Expression<Func<T, bool>> condition =
-                x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+                x =>
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
 
-            return this.FindAndSort(condition).ToEnumerable();
+            return this.Find(condition).ToList();
         }
         #endregion
 
-        #region # 根据关键字获取子类对象列表 —— IEnumerable<TSub> Find<TSub>(string keywords)
+        #region # 根据关键字获取子类对象列表 —— ICollection<TSub> Find<TSub>(string keywords)
         /// <summary>
         /// 根据关键字获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
-        public IEnumerable<TSub> Find<TSub>(string keywords) where TSub : T
+        public ICollection<TSub> Find<TSub>(string keywords) where TSub : T
         {
             Expression<Func<TSub, bool>> condition =
                 x =>
-                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
 
-            return this.FindAndSort<TSub>(condition).ToEnumerable();
+            return this.Find<TSub>(condition).ToList();
         }
         #endregion
 
-        #region # 根据关键字分页获取实体对象列表 —— IEnumerable<T> FindByPage(...
+        #region # 根据关键字分页获取实体对象列表 —— ICollection<T> FindByPage(...
         /// <summary>
         /// 根据关键字分页获取实体对象列表
         /// </summary>
@@ -568,18 +571,17 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <param name="rowCount">记录条数</param>
         /// <param name="pageCount">页数</param>
         /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        public IEnumerable<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount)
+        public ICollection<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
             Expression<Func<T, bool>> condition =
-                x => string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+                x =>
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
 
-            return this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToEnumerable();
+            return this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToList();
         }
         #endregion
 
-        #region # 根据关键字分页获取子类对象列表 —— IEnumerable<TSub> FindByPage...
+        #region # 根据关键字分页获取子类对象列表 —— ICollection<TSub> FindByPage...
         /// <summary>
         /// 根据关键字分页获取子类对象列表
         /// </summary>
@@ -592,14 +594,14 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>实体对象列表</returns>
         /// <exception cref="ArgumentNullException">条件表达式为空</exception>
         /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        public IEnumerable<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount,
+        public ICollection<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount,
             out int pageCount) where TSub : T
         {
             Expression<Func<TSub, bool>> condition =
                 x =>
-                    string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords);
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
 
-            return this.FindByPage<TSub>(condition, pageIndex, pageSize, out rowCount, out pageCount).ToEnumerable();
+            return this.FindByPage<TSub>(condition, pageIndex, pageSize, out rowCount, out pageCount).ToList();
         }
         #endregion
 
@@ -747,7 +749,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
             }
 
             #endregion
@@ -769,7 +771,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", string.Format("{0}的id不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
             }
 
             #endregion
@@ -791,7 +793,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
             }
 
             #endregion
@@ -813,7 +815,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (string.IsNullOrWhiteSpace(number))
             {
-                throw new ArgumentNullException("number", string.Format("{0}的编号不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
             }
 
             #endregion
@@ -884,7 +886,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentNullException("name", string.Format("{0}的名称不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(name), $"{typeof(T).Name}的名称不可为空！");
             }
 
             #endregion
@@ -905,7 +907,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (string.IsNullOrWhiteSpace(name))
             {
-                throw new ArgumentNullException("name", string.Format("{0}的名称不可为空！", typeof(T).Name));
+                throw new ArgumentNullException(nameof(name), $"{typeof(T).Name}的名称不可为空！");
             }
 
             #endregion
@@ -1005,15 +1007,14 @@ namespace SD.Infrastructure.Repository.MongoDB
 
         //其他
 
-        #region # 执行SQL查询 —— IEnumerable<TT> ExecuteSqlQuery<TT>(string sql...
+        #region # 执行SQL查询 —— ICollection<TEntity> ExecuteSqlQuery<TEntity>(string sql...
         /// <summary>
         /// 执行SQL查询
         /// </summary>
         /// <param name="sql">SQL语句</param>
-        /// <param name="parameters">参数</param>
+        /// <param name="parameters">参数集</param>
         /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">SQL语句为空</exception>
-        public IEnumerable<TT> ExecuteSqlQuery<TT>(string sql, params object[] parameters)
+        public ICollection<TEntity> ExecuteSqlQuery<TEntity>(string sql, params object[] parameters)
         {
             throw new NotSupportedException("MongoDB不支持SQL");
         }
