@@ -1,4 +1,5 @@
-﻿using SD.Infrastructure.RepositoryBase;
+﻿using SD.Infrastructure.Constants;
+using SD.Infrastructure.RepositoryBase;
 using SD.IOC.Core.Mediators;
 using System.Collections.Generic;
 
@@ -12,6 +13,11 @@ namespace SD.Infrastructure.Global
     public static class Finalizer
     {
         /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync = new object();
+
+        /// <summary>
         /// 清理数据库
         /// </summary>
         public static void CleanDb()
@@ -20,6 +26,17 @@ namespace SD.Infrastructure.Global
             foreach (IDbCleaner dbCleaner in dbCleaners)
             {
                 dbCleaner.Clean();
+            }
+        }
+
+        /// <summary>
+        /// 清理会话Id
+        /// </summary>
+        public static void CleanSessionId()
+        {
+            lock (_Sync)
+            {
+                GlobalSetting.FreeCurrentSessionId();
             }
         }
     }

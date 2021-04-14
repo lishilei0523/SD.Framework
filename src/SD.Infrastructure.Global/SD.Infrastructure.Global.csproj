@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
     <ProjectReference Include="..\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
   </ItemGroup>
 </Project>
