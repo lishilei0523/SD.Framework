@@ -3,6 +3,7 @@ using SD.Infrastructure.EntityBase;
 using SD.IOC.Core.Mediators;
 using SD.Toolkits.EntityFramework.Base;
 using System;
+using System.Data.Common;
 using System.Threading;
 
 namespace SD.Infrastructure.Repository.EntityFramework.Base
@@ -44,6 +45,17 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         protected BaseDbSession()
             : base(GlobalSetting.DefaultConnectionString)
+        {
+            this.Configuration.ValidateOnSaveEnabled = false;
+        }
+
+        /// <summary>
+        /// 基础构造器
+        /// </summary>
+        /// <param name="existingConnection">已存在数据库连接</param>
+        /// <param name="contextOwnsConnection">上下文拥有连接</param>
+        protected BaseDbSession(DbConnection existingConnection, bool contextOwnsConnection)
+            : base(existingConnection, contextOwnsConnection)
         {
             this.Configuration.ValidateOnSaveEnabled = false;
         }

@@ -3,6 +3,7 @@ using SD.Infrastructure.RepositoryBase;
 using System.Threading.Tasks;
 using System.Transactions;
 
+// ReSharper disable once CheckNamespace
 namespace SD.Infrastructure.Global.Transaction
 {
     /// <summary>
