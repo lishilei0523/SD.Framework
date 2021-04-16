@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Configuration;
+using System.Reflection;
 using System.Threading;
 
 namespace SD.Infrastructure.Constants
@@ -49,6 +50,35 @@ namespace SD.Infrastructure.Constants
                 }
 
                 return _DefaultConnectionString;
+            }
+        }
+
+        /// <summary>
+        /// 默认连接字符串
+        /// </summary>
+        public static string DefaultConnectionStringForNetCore
+        {
+            get
+            {
+                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                string hostAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+                ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap
+                {
+                    ExeConfigFilename = $"{baseDirectory}{hostAssemblyName}.dll.config"
+                };
+
+                Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
+                ConnectionStringsSection connectionStringsSection = configuration?.ConnectionStrings;
+                ConnectionStringSettingsCollection connectionStringSettings = connectionStringsSection?.ConnectionStrings;
+                ConnectionStringSettings connectionStringSetting = connectionStringSettings?[CommonConstants.DefaultConnectionStringName];
+
+                string defaultConnectionString = connectionStringSetting?.ConnectionString;
+                if (string.IsNullOrWhiteSpace(defaultConnectionString))
+                {
+                    throw new NullReferenceException("默认连接字符串未配置，请联系管理员！");
+                }
+
+                return defaultConnectionString;
             }
         }
 
@@ -145,6 +175,17 @@ namespace SD.Infrastructure.Constants
         public static void InitCurrentSessionId()
         {
             _SessionId.Value = Guid.NewGuid();
+        }
+        #endregion
+
+        #region # 初始化数据文件夹 —— static void InitDataDirectory()
+        /// <summary>
+        /// 初始化数据文件夹
+        /// </summary>
+        public static void InitDataDirectory()
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            AppDomain.CurrentDomain.SetData(CommonConstants.DataDirectory, baseDirectory);
         }
         #endregion
     }

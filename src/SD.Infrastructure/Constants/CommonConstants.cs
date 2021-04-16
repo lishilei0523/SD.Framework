@@ -63,6 +63,11 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         public const string DefaultConnectionStringName = "DefaultConnection";
 
+        /// <summary>
+        /// 数据文件夹名称
+        /// </summary>
+        public const string DataDirectory = "DataDirectory";
+
         #endregion
 
         #region # 统一身份认证系统相关
@@ -126,17 +131,17 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         public static readonly string[] PrimitiveDataTypes =
         {
-            "System.String",
-            "System.Guid",
-            "System.Boolean",
-            "System.Byte",
-            "System.Int16",
-            "System.Int32",
-            "System.Int64",
-            "System.Single",
-            "System.Double",
-            "System.Decimal",
-            "System.DateTime"
+            typeof(string).FullName,
+            typeof(Guid).FullName,
+            typeof(bool).FullName,
+            typeof(byte).FullName,
+            typeof(short).FullName,
+            typeof(int).FullName,
+            typeof(long).FullName,
+            typeof(float).FullName,
+            typeof(double).FullName,
+            typeof(decimal).FullName,
+            typeof(DateTime).FullName
         };
 
         #endregion

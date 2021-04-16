@@ -140,5 +140,16 @@ namespace SD.Infrastructure.Constants
             CallContext.LogicalSetData(SessionIdKey, sessionId);
         }
         #endregion
+
+        #region # 初始化数据文件夹 —— static void InitDataDirectory()
+        /// <summary>
+        /// 初始化数据文件夹
+        /// </summary>
+        public static void InitDataDirectory()
+        {
+            string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            AppDomain.CurrentDomain.SetData(CommonConstants.DataDirectory, baseDirectory);
+        }
+        #endregion
     }
 }
