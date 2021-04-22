@@ -40,14 +40,12 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// </summary>
         static MongoRepositoryProvider()
         {
-            string connStr = ConfigurationManager.ConnectionStrings[MongoConnectionStringKey].ConnectionString;
-
-            if (string.IsNullOrWhiteSpace(connStr))
+            string connectionString = ConfigurationManager.ConnectionStrings[MongoConnectionStringKey]?.ConnectionString;
+            if (string.IsNullOrWhiteSpace(connectionString))
             {
-                throw new ApplicationException(
-                    $"MongoDB连接字符串未设置，默认连接字符串键为\"{MongoRepositoryProvider<T>.MongoConnectionStringKey}\"！");
+                throw new ApplicationException($"MongoDB连接字符串未设置，默认连接字符串键为\"{MongoConnectionStringKey}\"！");
             }
-            _ConnectionString = connStr;
+            _ConnectionString = connectionString;
 
             //注册实体类型
             RegisterTypes();
@@ -64,16 +62,18 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// </summary>
         protected MongoRepositoryProvider()
         {
-            string[] connStr = _ConnectionString.Split(new[] { Separator }, StringSplitOptions.None);
+            #region # 验证
 
-            if (connStr.Length != 2)
+            string[] connectionStrings = _ConnectionString.Split(new[] { Separator }, StringSplitOptions.None);
+            if (connectionStrings.Length != 2)
             {
-                throw new ApplicationException(
-                    $"连接字符串格式不正确，请使用\"{MongoRepositoryProvider<T>.Separator}\"来分隔服务器地址与数据库名称！");
+                throw new ApplicationException($"连接字符串格式不正确，请使用\"{Separator}\"来分隔服务器地址与数据库名称！");
             }
 
-            MongoClient client = new MongoClient(connStr[0]);
-            IMongoDatabase database = client.GetDatabase(connStr[1]);
+            #endregion
+
+            MongoClient client = new MongoClient(connectionStrings[0]);
+            IMongoDatabase database = client.GetDatabase(connectionStrings[1]);
             this._collection = database.GetCollection<T>(typeof(T).FullName);
         }
 
