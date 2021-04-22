@@ -89,19 +89,15 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <exception cref="ArgumentNullException">新实体对象为空</exception>
         public void Add(T entity)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity), $@"要添加的{typeof(T).Name}实体对象不可为空！");
             }
-            if (entity.Id == Guid.Empty)
-            {
-                throw new ArgumentNullException("Id", $@"要添加的{typeof(T).Name}实体对象Id不可为空！");
-            }
             if (this.Exists(entity.Id))
             {
-                throw new ArgumentOutOfRangeException("Id", $"Id为\"{entity.Id}\"的实体已存在！");
+                throw new ArgumentOutOfRangeException(nameof(entity), $"Id为\"{entity.Id}\"的实体已存在！");
             }
 
             #endregion
@@ -119,11 +115,12 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <exception cref="ArgumentNullException">实体对象列表为null或长度为0</exception>
         public void AddRange(IEnumerable<T> entities)
         {
-            #region # 验证参数
+            #region # 验证
 
-            if (entities == null || !entities.Any())
+            entities = entities?.ToArray() ?? new T[0];
+            if (!entities.Any())
             {
-                throw new ArgumentNullException(nameof(entities), $"要保存的{typeof(T).Name}实体对象列表不可为空！");
+                throw new ArgumentNullException(nameof(entities), $"要添加的{typeof(T).Name}实体对象列表不可为空！");
             }
 
             #endregion
@@ -141,15 +138,11 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         public void Save(T entity)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity), $"要保存的{typeof(T).Name}实体对象不可为空！");
-            }
-            if (entity.Id == Guid.Empty)
-            {
-                throw new ArgumentNullException("Id", $@"要保存的{typeof(T).Name}实体对象Id不可为空！");
             }
             if (!this.Exists(entity.Id))
             {
@@ -174,10 +167,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         public void SaveRange(IEnumerable<T> entities)
         {
-            #region # 验证参数
+            #region # 验证
 
             entities = entities == null ? new T[0] : entities.ToArray();
-
             if (!entities.Any())
             {
                 throw new ArgumentNullException(nameof(entities), $"要保存的{typeof(T).Name}实体对象列表不可为空！");
@@ -186,7 +178,6 @@ namespace SD.Infrastructure.Repository.MongoDB
             #endregion
 
             IList<WriteModel<T>> bulkWrites = new List<WriteModel<T>>();
-
             foreach (T entity in entities)
             {
                 entity.SavedTime = DateTime.Now;
