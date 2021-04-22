@@ -33,9 +33,7 @@ namespace SD.Infrastructure.Constants
         /// 默认连接字符串
         /// </summary>
         private static readonly string _DefaultConnectionString =
-            ConfigurationManager.ConnectionStrings[CommonConstants.DefaultConnectionStringName] == null
-            ? null
-            : ConfigurationManager.ConnectionStrings[CommonConstants.DefaultConnectionStringName].ConnectionString;
+            ConfigurationManager.ConnectionStrings[CommonConstants.DefaultConnectionStringName]?.ConnectionString;
 
         /// <summary>
         /// 默认连接字符串

@@ -43,6 +43,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SD.Infrastructure\AppServiceBase\IApplicationService.cs">
@@ -50,6 +51,15 @@
     </Compile>
     <Compile Include="..\SD.Infrastructure\Attributes\RequireAuthorizationAttribute.cs">
       <Link>Attributes\RequireAuthorizationAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\Configurations\FrameworkSection.cs">
+      <Link>Configurations\FrameworkSection.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\Configurations\NumericElement.cs">
+      <Link>Configurations\NumericElement.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\Configurations\TextElement.cs">
+      <Link>Configurations\TextElement.cs</Link>
     </Compile>
     <Compile Include="..\SD.Infrastructure\Constants\ApplicationType.cs">
       <Link>Constants\ApplicationType.cs</Link>
