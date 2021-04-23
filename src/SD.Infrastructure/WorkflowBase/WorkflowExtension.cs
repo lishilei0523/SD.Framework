@@ -1,7 +1,6 @@
 ﻿using SD.Infrastructure.Constants;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 
 namespace SD.Infrastructure.WorkflowBase
@@ -105,8 +104,7 @@ namespace SD.Infrastructure.WorkflowBase
         /// <returns>持久化模式</returns>
         public static PersistenceMode GetPersistenceMode()
         {
-            string persistenceModeText = ConfigurationManager.AppSettings[CommonConstants.WorkflowPersistenceModeAppSettingKey];
-
+            string persistenceModeText = FrameworkSection.Setting.WorkflowPersistenceMode.Value;
             if (string.IsNullOrWhiteSpace(persistenceModeText))
             {
                 return PersistenceMode.Temporary;

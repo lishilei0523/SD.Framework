@@ -1,5 +1,5 @@
-﻿using System.Diagnostics;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Diagnostics;
 
 namespace SD.Infrastructure.Tests.TestCases
 {
@@ -17,12 +17,16 @@ namespace SD.Infrastructure.Tests.TestCases
             Trace.WriteLine(setting.ServiceName.Value);
             Trace.WriteLine(setting.ServiceDisplayName.Value);
             Trace.WriteLine(setting.ServiceDescription.Value);
+            Trace.WriteLine(setting.ServiceConnectionName.Value);
             Trace.WriteLine(setting.EntityAssembly.Value);
             Trace.WriteLine(setting.EntityConfigAssembly.Value);
+            Trace.WriteLine(setting.EntityTablePrefix.Value);
             Trace.WriteLine(setting.EventSourceAssembly.Value);
             Trace.WriteLine(setting.CrontabAssembly.Value);
             Trace.WriteLine(setting.WorkflowAssembly.Value);
-            Trace.WriteLine(setting.TablePrefix.Value);
+            Trace.WriteLine(setting.WorkflowConnectionName.Value);
+            Trace.WriteLine(setting.WorkflowPersistenceMode.Value);
+            Trace.WriteLine(setting.WorkflowMaxInstanceLockedRetriesCount.Value);
             Trace.WriteLine(setting.AuthenticationTimeout.Value);
 
             Assert.IsNotNull(setting);

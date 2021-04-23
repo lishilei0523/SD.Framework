@@ -23,7 +23,7 @@ namespace SD.Infrastructure.Configurations
         /// </summary>
         protected override void DeserializeElement(XmlReader reader, bool serializeCollectionKey)
         {
-            this.Value = (string)reader.ReadElementContentAs(typeof(string), null);
+            this.Value = reader.ReadElementContentAs(typeof(string), null)?.ToString();
         }
     }
 }

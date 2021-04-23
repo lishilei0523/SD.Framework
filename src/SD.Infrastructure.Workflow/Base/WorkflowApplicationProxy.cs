@@ -17,17 +17,7 @@ namespace SD.Infrastructure.Workflow.Base
     /// </summary>
     public sealed class WorkflowApplicationProxy
     {
-        #region # 常量、字段、事件及构造器
-
-        /// <summary>
-        /// 工作流持久化数据库连接字符串名称AppSetting键
-        /// </summary>
-        private const string WorkflowPersistenceConnectionStringAppSettingKey = "WorkflowPersistenceConnection";
-
-        /// <summary>
-        /// 最大实例锁定重试次数AppSetting键
-        /// </summary>
-        private const string MaxInstanceLockedRetriesCountAppSettingKey = "MaxInstanceLockedRetriesCount";
+        #region # 字段、事件及构造器
 
         /// <summary>
         /// 同步锁
@@ -79,48 +69,18 @@ namespace SD.Infrastructure.Workflow.Base
         static WorkflowApplicationProxy()
         {
             //初始化连接字符串
-            string connectionStringName = ConfigurationManager.AppSettings[WorkflowPersistenceConnectionStringAppSettingKey];
-
-            #region # 验证
-
-            if (string.IsNullOrWhiteSpace(connectionStringName))
-            {
-                throw new ApplicationException("工作流持久化连接字符串名称未设置！");
-            }
-
-            #endregion
-
-            ConnectionStringSettings connectionStringSetting = ConfigurationManager.ConnectionStrings[connectionStringName];
-
-            #region # 验证
-
-            if (connectionStringSetting == null)
-            {
-                throw new NullReferenceException($"未找到name为\"{connectionStringName}\"的连接字符串！");
-            }
-
-            #endregion
-
-            string connectionString = connectionStringSetting.ConnectionString;
-
-            #region # 验证
-
-            if (string.IsNullOrWhiteSpace(connectionString))
+            string connectionStringName = FrameworkSection.Setting.WorkflowConnectionName.Value;
+            ConnectionStringSettings connectionStringSetting = ConfigurationManager.ConnectionStrings?[connectionStringName];
+            _WorkflowPersistenceConnectionString = connectionStringSetting?.ConnectionString; ;
+            if (string.IsNullOrWhiteSpace(_WorkflowPersistenceConnectionString))
             {
                 throw new ApplicationException("工作流持久化连接字符串未设置！");
             }
 
-            #endregion
-
-            _WorkflowPersistenceConnectionString = connectionString;
-
-            //初始化最大实例锁定重试次数
-            string maxInstanceLockedRetriesCountStr = ConfigurationManager.AppSettings[MaxInstanceLockedRetriesCountAppSettingKey];
-            if (!int.TryParse(maxInstanceLockedRetriesCountStr, out _MaxInstanceLockedRetriesCount))
-            {
-                //默认20次
-                _MaxInstanceLockedRetriesCount = 20;
-            }
+            //初始化最大实例锁定重试次数、默认20次
+            _MaxInstanceLockedRetriesCount = FrameworkSection.Setting.WorkflowMaxInstanceLockedRetriesCount.Value.HasValue
+                ? FrameworkSection.Setting.WorkflowMaxInstanceLockedRetriesCount.Value.Value
+                : 20;
         }
 
         /// <summary>

@@ -12,9 +12,9 @@ namespace SD.Infrastructure.Configurations
         /// 数值
         /// </summary>
         [ConfigurationProperty("data", IsRequired = true)]
-        public int Value
+        public int? Value
         {
-            get { return (int)this["data"]; }
+            get { return (int?)this["data"]; }
             set { this["data"] = value; }
         }
 
@@ -23,7 +23,15 @@ namespace SD.Infrastructure.Configurations
         /// </summary>
         protected override void DeserializeElement(XmlReader reader, bool serializeCollectionKey)
         {
-            this.Value = (int)reader.ReadElementContentAs(typeof(int), null);
+            string content = reader.ReadElementContentAs(typeof(string), null)?.ToString();
+            if (int.TryParse(content, out int value))
+            {
+                this.Value = value;
+            }
+            else
+            {
+                this.Value = null;
+            }
         }
     }
 }

@@ -7,55 +7,6 @@ namespace SD.Infrastructure.Constants
     /// </summary>
     public static class CommonConstants
     {
-        #region # Config文件 AppSetting键
-
-        /// <summary>
-        /// 实体所在程序集AppSetting键
-        /// </summary>
-        public const string EntityAssemblyAppSettingKey = "EntityAssembly";
-
-        /// <summary>
-        /// 领域事件源所在程序集AppSetting键
-        /// </summary>
-        public const string EventSourceAssemblyAppSettingKey = "EventSourceAssembly";
-
-        /// <summary>
-        /// 实体配置所在程序集AppSetting键
-        /// </summary>
-        public const string EntityConfigAssemblyAppSettingKey = "EntityConfigAssembly";
-
-        /// <summary>
-        /// 定时任务所在程序集AppSetting键
-        /// </summary>
-        public const string CrontabAssemblyAppSettingKey = "CrontabAssembly";
-
-        /// <summary>
-        /// 工作流所在程序集AppSetting键
-        /// </summary>
-        public const string WorkflowAssemblyAppSettingKey = "WorkflowAssembly";
-
-        /// <summary>
-        /// 工作流持久化模式AppSetting键
-        /// </summary>
-        public const string WorkflowPersistenceModeAppSettingKey = "WorkflowPersistenceMode";
-
-        /// <summary>
-        /// 数据表名前缀AppSetting键
-        /// </summary>
-        public const string TablePrefixAppSettingKey = "TablePrefix";
-
-        /// <summary>
-        /// 开启数据自动迁移AppSetting键
-        /// </summary>
-        public const string AutoMigrationAppSettingKey = "AutoMigration";
-
-        /// <summary>
-        /// 身份认证过期时间AppSetting键
-        /// </summary>
-        public const string AuthenticationTimeoutAppSettingKey = "AuthenticationTimeout";
-
-        #endregion
-
         #region # 数据库相关
 
         /// <summary>
@@ -70,7 +21,7 @@ namespace SD.Infrastructure.Constants
 
         #endregion
 
-        #region # 统一身份认证系统相关
+        #region # 身份认证系统相关
 
         /// <summary>
         /// 超级管理员登录名
@@ -112,9 +63,9 @@ namespace SD.Infrastructure.Constants
         public const string ExchangeMethodName = "Exchange";
 
         /// <summary>
-        /// 日期 格式化 字符串
+        /// 日期格式
         /// </summary>
-        public const string TimeFormat = "yyyy-MM-dd HH:mm";
+        public const string TimeFormat = "yyyy-MM-dd HH:mm:ss";
 
         /// <summary>
         /// 最小时间
@@ -132,7 +83,6 @@ namespace SD.Infrastructure.Constants
         public static readonly string[] PrimitiveDataTypes =
         {
             typeof(string).FullName,
-            typeof(Guid).FullName,
             typeof(bool).FullName,
             typeof(byte).FullName,
             typeof(short).FullName,
@@ -141,6 +91,7 @@ namespace SD.Infrastructure.Constants
             typeof(float).FullName,
             typeof(double).FullName,
             typeof(decimal).FullName,
+            typeof(Guid).FullName,
             typeof(DateTime).FullName
         };
 

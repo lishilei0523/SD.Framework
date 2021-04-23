@@ -60,10 +60,5 @@
       <Name>SD.Infrastructure.NET46</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Web.config.transform" />
-    <None Include="App.config.transform" />
-    <None Include="App.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
