@@ -46,7 +46,17 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         protected BaseDbSession()
             : base(GlobalSetting.DefaultConnectionString)
         {
-            this.Configuration.ValidateOnSaveEnabled = false;
+            base.Configuration.ValidateOnSaveEnabled = false;
+        }
+
+        /// <summary>
+        /// 基础构造器
+        /// </summary>
+        /// <param name="nameOrConnectionString">连接字符串名称/连接字符串</param>
+        protected BaseDbSession(string nameOrConnectionString)
+            : base(nameOrConnectionString)
+        {
+            base.Configuration.ValidateOnSaveEnabled = false;
         }
 
         /// <summary>
@@ -57,7 +67,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         protected BaseDbSession(DbConnection existingConnection, bool contextOwnsConnection)
             : base(existingConnection, contextOwnsConnection)
         {
-            this.Configuration.ValidateOnSaveEnabled = false;
+            base.Configuration.ValidateOnSaveEnabled = false;
         }
 
         #endregion
@@ -154,7 +164,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         public override string EntityAssembly
         {
-            get { return GlobalSetting.EntityAssembly; }
+            get { return FrameworkSection.Setting.EntityAssembly.Value; }
         }
         #endregion
 
@@ -164,7 +174,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         public override string EntityConfigAssembly
         {
-            get { return GlobalSetting.EntityConfigAssembly; }
+            get { return FrameworkSection.Setting.EntityConfigAssembly.Value; }
         }
         #endregion
 
@@ -190,7 +200,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         public override string TablePrefix
         {
-            get { return GlobalSetting.TablePrefix; }
+            get { return FrameworkSection.Setting.EntityTablePrefix.Value; }
         }
         #endregion
 

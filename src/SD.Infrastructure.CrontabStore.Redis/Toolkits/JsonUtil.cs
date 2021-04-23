@@ -83,9 +83,9 @@ namespace SD.Infrastructure.CrontabStore.Redis.Toolkits
 
             JObject jObject = (JObject)JsonConvert.DeserializeObject(crontabJson);
 
-            JToken typeProperty = jObject.GetValue(JsonUtil.TypePropertyName);
-            JToken assemblyProperty = jObject.GetValue(JsonUtil.AssemblyPropertyName);
-            JToken instanceProperty = jObject.GetValue(JsonUtil.InstancePropertyName);
+            JToken typeProperty = jObject.GetValue(TypePropertyName);
+            JToken assemblyProperty = jObject.GetValue(AssemblyPropertyName);
+            JToken instanceProperty = jObject.GetValue(InstancePropertyName);
 
             string typePropertyValue = typeProperty.Value<string>();
             string assemblyPropertyValue = assemblyProperty.Value<string>();

@@ -1,5 +1,4 @@
-﻿using SD.Infrastructure.Constants;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -79,7 +78,7 @@ namespace SD.Infrastructure.CrontabBase
         /// <returns>子类类型列表</returns>
         private static IEnumerable<Type> GetSubClassTypes()
         {
-            Assembly crontabAssembly = Assembly.Load(GlobalSetting.CrontabAssembly);
+            Assembly crontabAssembly = Assembly.Load(FrameworkSection.Setting.CrontabAssembly.Value);
             IEnumerable<Type> crontabTypes = crontabAssembly.GetTypes().Where(x => x.IsSubclassOf(typeof(Crontab)));
 
             return crontabTypes;

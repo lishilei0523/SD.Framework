@@ -42,7 +42,6 @@ namespace SD.Infrastructure.Constants
         #endregion
 
         #region # 默认连接字符串 —— static string DefaultConnectionString
-
         /// <summary>
         /// 默认连接字符串
         /// </summary>
@@ -58,7 +57,9 @@ namespace SD.Infrastructure.Constants
                 return _DefaultConnectionString;
             }
         }
+        #endregion
 
+        #region # 默认连接字符串 —— static string DefaultConnectionStringForNetCore
         /// <summary>
         /// 默认连接字符串
         /// </summary>
@@ -95,56 +96,6 @@ namespace SD.Infrastructure.Constants
                 return defaultConnectionString;
             }
         }
-
-        #endregion
-
-        #region # 实体所在程序集 —— static readonly string EntityAssembly
-        /// <summary>
-        /// 实体所在程序集
-        /// </summary>
-        public static readonly string EntityAssembly = FrameworkSection.Setting.EntityAssembly.Value;
-        #endregion
-
-        #region # 实体配置所在程序集 —— static readonly string EntityConfigAssembly
-        /// <summary>
-        /// 实体配置所在程序集
-        /// </summary>
-        public static readonly string EntityConfigAssembly = FrameworkSection.Setting.EntityConfigAssembly.Value;
-        #endregion
-
-        #region # 领域事件源所在程序集 —— static readonly string EventSourceAssembly
-        /// <summary>
-        /// 领域事件源所在程序集
-        /// </summary>
-        public static readonly string EventSourceAssembly = FrameworkSection.Setting.EventSourceAssembly.Value;
-        #endregion
-
-        #region # 定时任务所在程序集 —— static readonly string CrontabAssembly
-        /// <summary>
-        /// 定时任务所在程序集
-        /// </summary>
-        public static readonly string CrontabAssembly = FrameworkSection.Setting.CrontabAssembly.Value;
-        #endregion
-
-        #region # 工作流所在程序集 —— static readonly string WorkflowAssembly
-        /// <summary>
-        /// 工作流所在程序集
-        /// </summary>
-        public static readonly string WorkflowAssembly = FrameworkSection.Setting.WorkflowAssembly.Value;
-        #endregion
-
-        #region # 数据表名前缀 —— static readonly string TablePrefix
-        /// <summary>
-        /// 数据表名前缀
-        /// </summary>
-        public static readonly string TablePrefix = FrameworkSection.Setting.EntityTablePrefix.Value;
-        #endregion
-
-        #region # 身份认证过期时间 —— static readonly string AuthenticationTimeout
-        /// <summary>
-        /// 身份认证过期时间
-        /// </summary>
-        public static readonly string AuthenticationTimeout = FrameworkSection.Setting.AuthenticationTimeout.Value.ToString();
         #endregion
 
         #region # 当前SessionId —— static Guid CurrentSessionId

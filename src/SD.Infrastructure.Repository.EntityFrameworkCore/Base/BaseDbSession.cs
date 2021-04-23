@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SD.Infrastructure.Constants;
 using SD.Infrastructure.EntityBase;
 using SD.IOC.Core.Mediators;
 using SD.Toolkits.EntityFrameworkCore.Base;
@@ -13,7 +12,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
     /// </summary>
     public abstract class BaseDbSession : BaseDbContext
     {
-        #region # 常量与构造器
+        #region # 构造器
 
         /// <summary>
         /// 同步锁
@@ -137,7 +136,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public override string EntityAssembly
         {
-            get { return GlobalSetting.EntityAssembly; }
+            get { return FrameworkSection.Setting.EntityAssembly.Value; }
         }
         #endregion
 
@@ -147,7 +146,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public override string EntityConfigAssembly
         {
-            get { return GlobalSetting.EntityConfigAssembly; }
+            get { return FrameworkSection.Setting.EntityConfigAssembly.Value; }
         }
         #endregion
 
@@ -173,7 +172,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public override string TablePrefix
         {
-            get { return GlobalSetting.TablePrefix; }
+            get { return FrameworkSection.Setting.EntityTablePrefix.Value; }
         }
         #endregion
 

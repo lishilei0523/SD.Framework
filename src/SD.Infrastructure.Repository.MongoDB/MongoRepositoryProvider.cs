@@ -26,11 +26,6 @@ namespace SD.Infrastructure.Repository.MongoDB
         private const string Separator = "::";
 
         /// <summary>
-        /// MongoDB连接字符串键
-        /// </summary>
-        private const string MongoConnectionStringKey = "MongoConnection";
-
-        /// <summary>
         /// MongoDB连接字符串
         /// </summary>
         private static readonly string _ConnectionString;
@@ -40,12 +35,11 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// </summary>
         static MongoRepositoryProvider()
         {
-            string connectionString = ConfigurationManager.ConnectionStrings[MongoConnectionStringKey]?.ConnectionString;
-            if (string.IsNullOrWhiteSpace(connectionString))
+            _ConnectionString = ConfigurationManager.ConnectionStrings[CommonConstants.MongoConnectionStringName]?.ConnectionString;
+            if (string.IsNullOrWhiteSpace(_ConnectionString))
             {
-                throw new ApplicationException($"MongoDB连接字符串未设置，默认连接字符串键为\"{MongoConnectionStringKey}\"！");
+                throw new ApplicationException($"MongoDB连接字符串未设置，默认连接字符串名称为\"{CommonConstants.MongoConnectionStringName}\"！");
             }
-            _ConnectionString = connectionString;
 
             //注册实体类型
             RegisterTypes();
@@ -228,16 +222,17 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
         public void RemoveRange(IEnumerable<Guid> ids)
         {
-            #region # 验证参数
+            #region # 验证
 
-            if (ids == null || !ids.Any())
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
+            if (!ids_.Any())
             {
                 throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的id集合不可为空！");
             }
 
             #endregion
 
-            this._collection.DeleteManyAsync(x => ids.Contains(x.Id)).Wait();
+            this._collection.DeleteManyAsync(x => ids_.Contains(x.Id)).Wait();
         }
         #endregion
 
@@ -250,16 +245,17 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <exception cref="ArgumentNullException">numbers为null或长度为0</exception>
         public void RemoveRange(IEnumerable<string> numbers)
         {
-            #region # 验证参数
+            #region # 验证
 
-            if (numbers == null || !numbers.Any())
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? new string[0];
+            if (!numbers_.Any())
             {
-                throw new ArgumentNullException("ids", $"要删除的{typeof(T).Name}的编号集合不可为空！");
+                throw new ArgumentNullException(nameof(numbers), $"要删除的{typeof(T).Name}的编号集合不可为空！");
             }
 
             #endregion
 
-            this._collection.DeleteManyAsync(x => numbers.Contains(x.Number)).Wait();
+            this._collection.DeleteManyAsync(x => numbers_.Contains(x.Number)).Wait();
         }
         #endregion
 
@@ -705,7 +701,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>总记录条数</returns>
         public int Count()
         {
-            long count = this.Find(x => true).Count();
+            long count = this.Find(x => true).CountDocuments();
 
             return unchecked((int)count);
         }
@@ -718,7 +714,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>子类记录条数</returns>
         public int Count<TSub>() where TSub : T
         {
-            long count = this.Find<TSub>(x => true).Count();
+            long count = this.Find<TSub>(x => true).CountDocuments();
 
             return unchecked((int)count);
         }
@@ -1097,7 +1093,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         protected IFindFluent<T, T> FindByPage(Expression<Func<T, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
             IFindFluent<T, T> list = this.FindAndSort(condition);
-            rowCount = unchecked((int)list.Count());
+            rowCount = unchecked((int)list.CountDocuments());
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
             return list.Skip((pageIndex - 1) * pageSize).Limit(pageSize);
         }
@@ -1116,7 +1112,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         protected IFindFluent<TSub, TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
         {
             IFindFluent<TSub, TSub> list = this.FindAndSort(condition);
-            rowCount = unchecked((int)list.Count());
+            rowCount = unchecked((int)list.CountDocuments());
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
             return list.Skip((pageIndex - 1) * pageSize).Limit(pageSize);
         }
@@ -1133,7 +1129,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         private static void RegisterTypes()
         {
             //加载实体所在程序集
-            Assembly entityAssembly = Assembly.Load(GlobalSetting.EntityAssembly);
+            Assembly entityAssembly = Assembly.Load(FrameworkSection.Setting.EntityAssembly.Value);
             Type[] types = entityAssembly.GetTypes();
 
             //查询所有实体抽象基类

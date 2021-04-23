@@ -15,6 +15,11 @@ namespace SD.Infrastructure.Constants
         public const string DefaultConnectionStringName = "DefaultConnection";
 
         /// <summary>
+        /// MongoDB连接字符串名称
+        /// </summary>
+        public const string MongoConnectionStringName = "MongoConnection";
+
+        /// <summary>
         /// 数据文件夹名称
         /// </summary>
         public const string DataDirectory = "DataDirectory";
