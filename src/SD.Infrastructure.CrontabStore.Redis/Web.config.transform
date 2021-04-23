@@ -1,7 +1,7 @@
 ﻿<configuration>
-  <injectionRegisterConfiguration>
+  <sd.ioc>
     <asInterfaceTypes>
       <type name="SD.Infrastructure.CrontabStoreProvider.RedisStoreProvider" assembly="SD.Infrastructure.CrontabStore.Redis" />
     </asInterfaceTypes>
-  </injectionRegisterConfiguration>
+  </sd.ioc>
 </configuration>

@@ -1,7 +1,7 @@
 ﻿<configuration>
-  <injectionRegisterConfiguration>
+  <sd.ioc>
     <asInterfaceTypes>
       <type name="SD.Infrastructure.EventStoreProvider.RedisStoreProvider" assembly="SD.Infrastructure.EventStore.Redis" />
     </asInterfaceTypes>
-  </injectionRegisterConfiguration>
+  </sd.ioc>
 </configuration>
