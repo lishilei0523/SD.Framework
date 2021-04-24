@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("SD.Infrastructure.Repository.EntityFramework")]
-[assembly: AssemblyDescription("基础设施 - 仓储基础 - Entity Framework实现")]
+[assembly: AssemblyDescription("SD.Framework 基础设施 - 仓储基础 - Entity Framework实现")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SD")]
 [assembly: AssemblyProduct("SD.Infrastructure.Repository.EntityFramework")]

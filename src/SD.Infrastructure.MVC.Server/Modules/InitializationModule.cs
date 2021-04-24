@@ -3,12 +3,12 @@ using SD.IOC.Integration.MVC;
 using System;
 using System.Web;
 
-namespace SD.Infrastructure.MVC.Server
+namespace SD.Infrastructure.MVC.Server.Modules
 {
     /// <summary>
-    /// 初始化HttpModule
+    /// 初始化模块
     /// </summary>
-    internal class InitializationHttpModule : IHttpModule
+    internal class InitializationModule : IHttpModule
     {
         /// <summary>
         /// Initializes a module and prepares it to handle requests.

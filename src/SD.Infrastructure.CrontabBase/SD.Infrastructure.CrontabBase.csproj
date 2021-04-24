@@ -1,11 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>SD.Infrastructure.CrontabBase</AssemblyName>
-    <RootNamespace>SD.Infrastructure.CrontabBase</RootNamespace>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>基础设施 - 定时任务基础</Description>
+    <Description>SD.Framework 基础设施 - 定时任务基础</Description>
     <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 

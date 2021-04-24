@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("SD.Infrastructure.SignalR.Server")]
-[assembly: AssemblyDescription("基础设施 -  ASP.NET SignalR服务端基础")]
+[assembly: AssemblyDescription("SD.Framework 基础设施 - ASP.NET SignalR服务端基础")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("SD.Infrastructure.SignalR.Server")]

@@ -1,13 +1,11 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>2.0.0</Version>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>基础设施 - 领域事件基础 - Redis存储提供者</Description>
+    <Description>SD.Framework 基础设施 - 领域事件基础 - Redis存储提供者</Description>
     <Copyright>Copyright © SD 2021</Copyright>
-    <AssemblyName>SD.Infrastructure.EventStore.Redis</AssemblyName>
-    <RootNamespace>SD.Infrastructure.EventStore.Redis</RootNamespace>
+    <Version>2.0.0</Version>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

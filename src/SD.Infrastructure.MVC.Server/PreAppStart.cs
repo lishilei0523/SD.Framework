@@ -1,4 +1,5 @@
 ﻿using Microsoft.Web.Infrastructure.DynamicModuleHelper;
+using SD.Infrastructure.MVC.Server.Modules;
 using System.ComponentModel;
 
 namespace SD.Infrastructure.MVC.Server
@@ -22,7 +23,7 @@ namespace SD.Infrastructure.MVC.Server
             if (!_InitWasCalled)
             {
                 _InitWasCalled = true;
-                DynamicModuleUtility.RegisterModule(typeof(InitializationHttpModule));
+                DynamicModuleUtility.RegisterModule(typeof(InitializationModule));
             }
         }
     }
