@@ -6,7 +6,7 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>基础设施 - 定时任务基础</Description>
-    <Copyright>Copyright © SD 2020</Copyright>
+    <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
