@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="SD.Toolkits.Json" Version="1.0.1" />
-    <PackageReference Include="SD.AOP.Core" Version="2.0.8" />
+    <PackageReference Include="SD.AOP.Core" Version="2.0.9" />
   </ItemGroup>
 
   <ItemGroup>
