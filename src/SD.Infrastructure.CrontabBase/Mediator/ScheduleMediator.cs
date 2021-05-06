@@ -26,6 +26,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
         static ScheduleMediator()
         {
             _Scheduler = StdSchedulerFactory.GetDefaultScheduler().Result;
+            _Scheduler.JobFactory = new QuartzJobFactory();
         }
 
         #endregion
@@ -70,14 +71,14 @@ namespace SD.Infrastructure.CrontabBase.Mediator
 
             //调度任务
             Type crontabType = crontab.GetType();
-            IEnumerable<ICrontabExecutor> crontabSchedulers = CrontabExecutorFactory.GetCrontabExecutorsFor(crontabType);
-            foreach (ICrontabExecutor scheduler in crontabSchedulers)
+            IEnumerable<ICrontabExecutor> crontabExecutors = CrontabExecutorFactory.GetCrontabExecutorsFor(crontabType);
+            foreach (ICrontabExecutor crontabExecutor in crontabExecutors)
             {
                 JobKey jobKey = new JobKey(crontab.Id);
 
                 if (!_Scheduler.CheckExists(jobKey).Result)
                 {
-                    Type jobType = scheduler.GetType();
+                    Type jobType = crontabExecutor.GetType();
                     JobBuilder jobBuilder = JobBuilder.Create(jobType);
 
                     //设置任务数据
