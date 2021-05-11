@@ -172,8 +172,11 @@
     <Compile Include="..\SD.Infrastructure\PresentationBase\IPresenter.cs">
       <Link>PresentationBase\IPresenter.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Infrastructure\PresentationBase\ViewModel.cs">
-      <Link>PresentationBase\ViewModel.cs</Link>
+    <Compile Include="..\SD.Infrastructure\PresentationBase\Model.cs">
+      <Link>PresentationBase\Model.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure\PresentationBase\ModelBase.cs">
+      <Link>PresentationBase\ModelBase.cs</Link>
     </Compile>
     <Compile Include="..\SD.Infrastructure\RepositoryBase\IDataInitializer.cs">
       <Link>RepositoryBase\IDataInitializer.cs</Link>

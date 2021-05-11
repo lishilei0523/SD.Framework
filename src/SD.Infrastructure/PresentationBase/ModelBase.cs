@@ -3,10 +3,10 @@
 namespace SD.Infrastructure.PresentationBase
 {
     /// <summary>
-    /// 视图模型基类
+    /// 模型基类
     /// </summary>
     [Serializable]
-    public abstract class ViewModel
+    public abstract class ModelBase
     {
         #region 标识Id —— Guid Id
         /// <summary>
