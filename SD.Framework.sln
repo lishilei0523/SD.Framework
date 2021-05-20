@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Infrastructures", "01 - Infrastructures", "{F04B3910-0A27-4C2D-8ED1-6CC7095691E5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - Tests", "05 - Tests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 - Tests", "06 - Tests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.EntityFramework.NET461", "src\SD.Infrastructure.Repository.EntityFramework.NET461\SD.Infrastructure.Repository.EntityFramework.NET461.csproj", "{972CFDBB-1E0F-43CD-987A-458E9D1543B8}"
 EndProject
@@ -23,7 +23,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.MVC.Serve
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Servers", "02 - Servers", "{AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Repositories", "03 - Repositories", "{88B56539-567B-4B32-BCFC-CB39C1158534}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - Repositories", "04 - Repositories", "{88B56539-567B-4B32-BCFC-CB39C1158534}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repository.EntityFrameworkCore", "src\SD.Infrastructure.Repository.EntityFrameworkCore\SD.Infrastructure.Repository.EntityFrameworkCore.csproj", "{AD3A8A7D-0DC2-480E-9477-FC5CE93007D8}"
 EndProject
@@ -53,7 +53,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.SignalR.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.SignalR.Client", "src\SD.Infrastructure.SignalR.Client\SD.Infrastructure.SignalR.Client.csproj", "{141285F8-0943-44BB-ACB3-E7907C4C8698}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "04 - BPMs", "04 - BPMs", "{5065859B-70BD-4391-8719-85C364652195}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - BPMs", "05 - BPMs", "{5065859B-70BD-4391-8719-85C364652195}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.AOP.NET461", "src\SD.Infrastructure.AOP.NET461\SD.Infrastructure.AOP.NET461.csproj", "{7864790C-548D-4132-9143-86FD6BC878CB}"
 EndProject
@@ -70,6 +70,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WCF.Tests", "src\SD.Infrastructure.WCF.Tests\SD.Infrastructure.WCF.Tests.csproj", "{44C612E2-18F5-4A15-8D2E-0AF325370FC7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Tests", "src\SD.Infrastructure.Tests\SD.Infrastructure.Tests.csproj", "{BA2128E8-1C6F-4E9B-A0D2-6CAA45C8DBAA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Clients", "03 - Clients", "{D564BEC1-ECEB-4739-992C-2133EDEC51D6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WPF", "src\SD.Infrastructure.WPF\SD.Infrastructure.WPF.csproj", "{8A7CCB16-13C5-4778-AC33-2D185B40DC6C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WPF.Caliburn", "src\SD.Infrastructure.WPF.Caliburn\SD.Infrastructure.WPF.Caliburn.csproj", "{8593D205-377A-48ED-834E-F1FABBD88C00}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,6 +199,14 @@ Global
 		{BA2128E8-1C6F-4E9B-A0D2-6CAA45C8DBAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BA2128E8-1C6F-4E9B-A0D2-6CAA45C8DBAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BA2128E8-1C6F-4E9B-A0D2-6CAA45C8DBAA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8A7CCB16-13C5-4778-AC33-2D185B40DC6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8A7CCB16-13C5-4778-AC33-2D185B40DC6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8A7CCB16-13C5-4778-AC33-2D185B40DC6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8A7CCB16-13C5-4778-AC33-2D185B40DC6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8593D205-377A-48ED-834E-F1FABBD88C00}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8593D205-377A-48ED-834E-F1FABBD88C00}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8593D205-377A-48ED-834E-F1FABBD88C00}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8593D205-377A-48ED-834E-F1FABBD88C00}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -227,6 +241,8 @@ Global
 		{F5E75307-2308-4C5D-A99E-BF20346DAB54} = {5065859B-70BD-4391-8719-85C364652195}
 		{44C612E2-18F5-4A15-8D2E-0AF325370FC7} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{BA2128E8-1C6F-4E9B-A0D2-6CAA45C8DBAA} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
+		{8A7CCB16-13C5-4778-AC33-2D185B40DC6C} = {D564BEC1-ECEB-4739-992C-2133EDEC51D6}
+		{8593D205-377A-48ED-834E-F1FABBD88C00} = {D564BEC1-ECEB-4739-992C-2133EDEC51D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B5E3D78-0B5E-4D21-BFEF-9B2A85D15716}
