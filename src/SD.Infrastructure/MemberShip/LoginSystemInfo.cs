@@ -26,8 +26,8 @@ namespace SD.Infrastructure.MemberShip
         public LoginSystemInfo(string systemNo, string systemName, ApplicationType applicationType, string index)
             : this()
         {
-            this.SystemNo = systemNo;
-            this.SystemName = systemName;
+            this.Number = systemNo;
+            this.Name = systemName;
             this.ApplicationType = applicationType;
             this.Index = index;
         }
@@ -37,13 +37,13 @@ namespace SD.Infrastructure.MemberShip
         /// 信息系统编号
         /// </summary>
         [DataMember]
-        public string SystemNo { get; set; }
+        public string Number { get; set; }
 
         /// <summary>
         /// 信息系统名称
         /// </summary>
         [DataMember]
-        public string SystemName { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// 应用程序类型

@@ -76,7 +76,7 @@ namespace SD.Infrastructure.MemberShip
         public string Path { get; set; }
 
         /// <summary>
-        /// 子菜单集
+        /// 下级菜单列表
         /// </summary>
         [DataMember]
         public ICollection<LoginMenuInfo> SubMenuInfos { get; set; }
