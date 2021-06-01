@@ -29,7 +29,7 @@ namespace SD.Infrastructure.Constants
         #region # 身份认证系统相关
 
         /// <summary>
-        /// 超级管理员登录名
+        /// 超级管理员用户名
         /// </summary>
         public const string AdminLoginId = "admin";
 

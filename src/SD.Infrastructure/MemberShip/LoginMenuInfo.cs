@@ -34,7 +34,7 @@ namespace SD.Infrastructure.MemberShip
         public ApplicationType ApplicationType { get; set; }
 
         /// <summary>
-        /// 标识Id
+        /// 菜单Id
         /// </summary>
         [DataMember]
         public Guid Id { get; set; }

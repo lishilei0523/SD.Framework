@@ -18,13 +18,13 @@ namespace SD.Infrastructure.MemberShip
         {
             this.LoginSystemInfos = new HashSet<LoginSystemInfo>();
             this.LoginMenuInfos = new HashSet<LoginMenuInfo>();
-            this.LoginAuthorityInfos = new Dictionary<string, LoginAuthorityInfo[]>();
+            this.LoginAuthorityInfos = new HashSet<LoginAuthorityInfo>();
         }
 
         /// <summary>
         /// 创建登录信息构造器
         /// </summary>
-        /// <param name="loginId">登录名</param>
+        /// <param name="loginId">用户名</param>
         /// <param name="realName">真实姓名</param>
         /// <param name="publicKey">公钥</param>
         public LoginInfo(string loginId, string realName, Guid publicKey)
@@ -37,7 +37,7 @@ namespace SD.Infrastructure.MemberShip
 
 
         /// <summary>
-        /// 登录名
+        /// 用户名
         /// </summary>
         [DataMember]
         public string LoginId { get; set; }
@@ -69,10 +69,7 @@ namespace SD.Infrastructure.MemberShip
         /// <summary>
         /// 权限列表
         /// </summary>
-        /// <remarks>
-        /// 键：信息系统编号，值：权限列表
-        /// </remarks>
         [DataMember]
-        public IDictionary<string, LoginAuthorityInfo[]> LoginAuthorityInfos { get; set; }
+        public ICollection<LoginAuthorityInfo> LoginAuthorityInfos { get; set; }
     }
 }
