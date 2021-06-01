@@ -213,5 +213,17 @@ namespace SD.Infrastructure
             set { this["authentication.timeout"] = value; }
         }
         #endregion
+
+        #region # 授权是否启用节点 —— BooleanElement AuthorizationEnabled
+        /// <summary>
+        /// 授权是否启用节点
+        /// </summary>
+        [ConfigurationProperty("authorization.enabled", IsRequired = false)]
+        public BooleanElement AuthorizationEnabled
+        {
+            get { return (BooleanElement)this["authorization.enabled"]; }
+            set { this["authorization.enabled"] = value; }
+        }
+        #endregion
     }
 }

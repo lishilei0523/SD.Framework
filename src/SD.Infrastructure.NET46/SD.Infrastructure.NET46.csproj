@@ -55,6 +55,9 @@
     <Compile Include="..\SD.Infrastructure\Configurations\FrameworkSection.cs">
       <Link>Configurations\FrameworkSection.cs</Link>
     </Compile>
+    <Compile Include="..\SD.Infrastructure\Configurations\BooleanElement.cs">
+      <Link>Configurations\BooleanElement.cs</Link>
+    </Compile>
     <Compile Include="..\SD.Infrastructure\Configurations\NumericElement.cs">
       <Link>Configurations\NumericElement.cs</Link>
     </Compile>
