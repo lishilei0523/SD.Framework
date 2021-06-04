@@ -1,3 +1,13 @@
+# 鸣谢 [JetBrains](https://www.jetbrains.com) 为 SD.Framework 提供的 [Resharper](https://www.jetbrains.com/resharper/) [开源许可证](https://www.jetbrains.com/support/community/#section=open-source)。 
+
+<div>
+  <a href="https://www.jetbrains.com/resharper/">
+    <img alt="R#" width="72" heigth="72" vspace="20" hspace="20" src="./docs/icon_ReSharper.png">
+  </a>
+</div>
+
+---
+
 ## 项目概述
 ### 这是一个框架（支持.NET Core）
 ---
