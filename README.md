@@ -1,4 +1,4 @@
-# 鸣谢 [JetBrains](https://www.jetbrains.com) 为 SD.Framework 提供的 [Resharper](https://www.jetbrains.com/resharper/) [开源许可证](https://www.jetbrains.com/support/community/#section=open-source)。 
+## 鸣谢 [JetBrains](https://www.jetbrains.com) 为 SD.Framework 提供的 [Resharper](https://www.jetbrains.com/resharper/) [开源许可证](https://www.jetbrains.com/support/community/#section=open-source)。 
 
 <div>
   <a href="https://www.jetbrains.com/resharper/">
