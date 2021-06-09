@@ -1,0 +1,73 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sd="clr-namespace:SD.Infrastructure.WPF.CustomControls">
+
+    <!--TreeListView控件模板-->
+    <ControlTemplate x:Key="TreeListView.ControlTemplate" TargetType="{x:Type sd:TreeListView}">
+        <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
+                <DockPanel>
+                    <GridViewHeaderRowPresenter DockPanel.Dock="Top" 
+                                                Columns="{TemplateBinding ColumnsDefinition}" 
+                                                Height="27" >
+                        <GridViewHeaderRowPresenter.ColumnHeaderContainerStyle>
+                            <Style />
+                        </GridViewHeaderRowPresenter.ColumnHeaderContainerStyle>
+                    </GridViewHeaderRowPresenter>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <ItemsPresenter />
+                    </ScrollViewer>
+                </DockPanel>
+            </ScrollViewer>
+        </Border>
+    </ControlTemplate>
+    <!--TreeListViewItem控件模板-->
+    <ControlTemplate x:Key="TreeListViewItem.ControlTemplate" TargetType="{x:Type sd:TreeListViewItem}">
+        <StackPanel>
+            <Border x:Name="PART_Border" 
+                    Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    Padding="{TemplateBinding Padding}">
+                <GridViewRowPresenter x:Name="PART_Header" 
+                                      Height="23"
+                                      Content="{TemplateBinding Header}" 
+                                      Columns="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=sd:TreeListView}, Path=ColumnsDefinition}" />
+            </Border>
+            <ItemsPresenter x:Name="ItemsHost" />
+        </StackPanel>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+            </Trigger>
+            <Trigger Property="IsExpanded" Value="False">
+                <Setter TargetName="ItemsHost" Property="Visibility" Value="Collapsed" />
+            </Trigger>
+            <Trigger Property="IsSelected" Value="True">
+                <Setter TargetName="PART_Border" Property="Background" Value="#FFE48D" />
+            </Trigger>
+            <MultiTrigger>
+                <MultiTrigger.Conditions>
+                    <Condition Property="IsMouseOver" Value="True" />
+                    <Condition Property="IsSelected" Value="False" />
+                    <Condition Property="HasItems" Value="False" />
+                </MultiTrigger.Conditions>
+                <Setter TargetName="PART_Border" Property="Background" Value="#EAF2FF" />
+            </MultiTrigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+    <!--TreeListView模板样式-->
+    <Style x:Key="TreeListView.Styles.Template" TargetType="{x:Type sd:TreeListView}">
+        <Setter Property="Template" Value="{StaticResource TreeListView.ControlTemplate}" />
+    </Style>
+    <!--TreeListViewItem模板样式-->
+    <Style x:Key="TreeListViewItem.Styles.Template" TargetType="{x:Type sd:TreeListViewItem}">
+        <Setter Property="Template" Value="{StaticResource TreeListViewItem.ControlTemplate}" />
+    </Style>
+    <!--TreeListView默认样式-->
+    <Style BasedOn="{StaticResource TreeListView.Styles.Template}" TargetType="{x:Type sd:TreeListView}">
+    </Style>
+    <!--TreeListViewItem默认样式-->
+    <Style BasedOn="{StaticResource TreeListViewItem.Styles.Template}" TargetType="{x:Type sd:TreeListViewItem}">
+    </Style>
+</ResourceDictionary>

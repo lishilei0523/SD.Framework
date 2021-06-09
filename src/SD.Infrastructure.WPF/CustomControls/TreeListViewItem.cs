@@ -14,7 +14,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         private int _level = -1;
 
         /// <summary>
-        /// 树节点层级属性
+        /// 树节点层级
         /// </summary>
         public int Level
         {

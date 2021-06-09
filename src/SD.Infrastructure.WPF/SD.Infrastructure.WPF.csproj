@@ -45,11 +45,9 @@
     <Compile Include="Attachers\DataGridAttacher.cs" />
     <Compile Include="Attachers\PasswordBoxAttacher.cs" />
     <Compile Include="Commands\RelayCommand.cs" />
-    <Compile Include="Converters\EnabledConverter.cs" />
+    <Compile Include="Converters\BooleanDescriptionConverter.cs" />
     <Compile Include="Converters\EnumMemberConverter.cs" />
-    <Compile Include="Converters\TreeListViewBackgroundConverter.cs" />
     <Compile Include="Converters\TreeListViewIndentConverter.cs" />
-    <Compile Include="Converters\TreeListViewRowIndexConverter.cs" />
     <Compile Include="CustomControls\TreeListView.cs" />
     <Compile Include="CustomControls\TreeListViewItem.cs" />
     <Compile Include="Extensions\BusyExtension.cs" />
@@ -66,10 +64,15 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Include="CustomControls\TreeListView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\Paginator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

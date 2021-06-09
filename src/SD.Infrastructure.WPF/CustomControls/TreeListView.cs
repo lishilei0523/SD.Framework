@@ -1,4 +1,3 @@
-using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -10,22 +9,41 @@ namespace SD.Infrastructure.WPF.CustomControls
     public class TreeListView : TreeView
     {
         /// <summary>
-        /// 默认构造器
+        /// 静态构造器
         /// </summary>
-        public TreeListView()
+        static TreeListView()
         {
-            //清空Tag，用于重新生成行号
-            this.Loaded += (sender, _) => ((TreeListView)sender).Tag = null;
+            //注册依赖属性
+            IndentUnitSizeProperty = DependencyProperty.Register(nameof(IndentUnitSize), typeof(double), typeof(TreeListView), new PropertyMetadata(14.0));
+            ColumnsDefinitionProperty = DependencyProperty.Register(nameof(ColumnsDefinition), typeof(GridViewColumnCollection), typeof(TreeListView));
         }
 
         /// <summary>
-        /// 数据项变更事件
+        /// 缩进单位尺寸依赖属性
         /// </summary>
-        protected override void OnItemsChanged(NotifyCollectionChangedEventArgs eventArgs)
+        public static readonly DependencyProperty IndentUnitSizeProperty;
+
+        /// <summary>
+        /// 列集合依赖属性
+        /// </summary>
+        public static readonly DependencyProperty ColumnsDefinitionProperty;
+
+        /// <summary>
+        /// 缩进单位尺寸
+        /// </summary>
+        public double IndentUnitSize
         {
-            //清空Tag，用于重新生成行号
-            this.Tag = null;
-            base.OnItemsChanged(eventArgs);
+            get { return (double)base.GetValue(IndentUnitSizeProperty); }
+            set { base.SetValue(IndentUnitSizeProperty, value); }
+        }
+
+        /// <summary>
+        /// 列定义
+        /// </summary>
+        public GridViewColumnCollection ColumnsDefinition
+        {
+            get { return (GridViewColumnCollection)base.GetValue(ColumnsDefinitionProperty); }
+            set { base.SetValue(ColumnsDefinitionProperty, value); }
         }
 
         /// <summary>
