@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - 领域事件基础</Description>
@@ -9,13 +9,18 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.EventBase.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Infrastructure.EventBase.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.EventBase.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.EventBase.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+    <Reference Include="System.Transactions" />
+    <PackageReference Include="SD.IOC.Core" Version="2.0.6" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="SD.IOC.Core" Version="2.0.6" />
   </ItemGroup>
 

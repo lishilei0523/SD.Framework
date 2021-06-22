@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFrameworks>net461;netstandard2.1</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - 仓储基础 - Entity Framework实现</Description>
@@ -9,29 +9,11 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.1\SD.Infrastructure.Repository.EntityFramework.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Infrastructure.Repository.EntityFramework.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.1\SD.Infrastructure.Repository.EntityFramework.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.Repository.EntityFramework.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\Base\BaseDbSession.cs">
-      <Link>Base\BaseDbSession.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\Base\DbCleaner.cs">
-      <Link>Base\DbCleaner.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFAggRootRepositoryProvider.cs">
-      <Link>EFAggRootRepositoryProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFEntityRepositoryProvider.cs">
-      <Link>EFEntityRepositoryProvider.cs</Link>
-    </Compile>
-    <Compile Include="..\SD.Infrastructure.Repository.EntityFramework.NET461\EFUnitOfWorkProvider.cs">
-      <Link>EFUnitOfWorkProvider.cs</Link>
-    </Compile>
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SD.Toolkits.EntityFramework" Version="1.1.1" />

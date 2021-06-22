@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - 领域事件基础 - Redis存储提供者</Description>
@@ -9,10 +9,10 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.EventStore.Redis.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Infrastructure.EventStore.Redis.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.EventStore.Redis.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.EventStore.Redis.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj" />
     <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.EventBase\SD.Infrastructure.EventBase.csproj" />
   </ItemGroup>
 </Project>
