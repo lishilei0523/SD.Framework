@@ -1,9 +1,16 @@
 ﻿using SD.Infrastructure.Global;
-using SD.IOC.Integration.WCF;
+using SD.IOC.Integration.WCF.Providers;
 using System.Collections.ObjectModel;
+#if NET46_OR_GREATER
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
+#endif
+#if NETSTANDARD2_0_OR_GREATER
+using CoreWCF;
+using CoreWCF.Channels;
+using CoreWCF.Description;
+#endif
 
 namespace SD.Infrastructure.WCF.Server
 {
@@ -49,8 +56,8 @@ namespace SD.Infrastructure.WCF.Server
                 Initializer.InitDataBase();
 
                 //注册事件
-                InstanceProvider.OnGetInstance += InstanceProvider_OnGetInstance;
-                InstanceProvider.OnReleaseInstance += InstanceProvider_OnReleaseInstance;
+                ServiceInstanceProvider.OnGetInstance += InstanceProvider_OnGetInstance;
+                ServiceInstanceProvider.OnReleaseInstance += InstanceProvider_OnReleaseInstance;
 
                 //初始化完毕
                 Initialize();

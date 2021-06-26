@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;net48</TargetFrameworks>
+    <TargetFrameworks>net461;net48;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WCF服务端基础</Description>
@@ -16,10 +16,19 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.WCF.Server.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <Compile Remove="InitializationBehaviorElement.cs" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
     <Reference Include="System.Configuration" />
     <Reference Include="System.ServiceModel" />
-    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.0.1" />
+    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <PackageReference Include="CoreWCF.Primitives" Version="0.1.0" />
+    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.0.2" />
   </ItemGroup>
 
   <ItemGroup>
