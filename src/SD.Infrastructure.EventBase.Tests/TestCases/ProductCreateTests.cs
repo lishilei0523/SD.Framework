@@ -10,7 +10,6 @@ using SD.IOC.Extension.NetFx;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Transactions;
 
 namespace SD.Infrastructure.EventBase.Tests.TestCases
@@ -45,8 +44,7 @@ namespace SD.Infrastructure.EventBase.Tests.TestCases
             const int runCount = 1000;
 
             IList<Guid> sessionIds = new List<Guid>();
-
-            Parallel.For(0, runCount, i =>
+            for (int i = 0; i < runCount; i++)
             {
                 using (TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
                 {
@@ -63,7 +61,7 @@ namespace SD.Infrastructure.EventBase.Tests.TestCases
 
                     scope.Complete();
                 }
-            });
+            }
 
             Assert.IsTrue(sessionIds.Count == runCount);
             Assert.IsTrue(sessionIds.Distinct().Count() == runCount);

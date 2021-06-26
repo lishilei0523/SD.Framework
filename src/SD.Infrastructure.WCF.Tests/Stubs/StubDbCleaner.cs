@@ -1,4 +1,5 @@
 ﻿using SD.Infrastructure.RepositoryBase;
+using System;
 
 namespace SD.Infrastructure.WCF.Tests.Stubs
 {
@@ -12,7 +13,7 @@ namespace SD.Infrastructure.WCF.Tests.Stubs
         /// </summary>
         public void Clean()
         {
-
+            Console.WriteLine("数据库清理已执行..");
         }
     }
 }

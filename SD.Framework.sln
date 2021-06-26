@@ -7,7 +7,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01 - Infrastructures", "01 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "06 - Tests", "06 - Tests", "{9674117A-466B-4315-A502-DCDFFC4E05B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WCF.Server", "src\SD.Infrastructure.WCF.Server\SD.Infrastructure.WCF.Server.csproj", "{9A78B517-AD18-4BC7-B687-4DC245F4DB57}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WCF.Server", "src\SD.Infrastructure.WCF.Server\SD.Infrastructure.WCF.Server.csproj", "{9A78B517-AD18-4BC7-B687-4DC245F4DB57}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.EventBase.Tests", "src\SD.Infrastructure.EventBase.Tests\SD.Infrastructure.EventBase.Tests.csproj", "{1182A916-10CD-482C-B8AA-1A630C5C739C}"
 EndProject
@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.StubIAppS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.StubAppService", "src\SD.Infrastructure.StubAppService\SD.Infrastructure.StubAppService.csproj", "{A9F7D041-ECF8-434D-B083-5F57AD348564}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.MVC.Server", "src\SD.Infrastructure.MVC.Server\SD.Infrastructure.MVC.Server.csproj", "{BE2F2103-F9F6-49B7-8389-D1D909F35464}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.MVC.Server", "src\SD.Infrastructure.MVC.Server\SD.Infrastructure.MVC.Server.csproj", "{BE2F2103-F9F6-49B7-8389-D1D909F35464}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Servers", "02 - Servers", "{AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}"
 EndProject
@@ -43,15 +43,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.CrontabBa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.CrontabStore.Redis", "src\SD.Infrastructure.CrontabStore.Redis\SD.Infrastructure.CrontabStore.Redis.csproj", "{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Workflow", "src\SD.Infrastructure.Workflow\SD.Infrastructure.Workflow.csproj", "{C5D4DF46-4EB8-4E4C-9A5A-C6AE4D7CDA08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Workflow", "src\SD.Infrastructure.Workflow\SD.Infrastructure.Workflow.csproj", "{C5D4DF46-4EB8-4E4C-9A5A-C6AE4D7CDA08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.SignalR.Server", "src\SD.Infrastructure.SignalR.Server\SD.Infrastructure.SignalR.Server.csproj", "{E66E6C7F-1865-4ED0-872C-5D0EF9D97AEC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.SignalR.Server", "src\SD.Infrastructure.SignalR.Server\SD.Infrastructure.SignalR.Server.csproj", "{E66E6C7F-1865-4ED0-872C-5D0EF9D97AEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.SignalR.Client", "src\SD.Infrastructure.SignalR.Client\SD.Infrastructure.SignalR.Client.csproj", "{141285F8-0943-44BB-ACB3-E7907C4C8698}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.SignalR.Client", "src\SD.Infrastructure.SignalR.Client\SD.Infrastructure.SignalR.Client.csproj", "{141285F8-0943-44BB-ACB3-E7907C4C8698}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - BPMs", "05 - BPMs", "{5065859B-70BD-4391-8719-85C364652195}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WebApi.SelfHost.Server", "src\SD.Infrastructure.WebApi.SelfHost.Server\SD.Infrastructure.WebApi.SelfHost.Server.csproj", "{64646A3D-FA7D-4E1E-BBEF-AD36AC5D4673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WebApi.SelfHost.Server", "src\SD.Infrastructure.WebApi.SelfHost.Server\SD.Infrastructure.WebApi.SelfHost.Server.csproj", "{64646A3D-FA7D-4E1E-BBEF-AD36AC5D4673}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repository.EntityFramework", "src\SD.Infrastructure.Repository.EntityFramework\SD.Infrastructure.Repository.EntityFramework.csproj", "{E96C09C4-4841-4B02-AA5D-7189909738F8}"
 EndProject
@@ -67,9 +67,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Tests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03 - Clients", "03 - Clients", "{D564BEC1-ECEB-4739-992C-2133EDEC51D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WPF", "src\SD.Infrastructure.WPF\SD.Infrastructure.WPF.csproj", "{04A2FD83-D8D0-4EC9-8BA1-01A89B908926}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WPF", "src\SD.Infrastructure.WPF\SD.Infrastructure.WPF.csproj", "{04A2FD83-D8D0-4EC9-8BA1-01A89B908926}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WPF.Caliburn", "src\SD.Infrastructure.WPF.Caliburn\SD.Infrastructure.WPF.Caliburn.csproj", "{7AE3BD07-B137-4190-A23B-7039722A36FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WPF.Caliburn", "src\SD.Infrastructure.WPF.Caliburn\SD.Infrastructure.WPF.Caliburn.csproj", "{7AE3BD07-B137-4190-A23B-7039722A36FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,6 +1,8 @@
-﻿using System.ServiceModel;
+﻿using SD.Infrastructure.Constants;
 using SD.Infrastructure.StubIAppService.Interfaces;
 using SD.Infrastructure.WCF.Tests.Interfaces;
+using System;
+using System.ServiceModel;
 
 namespace SD.Infrastructure.WCF.Tests.Implements
 {
@@ -30,6 +32,7 @@ namespace SD.Infrastructure.WCF.Tests.Implements
         /// <returns>订单</returns>
         public string GetOrder()
         {
+            Console.WriteLine($"当前会话Id：\"{GlobalSetting.CurrentSessionId}\"");
             return this._productContract.GetProducts();
         }
     }
