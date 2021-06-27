@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 
-namespace SD.Infrastructure.Workflow.Base
+namespace SD.Infrastructure.WWF.Base
 {
     /// <summary>
     /// 工作流书签基类

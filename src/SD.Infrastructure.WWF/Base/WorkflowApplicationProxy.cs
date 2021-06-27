@@ -10,7 +10,7 @@ using System.Runtime.DurableInstancing;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace SD.Infrastructure.Workflow.Base
+namespace SD.Infrastructure.WWF.Base
 {
     /// <summary>
     /// 工作流应用程序代理
@@ -71,7 +71,7 @@ namespace SD.Infrastructure.Workflow.Base
             //初始化连接字符串
             string connectionStringName = FrameworkSection.Setting.WorkflowConnectionName.Value;
             ConnectionStringSettings connectionStringSetting = ConfigurationManager.ConnectionStrings?[connectionStringName];
-            _WorkflowPersistenceConnectionString = connectionStringSetting?.ConnectionString; ;
+            _WorkflowPersistenceConnectionString = connectionStringSetting?.ConnectionString;
             if (string.IsNullOrWhiteSpace(_WorkflowPersistenceConnectionString))
             {
                 throw new ApplicationException("工作流持久化连接字符串未设置！");

@@ -2,7 +2,7 @@
 using System.Activities;
 using System.Threading;
 
-namespace SD.Infrastructure.Workflow.Base
+namespace SD.Infrastructure.WWF.Base
 {
     /// <summary>
     /// 延迟代码活动

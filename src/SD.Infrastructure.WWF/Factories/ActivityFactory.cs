@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Activities;
 
-namespace SD.Infrastructure.Workflow.Factories
+namespace SD.Infrastructure.WWF.Factories
 {
     /// <summary>
     /// 工作流活动工厂

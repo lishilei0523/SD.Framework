@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.CrontabBa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.CrontabStore.Redis", "src\SD.Infrastructure.CrontabStore.Redis\SD.Infrastructure.CrontabStore.Redis.csproj", "{1405D1B2-5BEE-4213-B6EA-D3D34F47F73E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Workflow", "src\SD.Infrastructure.Workflow\SD.Infrastructure.Workflow.csproj", "{C5D4DF46-4EB8-4E4C-9A5A-C6AE4D7CDA08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WWF", "src\SD.Infrastructure.WWF\SD.Infrastructure.WWF.csproj", "{C5D4DF46-4EB8-4E4C-9A5A-C6AE4D7CDA08}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.SignalR.Server", "src\SD.Infrastructure.SignalR.Server\SD.Infrastructure.SignalR.Server.csproj", "{E66E6C7F-1865-4ED0-872C-5D0EF9D97AEC}"
 EndProject
