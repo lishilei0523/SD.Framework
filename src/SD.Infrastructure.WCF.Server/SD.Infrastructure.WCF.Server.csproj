@@ -28,7 +28,7 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="CoreWCF.Primitives" Version="0.1.0" />
-    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.0.2" />
+    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup>

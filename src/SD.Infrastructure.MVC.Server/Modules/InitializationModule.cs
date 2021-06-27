@@ -6,7 +6,7 @@ using System.Web;
 namespace SD.Infrastructure.MVC.Server.Modules
 {
     /// <summary>
-    /// 初始化模块
+    /// ASP.NET MVC初始化模块
     /// </summary>
     internal class InitializationModule : IHttpModule
     {

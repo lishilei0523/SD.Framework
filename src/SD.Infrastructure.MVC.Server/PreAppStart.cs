@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace SD.Infrastructure.MVC.Server
 {
     /// <summary>
-    /// MVC应用程序初始化
+    /// ASP.NET MVC应用程序初始化
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class PreAppStart

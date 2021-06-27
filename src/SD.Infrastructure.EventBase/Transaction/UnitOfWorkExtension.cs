@@ -12,17 +12,20 @@ namespace SD.Infrastructure.Global.Transaction
     public static class UnitOfWorkExtension
     {
         /// <summary>
+        /// 异步事务流设置
+        /// </summary>
+        private const TransactionScopeAsyncFlowOption AsyncFlowOption = TransactionScopeAsyncFlowOption.Enabled;
+
+        /// <summary>
         /// UnitOfWork联合提交（包含处理领域事件）扩展方法
         /// </summary>
         /// <param name="unitOfWork">工作单元实例</param>
         public static void UnitedCommit(this IUnitOfWork unitOfWork)
         {
-            TransactionScopeAsyncFlowOption asyncFlowOption = TransactionScopeAsyncFlowOption.Enabled;
-
             try
             {
                 //开启事务
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, asyncFlowOption))
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, AsyncFlowOption))
                 {
                     //提交工作单元
                     unitOfWork.Commit();
@@ -37,7 +40,7 @@ namespace SD.Infrastructure.Global.Transaction
             catch
             {
                 //不参与事务
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress, asyncFlowOption))
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress, AsyncFlowOption))
                 {
                     //回滚工作单元
                     unitOfWork.RollBack();
@@ -58,12 +61,10 @@ namespace SD.Infrastructure.Global.Transaction
         /// <param name="unitOfWork">工作单元实例</param>
         public static async Task UnitedCommitAsync(this IUnitOfWork unitOfWork)
         {
-            TransactionScopeAsyncFlowOption asyncFlowOption = TransactionScopeAsyncFlowOption.Enabled;
-
             try
             {
                 //开启事务
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, asyncFlowOption))
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, AsyncFlowOption))
                 {
                     //提交工作单元
                     await unitOfWork.CommitAsync();
@@ -78,7 +79,7 @@ namespace SD.Infrastructure.Global.Transaction
             catch
             {
                 //不参与事务
-                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress, asyncFlowOption))
+                using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Suppress, AsyncFlowOption))
                 {
                     //回滚工作单元
                     unitOfWork.RollBack();
