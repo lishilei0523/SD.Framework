@@ -11,6 +11,7 @@
     <Reference Include="System.ServiceModel" />
     <PackageReference Include="Topshelf" Version="4.2.1" />
     <PackageReference Include="SD.IOC.Core" Version="2.0.6" />
+    <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>

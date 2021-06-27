@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Copyright>Copyright © SD 2021</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\SD.Infrastructure.WCF.Tests\Stubs\StubDataInitializer.cs">
+      <Link>Stubs\StubDataInitializer.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure.WCF.Tests\Stubs\StubDbCleaner.cs">
+      <Link>Stubs\StubDbCleaner.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Configuration" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.OwinSelfHost" Version="5.2.7" />
+    <PackageReference Include="Microsoft.Owin" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Host.HttpListener" Version="4.1.1" />
+    <PackageReference Include="Microsoft.Owin.Hosting" Version="4.1.1" />
+    <PackageReference Include="Topshelf" Version="4.2.1" />
+    <PackageReference Include="SD.Toolkits.AspNet" Version="1.0.3" />
+    <PackageReference Include="SD.IOC.Core" Version="2.0.6" />
+    <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.0.2" />
+    <PackageReference Include="SD.IOC.Integration.WebApi" Version="2.0.2" />
+    <PackageReference Include="SD.IOC.Integration.WebApi.SelfHost" Version="2.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.WebApi.SelfHost.Server\SD.Infrastructure.WebApi.SelfHost.Server.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.StubAppService\SD.Infrastructure.StubAppService.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.StubIAppService\SD.Infrastructure.StubIAppService.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Stubs\" />
+  </ItemGroup>
+</Project>

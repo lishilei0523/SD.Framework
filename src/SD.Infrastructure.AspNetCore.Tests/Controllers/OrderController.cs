@@ -1,17 +1,17 @@
-﻿using SD.Infrastructure.Constants;
+﻿using Microsoft.AspNetCore.Mvc;
+using SD.Infrastructure.Constants;
 using SD.Infrastructure.StubIAppService.Interfaces;
-using SD.Infrastructure.WCF.Tests.Interfaces;
 using System;
 using System.Diagnostics;
-using System.ServiceModel;
 
-namespace SD.Infrastructure.WCF.Tests.Implements
+namespace SD.Infrastructure.AspNetCore.Tests.Controllers
 {
     /// <summary>
-    /// 订单服务契约实现
+    /// 订单控制器
     /// </summary>
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall)]
-    public class OrderContract : IOrderContract
+    [ApiController]
+    [Route("Api/[controller]/[action]")]
+    public class OrderController : ControllerBase
     {
         /// <summary>
         /// 商品接口
@@ -21,7 +21,7 @@ namespace SD.Infrastructure.WCF.Tests.Implements
         /// <summary>
         /// 依赖注入构造器
         /// </summary>
-        public OrderContract(IProductContract productContract)
+        public OrderController(IProductContract productContract)
         {
             this._productContract = productContract;
         }
@@ -30,6 +30,7 @@ namespace SD.Infrastructure.WCF.Tests.Implements
         /// 获取订单
         /// </summary>
         /// <returns>订单</returns>
+        [HttpGet]
         public string GetOrder()
         {
             Trace.WriteLine($"当前会话Id：\"{GlobalSetting.CurrentSessionId}\"");
