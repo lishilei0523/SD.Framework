@@ -2,10 +2,10 @@ using SD.Infrastructure.Global;
 using System;
 using System.Web;
 
-namespace SD.Infrastructure.MVC.Server.Modules
+namespace SD.Infrastructure.AspNet.Server.Modules
 {
     /// <summary>
-    /// ASP.NET MVC初始化模块
+    /// ASP.NET初始化模块
     /// </summary>
     internal class InitializationModule : IHttpModule
     {

@@ -3,22 +3,25 @@
     <TargetFrameworks>net461;net48</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>SD.Framework 基础设施 - ASP.NET MVC服务端基础</Description>
+    <Description>SD.Framework 基础设施 - ASP.NET服务端基础</Description>
     <Copyright>Copyright © SD 2021</Copyright>
     <AssemblyVersion>2.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Infrastructure.MVC.Server.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Infrastructure.AspNet.Server.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.MVC.Server.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.AspNet.Server.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="System.Web" />
-    <PackageReference Include="SD.IOC.Integration.MVC" Version="2.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.Infrastructure" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
 using SD.Infrastructure.StubIAppService.Interfaces;
 using System.Web.Mvc;
 
-namespace SD.Infrastructure.MVC.Tests.Controllers
+namespace SD.Infrastructure.AspNet.Tests.Controllers
 {
     /// <summary>
     /// 首页控制器

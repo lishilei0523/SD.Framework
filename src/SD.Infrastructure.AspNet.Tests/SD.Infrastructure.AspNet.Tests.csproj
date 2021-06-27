@@ -11,8 +11,8 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SD.Infrastructure.MVC.Tests</RootNamespace>
-    <AssemblyName>SD.Infrastructure.MVC.Tests</AssemblyName>
+    <RootNamespace>SD.Infrastructure.AspNet.Tests</RootNamespace>
+    <AssemblyName>SD.Infrastructure.AspNet.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
@@ -90,9 +90,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SD.Infrastructure.MVC.Server\SD.Infrastructure.MVC.Server.csproj">
+    <ProjectReference Include="..\SD.Infrastructure.AspNet.Server\SD.Infrastructure.AspNet.Server.csproj">
       <Project>{be2f2103-f9f6-49b7-8389-d1d909f35464}</Project>
-      <Name>SD.Infrastructure.MVC.Server</Name>
+      <Name>SD.Infrastructure.AspNet.Server</Name>
     </ProjectReference>
     <ProjectReference Include="..\SD.Infrastructure.StubIAppService\SD.Infrastructure.StubIAppService.csproj">
       <Project>{04bfa4d7-86c8-4341-b34c-3f1d88d19827}</Project>

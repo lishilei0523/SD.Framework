@@ -2,7 +2,7 @@
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace SD.Infrastructure.MVC.Tests
+namespace SD.Infrastructure.AspNet.Tests
 {
     /// <summary>
     /// 全局应用程序类

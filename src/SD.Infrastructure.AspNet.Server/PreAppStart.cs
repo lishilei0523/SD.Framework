@@ -1,11 +1,11 @@
 ﻿using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-using SD.Infrastructure.MVC.Server.Modules;
+using SD.Infrastructure.AspNet.Server.Modules;
 using System.ComponentModel;
 
-namespace SD.Infrastructure.MVC.Server
+namespace SD.Infrastructure.AspNet.Server
 {
     /// <summary>
-    /// ASP.NET MVC应用程序初始化
+    /// ASP.NET应用程序初始化
     /// </summary>
     [EditorBrowsable(EditorBrowsableState.Never)]
     public static class PreAppStart

@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.StubIAppS
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.StubAppService", "src\SD.Infrastructure.StubAppService\SD.Infrastructure.StubAppService.csproj", "{A9F7D041-ECF8-434D-B083-5F57AD348564}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.MVC.Server", "src\SD.Infrastructure.MVC.Server\SD.Infrastructure.MVC.Server.csproj", "{BE2F2103-F9F6-49B7-8389-D1D909F35464}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AspNet.Server", "src\SD.Infrastructure.AspNet.Server\SD.Infrastructure.AspNet.Server.csproj", "{BE2F2103-F9F6-49B7-8389-D1D909F35464}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02 - Servers", "02 - Servers", "{AEE104D7-3ABD-4A2C-986D-30A9ED42BBBB}"
 EndProject
@@ -73,7 +73,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WPF.Calib
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WebApi.Tests", "src\SD.Infrastructure.WebApi.Tests\SD.Infrastructure.WebApi.Tests.csproj", "{8A094C3B-6D2F-49A7-AE3C-42BF951C4B94}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.MVC.Tests", "src\SD.Infrastructure.MVC.Tests\SD.Infrastructure.MVC.Tests.csproj", "{7BBFCE82-2CBE-46AA-B108-7C5C736E4D8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.AspNet.Tests", "src\SD.Infrastructure.AspNet.Tests\SD.Infrastructure.AspNet.Tests.csproj", "{7BBFCE82-2CBE-46AA-B108-7C5C736E4D8A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AspNetCore.Tests", "src\SD.Infrastructure.AspNetCore.Tests\SD.Infrastructure.AspNetCore.Tests.csproj", "{82F5EC62-EC15-43F9-A380-66DDE27480F4}"
 EndProject
