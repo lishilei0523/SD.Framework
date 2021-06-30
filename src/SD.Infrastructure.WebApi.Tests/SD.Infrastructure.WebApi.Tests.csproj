@@ -41,8 +41,4 @@
     <ProjectReference Include="..\SD.Infrastructure.StubAppService\SD.Infrastructure.StubAppService.csproj" />
     <ProjectReference Include="..\SD.Infrastructure.StubIAppService\SD.Infrastructure.StubIAppService.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Stubs\" />
-  </ItemGroup>
 </Project>
