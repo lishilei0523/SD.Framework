@@ -28,8 +28,8 @@
     <PackageReference Include="Microsoft.Owin.Host.HttpListener" Version="4.1.1" />
     <PackageReference Include="Microsoft.Owin.Hosting" Version="4.1.1" />
     <PackageReference Include="Topshelf" Version="4.2.1" />
-    <PackageReference Include="SD.Toolkits.AspNet" Version="1.0.3" />
-    <PackageReference Include="SD.IOC.Core" Version="2.0.6" />
+    <PackageReference Include="SD.Toolkits.AspNet" Version="1.0.4" />
+    <PackageReference Include="SD.IOC.Core" Version="2.0.7" />
     <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.0.2" />
     <PackageReference Include="SD.IOC.Integration.WebApi" Version="2.0.2" />
     <PackageReference Include="SD.IOC.Integration.WebApi.SelfHost" Version="2.0.2" />
