@@ -6,6 +6,7 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WPF基础</Description>
     <Copyright>Copyright © SD 2021</Copyright>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

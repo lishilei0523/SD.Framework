@@ -344,6 +344,10 @@ namespace SD.Infrastructure.WPF.UserControls
         /// </summary>
         private void BtnFirstPageClick(object sender, RoutedEventArgs eventArgs)
         {
+            if (this.PageCount == 0)
+            {
+                return;
+            }
             if (this.PageIndex == MinPageIndex)
             {
                 return;
@@ -359,6 +363,10 @@ namespace SD.Infrastructure.WPF.UserControls
         /// </summary>
         private void BtnPrevPageClick(object sender, RoutedEventArgs eventArgs)
         {
+            if (this.PageCount == 0)
+            {
+                return;
+            }
             if (this.PageIndex <= MinPageIndex)
             {
                 this.PageIndex = MinPageIndex;
@@ -375,6 +383,10 @@ namespace SD.Infrastructure.WPF.UserControls
         /// </summary>
         private void BtnNextPageClick(object sender, RoutedEventArgs eventArgs)
         {
+            if (this.PageCount == 0)
+            {
+                return;
+            }
             if (this.PageIndex >= this.PageCount)
             {
                 this.PageIndex = this.PageCount;
@@ -391,6 +403,10 @@ namespace SD.Infrastructure.WPF.UserControls
         /// </summary>
         private void BtnLastPageClick(object sender, RoutedEventArgs eventArgs)
         {
+            if (this.PageCount == 0)
+            {
+                return;
+            }
             if (this.PageIndex == this.PageCount)
             {
                 return;
