@@ -128,7 +128,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// 根据Id获取唯一实体对象（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="id">Id</param>
+        /// <param name="id">标识Id</param>
         /// <returns>唯一实体对象</returns>
         T Resolve<T>(Guid id) where T : AggregateRootEntity;
         #endregion
@@ -138,7 +138,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// 根据Id集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">Id集</param>
+        /// <param name="ids">标识Id集</param>
         /// <returns>实体对象列表</returns>
         ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
         #endregion
@@ -168,7 +168,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// 异步根据Id获取唯一实体对象（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="id">Id</param>
+        /// <param name="id">标识Id</param>
         /// <returns>唯一实体对象</returns>
         Task<T> ResolveAsync<T>(Guid id) where T : AggregateRootEntity;
         #endregion
@@ -178,7 +178,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// 异步根据Id集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">Id集</param>
+        /// <param name="ids">标识Id集</param>
         /// <returns>实体对象列表</returns>
         Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
         #endregion

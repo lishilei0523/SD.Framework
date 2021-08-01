@@ -15,22 +15,20 @@ namespace SD.Infrastructure.RepositoryBase
         #region # 根据编号获取唯一实体对象（查看时用） —— T SingleOrDefault(string number)
         /// <summary>
         /// 根据编号获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>唯一实体对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
+        /// <returns>实体对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         T SingleOrDefault(string number);
         #endregion
 
         #region # 根据编号获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(string number)
         /// <summary>
         /// 根据编号获取唯一子类对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>唯一子类对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
+        /// <returns>子类对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         TSub SingleOrDefault<TSub>(string number) where TSub : T;
         #endregion
 
@@ -39,9 +37,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// 根据编号获取唯一实体对象（查看时用），
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <returns>实体对象</returns>
         T Single(string number);
         #endregion
 
@@ -50,9 +46,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// 根据编号获取唯一子类对象（查看时用），
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>单个子类对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <returns>子类对象</returns>
         TSub Single<TSub>(string number) where TSub : T;
         #endregion
 
@@ -83,8 +77,8 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
         /// <returns>实体对象列表</returns>
         ICollection<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount);
         #endregion
@@ -97,9 +91,9 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
-        /// <returns>实体对象列表</returns>
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
+        /// <returns>子类对象列表</returns>
         ICollection<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T;
         #endregion
 
@@ -133,7 +127,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
         bool ExistsNo(string number);
         #endregion
 
@@ -143,7 +136,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
         bool ExistsNo<TSub>(string number) where TSub : T;
         #endregion
 

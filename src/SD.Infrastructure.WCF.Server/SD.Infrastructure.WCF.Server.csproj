@@ -23,11 +23,13 @@
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
     <Reference Include="System.Configuration" />
     <Reference Include="System.ServiceModel" />
-    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.0.3" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
     <PackageReference Include="CoreWCF.Primitives" Version="0.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="SD.IOC.Integration.WCF" Version="2.0.3" />
   </ItemGroup>
 

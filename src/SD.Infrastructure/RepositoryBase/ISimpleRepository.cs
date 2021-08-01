@@ -14,8 +14,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 添加单个实体对象
         /// </summary>
-        /// <param name="entity">新实体对象</param>
-        /// <exception cref="ArgumentNullException">新实体对象为空</exception>
+        /// <param name="entity">实体对象</param>
         void Add(T entity);
         #endregion
 
@@ -24,8 +23,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// 添加实体对象列表
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
-        /// <param name="entities">实体对象列表</param>
-        /// <exception cref="ArgumentNullException">实体对象列表为null或长度为0</exception>
+        /// <param name="entities">实体对象集</param>
         void AddRange(IEnumerable<T> entities);
         #endregion
 
@@ -34,8 +32,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// 保存单个实体对象
         /// </summary>
         /// <param name="entity">实体对象</param>
-        /// <exception cref="ArgumentNullException">实体对象为空</exception>
-        /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         void Save(T entity);
         #endregion
 
@@ -44,9 +40,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// 保存实体对象列表
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
-        /// <param name="entities">实体对象列表</param>
-        /// <exception cref="ArgumentNullException">实体对象列表</exception>
-        /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
+        /// <param name="entities">实体对象集</param>
         void SaveRange(IEnumerable<T> entities);
         #endregion
 
@@ -55,8 +49,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// 删除单行
         /// </summary>
         /// <param name="id">标识Id</param>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         void Remove(Guid id);
         #endregion
 
@@ -65,8 +57,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// 删除单行
         /// </summary>
         /// <param name="number">编号</param>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         void Remove(string number);
         #endregion
 
@@ -75,7 +65,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// 删除多行
         /// </summary>
         /// <param name="ids">标识Id集</param>
-        /// <exception cref="ArgumentNullException">Id集为null或长度为0</exception>
         void RemoveRange(IEnumerable<Guid> ids);
         #endregion
 
@@ -84,8 +73,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// 删除多行
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="numbers">编号集合</param>
-        /// <exception cref="ArgumentNullException">numbers为null或长度为0</exception>
+        /// <param name="numbers">编号集</param>
         void RemoveRange(IEnumerable<string> numbers);
         #endregion
 

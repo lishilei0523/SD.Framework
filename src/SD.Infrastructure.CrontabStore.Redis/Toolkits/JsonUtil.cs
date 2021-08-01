@@ -38,7 +38,7 @@ namespace SD.Infrastructure.CrontabStore.Redis.Toolkits
         /// <returns>定时任务JSON</returns>
         internal static string CrontabToJson<T>(this T crontab) where T : ICrontab
         {
-            #region # 验证参数
+            #region # 验证
 
             if (crontab == null)
             {
@@ -72,7 +72,7 @@ namespace SD.Infrastructure.CrontabStore.Redis.Toolkits
         /// <returns>定时任务</returns>
         internal static ICrontab JsonToCrontab(this string crontabJson)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(crontabJson))
             {

@@ -48,11 +48,11 @@ namespace SD.Infrastructure.EntityBase
         /// <param name="id">标识Id</param>
         public void SetId(Guid id)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id", @"Id不可为空！");
+                throw new ArgumentNullException(nameof(id), @"Id不可为空！");
             }
 
             #endregion

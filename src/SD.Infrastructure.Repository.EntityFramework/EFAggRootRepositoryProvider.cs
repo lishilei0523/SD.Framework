@@ -32,14 +32,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #region # 根据编号获取唯一实体对象（查看时用） —— T SingleOrDefault(string number)
         /// <summary>
         /// 根据编号获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
+        /// <returns>实体对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         public T SingleOrDefault(string number)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -55,14 +54,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #region # 根据编号获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(string number)
         /// <summary>
         /// 根据编号获取唯一子类对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>唯一子类对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
+        /// <returns>子类对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         public TSub SingleOrDefault<TSub>(string number) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -80,9 +78,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// 根据编号获取唯一实体对象（查看时用），
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <returns>实体对象</returns>
         public T Single(string number)
         {
             T current = this.SingleOrDefault(number);
@@ -105,9 +101,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// 根据编号获取唯一子类对象（查看时用），
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>单个子类对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <returns>子类对象</returns>
         public TSub Single<TSub>(string number) where TSub : T
         {
             TSub current = this.SingleOrDefault<TSub>(number);
@@ -135,11 +129,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象列表</returns>
         public ICollection<T> Find(string keywords)
         {
-            Expression<Func<T, bool>> condition =
-                x =>
-                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
+            IQueryable<T> entities = base.FindAllInner();
+            if (!string.IsNullOrWhiteSpace(keywords))
+            {
+                entities = base.Find(x => x.Keywords.Contains(keywords));
+            }
 
-            return base.Find(condition).ToList();
+            return entities.ToList();
         }
         #endregion
 
@@ -151,11 +147,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>子类对象列表</returns>
         public ICollection<TSub> Find<TSub>(string keywords) where TSub : T
         {
-            Expression<Func<TSub, bool>> condition =
-                x =>
-                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
+            IQueryable<TSub> entities = base.FindAllInner<TSub>();
+            if (!string.IsNullOrWhiteSpace(keywords))
+            {
+                entities = base.Find<TSub>(x => x.Keywords.Contains(keywords));
+            }
 
-            return base.Find<TSub>(condition).ToList();
+            return entities.ToList();
         }
         #endregion
 
@@ -166,14 +164,20 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
         /// <returns>实体对象列表</returns>
         public ICollection<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
-            Expression<Func<T, bool>> condition =
-                x =>
-                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
+            Expression<Func<T, bool>> condition;
+            if (!string.IsNullOrWhiteSpace(keywords))
+            {
+                condition = x => x.Keywords.Contains(keywords);
+            }
+            else
+            {
+                condition = x => true;
+            }
 
             return base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToList();
         }
@@ -187,15 +191,21 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
-        /// <returns>实体对象列表</returns>
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
+        /// <returns>子类对象列表</returns>
         public ICollection<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount,
             out int pageCount) where TSub : T
         {
-            Expression<Func<TSub, bool>> condition =
-                x =>
-                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
+            Expression<Func<TSub, bool>> condition;
+            if (!string.IsNullOrWhiteSpace(keywords))
+            {
+                condition = x => x.Keywords.Contains(keywords);
+            }
+            else
+            {
+                condition = x => true;
+            }
 
             return base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToList();
         }
@@ -265,10 +275,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
         public bool ExistsNo(string number)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -287,10 +296,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
         public bool ExistsNo<TSub>(string number) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -361,7 +369,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>是否存在</returns>
         public bool ExistsName(string name)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -382,7 +390,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>是否存在</returns>
         public bool ExistsName<TSub>(string name) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -507,8 +515,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="predicate">条件表达式</param>
         /// <returns>实体对象编号列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<string> FindNos(Expression<Func<T, bool>> predicate)
         {
             return base.Find(predicate).Select(x => x.Number);
@@ -521,8 +527,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="predicate">条件表达式</param>
         /// <returns>子类对象编号列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<string> FindNos<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
             return base.Find<TSub>(predicate).Select(x => x.Number);

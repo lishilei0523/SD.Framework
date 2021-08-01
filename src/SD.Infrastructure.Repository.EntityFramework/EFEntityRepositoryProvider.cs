@@ -61,13 +61,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #region # 根据Id获取唯一实体对象（查看时用） —— T SingleOrDefault(Guid id)
         /// <summary>
         /// 根据Id获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>实体对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         public T SingleOrDefault(Guid id)
         {
             return this.SingleOrDefault(x => x.Id == id);
@@ -77,11 +74,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #region # 根据Id获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(Guid id)
         /// <summary>
         /// 根据Id获取唯一子类对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>唯一子类对象</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>子类对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         public TSub SingleOrDefault<TSub>(Guid id) where TSub : T
         {
             return this.SingleOrDefault<TSub>(x => x.Id == id);
@@ -92,10 +88,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 根据Id获取唯一实体对象（查看时用），
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>实体对象</returns>
         public T Single(Guid id)
         {
             T current = this.SingleOrDefault(id);
@@ -117,10 +111,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 根据Id获取唯一子类对象（查看时用），
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>单个子类对象</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>子类对象</returns>
         public TSub Single<TSub>(Guid id) where TSub : T
         {
             TSub current = this.SingleOrDefault<TSub>(id);
@@ -141,8 +133,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #region # 获取默认或第一个实体对象 —— T FirstOrDefault()
         /// <summary>
         /// 获取默认或第一个实体对象，
-        /// 无该对象时返回null
         /// </summary>
+        /// <remarks>无该对象时返回null</remarks>
         public virtual T FirstOrDefault()
         {
             return this.FindAllBySort().FirstOrDefault();
@@ -152,8 +144,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #region # 获取默认或第一个子类对象 —— TSub FirstOrDefault<TSub>()
         /// <summary>
         /// 获取默认或第一个子类对象，
-        /// 无该对象时返回null
         /// </summary>
+        /// <remarks>无该对象时返回null</remarks>
         public virtual TSub FirstOrDefault<TSub>() where TSub : T
         {
             return this.FindAllInner<TSub>().FirstOrDefault();
@@ -273,9 +265,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 是否存在给定Id的实体对象
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="id">标识Id</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
         public bool Exists(Guid id)
         {
             return this.Exists(x => x.Id == id);
@@ -286,9 +277,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 是否存在给定Id的子类对象
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="id">标识Id</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
         public bool Exists<TSub>(Guid id) where TSub : T
         {
             return this.Exists<TSub>(x => x.Id == id);
@@ -339,17 +329,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #region # 根据条件获取唯一实体对象（查看时用） —— T SingleOrDefault(Expression<Func<T, bool>> predicate)
         /// <summary>
         /// 根据条件获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
         /// <param name="predicate">条件</param>
-        /// <returns>唯一实体对象</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NullReferenceException">查询不到任何实体对象</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
+        /// <returns>实体对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         protected T SingleOrDefault(Expression<Func<T, bool>> predicate)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -365,17 +351,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #region # 根据条件获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(Expression<Func<TSub>...
         /// <summary>
         /// 根据条件获取唯一子类对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
         /// <param name="predicate">条件</param>
-        /// <returns>唯一子类对象</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NullReferenceException">查询不到任何子类对象</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的子类对象</exception>
+        /// <returns>子类对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         protected TSub SingleOrDefault<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -391,13 +373,13 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #region # 根据条件获取第一个实体对象（查看时用） —— T FirstOrDefault(Expression<Func<T, bool>> predicate)
         /// <summary>
         /// 根据条件获取第一个实体对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>实体对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         protected T FirstOrDefault(Expression<Func<T, bool>> predicate)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -413,14 +395,14 @@ namespace SD.Infrastructure.Repository.EntityFramework
         #region # 根据条件获取第一个子类对象（查看时用） —— TSub FirstOrDefault<TSub>(Expression<Func<TSub...
         /// <summary>
         /// 根据条件获取第一个子类对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="predicate">条件</param>
         /// <returns>子类对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         protected TSub FirstOrDefault<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -489,11 +471,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="predicate">条件表达式</param>
         /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<T> Find(Expression<Func<T, bool>> predicate)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -513,11 +493,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="predicate">条件表达式</param>
         /// <returns>子类对象列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<TSub> Find<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -558,8 +536,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="predicate">条件表达式</param>
         /// <returns>实体对象Id列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<Guid> FindIds(Expression<Func<T, bool>> predicate)
         {
             return this.Find(predicate).Select(x => x.Id);
@@ -572,8 +548,6 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="predicate">条件表达式</param>
         /// <returns>子类对象Id列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<Guid> FindIds<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
             return this.Find(predicate).Select(x => x.Id);
@@ -587,11 +561,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <param name="predicate">条件表达式</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
         /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<T> FindByPage(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
             return this.FindBySort(predicate).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
@@ -606,11 +578,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <param name="predicate">条件表达式</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
         /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected IQueryable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
         {
             return this.FindBySort<TSub>(predicate).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
@@ -626,11 +596,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="predicate">条件表达式</param>
         /// <returns>符合条件的记录条数</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected int Count(Expression<Func<T, bool>> predicate)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -649,11 +617,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="predicate">条件表达式</param>
         /// <returns>符合条件的子类记录条数</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected int Count<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -675,11 +641,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected bool Exists(Expression<Func<T, bool>> predicate)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -701,11 +665,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         /// <param name="predicate">条件</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
         protected bool Exists<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {

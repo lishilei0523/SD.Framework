@@ -74,7 +74,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="entity">新实体对象</param>
         public void RegisterAdd<T>(T entity) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (entity == null)
             {
@@ -108,7 +108,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="entities">实体对象列表</param>
         public void RegisterAddRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             entities = entities?.ToArray() ?? new T[0];
             if (!entities.Any())
@@ -147,7 +147,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="entity">实体对象</param>
         public void RegisterSave<T>(T entity) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (entity == null)
             {
@@ -181,7 +181,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="entities">实体对象列表</param>
         public void RegisterSaveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             entities = entities?.ToArray() ?? new T[0];
             if (!entities.Any())
@@ -236,7 +236,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="number">编号</param>
         public void RegisterPhysicsRemove<T>(string number) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -258,7 +258,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="entity">实体对象</param>
         public void RegisterPhysicsRemove<T>(T entity) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (entity == null)
             {
@@ -279,7 +279,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="ids">标识Id集</param>
         public void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             ids = ids?.ToArray() ?? new Guid[0];
 
@@ -344,7 +344,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="number">编号</param>
         public void RegisterRemove<T>(string number) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -390,7 +390,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="entity">实体对象</param>
         public void RegisterRemove<T>(T entity) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (entity == null)
             {
@@ -425,7 +425,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="ids">标识Id集</param>
         public void RegisterRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             Guid[] entityIds = ids?.ToArray() ?? new Guid[0];
 
@@ -470,7 +470,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// 根据Id获取唯一实体对象（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="id">Id</param>
+        /// <param name="id">标识Id</param>
         /// <returns>唯一实体对象</returns>
         public T Resolve<T>(Guid id) where T : AggregateRootEntity
         {
@@ -494,7 +494,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// 根据Id集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">Id集</param>
+        /// <param name="ids">标识Id集</param>
         /// <returns>实体对象列表</returns>
         public ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
@@ -511,7 +511,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>单个实体对象</returns>
         public T Resolve<T>(string number) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -553,7 +553,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// 异步根据Id获取唯一实体对象（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="id">Id</param>
+        /// <param name="id">标识Id</param>
         /// <returns>唯一实体对象</returns>
         public async Task<T> ResolveAsync<T>(Guid id) where T : AggregateRootEntity
         {
@@ -577,7 +577,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// 异步根据Id集获取实体对象列表（修改时用）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">Id集</param>
+        /// <param name="ids">标识Id集</param>
         /// <returns>实体对象列表</returns>
         public async Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
@@ -595,7 +595,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>单个实体对象</returns>
         public async Task<T> ResolveAsync<T>(string number) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -694,7 +694,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="parameters">参数列表</param>
         public void ExecuteSqlCommand(string sql, params object[] parameters)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(sql))
             {
@@ -715,7 +715,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="parameters">参数</param>
         public async Task ExecuteSqlCommandAsync(string sql, params object[] parameters)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(sql))
             {
@@ -749,7 +749,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="predicate">条件表达式</param>
         protected void RegisterPhysicsRemove<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -776,7 +776,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="predicate">条件表达式</param>
         protected void RegisterRemove<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -820,7 +820,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         ///<remarks>查询不到将返回null</remarks>
         protected T ResolveOptional<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -841,7 +841,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>实体对象列表</returns>
         protected IQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -863,7 +863,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         ///<remarks>查询不到将返回null</remarks>
         protected async Task<T> ResolveOptionalAsync<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {
@@ -884,7 +884,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>是否存在</returns>
         protected bool Exists<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
         {
-            #region # 验证参数
+            #region # 验证
 
             if (predicate == null)
             {

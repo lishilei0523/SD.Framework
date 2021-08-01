@@ -13,7 +13,7 @@
     <PackageReference Include="Quartz" Version="3.3.2" />
     <PackageReference Include="SD.Toolkits.Redis" Version="2.0.7" />
     <PackageReference Include="SD.IOC.Core" Version="2.0.7" />
-    <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.0.2" />
+    <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>

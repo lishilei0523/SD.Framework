@@ -38,7 +38,7 @@ namespace SD.Infrastructure.EventStore.Redis.Toolkits
         /// <returns>领域事件JSON</returns>
         internal static string EventToJson<T>(this T eventSource) where T : IEvent
         {
-            #region # 验证参数
+            #region # 验证
 
             if (eventSource == null)
             {
@@ -71,7 +71,7 @@ namespace SD.Infrastructure.EventStore.Redis.Toolkits
         /// <returns>领域事件</returns>
         internal static IEvent JsonToEvent(this string eventSourceJson)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(eventSourceJson))
             {

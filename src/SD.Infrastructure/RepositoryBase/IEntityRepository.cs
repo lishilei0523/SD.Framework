@@ -15,22 +15,20 @@ namespace SD.Infrastructure.RepositoryBase
         #region # 根据Id获取唯一实体对象（查看时用） —— T SingleOrDefault(Guid id)
         /// <summary>
         /// 根据Id获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>实体对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         T SingleOrDefault(Guid id);
         #endregion
 
         #region # 根据Id获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(Guid id)
         /// <summary>
         /// 根据Id获取唯一子类对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>唯一子类对象</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>子类对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         TSub SingleOrDefault<TSub>(Guid id) where TSub : T;
         #endregion
 
@@ -38,10 +36,8 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 根据Id获取唯一实体对象（查看时用），
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>实体对象</returns>
         T Single(Guid id);
         #endregion
 
@@ -49,26 +45,24 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 根据Id获取唯一子类对象（查看时用），
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>单个子类对象</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>子类对象</returns>
         TSub Single<TSub>(Guid id) where TSub : T;
         #endregion
 
         #region # 获取默认或第一个实体对象 —— T FirstOrDefault()
         /// <summary>
         /// 获取默认或第一个实体对象，
-        /// 无该对象时返回null
         /// </summary>
+        /// <remarks>无该对象时返回null</remarks>
         T FirstOrDefault();
         #endregion
 
         #region # 获取默认或第一个子类对象 —— TSub FirstOrDefault<TSub>()
         /// <summary>
         /// 获取默认或第一个子类对象，
-        /// 无该对象时返回null
         /// </summary>
+        /// <remarks>无该对象时返回null</remarks>
         TSub FirstOrDefault<TSub>() where TSub : T;
         #endregion
 
@@ -139,9 +133,8 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 是否存在给定Id的实体对象
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="id">标识Id</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
         bool Exists(Guid id);
         #endregion
 
@@ -149,9 +142,8 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 是否存在给定Id的子类对象
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="id">标识Id</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">Id为空</exception>
         bool Exists<TSub>(Guid id) where TSub : T;
         #endregion
 
@@ -164,7 +156,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// </summary>
         /// <param name="sql">SQL语句</param>
         /// <param name="parameters">参数集</param>
-        /// <returns>实体对象数组</returns>
+        /// <returns>实体对象集合</returns>
         ICollection<TEntity> ExecuteSqlQuery<TEntity>(string sql, params object[] parameters);
         #endregion
     }

@@ -79,8 +79,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <summary>
         /// 添加单个实体对象
         /// </summary>
-        /// <param name="entity">新实体对象</param>
-        /// <exception cref="ArgumentNullException">新实体对象为空</exception>
+        /// <param name="entity">实体对象</param>
         public void Add(T entity)
         {
             #region # 验证
@@ -105,8 +104,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// 添加实体对象列表
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
-        /// <param name="entities">实体对象列表</param>
-        /// <exception cref="ArgumentNullException">实体对象列表为null或长度为0</exception>
+        /// <param name="entities">实体对象集</param>
         public void AddRange(IEnumerable<T> entities)
         {
             #region # 验证
@@ -128,8 +126,6 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// 保存单个实体对象
         /// </summary>
         /// <param name="entity">实体对象</param>
-        /// <exception cref="ArgumentNullException">实体对象为空</exception>
-        /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
         public void Save(T entity)
         {
             #region # 验证
@@ -156,9 +152,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// 保存实体对象列表
         /// </summary>
         /// <typeparam name="T">聚合根类型</typeparam>
-        /// <param name="entities">实体对象列表</param>
-        /// <exception cref="ArgumentNullException">实体对象列表</exception>
-        /// <exception cref="NullReferenceException">要保存的对象不存在</exception>
+        /// <param name="entities">实体对象集</param>
         public void SaveRange(IEnumerable<T> entities)
         {
             #region # 验证
@@ -192,8 +186,6 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// 删除单行
         /// </summary>
         /// <param name="id">标识Id</param>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void Remove(Guid id)
         {
             this._collection.FindOneAndDeleteAsync(x => x.Id == id).Wait();
@@ -205,8 +197,6 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// 删除单行
         /// </summary>
         /// <param name="number">编号</param>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">要删除的对象不存在</exception>
         public void Remove(string number)
         {
             this._collection.FindOneAndDeleteAsync(x => x.Number == number).Wait();
@@ -219,7 +209,6 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集</param>
-        /// <exception cref="ArgumentNullException">ids为null或长度为0</exception>
         public void RemoveRange(IEnumerable<Guid> ids)
         {
             #region # 验证
@@ -241,8 +230,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// 删除多行
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="numbers">编号集合</param>
-        /// <exception cref="ArgumentNullException">numbers为null或长度为0</exception>
+        /// <param name="numbers">编号集</param>
         public void RemoveRange(IEnumerable<string> numbers)
         {
             #region # 验证
@@ -278,16 +266,13 @@ namespace SD.Infrastructure.Repository.MongoDB
         #region # 根据Id获取唯一实体对象（查看时用） —— T SingleOrDefault(Guid id)
         /// <summary>
         /// 根据Id获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
-        /// <exception cref="InvalidOperationException">查询到1个以上的实体对象</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>实体对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         public T SingleOrDefault(Guid id)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (id == Guid.Empty)
             {
@@ -303,14 +288,13 @@ namespace SD.Infrastructure.Repository.MongoDB
         #region # 根据Id获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(Guid id)
         /// <summary>
         /// 根据Id获取唯一子类对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>唯一子类对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>子类对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         public TSub SingleOrDefault<TSub>(Guid id) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (id == Guid.Empty)
             {
@@ -326,14 +310,13 @@ namespace SD.Infrastructure.Repository.MongoDB
         #region # 根据编号获取唯一实体对象（查看时用） —— T SingleOrDefault(string number)
         /// <summary>
         /// 根据编号获取唯一实体对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
+        /// <returns>实体对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         public T SingleOrDefault(string number)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -349,14 +332,13 @@ namespace SD.Infrastructure.Repository.MongoDB
         #region # 根据编号获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(string number)
         /// <summary>
         /// 根据编号获取唯一子类对象（查看时用），
-        /// 无该对象时返回null
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>唯一子类对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
+        /// <returns>子类对象</returns>
+        /// <remarks>无该对象时返回null</remarks>
         public TSub SingleOrDefault<TSub>(string number) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -373,10 +355,8 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <summary>
         /// 根据Id获取唯一实体对象（查看时用），
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>实体对象</returns>
         public T Single(Guid id)
         {
             T current = this.SingleOrDefault(id);
@@ -398,10 +378,8 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <summary>
         /// 根据Id获取唯一子类对象（查看时用），
         /// </summary>
-        /// <param name="id">Id</param>
-        /// <returns>单个子类对象</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <param name="id">标识Id</param>
+        /// <returns>子类对象</returns>
         public TSub Single<TSub>(Guid id) where TSub : T
         {
             TSub current = this.SingleOrDefault<TSub>(id);
@@ -424,9 +402,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// 根据编号获取唯一实体对象（查看时用），
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>单个实体对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <returns>实体对象</returns>
         public T Single(string number)
         {
             T current = this.SingleOrDefault(number);
@@ -449,9 +425,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// 根据编号获取唯一子类对象（查看时用），
         /// </summary>
         /// <param name="number">编号</param>
-        /// <returns>单个子类对象</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
-        /// <exception cref="NullReferenceException">无该对象</exception>
+        /// <returns>子类对象</returns>
         public TSub Single<TSub>(string number) where TSub : T
         {
             TSub current = this.SingleOrDefault<TSub>(number);
@@ -472,8 +446,8 @@ namespace SD.Infrastructure.Repository.MongoDB
         #region # 获取默认或第一个实体对象 —— T FirstOrDefault()
         /// <summary>
         /// 获取默认或第一个实体对象，
-        /// 无该对象时返回null
         /// </summary>
+        /// <remarks>无该对象时返回null</remarks>
         public virtual T FirstOrDefault()
         {
             return this.FindAndSort(x => true).FirstOrDefault();
@@ -483,8 +457,8 @@ namespace SD.Infrastructure.Repository.MongoDB
         #region # 获取默认或第一个子类对象 —— TSub FirstOrDefault<TSub>()
         /// <summary>
         /// 获取默认或第一个子类对象，
-        /// 无该对象时返回null
         /// </summary>
+        /// <remarks>无该对象时返回null</remarks>
         public virtual TSub FirstOrDefault<TSub>() where TSub : T
         {
             return this.FindAndSort<TSub>(x => true).FirstOrDefault();
@@ -555,8 +529,8 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
         /// <returns>实体对象列表</returns>
         public ICollection<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
@@ -576,11 +550,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">记录条数</param>
-        /// <param name="pageCount">页数</param>
-        /// <returns>实体对象列表</returns>
-        /// <exception cref="ArgumentNullException">条件表达式为空</exception>
-        /// <exception cref="NotSupportedException">无法将表达式转换SQL语句</exception>
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
+        /// <returns>子类对象列表</returns>
         public ICollection<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount,
             out int pageCount) where TSub : T
         {
@@ -727,12 +699,11 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <summary>
         /// 是否存在给定Id的实体对象
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="id">标识Id</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
         public bool Exists(Guid id)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (id == Guid.Empty)
             {
@@ -749,12 +720,11 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <summary>
         /// 是否存在给定Id的子类对象
         /// </summary>
-        /// <param name="id">Id</param>
+        /// <param name="id">标识Id</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">id为空</exception>
         public bool Exists<TSub>(Guid id) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (id == Guid.Empty)
             {
@@ -773,10 +743,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
         public bool ExistsNo(string number)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -795,10 +764,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>是否存在</returns>
-        /// <exception cref="ArgumentNullException">编号为空</exception>
         public bool ExistsNo<TSub>(string number) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(number))
             {
@@ -869,7 +837,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>是否存在</returns>
         public bool ExistsName(string name)
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -890,7 +858,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>是否存在</returns>
         public bool ExistsName<TSub>(string name) where TSub : T
         {
-            #region # 验证参数
+            #region # 验证
 
             if (string.IsNullOrWhiteSpace(name))
             {
