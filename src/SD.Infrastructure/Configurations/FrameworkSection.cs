@@ -202,6 +202,18 @@ namespace SD.Infrastructure
         }
         #endregion
 
+        #region # Windows更新服务节点 —— TextElement WindowsUpdateService
+        /// <summary>
+        /// Windows更新服务节点
+        /// </summary>
+        [ConfigurationProperty("windows.updateService", IsRequired = false)]
+        public TextElement WindowsUpdateService
+        {
+            get { return (TextElement)this["windows.updateService"]; }
+            set { this["windows.updateService"] = value; }
+        }
+        #endregion
+
         #region # 身份过期时间节点 —— NumericElement AuthenticationTimeout
         /// <summary>
         /// 身份过期时间节点

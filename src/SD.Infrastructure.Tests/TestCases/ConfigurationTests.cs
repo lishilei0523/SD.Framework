@@ -27,6 +27,7 @@ namespace SD.Infrastructure.Tests.TestCases
             Trace.WriteLine(setting.WorkflowConnectionName.Value);
             Trace.WriteLine(setting.WorkflowPersistenceMode.Value);
             Trace.WriteLine(setting.WorkflowMaxInstanceLockedRetriesCount.Value);
+            Trace.WriteLine(setting.WindowsUpdateService.Value);
             Trace.WriteLine(setting.AuthenticationTimeout.Value);
             Trace.WriteLine(setting.AuthorizationEnabled.Value);
 

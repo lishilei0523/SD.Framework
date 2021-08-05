@@ -31,6 +31,8 @@
     <workflow.persistenceMode>工作流持久化模式</workflow.persistenceMode>
     <!--工作流最大实例锁定重试次数-->
     <workflow.maxInstanceLockedRetriesCount>工作流最大实例锁定重试次数</workflow.maxInstanceLockedRetriesCount>
+    <!--Windows更新服务-->
+    <windows.updateService>Windows更新服务地址</windows.updateService>
     <!--身份过期时间，单位：分钟，默认值：20-->
     <authentication.timeout>20</authentication.timeout>
     <!--授权是否启用，默认值：false-->

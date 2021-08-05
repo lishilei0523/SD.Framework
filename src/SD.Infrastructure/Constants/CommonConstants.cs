@@ -70,6 +70,11 @@ namespace SD.Infrastructure.Constants
         /// <summary>
         /// 日期格式
         /// </summary>
+        public const string DateFormat = "yyyy-MM-dd";
+
+        /// <summary>
+        /// 时间格式
+        /// </summary>
         public const string TimeFormat = "yyyy-MM-dd HH:mm:ss";
 
         /// <summary>
@@ -97,7 +102,8 @@ namespace SD.Infrastructure.Constants
             typeof(double).FullName,
             typeof(decimal).FullName,
             typeof(Guid).FullName,
-            typeof(DateTime).FullName
+            typeof(DateTime).FullName,
+            typeof(TimeSpan).FullName
         };
 
         #endregion
