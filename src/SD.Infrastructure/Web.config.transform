@@ -5,6 +5,10 @@
   </configSections>
   <!--SD.Framework配置-->
   <sd.framework>
+    <!--应用程序名称-->
+    <application.name>应用程序名称</application.name>
+    <!--应用程序版本-->
+    <application.version>应用程序版本</application.version>
     <!--服务名称-->
     <service.name>服务名称</service.name>
     <!--服务显示名称-->

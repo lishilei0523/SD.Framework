@@ -25,8 +25,6 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.Owin" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNet.WebApi.OwinSelfHost" Version="5.2.7" />
     <PackageReference Include="Microsoft.Owin" Version="4.1.1" />
-    <PackageReference Include="Microsoft.Owin.Host.HttpListener" Version="4.1.1" />
-    <PackageReference Include="Microsoft.Owin.Hosting" Version="4.1.1" />
     <PackageReference Include="Topshelf" Version="4.2.1" />
     <PackageReference Include="SD.Toolkits.AspNet" Version="1.0.4" />
     <PackageReference Include="SD.IOC.Core" Version="2.0.7" />

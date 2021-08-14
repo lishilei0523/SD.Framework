@@ -7,6 +7,6 @@
              mc:Ignorable="d">
 
     <WindowsFormsHost>
-        <rv:ReportViewer x:Name="ReportContainer" />
+        <rv:ReportViewer x:Name="ReportContainer" Drillthrough="ReportOnDrillthrough" />
     </WindowsFormsHost>
 </UserControl>

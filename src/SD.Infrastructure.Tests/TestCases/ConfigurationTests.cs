@@ -14,6 +14,8 @@ namespace SD.Infrastructure.Tests.TestCases
         {
             FrameworkSection setting = FrameworkSection.Setting;
 
+            Trace.WriteLine(setting.ApplicationName.Value);
+            Trace.WriteLine(setting.ApplicationVersion.Value);
             Trace.WriteLine(setting.ServiceName.Value);
             Trace.WriteLine(setting.ServiceDisplayName.Value);
             Trace.WriteLine(setting.ServiceDescription.Value);

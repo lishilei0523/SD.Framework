@@ -44,33 +44,33 @@ namespace SD.Infrastructure.RepositoryBase
         void SaveRange(IEnumerable<T> entities);
         #endregion
 
-        #region # 删除单行 —— void Remove(Guid id)
+        #region # 删除单个实体对象 —— void Remove(Guid id)
         /// <summary>
-        /// 删除单行
+        /// 删除单个实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         void Remove(Guid id);
         #endregion
 
-        #region # 删除单行 —— void Remove(string number)
+        #region # 删除单个实体对象 —— void Remove(string number)
         /// <summary>
-        /// 删除单行
+        /// 删除单个实体对象
         /// </summary>
         /// <param name="number">编号</param>
         void Remove(string number);
         #endregion
 
-        #region # 删除多行 —— void RemoveRange(IEnumerable<Guid> ids)
+        #region # 删除多个实体对象 —— void RemoveRange(IEnumerable<Guid> ids)
         /// <summary>
-        /// 删除多行
+        /// 删除多个实体对象
         /// </summary>
         /// <param name="ids">标识Id集</param>
         void RemoveRange(IEnumerable<Guid> ids);
         #endregion
 
-        #region # 删除多行 —— void RemoveRange(IEnumerable<string> numbers)
+        #region # 删除多个实体对象 —— void RemoveRange(IEnumerable<string> numbers)
         /// <summary>
-        /// 删除多行
+        /// 删除多个实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>

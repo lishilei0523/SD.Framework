@@ -49,7 +49,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <summary>
         /// MongoDB实体对象列表
         /// </summary>
-        private readonly IMongoCollection<T> _collection;
+        protected readonly IMongoCollection<T> _collection;
 
         /// <summary>
         /// 构造器
@@ -181,9 +181,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 删除单行 —— void Remove(Guid id)
+        #region # 删除单个实体对象 —— void Remove(Guid id)
         /// <summary>
-        /// 删除单行
+        /// 删除单个实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         public void Remove(Guid id)
@@ -192,9 +192,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 删除单行 —— void Remove(string number)
+        #region # 删除单个实体对象 —— void Remove(string number)
         /// <summary>
-        /// 删除单行
+        /// 删除单个实体对象
         /// </summary>
         /// <param name="number">编号</param>
         public void Remove(string number)
@@ -203,9 +203,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 删除多行 —— void RemoveRange(IEnumerable<Guid> ids)
+        #region # 删除多个实体对象 —— void RemoveRange(IEnumerable<Guid> ids)
         /// <summary>
-        /// 删除多行
+        /// 删除多个实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集</param>
@@ -225,9 +225,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 删除多行 —— void RemoveRange(IEnumerable<string> numbers)
+        #region # 删除多个实体对象 —— void RemoveRange(IEnumerable<string> numbers)
         /// <summary>
-        /// 删除多行
+        /// 删除多个实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>

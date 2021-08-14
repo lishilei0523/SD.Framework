@@ -46,6 +46,30 @@ namespace SD.Infrastructure
         }
         #endregion
 
+        #region # 应用程序名称节点 —— TextElement ApplicationName
+        /// <summary>
+        /// 应用程序名称节点
+        /// </summary>
+        [ConfigurationProperty("application.name", IsRequired = false)]
+        public TextElement ApplicationName
+        {
+            get { return (TextElement)this["application.name"]; }
+            set { this["application.name"] = value; }
+        }
+        #endregion
+
+        #region # 应用程序版本节点 —— TextElement ApplicationVersion
+        /// <summary>
+        /// 应用程序版本节点
+        /// </summary>
+        [ConfigurationProperty("application.version", IsRequired = false)]
+        public TextElement ApplicationVersion
+        {
+            get { return (TextElement)this["application.version"]; }
+            set { this["application.version"] = value; }
+        }
+        #endregion
+
         #region # 服务名称节点 —— TextElement ServiceName
         /// <summary>
         /// 服务名称节点
@@ -54,7 +78,7 @@ namespace SD.Infrastructure
         public TextElement ServiceName
         {
             get { return (TextElement)this["service.name"]; }
-            set { this["service.Name"] = value; }
+            set { this["service.name"] = value; }
         }
         #endregion
 

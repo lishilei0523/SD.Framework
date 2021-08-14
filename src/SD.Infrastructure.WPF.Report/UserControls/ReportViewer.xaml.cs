@@ -22,6 +22,9 @@ namespace SD.Infrastructure.WPF.Report.UserControls
             ReportPathProperty = DependencyProperty.Register(nameof(ReportPath), typeof(string), typeof(ReportViewer), new PropertyMetadata(OnReportPathChanged));
             ReportDataSourcesProperty = DependencyProperty.Register(nameof(ReportDataSources), typeof(ObservableCollection<ReportDataSource>), typeof(ReportViewer), new FrameworkPropertyMetadata(OnReportDataSourcesChanged));
 
+            //注册路由事件
+            _DrillthroughEvent = EventManager.RegisterRoutedEvent(nameof(Drillthrough), RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(ReportViewer));
+
         }
 
         /// <summary>
@@ -129,6 +132,42 @@ namespace SD.Infrastructure.WPF.Report.UserControls
             reportViewer.ReportContainer.RefreshReport();
         }
         #endregion
+
+        #endregion
+
+        #region # 路由事件
+
+        #region 钻取报表路由事件 —— RoutedEvent Drillthrough
+
+        /// <summary>
+        /// 钻取报表路由事件
+        /// </summary>
+        private static readonly RoutedEvent _DrillthroughEvent;
+
+        /// <summary>
+        /// 钻取报表路由事件处理程序
+        /// </summary>
+        public event RoutedEventHandler Drillthrough
+        {
+            add { base.AddHandler(_DrillthroughEvent, value); }
+            remove { base.RemoveHandler(_DrillthroughEvent, value); }
+        }
+
+        #endregion
+
+        #endregion
+
+        #region # 事件处理程序
+
+        #region 钻取报表事件 —— void ReportOnDrillthrough(object sender...
+        /// <summary>
+        /// 钻取报表事件
+        /// </summary>
+        private void ReportOnDrillthrough(object sender, DrillthroughEventArgs eventArgs)
+        {
+            base.RaiseEvent(new RoutedEventArgs(_DrillthroughEvent, this));
+        }
+        #endregion 
 
         #endregion
     }

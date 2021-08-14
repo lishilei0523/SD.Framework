@@ -590,7 +590,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据条件分页获取实体对象列表 + 输出记录条数与页数 —— IQueryable<T> FindByPage(...
+        #region # 根据条件分页获取实体对象列表 —— IQueryable<T> FindByPage(...
         /// <summary>
         /// 根据条件获取实体对象列表 + 分页 + 输出记录条数与页数
         /// </summary>
@@ -606,9 +606,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据条件分页获取子类对象列表 + 输出记录条数与页数 —— IQueryable<TSub> FindByPage<TSub>(...
+        #region # 根据条件分页获取子类对象列表 —— IQueryable<TSub> FindByPage<TSub>(...
         /// <summary>
-        /// 根据条件分页获取子类对象列表 + 分页 + 输出记录条数与页数
+        /// 根据条件分页获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="predicate">条件表达式</param>
