@@ -95,9 +95,13 @@ namespace SD.Infrastructure.CrontabStore.Redis.Toolkits
 
             #region # 验证类型
 
+            if (crontabType == null)
+            {
+                throw new TypeLoadException($"找不到类型\"{typePropertyValue}\"！");
+            }
             if (!typeof(ICrontab).IsAssignableFrom(crontabType))
             {
-                throw new TypeLoadException("给定类型不是定时任务类型！");
+                throw new TypeLoadException($"类型\"{typePropertyValue}\"不是定时任务类型！");
             }
 
             #endregion

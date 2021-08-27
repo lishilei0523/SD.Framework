@@ -17,7 +17,7 @@ namespace SD.Infrastructure.CrontabStoreProvider
         /// <summary>
         /// 缓存键
         /// </summary>
-        private static readonly string _CacheKey = typeof(RedisStoreProvider).FullName;
+        private static readonly string _CacheKey = FrameworkSection.Setting.ApplicationName.Value;
 
         /// <summary>
         /// Redis客户端
@@ -25,17 +25,11 @@ namespace SD.Infrastructure.CrontabStoreProvider
         private readonly IDatabase _redisClient;
 
         /// <summary>
-        /// 定时任务集
-        /// </summary>
-        private IList<ICrontab> _crontabs;
-
-        /// <summary>
         /// 构造器
         /// </summary>
         public RedisStoreProvider()
         {
             this._redisClient = RedisManager.GetDatabase();
-            this._crontabs = new List<ICrontab>();
         }
 
         #endregion
