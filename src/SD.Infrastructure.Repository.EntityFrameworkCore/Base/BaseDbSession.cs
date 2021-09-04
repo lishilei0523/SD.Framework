@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SD.Infrastructure.Constants;
 using SD.Infrastructure.EntityBase;
 using SD.IOC.Core.Mediators;
 using SD.Toolkits.EntityFrameworkCore.Base;
@@ -136,7 +137,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public override string EntityAssembly
         {
-            get { return FrameworkSection.Setting.EntityAssembly.Value; }
+            get { return NetCoreSetting.FrameworkSettings.EntityAssembly.Value; }
         }
         #endregion
 
@@ -146,7 +147,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public override string EntityConfigAssembly
         {
-            get { return FrameworkSection.Setting.EntityConfigAssembly.Value; }
+            get { return NetCoreSetting.FrameworkSettings.EntityConfigAssembly.Value; }
         }
         #endregion
 
@@ -172,7 +173,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public override string TablePrefix
         {
-            get { return FrameworkSection.Setting.EntityTablePrefix.Value; }
+            get { return NetCoreSetting.FrameworkSettings.EntityTablePrefix.Value; }
         }
         #endregion
 

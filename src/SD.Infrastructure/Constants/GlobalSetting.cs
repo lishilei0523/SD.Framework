@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Reflection;
 using System.Threading;
 
 namespace SD.Infrastructure.Constants
@@ -58,45 +57,6 @@ namespace SD.Infrastructure.Constants
                 }
 
                 return _DefaultConnectionString;
-            }
-        }
-        #endregion
-
-        #region # 默认连接字符串 —— static string DefaultConnectionStringForNetCore
-        /// <summary>
-        /// 默认连接字符串
-        /// </summary>
-        /// <remarks>.NET Core适用</remarks>
-        public static string DefaultConnectionStringForNetCore
-        {
-            get
-            {
-                string baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                string hostAssemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-                ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap
-                {
-                    ExeConfigFilename = $"{baseDirectory}{hostAssemblyName}.dll.config"
-                };
-
-                Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
-                ConnectionStringsSection connectionStringsSection = configuration?.ConnectionStrings;
-                ConnectionStringSettingsCollection connectionStringSettings = connectionStringsSection?.ConnectionStrings;
-
-                string defaultConnectionStringName = CommonConstants.DefaultConnectionStringName;
-                ConnectionStringSettings connectionStringSetting = connectionStringSettings?[defaultConnectionStringName];
-                if (connectionStringSetting == null)
-                {
-                    defaultConnectionStringName = FrameworkSection.Setting.ServiceConnectionName.Value;
-                    connectionStringSetting = connectionStringSettings?[defaultConnectionStringName];
-                }
-
-                string defaultConnectionString = connectionStringSetting?.ConnectionString;
-                if (string.IsNullOrWhiteSpace(defaultConnectionString))
-                {
-                    throw new NullReferenceException("默认连接字符串未配置，请联系管理员！");
-                }
-
-                return defaultConnectionString;
             }
         }
         #endregion

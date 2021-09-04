@@ -15,23 +15,14 @@ namespace SD.Infrastructure
         /// <summary>
         /// 单例
         /// </summary>
-        private static readonly FrameworkSection _Setting;
+        private static FrameworkSection _Setting;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
         static FrameworkSection()
         {
-            _Setting = (FrameworkSection)ConfigurationManager.GetSection("sd.framework");
-
-            #region # 非空验证
-
-            if (_Setting == null)
-            {
-                throw new ApplicationException("SD.Framework节点未配置，请检查程序！");
-            }
-
-            #endregion
+            _Setting = null;
         }
 
         #endregion
@@ -42,7 +33,19 @@ namespace SD.Infrastructure
         /// </summary>
         public static FrameworkSection Setting
         {
-            get { return _Setting; }
+            get
+            {
+                if (_Setting == null)
+                {
+                    _Setting = (FrameworkSection)ConfigurationManager.GetSection("sd.framework");
+                }
+                if (_Setting == null)
+                {
+                    throw new ApplicationException("SD.Framework节点未配置，请检查程序！");
+                }
+
+                return _Setting;
+            }
         }
         #endregion
 
