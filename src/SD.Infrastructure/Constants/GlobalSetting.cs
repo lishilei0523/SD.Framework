@@ -15,7 +15,7 @@ namespace SD.Infrastructure.Constants
         /// <summary>
         /// 默认连接字符串
         /// </summary>
-        private static readonly string _DefaultConnectionString;
+        private static string _DefaultConnectionString;
 
         /// <summary>
         /// SeesionId线程静态字段
@@ -27,15 +27,7 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         static GlobalSetting()
         {
-            string defaultConnectionStringName = CommonConstants.DefaultConnectionStringName;
-            string connectionString = ConfigurationManager.ConnectionStrings[defaultConnectionStringName]?.ConnectionString;
-            if (string.IsNullOrWhiteSpace(connectionString))
-            {
-                defaultConnectionStringName = FrameworkSection.Setting.ServiceConnectionName.Value;
-                connectionString = ConfigurationManager.ConnectionStrings[defaultConnectionStringName]?.ConnectionString;
-            }
-            _DefaultConnectionString = connectionString;
-
+            _DefaultConnectionString = null;
             _SessionId = new AsyncLocal<Guid>();
         }
 
@@ -49,6 +41,17 @@ namespace SD.Infrastructure.Constants
         {
             get
             {
+                if (string.IsNullOrWhiteSpace(_DefaultConnectionString))
+                {
+                    string defaultConnectionStringName = CommonConstants.DefaultConnectionStringName;
+                    string connectionString = ConfigurationManager.ConnectionStrings[defaultConnectionStringName]?.ConnectionString;
+                    if (string.IsNullOrWhiteSpace(connectionString))
+                    {
+                        defaultConnectionStringName = FrameworkSection.Setting.ServiceConnectionName.Value;
+                        connectionString = ConfigurationManager.ConnectionStrings[defaultConnectionStringName]?.ConnectionString;
+                    }
+                    _DefaultConnectionString = connectionString;
+                }
                 if (string.IsNullOrWhiteSpace(_DefaultConnectionString))
                 {
                     throw new NullReferenceException("默认连接字符串未配置，请联系管理员！");
