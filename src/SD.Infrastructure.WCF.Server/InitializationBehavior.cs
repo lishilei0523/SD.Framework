@@ -17,7 +17,7 @@ namespace SD.Infrastructure.WCF.Server
     /// <summary>
     /// 初始化行为
     /// </summary>
-    internal class InitializationBehavior : IServiceBehavior
+    public class InitializationBehavior : IServiceBehavior
     {
         /// <summary>
         /// 同步锁
