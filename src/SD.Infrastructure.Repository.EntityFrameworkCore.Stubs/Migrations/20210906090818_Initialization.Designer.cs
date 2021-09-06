@@ -10,7 +10,7 @@ using SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Base;
 namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Migrations
 {
     [DbContext(typeof(DbSession))]
-    [Migration("20210904100311_Initialization")]
+    [Migration("20210906090818_Initialization")]
     partial class Initialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

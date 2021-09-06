@@ -1,4 +1,6 @@
 ﻿using SD.Infrastructure.Constants;
+using SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Base;
+using SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Entities;
 using System;
 
 namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests
@@ -30,6 +32,21 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests
             Console.WriteLine(setting.WindowsUpdateService.Value);
             Console.WriteLine(setting.AuthenticationTimeout.Value);
             Console.WriteLine(setting.AuthorizationEnabled.Value);
+
+            using (DbSession dbSession = new DbSession())
+            {
+                User user = new User
+                {
+                    PrivateKey = Guid.NewGuid().ToString(),
+                    Password = CommonConstants.InitialPassword,
+                    Enabled = true
+                };
+
+                dbSession.Set<User>().Add(user);
+                dbSession.SaveChanges();
+
+                Console.WriteLine("创建成功！");
+            }
 
             Console.ReadKey();
         }

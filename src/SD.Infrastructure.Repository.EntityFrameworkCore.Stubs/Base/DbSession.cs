@@ -7,7 +7,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Base
     /// <summary>
     /// EF Core上下文
     /// </summary>
-    internal class DbSession : BaseDbSession
+    public class DbSession : BaseDbSession
     {
         /// <summary>
         /// 配置
