@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SD.Infrastructure.MessageBase;
 
-namespace SD.Infrastructure.SignalRCore.Server.Base
+namespace SD.Infrastructure.SignalR.Server.Base
 {
     /// <summary>
     /// 消息Hub基类

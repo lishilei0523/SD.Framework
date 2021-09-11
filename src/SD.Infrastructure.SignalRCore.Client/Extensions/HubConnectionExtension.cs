@@ -5,7 +5,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace SD.Infrastructure.SignalRCore.Client.Extensions
+namespace SD.Infrastructure.SignalR.Client.Extensions
 {
     /// <summary>
     /// Hub连接扩展方法

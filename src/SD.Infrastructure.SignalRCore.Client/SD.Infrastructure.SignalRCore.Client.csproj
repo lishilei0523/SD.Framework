@@ -1,6 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <AssemblyName>SD.Infrastructure.SignalR.Client</AssemblyName>
+    <RootNamespace>SD.Infrastructure.SignalR.Client</RootNamespace>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - ASP.NET Core SignalR客户端基础</Description>
@@ -8,10 +10,10 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.SignalRCore.Client.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\SD.Infrastructure.SignalR.Client.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.SignalRCore.Client.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\SD.Infrastructure.SignalR.Client.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

@@ -4,7 +4,7 @@ using SD.Infrastructure.MessageBase;
 using System;
 using System.Threading.Tasks;
 
-namespace SD.Infrastructure.SignalRCore.Client.Mediators
+namespace SD.Infrastructure.SignalR.Client.Mediators
 {
     /// <summary>
     /// 消息中介者
