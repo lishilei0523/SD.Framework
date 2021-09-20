@@ -1,0 +1,12 @@
+{
+    "name": "sd-infrastructure-angular",
+    "version": "1.0.0",
+    "peerDependencies": {
+        "@angular/common": "^11.2.14",
+        "@angular/core": "^11.2.14",
+        "sd-infrastructure-values": "^1.0.0"
+    },
+    "dependencies": {
+        "tslib": "^2.0.0"
+    }
+}
