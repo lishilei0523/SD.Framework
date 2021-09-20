@@ -4,6 +4,12 @@ import {AppConfig} from "../structs/app-config";
 /*常量*/
 export class Constants {
 
+    /*空字符串*/
+    public static readonly stringEmpty: string = "";
+
+    /*int最大值*/
+    public static readonly intMaxValue: number = 2147483647;
+
     /*日期格式*/
     public static readonly dateFormat: string = "yyyy-MM-dd";
 
