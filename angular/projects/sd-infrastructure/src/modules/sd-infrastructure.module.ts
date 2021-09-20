@@ -32,6 +32,6 @@ import {AuthorityDirective} from "../services/authority.directive";
         }
     ]
 })
-export class AppAuthenticationModule {
+export class InfrastructureModule {
 
 }
