@@ -12,13 +12,9 @@
         "importHelpers": true,
         "target": "es2015",
         "paths": {
-            "sd-infrastructure-angular": [
-                "dist/sd-infrastructure-angular/sd-infrastructure-angular",
-                "dist/sd-infrastructure-angular"
-            ],
-            "sd-infrastructure-values": [
-                "dist/sd-infrastructure-values/sd-infrastructure-values",
-                "dist/sd-infrastructure-values"
+            "sd-infrastructure": [
+                "dist/sd-infrastructure/sd-infrastructure",
+                "dist/sd-infrastructure"
             ]
         },
         "module": "es2020",

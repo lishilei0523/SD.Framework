@@ -3,78 +3,38 @@
     "version": 1,
     "newProjectRoot": "projects",
     "projects": {
-        "sd-infrastructure-values": {
+        "sd-infrastructure": {
             "projectType": "library",
-            "root": "projects/sd-infrastructure-values",
-            "sourceRoot": "projects/sd-infrastructure-values/src",
+            "root": "projects/sd-infrastructure",
+            "sourceRoot": "projects/sd-infrastructure/src",
             "prefix": "lib",
             "architect": {
                 "build": {
                     "builder": "@angular-devkit/build-angular:ng-packagr",
                     "options": {
-                        "tsConfig": "projects/sd-infrastructure-values/tsconfig.lib.json",
-                        "project": "projects/sd-infrastructure-values/ng-package.json"
+                        "tsConfig": "projects/sd-infrastructure/tsconfig.lib.json",
+                        "project": "projects/sd-infrastructure/ng-package.json"
                     },
                     "configurations": {
                         "production": {
-                            "tsConfig": "projects/sd-infrastructure-values/tsconfig.lib.prod.json"
+                            "tsConfig": "projects/sd-infrastructure/tsconfig.lib.prod.json"
                         }
                     }
                 },
                 "test": {
                     "builder": "@angular-devkit/build-angular:karma",
                     "options": {
-                        "main": "projects/sd-infrastructure-values/src/test.ts",
-                        "tsConfig": "projects/sd-infrastructure-values/tsconfig.spec.json",
-                        "karmaConfig": "projects/sd-infrastructure-values/karma.conf.js"
+                        "main": "projects/sd-infrastructure/src/test.ts",
+                        "tsConfig": "projects/sd-infrastructure/tsconfig.spec.json",
+                        "karmaConfig": "projects/sd-infrastructure/karma.conf.js"
                     }
                 },
                 "lint": {
                     "builder": "@angular-devkit/build-angular:tslint",
                     "options": {
                         "tsConfig": [
-                            "projects/sd-infrastructure-values/tsconfig.lib.json",
-                            "projects/sd-infrastructure-values/tsconfig.spec.json"
-                        ],
-                        "exclude": [
-                            "**/node_modules/**"
-                        ]
-                    }
-                }
-            }
-        },
-        "sd-infrastructure-angular": {
-            "projectType": "library",
-            "root": "projects/sd-infrastructure-angular",
-            "sourceRoot": "projects/sd-infrastructure-angular/src",
-            "prefix": "lib",
-            "architect": {
-                "build": {
-                    "builder": "@angular-devkit/build-angular:ng-packagr",
-                    "options": {
-                        "tsConfig": "projects/sd-infrastructure-angular/tsconfig.lib.json",
-                        "project": "projects/sd-infrastructure-angular/ng-package.json"
-                    },
-                    "configurations": {
-                        "production": {
-                            "tsConfig": "projects/sd-infrastructure-angular/tsconfig.lib.prod.json"
-                        }
-                    }
-                },
-                "test": {
-                    "builder": "@angular-devkit/build-angular:karma",
-                    "options": {
-                        "main": "projects/sd-infrastructure-angular/src/test.ts",
-                        "tsConfig": "projects/sd-infrastructure-angular/tsconfig.spec.json",
-                        "karmaConfig": "projects/sd-infrastructure-angular/karma.conf.js"
-                    }
-                },
-                "lint": {
-                    "builder": "@angular-devkit/build-angular:tslint",
-                    "options": {
-                        "tsConfig": [
-                            "projects/sd-infrastructure-angular/tsconfig.lib.json",
-                            "projects/sd-infrastructure-angular/tsconfig.spec.json"
+                            "projects/sd-infrastructure/tsconfig.lib.json",
+                            "projects/sd-infrastructure/tsconfig.spec.json"
                         ],
                         "exclude": [
                             "**/node_modules/**"
@@ -84,5 +44,5 @@
             }
         }
     },
-    "defaultProject": "sd-infrastructure-values"
+    "defaultProject": "sd-infrastructure"
 }

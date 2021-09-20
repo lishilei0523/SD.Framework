@@ -1,9 +1,0 @@
-{
-    "name": "sd-infrastructure-values",
-    "version": "1.0.0",
-    "peerDependencies": {
-    },
-    "dependencies": {
-        "tslib": "^2.0.0"
-    }
-}
