@@ -22,3 +22,4 @@ export * from './values/structs/login-info';
 export * from './values/structs/login-system-info';
 export * from './values/structs/login-menu-info';
 export * from './values/structs/login-authority-info';
+export * from './values/structs/nz-node';
