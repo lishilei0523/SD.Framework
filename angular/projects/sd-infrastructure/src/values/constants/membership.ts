@@ -26,17 +26,17 @@ export class Membership {
     }
 
     /*登录菜单列表 - Getter*/
-    public static get loginMenus(): Array<LoginMenuInfo> {
+    public static get loginMenus(): Array<LoginMenuInfo> | null {
         let json = localStorage.getItem(Constants.keyOfCurrentUserMenus);
         if (json) {
             return JSON.parse(json);
         } else {
-            return new Array<LoginMenuInfo>();
+            return null;
         }
     }
 
     /*登录菜单列表 - Setter*/
-    public static set loginMenus(value: Array<LoginMenuInfo>) {
+    public static set loginMenus(value: Array<LoginMenuInfo> | null) {
         if (value) {
             localStorage.setItem(Constants.keyOfCurrentUserMenus, JSON.stringify(value));
         } else {
@@ -45,21 +45,30 @@ export class Membership {
     }
 
     /*登录权限路径列表 - Getter*/
-    public static get loginAuthorityPaths(): Array<string> {
+    public static get loginAuthorityPaths(): Array<string> | null {
         let json = localStorage.getItem(Constants.keyOfCurrentUserAuthorityPaths);
         if (json) {
             return JSON.parse(json);
         } else {
-            return new Array<string>();
+            return null;
         }
     }
 
     /*登录权限路径列表 - Setter*/
-    public static set loginAuthorityPaths(value: Array<string>) {
+    public static set loginAuthorityPaths(value: Array<string> | null) {
         if (value) {
             localStorage.setItem(Constants.keyOfCurrentUserAuthorityPaths, JSON.stringify(value));
         } else {
             localStorage.removeItem(Constants.keyOfCurrentUserAuthorityPaths);
         }
+    }
+
+    /**
+     * 注销登录
+     * */
+    public static logout(): void {
+        Membership.loginInfo = null;
+        Membership.loginMenus = null;
+        Membership.loginAuthorityPaths = null;
     }
 }

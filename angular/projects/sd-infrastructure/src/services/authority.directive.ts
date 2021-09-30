@@ -32,7 +32,7 @@ export class AuthorityDirective {
      * */
     @Input()
     public set authorityPath(authorityPath: string) {
-        if (Membership.loginAuthorityPaths.includes(authorityPath)) {
+        if (Membership.loginAuthorityPaths != null && Membership.loginAuthorityPaths.includes(authorityPath)) {
             this.authorized = true;
         }
         if (!Constants.appConfig.authorizationEnabled) {
