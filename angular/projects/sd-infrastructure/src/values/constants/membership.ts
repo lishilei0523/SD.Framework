@@ -1,7 +1,6 @@
 import {Constants} from "./constants";
 import {LoginInfo} from "../structs/login-info";
 import {LoginMenuInfo} from "../structs/login-menu-info";
-import {ApplicationType} from "../enums/application-type";
 
 // @dynamic
 /*用户信息*/
@@ -26,37 +25,41 @@ export class Membership {
         }
     }
 
-    /*登录菜单列表*/
+    /*登录菜单列表 - Getter*/
     public static get loginMenus(): Array<LoginMenuInfo> {
-        if (Membership.loginInfo) {
-            let loginMenus = Membership.loginInfo.loginMenuInfos.filter(x => x.systemNo == "00" && x.applicationType == ApplicationType.IOS);
-            Membership.filterLoginMenu(loginMenus, 1);
-
-            return loginMenus;
+        let json = localStorage.getItem(Constants.keyOfCurrentUserMenus);
+        if (json) {
+            return JSON.parse(json);
+        } else {
+            return new Array<LoginMenuInfo>();
         }
-        return new Array<LoginMenuInfo>();
     }
 
-    /*登录权限列表*/
+    /*登录菜单列表 - Setter*/
+    public static set loginMenus(value: Array<LoginMenuInfo>) {
+        if (value) {
+            localStorage.setItem(Constants.keyOfCurrentUserMenus, JSON.stringify(value));
+        } else {
+            localStorage.removeItem(Constants.keyOfCurrentUserMenus);
+        }
+    }
+
+    /*登录权限路径列表 - Getter*/
     public static get loginAuthorityPaths(): Array<string> {
-        if (Membership.loginInfo) {
-            return Membership.loginInfo.loginAuthorityInfos.filter(x => x.systemNo == "00" && x.applicationType == ApplicationType.IOS).map(x => x.path);
+        let json = localStorage.getItem(Constants.keyOfCurrentUserAuthorityPaths);
+        if (json) {
+            return JSON.parse(json);
+        } else {
+            return new Array<string>();
         }
-        return new Array<string>();
     }
 
-    /**
-     * 过滤用户菜单
-     * */
-    private static filterLoginMenu(loginMenus: LoginMenuInfo[], level: number): void {
-        for (let loginMenu of loginMenus) {
-            loginMenu.level = level;
-            if (loginMenu.subMenuInfos.length > 0) {
-                loginMenu.isLeaf = false;
-                Membership.filterLoginMenu(loginMenu.subMenuInfos, level + 1);
-            } else {
-                loginMenu.isLeaf = true;
-            }
+    /*登录权限路径列表 - Setter*/
+    public static set loginAuthorityPaths(value: Array<string>) {
+        if (value) {
+            localStorage.setItem(Constants.keyOfCurrentUserAuthorityPaths, JSON.stringify(value));
+        } else {
+            localStorage.removeItem(Constants.keyOfCurrentUserAuthorityPaths);
         }
     }
 }

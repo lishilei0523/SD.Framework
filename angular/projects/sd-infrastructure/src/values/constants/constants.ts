@@ -25,6 +25,12 @@ export class Constants {
     /*当前登录用户键*/
     public static readonly keyOfCurrentUser: string = "CurrentUser";
 
+    /*当前登录用户菜单列表键*/
+    public static readonly keyOfCurrentUserMenus: string = "CurrentUserMenus";
+
+    /*当前登录用户权限路径列表键*/
+    public static readonly keyOfCurrentUserAuthorityPaths: string = "CurrentUserAuthorityPaths";
+
     /*当前公钥键*/
     public static readonly keyOfPublicKey: string = "CurrentPublicKey";
 
