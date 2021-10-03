@@ -20,6 +20,9 @@ export class NzNode {
         this.children = new Array<NzNode>();
     }
 
+    /*索引器*/
+    [key: string]: any;
+
     /*键*/
     public key: string;
 
@@ -34,6 +37,18 @@ export class NzNode {
 
     /*是否叶子级*/
     public isLeaf: boolean;
+
+    /*是否勾选*/
+    public checked?: boolean;
+
+    /*是否选中*/
+    public selected?: boolean;
+
+    /*是否可选中*/
+    public selectable?: boolean;
+
+    /*是否停用复选框*/
+    public disableCheckbox?: boolean;
 
     /*图标*/
     public icon?: string;
