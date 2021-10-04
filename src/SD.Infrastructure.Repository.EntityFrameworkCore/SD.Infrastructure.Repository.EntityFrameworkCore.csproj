@@ -20,7 +20,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.10" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.10" />
-    <PackageReference Include="SD.Toolkits.EntityFrameworkCore" Version="2.1.0" />
+    <PackageReference Include="SD.Toolkits.EntityFrameworkCore" Version="2.1.1" />
     <PackageReference Include="SD.IOC.Core" Version="2.0.7" />
   </ItemGroup>
 
