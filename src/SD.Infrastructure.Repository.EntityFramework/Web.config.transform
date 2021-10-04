@@ -3,6 +3,12 @@
     <!--默认连接字符串-->
     <add name="DefaultConnection" connectionString="" providerName="System.Data.SqlClient" />
   </connectionStrings>
+  <sd.framework>
+    <!--数据库读连接名称-->
+    <database.read.connectionName>DefaultConnection</database.read.connectionName>
+    <!--数据库写连接名称-->
+    <database.write.connectionName>DefaultConnection</database.write.connectionName>
+  </sd.framework>
   <sd.ioc>
     <asInterfaceTypes>
       <type name="SD.Infrastructure.Repository.EntityFramework.DbCleaner" assembly="SD.Infrastructure.Repository.EntityFramework" />

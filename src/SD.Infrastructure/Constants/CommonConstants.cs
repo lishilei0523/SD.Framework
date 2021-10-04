@@ -10,11 +10,6 @@ namespace SD.Infrastructure.Constants
         #region # 数据库相关
 
         /// <summary>
-        /// 默认连接字符串名称
-        /// </summary>
-        public const string DefaultConnectionStringName = "DefaultConnection";
-
-        /// <summary>
         /// MongoDB连接字符串名称
         /// </summary>
         public const string MongoConnectionStringName = "MongoConnection";

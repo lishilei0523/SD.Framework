@@ -15,8 +15,10 @@
     <service.displayName>服务显示名称</service.displayName>
     <!--服务描述-->
     <service.description>服务描述</service.description>
-    <!--服务连接名称-->
-    <service.connectionName>服务连接名称</service.connectionName>
+    <!--数据库读连接名称-->
+    <database.read.connectionName>数据库读连接名称</database.read.connectionName>
+    <!--数据库写连接名称-->
+    <database.write.connectionName>数据库写连接名称</database.write.connectionName>
     <!--实体所在程序集-->
     <entity.assembly>实体所在程序集</entity.assembly>
     <!--实体配置所在程序集-->

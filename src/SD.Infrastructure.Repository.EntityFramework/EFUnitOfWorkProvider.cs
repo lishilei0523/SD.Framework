@@ -48,7 +48,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         protected EFUnitOfWorkProvider()
         {
             //EF（写）上下文对象字段
-            this._dbContext = BaseDbSession.CommandInstance;
+            this._dbContext = DbSessionBase.CommandInstance;
         }
 
         /// <summary>

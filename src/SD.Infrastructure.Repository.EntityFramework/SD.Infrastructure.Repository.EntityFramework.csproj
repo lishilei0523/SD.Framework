@@ -3,7 +3,7 @@
     <TargetFrameworks>net461;netstandard2.1</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Description>SD.Framework 基础设施 - 仓储基础 - Entity Framework实现</Description>
+    <Description>SD.Framework 基础设施 - 仓储基础 - EntityFramework实现</Description>
     <Copyright>Copyright © SD 2021</Copyright>
     <Version>2.0.0</Version>
   </PropertyGroup>
@@ -16,7 +16,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.Toolkits.EntityFramework" Version="1.1.1" />
+    <PackageReference Include="SD.Toolkits.EntityFramework" Version="1.2.0" />
     <PackageReference Include="SD.IOC.Core" Version="2.0.7" />
   </ItemGroup>
 

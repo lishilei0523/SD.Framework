@@ -14,8 +14,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// </summary>
         public void Clean()
         {
-            BaseDbSession.FreeCommandInstanceCall();
-            BaseDbSession.FreeQueryInstanceCall();
+            DbSessionBase.FreeCommandInstanceCall();
+            DbSessionBase.FreeQueryInstanceCall();
         }
     }
 }

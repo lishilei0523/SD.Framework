@@ -12,6 +12,16 @@ namespace SD.Infrastructure.Constants
         #region # 字段及构造器
 
         /// <summary>
+        /// 读连接字符串
+        /// </summary>
+        private static string _ReadConnectionString;
+
+        /// <summary>
+        /// 写连接字符串
+        /// </summary>
+        private static string _WriteConnectionString;
+
+        /// <summary>
         /// 应用程序配置
         /// </summary>
         private static readonly Configuration _Configuration;
@@ -26,6 +36,9 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         static NetCoreSetting()
         {
+            _ReadConnectionString = null;
+            _WriteConnectionString = null;
+
             //读取配置文件
             Assembly entryAssembly = Assembly.GetEntryAssembly();
             string hostAssemblyName = entryAssembly?.GetName().Name;
@@ -42,32 +55,52 @@ namespace SD.Infrastructure.Constants
 
         #endregion
 
-        #region # 默认连接字符串 —— static string DefaultConnectionString
+        #region # 读连接字符串 —— static string ReadConnectionString
         /// <summary>
-        /// 默认连接字符串
+        /// 读连接字符串
         /// </summary>
-        public static string DefaultConnectionString
+        public static string ReadConnectionString
         {
             get
             {
-                ConnectionStringsSection connectionStringsSection = _Configuration?.ConnectionStrings;
-                ConnectionStringSettingsCollection connectionStringSettings = connectionStringsSection?.ConnectionStrings;
-
-                string defaultConnectionStringName = CommonConstants.DefaultConnectionStringName;
-                ConnectionStringSettings connectionStringSetting = connectionStringSettings?[defaultConnectionStringName];
-                if (connectionStringSetting == null)
+                if (string.IsNullOrWhiteSpace(_ReadConnectionString))
                 {
-                    defaultConnectionStringName = _FrameworkSettings.ServiceConnectionName.Value;
-                    connectionStringSetting = connectionStringSettings?[defaultConnectionStringName];
+                    ConnectionStringsSection connectionStringsSection = _Configuration?.ConnectionStrings;
+                    ConnectionStringSettingsCollection connectionStringSettings = connectionStringsSection?.ConnectionStrings;
+                    string readConnectionStringName = _FrameworkSettings.DatabaseReadConnectionName.Value;
+                    _ReadConnectionString = connectionStringSettings?[readConnectionStringName]?.ConnectionString;
+                }
+                if (string.IsNullOrWhiteSpace(_ReadConnectionString))
+                {
+                    throw new NullReferenceException("读连接字符串未配置，请联系管理员！");
                 }
 
-                string defaultConnectionString = connectionStringSetting?.ConnectionString;
-                if (string.IsNullOrWhiteSpace(defaultConnectionString))
+                return _ReadConnectionString;
+            }
+        }
+        #endregion
+
+        #region # 写连接字符串 —— static string WriteConnectionString
+        /// <summary>
+        /// 写连接字符串
+        /// </summary>
+        public static string WriteConnectionString
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_WriteConnectionString))
                 {
-                    throw new NullReferenceException("默认连接字符串未配置，请联系管理员！");
+                    ConnectionStringsSection connectionStringsSection = _Configuration?.ConnectionStrings;
+                    ConnectionStringSettingsCollection connectionStringSettings = connectionStringsSection?.ConnectionStrings;
+                    string writeConnectionStringName = _FrameworkSettings.DatabaseWriteConnectionName.Value;
+                    _WriteConnectionString = connectionStringSettings?[writeConnectionStringName]?.ConnectionString;
+                }
+                if (string.IsNullOrWhiteSpace(_WriteConnectionString))
+                {
+                    throw new NullReferenceException("写连接字符串未配置，请联系管理员！");
                 }
 
-                return defaultConnectionString;
+                return _WriteConnectionString;
             }
         }
         #endregion

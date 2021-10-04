@@ -109,15 +109,27 @@ namespace SD.Infrastructure
         }
         #endregion
 
-        #region # 服务连接名称节点 —— TextElement ServiceConnectionName
+        #region # 数据库读连接名称节点 —— TextElement DatabaseReadConnectionName
         /// <summary>
-        /// 服务连接名称节点
+        /// 数据库读连接名称节点
         /// </summary>
-        [ConfigurationProperty("service.connectionName", IsRequired = false)]
-        public TextElement ServiceConnectionName
+        [ConfigurationProperty("database.read.connectionName", IsRequired = true)]
+        public TextElement DatabaseReadConnectionName
         {
-            get { return (TextElement)this["service.connectionName"]; }
-            set { this["service.connectionName"] = value; }
+            get { return (TextElement)this["database.read.connectionName"]; }
+            set { this["database.read.connectionName"] = value; }
+        }
+        #endregion
+
+        #region # 数据库写连接名称节点 —— TextElement DatabaseWriteConnectionName
+        /// <summary>
+        /// 数据库写连接名称节点
+        /// </summary>
+        [ConfigurationProperty("database.write.connectionName", IsRequired = true)]
+        public TextElement DatabaseWriteConnectionName
+        {
+            get { return (TextElement)this["database.write.connectionName"]; }
+            set { this["database.write.connectionName"] = value; }
         }
         #endregion
 

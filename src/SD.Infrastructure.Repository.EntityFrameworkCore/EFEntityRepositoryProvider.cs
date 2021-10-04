@@ -30,7 +30,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// </summary>
         static EFEntityRepositoryProvider()
         {
-            EFEntityRepositoryProvider<T>._Sync = new object();
+            _Sync = new object();
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         protected EFEntityRepositoryProvider()
         {
             //EF（读）上下文对象
-            this._dbContext = BaseDbSession.QueryInstance;
+            this._dbContext = DbSessionBase.QueryInstance;
         }
 
         /// <summary>
@@ -688,7 +688,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            lock (EFEntityRepositoryProvider<T>._Sync)
+            lock (_Sync)
             {
                 return this.FindAllInner().Any(predicate);
             }
@@ -712,7 +712,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            lock (EFEntityRepositoryProvider<T>._Sync)
+            lock (_Sync)
             {
                 return this.FindAllInner<TSub>().Any(predicate);
             }

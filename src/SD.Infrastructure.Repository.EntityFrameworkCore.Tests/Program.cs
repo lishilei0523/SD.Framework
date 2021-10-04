@@ -9,7 +9,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests
     {
         static void Main(string[] args)
         {
-            string connectionString = NetCoreSetting.DefaultConnectionString;
+            string connectionString = NetCoreSetting.WriteConnectionString;
             Console.WriteLine(connectionString);
 
             FrameworkSection setting = NetCoreSetting.FrameworkSettings;
@@ -19,7 +19,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests
             Console.WriteLine(setting.ServiceName.Value);
             Console.WriteLine(setting.ServiceDisplayName.Value);
             Console.WriteLine(setting.ServiceDescription.Value);
-            Console.WriteLine(setting.ServiceConnectionName.Value);
+            Console.WriteLine(setting.DatabaseReadConnectionName.Value);
+            Console.WriteLine(setting.DatabaseWriteConnectionName.Value);
             Console.WriteLine(setting.EntityAssembly.Value);
             Console.WriteLine(setting.EntityConfigAssembly.Value);
             Console.WriteLine(setting.EntityTablePrefix.Value);

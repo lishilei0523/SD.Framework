@@ -83,9 +83,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AspNetMvc
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WPF.Report", "src\SD.Infrastructure.WPF.Report\SD.Infrastructure.WPF.Report.csproj", "{13AECAB9-FEEB-4916-A122-5D9FDD4F23D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.EntityFrameworkCore.Tests", "src\SD.Infrastructure.Repository.EntityFrameworkCore.Tests\SD.Infrastructure.Repository.EntityFrameworkCore.Tests.csproj", "{D091D749-96B2-4C6E-BFA5-6B9F77332866}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repository.EntityFrameworkCore.Tests", "src\SD.Infrastructure.Repository.EntityFrameworkCore.Tests\SD.Infrastructure.Repository.EntityFrameworkCore.Tests.csproj", "{D091D749-96B2-4C6E-BFA5-6B9F77332866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.Repository.EntityFrameworkCore.Stubs", "src\SD.Infrastructure.Repository.EntityFrameworkCore.Stubs\SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.csproj", "{2A43BD6F-911C-4139-8406-54D382C0669F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repository.EntityFrameworkCore.Stubs", "src\SD.Infrastructure.Repository.EntityFrameworkCore.Stubs\SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.csproj", "{2A43BD6F-911C-4139-8406-54D382C0669F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -19,7 +19,8 @@ namespace SD.Infrastructure.Tests.TestCases
             Trace.WriteLine(setting.ServiceName.Value);
             Trace.WriteLine(setting.ServiceDisplayName.Value);
             Trace.WriteLine(setting.ServiceDescription.Value);
-            Trace.WriteLine(setting.ServiceConnectionName.Value);
+            Trace.WriteLine(setting.DatabaseReadConnectionName.Value);
+            Trace.WriteLine(setting.DatabaseWriteConnectionName.Value);
             Trace.WriteLine(setting.EntityAssembly.Value);
             Trace.WriteLine(setting.EntityConfigAssembly.Value);
             Trace.WriteLine(setting.EntityTablePrefix.Value);

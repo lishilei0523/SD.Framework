@@ -7,14 +7,14 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Base
     /// <summary>
     /// EF Core上下文
     /// </summary>
-    public class DbSession : BaseDbSession
+    public class DbSession : DbSessionBase
     {
         /// <summary>
         /// 配置
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(NetCoreSetting.DefaultConnectionString);
+            optionsBuilder.UseSqlServer(NetCoreSetting.WriteConnectionString);
 
             base.OnConfiguring(optionsBuilder);
         }

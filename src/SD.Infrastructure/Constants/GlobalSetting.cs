@@ -12,9 +12,14 @@ namespace SD.Infrastructure.Constants
         #region # 字段及静态构造器
 
         /// <summary>
-        /// 默认连接字符串
+        /// 读连接字符串
         /// </summary>
-        private static string _DefaultConnectionString;
+        private static string _ReadConnectionString;
+
+        /// <summary>
+        /// 写连接字符串
+        /// </summary>
+        private static string _WriteConnectionString;
 
         /// <summary>
         /// SeesionId线程静态字段
@@ -26,37 +31,55 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         static GlobalSetting()
         {
-            _DefaultConnectionString = null;
+            _ReadConnectionString = null;
+            _WriteConnectionString = null;
             _SessionId = new AsyncLocal<Guid>();
         }
 
         #endregion
 
-        #region # 默认连接字符串 —— static string DefaultConnectionString
+        #region # 读连接字符串 —— static string ReadConnectionString
         /// <summary>
-        /// 默认连接字符串
+        /// 读连接字符串
         /// </summary>
-        public static string DefaultConnectionString
+        public static string ReadConnectionString
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(_DefaultConnectionString))
+                if (string.IsNullOrWhiteSpace(_ReadConnectionString))
                 {
-                    string defaultConnectionStringName = CommonConstants.DefaultConnectionStringName;
-                    string connectionString = ConfigurationManager.ConnectionStrings[defaultConnectionStringName]?.ConnectionString;
-                    if (string.IsNullOrWhiteSpace(connectionString))
-                    {
-                        defaultConnectionStringName = FrameworkSection.Setting.ServiceConnectionName.Value;
-                        connectionString = ConfigurationManager.ConnectionStrings[defaultConnectionStringName]?.ConnectionString;
-                    }
-                    _DefaultConnectionString = connectionString;
+                    string readConnectionStringName = FrameworkSection.Setting.DatabaseReadConnectionName.Value;
+                    _ReadConnectionString = ConfigurationManager.ConnectionStrings[readConnectionStringName]?.ConnectionString;
                 }
-                if (string.IsNullOrWhiteSpace(_DefaultConnectionString))
+                if (string.IsNullOrWhiteSpace(_ReadConnectionString))
                 {
-                    throw new NullReferenceException("默认连接字符串未配置，请联系管理员！");
+                    throw new NullReferenceException("读连接字符串未配置，请联系管理员！");
                 }
 
-                return _DefaultConnectionString;
+                return _ReadConnectionString;
+            }
+        }
+        #endregion
+
+        #region # 写连接字符串 —— static string WriteConnectionString
+        /// <summary>
+        /// 写连接字符串
+        /// </summary>
+        public static string WriteConnectionString
+        {
+            get
+            {
+                if (string.IsNullOrWhiteSpace(_WriteConnectionString))
+                {
+                    string writeConnectionStringName = FrameworkSection.Setting.DatabaseWriteConnectionName.Value;
+                    _WriteConnectionString = ConfigurationManager.ConnectionStrings[writeConnectionStringName]?.ConnectionString;
+                }
+                if (string.IsNullOrWhiteSpace(_WriteConnectionString))
+                {
+                    throw new NullReferenceException("写连接字符串未配置，请联系管理员！");
+                }
+
+                return _WriteConnectionString;
             }
         }
         #endregion

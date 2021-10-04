@@ -11,7 +11,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
     /// <summary>
     /// DbSession基类
     /// </summary>
-    public abstract class BaseDbSession : BaseDbContext
+    public abstract class DbSessionBase : DbContextBase
     {
         #region # 构造器
 
@@ -23,28 +23,27 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// <summary>
         /// EF（写）上下文对象访问器线程缓存
         /// </summary>
-        private static readonly AsyncLocal<BaseDbSession> _CommandInstanceCall;
+        private static readonly AsyncLocal<DbSessionBase> _CommandInstanceCall;
 
         /// <summary>
         /// EF（读）上下文对象访问器线程缓存
         /// </summary>
-        private static readonly AsyncLocal<BaseDbSession> _QueryInstanceCall;
+        private static readonly AsyncLocal<DbSessionBase> _QueryInstanceCall;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static BaseDbSession()
+        static DbSessionBase()
         {
             _Sync = new object();
-            _CommandInstanceCall = new AsyncLocal<BaseDbSession>();
-            _QueryInstanceCall = new AsyncLocal<BaseDbSession>();
+            _CommandInstanceCall = new AsyncLocal<DbSessionBase>();
+            _QueryInstanceCall = new AsyncLocal<DbSessionBase>();
         }
 
         /// <summary>
-        /// 基础构造器
+        /// 无参构造器
         /// </summary>
-        protected BaseDbSession()
-            : base(GlobalSetting.DefaultConnectionString)
+        protected DbSessionBase()
         {
             base.Configuration.ValidateOnSaveEnabled = false;
         }
@@ -53,7 +52,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// 基础构造器
         /// </summary>
         /// <param name="nameOrConnectionString">连接字符串名称/连接字符串</param>
-        protected BaseDbSession(string nameOrConnectionString)
+        protected DbSessionBase(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
             base.Configuration.ValidateOnSaveEnabled = false;
@@ -64,7 +63,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         /// <param name="existingConnection">已存在数据库连接</param>
         /// <param name="contextOwnsConnection">上下文拥有连接</param>
-        protected BaseDbSession(DbConnection existingConnection, bool contextOwnsConnection)
+        protected DbSessionBase(DbConnection existingConnection, bool contextOwnsConnection)
             : base(existingConnection, contextOwnsConnection)
         {
             base.Configuration.ValidateOnSaveEnabled = false;
@@ -74,21 +73,22 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
 
         #region # 访问器
 
-        #region EF（写）上下文对象 —— static BaseDbSession CommandInstance
+        #region EF（写）上下文对象 —— static DbSessionBase CommandInstance
         /// <summary>
         /// EF（写）上下文对象
         /// </summary>
-        public static BaseDbSession CommandInstance
+        public static DbSessionBase CommandInstance
         {
             get
             {
                 lock (_Sync)
                 {
-                    BaseDbSession dbContext = _CommandInstanceCall.Value;
+                    DbSessionBase dbContext = _CommandInstanceCall.Value;
 
                     if (dbContext == null || dbContext.Disposed)
                     {
-                        dbContext = ResolveMediator.Resolve<BaseDbSession>();
+                        dbContext = ResolveMediator.Resolve<DbSessionBase>();
+                        dbContext.Database.Connection.ConnectionString = dbContext.WriteConnectionString;
                         _CommandInstanceCall.Value = dbContext;
                     }
 
@@ -98,21 +98,22 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         }
         #endregion
 
-        #region EF（读）上下文对象 —— static BaseDbSession QueryInstance
+        #region EF（读）上下文对象 —— static DbSessionBase QueryInstance
         /// <summary>
         /// EF（读）上下文对象
         /// </summary>
-        public static BaseDbSession QueryInstance
+        public static DbSessionBase QueryInstance
         {
             get
             {
                 lock (_Sync)
                 {
-                    BaseDbSession dbContext = _QueryInstanceCall.Value;
+                    DbSessionBase dbContext = _QueryInstanceCall.Value;
 
                     if (dbContext == null || dbContext.Disposed)
                     {
-                        dbContext = ResolveMediator.Resolve<BaseDbSession>();
+                        dbContext = ResolveMediator.Resolve<DbSessionBase>();
+                        dbContext.Database.Connection.ConnectionString = dbContext.ReadConnectionString;
                         dbContext.Configuration.AutoDetectChangesEnabled = false;/*关闭自动跟踪实体变化状态*/
 
                         _QueryInstanceCall.Value = dbContext;
@@ -157,6 +158,26 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         #endregion
 
         #region # 属性
+
+        #region 读连接字符串 —— virtual string ReadConnectionString
+        /// <summary>
+        /// 读连接字符串
+        /// </summary>
+        public virtual string ReadConnectionString
+        {
+            get { return GlobalSetting.ReadConnectionString; }
+        }
+        #endregion
+
+        #region 写连接字符串 —— virtual string WriteConnectionString
+        /// <summary>
+        /// 写连接字符串
+        /// </summary>
+        public virtual string WriteConnectionString
+        {
+            get { return GlobalSetting.WriteConnectionString; }
+        }
+        #endregion
 
         #region 实体所在程序集 —— override string EntityAssembly
         /// <summary>

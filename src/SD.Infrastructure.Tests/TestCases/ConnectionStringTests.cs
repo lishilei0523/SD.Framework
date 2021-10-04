@@ -13,10 +13,13 @@ namespace SD.Infrastructure.Tests.TestCases
         [TestMethod]
         public void TestConnectionString()
         {
-            string connectionString = GlobalSetting.DefaultConnectionString;
-            Trace.WriteLine(connectionString);
+            string readConnectionString = GlobalSetting.ReadConnectionString;
+            string writeConnectionString = GlobalSetting.WriteConnectionString;
+            Trace.WriteLine(readConnectionString);
+            Trace.WriteLine(writeConnectionString);
 
-            Assert.IsNotNull(connectionString);
+            Assert.IsNotNull(readConnectionString);
+            Assert.IsNotNull(writeConnectionString);
         }
     }
 }

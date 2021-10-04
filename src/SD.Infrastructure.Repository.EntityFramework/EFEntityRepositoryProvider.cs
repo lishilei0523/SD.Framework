@@ -41,7 +41,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         protected EFEntityRepositoryProvider()
         {
             //EF（读）上下文对象
-            this._dbContext = BaseDbSession.QueryInstance;
+            this._dbContext = DbSessionBase.QueryInstance;
         }
 
         /// <summary>
