@@ -26,7 +26,7 @@
     <PackageReference Include="Microsoft.AspNet.WebApi.OwinSelfHost" Version="5.2.7" />
     <PackageReference Include="Microsoft.Owin" Version="4.1.1" />
     <PackageReference Include="Topshelf" Version="4.2.1" />
-    <PackageReference Include="SD.Toolkits.AspNet" Version="1.0.4" />
+    <PackageReference Include="SD.Toolkits.AspNet" Version="1.1.0" />
     <PackageReference Include="SD.IOC.Core" Version="2.0.7" />
     <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.0.3" />
     <PackageReference Include="SD.IOC.Integration.WebApi" Version="2.0.2" />
