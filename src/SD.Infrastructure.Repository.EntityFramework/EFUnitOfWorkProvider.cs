@@ -8,6 +8,7 @@ using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace SD.Infrastructure.Repository.EntityFramework
@@ -38,7 +39,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
 
         /// <summary>
-        /// EF（写）上下文对象字段
+        /// SQL命令建造者
+        /// </summary>
+        private readonly StringBuilder _sqlCommandBuilder;
+
+        /// <summary>
+        /// EF（写）上下文对象
         /// </summary>
         protected readonly DbContext _dbContext;
 
@@ -47,7 +53,10 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         protected EFUnitOfWorkProvider()
         {
-            //EF（写）上下文对象字段
+            //初始化SQL命令建造者
+            this._sqlCommandBuilder = new StringBuilder();
+
+            //初始化EF（写）上下文对象
             this._dbContext = DbSessionBase.CommandInstance;
         }
 
@@ -638,8 +647,29 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             try
             {
-                //提交事务
-                this._dbContext.SaveChanges();
+                if (this._sqlCommandBuilder.Length > 0)
+                {
+                    using (DbContextTransaction transaction = this._dbContext.Database.BeginTransaction())
+                    {
+                        //执行SQL命令
+                        string sqlCommands = this._sqlCommandBuilder.ToString();
+                        this._dbContext.Database.ExecuteSqlCommand(sqlCommands);
+
+                        //保存修改
+                        this._dbContext.SaveChanges();
+
+                        //提交事务
+                        transaction.Commit();
+
+                        //清空SQL命令
+                        this._sqlCommandBuilder.Clear();
+                    }
+                }
+                else
+                {
+                    //保存修改
+                    this._dbContext.SaveChanges();
+                }
             }
             catch
             {
@@ -657,8 +687,29 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             try
             {
-                //提交事务
-                await this._dbContext.SaveChangesAsync();
+                if (this._sqlCommandBuilder.Length > 0)
+                {
+                    using (DbContextTransaction transaction = this._dbContext.Database.BeginTransaction())
+                    {
+                        //执行SQL命令
+                        string sqlCommands = this._sqlCommandBuilder.ToString();
+                        await this._dbContext.Database.ExecuteSqlCommandAsync(sqlCommands);
+
+                        //保存修改
+                        await this._dbContext.SaveChangesAsync();
+
+                        //提交事务
+                        transaction.Commit();
+
+                        //清空SQL命令
+                        this._sqlCommandBuilder.Clear();
+                    }
+                }
+                else
+                {
+                    //保存修改
+                    await this._dbContext.SaveChangesAsync();
+                }
             }
             catch
             {
@@ -678,6 +729,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
             {
                 entry.State = EntityState.Unchanged;
             }
+
+            //清空SQL命令
+            this._sqlCommandBuilder.Clear();
         }
         #endregion
 
@@ -729,6 +783,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// </summary>
         public void Dispose()
         {
+            this._sqlCommandBuilder.Clear();
             this._dbContext?.Dispose();
         }
         #endregion
@@ -803,6 +858,18 @@ namespace SD.Infrastructure.Repository.EntityFramework
                 DbEntityEntry entry = this._dbContext.Entry<T>(entity);
                 entry.State = EntityState.Modified;
             }
+        }
+        #endregion
+
+        #region # 注册SQL命令 —— void RegisterSqlCommand(string sql)
+        /// <summary>
+        /// 注册SQL命令
+        /// </summary>
+        /// <param name="sql">SQL脚本</param>
+        protected void RegisterSqlCommand(string sql)
+        {
+            this._sqlCommandBuilder.Append(sql);
+            this._sqlCommandBuilder.Append(";");
         }
         #endregion
 
