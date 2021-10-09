@@ -7,6 +7,7 @@ using SD.Infrastructure.Repository.EntityFramework.Tests.Repositories.Base;
 using SD.IOC.Core.Mediators;
 using SD.IOC.Extension.NetFx;
 using System;
+using System.Data.Entity.Infrastructure;
 
 namespace SD.Infrastructure.Repository.EntityFramework.Tests.TestCases
 {
@@ -73,6 +74,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Tests.TestCases
         /// 测试注册SQL命令异常
         /// </summary>
         [TestMethod]
+        [ExpectedException(typeof(DbUpdateException))]
         public void TestRegisterSqlCommandException()
         {
             Order order = new Order("TESTSQL", $"销售订单-{DateTime.Now:yyyyMMddHHmmss}");
