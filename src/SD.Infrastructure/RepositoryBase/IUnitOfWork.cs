@@ -84,6 +84,15 @@ namespace SD.Infrastructure.RepositoryBase
         void RegisterPhysicsRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
         #endregion
 
+        #region # 注册删除多个实体对象（物理删除） —— void RegisterPhysicsRemoveRange<T>(IEnumerable<T> entities)
+        /// <summary>
+        /// 注册删除多个实体对象（物理删除）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="entities">实体对象集</param>
+        void RegisterPhysicsRemoveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity;
+        #endregion
+
         #region # 注册删除单个实体对象（逻辑删除） —— void RegisterRemove<T>(Guid id)
         /// <summary>
         /// 注册删除单个实体对象（逻辑删除）
@@ -118,6 +127,15 @@ namespace SD.Infrastructure.RepositoryBase
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集</param>
         void RegisterRemoveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
+        #endregion
+
+        #region # 注册删除多个实体对象（逻辑删除） —— void RegisterRemoveRange<T>(IEnumerable<T> entities)
+        /// <summary>
+        /// 注册删除多个实体对象（逻辑删除）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="entities">实体对象集</param>
+        void RegisterRemoveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity;
         #endregion
 
 

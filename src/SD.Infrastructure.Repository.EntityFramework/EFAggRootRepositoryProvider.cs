@@ -224,7 +224,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? new string[0];
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
             if (!numbers_.Any())
             {
                 return new Dictionary<string, T>();
@@ -250,7 +250,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? new string[0];
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
             if (!numbers_.Any())
             {
                 return new Dictionary<string, TSub>();
@@ -509,15 +509,15 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
         //IQueryable部分
 
-        #region # 根据条件获取实体对象编号列表 —— IQueryable<string> FindNos(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取实体对象编号列表 —— IQueryable<string> FindNos(Expression<Func<T, bool>> condition)
         /// <summary>
         /// 根据条件获取实体对象编号列表
         /// </summary>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>实体对象编号列表</returns>
-        protected IQueryable<string> FindNos(Expression<Func<T, bool>> predicate)
+        protected IQueryable<string> FindNos(Expression<Func<T, bool>> condition)
         {
-            return base.Find(predicate).Select(x => x.Number);
+            return base.Find(condition).Select(x => x.Number);
         }
         #endregion
 
@@ -525,11 +525,11 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 根据条件获取子类对象编号列表
         /// </summary>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>子类对象编号列表</returns>
-        protected IQueryable<string> FindNos<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
+        protected IQueryable<string> FindNos<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
-            return base.Find<TSub>(predicate).Select(x => x.Number);
+            return base.Find<TSub>(condition).Select(x => x.Number);
         }
         #endregion
 

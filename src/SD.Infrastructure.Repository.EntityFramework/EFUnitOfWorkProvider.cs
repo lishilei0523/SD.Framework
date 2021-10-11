@@ -119,7 +119,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证
 
-            entities = entities?.ToArray() ?? new T[0];
+            entities = entities?.ToArray() ?? Array.Empty<T>();
             if (!entities.Any())
             {
                 throw new ArgumentNullException(nameof(entities), $"要添加的{typeof(T).Name}实体对象列表不可为空！");
@@ -192,7 +192,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证
 
-            entities = entities?.ToArray() ?? new T[0];
+            entities = entities?.ToArray() ?? Array.Empty<T>();
             if (!entities.Any())
             {
                 throw new ArgumentNullException(nameof(entities), $"要保存的{typeof(T).Name}实体对象列表不可为空！");
@@ -289,7 +289,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证
 
-            ids = ids?.ToArray() ?? new Guid[0];
+            ids = ids?.ToArray() ?? Array.Empty<Guid>();
             if (!ids.Any())
             {
                 throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的Id集不可为空！");
@@ -298,10 +298,29 @@ namespace SD.Infrastructure.Repository.EntityFramework
             #endregion
 
             ICollection<T> entities = this.ResolveRange<T>(ids);
-            foreach (T entity in entities)
+            this._dbContext.Set<T>().RemoveRange(entities);
+        }
+        #endregion
+
+        #region # 注册删除多个实体对象（物理删除） —— void RegisterPhysicsRemoveRange<T>(IEnumerable<T> entities)
+        /// <summary>
+        /// 注册删除多个实体对象（物理删除）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="entities">实体对象集</param>
+        public void RegisterPhysicsRemoveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
+        {
+            #region # 验证
+
+            entities = entities?.ToArray() ?? Array.Empty<T>();
+            if (!entities.Any())
             {
-                this._dbContext.Set<T>().Remove(entity);
+                throw new ArgumentNullException(nameof(entities), $"要删除的{typeof(T).Name}的实体对象集不可为空！");
             }
+
+            #endregion
+
+            this._dbContext.Set<T>().RemoveRange(entities);
         }
         #endregion
 
@@ -433,7 +452,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证
 
-            ids = ids?.ToArray() ?? new Guid[0];
+            ids = ids?.ToArray() ?? Array.Empty<Guid>();
             if (!ids.Any())
             {
                 throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的Id集不可为空！");
@@ -454,6 +473,48 @@ namespace SD.Infrastructure.Repository.EntityFramework
             #endregion
 
             ICollection<T> entities = this.ResolveRange<T>(ids);
+            foreach (T entity in entities)
+            {
+                entity.OperatorAccount = loginInfo?.LoginId;
+                entity.OperatorName = loginInfo?.RealName;
+                entity.Deleted = true;
+                entity.DeletedTime = deletedTime;
+                DbEntityEntry entry = this._dbContext.Entry<T>(entity);
+                entry.State = EntityState.Modified;
+            }
+        }
+        #endregion
+
+        #region # 注册删除多个实体对象（逻辑删除） —— void RegisterRemoveRange<T>(IEnumerable<T> entities)
+        /// <summary>
+        /// 注册删除多个实体对象（逻辑删除）
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="entities">实体对象集</param>
+        public void RegisterRemoveRange<T>(IEnumerable<T> entities) where T : AggregateRootEntity
+        {
+            #region # 验证
+
+            entities = entities?.ToArray() ?? Array.Empty<T>();
+            if (!entities.Any())
+            {
+                throw new ArgumentNullException(nameof(entities), $"要删除的{typeof(T).Name}的实体对象集不可为空！");
+            }
+
+            #endregion
+
+            LoginInfo loginInfo = null;
+            DateTime deletedTime = DateTime.Now;
+
+            #region # 获取操作人信息
+
+            if (GetLoginInfo != null)
+            {
+                loginInfo = GetLoginInfo.Invoke();
+            }
+
+            #endregion
+
             foreach (T entity in entities)
             {
                 entity.OperatorAccount = loginInfo?.LoginId;
@@ -502,7 +563,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象列表</returns>
         public ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
         {
-            return this.ResolveRange<T>(x => ids.Contains(x.Id)).ToListAsync().Result;
+            return this.ResolveRange<T>(x => ids.Contains(x.Id)).ToList();
         }
         #endregion
 
@@ -548,7 +609,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象列表</returns>
         public ICollection<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
         {
-            return this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToListAsync().Result;
+            return this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToList();
         }
         #endregion
 
@@ -796,19 +857,19 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// 注册条件删除（物理删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="predicate">条件表达式</param>
-        protected void RegisterPhysicsRemove<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        /// <param name="condition">条件表达式</param>
+        protected void RegisterPhysicsRemove<T>(Expression<Func<T, bool>> condition) where T : AggregateRootEntity
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), "条件表达式不可为空！");
             }
 
             #endregion
 
-            IQueryable<T> queryable = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
+            IQueryable<T> queryable = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(condition);
 
             foreach (T entity in queryable)
             {
@@ -823,14 +884,14 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// 注册条件删除（逻辑删除）
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="predicate">条件表达式</param>
-        protected void RegisterRemove<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        /// <param name="condition">条件表达式</param>
+        protected void RegisterRemove<T>(Expression<Func<T, bool>> condition) where T : AggregateRootEntity
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), "条件表达式不可为空！");
             }
 
             #endregion
@@ -846,7 +907,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            IQueryable<T> queryable = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
+            IQueryable<T> queryable = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(condition);
             DateTime deletedTime = DateTime.Now;
 
             foreach (T entity in queryable)
@@ -877,21 +938,21 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 根据条件获取唯一实体对象（修改时用）
         /// </summary>
-        /// <param name="predicate">条件</param>
+        /// <param name="condition">条件</param>
         /// <returns>实体对象</returns>
         ///<remarks>查询不到将返回null</remarks>
-        protected T ResolveOptional<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        protected T ResolveOptional<T>(Expression<Func<T, bool>> condition) where T : AggregateRootEntity
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), "条件表达式不可为空！");
             }
 
             #endregion
 
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefault(predicate);
+            return this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefault(condition);
         }
         #endregion
 
@@ -899,20 +960,20 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 根据条件获取实体对象列表（修改时用）
         /// </summary>
-        /// <param name="predicate">条件</param>
+        /// <param name="condition">条件</param>
         /// <returns>实体对象列表</returns>
-        protected IQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        protected IQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> condition) where T : AggregateRootEntity
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), "条件表达式不可为空！");
             }
 
             #endregion
 
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(predicate);
+            return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(condition);
         }
         #endregion
 
@@ -920,44 +981,44 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 异步根据条件获取唯一实体对象（修改时用）
         /// </summary>
-        /// <param name="predicate">条件</param>
+        /// <param name="condition">条件</param>
         /// <returns>实体对象</returns>
         ///<remarks>查询不到将返回null</remarks>
-        protected async Task<T> ResolveOptionalAsync<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        protected async Task<T> ResolveOptionalAsync<T>(Expression<Func<T, bool>> condition) where T : AggregateRootEntity
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), "条件表达式不可为空！");
             }
 
             #endregion
 
-            return await this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefaultAsync(predicate);
+            return await this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefaultAsync(condition);
         }
         #endregion
 
-        #region # 是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> predicate)
+        #region # 是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> condition)
         /// <summary>
         /// 是否存在给定条件的实体对象
         /// </summary>
-        /// <param name="predicate">条件</param>
+        /// <param name="condition">条件</param>
         /// <returns>是否存在</returns>
-        protected bool Exists<T>(Expression<Func<T, bool>> predicate) where T : AggregateRootEntity
+        protected bool Exists<T>(Expression<Func<T, bool>> condition) where T : AggregateRootEntity
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), "条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), "条件表达式不可为空！");
             }
 
             #endregion
 
             lock (_Sync)
             {
-                return this._dbContext.Set<T>().Where(x => !x.Deleted).Any(predicate);
+                return this._dbContext.Set<T>().Where(x => !x.Deleted).Any(condition);
             }
         }
         #endregion

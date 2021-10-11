@@ -194,7 +194,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
             if (!ids_.Any())
             {
                 return new Dictionary<Guid, T>();
@@ -220,7 +220,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
             if (!ids_.Any())
             {
                 return new Dictionary<Guid, TSub>();
@@ -362,25 +362,25 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
         //Single部分
 
-        #region # 根据条件获取唯一实体对象（查看时用） —— T SingleOrDefault(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取唯一实体对象（查看时用） —— T SingleOrDefault(Expression<Func<T, bool>> condition)
         /// <summary>
         /// 根据条件获取唯一实体对象（查看时用），
         /// </summary>
-        /// <param name="predicate">条件</param>
+        /// <param name="condition">条件</param>
         /// <returns>实体对象</returns>
         /// <remarks>无该对象时返回null</remarks>
-        protected T SingleOrDefault(Expression<Func<T, bool>> predicate)
+        protected T SingleOrDefault(Expression<Func<T, bool>> condition)
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), @"条件表达式不可为空！");
             }
 
             #endregion
 
-            return this.FindAllInner().SingleOrDefault(predicate);
+            return this.FindAllInner().SingleOrDefault(condition);
         }
         #endregion
 
@@ -388,43 +388,43 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <summary>
         /// 根据条件获取唯一子类对象（查看时用），
         /// </summary>
-        /// <param name="predicate">条件</param>
+        /// <param name="condition">条件</param>
         /// <returns>子类对象</returns>
         /// <remarks>无该对象时返回null</remarks>
-        protected TSub SingleOrDefault<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
+        protected TSub SingleOrDefault<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), @"条件表达式不可为空！");
             }
 
             #endregion
 
-            return this.FindAllInner<TSub>().SingleOrDefault(predicate);
+            return this.FindAllInner<TSub>().SingleOrDefault(condition);
         }
         #endregion
 
-        #region # 根据条件获取第一个实体对象（查看时用） —— T FirstOrDefault(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取第一个实体对象（查看时用） —— T FirstOrDefault(Expression<Func<T, bool>> condition)
         /// <summary>
         /// 根据条件获取第一个实体对象（查看时用），
         /// </summary>
-        /// <param name="predicate">条件</param>
+        /// <param name="condition">条件</param>
         /// <returns>实体对象</returns>
         /// <remarks>无该对象时返回null</remarks>
-        protected T FirstOrDefault(Expression<Func<T, bool>> predicate)
+        protected T FirstOrDefault(Expression<Func<T, bool>> condition)
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), @"条件表达式不可为空！");
             }
 
             #endregion
 
-            return this.Find(predicate).FirstOrDefault();
+            return this.Find(condition).FirstOrDefault();
         }
         #endregion
 
@@ -433,21 +433,21 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// 根据条件获取第一个子类对象（查看时用），
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <param name="predicate">条件</param>
+        /// <param name="condition">条件</param>
         /// <returns>子类对象</returns>
         /// <remarks>无该对象时返回null</remarks>
-        protected TSub FirstOrDefault<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
+        protected TSub FirstOrDefault<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), @"条件表达式不可为空！");
             }
 
             #endregion
 
-            return this.Find(predicate).FirstOrDefault();
+            return this.Find(condition).FirstOrDefault();
         }
         #endregion
 
@@ -501,24 +501,24 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据条件获取实体对象列表 —— IQueryable<T> Find(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取实体对象列表 —— IQueryable<T> Find(Expression<Func<T, bool>> condition)
         /// <summary>
         /// 根据条件获取实体对象列表
         /// </summary>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>实体对象列表</returns>
-        protected IQueryable<T> Find(Expression<Func<T, bool>> predicate)
+        protected IQueryable<T> Find(Expression<Func<T, bool>> condition)
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), @"条件表达式不可为空！");
             }
 
             #endregion
 
-            return this.FindAllInner().Where(predicate);
+            return this.FindAllInner().Where(condition);
         }
         #endregion
 
@@ -527,20 +527,20 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// 根据条件获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>子类对象列表</returns>
-        protected IQueryable<TSub> Find<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
+        protected IQueryable<TSub> Find<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), @"条件表达式不可为空！");
             }
 
             #endregion
 
-            return this.FindAllInner<TSub>().Where(predicate);
+            return this.FindAllInner<TSub>().Where(condition);
         }
         #endregion
 
@@ -566,15 +566,15 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据条件获取实体对象Id列表 —— IQueryable<Guid> FindIds(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取实体对象Id列表 —— IQueryable<Guid> FindIds(Expression<Func<T, bool>> condition)
         /// <summary>
         /// 根据条件获取实体对象Id列表
         /// </summary>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>实体对象Id列表</returns>
-        protected IQueryable<Guid> FindIds(Expression<Func<T, bool>> predicate)
+        protected IQueryable<Guid> FindIds(Expression<Func<T, bool>> condition)
         {
-            return this.Find(predicate).Select(x => x.Id);
+            return this.Find(condition).Select(x => x.Id);
         }
         #endregion
 
@@ -582,11 +582,11 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <summary>
         /// 根据条件获取子类对象Id列表
         /// </summary>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>子类对象Id列表</returns>
-        protected IQueryable<Guid> FindIds<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
+        protected IQueryable<Guid> FindIds<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
-            return this.Find(predicate).Select(x => x.Id);
+            return this.Find(condition).Select(x => x.Id);
         }
         #endregion
 
@@ -594,15 +594,15 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <summary>
         /// 根据条件获取实体对象列表 + 分页 + 输出记录条数与页数
         /// </summary>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
         /// <param name="rowCount">总记录条数</param>
         /// <param name="pageCount">总页数</param>
         /// <returns>实体对象列表</returns>
-        protected IQueryable<T> FindByPage(Expression<Func<T, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount)
+        protected IQueryable<T> FindByPage(Expression<Func<T, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
-            return this.FindBySort(predicate).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
+            return this.FindBySort(condition).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
         }
         #endregion
 
@@ -611,110 +611,110 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// 根据条件分页获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
         /// <param name="rowCount">总记录条数</param>
         /// <param name="pageCount">总页数</param>
         /// <returns>子类对象列表</returns>
-        protected IQueryable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> predicate, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
+        protected IQueryable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
         {
-            return this.FindBySort<TSub>(predicate).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
+            return this.FindBySort<TSub>(condition).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
         }
         #endregion
 
 
         //Count部分
 
-        #region # 根据条件获取记录条数 —— int Count(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取记录条数 —— int Count(Expression<Func<T, bool>> condition)
         /// <summary>
         /// 根据条件获取记录条数
         /// </summary>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>符合条件的记录条数</returns>
-        protected int Count(Expression<Func<T, bool>> predicate)
+        protected int Count(Expression<Func<T, bool>> condition)
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), @"条件表达式不可为空！");
             }
 
             #endregion
 
-            return this.FindAllInner().Count(predicate);
+            return this.FindAllInner().Count(condition);
         }
         #endregion
 
-        #region # 根据条件获取子类记录条数 —— int Count(Expression<Func<T, bool>> predicate)
+        #region # 根据条件获取子类记录条数 —— int Count(Expression<Func<T, bool>> condition)
         /// <summary>
         /// 根据条件获取子类记录条数
         /// </summary>
-        /// <param name="predicate">条件表达式</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>符合条件的子类记录条数</returns>
-        protected int Count<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
+        protected int Count<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), @"条件表达式不可为空！");
             }
 
             #endregion
 
-            return this.FindAllInner<TSub>().Count(predicate);
+            return this.FindAllInner<TSub>().Count(condition);
         }
         #endregion
 
 
         //Exists部分
 
-        #region # 是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> predicate)
+        #region # 是否存在给定条件的实体对象 —— bool Exists(Expression<Func<T, bool>> condition)
         /// <summary>
         /// 是否存在给定条件的实体对象
         /// </summary>
-        /// <param name="predicate">条件</param>
+        /// <param name="condition">条件</param>
         /// <returns>是否存在</returns>
-        protected bool Exists(Expression<Func<T, bool>> predicate)
+        protected bool Exists(Expression<Func<T, bool>> condition)
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), @"条件表达式不可为空！");
             }
 
             #endregion
 
             lock (_Sync)
             {
-                return this.FindAllInner().Any(predicate);
+                return this.FindAllInner().Any(condition);
             }
         }
         #endregion
 
-        #region # 是否存在给定条件的子类对象 —— bool Exists<TSub>(Expression<Func<TSub, bool>> predicate)
+        #region # 是否存在给定条件的子类对象 —— bool Exists<TSub>(Expression<Func<TSub, bool>> condition)
         /// <summary>
         /// 是否存在给定条件的子类对象
         /// </summary>
-        /// <param name="predicate">条件</param>
+        /// <param name="condition">条件</param>
         /// <returns>是否存在</returns>
-        protected bool Exists<TSub>(Expression<Func<TSub, bool>> predicate) where TSub : T
+        protected bool Exists<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
             #region # 验证
 
-            if (predicate == null)
+            if (condition == null)
             {
-                throw new ArgumentNullException(nameof(predicate), @"条件表达式不可为空！");
+                throw new ArgumentNullException(nameof(condition), @"条件表达式不可为空！");
             }
 
             #endregion
 
             lock (_Sync)
             {
-                return this.FindAllInner<TSub>().Any(predicate);
+                return this.FindAllInner<TSub>().Any(condition);
             }
         }
         #endregion
