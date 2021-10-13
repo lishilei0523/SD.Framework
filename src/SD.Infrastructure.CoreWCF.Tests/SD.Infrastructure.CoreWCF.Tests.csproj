@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
+    <AssemblyName>SD.Infrastructure.WCF.Tests</AssemblyName>
+    <RootNamespace>SD.Infrastructure.WCF.Tests</RootNamespace>
+    <OutputType>Exe</OutputType>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Copyright>Copyright © SD 2021</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="E:\Packages\nuget\cache\corewcf.configurationmanager\0.3.2\contentFiles\any\netstandard2.0\CoreWCF.machine.config" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="..\SD.Infrastructure.WCF.Tests\Implements\OrderContract.cs">
+      <Link>Implements\OrderContract.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure.WCF.Tests\Interfaces\IOrderContract.cs">
+      <Link>Interfaces\IOrderContract.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure.WCF.Tests\Stubs\StubDataInitializer.cs">
+      <Link>Stubs\StubDataInitializer.cs</Link>
+    </Compile>
+    <Compile Include="..\SD.Infrastructure.WCF.Tests\Stubs\StubDbCleaner.cs">
+      <Link>Stubs\StubDbCleaner.cs</Link>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CoreWCF.Primitives" Version="0.3.2" />
+    <PackageReference Include="CoreWCF.Http" Version="0.3.2" />
+    <PackageReference Include="CoreWCF.NetTcp" Version="0.3.2" />
+    <PackageReference Include="CoreWCF.ConfigurationManager" Version="0.3.2" />
+    <PackageReference Include="SD.IOC.Extension.NetCore" Version="1.0.2" />
+    <PackageReference Include="SD.Toolkits.AspNet" Version="1.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.WCF.Server\SD.Infrastructure.WCF.Server.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.StubAppService\SD.Infrastructure.StubAppService.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.StubIAppService\SD.Infrastructure.StubIAppService.csproj" />
+  </ItemGroup>
+</Project>
