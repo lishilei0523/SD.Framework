@@ -41,11 +41,11 @@ namespace SD.Infrastructure.Constants
 
             //读取配置文件
             Assembly entryAssembly = Assembly.GetEntryAssembly();
-            string hostAssemblyName = entryAssembly?.ManifestModule.Name;
+            string hostAssemblyName = entryAssembly?.GetName().Name;
 
             ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap
             {
-                ExeConfigFilename = $"{AppDomain.CurrentDomain.BaseDirectory}{hostAssemblyName}.config"
+                ExeConfigFilename = $"{AppDomain.CurrentDomain.BaseDirectory}{hostAssemblyName}.dll.config"
             };
             _Configuration = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
 

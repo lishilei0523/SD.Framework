@@ -113,7 +113,7 @@ namespace SD.Infrastructure
         /// <summary>
         /// 数据库读连接名称节点
         /// </summary>
-        [ConfigurationProperty("database.read.connectionName", IsRequired = true)]
+        [ConfigurationProperty("database.read.connectionName", IsRequired = false)]
         public TextElement DatabaseReadConnectionName
         {
             get { return (TextElement)this["database.read.connectionName"]; }
@@ -125,7 +125,7 @@ namespace SD.Infrastructure
         /// <summary>
         /// 数据库写连接名称节点
         /// </summary>
-        [ConfigurationProperty("database.write.connectionName", IsRequired = true)]
+        [ConfigurationProperty("database.write.connectionName", IsRequired = false)]
         public TextElement DatabaseWriteConnectionName
         {
             get { return (TextElement)this["database.write.connectionName"]; }
