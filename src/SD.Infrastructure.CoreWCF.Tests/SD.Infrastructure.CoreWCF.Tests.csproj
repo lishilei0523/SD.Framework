@@ -4,7 +4,6 @@
     <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
     <AssemblyName>SD.Infrastructure.WCF.Tests</AssemblyName>
     <RootNamespace>SD.Infrastructure.WCF.Tests</RootNamespace>
-    <OutputType>Exe</OutputType>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Copyright>Copyright © SD 2021</Copyright>
@@ -34,6 +33,7 @@
     <PackageReference Include="CoreWCF.Http" Version="0.3.2" />
     <PackageReference Include="CoreWCF.NetTcp" Version="0.3.2" />
     <PackageReference Include="CoreWCF.ConfigurationManager" Version="0.3.2" />
+    <PackageReference Include="System.ServiceModel.Primitives" Version="4.7.0" />
     <PackageReference Include="SD.IOC.Core" Version="2.0.7" />
     <PackageReference Include="SD.IOC.Extension.NetCore" Version="1.0.2" />
     <PackageReference Include="SD.Toolkits.AspNet" Version="1.1.0" />

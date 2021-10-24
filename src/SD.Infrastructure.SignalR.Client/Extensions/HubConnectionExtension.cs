@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNet.SignalR.Client;
+﻿using Microsoft.AspNetCore.Http.Connections.Client;
+using Microsoft.AspNetCore.SignalR.Client;
 using SD.Infrastructure.Constants;
 using System;
 using System.IO;
-using System.Threading;
 using System.Threading.Tasks;
 
 namespace SD.Infrastructure.SignalR.Client.Extensions
@@ -29,39 +29,70 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
         /// </summary>
         static HubConnectionExtension()
         {
-            _LogPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\SignalR.Logs\\{{0:yyyy-MM-dd}}.txt";
             _Sync = new object();
+            _LogPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\SignalR.Logs\\{{0:yyyy-MM-dd}}.txt";
         }
 
         #endregion
 
-        #region # 注册公钥 —— static void RegisterPublicKey(this HubConnection connection...
+        #region # 注册公钥 —— static void RegisterPublicKey(this HttpConnectionOptions options...
         /// <summary>
         /// 注册公钥
         /// </summary>
-        /// <param name="connection">Hub连接</param>
+        /// <param name="options">Hub连接选项</param>
         /// <param name="publicKey">公钥</param>
-        public static void RegisterPublicKey(this HubConnection connection, Guid publicKey)
+        public static void RegisterPublicKey(this HttpConnectionOptions options, Guid publicKey)
         {
-            connection.Headers.Add(SessionKey.CurrentPublicKey, publicKey.ToString());
+            //添加Header
+            options.Headers.Add(SessionKey.CurrentPublicKey, publicKey.ToString());
+
+            //添加QueryString
+            string url = options.Url.ToString();
+            string urlWithPublicKey = $"{url}?{SessionKey.CurrentPublicKey}={publicKey}";
+            options.Url = new Uri(urlWithPublicKey);
         }
         #endregion
 
-        #region # 注册异常处理者 —— static void RegisterExceptionHandler(this HubConnection...
+        #region # 注册连接关闭处理者 —— static void RegisterClosedHandler(this HubConnection...
         /// <summary>
-        /// 注册异常处理者
+        /// 注册连接关闭处理者
         /// </summary>
         /// <param name="connection">Hub连接</param>
-        public static void RegisterExceptionHandler(this HubConnection connection)
+        public static void RegisterClosedHandler(this HubConnection connection)
         {
-            connection.Error += exception =>
+            connection.Closed += exception =>
             {
-                Task.Run(() =>
+                return Task.Run(() =>
+                 {
+                     WriteFile(string.Format(_LogPath, DateTime.Today),
+                         "----------------------ASP.NET Core SignalR 连接关闭----------------------"
+                         + Environment.NewLine + "［连接Id］" + connection.ConnectionId
+                         + Environment.NewLine + "［连接状态］" + connection.State
+                         + Environment.NewLine + "［异常时间］" + DateTime.Now
+                         + Environment.NewLine + "［异常消息］" + exception.Message
+                         + Environment.NewLine + "［异常明细］" + exception
+                         + Environment.NewLine + "［内部异常］" + exception.InnerException
+                         + Environment.NewLine + "［堆栈信息］" + exception.StackTrace
+                         + Environment.NewLine + Environment.NewLine);
+                 });
+            };
+        }
+        #endregion
+
+        #region # 注册重连处理者 —— static void RegisterReconnectingHandler(this HubConnection...
+        /// <summary>
+        /// 注册重连处理者
+        /// </summary>
+        /// <param name="connection">Hub连接</param>
+        public static void RegisterReconnectingHandler(this HubConnection connection)
+        {
+            connection.Reconnecting += exception =>
+            {
+                return Task.Run(() =>
                 {
                     WriteFile(string.Format(_LogPath, DateTime.Today),
-                        "----------------------ASP.NET SignalR 运行异常----------------------"
+                        "----------------------ASP.NET Core SignalR 正在重连----------------------"
                         + Environment.NewLine + "［连接Id］" + connection.ConnectionId
-                        + Environment.NewLine + "［连接URL］" + connection.Url
                         + Environment.NewLine + "［连接状态］" + connection.State
                         + Environment.NewLine + "［异常时间］" + DateTime.Now
                         + Environment.NewLine + "［异常消息］" + exception.Message
@@ -74,53 +105,25 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
         }
         #endregion
 
-        #region # 注册保持断线重连 —— static void RegisterKeepReconnecting(this HubConnection...
+        #region # 注册已重连处理者 —— static void RegisterReconnectedHandler(this HubConnection...
         /// <summary>
-        /// 注册保持断线重连
+        /// 注册已重连处理者
         /// </summary>
         /// <param name="connection">Hub连接</param>
-        /// <param name="delay">延迟时间（单位：毫秒）</param>
-        /// <param name="timeout">超时时间（单位：毫秒）</param>
-        public static void RegisterKeepReconnecting(this HubConnection connection, int delay = 5000, int timeout = 5000)
+        public static void RegisterReconnectedHandler(this HubConnection connection)
         {
-            connection.Closed += () =>
+            connection.Reconnected += newConnectionId =>
             {
-                if (delay != 0)
-                {
-                    Thread.Sleep(delay);
-                }
-                if (timeout != 0)
-                {
-                    connection.Start().Wait(timeout);
-                }
-                else
-                {
-                    connection.Start().Wait();
-                }
-            };
-        }
-        #endregion
-
-        #region # 注册状态变更处理者 —— static void RegisterStateChangedHandler(this HubConnection...
-        /// <summary>
-        /// 注册状态变更处理者
-        /// </summary>
-        /// <param name="connection">Hub连接</param>
-        public static void RegisterStateChangedHandler(this HubConnection connection)
-        {
-            connection.StateChanged += stateChange =>
-            {
-                Task.Run(() =>
-                {
-                    WriteFile(string.Format(_LogPath, DateTime.Today),
-                        "----------------------ASP.NET SignalR 状态变更----------------------"
-                        + Environment.NewLine + "［连接Id］" + connection.ConnectionId
-                        + Environment.NewLine + "［连接URL］" + connection.Url
-                        + Environment.NewLine + "［旧状态］" + stateChange.OldState
-                        + Environment.NewLine + "［新状态］" + stateChange.NewState
-                        + Environment.NewLine + "［变更时间］" + DateTime.Now
-                        + Environment.NewLine + Environment.NewLine);
-                });
+                return Task.Run(() =>
+                 {
+                     WriteFile(string.Format(_LogPath, DateTime.Today),
+                         "----------------------ASP.NET Core SignalR 已重连----------------------"
+                         + Environment.NewLine + "［连接Id］" + connection.ConnectionId
+                         + Environment.NewLine + "［新连接Id］" + newConnectionId
+                         + Environment.NewLine + "［连接状态］" + connection.State
+                         + Environment.NewLine + "［重连时间］" + DateTime.Now
+                         + Environment.NewLine + Environment.NewLine);
+                 });
             };
         }
         #endregion
@@ -145,7 +148,6 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
                 {
                     //获取文件目录并判断是否存在
                     string directory = Path.GetDirectoryName(path);
-
                     if (string.IsNullOrEmpty(directory))
                     {
                         throw new ArgumentNullException(nameof(path), "目录不可为空！");

@@ -2,6 +2,9 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <OutputType>Exe</OutputType>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

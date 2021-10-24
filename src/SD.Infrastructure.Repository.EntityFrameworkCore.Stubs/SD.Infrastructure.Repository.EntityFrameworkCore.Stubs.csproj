@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Copyright>Copyright © SD 2021</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

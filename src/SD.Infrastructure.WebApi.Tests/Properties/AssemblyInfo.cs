@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using Microsoft.Owin;
+using SD.Infrastructure.WebApi.Tests;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // 有关程序集的一般信息由以下
@@ -14,3 +16,6 @@ using System.Runtime.InteropServices;
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
 [assembly: Guid("6de7971f-b7ea-480b-bce4-9bd25d330c2c")]
+
+// OWIN启动器
+[assembly: OwinStartup(typeof(Startup))]

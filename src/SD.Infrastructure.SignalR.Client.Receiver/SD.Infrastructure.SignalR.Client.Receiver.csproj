@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <OutputType>Exe</OutputType>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Copyright>Copyright © SD 2021</Copyright>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.SignalR.Client\SD.Infrastructure.SignalR.Client.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.SignalR.Stubs\SD.Infrastructure.SignalR.Stubs.csproj" />
+  </ItemGroup>
+</Project>

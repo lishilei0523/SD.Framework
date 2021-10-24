@@ -53,24 +53,19 @@ namespace SD.Infrastructure.Constants
         #region # 其他
 
         /// <summary>
-        /// 消息交换者后缀
-        /// </summary>
-        public const string HubSuffix = "Hub";
-
-        /// <summary>
-        /// 交换消息方法名称
-        /// </summary>
-        public const string ExchangeMethodName = "Exchange";
-
-        /// <summary>
         /// 日期格式
         /// </summary>
         public const string DateFormat = "yyyy-MM-dd";
 
         /// <summary>
+        /// 日期时间格式
+        /// </summary>
+        public const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
+
+        /// <summary>
         /// 时间格式
         /// </summary>
-        public const string TimeFormat = "yyyy-MM-dd HH:mm:ss";
+        public const string TimeFormat = "HH:mm:ss";
 
         /// <summary>
         /// 最小时间
