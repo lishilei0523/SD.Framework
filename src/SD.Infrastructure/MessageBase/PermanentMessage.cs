@@ -1,6 +1,5 @@
 ﻿using SD.Infrastructure.EntityBase;
 using System;
-using System.Runtime.Serialization;
 
 namespace SD.Infrastructure.MessageBase
 {
@@ -8,7 +7,6 @@ namespace SD.Infrastructure.MessageBase
     /// 持久化消息基类
     /// </summary>
     [Serializable]
-    [DataContract]
     public abstract class PermanentMessage : AggregateRootEntity, IMessage
     {
         #region 标题 —— string Title

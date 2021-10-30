@@ -31,6 +31,10 @@ namespace SD.Infrastructure.Tests.TestCases
             Trace.WriteLine(setting.WorkflowPersistenceMode.Value);
             Trace.WriteLine(setting.WorkflowMaxInstanceLockedRetriesCount.Value);
             Trace.WriteLine(setting.WindowsUpdateService.Value);
+            Trace.WriteLine(setting.FileService.Value);
+            Trace.WriteLine(setting.MessageService.Value);
+            Trace.WriteLine(setting.OpcService.Value);
+            Trace.WriteLine(setting.CrontabService.Value);
             Trace.WriteLine(setting.AuthenticationTimeout.Value);
             Trace.WriteLine(setting.AuthorizationEnabled.Value);
 

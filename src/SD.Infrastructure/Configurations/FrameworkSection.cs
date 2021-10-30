@@ -253,6 +253,54 @@ namespace SD.Infrastructure
         }
         #endregion
 
+        #region # 文件服务节点 —— TextElement FileService
+        /// <summary>
+        /// 文件服务节点
+        /// </summary>
+        [ConfigurationProperty("file.service", IsRequired = false)]
+        public TextElement FileService
+        {
+            get { return (TextElement)this["file.service"]; }
+            set { this["file.service"] = value; }
+        }
+        #endregion
+
+        #region # 消息服务节点 —— TextElement MessageService
+        /// <summary>
+        /// 消息服务节点
+        /// </summary>
+        [ConfigurationProperty("message.service", IsRequired = false)]
+        public TextElement MessageService
+        {
+            get { return (TextElement)this["message.service"]; }
+            set { this["message.service"] = value; }
+        }
+        #endregion
+
+        #region # OPC服务节点 —— TextElement OpcService
+        /// <summary>
+        /// OPC服务节点
+        /// </summary>
+        [ConfigurationProperty("opc.service", IsRequired = false)]
+        public TextElement OpcService
+        {
+            get { return (TextElement)this["opc.service"]; }
+            set { this["opc.service"] = value; }
+        }
+        #endregion
+
+        #region # 定时任务服务节点 —— TextElement CrontabService
+        /// <summary>
+        /// 定时任务服务节点
+        /// </summary>
+        [ConfigurationProperty("crontab.service", IsRequired = false)]
+        public TextElement CrontabService
+        {
+            get { return (TextElement)this["crontab.service"]; }
+            set { this["crontab.service"] = value; }
+        }
+        #endregion
+
         #region # 身份过期时间节点 —— NumericElement AuthenticationTimeout
         /// <summary>
         /// 身份过期时间节点
