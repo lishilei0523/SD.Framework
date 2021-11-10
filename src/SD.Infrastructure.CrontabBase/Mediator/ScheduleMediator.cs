@@ -408,7 +408,7 @@ namespace SD.Infrastructure.CrontabBase.Mediator
                 return trigger;
             }
 
-            throw new NotImplementedException("无当前类型执行策略！");
+            throw new NotSupportedException("无当前类型执行策略！");
         }
         #endregion
     }

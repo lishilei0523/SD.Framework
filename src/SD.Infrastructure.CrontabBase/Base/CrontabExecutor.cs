@@ -37,7 +37,9 @@ namespace SD.Infrastructure.CrontabBase
         /// <param name="context">执行上下文</param>
         public Task Execute(IJobExecutionContext context)
         {
-            return Task.Run(() => this.ExecuteInternally(context));
+            this.ExecuteInternally(context);
+
+            return Task.CompletedTask;
         }
         #endregion
 
@@ -60,8 +62,8 @@ namespace SD.Infrastructure.CrontabBase
         [RunningAspect]
         private void ExecuteInternally(IJobExecutionContext context)
         {
-            KeyValuePair<string, object> kv = context.MergedJobDataMap.Single();
-            T crontab = (T)kv.Value;
+            KeyValuePair<string, object> keyValuePair = context.MergedJobDataMap.Single();
+            T crontab = (T)keyValuePair.Value;
 
             this.Execute(crontab);
         }
