@@ -44,13 +44,15 @@ namespace SD.Infrastructure.WPF.Models
         /// 创建节点构造器
         /// </summary>
         /// <param name="id">标识Id</param>
+        /// <param name="number">编号</param>
         /// <param name="name">名称</param>
         /// <param name="isChecked">是否勾选</param>
         /// <param name="parentNode">上级节点</param>
-        public Node(Guid id, string name, bool? isChecked, Node parentNode)
+        public Node(Guid id, string number, string name, bool? isChecked, Node parentNode)
             : this()
         {
             this.Id = id;
+            this.Number = number;
             this.Name = name;
             this.IsChecked = isChecked;
             this.ParentNode = parentNode;
@@ -63,14 +65,16 @@ namespace SD.Infrastructure.WPF.Models
         /// 创建节点构造器
         /// </summary>
         /// <param name="id">标识Id</param>
+        /// <param name="number">编号</param>
         /// <param name="name">名称</param>
         /// <param name="isSelected">是否选中</param>
         /// <param name="isChecked">是否勾选</param>
         /// <param name="parentNode">上级节点</param>
-        public Node(Guid id, string name, bool? isSelected, bool? isChecked, Node parentNode)
+        public Node(Guid id, string number, string name, bool? isSelected, bool? isChecked, Node parentNode)
             : this()
         {
             this.Id = id;
+            this.Number = number;
             this.Name = name;
             this.IsSelected = isSelected;
             this.IsChecked = isChecked;
@@ -88,6 +92,13 @@ namespace SD.Infrastructure.WPF.Models
         /// 标识Id
         /// </summary>
         public Guid Id { get; set; }
+        #endregion
+
+        #region 编号 —— string Number
+        /// <summary>
+        /// 编号
+        /// </summary>
+        public string Number { get; set; }
         #endregion
 
         #region 名称 —— string Name

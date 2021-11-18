@@ -29,14 +29,16 @@ namespace SD.Infrastructure.WPF.Models
         /// 创建数据项构造器
         /// </summary>
         /// <param name="id">标识Id</param>
+        /// <param name="number">编号</param>
         /// <param name="name">名称</param>
         /// <param name="isSelected">是否选中</param>
         /// <param name="isChecked">是否勾选</param>
         /// <param name="groupKey">分组键</param>
-        public Item(Guid id, string name, bool? isSelected, bool? isChecked, string groupKey = null)
+        public Item(Guid id, string number, string name, bool? isSelected, bool? isChecked, string groupKey = null)
             : this()
         {
             this.Id = id;
+            this.Number = number;
             this.Name = name;
             this.IsSelected = isSelected;
             this.IsChecked = isChecked;
@@ -52,6 +54,13 @@ namespace SD.Infrastructure.WPF.Models
         /// 标识Id
         /// </summary>
         public Guid Id { get; set; }
+        #endregion
+
+        #region 编号 —— string Number
+        /// <summary>
+        /// 编号
+        /// </summary>
+        public string Number { get; set; }
         #endregion
 
         #region 名称 —— string Name

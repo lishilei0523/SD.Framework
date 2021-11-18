@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq;
 using System.Reflection;
 using System.Windows.Data;
 
@@ -40,7 +41,13 @@ namespace SD.Infrastructure.WPF.Converters
         {
             Type type = @enum.GetType();
             FieldInfo field = type.GetField(@enum.ToString());
+
+#if NET40
+            object[] attributes = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
+            DescriptionAttribute enumMember = attributes.Any() ? (DescriptionAttribute)attributes[0] : null;
+#else
             DescriptionAttribute enumMember = field.GetCustomAttribute<DescriptionAttribute>();
+#endif
             return enumMember == null
                 ? @enum.ToString()
                 : string.IsNullOrEmpty(enumMember.Description)
