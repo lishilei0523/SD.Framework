@@ -16,7 +16,7 @@ using System.Runtime.InteropServices;
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
 [assembly: Guid("7ada0962-8c7c-42cd-9e32-e7ad8f19a3fa")]
 
-//Internal可见
+// Internal可见
 [assembly: InternalsVisibleTo("SD.Infrastructure.Repository.EntityFramework")]
 [assembly: InternalsVisibleTo("SD.Infrastructure.Repository.EntityFrameworkCore")]
 [assembly: InternalsVisibleTo("SD.Infrastructure.Repository.MongoDB")]

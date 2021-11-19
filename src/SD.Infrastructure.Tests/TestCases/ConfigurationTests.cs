@@ -37,6 +37,7 @@ namespace SD.Infrastructure.Tests.TestCases
             Trace.WriteLine(setting.CrontabService.Value);
             Trace.WriteLine(setting.AuthenticationTimeout.Value);
             Trace.WriteLine(setting.AuthorizationEnabled.Value);
+            Trace.WriteLine(setting.PartitionsCount.Value);
 
             Assert.IsNotNull(setting);
         }

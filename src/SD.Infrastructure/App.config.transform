@@ -51,5 +51,7 @@
     <authentication.timeout>20</authentication.timeout>
     <!--授权是否启用，默认值：false-->
     <authorization.enabled>false</authorization.enabled>
+    <!--分区数量-->
+    <partitions.count>1</partitions.count>
   </sd.framework>
 </configuration>

@@ -324,5 +324,17 @@ namespace SD.Infrastructure
             set { this["authorization.enabled"] = value; }
         }
         #endregion
+
+        #region # 分区数量节点 —— NumericElement PartitionsCount
+        /// <summary>
+        /// 分区数量节点
+        /// </summary>
+        [ConfigurationProperty("partitions.count", IsRequired = false)]
+        public NumericElement PartitionsCount
+        {
+            get { return (NumericElement)this["partitions.count"]; }
+            set { this["partitions.count"] = value; }
+        }
+        #endregion
     }
 }
