@@ -8,11 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="E:\Packages\nuget\cache\mysql.data.entityframework\8.0.26\contentFiles\any\net452\app.config.transform" />
-    <Content Remove="E:\Packages\nuget\cache\mysql.data.entityframework\8.0.26\contentFiles\any\net452\web.config.transform" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Reference Include="System.Transactions" />
   </ItemGroup>
 

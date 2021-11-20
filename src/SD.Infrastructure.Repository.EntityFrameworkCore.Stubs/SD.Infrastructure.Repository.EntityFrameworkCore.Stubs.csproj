@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
     <ProjectReference Include="..\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj" />
     <ProjectReference Include="..\SD.Infrastructure.Repository.EntityFrameworkCore\SD.Infrastructure.Repository.EntityFrameworkCore.csproj" />
-    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
   </ItemGroup>
 </Project>
