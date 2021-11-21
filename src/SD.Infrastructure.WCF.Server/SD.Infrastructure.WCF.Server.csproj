@@ -5,6 +5,7 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WCF服务端基础</Description>
     <Copyright>Copyright © SD 2021</Copyright>
+    <Version>2.0.0</Version>
     <AssemblyVersion>2.0.0</AssemblyVersion>
     <FileVersion>2.0.0.0</FileVersion>
   </PropertyGroup>
@@ -16,21 +17,18 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.WCF.Server.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <Compile Remove="InitializationBehaviorElement.cs" />
-  </ItemGroup>
-
   <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
     <Reference Include="System.Configuration" />
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+    <Compile Remove="InitializationBehaviorElement.cs" />
     <PackageReference Include="CoreWCF.Primitives" Version="0.1.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.0.5" />
+    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.0.6" />
   </ItemGroup>
 
   <ItemGroup>
