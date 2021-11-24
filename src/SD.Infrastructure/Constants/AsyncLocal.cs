@@ -7,7 +7,7 @@ namespace System.Threading
     /// 表示对于给定异步控制流（如异步方法）是本地数据的环境数据
     /// </summary>
     /// <typeparam name="T">环境数据的类型</typeparam>
-    public sealed class AsyncLocal<T>
+    internal sealed class AsyncLocal<T>
     {
         /// <summary>
         /// 同步锁
