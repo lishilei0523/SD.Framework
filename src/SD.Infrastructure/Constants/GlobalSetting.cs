@@ -21,12 +21,10 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         private static string _WriteConnectionString;
 
-#if !NET40 && !NET45
         /// <summary>
         /// SeesionId线程静态字段
         /// </summary>
         private static readonly AsyncLocal<Guid> _SessionId;
-#endif
 
         /// <summary>
         /// 静态构造器
@@ -35,9 +33,7 @@ namespace SD.Infrastructure.Constants
         {
             _ReadConnectionString = null;
             _WriteConnectionString = null;
-#if !NET40 && !NET45
             _SessionId = new AsyncLocal<Guid>();
-#endif
         }
 
         #endregion
@@ -89,7 +85,6 @@ namespace SD.Infrastructure.Constants
         #endregion
 
         #region # 当前SessionId —— static Guid CurrentSessionId
-#if !NET40 && !NET45
         /// <summary>
         /// 当前SessionId
         /// </summary>
@@ -105,11 +100,9 @@ namespace SD.Infrastructure.Constants
                 return _SessionId.Value;
             }
         }
-#endif
         #endregion
 
         #region # 置空当前SessionId —— static void FreeCurrentSessionId()
-#if !NET40 && !NET45
         /// <summary>
         /// 置空当前SessionId
         /// </summary>
@@ -117,11 +110,9 @@ namespace SD.Infrastructure.Constants
         {
             _SessionId.Value = default(Guid);
         }
-#endif
         #endregion
 
         #region # 初始化当前SessionId —— static void InitCurrentSessionId()
-#if !NET40 && !NET45
         /// <summary>
         /// 初始化当前SessionId
         /// </summary>
@@ -129,7 +120,6 @@ namespace SD.Infrastructure.Constants
         {
             _SessionId.Value = Guid.NewGuid();
         }
-#endif
         #endregion
 
         #region # 初始化数据文件夹 —— static void InitDataDirectory()
