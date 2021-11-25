@@ -10,15 +10,15 @@ using SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Base;
 namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Migrations
 {
     [DbContext(typeof(DbSession))]
-    [Migration("20210906090818_Initialization")]
+    [Migration("20211125133727_Initialization")]
     partial class Initialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("ProductVersion", "3.1.20")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.4")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Entities.User", b =>
@@ -51,8 +51,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Number")
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("OperatorAccount")
                         .HasColumnType("nvarchar(max)");
@@ -64,22 +64,27 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PrivateKey")
-                        .HasMaxLength(64)
-                        .HasColumnType("nvarchar(64)");
+                        .HasColumnType("nvarchar(64)")
+                        .HasMaxLength(64);
 
                     b.Property<DateTime>("SavedTime")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id")
+                        .HasAnnotation("SqlServer:Clustered", false);
+
+                    b.HasIndex("AddedTime")
+                        .HasName("IX_AddedTime")
+                        .HasAnnotation("SqlServer:Clustered", true);
 
                     b.HasIndex("Number")
                         .IsUnique()
-                        .HasDatabaseName("IX_Number")
+                        .HasName("IX_Number")
                         .HasFilter("[Number] IS NOT NULL");
 
                     b.HasIndex("PrivateKey")
                         .IsUnique()
-                        .HasDatabaseName("IX_PrivateKey")
+                        .HasName("IX_PrivateKey")
                         .HasFilter("[PrivateKey] IS NOT NULL");
 
                     b.ToTable("T_User");

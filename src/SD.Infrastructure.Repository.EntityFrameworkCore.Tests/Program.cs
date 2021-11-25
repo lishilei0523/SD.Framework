@@ -1,4 +1,5 @@
-﻿using SD.Infrastructure.Constants;
+﻿using Microsoft.EntityFrameworkCore;
+using SD.Infrastructure.Constants;
 using SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Base;
 using SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Entities;
 using System;
@@ -36,6 +37,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests
 
             using (DbSession dbSession = new DbSession())
             {
+                dbSession.Database.SetConnectionString("Data Source=.;Initial Catalog=EFCore.Test2;User Id=sa;Password=broadmall123!;MultipleActiveResultSets=true;");
                 User user = new User
                 {
                     PrivateKey = Guid.NewGuid().ToString(),

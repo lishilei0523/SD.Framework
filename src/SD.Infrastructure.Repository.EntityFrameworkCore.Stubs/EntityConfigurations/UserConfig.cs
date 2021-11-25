@@ -10,17 +10,21 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.EntityConfigura
     public class UserConfig : IEntityTypeConfiguration<User>
     {
         /// <summary>
-        /// 构造器
+        /// 配置
         /// </summary>
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            //配置属性
+            builder.HasKey(user => user.Id).IsClustered(false);
+
             //设置编号长度
             builder.Property(user => user.Number).HasMaxLength(20);
             builder.Property(user => user.PrivateKey).HasMaxLength(64);
 
             //设置索引
-            builder.HasIndex(user => user.Number).HasDatabaseName("IX_Number").IsUnique();
-            builder.HasIndex(user => user.PrivateKey).HasDatabaseName("IX_PrivateKey").IsUnique();
+            builder.HasIndex(user => user.AddedTime).IsUnique(false).IsClustered().Metadata.SetName("IX_AddedTime");
+            builder.HasIndex(user => user.Number).IsUnique().Metadata.SetName("IX_Number");
+            builder.HasIndex(user => user.PrivateKey).IsUnique().Metadata.SetName("IX_PrivateKey");
         }
     }
 }
