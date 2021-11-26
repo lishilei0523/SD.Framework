@@ -27,6 +27,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Migrations
                     b.Property<DateTime>("AddedTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<decimal?>("Age")
+                        .HasColumnType("decimal(10,3)");
+
                     b.Property<string>("CreatorAccount")
                         .HasColumnType("nvarchar(max)");
 

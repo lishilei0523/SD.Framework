@@ -25,6 +25,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Migrations
                     OperatorName = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
                     PrivateKey = table.Column<string>(maxLength: 64, nullable: true),
+                    Age = table.Column<decimal>(type: "decimal(10,3)", nullable: true),
                     Enabled = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>

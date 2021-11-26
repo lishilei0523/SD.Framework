@@ -10,7 +10,7 @@ using SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Base;
 namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Migrations
 {
     [DbContext(typeof(DbSession))]
-    [Migration("20211125133727_Initialization")]
+    [Migration("20211126121421_Initialization")]
     partial class Initialization
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,6 +28,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Migrations
 
                     b.Property<DateTime>("AddedTime")
                         .HasColumnType("datetime2");
+
+                    b.Property<decimal?>("Age")
+                        .HasColumnType("decimal(10,3)");
 
                     b.Property<string>("CreatorAccount")
                         .HasColumnType("nvarchar(max)");

@@ -21,6 +21,13 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Entities
         public string PrivateKey { get; set; }
         #endregion
 
+        #region 年龄 —— decimal? Age
+        /// <summary>
+        /// 年龄
+        /// </summary>
+        public decimal? Age { get; set; }
+        #endregion
+
         #region 是否启用 —— bool Enabled
         /// <summary>
         /// 是否启用
