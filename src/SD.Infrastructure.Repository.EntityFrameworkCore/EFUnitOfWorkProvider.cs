@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 using SD.Infrastructure.EntityBase;
-using SD.Infrastructure.MemberShip;
+using SD.Infrastructure.Membership;
 using SD.Infrastructure.Repository.EntityFrameworkCore.Base;
 using SD.Infrastructure.RepositoryBase;
 using System;
@@ -120,7 +120,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            entities = entities?.ToArray() ?? new T[0];
+            entities = entities?.ToArray() ?? Array.Empty<T>();
             if (!entities.Any())
             {
                 throw new ArgumentNullException(nameof(entities), $"要添加的{typeof(T).Name}实体对象列表不可为空！");
@@ -193,7 +193,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            entities = entities?.ToArray() ?? new T[0];
+            entities = entities?.ToArray() ?? Array.Empty<T>();
             if (!entities.Any())
             {
                 throw new ArgumentNullException(nameof(entities), $"要保存的{typeof(T).Name}实体对象列表不可为空！");
@@ -291,7 +291,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            ids = ids?.ToArray() ?? new Guid[0];
+            ids = ids?.ToArray() ?? Array.Empty<Guid>();
 
             if (!ids.Any())
             {
@@ -459,7 +459,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            Guid[] entityIds = ids?.ToArray() ?? new Guid[0];
+            Guid[] entityIds = ids?.ToArray() ?? Array.Empty<Guid>();
 
             if (!entityIds.Any())
             {

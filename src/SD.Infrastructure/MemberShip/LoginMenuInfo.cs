@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Runtime.Serialization;
 
-namespace SD.Infrastructure.MemberShip
+namespace SD.Infrastructure.Membership
 {
     /// <summary>
     /// 登录菜单信息
@@ -52,12 +52,6 @@ namespace SD.Infrastructure.MemberShip
         public string Name { get; set; }
 
         /// <summary>
-        /// 菜单排序
-        /// </summary>
-        [DataMember]
-        public int Sort { get; set; }
-
-        /// <summary>
         /// 菜单图标
         /// </summary>
         [DataMember]
@@ -74,6 +68,12 @@ namespace SD.Infrastructure.MemberShip
         /// </summary>
         [DataMember]
         public string Path { get; set; }
+
+        /// <summary>
+        /// 菜单排序
+        /// </summary>
+        [DataMember]
+        public int Sort { get; set; }
 
         /// <summary>
         /// 下级菜单列表

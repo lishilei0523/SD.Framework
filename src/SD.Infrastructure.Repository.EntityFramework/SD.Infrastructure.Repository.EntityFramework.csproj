@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net45;net461;netstandard2.1</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - 仓储基础 - EntityFramework实现</Description>
@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="SD.Toolkits.EntityFramework" Version="1.2.3" />
-    <PackageReference Include="SD.IOC.Core" Version="2.0.8" />
+    <PackageReference Include="SD.IOC.Core" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>

@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace SD.Infrastructure.MemberShip
+namespace SD.Infrastructure.Membership
 {
     /// <summary>
     /// 登录信息系统信息

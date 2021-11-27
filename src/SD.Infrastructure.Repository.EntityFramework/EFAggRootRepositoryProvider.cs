@@ -224,7 +224,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? new string[0];
             if (!numbers_.Any())
             {
                 return new Dictionary<string, T>();
@@ -250,7 +250,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? new string[0];
             if (!numbers_.Any())
             {
                 return new Dictionary<string, TSub>();

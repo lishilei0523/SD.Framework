@@ -191,7 +191,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
             if (!ids_.Any())
             {
                 return new Dictionary<Guid, T>();
@@ -217,7 +217,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
             if (!ids_.Any())
             {
                 return new Dictionary<Guid, TSub>();

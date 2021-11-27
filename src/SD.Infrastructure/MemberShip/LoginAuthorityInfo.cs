@@ -2,7 +2,7 @@
 using System;
 using System.Runtime.Serialization;
 
-namespace SD.Infrastructure.MemberShip
+namespace SD.Infrastructure.Membership
 {
     /// <summary>
     /// 登录权限信息
@@ -21,19 +21,15 @@ namespace SD.Infrastructure.MemberShip
         /// </summary>
         /// <param name="systemNo">信息系统编号</param>
         /// <param name="applicationType">应用程序类型</param>
-        /// <param name="authorityId">权限Id</param>
         /// <param name="authorityName">权限名称</param>
         /// <param name="authorityPath">权限路径</param>
-        /// <param name="englishName">英文名称</param>
-        public LoginAuthorityInfo(string systemNo, ApplicationType applicationType, Guid authorityId, string authorityName, string authorityPath, string englishName)
+        public LoginAuthorityInfo(string systemNo, ApplicationType applicationType, string authorityName, string authorityPath)
             : this()
         {
             this.SystemNo = systemNo;
             this.ApplicationType = applicationType;
-            this.Id = authorityId;
             this.Name = authorityName;
             this.Path = authorityPath;
-            this.EnglishName = englishName;
         }
 
 
@@ -50,12 +46,6 @@ namespace SD.Infrastructure.MemberShip
         public ApplicationType ApplicationType { get; set; }
 
         /// <summary>
-        /// 权限Id
-        /// </summary>
-        [DataMember]
-        public Guid Id { get; set; }
-
-        /// <summary>
         /// 权限名称
         /// </summary>
         [DataMember]
@@ -66,11 +56,5 @@ namespace SD.Infrastructure.MemberShip
         /// </summary>
         [DataMember]
         public string Path { get; set; }
-
-        /// <summary>
-        /// 英文名称
-        /// </summary>
-        [DataMember]
-        public string EnglishName { get; set; }
     }
 }

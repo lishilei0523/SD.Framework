@@ -58,9 +58,9 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
-    <PackageReference Include="SD.IOC.Core" Version="2.0.8" />
-    <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.0.5" />
-    <PackageReference Include="SD.IOC.Integration.AspNetMvc" Version="1.0.1" />
+    <PackageReference Include="SD.IOC.Core" Version="2.1.0" />
+    <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.1.0" />
+    <PackageReference Include="SD.IOC.Integration.AspNetMvc" Version="1.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -1,7 +1,7 @@
 ﻿using SD.Infrastructure.Global;
 using SD.IOC.Integration.WCF.Providers;
 using System.Collections.ObjectModel;
-#if NET46_OR_GREATER
+#if NET40_OR_GREATER
 using System.ServiceModel;
 using System.ServiceModel.Channels;
 using System.ServiceModel.Description;
