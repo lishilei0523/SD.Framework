@@ -712,12 +712,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
                 {
                     using (DbContextTransaction transaction = this._dbContext.Database.BeginTransaction())
                     {
+                        //保存修改
+                        this._dbContext.SaveChanges();
+
                         //执行SQL命令
                         string sqlCommands = this._sqlCommandBuilder.ToString();
                         this._dbContext.Database.ExecuteSqlCommand(sqlCommands);
-
-                        //保存修改
-                        this._dbContext.SaveChanges();
 
                         //提交事务
                         transaction.Commit();
@@ -752,12 +752,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
                 {
                     using (DbContextTransaction transaction = this._dbContext.Database.BeginTransaction())
                     {
+                        //保存修改
+                        await this._dbContext.SaveChangesAsync();
+
                         //执行SQL命令
                         string sqlCommands = this._sqlCommandBuilder.ToString();
                         await this._dbContext.Database.ExecuteSqlCommandAsync(sqlCommands);
-
-                        //保存修改
-                        await this._dbContext.SaveChangesAsync();
 
                         //提交事务
                         transaction.Commit();
