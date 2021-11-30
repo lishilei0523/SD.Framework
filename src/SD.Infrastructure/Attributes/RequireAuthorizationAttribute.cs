@@ -3,7 +3,7 @@
 namespace SD.Infrastructure.Attributes
 {
     /// <summary>
-    /// 需要权限验证特性类
+    /// 需权限验证特性
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]
@@ -12,29 +12,15 @@ namespace SD.Infrastructure.Attributes
         /// <summary>
         /// 构造器
         /// </summary>
-        /// <param name="authorityName">权限名称</param>
-        /// <param name="englishName">英文名称</param>
-        /// <param name="description">描述</param>
-        public RequireAuthorizationAttribute(string authorityName, string englishName = null, string description = null)
+        /// <param name="authorityPath">权限路径</param>
+        public RequireAuthorizationAttribute(string authorityPath)
         {
-            this.AuthorityName = authorityName;
-            this.EnglishName = englishName;
-            this.Description = description;
+            this.AuthorityPath = authorityPath;
         }
 
         /// <summary>
-        /// 权限名称
+        /// 权限路径
         /// </summary>
-        public string AuthorityName { get; private set; }
-
-        /// <summary>
-        /// 英文名称
-        /// </summary>
-        public string EnglishName { get; private set; }
-
-        /// <summary>
-        /// 描述
-        /// </summary>
-        public string Description { get; private set; }
+        public string AuthorityPath { get; set; }
     }
 }
