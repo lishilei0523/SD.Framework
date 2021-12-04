@@ -3,7 +3,7 @@
 namespace SD.Infrastructure.Attributes
 {
     /// <summary>
-    /// 需权限验证特性
+    /// 需授权特性
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = true)]

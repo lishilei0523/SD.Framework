@@ -23,14 +23,6 @@ namespace SD.Infrastructure.EventBase.Tests.EventHandlers
         }
 
         /// <summary>
-        /// 执行顺序，倒序排列
-        /// </summary>
-        public uint Sort
-        {
-            get { return uint.MaxValue; }
-        }
-
-        /// <summary>
         /// 领域事件处理方法
         /// </summary>
         /// <param name="eventSource">领域事件源</param>

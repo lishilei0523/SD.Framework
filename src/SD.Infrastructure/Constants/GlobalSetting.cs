@@ -102,6 +102,22 @@ namespace SD.Infrastructure.Constants
         }
         #endregion
 
+        #region # 分区数量 —— static int PartitionsCount
+        /// <summary>
+        /// 分区数量
+        /// </summary>
+        public static int PartitionsCount
+        {
+            get
+            {
+                int partitionsCount = FrameworkSection.Setting.PartitionsCount.Value.HasValue
+                    ? FrameworkSection.Setting.PartitionsCount.Value.Value
+                    : 1;
+                return partitionsCount;
+            }
+        }
+        #endregion
+
         #region # 置空当前SessionId —— static void FreeCurrentSessionId()
         /// <summary>
         /// 置空当前SessionId

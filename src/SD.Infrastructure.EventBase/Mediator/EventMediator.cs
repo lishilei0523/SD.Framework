@@ -2,7 +2,6 @@
 using SD.IOC.Core.Mediators;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 using System.Transactions;
@@ -64,7 +63,7 @@ namespace SD.Infrastructure.EventBase.Mediator
         public static void Handle<T>(T eventSource) where T : class, IEvent
         {
             //获取相应事件处理者实例集合
-            IEnumerable<IEventHandler<T>> eventHandlers = EventHandlerFactory.GetEventHandlersFor(eventSource).OrderByDescending(x => x.Sort);
+            IEnumerable<IEventHandler<T>> eventHandlers = EventHandlerFactory.GetEventHandlersFor(eventSource);
 
             //顺序处理事件
             foreach (IEventHandler<T> handler in eventHandlers)
@@ -83,7 +82,8 @@ namespace SD.Infrastructure.EventBase.Mediator
         public static void Handle(IEvent eventSource)
         {
             //获取相应事件处理者实例集合
-            IEnumerable<IEventHandler> eventHandlers = EventHandlerFactory.GetEventHandlersFor(eventSource.GetType()).OrderByDescending(x => x.Sort);
+            Type eventSourseType = eventSource.GetType();
+            IEnumerable<IEventHandler> eventHandlers = EventHandlerFactory.GetEventHandlersFor(eventSourseType);
 
             //顺序处理事件
             foreach (IEventHandler handler in eventHandlers)
