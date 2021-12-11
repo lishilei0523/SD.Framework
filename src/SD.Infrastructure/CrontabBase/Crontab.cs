@@ -10,8 +10,8 @@ namespace SD.Infrastructure.CrontabBase
     /// 定时任务基类
     /// </summary>
     [Serializable]
-    [KnownType("GetSubClassTypes")]
     [DataContract]
+    [KnownType(nameof(GetSubClassTypes))]
     public abstract class Crontab : ICrontab
     {
         #region # 构造器

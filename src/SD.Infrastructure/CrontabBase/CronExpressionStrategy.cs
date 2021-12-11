@@ -1,10 +1,12 @@
-﻿using System.Runtime.Serialization;
+﻿using System;
+using System.Runtime.Serialization;
 
 namespace SD.Infrastructure.CrontabBase
 {
     /// <summary>
     /// Cron表达式策略
     /// </summary>
+    [Serializable]
     [DataContract]
     public sealed class CronExpressionStrategy : ExecutionStrategy
     {

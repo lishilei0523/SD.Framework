@@ -6,6 +6,7 @@ namespace SD.Infrastructure.CrontabBase
     /// <summary>
     /// 循环策略
     /// </summary>
+    [Serializable]
     [DataContract]
     public sealed class RecurrenceStrategy : ExecutionStrategy
     {
@@ -39,7 +40,6 @@ namespace SD.Infrastructure.CrontabBase
         /// 循环时间间隔
         /// </summary>
         [DataMember]
-
         public TimeSpan RecurrenceTimeInterval { get; set; }
         #endregion 
 

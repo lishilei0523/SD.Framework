@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Infrastructure.CrontabBase.Mediator;
+using SD.Infrastructure.CrontabBase.Mediators;
 using SD.Infrastructure.CrontabBase.Tests.StubCrontabs;
 using SD.IOC.Core.Mediators;
 using SD.IOC.Extension.NetFx;

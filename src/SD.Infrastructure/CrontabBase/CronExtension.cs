@@ -7,10 +7,10 @@ namespace SD.Infrastructure.CrontabBase
     /// </summary>
     public static class CronExtension
     {
-        #region # DateTime转换Cron表达式扩展方法 —— static string ToCronExpression(this DateTime dateTime)
         /// <summary>
-        /// DateTime转换Cron表达式扩展方法
+        /// 日期时间转换Cron表达式
         /// </summary>
+        /// <param name="dateTime">日期时间</param>
         /// <returns>Cron表达式</returns>
         public static string ToCronExpression(this DateTime dateTime)
         {
@@ -18,6 +18,5 @@ namespace SD.Infrastructure.CrontabBase
 
             return cron;
         }
-        #endregion
     }
 }

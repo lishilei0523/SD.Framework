@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace SD.Infrastructure.CrontabBase.Mediator
+namespace SD.Infrastructure.CrontabBase.Mediators
 {
     /// <summary>
     /// 调度中介者

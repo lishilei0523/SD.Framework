@@ -6,6 +6,7 @@ namespace SD.Infrastructure.CrontabBase
     /// <summary>
     /// 固定时间策略
     /// </summary>
+    [Serializable]
     [DataContract]
     public sealed class FixedTimeStrategy : ExecutionStrategy
     {

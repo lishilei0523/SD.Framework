@@ -8,7 +8,7 @@ using System.Collections.Generic;
 namespace SD.Infrastructure.CrontabStoreProvider
 {
     /// <summary>
-    /// 领域事件存储 - Redis提供者
+    /// 定时任务存储 - Redis提供者
     /// </summary>
     public class RedisStoreProvider : ICrontabStore
     {
@@ -83,9 +83,9 @@ namespace SD.Infrastructure.CrontabStoreProvider
         }
         #endregion
 
-        #region # 清空任务 —— void Clear()
+        #region # 清空定时任务 —— void Clear()
         /// <summary>
-        /// 清空任务
+        /// 清空定时任务
         /// </summary>
         public void Clear()
         {

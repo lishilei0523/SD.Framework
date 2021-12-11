@@ -42,9 +42,9 @@ namespace SD.Infrastructure.CrontabBase
         void Remove(string crontabId);
         #endregion
 
-        #region # 清空任务 —— void Clear()
+        #region # 清空定时任务 —— void Clear()
         /// <summary>
-        /// 清空任务
+        /// 清空定时任务
         /// </summary>
         void Clear();
         #endregion
