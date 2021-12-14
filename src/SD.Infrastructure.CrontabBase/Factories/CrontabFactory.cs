@@ -7,6 +7,49 @@ namespace SD.Infrastructure.CrontabBase.Factories
     /// </summary>
     public static class CrontabFactory
     {
+        #region # 创建定时任务 —— static ICrontab CreateCrontab(Type crontabType...
+        /// <summary>
+        /// 创建定时任务
+        /// </summary>
+        /// <param name="crontabType">定时任务类型</param>
+        /// <param name="strategy">执行策略</param>
+        /// <returns>定时任务</returns>
+        public static ICrontab CreateCrontab(Type crontabType, ExecutionStrategy strategy)
+        {
+            #region # 验证
+
+            if (crontabType == null)
+            {
+                throw new ArgumentNullException(nameof(crontabType), "定时任务类型不可为空！");
+            }
+            if (strategy == null)
+            {
+                throw new ArgumentNullException(nameof(strategy), "执行策略不可为空！");
+            }
+            if (!typeof(ICrontab).IsAssignableFrom(crontabType))
+            {
+                throw new ArgumentOutOfRangeException(nameof(crontabType), "给定类型不是定时任务类型！");
+            }
+
+            #endregion
+
+            object instance = Activator.CreateInstance(crontabType, strategy);
+
+            #region # 验证
+
+            if (instance == null)
+            {
+                throw new NullReferenceException("给定类型的定时任务不存在！");
+            }
+
+            #endregion
+
+            ICrontab crontab = (ICrontab)instance;
+
+            return crontab;
+        }
+        #endregion
+
         #region # 创建定时任务 —— static ICrontab CreateCrontab(string assemblyName...
         /// <summary>
         /// 创建定时任务

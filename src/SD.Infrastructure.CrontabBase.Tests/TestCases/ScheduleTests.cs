@@ -55,6 +55,17 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
 
         #endregion
 
+        #region # 测试配置调度 —— void TestCrontabConfiguration()
+        /// <summary>
+        /// 测试配置调度
+        /// </summary>
+        [TestMethod]
+        public void TestCrontabConfiguration()
+        {
+            ScheduleMediator.Schedule<RecurrenceCrontab>();
+        }
+        #endregion
+
         #region # 测试调度时间点 —— void TestScheduleTimePoint()
         /// <summary>
         /// 测试调度时间点

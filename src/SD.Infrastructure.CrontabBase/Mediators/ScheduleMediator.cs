@@ -1,5 +1,6 @@
 ﻿using Quartz;
 using Quartz.Impl;
+using SD.Infrastructure.CrontabBase.Constants;
 using SD.Infrastructure.CrontabBase.Factories;
 using SD.IOC.Core.Mediators;
 using System;
@@ -49,6 +50,70 @@ namespace SD.Infrastructure.CrontabBase.Mediators
                 }
 
                 crontabStore.Store(crontab);
+            }
+        }
+        #endregion
+
+        #region # 调度任务 —— static void Schedule<T>()
+        /// <summary>
+        /// 调度任务
+        /// </summary>
+        /// <typeparam name="T">任务类型</typeparam>
+        public static void Schedule<T>() where T : class, ICrontab
+        {
+            //调度任务
+            Type crontabType = typeof(T);
+
+            #region # 验证
+
+            if (!CrontabSetting.CrontabStrategies.ContainsKey(crontabType.Name))
+            {
+                throw new InvalidOperationException($"没有为定时任务\"{crontabType.Name}\"配置执行策略");
+            }
+
+            #endregion
+
+            ExecutionStrategy executionStrategy = CrontabSetting.CrontabStrategies[crontabType.Name];
+            ICrontab crontab = CrontabFactory.CreateCrontab(crontabType, executionStrategy);
+
+            IEnumerable<ICrontabExecutor> crontabExecutors = CrontabExecutorFactory.GetCrontabExecutorsFor(crontabType);
+            foreach (ICrontabExecutor crontabExecutor in crontabExecutors)
+            {
+                JobKey jobKey = new JobKey(crontab.Id);
+
+                if (!_Scheduler.CheckExists(jobKey).Result)
+                {
+                    Type jobType = crontabExecutor.GetType();
+                    JobBuilder jobBuilder = JobBuilder.Create(jobType);
+
+                    //设置任务数据
+                    IDictionary<string, object> dictionary = new Dictionary<string, object>();
+                    dictionary.Add(crontab.Id, crontab);
+                    jobBuilder.SetJobData(new JobDataMap(dictionary));
+
+                    //创建任务明细
+                    IJobDetail jobDetail = jobBuilder.WithIdentity(jobKey).Build();
+
+                    //创建触发器
+                    ITrigger trigger = GetTrigger(crontab.ExecutionStrategy);
+
+                    //为调度者添加任务明细与触发器
+                    _Scheduler.ScheduleJob(jobDetail, trigger).Wait();
+
+                    //开始调度
+                    _Scheduler.Start().Wait();
+                }
+                else
+                {
+                    _Scheduler.ResumeJob(jobKey).Wait();
+                }
+            }
+
+            //保存任务
+            using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
+            {
+                crontab.Status = CrontabStatus.Scheduled;
+                crontabStore?.Store(crontab);
             }
         }
         #endregion

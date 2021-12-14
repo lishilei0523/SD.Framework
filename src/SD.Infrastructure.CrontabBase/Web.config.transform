@@ -1,0 +1,14 @@
+﻿<configuration>
+  <configSections>
+    <!--SD.Framework定时任务配置节点-->
+    <section name="sd.framework.crontab" type="SD.Infrastructure.CrontabSection, SD.Infrastructure.CrontabBase"/>
+  </configSections>
+
+  <!--SD.Framework定时任务配置-->
+  <sd.framework.crontab>
+    <!--定时任务列表-->
+    <crontabs>
+      <crontab type="" strategyType="" strategy="" />
+    </crontabs>
+  </sd.framework.crontab>
+</configuration>
