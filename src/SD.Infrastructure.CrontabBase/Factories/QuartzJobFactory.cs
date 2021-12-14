@@ -10,6 +10,7 @@ namespace SD.Infrastructure.CrontabBase.Factories
     /// </summary>
     internal sealed class QuartzJobFactory : IJobFactory
     {
+        #region # 创建Quartz任务 —— IJob NewJob(TriggerFiredBundle bundle...
         /// <summary>
         /// 创建Quartz任务
         /// </summary>
@@ -20,7 +21,9 @@ namespace SD.Infrastructure.CrontabBase.Factories
 
             return job;
         }
+        #endregion
 
+        #region # 清理Quartz任务 —— void ReturnJob(IJob job)
         /// <summary>
         /// 清理Quartz任务
         /// </summary>
@@ -28,5 +31,6 @@ namespace SD.Infrastructure.CrontabBase.Factories
         {
             ResolveMediator.Dispose();
         }
+        #endregion
     }
 }

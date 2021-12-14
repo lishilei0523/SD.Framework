@@ -48,7 +48,6 @@ namespace SD.Infrastructure.CrontabBase.Mediators
                 {
                     throw new NotImplementedException("未注册持久化存储提供者！");
                 }
-
                 crontabStore.Store(crontab);
             }
         }
@@ -59,6 +58,7 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         /// 调度任务
         /// </summary>
         /// <typeparam name="T">任务类型</typeparam>
+        /// <remarks>适用于没有参数，只有策略的任务</remarks>
         public static void Schedule<T>() where T : class, ICrontab
         {
             //调度任务
@@ -80,7 +80,6 @@ namespace SD.Infrastructure.CrontabBase.Mediators
             foreach (ICrontabExecutor crontabExecutor in crontabExecutors)
             {
                 JobKey jobKey = new JobKey(crontab.Id);
-
                 if (!_Scheduler.CheckExists(jobKey).Result)
                 {
                     Type jobType = crontabExecutor.GetType();
@@ -140,7 +139,6 @@ namespace SD.Infrastructure.CrontabBase.Mediators
             foreach (ICrontabExecutor crontabExecutor in crontabExecutors)
             {
                 JobKey jobKey = new JobKey(crontab.Id);
-
                 if (!_Scheduler.CheckExists(jobKey).Result)
                 {
                     Type jobType = crontabExecutor.GetType();
@@ -200,7 +198,6 @@ namespace SD.Infrastructure.CrontabBase.Mediators
             foreach (ICrontabExecutor<T> scheduler in crontabSchedulers)
             {
                 JobKey jobKey = new JobKey(crontab.Id);
-
                 if (!_Scheduler.CheckExists(jobKey).Result)
                 {
                     Type jobType = scheduler.GetType();
@@ -246,7 +243,6 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         public static void Pause(string crontabId)
         {
             JobKey jobKey = new JobKey(crontabId);
-
             if (_Scheduler.CheckExists(jobKey).Result)
             {
                 _Scheduler.PauseJob(jobKey).Wait();
@@ -277,7 +273,6 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         public static void Resume(string crontabId)
         {
             JobKey jobKey = new JobKey(crontabId);
-
             if (_Scheduler.CheckExists(jobKey).Result)
             {
                 _Scheduler.ResumeJob(jobKey).Wait();
@@ -291,7 +286,7 @@ namespace SD.Infrastructure.CrontabBase.Mediators
                         ICrontab crontab = crontabStore.Get<ICrontab>(crontabId);
                         if (crontab != null)
                         {
-                            ScheduleMediator.Schedule(crontab);
+                            Schedule(crontab);
                         }
                         else
                         {
@@ -322,7 +317,6 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         public static void Remove<T>(T crontab) where T : class, ICrontab
         {
             JobKey jobKey = new JobKey(crontab.Id);
-
             if (_Scheduler.CheckExists(jobKey).Result)
             {
                 _Scheduler.DeleteJob(jobKey).Wait();
@@ -343,7 +337,6 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         public static void Remove(string crontabId)
         {
             JobKey jobKey = new JobKey(crontabId);
-
             if (_Scheduler.CheckExists(jobKey).Result)
             {
                 _Scheduler.DeleteJob(jobKey).Wait();
@@ -372,10 +365,9 @@ namespace SD.Infrastructure.CrontabBase.Mediators
 
                 IList<ICrontab> crontabs = crontabStore.FindAll();
                 IEnumerable<ICrontab> scheduledCrontabs = crontabs.Where(x => x.Status == CrontabStatus.Scheduled);
-
                 foreach (ICrontab crontab in scheduledCrontabs)
                 {
-                    ScheduleMediator.Schedule(crontab);
+                    Schedule(crontab);
                 }
             }
         }

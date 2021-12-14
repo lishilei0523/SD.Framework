@@ -18,7 +18,7 @@ namespace SD.Infrastructure.CrontabBase
         /// <summary>
         /// 日志附着器
         /// </summary>
-        protected StringBuilder _logAppender;
+        protected readonly StringBuilder _logAppender;
 
         /// <summary>
         /// 无参构造器
