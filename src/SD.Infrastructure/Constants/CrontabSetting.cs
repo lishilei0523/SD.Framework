@@ -1,6 +1,7 @@
 ﻿using SD.Infrastructure.Configurations;
 using SD.Infrastructure.CrontabBase;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 
 namespace SD.Infrastructure.Constants
@@ -13,7 +14,17 @@ namespace SD.Infrastructure.Constants
         #region # 字段及构造器
 
         /// <summary>
-        /// 定时任务策略字典
+        /// 定时任务账号
+        /// </summary>
+        private static readonly string _CrontabLoginId;
+
+        /// <summary>
+        /// 定时任务密码
+        /// </summary>
+        private static readonly string _CrontabPassword;
+
+        /// <summary>
+        /// 执行策略字典
         /// </summary>
         private static readonly IDictionary<string, ExecutionStrategy> _CrontabStrategies;
 
@@ -22,7 +33,9 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         static CrontabSetting()
         {
-            _CrontabStrategies = new Dictionary<string, ExecutionStrategy>();
+            _CrontabLoginId = FrameworkSection.Setting.CrontabElements.LoginId;
+            _CrontabPassword = FrameworkSection.Setting.CrontabElements.Password;
+            _CrontabStrategies = new ConcurrentDictionary<string, ExecutionStrategy>();
             foreach (CrontabElement element in FrameworkSection.Setting.CrontabElements)
             {
                 ExecutionStrategy strategy = GetExecutionStrategy(element.StrategyType, element.Strategy);
@@ -30,6 +43,26 @@ namespace SD.Infrastructure.Constants
             }
         }
 
+        #endregion
+
+        #region # 定时任务账号 —— static string CrontabLoginId
+        /// <summary>
+        /// 定时任务账号
+        /// </summary>
+        public static string CrontabLoginId
+        {
+            get { return _CrontabLoginId; }
+        }
+        #endregion
+
+        #region # 定时任务密码 —— static string CrontabPassword
+        /// <summary>
+        /// 定时任务密码
+        /// </summary>
+        public static string CrontabPassword
+        {
+            get { return _CrontabPassword; }
+        }
         #endregion
 
         #region # 执行策略字典 —— static IDictionary<string, ExecutionStrategy> CrontabStrategies

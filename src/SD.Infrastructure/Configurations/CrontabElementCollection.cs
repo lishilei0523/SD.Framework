@@ -8,6 +8,26 @@ namespace SD.Infrastructure.Configurations
     public class CrontabElementCollection : ConfigurationElementCollection
     {
         /// <summary>
+        /// 账号
+        /// </summary>
+        [ConfigurationProperty("loginId", IsRequired = false)]
+        public string LoginId
+        {
+            get { return (string)this["loginId"]; }
+            set { this["loginId"] = value; }
+        }
+
+        /// <summary>
+        /// 密码
+        /// </summary>
+        [ConfigurationProperty("password", IsRequired = false)]
+        public string Password
+        {
+            get { return (string)this["password"]; }
+            set { this["password"] = value; }
+        }
+
+        /// <summary>
         /// 创建新配置节点
         /// </summary>
         /// <returns></returns>

@@ -54,7 +54,7 @@
     <!--分区数量-->
     <partitions.count>1</partitions.count>
     <!--定时任务列表-->
-    <crontabs>
+    <crontabs loginId="" password="">
       <crontab type="" strategyType="" strategy="" />
     </crontabs>
   </sd.framework>

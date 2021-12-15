@@ -15,6 +15,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         [TestMethod]
         public void TestConfigurations()
         {
+            Trace.WriteLine(FrameworkSection.Setting.CrontabElements.LoginId);
+            Trace.WriteLine(FrameworkSection.Setting.CrontabElements.Password);
             foreach (CrontabElement element in FrameworkSection.Setting.CrontabElements)
             {
                 Trace.WriteLine(element.Type);
@@ -26,6 +28,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         [TestMethod]
         public void TestCrontabSetting()
         {
+            Trace.WriteLine(CrontabSetting.CrontabLoginId);
+            Trace.WriteLine(CrontabSetting.CrontabPassword);
             foreach (KeyValuePair<string, ExecutionStrategy> kv in CrontabSetting.CrontabStrategies)
             {
                 Trace.WriteLine(kv.Key);
