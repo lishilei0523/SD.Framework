@@ -80,7 +80,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             Assert.IsTrue(alarmCrontab.Count == 0);
             Assert.IsFalse(alarmCrontab.Rung);
 
-            ScheduleMediator.Schedule(alarmCrontab);
+            ScheduleMediator.Schedule(alarmCrontab, 0);
 
             //线程睡眠
             Thread.Sleep(5000);
@@ -104,7 +104,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
-            ScheduleMediator.Schedule(showTimeCrontab);
+            ScheduleMediator.Schedule(showTimeCrontab, 0);
 
             //线程睡眠
             Thread.Sleep(5000);
@@ -127,7 +127,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
-            ScheduleMediator.Schedule(showTimeCrontab);
+            ScheduleMediator.Schedule(showTimeCrontab, 0);
 
             //线程睡眠
             Thread.Sleep(5000);
@@ -158,7 +158,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
-            ScheduleMediator.Schedule(showTimeCrontab);
+            ScheduleMediator.Schedule(showTimeCrontab, 0);
 
             //线程睡眠
             Thread.Sleep(5000);
@@ -197,7 +197,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
 
             Assert.IsTrue(showTimeCrontab.Count == 0);
 
-            ScheduleMediator.Schedule(showTimeCrontab);
+            ScheduleMediator.Schedule(showTimeCrontab, 0);
 
             //线程睡眠
             Thread.Sleep(5100);
@@ -228,8 +228,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Hello World !", recurrenceStrategy);
             AlarmCrontab alarmCrontab = new AlarmCrontab("Hello World !", cronExpressionStrategy);
 
-            ScheduleMediator.Schedule(showTimeCrontab);
-            ScheduleMediator.Schedule(alarmCrontab);
+            ScheduleMediator.Schedule(showTimeCrontab, 0);
+            ScheduleMediator.Schedule(alarmCrontab, 0);
 
             IList<ICrontab> crontabs = ScheduleMediator.FindAll();
 
@@ -264,7 +264,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             TimeSpan timeSpan = new TimeSpan(0, 0, 2);
             RecurrenceStrategy recurrenceStrategy = new RecurrenceStrategy(timeSpan);
             ShowTimeCrontab showTimeCrontab = new ShowTimeCrontab("Exception", recurrenceStrategy);
-            ScheduleMediator.Schedule(showTimeCrontab);
+            ScheduleMediator.Schedule(showTimeCrontab, 0);
 
             //线程睡眠
             Thread.Sleep(5100);

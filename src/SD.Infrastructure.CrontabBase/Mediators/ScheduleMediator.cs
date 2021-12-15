@@ -53,13 +53,14 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         }
         #endregion
 
-        #region # 调度任务 —— static void Schedule<T>()
+        #region # 调度任务 —— static void Schedule<T>(...
         /// <summary>
         /// 调度任务
         /// </summary>
         /// <typeparam name="T">任务类型</typeparam>
+        /// <param name="delay">延迟时间(毫秒)</param>
         /// <remarks>适用于没有参数，只有策略的任务</remarks>
-        public static void Schedule<T>() where T : class, ICrontab
+        public static void Schedule<T>(int delay = 1000) where T : class, ICrontab
         {
             //调度任务
             Type crontabType = typeof(T);
@@ -100,7 +101,7 @@ namespace SD.Infrastructure.CrontabBase.Mediators
                     _Scheduler.ScheduleJob(jobDetail, trigger).Wait();
 
                     //开始调度
-                    _Scheduler.Start().Wait();
+                    _Scheduler.StartDelayed(TimeSpan.FromMilliseconds(delay)).Wait();
                 }
                 else
                 {
@@ -117,12 +118,13 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         }
         #endregion
 
-        #region # 调度任务 —— static void Schedule(ICrontab crontab)
+        #region # 调度任务 —— static void Schedule(ICrontab crontab...
         /// <summary>
         /// 调度任务
         /// </summary>
         /// <param name="crontab">定时任务</param>
-        public static void Schedule(ICrontab crontab)
+        /// <param name="delay">延迟时间(毫秒)</param>
+        public static void Schedule(ICrontab crontab, int delay = 1000)
         {
             #region # 验证
 
@@ -159,7 +161,7 @@ namespace SD.Infrastructure.CrontabBase.Mediators
                     _Scheduler.ScheduleJob(jobDetail, trigger).Wait();
 
                     //开始调度
-                    _Scheduler.Start().Wait();
+                    _Scheduler.StartDelayed(TimeSpan.FromMilliseconds(delay)).Wait();
                 }
                 else
                 {
@@ -176,13 +178,14 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         }
         #endregion
 
-        #region # 调度任务 —— static void ScheduleGenerally<T>(T crontab)
+        #region # 调度任务 —— static void ScheduleGenerally<T>(T crontab...
         /// <summary>
         /// 调度任务
         /// </summary>
         /// <typeparam name="T">定时任务类型</typeparam>
         /// <param name="crontab">定时任务</param>
-        public static void ScheduleGenerally<T>(T crontab) where T : class, ICrontab
+        /// <param name="delay">延迟时间(毫秒)</param>
+        public static void ScheduleGenerally<T>(T crontab, int delay = 1000) where T : class, ICrontab
         {
             #region # 验证
 
@@ -218,7 +221,7 @@ namespace SD.Infrastructure.CrontabBase.Mediators
                     _Scheduler.ScheduleJob(jobDetail, trigger).Wait();
 
                     //开始调度
-                    _Scheduler.Start().Wait();
+                    _Scheduler.StartDelayed(TimeSpan.FromMilliseconds(delay)).Wait();
                 }
                 else
                 {
