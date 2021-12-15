@@ -1,5 +1,6 @@
 ﻿using Quartz;
 using Quartz.Spi;
+using SD.Infrastructure.Global;
 using SD.IOC.Core.Mediators;
 using System;
 
@@ -29,6 +30,10 @@ namespace SD.Infrastructure.CrontabBase.Factories
         /// </summary>
         public void ReturnJob(IJob job)
         {
+            //清理数据库
+            Finalizer.CleanDb();
+
+            //清理依赖注入范围容器
             ResolveMediator.Dispose();
         }
         #endregion
