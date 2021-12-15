@@ -1,7 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Infrastructure.CrontabBase.Configurations;
-using SD.Infrastructure.CrontabBase.Constants;
-using System;
+using SD.Infrastructure.Configurations;
+using SD.Infrastructure.Constants;
 using System.Collections.Generic;
 using System.Diagnostics;
 
@@ -16,10 +15,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         [TestMethod]
         public void TestConfigurations()
         {
-            Type type = typeof(DateTime);
-            Trace.WriteLine(type.Name);
-
-            foreach (CrontabElement element in CrontabSection.Setting.CrontabElements)
+            foreach (CrontabElement element in FrameworkSection.Setting.CrontabElements)
             {
                 Trace.WriteLine(element.Type);
                 Trace.WriteLine(element.StrategyType);

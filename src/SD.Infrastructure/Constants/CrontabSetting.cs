@@ -1,8 +1,9 @@
-﻿using SD.Infrastructure.CrontabBase.Configurations;
+﻿using SD.Infrastructure.Configurations;
+using SD.Infrastructure.CrontabBase;
 using System;
 using System.Collections.Generic;
 
-namespace SD.Infrastructure.CrontabBase.Constants
+namespace SD.Infrastructure.Constants
 {
     /// <summary>
     /// 定时任务设置
@@ -22,7 +23,7 @@ namespace SD.Infrastructure.CrontabBase.Constants
         static CrontabSetting()
         {
             _CrontabStrategies = new Dictionary<string, ExecutionStrategy>();
-            foreach (CrontabElement element in CrontabSection.Setting.CrontabElements)
+            foreach (CrontabElement element in FrameworkSection.Setting.CrontabElements)
             {
                 ExecutionStrategy strategy = GetExecutionStrategy(element.StrategyType, element.Strategy);
                 _CrontabStrategies.Add(element.Type, strategy);

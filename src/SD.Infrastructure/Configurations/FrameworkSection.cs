@@ -336,5 +336,22 @@ namespace SD.Infrastructure
             set { this["partitions.count"] = value; }
         }
         #endregion
+
+        #region # 定时任务节点列表 —— CrontabElementCollection CrontabElements
+        /// <summary>
+        /// 定时任务节点列表
+        /// </summary>
+        [ConfigurationProperty("crontabs")]
+        [ConfigurationCollection(typeof(CrontabElementCollection), AddItemName = "crontab")]
+        public CrontabElementCollection CrontabElements
+        {
+            get
+            {
+                CrontabElementCollection collection = this["crontabs"] as CrontabElementCollection;
+                return collection ?? new CrontabElementCollection();
+            }
+            set { this["crontabs"] = value; }
+        }
+        #endregion
     }
 }

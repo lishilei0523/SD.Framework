@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace SD.Infrastructure.CrontabBase.Configurations
+namespace SD.Infrastructure.Configurations
 {
     /// <summary>
     /// 定时任务节点集合

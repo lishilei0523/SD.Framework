@@ -45,11 +45,17 @@
     <message.service>消息服务地址</message.service>
     <!--OPC服务-->
     <opc.service>OPC服务地址</opc.service>
+    <!--定时任务服务-->
+    <crontab.service>定时任务服务地址</crontab.service>
     <!--身份过期时间，单位：分钟，默认值：20-->
     <authentication.timeout>20</authentication.timeout>
     <!--授权是否启用，默认值：false-->
     <authorization.enabled>false</authorization.enabled>
     <!--分区数量-->
     <partitions.count>1</partitions.count>
+    <!--定时任务列表-->
+    <crontabs>
+      <crontab type="" strategyType="" strategy="" />
+    </crontabs>
   </sd.framework>
 </configuration>

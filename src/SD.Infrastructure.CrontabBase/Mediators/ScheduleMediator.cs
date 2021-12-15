@@ -1,6 +1,6 @@
 ﻿using Quartz;
 using Quartz.Impl;
-using SD.Infrastructure.CrontabBase.Constants;
+using SD.Infrastructure.Constants;
 using SD.Infrastructure.CrontabBase.Factories;
 using SD.IOC.Core.Mediators;
 using System;
