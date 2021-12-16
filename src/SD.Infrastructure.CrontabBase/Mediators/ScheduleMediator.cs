@@ -27,7 +27,7 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         static ScheduleMediator()
         {
             _Scheduler = StdSchedulerFactory.GetDefaultScheduler().Result;
-            _Scheduler.JobFactory = new QuartzJobFactory();
+            _Scheduler.JobFactory = QuartzJobFactory.Instance;
         }
 
         #endregion
