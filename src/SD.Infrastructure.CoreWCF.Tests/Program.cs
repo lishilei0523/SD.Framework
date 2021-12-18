@@ -9,7 +9,7 @@ namespace SD.Infrastructure.WCF.Tests
     {
         public static void Main(string[] args)
         {
-            IHostBuilder hostBuilder = Microsoft.Extensions.Hosting.Host.CreateDefaultBuilder();
+            IHostBuilder hostBuilder = Host.CreateDefaultBuilder();
 
             //WebHost配置
             hostBuilder.ConfigureWebHostDefaults(webBuilder =>

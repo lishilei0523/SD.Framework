@@ -17,7 +17,7 @@ namespace SD.Infrastructure.WPF.Converters
         /// <summary>
         /// 布尔值描述列表字段
         /// </summary>
-        private IList<TextBlock> _valueDescriptions;
+        private readonly IList<TextBlock> _valueDescriptions;
 
         /// <summary>
         /// 布尔值描述列表
@@ -62,7 +62,7 @@ namespace SD.Infrastructure.WPF.Converters
             return this._valueDescriptions[0].Text;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException();
         }

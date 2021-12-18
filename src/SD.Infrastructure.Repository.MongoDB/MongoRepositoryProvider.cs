@@ -109,7 +109,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            entities = entities?.ToArray() ?? new T[0];
+            entities = entities?.ToArray() ?? Array.Empty<T>();
             if (!entities.Any())
             {
                 throw new ArgumentNullException(nameof(entities), $"要添加的{typeof(T).Name}实体对象列表不可为空！");
@@ -157,7 +157,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            entities = entities?.ToArray() ?? new T[0];
+            entities = entities?.ToArray() ?? Array.Empty<T>();
             if (!entities.Any())
             {
                 throw new ArgumentNullException(nameof(entities), $"要保存的{typeof(T).Name}实体对象列表不可为空！");
@@ -215,7 +215,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
             if (!ids_.Any())
             {
                 throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的id集合不可为空！");
@@ -237,7 +237,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? new string[0];
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
             if (!numbers_.Any())
             {
                 throw new ArgumentNullException(nameof(numbers), $"要删除的{typeof(T).Name}的编号集合不可为空！");
@@ -579,7 +579,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
             if (!ids_.Any())
             {
                 return new Dictionary<Guid, T>();
@@ -603,7 +603,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? new Guid[0];
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
             if (!ids_.Any())
             {
                 return new Dictionary<Guid, TSub>();
@@ -627,7 +627,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? new string[0];
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
             if (!numbers_.Any())
             {
                 return new Dictionary<string, T>();
@@ -651,7 +651,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? new string[0];
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
             if (!numbers_.Any())
             {
                 return new Dictionary<string, TSub>();
