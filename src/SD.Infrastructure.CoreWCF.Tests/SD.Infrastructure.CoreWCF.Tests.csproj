@@ -30,10 +30,10 @@
 
   <ItemGroup>
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.7.0" />
-    <PackageReference Include="CoreWCF.Primitives" Version="0.3.2" />
-    <PackageReference Include="CoreWCF.Http" Version="0.3.2" />
-    <PackageReference Include="CoreWCF.NetTcp" Version="0.3.2" />
-    <PackageReference Include="CoreWCF.ConfigurationManager" Version="0.3.2">
+    <PackageReference Include="CoreWCF.Primitives" Version="0.4.0" />
+    <PackageReference Include="CoreWCF.Http" Version="0.4.0" />
+    <PackageReference Include="CoreWCF.NetTcp" Version="0.4.0" />
+    <PackageReference Include="CoreWCF.ConfigurationManager" Version="0.4.0">
       <ExcludeAssets>contentFiles</ExcludeAssets>
     </PackageReference>
     <PackageReference Include="SD.Toolkits.AspNet" Version="1.1.1" />
