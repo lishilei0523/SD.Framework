@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SD.Infrastructure.Configurations;
 using SD.Infrastructure.Constants;
 using SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Base;
 using SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Entities;
@@ -17,23 +18,42 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests
 
             Console.WriteLine(setting.ApplicationName.Value);
             Console.WriteLine(setting.ApplicationVersion.Value);
+
             Console.WriteLine(setting.ServiceName.Value);
             Console.WriteLine(setting.ServiceDisplayName.Value);
             Console.WriteLine(setting.ServiceDescription.Value);
+
             Console.WriteLine(setting.DatabaseReadConnectionName.Value);
             Console.WriteLine(setting.DatabaseWriteConnectionName.Value);
+            Console.WriteLine(setting.DatabasePartitionsCount.Value);
+
             Console.WriteLine(setting.EntityAssembly.Value);
             Console.WriteLine(setting.EntityConfigAssembly.Value);
             Console.WriteLine(setting.EntityTablePrefix.Value);
-            Console.WriteLine(setting.EventSourceAssembly.Value);
-            Console.WriteLine(setting.CrontabAssembly.Value);
+
             Console.WriteLine(setting.WorkflowAssembly.Value);
             Console.WriteLine(setting.WorkflowConnectionName.Value);
             Console.WriteLine(setting.WorkflowPersistenceMode.Value);
             Console.WriteLine(setting.WorkflowMaxInstanceLockedRetriesCount.Value);
-            Console.WriteLine(setting.WindowsUpdateService.Value);
+
             Console.WriteLine(setting.AuthenticationTimeout.Value);
             Console.WriteLine(setting.AuthorizationEnabled.Value);
+
+            Console.WriteLine(setting.CrontabAssembly.Value);
+            Console.WriteLine(setting.CrontabAccountLoginId.Value);
+            Console.WriteLine(setting.CrontabAccountPassword.Value);
+            foreach (CrontabStrategyElement element in setting.CrontabStrategyElements)
+            {
+                Console.WriteLine(element.Type);
+                Console.WriteLine(element.StrategyType);
+                Console.WriteLine(element.Strategy);
+            }
+
+            Console.WriteLine(setting.AutoUpdateService.Value);
+            Console.WriteLine(setting.FileService.Value);
+            Console.WriteLine(setting.MessageService.Value);
+            Console.WriteLine(setting.OpcService.Value);
+            Console.WriteLine(setting.CrontabService.Value);
 
             using (DbSession dbSession = new DbSession())
             {

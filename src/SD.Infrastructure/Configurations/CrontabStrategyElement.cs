@@ -3,9 +3,9 @@
 namespace SD.Infrastructure.Configurations
 {
     /// <summary>
-    /// 定时任务节点
+    /// 定时任务策略节点
     /// </summary>
-    public class CrontabElement : ConfigurationElement
+    public class CrontabStrategyElement : ConfigurationElement
     {
         #region # 定时任务类型 —— string Type
         /// <summary>

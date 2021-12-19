@@ -9,7 +9,7 @@ namespace SD.Infrastructure.Constants
     /// </summary>
     public static class GlobalSetting
     {
-        #region # 字段及静态构造器
+        #region # 字段及构造器
 
         /// <summary>
         /// 读连接字符串
@@ -37,6 +37,9 @@ namespace SD.Infrastructure.Constants
         }
 
         #endregion
+
+
+        //属性
 
         #region # 读连接字符串 —— static string ReadConnectionString
         /// <summary>
@@ -110,13 +113,16 @@ namespace SD.Infrastructure.Constants
         {
             get
             {
-                int partitionsCount = FrameworkSection.Setting.PartitionsCount.Value.HasValue
-                    ? FrameworkSection.Setting.PartitionsCount.Value.Value
+                int partitionsCount = FrameworkSection.Setting.DatabasePartitionsCount.Value.HasValue
+                    ? FrameworkSection.Setting.DatabasePartitionsCount.Value.Value
                     : 1;
                 return partitionsCount;
             }
         }
         #endregion
+
+
+        //方法
 
         #region # 置空当前SessionId —— static void FreeCurrentSessionId()
         /// <summary>

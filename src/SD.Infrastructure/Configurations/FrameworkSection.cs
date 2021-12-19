@@ -133,6 +133,18 @@ namespace SD.Infrastructure
         }
         #endregion
 
+        #region # 数据库分区数量节点 —— NumericElement DatabasePartitionsCount
+        /// <summary>
+        /// 数据库分区数量节点
+        /// </summary>
+        [ConfigurationProperty("database.partitions.count", IsRequired = false)]
+        public NumericElement DatabasePartitionsCount
+        {
+            get { return (NumericElement)this["database.partitions.count"]; }
+            set { this["database.partitions.count"] = value; }
+        }
+        #endregion
+
         #region # 实体所在程序集节点 —— TextElement EntityAssembly
         /// <summary>
         /// 实体所在程序集节点
@@ -166,30 +178,6 @@ namespace SD.Infrastructure
         {
             get { return (TextElement)this["entity.tablePrefix"]; }
             set { this["entity.tablePrefix"] = value; }
-        }
-        #endregion
-
-        #region # 领域事件源所在程序集节点 —— TextElement EventSourceAssembly
-        /// <summary>
-        /// 领域事件源所在程序集节点
-        /// </summary>
-        [ConfigurationProperty("eventSource.assembly", IsRequired = false)]
-        public TextElement EventSourceAssembly
-        {
-            get { return (TextElement)this["eventSource.assembly"]; }
-            set { this["eventSource.assembly"] = value; }
-        }
-        #endregion
-
-        #region # 定时任务所在程序集节点 —— TextElement CrontabAssembly
-        /// <summary>
-        /// 定时任务所在程序集节点
-        /// </summary>
-        [ConfigurationProperty("crontab.assembly", IsRequired = false)]
-        public TextElement CrontabAssembly
-        {
-            get { return (TextElement)this["crontab.assembly"]; }
-            set { this["crontab.assembly"] = value; }
         }
         #endregion
 
@@ -241,66 +229,6 @@ namespace SD.Infrastructure
         }
         #endregion
 
-        #region # Windows更新服务节点 —— TextElement WindowsUpdateService
-        /// <summary>
-        /// Windows更新服务节点
-        /// </summary>
-        [ConfigurationProperty("windows.updateService", IsRequired = false)]
-        public TextElement WindowsUpdateService
-        {
-            get { return (TextElement)this["windows.updateService"]; }
-            set { this["windows.updateService"] = value; }
-        }
-        #endregion
-
-        #region # 文件服务节点 —— TextElement FileService
-        /// <summary>
-        /// 文件服务节点
-        /// </summary>
-        [ConfigurationProperty("file.service", IsRequired = false)]
-        public TextElement FileService
-        {
-            get { return (TextElement)this["file.service"]; }
-            set { this["file.service"] = value; }
-        }
-        #endregion
-
-        #region # 消息服务节点 —— TextElement MessageService
-        /// <summary>
-        /// 消息服务节点
-        /// </summary>
-        [ConfigurationProperty("message.service", IsRequired = false)]
-        public TextElement MessageService
-        {
-            get { return (TextElement)this["message.service"]; }
-            set { this["message.service"] = value; }
-        }
-        #endregion
-
-        #region # OPC服务节点 —— TextElement OpcService
-        /// <summary>
-        /// OPC服务节点
-        /// </summary>
-        [ConfigurationProperty("opc.service", IsRequired = false)]
-        public TextElement OpcService
-        {
-            get { return (TextElement)this["opc.service"]; }
-            set { this["opc.service"] = value; }
-        }
-        #endregion
-
-        #region # 定时任务服务节点 —— TextElement CrontabService
-        /// <summary>
-        /// 定时任务服务节点
-        /// </summary>
-        [ConfigurationProperty("crontab.service", IsRequired = false)]
-        public TextElement CrontabService
-        {
-            get { return (TextElement)this["crontab.service"]; }
-            set { this["crontab.service"] = value; }
-        }
-        #endregion
-
         #region # 身份过期时间节点 —— NumericElement AuthenticationTimeout
         /// <summary>
         /// 身份过期时间节点
@@ -325,32 +253,116 @@ namespace SD.Infrastructure
         }
         #endregion
 
-        #region # 分区数量节点 —— NumericElement PartitionsCount
+        #region # 定时任务所在程序集节点 —— TextElement CrontabAssembly
         /// <summary>
-        /// 分区数量节点
+        /// 定时任务所在程序集节点
         /// </summary>
-        [ConfigurationProperty("partitions.count", IsRequired = false)]
-        public NumericElement PartitionsCount
+        [ConfigurationProperty("crontab.assembly", IsRequired = false)]
+        public TextElement CrontabAssembly
         {
-            get { return (NumericElement)this["partitions.count"]; }
-            set { this["partitions.count"] = value; }
+            get { return (TextElement)this["crontab.assembly"]; }
+            set { this["crontab.assembly"] = value; }
         }
         #endregion
 
-        #region # 定时任务节点列表 —— CrontabElementCollection CrontabElements
+        #region # 定时任务账户账号节点 —— TextElement CrontabAccountLoginId
         /// <summary>
-        /// 定时任务节点列表
+        /// 定时任务账户账号节点
         /// </summary>
-        [ConfigurationProperty("crontabs")]
-        [ConfigurationCollection(typeof(CrontabElementCollection), AddItemName = "crontab")]
-        public CrontabElementCollection CrontabElements
+        [ConfigurationProperty("crontab.account.loginId", IsRequired = false)]
+        public TextElement CrontabAccountLoginId
+        {
+            get { return (TextElement)this["crontab.account.loginId"]; }
+            set { this["crontab.account.loginId"] = value; }
+        }
+        #endregion
+
+        #region # 定时任务账户密码节点 —— TextElement CrontabAccountPassword
+        /// <summary>
+        /// 定时任务账户密码节点
+        /// </summary>
+        [ConfigurationProperty("crontab.account.password", IsRequired = false)]
+        public TextElement CrontabAccountPassword
+        {
+            get { return (TextElement)this["crontab.account.password"]; }
+            set { this["crontab.account.password"] = value; }
+        }
+        #endregion
+
+        #region # 定时任务策略节点列表 —— CrontabStrategyElementCollection CrontabStrategyElements
+        /// <summary>
+        /// 定时任务策略节点列表
+        /// </summary>
+        [ConfigurationProperty("crontab.strategies")]
+        [ConfigurationCollection(typeof(CrontabStrategyElementCollection), AddItemName = "strategy")]
+        public CrontabStrategyElementCollection CrontabStrategyElements
         {
             get
             {
-                CrontabElementCollection collection = this["crontabs"] as CrontabElementCollection;
-                return collection ?? new CrontabElementCollection();
+                CrontabStrategyElementCollection collection = this["crontab.strategies"] as CrontabStrategyElementCollection;
+                return collection ?? new CrontabStrategyElementCollection();
             }
-            set { this["crontabs"] = value; }
+            set { this["crontab.strategies"] = value; }
+        }
+        #endregion
+
+        #region # 外部服务 - 自动更新服务节点 —— TextElement AutoUpdateService
+        /// <summary>
+        /// 外部服务 - 自动更新服务节点
+        /// </summary>
+        [ConfigurationProperty("external.service.autoUpdate", IsRequired = false)]
+        public TextElement AutoUpdateService
+        {
+            get { return (TextElement)this["external.service.autoUpdate"]; }
+            set { this["external.service.autoUpdate"] = value; }
+        }
+        #endregion
+
+        #region # 外部服务 - 文件服务节点 —— TextElement FileService
+        /// <summary>
+        /// 外部服务 - 文件服务节点
+        /// </summary>
+        [ConfigurationProperty("external.service.file", IsRequired = false)]
+        public TextElement FileService
+        {
+            get { return (TextElement)this["external.service.file"]; }
+            set { this["external.service.file"] = value; }
+        }
+        #endregion
+
+        #region # 外部服务 - 消息服务节点 —— TextElement MessageService
+        /// <summary>
+        /// 外部服务 - 消息服务节点
+        /// </summary>
+        [ConfigurationProperty("external.service.message", IsRequired = false)]
+        public TextElement MessageService
+        {
+            get { return (TextElement)this["external.service.message"]; }
+            set { this["external.service.message"] = value; }
+        }
+        #endregion
+
+        #region # 外部服务 - OPC服务节点 —— TextElement OpcService
+        /// <summary>
+        /// 外部服务 - OPC服务节点
+        /// </summary>
+        [ConfigurationProperty("external.service.opc", IsRequired = false)]
+        public TextElement OpcService
+        {
+            get { return (TextElement)this["external.service.opc"]; }
+            set { this["external.service.opc"] = value; }
+        }
+        #endregion
+
+        #region # 外部服务 - 定时任务服务节点 —— TextElement CrontabService
+        /// <summary>
+        /// 外部服务 - 定时任务服务节点
+        /// </summary>
+        [ConfigurationProperty("external.service.crontab", IsRequired = false)]
+        public TextElement CrontabService
+        {
+            get { return (TextElement)this["external.service.crontab"]; }
+            set { this["external.service.crontab"] = value; }
         }
         #endregion
     }

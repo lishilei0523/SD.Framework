@@ -33,16 +33,29 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         static CrontabSetting()
         {
-            _CrontabLoginId = FrameworkSection.Setting.CrontabElements.LoginId;
-            _CrontabPassword = FrameworkSection.Setting.CrontabElements.Password;
+            _CrontabLoginId = FrameworkSection.Setting.CrontabAccountLoginId.Value;
+            _CrontabPassword = FrameworkSection.Setting.CrontabAccountPassword.Value;
             _CrontabStrategies = new ConcurrentDictionary<string, ExecutionStrategy>();
-            foreach (CrontabElement element in FrameworkSection.Setting.CrontabElements)
+            foreach (CrontabStrategyElement element in FrameworkSection.Setting.CrontabStrategyElements)
             {
                 ExecutionStrategy strategy = GetExecutionStrategy(element.StrategyType, element.Strategy);
                 _CrontabStrategies.Add(element.Type, strategy);
             }
         }
 
+        #endregion
+
+
+        //属性
+
+        #region # 定时任务所在程序集 —— static string CrontabAssembly
+        /// <summary>
+        /// 定时任务所在程序集
+        /// </summary>
+        public static string CrontabAssembly
+        {
+            get { return FrameworkSection.Setting.CrontabAssembly.Value; }
+        }
         #endregion
 
         #region # 定时任务账号 —— static string CrontabLoginId
@@ -74,6 +87,9 @@ namespace SD.Infrastructure.Constants
             get { return _CrontabStrategies; }
         }
         #endregion
+
+
+        //方法
 
         #region # 获取执行策略 —— static ExecutionStrategy GetExecutionStrategy(string strategyType...
         /// <summary>
