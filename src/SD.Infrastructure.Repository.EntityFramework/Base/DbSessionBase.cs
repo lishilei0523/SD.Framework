@@ -36,13 +36,8 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         static DbSessionBase()
         {
             _Sync = new object();
-#if !NET45
-            _CommandInstanceCall = new AsyncLocal<DbSessionBase>(OnCommandInstanceValueChange);
-            _QueryInstanceCall = new AsyncLocal<DbSessionBase>(OnQueryInstanceValueChange);
-#else
             _CommandInstanceCall = new AsyncLocal<DbSessionBase>();
             _QueryInstanceCall = new AsyncLocal<DbSessionBase>();
-#endif
         }
 
         /// <summary>
@@ -228,40 +223,6 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         {
             get { return FrameworkSection.Setting.EntityTablePrefix.Value; }
         }
-        #endregion
-
-        #endregion
-
-        #region # 方法
-
-        #region # AsyncLocal值变化 —— static void OnCommandInstanceValueChange(...
-#if !NET45
-        /// <summary>
-        /// AsyncLocal值变化
-        /// </summary>
-        private static void OnCommandInstanceValueChange(AsyncLocalValueChangedArgs<DbSessionBase> eventArgs)
-        {
-            if (eventArgs.CurrentValue == null && !eventArgs.PreviousValue.Disposed)
-            {
-                _CommandInstanceCall.Value = eventArgs.PreviousValue;
-            }
-        }
-#endif
-        #endregion
-
-        #region # AsyncLocal值变化 —— static void OnQueryInstanceValueChange(...
-#if !NET45
-        /// <summary>
-        /// AsyncLocal值变化
-        /// </summary>
-        private static void OnQueryInstanceValueChange(AsyncLocalValueChangedArgs<DbSessionBase> eventArgs)
-        {
-            if (eventArgs.CurrentValue == null && !eventArgs.PreviousValue.Disposed)
-            {
-                _QueryInstanceCall.Value = eventArgs.PreviousValue;
-            }
-        }
-#endif
         #endregion
 
         #endregion
