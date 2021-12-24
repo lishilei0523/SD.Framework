@@ -5,9 +5,9 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - 仓储基础 - EntityFramework实现</Description>
     <Copyright>Copyright © SD 2021</Copyright>
-    <Version>2.3.0</Version>
-    <AssemblyVersion>2.3.0</AssemblyVersion>
-    <FileVersion>2.3.0.0</FileVersion>
+    <Version>2.3.1</Version>
+    <AssemblyVersion>2.3.1</AssemblyVersion>
+    <FileVersion>2.3.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="SD.Toolkits.EntityFramework" Version="1.2.3" />
-    <PackageReference Include="SD.IOC.Core" Version="2.1.0" />
+    <PackageReference Include="SD.IOC.Core" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>

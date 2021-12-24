@@ -1,6 +1,7 @@
 ﻿using Microsoft.Owin;
 using SD.Infrastructure.Global;
 using System.Threading.Tasks;
+using SD.IOC.Core.Mediators;
 
 namespace SD.Infrastructure.WebApi.SelfHost.Server.Middlewares
 {
@@ -27,13 +28,21 @@ namespace SD.Infrastructure.WebApi.SelfHost.Server.Middlewares
         /// </summary>
         public override async Task Invoke(IOwinContext context)
         {
-            //初始化SessionId
-            Initializer.InitSessionId();
+            try
+            {
+                //初始化SessionId
+                Initializer.InitSessionId();
 
-            await base.Next.Invoke(context);
+                await base.Next.Invoke(context);
+            }
+            finally
+            {
+                //清理数据库
+                Finalizer.CleanDb();
 
-            //清理数据库
-            Finalizer.CleanDb();
+                //清理依赖注入范围容器
+                ResolveMediator.Dispose();
+            }
         }
     }
 }

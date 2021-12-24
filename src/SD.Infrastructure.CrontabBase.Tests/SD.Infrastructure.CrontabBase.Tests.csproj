@@ -15,7 +15,7 @@
     <PackageReference Include="MrAdvice" Version="2.9.4" />
     <PackageReference Include="Quartz" Version="3.3.3" />
     <PackageReference Include="SD.Toolkits.Redis" Version="2.0.8" />
-    <PackageReference Include="SD.IOC.Core" Version="2.1.0" />
+    <PackageReference Include="SD.IOC.Core" Version="2.1.1" />
     <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.1.0" />
   </ItemGroup>
 

@@ -34,16 +34,21 @@ namespace SD.Infrastructure.AspNetCore.Server.Middlewares
         /// </summary>
         public async Task Invoke(HttpContext context)
         {
-            //初始化SessionId
-            Initializer.InitSessionId();
+            try
+            {
+                //初始化SessionId
+                Initializer.InitSessionId();
 
-            await this._next.Invoke(context);
+                await this._next.Invoke(context);
+            }
+            finally
+            {
+                //清理数据库
+                Finalizer.CleanDb();
 
-            //清理数据库
-            Finalizer.CleanDb();
-
-            //清理依赖注入范围容器
-            ResolveMediator.Dispose();
+                //清理依赖注入范围容器
+                ResolveMediator.Dispose();
+            }
         }
     }
 }
