@@ -35,6 +35,36 @@ namespace SD.Infrastructure.Membership
             this.PublicKey = publicKey;
         }
 
+        /// <summary>
+        /// 创建登录信息构造器
+        /// </summary>
+        /// <param name="loginId">用户名</param>
+        /// <param name="realName">真实姓名</param>
+        /// <param name="publicKey">公钥</param>
+        /// <param name="tenantNo">租户编号</param>
+        /// <param name="tenantConnectionString">租户连接字符串</param>
+        public LoginInfo(string loginId, string realName, Guid publicKey, string tenantNo, string tenantConnectionString)
+            : this(loginId, realName, publicKey)
+        {
+            this.TenantNo = tenantNo;
+            this.TenantConnectionString = tenantConnectionString;
+        }
+
+        /// <summary>
+        /// 创建登录信息构造器
+        /// </summary>
+        /// <param name="loginId">用户名</param>
+        /// <param name="realName">真实姓名</param>
+        /// <param name="publicKey">公钥</param>
+        /// <param name="tenantNo">租户编号</param>
+        /// <param name="tenantConnectionString">租户连接字符串</param>
+        /// <param name="tenantSpareConnectionString">租户备用连接字符串</param>
+        public LoginInfo(string loginId, string realName, Guid publicKey, string tenantNo, string tenantConnectionString, string tenantSpareConnectionString)
+            : this(loginId, realName, publicKey, tenantNo, tenantConnectionString)
+        {
+            this.TenantSpareConnectionString = tenantSpareConnectionString;
+        }
+
 
         /// <summary>
         /// 用户名
@@ -53,6 +83,24 @@ namespace SD.Infrastructure.Membership
         /// </summary>
         [DataMember]
         public Guid PublicKey { get; set; }
+
+        /// <summary>
+        /// 租户编号
+        /// </summary>
+        [DataMember]
+        public string TenantNo { get; set; }
+
+        /// <summary>
+        /// 租户连接字符串
+        /// </summary>
+        [DataMember]
+        public string TenantConnectionString { get; set; }
+
+        /// <summary>
+        /// 租户备用连接字符串
+        /// </summary>
+        [DataMember]
+        public string TenantSpareConnectionString { get; set; }
 
         /// <summary>
         /// 信息系统列表

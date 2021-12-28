@@ -87,6 +87,22 @@ namespace SD.Infrastructure.Constants
         }
         #endregion
 
+        #region # 分区数量 —— static int PartitionsCount
+        /// <summary>
+        /// 分区数量
+        /// </summary>
+        public static int PartitionsCount
+        {
+            get
+            {
+                int partitionsCount = FrameworkSection.Setting.DatabasePartitionsCount.Value.HasValue
+                    ? FrameworkSection.Setting.DatabasePartitionsCount.Value.Value
+                    : 1;
+                return partitionsCount;
+            }
+        }
+        #endregion
+
         #region # 当前SessionId —— static Guid CurrentSessionId
         /// <summary>
         /// 当前SessionId
@@ -105,18 +121,32 @@ namespace SD.Infrastructure.Constants
         }
         #endregion
 
-        #region # 分区数量 —— static int PartitionsCount
+        #region # 身份过期时间 —— static int AuthenticationTimeout
         /// <summary>
-        /// 分区数量
+        /// 身份过期时间
         /// </summary>
-        public static int PartitionsCount
+        public static int AuthenticationTimeout
         {
             get
             {
-                int partitionsCount = FrameworkSection.Setting.DatabasePartitionsCount.Value.HasValue
-                    ? FrameworkSection.Setting.DatabasePartitionsCount.Value.Value
-                    : 1;
-                return partitionsCount;
+                return FrameworkSection.Setting.AuthenticationTimeout.Value.HasValue
+                     ? FrameworkSection.Setting.AuthenticationTimeout.Value.Value
+                     : 20;
+            }
+        }
+        #endregion
+
+        #region # 授权是否启用 —— static bool AuthorizationEnabled
+        /// <summary>
+        /// 授权是否启用
+        /// </summary>
+        public static bool AuthorizationEnabled
+        {
+            get
+            {
+                return FrameworkSection.Setting.AuthorizationEnabled.Value.HasValue
+                    ? FrameworkSection.Setting.AuthorizationEnabled.Value.Value
+                    : true;
             }
         }
         #endregion
