@@ -27,6 +27,26 @@ namespace SD.Infrastructure
 
         #endregion
 
+        #region # 初始化 —— static void Initialize(Configuration configuration)
+        /// <summary>
+        /// 初始化
+        /// </summary>
+        /// <param name="configuration">配置</param>
+        public static void Initialize(Configuration configuration)
+        {
+            #region # 验证
+
+            if (configuration == null)
+            {
+                throw new ArgumentNullException(nameof(configuration), "配置不可为空！");
+            }
+
+            #endregion
+
+            _Setting = (FrameworkSection)configuration.GetSection("sd.framework");
+        }
+        #endregion
+
         #region # 访问器 —— static FrameworkSection Setting
         /// <summary>
         /// 访问器
@@ -303,6 +323,18 @@ namespace SD.Infrastructure
                 return collection ?? new CrontabStrategyElementCollection();
             }
             set { this["crontab.strategies"] = value; }
+        }
+        #endregion
+
+        #region # 视图模型所在程序集节点 —— TextElement ViewModelAssembly
+        /// <summary>
+        /// 视图模型所在程序集节点
+        /// </summary>
+        [ConfigurationProperty("viewModel.assembly", IsRequired = false)]
+        public TextElement ViewModelAssembly
+        {
+            get { return (TextElement)this["viewModel.assembly"]; }
+            set { this["viewModel.assembly"] = value; }
         }
         #endregion
 

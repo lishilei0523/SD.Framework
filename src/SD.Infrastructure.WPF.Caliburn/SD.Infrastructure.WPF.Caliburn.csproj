@@ -35,7 +35,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MrAdvice" Version="2.9.4" />
+    <PackageReference Include="MrAdvice" Version="2.9.5" />
   </ItemGroup>
 
   <ItemGroup>
