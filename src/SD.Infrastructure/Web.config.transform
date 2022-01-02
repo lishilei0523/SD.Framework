@@ -49,8 +49,6 @@
     <crontab.strategies>
       <strategy type="" strategyType="" strategy="" />
     </crontab.strategies>
-    <!--视图模型所在程序集-->
-    <viewModel.assembly>视图模型所在程序集</viewModel.assembly>
     <!--外部服务 - 自动更新服务-->
     <external.service.autoUpdate>自动更新服务地址</external.service.autoUpdate>
     <!--外部服务 - 文件服务-->

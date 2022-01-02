@@ -48,7 +48,6 @@ namespace SD.Infrastructure.Tests.TestCases
                 Trace.WriteLine(element.Strategy);
             }
 
-            Trace.WriteLine(setting.ViewModelAssembly.Value);
             Trace.WriteLine(setting.AutoUpdateService.Value);
             Trace.WriteLine(setting.FileService.Value);
             Trace.WriteLine(setting.MessageService.Value);

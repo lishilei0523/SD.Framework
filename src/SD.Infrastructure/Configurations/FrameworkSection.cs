@@ -326,18 +326,6 @@ namespace SD.Infrastructure
         }
         #endregion
 
-        #region # 视图模型所在程序集节点 —— TextElement ViewModelAssembly
-        /// <summary>
-        /// 视图模型所在程序集节点
-        /// </summary>
-        [ConfigurationProperty("viewModel.assembly", IsRequired = false)]
-        public TextElement ViewModelAssembly
-        {
-            get { return (TextElement)this["viewModel.assembly"]; }
-            set { this["viewModel.assembly"] = value; }
-        }
-        #endregion
-
         #region # 外部服务 - 自动更新服务节点 —— TextElement AutoUpdateService
         /// <summary>
         /// 外部服务 - 自动更新服务节点

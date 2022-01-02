@@ -14,7 +14,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Base
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(NetCoreSetting.WriteConnectionString);
+            optionsBuilder.UseSqlServer(GlobalSetting.WriteConnectionString);
 
             base.OnConfiguring(optionsBuilder);
         }

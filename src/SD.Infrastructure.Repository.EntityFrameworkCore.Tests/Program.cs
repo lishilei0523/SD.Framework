@@ -11,10 +11,10 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests
     {
         static void Main(string[] args)
         {
-            string connectionString = NetCoreSetting.WriteConnectionString;
-            Console.WriteLine(connectionString);
+            //string connectionString = NetCoreSetting.WriteConnectionString;
+            //Console.WriteLine(connectionString);
 
-            FrameworkSection setting = NetCoreSetting.FrameworkSettings;
+            FrameworkSection setting = FrameworkSection.Setting;
 
             Console.WriteLine(setting.ApplicationName.Value);
             Console.WriteLine(setting.ApplicationVersion.Value);
@@ -57,7 +57,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests
 
             using (DbSession dbSession = new DbSession())
             {
-                dbSession.Database.SetConnectionString("Data Source=.;Initial Catalog=EFCore.Test;User Id=sa;Password=broadmall123!;MultipleActiveResultSets=true;");
+                dbSession.Database.Migrate();
                 User user = new User
                 {
                     PrivateKey = Guid.NewGuid().ToString(),

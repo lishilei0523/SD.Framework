@@ -139,7 +139,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public virtual string ReadConnectionString
         {
-            get { return NetCoreSetting.ReadConnectionString; }
+            get { return GlobalSetting.ReadConnectionString; }
         }
         #endregion
 
@@ -149,7 +149,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public virtual string WriteConnectionString
         {
-            get { return NetCoreSetting.WriteConnectionString; }
+            get { return GlobalSetting.WriteConnectionString; }
         }
         #endregion
 
@@ -159,7 +159,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public override string EntityAssembly
         {
-            get { return NetCoreSetting.FrameworkSettings.EntityAssembly.Value; }
+            get { return FrameworkSection.Setting.EntityAssembly.Value; }
         }
         #endregion
 
@@ -169,7 +169,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public override string EntityConfigAssembly
         {
-            get { return NetCoreSetting.FrameworkSettings.EntityConfigAssembly.Value; }
+            get { return FrameworkSection.Setting.EntityConfigAssembly.Value; }
         }
         #endregion
 
@@ -195,7 +195,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         /// </summary>
         public override string TablePrefix
         {
-            get { return NetCoreSetting.FrameworkSettings.EntityTablePrefix.Value; }
+            get { return FrameworkSection.Setting.EntityTablePrefix.Value; }
         }
         #endregion
 
