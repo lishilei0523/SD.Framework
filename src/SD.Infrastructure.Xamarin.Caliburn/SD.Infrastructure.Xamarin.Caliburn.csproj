@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Description>SD.Framework 基础设施 - Xamarin基础 - Caliburn.Micro扩展</Description>
+    <Copyright>Copyright © SD 2021</Copyright>
+    <Version>0.1.0</Version>
+    <AssemblyVersion>0.1.0</AssemblyVersion>
+    <FileVersion>0.1.0.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Infrastructure.Xamarin.Caliburn.xml</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.Xamarin.Caliburn.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Caliburn.Micro.Core" Version="4.0.173" />
+    <PackageReference Include="Caliburn.Micro.Xamarin.Forms" Version="4.0.173" />
+    <PackageReference Include="MrAdvice" Version="2.9.5" />
+    <PackageReference Include="Acr.UserDialogs" Version="7.2.0.562" />
+  </ItemGroup>
+</Project>

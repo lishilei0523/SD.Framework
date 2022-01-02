@@ -95,6 +95,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.SignalR.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.SignalR.Client.Receiver", "src\SD.Infrastructure.SignalR.Client.Receiver\SD.Infrastructure.SignalR.Client.Receiver.csproj", "{1858AC04-9041-421C-8502-7DD28243DCCE}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Xamarin", "src\SD.Infrastructure.Xamarin\SD.Infrastructure.Xamarin.csproj", "{8EC07276-BB3B-4105-8438-ABD8F692D6BB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Xamarin.Caliburn", "src\SD.Infrastructure.Xamarin.Caliburn\SD.Infrastructure.Xamarin.Caliburn.csproj", "{FD9EF922-392B-4976-93B7-6A5EAF69B235}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -261,6 +265,14 @@ Global
 		{1858AC04-9041-421C-8502-7DD28243DCCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1858AC04-9041-421C-8502-7DD28243DCCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1858AC04-9041-421C-8502-7DD28243DCCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EC07276-BB3B-4105-8438-ABD8F692D6BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EC07276-BB3B-4105-8438-ABD8F692D6BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EC07276-BB3B-4105-8438-ABD8F692D6BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EC07276-BB3B-4105-8438-ABD8F692D6BB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD9EF922-392B-4976-93B7-6A5EAF69B235}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD9EF922-392B-4976-93B7-6A5EAF69B235}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD9EF922-392B-4976-93B7-6A5EAF69B235}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD9EF922-392B-4976-93B7-6A5EAF69B235}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -306,6 +318,8 @@ Global
 		{79D529B7-7A07-4CBA-9B1E-D82808667D12} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{B9A63B97-786B-4FE0-B5D4-D4C4F5777910} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{1858AC04-9041-421C-8502-7DD28243DCCE} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
+		{8EC07276-BB3B-4105-8438-ABD8F692D6BB} = {D564BEC1-ECEB-4739-992C-2133EDEC51D6}
+		{FD9EF922-392B-4976-93B7-6A5EAF69B235} = {D564BEC1-ECEB-4739-992C-2133EDEC51D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B5E3D78-0B5E-4D21-BFEF-9B2A85D15716}
