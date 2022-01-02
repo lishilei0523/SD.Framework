@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Infrastructure.Constants;
 using System.Diagnostics;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace SD.Infrastructure.Tests.TestCases
 {
@@ -10,6 +11,14 @@ namespace SD.Infrastructure.Tests.TestCases
     [TestClass]
     public class ConnectionStringTests
     {
+        [TestInitialize]
+        public void Initialize()
+        {
+            //Assembly assembly = Assembly.GetExecutingAssembly();
+            //Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
+            //FrameworkSection.Initialize(configuration);
+        }
+
         [TestMethod]
         public void TestConnectionString()
         {

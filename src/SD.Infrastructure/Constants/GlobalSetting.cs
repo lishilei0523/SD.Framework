@@ -49,9 +49,16 @@ namespace SD.Infrastructure.Constants
         {
             get
             {
+                string readConnectionStringName = FrameworkSection.Setting.DatabaseReadConnectionName.Value;
                 if (string.IsNullOrWhiteSpace(_ReadConnectionString))
                 {
-                    string readConnectionStringName = FrameworkSection.Setting.DatabaseReadConnectionName.Value;
+                    ConnectionStringsSection section = FrameworkSection.Setting.CurrentConfiguration?.ConnectionStrings;
+                    ConnectionStringSettingsCollection connectionStringsList = section?.ConnectionStrings;
+                    ConnectionStringSettings connectionStrings = connectionStringsList?[readConnectionStringName];
+                    _ReadConnectionString = connectionStrings?.ConnectionString;
+                }
+                if (string.IsNullOrWhiteSpace(_ReadConnectionString))
+                {
                     _ReadConnectionString = ConfigurationManager.ConnectionStrings[readConnectionStringName]?.ConnectionString;
                 }
                 if (string.IsNullOrWhiteSpace(_ReadConnectionString))
@@ -72,9 +79,16 @@ namespace SD.Infrastructure.Constants
         {
             get
             {
+                string writeConnectionStringName = FrameworkSection.Setting.DatabaseWriteConnectionName.Value;
                 if (string.IsNullOrWhiteSpace(_WriteConnectionString))
                 {
-                    string writeConnectionStringName = FrameworkSection.Setting.DatabaseWriteConnectionName.Value;
+                    ConnectionStringsSection section = FrameworkSection.Setting.CurrentConfiguration?.ConnectionStrings;
+                    ConnectionStringSettingsCollection connectionStringsList = section?.ConnectionStrings;
+                    ConnectionStringSettings connectionStrings = connectionStringsList?[writeConnectionStringName];
+                    _WriteConnectionString = connectionStrings?.ConnectionString;
+                }
+                if (string.IsNullOrWhiteSpace(_WriteConnectionString))
+                {
                     _WriteConnectionString = ConfigurationManager.ConnectionStrings[writeConnectionStringName]?.ConnectionString;
                 }
                 if (string.IsNullOrWhiteSpace(_WriteConnectionString))
