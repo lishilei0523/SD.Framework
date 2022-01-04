@@ -45,9 +45,9 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         /// <summary>
         /// 警告消息
         /// </summary>
-        protected async Task Alert(string message, string title = null, string okText = null, CancellationToken? cancelToken = null)
+        protected async Task Alert(string message, string title = null, CancellationToken? cancelToken = null)
         {
-            await UserDialogs.Instance.AlertAsync(message, title, okText, cancelToken);
+            await UserDialogs.Instance.AlertAsync(message, title, "确定", cancelToken);
         }
         #endregion
 
