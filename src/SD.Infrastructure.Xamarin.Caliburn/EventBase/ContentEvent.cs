@@ -3,7 +3,7 @@
     /// <summary>
     /// 内容事件
     /// </summary>
-    public class TextEvent
+    public class ContentEvent
     {
         #region # 构造器
 
@@ -11,7 +11,7 @@
         /// <summary>
         /// 无参构造器
         /// </summary>
-        public TextEvent() { }
+        public ContentEvent() { }
         #endregion
 
         #region 01.创建内容事件构造器
@@ -20,7 +20,8 @@
         /// </summary>
         /// <param name="title">标题</param>
         /// <param name="content">内容</param>
-        public TextEvent(string title, string content = null) : this()
+        public ContentEvent(string title, string content = null)
+            : this()
         {
             this.Title = title;
             this.Content = content;
