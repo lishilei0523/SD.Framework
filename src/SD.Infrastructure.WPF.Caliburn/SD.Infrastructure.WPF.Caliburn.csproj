@@ -6,9 +6,9 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WPF基础 - Caliburn.Micro扩展</Description>
     <Copyright>Copyright © SD 2021</Copyright>
-    <Version>1.0.2</Version>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.0.3</Version>
+    <AssemblyVersion>1.0.3</AssemblyVersion>
+    <FileVersion>1.0.3.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -20,6 +20,7 @@
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
     <PackageReference Include="Caliburn.Micro" Version="3.2.0" />
+    <PackageReference Include="AsyncBridge" Version="0.3.1" />
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
