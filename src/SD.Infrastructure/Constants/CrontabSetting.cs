@@ -107,6 +107,13 @@ namespace SD.Infrastructure.Constants
 
                 return fixedTimeStrategy;
             }
+            if (strategyType == nameof(RepeatedTimeStrategy))
+            {
+                TimeSpan triggerTime = TimeSpan.Parse(strategy);
+                RepeatedTimeStrategy repeatedTimeStrategy = new RepeatedTimeStrategy(triggerTime);
+
+                return repeatedTimeStrategy;
+            }
             if (strategyType == nameof(RecurrenceStrategy))
             {
                 TimeSpan interval = TimeSpan.Parse(strategy);

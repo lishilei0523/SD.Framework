@@ -455,6 +455,13 @@ namespace SD.Infrastructure.CrontabBase.Mediators
 
                 return trigger;
             }
+            if (strategy is RepeatedTimeStrategy repeatedTimeStrategy)
+            {
+                string cronExpression = repeatedTimeStrategy.TriggerTime.ToCronExpression();
+                ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(cronExpression).Build();
+
+                return trigger;
+            }
             if (strategy is RecurrenceStrategy recurrenceStrategy)
             {
                 ITrigger trigger = TriggerBuilder.Create().WithSimpleSchedule(x => x.WithInterval(recurrenceStrategy.RecurrenceTimeInterval).RepeatForever()).Build();

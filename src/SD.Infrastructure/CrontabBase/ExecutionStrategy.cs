@@ -9,6 +9,7 @@ namespace SD.Infrastructure.CrontabBase
     [Serializable]
     [DataContract]
     [KnownType(typeof(FixedTimeStrategy))]
+    [KnownType(typeof(RepeatedTimeStrategy))]
     [KnownType(typeof(RecurrenceStrategy))]
     [KnownType(typeof(CronExpressionStrategy))]
     public abstract class ExecutionStrategy

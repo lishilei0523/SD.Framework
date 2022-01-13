@@ -4,11 +4,11 @@ using System.Runtime.Serialization;
 namespace SD.Infrastructure.CrontabBase
 {
     /// <summary>
-    /// 固定时间策略
+    /// 重复时间策略
     /// </summary>
     [Serializable]
     [DataContract]
-    public sealed class FixedTimeStrategy : ExecutionStrategy
+    public sealed class RepeatedTimeStrategy : ExecutionStrategy
     {
         #region # 构造器
 
@@ -16,15 +16,15 @@ namespace SD.Infrastructure.CrontabBase
         /// <summary>
         /// 无参构造器
         /// </summary>
-        public FixedTimeStrategy() { }
+        public RepeatedTimeStrategy() { }
         #endregion
 
-        #region 01.创建固定时间策略构造器
+        #region 01.创建重复时间策略构造器
         /// <summary>
-        /// 创建固定时间策略构造器
+        /// 创建重复时间策略构造器
         /// </summary>
         /// <param name="triggerTime">触发时间</param>
-        public FixedTimeStrategy(DateTime triggerTime)
+        public RepeatedTimeStrategy(TimeSpan triggerTime)
             : this()
         {
             this.TriggerTime = triggerTime;
@@ -35,12 +35,12 @@ namespace SD.Infrastructure.CrontabBase
 
         #region # 属性
 
-        #region 触发时间 —— DateTime TriggerTime
+        #region 触发时间 —— TimeSpan TriggerTime
         /// <summary>
         /// 触发时间
         /// </summary>
         [DataMember]
-        public DateTime TriggerTime { get; set; }
+        public TimeSpan TriggerTime { get; set; }
         #endregion
 
         #endregion

@@ -66,16 +66,42 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         }
         #endregion
 
-        #region # 测试调度时间点 —— void TestScheduleTimePoint()
+        #region # 测试调度固定时间点 —— void TestScheduleFixedTimePoint()
         /// <summary>
-        /// 测试调度时间点
+        /// 测试调度固定时间点
         /// </summary>
         [TestMethod]
-        public void TestScheduleTimePoint()
+        public void TestScheduleFixedTimePoint()
         {
             //开始调度
-            FixedTimeStrategy fixedTimeStrategy = new FixedTimeStrategy(DateTime.Now.AddSeconds(3));
+            DateTime triggerTime = DateTime.Now.AddSeconds(3);
+            FixedTimeStrategy fixedTimeStrategy = new FixedTimeStrategy(triggerTime);
             AlarmCrontab alarmCrontab = new AlarmCrontab("Hello World !", fixedTimeStrategy);
+
+            Assert.IsTrue(alarmCrontab.Count == 0);
+            Assert.IsFalse(alarmCrontab.Rung);
+
+            ScheduleMediator.Schedule(alarmCrontab, 0);
+
+            //线程睡眠
+            Thread.Sleep(5000);
+
+            Assert.IsTrue(alarmCrontab.Count == 1);
+            Assert.IsTrue(alarmCrontab.Rung);
+        }
+        #endregion
+
+        #region # 测试调度循环时间点 —— void TestScheduleRepeatedTimePoint()
+        /// <summary>
+        /// 测试调度循环时间点
+        /// </summary>
+        [TestMethod]
+        public void TestScheduleRepeatedTimePoint()
+        {
+            //开始调度
+            TimeSpan triggerTime = DateTime.Now.AddSeconds(3).TimeOfDay;
+            RepeatedTimeStrategy repeatedTimeStrategy = new RepeatedTimeStrategy(triggerTime);
+            AlarmCrontab alarmCrontab = new AlarmCrontab("Hello World !", repeatedTimeStrategy);
 
             Assert.IsTrue(alarmCrontab.Count == 0);
             Assert.IsFalse(alarmCrontab.Rung);

@@ -18,5 +18,17 @@ namespace SD.Infrastructure.CrontabBase
 
             return cron;
         }
+
+        /// <summary>
+        /// 时间转换Cron表达式
+        /// </summary>
+        /// <param name="time">时间</param>
+        /// <returns>Cron表达式</returns>
+        public static string ToCronExpression(this TimeSpan time)
+        {
+            string cron = $"{time.Seconds} {time.Minutes} {time.Hours} * * ? *";
+
+            return cron;
+        }
     }
 }
