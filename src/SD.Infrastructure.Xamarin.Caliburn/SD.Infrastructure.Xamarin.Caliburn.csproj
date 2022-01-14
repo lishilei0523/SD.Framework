@@ -23,6 +23,6 @@
     <PackageReference Include="Caliburn.Micro.Xamarin.Forms" Version="4.0.173" />
     <PackageReference Include="MrAdvice" Version="2.9.5" />
     <PackageReference Include="Acr.UserDialogs" Version="7.2.0.562" />
-    <PackageReference Include="SD.IOC.Core" Version="2.1.5" />
+    <PackageReference Include="SD.IOC.Core" Version="2.1.6" />
   </ItemGroup>
 </Project>

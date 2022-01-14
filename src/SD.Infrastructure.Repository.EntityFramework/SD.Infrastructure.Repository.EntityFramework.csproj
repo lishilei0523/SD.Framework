@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="SD.Toolkits.EntityFramework" Version="1.2.3" />
-    <PackageReference Include="SD.IOC.Core" Version="2.1.5" />
+    <PackageReference Include="SD.IOC.Core" Version="2.1.6" />
   </ItemGroup>
 
   <ItemGroup>
