@@ -1,6 +1,8 @@
 ﻿using SD.Infrastructure.EntityBase;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Threading.Tasks;
 
 namespace SD.Infrastructure.RepositoryBase
@@ -10,6 +12,33 @@ namespace SD.Infrastructure.RepositoryBase
     /// </summary>
     public interface IUnitOfWork : IDisposable
     {
+        //Transaction部分
+
+        #region # 开启事务 —— DbTransaction BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>
+        /// 开启事务
+        /// </summary>
+        /// <returns>事务</returns>
+        DbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted);
+        #endregion
+
+        #region # 使用事务 —— void UseTransaction(DbTransaction dbTransaction)
+        /// <summary>
+        /// 使用事务
+        /// </summary>
+        /// <param name="dbTransaction">事务</param>
+        void UseTransaction(DbTransaction dbTransaction);
+        #endregion
+
+        #region # 获取当前事务 —— DbTransaction GetCurrentTransaction()
+        /// <summary>
+        /// 获取当前事务
+        /// </summary>
+        /// <returns>事务</returns>
+        DbTransaction GetCurrentTransaction();
+        #endregion
+
+
         //Register部分
 
         #region # 注册添加单个实体对象 —— void RegisterAdd<T>(T entity)

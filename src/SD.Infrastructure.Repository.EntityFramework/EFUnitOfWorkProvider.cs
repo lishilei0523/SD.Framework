@@ -4,6 +4,8 @@ using SD.Infrastructure.Repository.EntityFramework.Base;
 using SD.Infrastructure.RepositoryBase;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 using System.Linq;
@@ -72,6 +74,48 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
 
         /**********Public**********/
+
+        //Transaction部分
+
+        #region # 开启事务 —— DbTransaction BeginTransaction(IsolationLevel isolationLevel)
+        /// <summary>
+        /// 开启事务
+        /// </summary>
+        /// <returns>事务</returns>
+        public DbTransaction BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.ReadCommitted)
+        {
+            DbContextTransaction dbContextTransaction = this._dbContext.Database.BeginTransaction(isolationLevel);
+            DbTransaction dbTransaction = dbContextTransaction.UnderlyingTransaction;
+
+            return dbTransaction;
+        }
+        #endregion
+
+        #region # 使用事务 —— void UseTransaction(DbTransaction dbTransaction)
+        /// <summary>
+        /// 使用事务
+        /// </summary>
+        /// <param name="dbTransaction">事务</param>
+        public void UseTransaction(DbTransaction dbTransaction)
+        {
+            this._dbContext.Database.UseTransaction(dbTransaction);
+        }
+        #endregion
+
+        #region # 获取当前事务 —— DbTransaction GetCurrentTransaction()
+        /// <summary>
+        /// 获取当前事务
+        /// </summary>
+        /// <returns>事务</returns>
+        public DbTransaction GetCurrentTransaction()
+        {
+            DbContextTransaction dbContextTransaction = this._dbContext.Database.CurrentTransaction;
+            DbTransaction dbTransaction = dbContextTransaction?.UnderlyingTransaction;
+
+            return dbTransaction;
+        }
+        #endregion
+
 
         //Register部分
 
@@ -710,21 +754,32 @@ namespace SD.Infrastructure.Repository.EntityFramework
             {
                 if (this._sqlCommandBuilder.Length > 0)
                 {
-                    using (DbContextTransaction transaction = this._dbContext.Database.BeginTransaction())
+                    string sqlCommands = this._sqlCommandBuilder.ToString();
+                    if (this._dbContext.Database.CurrentTransaction != null)
                     {
                         //保存修改
                         this._dbContext.SaveChanges();
 
                         //执行SQL命令
-                        string sqlCommands = this._sqlCommandBuilder.ToString();
                         this._dbContext.Database.ExecuteSqlCommand(sqlCommands);
-
-                        //提交事务
-                        transaction.Commit();
-
-                        //清空SQL命令
-                        this._sqlCommandBuilder.Clear();
                     }
+                    else
+                    {
+                        using (DbContextTransaction transaction = this._dbContext.Database.BeginTransaction())
+                        {
+                            //保存修改
+                            this._dbContext.SaveChanges();
+
+                            //执行SQL命令
+                            this._dbContext.Database.ExecuteSqlCommand(sqlCommands);
+
+                            //提交事务
+                            transaction.Commit();
+                        }
+                    }
+
+                    //清空SQL命令
+                    this._sqlCommandBuilder.Clear();
                 }
                 else
                 {
@@ -750,21 +805,32 @@ namespace SD.Infrastructure.Repository.EntityFramework
             {
                 if (this._sqlCommandBuilder.Length > 0)
                 {
-                    using (DbContextTransaction transaction = this._dbContext.Database.BeginTransaction())
+                    string sqlCommands = this._sqlCommandBuilder.ToString();
+                    if (this._dbContext.Database.CurrentTransaction != null)
                     {
                         //保存修改
                         await this._dbContext.SaveChangesAsync();
 
                         //执行SQL命令
-                        string sqlCommands = this._sqlCommandBuilder.ToString();
                         await this._dbContext.Database.ExecuteSqlCommandAsync(sqlCommands);
-
-                        //提交事务
-                        transaction.Commit();
-
-                        //清空SQL命令
-                        this._sqlCommandBuilder.Clear();
                     }
+                    else
+                    {
+                        using (DbContextTransaction transaction = this._dbContext.Database.BeginTransaction())
+                        {
+                            //保存修改
+                            await this._dbContext.SaveChangesAsync();
+
+                            //执行SQL命令
+                            await this._dbContext.Database.ExecuteSqlCommandAsync(sqlCommands);
+
+                            //提交事务
+                            transaction.Commit();
+                        }
+                    }
+
+                    //清空SQL命令
+                    this._sqlCommandBuilder.Clear();
                 }
                 else
                 {
