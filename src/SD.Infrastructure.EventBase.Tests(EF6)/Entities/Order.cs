@@ -1,5 +1,5 @@
 ﻿using SD.Infrastructure.EntityBase;
-using SD.Infrastructure.EventBase.Mediator;
+using SD.Infrastructure.EventBase.Mediators;
 using SD.Infrastructure.EventBase.Tests.EventSources;
 
 namespace SD.Infrastructure.EventBase.Tests.Entities

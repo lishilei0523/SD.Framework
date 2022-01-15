@@ -1,5 +1,5 @@
 ﻿using SD.Infrastructure.EventBase;
-using SD.Infrastructure.EventBase.Mediator;
+using SD.Infrastructure.EventBase.Mediators;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -130,8 +130,8 @@ namespace SD.Infrastructure.EventStoreProvider
         /// </summary>
         private IList<Event> MemoryEventSources
         {
-            get { return _MemoryEventSources.Value as IList<Event>; }
-            set { _MemoryEventSources.Value = value; }
+            get => _MemoryEventSources.Value as IList<Event>;
+            set => _MemoryEventSources.Value = value;
         }
         #endregion
 

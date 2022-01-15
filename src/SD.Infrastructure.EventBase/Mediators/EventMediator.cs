@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Transactions;
 
-namespace SD.Infrastructure.EventBase.Mediator
+namespace SD.Infrastructure.EventBase.Mediators
 {
     /// <summary>
     /// 领域事件中介者
@@ -64,8 +64,6 @@ namespace SD.Infrastructure.EventBase.Mediator
         {
             //获取相应事件处理者实例集合
             IEnumerable<IEventHandler<T>> eventHandlers = EventHandlerFactory.GetEventHandlersFor(eventSource);
-
-            //顺序处理事件
             foreach (IEventHandler<T> handler in eventHandlers)
             {
                 handler.Handle(eventSource);
@@ -84,14 +82,11 @@ namespace SD.Infrastructure.EventBase.Mediator
             //获取相应事件处理者实例集合
             Type eventSourseType = eventSource.GetType();
             IEnumerable<IEventHandler> eventHandlers = EventHandlerFactory.GetEventHandlersFor(eventSourseType);
-
-            //顺序处理事件
             foreach (IEventHandler handler in eventHandlers)
             {
                 try
                 {
                     Type handlerType = handler.GetType();
-
                     MethodInfo methodInfo = handlerType.GetMethod("Handle", new[] { eventSource.GetType() });
                     methodInfo?.Invoke(handler, new object[] { eventSource });
                 }

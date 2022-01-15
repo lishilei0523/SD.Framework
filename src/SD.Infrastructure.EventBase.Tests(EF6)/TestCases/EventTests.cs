@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Infrastructure.Constants;
-using SD.Infrastructure.EventBase.Mediator;
+using SD.Infrastructure.EventBase.Mediators;
 using SD.Infrastructure.EventBase.Tests.Entities;
 using SD.Infrastructure.EventBase.Tests.IRepositories;
 using SD.Infrastructure.EventBase.Tests.Repositories.Base;
@@ -67,8 +67,13 @@ namespace SD.Infrastructure.EventBase.Tests.TestCases
             Order order = new Order($"SL-{DateTime.Now:yyyyMMddHHmmss}", $"销售订单-{DateTime.Now:yyyyMMddHHmmss}");
             order.Check();
 
+            //using (DbTransaction dbTransaction = this._unitOfWork.BeginTransaction())
+            //{
             this._unitOfWork.RegisterAdd(order);
             this._unitOfWork.UnitedCommit();
+
+            //    dbTransaction.Commit();
+            //}
         }
 
         /// <summary>

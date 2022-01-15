@@ -1,6 +1,6 @@
 ﻿using SD.Infrastructure.Constants;
 using SD.Infrastructure.EventBase;
-using SD.Infrastructure.EventBase.Mediator;
+using SD.Infrastructure.EventBase.Mediators;
 using SD.Infrastructure.EventStore.Redis.Toolkits;
 using SD.Toolkits.Redis;
 using StackExchange.Redis;
@@ -56,7 +56,6 @@ namespace SD.Infrastructure.EventStoreProvider
         public void HandleUncompletedEvents()
         {
             RedisValue[] eventSourcesStr = this._redisClient.HashValues(this._sessionId);
-
             foreach (string eventSourceStr in eventSourcesStr)
             {
                 IEvent eventSource = eventSourceStr.JsonToEvent();
@@ -66,7 +65,6 @@ namespace SD.Infrastructure.EventStoreProvider
             }
 
             RedisValue[] newEventSourcesStr = this._redisClient.HashValues(this._sessionId);
-
             if (newEventSourcesStr.Any())
             {
                 this.HandleUncompletedEvents();
