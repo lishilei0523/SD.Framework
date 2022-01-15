@@ -1,14 +1,13 @@
 ﻿using Caliburn.Micro;
 using SD.Infrastructure.WPF.Caliburn.Aspects;
 using SD.Infrastructure.WPF.Interfaces;
-using System;
 
 namespace SD.Infrastructure.WPF.Caliburn.Base
 {
     /// <summary>
     /// Screen基类
     /// </summary>
-    public class ScreenBase : Screen, IBusy, IDisposable
+    public class ScreenBase : Screen, IBusy
     {
         /// <summary>
         /// 是否繁忙
@@ -30,14 +29,6 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
         public void Idle()
         {
             this.IsBusy = false;
-        }
-
-        /// <summary>
-        /// 释放资源
-        /// </summary>
-        public virtual void Dispose()
-        {
-            this.Idle();
         }
     }
 }

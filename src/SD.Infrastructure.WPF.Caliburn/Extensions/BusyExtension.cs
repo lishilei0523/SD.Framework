@@ -1,8 +1,6 @@
-﻿using SD.Infrastructure.WPF.Caliburn.Base;
-using SD.IOC.Core.Mediators;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Caliburn.Micro;
+using SD.Infrastructure.WPF.Caliburn.Base;
+using System.Windows;
 
 namespace SD.Infrastructure.WPF.Caliburn.Extensions
 {
@@ -16,16 +14,26 @@ namespace SD.Infrastructure.WPF.Caliburn.Extensions
         /// </summary>
         public static void GlobalIdle()
         {
-            IList<IDisposable> disposables = ResolveMediator.GetServiceScopeDisposables();
-            IEnumerable<OneActiveConductorBase> conductorBases = disposables.OfType<OneActiveConductorBase>();
-            IEnumerable<ScreenBase> screenBases = disposables.OfType<ScreenBase>();
-            foreach (OneActiveConductorBase conductorBase in conductorBases)
+            #region # 验证
+
+            if (Application.Current == null)
             {
-                conductorBase.Dispose();
+                return;
             }
-            foreach (ScreenBase screenBase in screenBases)
+
+            #endregion
+
+            foreach (Window window in Application.Current.Windows)
             {
-                screenBase.Dispose();
+                object viewModel = ViewModelLocator.LocateForView.Invoke(window);
+                if (viewModel is ScreenBase screenBase)
+                {
+                    screenBase.Idle();
+                }
+                if (viewModel is OneActiveConductorBase conductorBase)
+                {
+                    conductorBase.Idle();
+                }
             }
         }
     }
