@@ -39,7 +39,6 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         protected void Toast(string title, TimeSpan? dismissTimer = null)
         {
             UserDialogs.Instance.Toast(title, dismissTimer);
-            Vibration.Vibrate(500);
         }
         #endregion
 
