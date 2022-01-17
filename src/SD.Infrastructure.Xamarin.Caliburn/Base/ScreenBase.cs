@@ -3,6 +3,7 @@ using Caliburn.Micro;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 
 namespace SD.Infrastructure.Xamarin.Caliburn.Base
 {
@@ -38,6 +39,19 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         protected void Toast(string title, TimeSpan? dismissTimer = null)
         {
             UserDialogs.Instance.Toast(title, dismissTimer);
+            Vibration.Vibrate(500);
+        }
+        #endregion
+
+        #region # 提示消息 —— void ToastVibrantly(string title...
+        /// <summary>
+        /// 提示消息
+        /// </summary>
+        /// <remarks>带振动</remarks>
+        protected void ToastVibrantly(string title, TimeSpan? dismissTimer = null, int vibratedDuration = 500)
+        {
+            Vibration.Vibrate(vibratedDuration);
+            UserDialogs.Instance.Toast(title, dismissTimer);
         }
         #endregion
 
@@ -51,12 +65,35 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         }
         #endregion
 
+        #region # 警告消息 —— async Task AlertVibrantly(string message...
+        /// <summary>
+        /// 警告消息
+        /// </summary>
+        /// <remarks>带振动</remarks>
+        protected async Task AlertVibrantly(string message, string title = null, int vibratedDuration = 500, CancellationToken? cancelToken = null)
+        {
+            Vibration.Vibrate(vibratedDuration);
+            await UserDialogs.Instance.AlertAsync(message, title, "确定", cancelToken);
+        }
+        #endregion
+
         #region # 确认消息 —— async Task<bool> Confirm(string message...
         /// <summary>
         /// 确认消息
         /// </summary>
         protected async Task<bool> Confirm(string message, string title = null, CancellationToken? cancelToken = null)
         {
+            return await UserDialogs.Instance.ConfirmAsync(message, title, "确定", "取消", cancelToken);
+        }
+        #endregion
+
+        #region # 确认消息 —— async Task<bool> ConfirmVibrantly(string message...
+        /// <summary>
+        /// 确认消息
+        /// </summary>
+        protected async Task<bool> ConfirmVibrantly(string message, string title = null, int vibratedDuration = 500, CancellationToken? cancelToken = null)
+        {
+            Vibration.Vibrate(vibratedDuration);
             return await UserDialogs.Instance.ConfirmAsync(message, title, "确定", "取消", cancelToken);
         }
         #endregion
