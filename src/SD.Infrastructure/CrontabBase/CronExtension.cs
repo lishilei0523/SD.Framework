@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SD.Infrastructure.Constants;
+using System;
 
 namespace SD.Infrastructure.CrontabBase
 {
@@ -26,6 +27,19 @@ namespace SD.Infrastructure.CrontabBase
         /// <returns>Cron表达式</returns>
         public static string ToCronExpression(this TimeSpan time)
         {
+            #region # 验证
+
+            if (time > CommonConstants.MaxTime)
+            {
+                time = CommonConstants.MaxTime;
+            }
+            if (time < CommonConstants.MinTime)
+            {
+                time = CommonConstants.MinTime;
+            }
+
+            #endregion
+
             string cron = $"{time.Seconds} {time.Minutes} {time.Hours} * * ? *";
 
             return cron;

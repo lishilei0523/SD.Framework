@@ -70,12 +70,22 @@ namespace SD.Infrastructure.Constants
         /// <summary>
         /// 最小时间
         /// </summary>
-        public static readonly DateTime MinDateTime = new DateTime(1901, 1, 1);
+        public static readonly TimeSpan MinTime = new TimeSpan(00, 00, 00);
 
         /// <summary>
         /// 最大时间
         /// </summary>
-        public static readonly DateTime MaxDateTime = new DateTime(2078, 6, 6);
+        public static readonly TimeSpan MaxTime = new TimeSpan(23, 59, 59);
+
+        /// <summary>
+        /// 最小日期
+        /// </summary>
+        public static readonly DateTime MinDate = new DateTime(1901, 1, 1);
+
+        /// <summary>
+        /// 最大日期
+        /// </summary>
+        public static readonly DateTime MaxDate = new DateTime(2078, 6, 6);
 
         /// <summary>
         /// 基元数据类型数组
