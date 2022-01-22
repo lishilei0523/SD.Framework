@@ -1334,7 +1334,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            IQueryable<T> queryable = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(condition);
+            IQueryable<T> queryable = this._dbContext.Set<T>().Where(condition);
 
             foreach (T entity in queryable)
             {
@@ -1373,7 +1373,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            IQueryable<T> queryable = this._dbContext.Set<T>().Where(x => !x.Deleted).Where(condition);
+            IQueryable<T> queryable = this._dbContext.Set<T>().Where(condition);
             DateTime deletedTime = DateTime.Now;
 
             foreach (T entity in queryable)
@@ -1418,7 +1418,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefault(condition);
+            return this._dbContext.Set<T>().SingleOrDefault(condition);
         }
         #endregion
 
@@ -1440,7 +1440,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return await this._dbContext.Set<T>().Where(x => !x.Deleted).SingleOrDefaultAsync(condition);
+            return await this._dbContext.Set<T>().SingleOrDefaultAsync(condition);
         }
         #endregion
 
@@ -1461,7 +1461,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return this._dbContext.Set<T>().Where(x => !x.Deleted).Where(condition);
+            return this._dbContext.Set<T>().Where(condition);
         }
         #endregion
 
@@ -1484,7 +1484,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             lock (_Sync)
             {
-                return this._dbContext.Set<T>().Where(x => !x.Deleted).Any(condition);
+                return this._dbContext.Set<T>().Any(condition);
             }
         }
         #endregion
@@ -1506,7 +1506,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
             #endregion
 
-            return await this._dbContext.Set<T>().Where(x => !x.Deleted).AnyAsync(condition);
+            return await this._dbContext.Set<T>().AnyAsync(condition);
         }
         #endregion
     }
