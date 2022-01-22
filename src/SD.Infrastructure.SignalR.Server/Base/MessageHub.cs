@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using SD.Infrastructure.MessageBase;
+using System.Threading.Tasks;
 
 namespace SD.Infrastructure.SignalR.Server.Base
 {
@@ -13,9 +14,9 @@ namespace SD.Infrastructure.SignalR.Server.Base
         /// 交换消息
         /// </summary>
         /// <param name="message">消息</param>
-        public virtual void Exchange(T message)
+        public virtual async Task Exchange(T message)
         {
-            base.Clients.Others.SendAsync(nameof(this.Exchange), message);
+            await base.Clients.Others.SendAsync(nameof(this.Exchange), message);
         }
     }
 }

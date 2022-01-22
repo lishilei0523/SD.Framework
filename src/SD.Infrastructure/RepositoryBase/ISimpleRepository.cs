@@ -10,9 +10,9 @@ namespace SD.Infrastructure.RepositoryBase
     /// <typeparam name="T">实体类型</typeparam>
     public interface ISimpleRepository<T> : IAggRootRepository<T> where T : AggregateRootEntity
     {
-        #region # 添加单个实体对象 —— void Add(T entity)
+        #region # 添加实体对象 —— void Add(T entity)
         /// <summary>
-        /// 添加单个实体对象
+        /// 添加实体对象
         /// </summary>
         /// <param name="entity">实体对象</param>
         void Add(T entity);
@@ -27,9 +27,9 @@ namespace SD.Infrastructure.RepositoryBase
         void AddRange(IEnumerable<T> entities);
         #endregion
 
-        #region # 保存单个实体对象 —— void Save(T entity)
+        #region # 保存实体对象 —— void Save(T entity)
         /// <summary>
-        /// 保存单个实体对象
+        /// 保存实体对象
         /// </summary>
         /// <param name="entity">实体对象</param>
         void Save(T entity);
@@ -44,17 +44,17 @@ namespace SD.Infrastructure.RepositoryBase
         void SaveRange(IEnumerable<T> entities);
         #endregion
 
-        #region # 删除单个实体对象 —— void Remove(Guid id)
+        #region # 删除实体对象 —— void Remove(Guid id)
         /// <summary>
-        /// 删除单个实体对象
+        /// 删除实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         void Remove(Guid id);
         #endregion
 
-        #region # 删除单个实体对象 —— void Remove(string number)
+        #region # 删除实体对象 —— void Remove(string number)
         /// <summary>
-        /// 删除单个实体对象
+        /// 删除实体对象
         /// </summary>
         /// <param name="number">编号</param>
         void Remove(string number);
@@ -75,13 +75,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>
         void RemoveRange(IEnumerable<string> numbers);
-        #endregion
-
-        #region # 删除全部 —— void RemoveAll()
-        /// <summary>
-        /// 删除全部
-        /// </summary>
-        void RemoveAll();
         #endregion
     }
 }

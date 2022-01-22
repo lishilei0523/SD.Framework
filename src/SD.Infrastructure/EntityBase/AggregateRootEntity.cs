@@ -50,9 +50,9 @@ namespace SD.Infrastructure.EntityBase
         public DateTime SavedTime { get; protected internal set; }
         #endregion
 
-        #region 逻辑删除标记 —— bool Deleted
+        #region 是否已删除 —— bool Deleted
         /// <summary>
-        /// 逻辑删除标记
+        /// 是否已删除
         /// </summary>
         public bool Deleted { get; protected internal set; }
         #endregion

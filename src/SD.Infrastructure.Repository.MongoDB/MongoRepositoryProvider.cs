@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace SD.Infrastructure.Repository.MongoDB
 {
@@ -75,9 +76,9 @@ namespace SD.Infrastructure.Repository.MongoDB
 
         #region # 命令部分
 
-        #region # 添加单个实体对象 —— void Add(T entity)
+        #region # 添加实体对象 —— void Add(T entity)
         /// <summary>
-        /// 添加单个实体对象
+        /// 添加实体对象
         /// </summary>
         /// <param name="entity">实体对象</param>
         public void Add(T entity)
@@ -121,9 +122,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 保存单个实体对象 —— void Save(T entity)
+        #region # 保存实体对象 —— void Save(T entity)
         /// <summary>
-        /// 保存单个实体对象
+        /// 保存实体对象
         /// </summary>
         /// <param name="entity">实体对象</param>
         public void Save(T entity)
@@ -183,9 +184,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 删除单个实体对象 —— void Remove(Guid id)
+        #region # 删除实体对象 —— void Remove(Guid id)
         /// <summary>
-        /// 删除单个实体对象
+        /// 删除实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         public void Remove(Guid id)
@@ -194,9 +195,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 删除单个实体对象 —— void Remove(string number)
+        #region # 删除实体对象 —— void Remove(string number)
         /// <summary>
-        /// 删除单个实体对象
+        /// 删除实体对象
         /// </summary>
         /// <param name="number">编号</param>
         public void Remove(string number)
@@ -265,57 +266,152 @@ namespace SD.Infrastructure.Repository.MongoDB
 
         //Single部分
 
-        #region # 根据Id获取唯一实体对象（查看时用） —— T SingleOrDefault(Guid id)
+        #region # 根据Id获取唯一实体对象 —— T SingleOrDefault(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象（查看时用），
+        /// 根据Id获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
-        /// <remarks>无该对象时返回null</remarks>
         public T SingleOrDefault(Guid id)
         {
-            #region # 验证
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
-            }
-
-            #endregion
-
             return this.Find(x => x.Id == id).SingleOrDefault();
         }
         #endregion
 
-        #region # 根据Id获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(Guid id)
+        #region # 根据Id获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象（查看时用），
+        /// 根据Id获取唯一实体对象
+        /// </summary>
+        /// <param name="id">标识Id</param>
+        /// <returns>实体对象</returns>
+        public async Task<T> SingleOrDefaultAsync(Guid id)
+        {
+            return await this.Find(x => x.Id == id).SingleOrDefaultAsync();
+        }
+        #endregion
+
+        #region # 根据Id获取唯一子类对象 —— TSub SingleOrDefault<TSub>(Guid id)
+        /// <summary>
+        /// 根据Id获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
-        /// <remarks>无该对象时返回null</remarks>
         public TSub SingleOrDefault<TSub>(Guid id) where TSub : T
         {
-            #region # 验证
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"{typeof(TSub).Name}的id不可为空！");
-            }
-
-            #endregion
-
             return this.Find<TSub>(x => x.Id == id).SingleOrDefault();
         }
         #endregion
 
-        #region # 根据编号获取唯一实体对象（查看时用） —— T SingleOrDefault(string number)
+        #region # 根据Id获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(Guid id)
         /// <summary>
-        /// 根据编号获取唯一实体对象（查看时用），
+        /// 根据Id获取唯一子类对象
+        /// </summary>
+        /// <param name="id">标识Id</param>
+        /// <returns>子类对象</returns>
+        public async Task<TSub> SingleOrDefaultAsync<TSub>(Guid id) where TSub : T
+        {
+            return await this.Find<TSub>(x => x.Id == id).SingleOrDefaultAsync();
+        }
+        #endregion
+
+        #region # 根据Id获取唯一实体对象 —— T Single(Guid id)
+        /// <summary>
+        /// 根据Id获取唯一实体对象
+        /// </summary>
+        /// <param name="id">标识Id</param>
+        /// <returns>实体对象</returns>
+        public T Single(Guid id)
+        {
+            T current = this.SingleOrDefault(id);
+
+            #region # 验证
+
+            if (current == null)
+            {
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return current;
+        }
+        #endregion
+
+        #region # 根据Id获取唯一实体对象 —— Task<T> SingleAsync(Guid id)
+        /// <summary>
+        /// 根据Id获取唯一实体对象
+        /// </summary>
+        /// <param name="id">标识Id</param>
+        /// <returns>实体对象</returns>
+        public async Task<T> SingleAsync(Guid id)
+        {
+            T current = await this.SingleOrDefaultAsync(id);
+
+            #region # 验证
+
+            if (current == null)
+            {
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return current;
+        }
+        #endregion
+
+        #region # 根据Id获取唯一子类对象 —— TSub Single<TSub>(Guid id)
+        /// <summary>
+        /// 根据Id获取唯一子类对象
+        /// </summary>
+        /// <param name="id">标识Id</param>
+        /// <returns>子类对象</returns>
+        public TSub Single<TSub>(Guid id) where TSub : T
+        {
+            TSub current = this.SingleOrDefault<TSub>(id);
+
+            #region # 验证
+
+            if (current == null)
+            {
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(TSub).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return current;
+        }
+        #endregion
+
+        #region # 根据Id获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(Guid id)
+        /// <summary>
+        /// 根据Id获取唯一子类对象
+        /// </summary>
+        /// <param name="id">标识Id</param>
+        /// <returns>子类对象</returns>
+        public async Task<TSub> SingleAsync<TSub>(Guid id) where TSub : T
+        {
+            TSub current = await this.SingleOrDefaultAsync<TSub>(id);
+
+            #region # 验证
+
+            if (current == null)
+            {
+                throw new NullReferenceException($"Id为\"{id}\"的{typeof(TSub).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return current;
+        }
+        #endregion
+
+        #region # 根据编号获取唯一实体对象 —— T SingleOrDefault(string number)
+        /// <summary>
+        /// 根据编号获取唯一实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>实体对象</returns>
-        /// <remarks>无该对象时返回null</remarks>
         public T SingleOrDefault(string number)
         {
             #region # 验证
@@ -331,13 +427,33 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号获取唯一子类对象（查看时用） —— TSub SingleOrDefault<TSub>(string number)
+        #region # 根据编号获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(string number)
         /// <summary>
-        /// 根据编号获取唯一子类对象（查看时用），
+        /// 根据编号获取唯一实体对象
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <returns>实体对象</returns>
+        public async Task<T> SingleOrDefaultAsync(string number)
+        {
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(number))
+            {
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
+            }
+
+            #endregion
+
+            return await this.Find(x => x.Number == number).SingleOrDefaultAsync();
+        }
+        #endregion
+
+        #region # 根据编号获取唯一子类对象 —— TSub SingleOrDefault<TSub>(string number)
+        /// <summary>
+        /// 根据编号获取唯一子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>子类对象</returns>
-        /// <remarks>无该对象时返回null</remarks>
         public TSub SingleOrDefault<TSub>(string number) where TSub : T
         {
             #region # 验证
@@ -353,55 +469,30 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id获取唯一实体对象（查看时用） —— T Single(Guid id)
+        #region # 根据编号获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(string number)
         /// <summary>
-        /// 根据Id获取唯一实体对象（查看时用），
+        /// 根据编号获取唯一子类对象
         /// </summary>
-        /// <param name="id">标识Id</param>
-        /// <returns>实体对象</returns>
-        public T Single(Guid id)
-        {
-            T current = this.SingleOrDefault(id);
-
-            #region # 非空验证
-
-            if (current == null)
-            {
-                throw new NullReferenceException($"Id为\"{id}\"的{typeof(T).Name}实体不存在！");
-            }
-
-            #endregion
-
-            return current;
-        }
-        #endregion
-
-        #region # 根据Id获取唯一子类对象（查看时用） —— TSub Single<TSub>(Guid id)
-        /// <summary>
-        /// 根据Id获取唯一子类对象（查看时用），
-        /// </summary>
-        /// <param name="id">标识Id</param>
+        /// <param name="number">编号</param>
         /// <returns>子类对象</returns>
-        public TSub Single<TSub>(Guid id) where TSub : T
+        public async Task<TSub> SingleOrDefaultAsync<TSub>(string number) where TSub : T
         {
-            TSub current = this.SingleOrDefault<TSub>(id);
+            #region # 验证
 
-            #region # 非空验证
-
-            if (current == null)
+            if (string.IsNullOrWhiteSpace(number))
             {
-                throw new NullReferenceException($"Id为\"{id}\"的{typeof(TSub).Name}实体不存在！");
+                throw new ArgumentNullException(nameof(number), $"{typeof(TSub).Name}的编号不可为空！");
             }
 
             #endregion
 
-            return current;
+            return await this.Find<TSub>(x => x.Number == number).SingleOrDefaultAsync();
         }
         #endregion
 
-        #region # 根据编号获取唯一实体对象（查看时用） —— T Single(string number)
+        #region # 根据编号获取唯一实体对象 —— T Single(string number)
         /// <summary>
-        /// 根据编号获取唯一实体对象（查看时用），
+        /// 根据编号获取唯一实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>实体对象</returns>
@@ -409,7 +500,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             T current = this.SingleOrDefault(number);
 
-            #region # 非空验证
+            #region # 验证
 
             if (current == null)
             {
@@ -422,9 +513,32 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号获取唯一子类对象（查看时用） —— TSub Single<TSub>(string number)
+        #region # 根据编号获取唯一实体对象 —— Task<T> SingleAsync(string number)
         /// <summary>
-        /// 根据编号获取唯一子类对象（查看时用），
+        /// 根据编号获取唯一实体对象
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <returns>实体对象</returns>
+        public async Task<T> SingleAsync(string number)
+        {
+            T current = await this.SingleOrDefaultAsync(number);
+
+            #region # 验证
+
+            if (current == null)
+            {
+                throw new NullReferenceException($"编号为\"{number}\"的{typeof(T).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return current;
+        }
+        #endregion
+
+        #region # 根据编号获取唯一子类对象 —— TSub Single<TSub>(string number)
+        /// <summary>
+        /// 根据编号获取唯一子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>子类对象</returns>
@@ -432,7 +546,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             TSub current = this.SingleOrDefault<TSub>(number);
 
-            #region # 非空验证
+            #region # 验证
 
             if (current == null)
             {
@@ -445,25 +559,140 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #region # 根据编号获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(string number)
+        /// <summary>
+        /// 根据编号获取唯一子类对象
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <returns>子类对象</returns>
+        public async Task<TSub> SingleAsync<TSub>(string number) where TSub : T
+        {
+            TSub current = await this.SingleOrDefaultAsync<TSub>(number);
+
+            #region # 验证
+
+            if (current == null)
+            {
+                throw new NullReferenceException($"编号为\"{number}\"的{typeof(TSub).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return current;
+        }
+        #endregion
+
+        #region # 根据行号获取唯一实体对象 —— TRowable SingleOrDefault(long rowNo)
+        /// <summary>
+        /// 根据行号获取唯一实体对象
+        /// </summary>
+        /// <param name="rowNo">行号</param>
+        /// <returns>实体对象</returns>
+        public TRowable SingleOrDefault<TRowable>(long rowNo) where TRowable : T, IRowable
+        {
+            return this.Find<TRowable>(x => x.RowNo == rowNo).SingleOrDefault();
+        }
+        #endregion
+
+        #region # 根据行号获取唯一实体对象 —— Task<TRowable> SingleOrDefaultAsync(long rowNo)
+        /// <summary>
+        /// 根据行号获取唯一实体对象
+        /// </summary>
+        /// <param name="rowNo">行号</param>
+        /// <returns>实体对象</returns>
+        public async Task<TRowable> SingleOrDefaultAsync<TRowable>(long rowNo) where TRowable : T, IRowable
+        {
+            return await this.Find<TRowable>(x => x.RowNo == rowNo).SingleOrDefaultAsync();
+        }
+        #endregion
+
+        #region # 根据行号获取唯一实体对象 —— TRowable Single(long rowNo)
+        /// <summary>
+        /// 根据行号获取唯一实体对象
+        /// </summary>
+        /// <param name="rowNo">行号</param>
+        /// <returns>实体对象</returns>
+        public TRowable Single<TRowable>(long rowNo) where TRowable : T, IRowable
+        {
+            TRowable current = this.SingleOrDefault<TRowable>(rowNo);
+
+            #region # 验证
+
+            if (current == null)
+            {
+                throw new NullReferenceException($"行号为\"{rowNo}\"的{typeof(TRowable).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return current;
+        }
+        #endregion
+
+        #region # 根据行号获取唯一实体对象 —— Task<TRowable> SingleAsync(long rowNo)
+        /// <summary>
+        /// 根据行号获取唯一实体对象
+        /// </summary>
+        /// <param name="rowNo">行号</param>
+        /// <returns>实体对象</returns>
+        public async Task<TRowable> SingleAsync<TRowable>(long rowNo) where TRowable : T, IRowable
+        {
+            TRowable current = await this.SingleOrDefaultAsync<TRowable>(rowNo);
+
+            #region # 验证
+
+            if (current == null)
+            {
+                throw new NullReferenceException($"行号为\"{rowNo}\"的{typeof(TRowable).Name}实体不存在！");
+            }
+
+            #endregion
+
+            return current;
+        }
+        #endregion
+
         #region # 获取默认或第一个实体对象 —— T FirstOrDefault()
         /// <summary>
-        /// 获取默认或第一个实体对象，
+        /// 获取默认或第一个实体对象
         /// </summary>
-        /// <remarks>无该对象时返回null</remarks>
+        /// <returns>实体对象</returns>
         public virtual T FirstOrDefault()
         {
             return this.FindAndSort(x => true).FirstOrDefault();
         }
         #endregion
 
+        #region # 获取默认或第一个实体对象 —— Task<T> FirstOrDefaultAsync()
+        /// <summary>
+        /// 获取默认或第一个实体对象
+        /// </summary>
+        /// <returns>实体对象</returns>
+        public virtual async Task<T> FirstOrDefaultAsync()
+        {
+            return await this.FindAndSort(x => true).FirstOrDefaultAsync();
+        }
+        #endregion
+
         #region # 获取默认或第一个子类对象 —— TSub FirstOrDefault<TSub>()
         /// <summary>
-        /// 获取默认或第一个子类对象，
+        /// 获取默认或第一个子类对象
         /// </summary>
-        /// <remarks>无该对象时返回null</remarks>
+        /// <returns>子类对象</returns>
         public virtual TSub FirstOrDefault<TSub>() where TSub : T
         {
             return this.FindAndSort<TSub>(x => true).FirstOrDefault();
+        }
+        #endregion
+
+        #region # 获取默认或第一个子类对象 —— Task<TSub> FirstOrDefaultAsync<TSub>()
+        /// <summary>
+        /// 获取默认或第一个子类对象
+        /// </summary>
+        /// <returns>子类对象</returns>
+        public async Task<TSub> FirstOrDefaultAsync<TSub>() where TSub : T
+        {
+            return await this.FindAndSort<TSub>(x => true).FirstOrDefaultAsync();
         }
         #endregion
 
@@ -481,6 +710,17 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #region # 获取实体对象列表 —— Task<ICollection<T>> FindAllAsync()
+        /// <summary>
+        /// 获取实体对象列表
+        /// </summary>
+        /// <returns>实体对象列表</returns>
+        public async Task<ICollection<T>> FindAllAsync()
+        {
+            return await this.Find(x => true).ToListAsync();
+        }
+        #endregion
+
         #region # 获取给定类型子类对象列表 —— ICollection<TSub> FindAll<TSub>()
         /// <summary>
         /// 获取给定类型子类对象列表
@@ -490,6 +730,18 @@ namespace SD.Infrastructure.Repository.MongoDB
         public ICollection<TSub> FindAll<TSub>() where TSub : T
         {
             return this.Find<TSub>(x => true).ToList();
+        }
+        #endregion
+
+        #region # 获取给定类型子类对象列表 —— Task<ICollection<TSub>> FindAllAsync<TSub>()
+        /// <summary>
+        /// 获取给定类型子类对象列表
+        /// </summary>
+        /// <typeparam name="TSub">子类类型</typeparam>
+        /// <returns>子类对象列表</returns>
+        public async Task<ICollection<TSub>> FindAllAsync<TSub>() where TSub : T
+        {
+            return await this.Find<TSub>(x => true).ToListAsync();
         }
         #endregion
 
@@ -505,6 +757,21 @@ namespace SD.Infrastructure.Repository.MongoDB
                     (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
 
             return this.Find(condition).ToList();
+        }
+        #endregion
+
+        #region # 根据关键字获取实体对象列表 —— Task<ICollection<T>> FindAsync(string keywords)
+        /// <summary>
+        /// 根据关键字获取实体对象列表
+        /// </summary>
+        /// <returns>实体对象列表</returns>
+        public async Task<ICollection<T>> FindAsync(string keywords)
+        {
+            Expression<Func<T, bool>> condition =
+                x =>
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
+
+            return await this.Find(condition).ToListAsync();
         }
         #endregion
 
@@ -524,7 +791,23 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字分页获取实体对象列表 —— ICollection<T> FindByPage(...
+        #region # 根据关键字获取子类对象列表 —— Task<ICollection<TSub>> FindAsync<TSub>(string keywords)
+        /// <summary>
+        /// 根据关键字获取子类对象列表
+        /// </summary>
+        /// <typeparam name="TSub">子类类型</typeparam>
+        /// <returns>子类对象列表</returns>
+        public async Task<ICollection<TSub>> FindAsync<TSub>(string keywords) where TSub : T
+        {
+            Expression<Func<TSub, bool>> condition =
+                x =>
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
+
+            return await this.Find<TSub>(condition).ToListAsync();
+        }
+        #endregion
+
+        #region # 根据关键字分页获取实体对象列表 —— ICollection<T> FindByPage(string keywords...
         /// <summary>
         /// 根据关键字分页获取实体对象列表
         /// </summary>
@@ -544,7 +827,29 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字分页获取子类对象列表 —— ICollection<TSub> FindByPage...
+        #region # 根据关键字分页获取实体对象列表 —— Task<ICollection<T>> FindByPageAsync(string keywords...
+        /// <summary>
+        /// 根据关键字分页获取实体对象列表
+        /// </summary>
+        /// <param name="keywords">关键字</param>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
+        /// <returns>实体对象列表</returns>
+        public Task<ICollection<T>> FindByPageAsync(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount)
+        {
+            Expression<Func<T, bool>> condition =
+                x =>
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
+
+            Task<List<T>> task = this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToListAsync();
+
+            return new Task<ICollection<T>>(() => task.Result);
+        }
+        #endregion
+
+        #region # 根据关键字分页获取子类对象列表 —— ICollection<TSub> FindByPage<TSub>(string keywords...
         /// <summary>
         /// 根据关键字分页获取子类对象列表
         /// </summary>
@@ -566,6 +871,29 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #region # 根据关键字分页获取子类对象列表 —— Task<ICollection<TSub>> FindByPageAsync<TSub>(string keywords...
+        /// <summary>
+        /// 根据关键字分页获取子类对象列表
+        /// </summary>
+        /// <typeparam name="TSub">子类类型</typeparam>
+        /// <param name="keywords">关键字</param>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <param name="rowCount">总记录条数</param>
+        /// <param name="pageCount">总页数</param>
+        /// <returns>子类对象列表</returns>
+        public Task<ICollection<TSub>> FindByPageAsync<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
+        {
+            Expression<Func<TSub, bool>> condition =
+                x =>
+                    (string.IsNullOrEmpty(keywords) || x.Keywords.Contains(keywords));
+
+            Task<List<TSub>> task = this.FindByPage<TSub>(condition, pageIndex, pageSize, out rowCount, out pageCount).ToListAsync();
+
+            return new Task<ICollection<TSub>>(() => task.Result);
+        }
+        #endregion
+
 
         //IDictionary部分
 
@@ -573,6 +901,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <summary>
         /// 根据Id集获取实体对象字典
         /// </summary>
+        /// <param name="ids">标识Id集</param>
         /// <returns>实体对象字典</returns>
         /// <remarks>IDictionary[Guid, T]，[Id, 实体对象]</remarks>
         public IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
@@ -593,10 +922,36 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #region # 根据Id集获取实体对象字典 —— Task<IDictionary<Guid, T>> FindAsync(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 根据Id集获取实体对象字典
+        /// </summary>
+        /// <param name="ids">标识Id集</param>
+        /// <returns>实体对象字典</returns>
+        /// <remarks>IDictionary[Guid, T]，[Id, 实体对象]</remarks>
+        public async Task<IDictionary<Guid, T>> FindAsync(IEnumerable<Guid> ids)
+        {
+            #region # 验证
+
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            if (!ids_.Any())
+            {
+                return new Dictionary<Guid, T>();
+            }
+
+            #endregion
+
+            IList<T> entities = await this.Find(x => ids_.Contains(x.Id)).ToListAsync();
+
+            return entities.ToDictionary(x => x.Id, x => x);
+        }
+        #endregion
+
         #region # 根据Id集获取子类对象字典 —— IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids)
         /// <summary>
         /// 根据Id集获取子类对象字典
         /// </summary>
+        /// <param name="ids">标识Id集</param>
         /// <returns>子类对象字典</returns>
         /// <remarks>IDictionary[Guid, TSub]，[Id, 子类对象]</remarks>
         public IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids) where TSub : T
@@ -612,6 +967,31 @@ namespace SD.Infrastructure.Repository.MongoDB
             #endregion
 
             IList<TSub> entities = this.Find<TSub>(x => ids_.Contains(x.Id)).ToList();
+
+            return entities.ToDictionary(x => x.Id, x => x);
+        }
+        #endregion
+
+        #region # 根据Id集获取子类对象字典 —— Task<IDictionary<Guid, TSub>> FindAsync<TSub>(IEnumerable<Guid> ids)
+        /// <summary>
+        /// 根据Id集获取子类对象字典
+        /// </summary>
+        /// <param name="ids">标识Id集</param>
+        /// <returns>子类对象字典</returns>
+        /// <remarks>IDictionary[Guid, TSub]，[Id, 子类对象]</remarks>
+        public async Task<IDictionary<Guid, TSub>> FindAsync<TSub>(IEnumerable<Guid> ids) where TSub : T
+        {
+            #region # 验证
+
+            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            if (!ids_.Any())
+            {
+                return new Dictionary<Guid, TSub>();
+            }
+
+            #endregion
+
+            IList<TSub> entities = await this.Find<TSub>(x => ids_.Contains(x.Id)).ToListAsync();
 
             return entities.ToDictionary(x => x.Id, x => x);
         }
@@ -641,6 +1021,30 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #region # 根据编号集获取实体对象字典 —— Task<IDictionary<string, T>> FindAsync(IEnumerable<string> numbers)
+        /// <summary>
+        /// 根据编号集获取实体对象字典
+        /// </summary>
+        /// <returns>实体对象字典</returns>
+        /// <remarks>IDictionary[string, T]，[编号, 实体对象]</remarks>
+        public async Task<IDictionary<string, T>> FindAsync(IEnumerable<string> numbers)
+        {
+            #region # 验证
+
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            if (!numbers_.Any())
+            {
+                return new Dictionary<string, T>();
+            }
+
+            #endregion
+
+            IList<T> entities = await this.Find<T>(x => numbers_.Contains(x.Number)).ToListAsync();
+
+            return entities.ToDictionary(x => x.Number, x => x);
+        }
+        #endregion
+
         #region # 根据编号集获取子类对象字典 —— IDictionary<string, TSub> Find<TSub>(IEnumerable<string>...
         /// <summary>
         /// 根据编号集获取子类对象字典
@@ -665,32 +1069,132 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #region # 根据编号集获取子类对象字典 —— Task<IDictionary<string, TSub>> FindAsync<TSub>(IEnumerable<string...
+        /// <summary>
+        /// 根据编号集获取子类对象字典
+        /// </summary>
+        /// <returns>子类对象字典</returns>
+        /// <remarks>IDictionary[string, TSub]，[编号, 子类对象]</remarks>
+        public async Task<IDictionary<string, TSub>> FindAsync<TSub>(IEnumerable<string> numbers) where TSub : T
+        {
+            #region # 验证
+
+            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            if (!numbers_.Any())
+            {
+                return new Dictionary<string, TSub>();
+            }
+
+            #endregion
+
+            IList<TSub> entities = await this.Find<TSub>(x => numbers_.Contains(x.Number)).ToListAsync();
+
+            return entities.ToDictionary(x => x.Number, x => x);
+        }
+        #endregion
+
+        #region # 根据行号集获取实体对象字典 —— IDictionary<long, TRowable> Find<TRowable>(IEnumerable<long> rowNos)
+        /// <summary>
+        /// 根据行号集获取实体对象字典
+        /// </summary>
+        /// <param name="rowNos">行号集</param>
+        /// <returns>实体对象字典</returns>
+        /// <remarks>IDictionary[long, TRowable]，[行号, 实体对象]</remarks>
+        public IDictionary<long, TRowable> Find<TRowable>(IEnumerable<long> rowNos) where TRowable : T, IRowable
+        {
+            #region # 验证
+
+            long[] rowNos_ = rowNos?.Distinct().ToArray() ?? Array.Empty<long>();
+            if (!rowNos_.Any())
+            {
+                return new Dictionary<long, TRowable>();
+            }
+
+            #endregion
+
+            IList<TRowable> entities = this.Find<TRowable>(x => rowNos_.Contains(x.RowNo)).ToList();
+
+            return entities.ToDictionary(x => x.RowNo, x => x);
+        }
+        #endregion
+
+        #region # 根据行号集获取实体对象字典 —— Task<IDictionary<long, TRowable>> FindAsync<TRowable>(IEnumerable<long> rowNos)
+        /// <summary>
+        /// 根据行号集获取实体对象字典
+        /// </summary>
+        /// <param name="rowNos">行号集</param>
+        /// <returns>实体对象字典</returns>
+        /// <remarks>IDictionary[long, TRowable]，[行号, 实体对象]</remarks>
+        public async Task<IDictionary<long, TRowable>> FindAsync<TRowable>(IEnumerable<long> rowNos) where TRowable : T, IRowable
+        {
+            #region # 验证
+
+            long[] rowNos_ = rowNos?.Distinct().ToArray() ?? Array.Empty<long>();
+            if (!rowNos_.Any())
+            {
+                return new Dictionary<long, TRowable>();
+            }
+
+            #endregion
+
+            IList<TRowable> entities = await this.Find<TRowable>(x => rowNos_.Contains(x.RowNo)).ToListAsync();
+
+            return entities.ToDictionary(x => x.RowNo, x => x);
+        }
+        #endregion
+
 
         //Count部分
 
-        #region # 获取总记录条数 —— int Count()
+        #region # 获取总记录条数 —— long Count()
         /// <summary>
         /// 获取总记录条数
         /// </summary>
         /// <returns>总记录条数</returns>
-        public int Count()
+        public long Count()
         {
             long count = this.Find(x => true).CountDocuments();
 
-            return unchecked((int)count);
+            return count;
         }
         #endregion
 
-        #region # 获取子类记录条数 —— int Count<TSub>()
+        #region # 获取总记录条数 —— Task<long> CountAsync()
+        /// <summary>
+        /// 获取总记录条数
+        /// </summary>
+        /// <returns>总记录条数</returns>
+        public async Task<long> CountAsync()
+        {
+            long count = await this.Find(x => true).CountDocumentsAsync();
+
+            return count;
+        }
+        #endregion
+
+        #region # 获取子类记录条数 —— long Count<TSub>()
         /// <summary>
         /// 获取子类记录条数
         /// </summary>
         /// <returns>子类记录条数</returns>
-        public int Count<TSub>() where TSub : T
+        public long Count<TSub>() where TSub : T
         {
             long count = this.Find<TSub>(x => true).CountDocuments();
 
-            return unchecked((int)count);
+            return count;
+        }
+        #endregion
+
+        #region # 获取子类记录条数 —— Task<long> CountAsync<TSub>()
+        /// <summary>
+        /// 获取子类记录条数
+        /// </summary>
+        /// <returns>子类记录条数</returns>
+        public async Task<long> CountAsync<TSub>() where TSub : T
+        {
+            long count = await this.Find<TSub>(x => true).CountDocumentsAsync();
+
+            return count;
         }
         #endregion
 
@@ -705,16 +1209,19 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>是否存在</returns>
         public bool Exists(Guid id)
         {
-            #region # 验证
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
-            }
-
-            #endregion
-
             return this.Find(x => x.Id == id).Any();
+        }
+        #endregion
+
+        #region # 是否存在给定Id的实体对象 —— Task<bool> ExistsAsync(Guid id)
+        /// <summary>
+        /// 是否存在给定Id的实体对象
+        /// </summary>
+        /// <param name="id">标识Id</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsAsync(Guid id)
+        {
+            return await this.Find(x => x.Id == id).AnyAsync();
         }
         #endregion
 
@@ -726,16 +1233,43 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>是否存在</returns>
         public bool Exists<TSub>(Guid id) where TSub : T
         {
-            #region # 验证
-
-            if (id == Guid.Empty)
-            {
-                throw new ArgumentNullException(nameof(id), $"{typeof(T).Name}的id不可为空！");
-            }
-
-            #endregion
-
             return this.Find<TSub>(x => x.Id == id).Any();
+        }
+        #endregion
+
+        #region # 是否存在给定Id的子类对象 —— Task<bool> ExistsAsync<TSub>(Guid id)
+        /// <summary>
+        /// 是否存在给定Id的子类对象
+        /// </summary>
+        /// <param name="id">标识Id</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsAsync<TSub>(Guid id) where TSub : T
+        {
+            return await this.Find<TSub>(x => x.Id == id).AnyAsync();
+        }
+        #endregion
+
+        #region # 是否存在给定行号的实体对象 —— bool Exists<TRowable>(long rowNo)
+        /// <summary>
+        /// 是否存在给定行号的实体对象
+        /// </summary>
+        /// <param name="rowNo">行号</param>
+        /// <returns>是否存在</returns>
+        public bool Exists<TRowable>(long rowNo) where TRowable : T, IRowable
+        {
+            return this.Find<TRowable>(x => x.RowNo == rowNo).Any();
+        }
+        #endregion
+
+        #region # 是否存在给定行号的实体对象 —— Task<bool> ExistsAsync<TRowable>(long rowNo)
+        /// <summary>
+        /// 是否存在给定行号的实体对象
+        /// </summary>
+        /// <param name="rowNo">行号</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsAsync<TRowable>(long rowNo) where TRowable : T, IRowable
+        {
+            return await this.Find<TRowable>(x => x.RowNo == rowNo).AnyAsync();
         }
         #endregion
 
@@ -760,6 +1294,27 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #region # 是否存在给定编号的实体对象 —— Task<bool> ExistsNoAsync(string number)
+        /// <summary>
+        /// 是否存在给定编号的实体对象
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsNoAsync(string number)
+        {
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(number))
+            {
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
+            }
+
+            #endregion
+
+            return await this.Find(x => x.Number == number).AnyAsync();
+        }
+        #endregion
+
         #region # 是否存在给定编号的子类对象 —— bool ExistsNo<TSub>(string number)
         /// <summary>
         /// 是否存在给定编号的子类对象
@@ -781,6 +1336,27 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #region # 是否存在给定编号的子类对象 —— Task<bool> ExistsNoAsync<TSub>(string number)
+        /// <summary>
+        /// 是否存在给定编号的子类对象
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsNoAsync<TSub>(string number) where TSub : T
+        {
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(number))
+            {
+                throw new ArgumentNullException(nameof(number), $"{typeof(T).Name}的编号不可为空！");
+            }
+
+            #endregion
+
+            return await this.Find<TSub>(x => x.Number == number).AnyAsync();
+        }
+        #endregion
+
         #region # 是否存在给定编号的实体对象 —— bool ExistsNo(Guid? id, string number)
         /// <summary>
         /// 是否存在给定编号的实体对象
@@ -790,10 +1366,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>是否存在</returns>
         public bool ExistsNo(Guid? id, string number)
         {
-            if (id != null)
+            if (id.HasValue)
             {
                 T current = this.SingleOrDefault(id.Value);
-
                 if (current != null && current.Number == number)
                 {
                     return false;
@@ -806,6 +1381,30 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #region # 是否存在给定编号的实体对象 —— Task<bool> ExistsNoAsync(Guid? id, string number)
+        /// <summary>
+        /// 是否存在给定编号的实体对象
+        /// </summary>
+        /// <param name="id">标识id</param>
+        /// <param name="number">编号</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsNoAsync(Guid? id, string number)
+        {
+            if (id.HasValue)
+            {
+                T current = await this.SingleOrDefaultAsync(id.Value);
+                if (current != null && current.Number == number)
+                {
+                    return false;
+                }
+
+                return await this.ExistsNoAsync(number);
+            }
+
+            return await this.ExistsNoAsync(number);
+        }
+        #endregion
+
         #region # 是否存在给定编号的子类对象 —— bool ExistsNo<TSub>(Guid? id, string number)
         /// <summary>
         /// 是否存在给定编号的子类对象
@@ -815,10 +1414,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>是否存在</returns>
         public bool ExistsNo<TSub>(Guid? id, string number) where TSub : T
         {
-            if (id != null)
+            if (id.HasValue)
             {
                 TSub current = this.SingleOrDefault<TSub>(id.Value);
-
                 if (current != null && current.Number == number)
                 {
                     return false;
@@ -828,6 +1426,30 @@ namespace SD.Infrastructure.Repository.MongoDB
             }
 
             return this.ExistsNo(number);
+        }
+        #endregion
+
+        #region # 是否存在给定编号的子类对象 —— Task<bool> ExistsNoAsync<TSub>(Guid? id, string number)
+        /// <summary>
+        /// 是否存在给定编号的子类对象
+        /// </summary>
+        /// <param name="id">标识id</param>
+        /// <param name="number">编号</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsNoAsync<TSub>(Guid? id, string number) where TSub : T
+        {
+            if (id.HasValue)
+            {
+                TSub current = await this.SingleOrDefaultAsync<TSub>(id.Value);
+                if (current != null && current.Number == number)
+                {
+                    return false;
+                }
+
+                return await this.ExistsNoAsync(number);
+            }
+
+            return await this.ExistsNoAsync(number);
         }
         #endregion
 
@@ -852,6 +1474,27 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #region # 是否存在给定名称的实体对象 —— Task<bool> ExistsNameAsync(string name)
+        /// <summary>
+        /// 是否存在给定名称的实体对象
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsNameAsync(string name)
+        {
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException(nameof(name), $"{typeof(T).Name}的名称不可为空！");
+            }
+
+            #endregion
+
+            return await this.Find(x => x.Name == name).AnyAsync();
+        }
+        #endregion
+
         #region # 是否存在给定名称的子类对象 —— bool ExistsName<TSub>(string name)
         /// <summary>
         /// 是否存在给定名称的子类对象
@@ -873,6 +1516,27 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
+        #region # 是否存在给定名称的子类对象 —— Task<bool> ExistsNameAsync<TSub>(string name)
+        /// <summary>
+        /// 是否存在给定名称的子类对象
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsNameAsync<TSub>(string name) where TSub : T
+        {
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException(nameof(name), $"{typeof(T).Name}的名称不可为空！");
+            }
+
+            #endregion
+
+            return await this.Find<TSub>(x => x.Name == name).AnyAsync();
+        }
+        #endregion
+
         #region # 是否存在给定名称的实体对象 —— bool ExistsName(Guid? id, string name)
         /// <summary>
         /// 是否存在给定名称的实体对象
@@ -882,16 +1546,42 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>是否存在</returns>
         public bool ExistsName(Guid? id, string name)
         {
-            id = id ?? Guid.Empty;
-
-            T current = this.SingleOrDefault(id.Value);
-
-            if (current != null && current.Name == name)
+            if (id.HasValue)
             {
-                return false;
+                T current = this.SingleOrDefault(id.Value);
+                if (current != null && current.Name == name)
+                {
+                    return false;
+                }
+
+                return this.ExistsName(name);
             }
 
             return this.ExistsName(name);
+        }
+        #endregion
+
+        #region # 是否存在给定名称的实体对象 —— Task<bool> ExistsNameAsync(Guid? id, string name)
+        /// <summary>
+        /// 是否存在给定名称的实体对象
+        /// </summary>
+        /// <param name="id">标识id</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsNameAsync(Guid? id, string name)
+        {
+            if (id.HasValue)
+            {
+                T current = await this.SingleOrDefaultAsync(id.Value);
+                if (current != null && current.Name == name)
+                {
+                    return false;
+                }
+
+                return await this.ExistsNameAsync(name);
+            }
+
+            return await this.ExistsNameAsync(name);
         }
         #endregion
 
@@ -904,16 +1594,42 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>是否存在</returns>
         public bool ExistsName<TSub>(Guid? id, string name) where TSub : T
         {
-            id = id ?? Guid.Empty;
-
-            TSub current = this.SingleOrDefault<TSub>(id.Value);
-
-            if (current != null && current.Name == name)
+            if (id.HasValue)
             {
-                return false;
+                TSub current = this.SingleOrDefault<TSub>(id.Value);
+                if (current != null && current.Name == name)
+                {
+                    return false;
+                }
+
+                return this.ExistsName(name);
             }
 
             return this.ExistsName(name);
+        }
+        #endregion
+
+        #region # 是否存在给定名称的子类对象 —— Task<bool> ExistsNameAsync<TSub>(Guid? id, string name)
+        /// <summary>
+        /// 是否存在给定名称的子类对象
+        /// </summary>
+        /// <param name="id">标识id</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsNameAsync<TSub>(Guid? id, string name) where TSub : T
+        {
+            if (id.HasValue)
+            {
+                TSub current = await this.SingleOrDefaultAsync<TSub>(id.Value);
+                if (current != null && current.Name == name)
+                {
+                    return false;
+                }
+
+                return await this.ExistsNameAsync(name);
+            }
+
+            return await this.ExistsNameAsync(name);
         }
         #endregion
 
@@ -926,16 +1642,43 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>是否存在</returns>
         public bool ExistsName(string number, string name)
         {
-            number = string.IsNullOrWhiteSpace(number) ? Guid.NewGuid().ToString().Substring(0, 10) : number;
-
-            T current = this.SingleOrDefault(number);
-
-            if (current != null && current.Name == name)
+            if (!string.IsNullOrWhiteSpace(number))
             {
-                return false;
+                T current = this.SingleOrDefault(number);
+
+                if (current != null && current.Name == name)
+                {
+                    return false;
+                }
+
+                return this.ExistsName(name);
             }
 
             return this.ExistsName(name);
+        }
+        #endregion
+
+        #region # 是否存在给定名称的实体对象 —— Task<bool> ExistsNameAsync(string number, string name)
+        /// <summary>
+        /// 是否存在给定名称的实体对象
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsNameAsync(string number, string name)
+        {
+            if (!string.IsNullOrWhiteSpace(number))
+            {
+                T current = await this.SingleOrDefaultAsync(number);
+                if (current != null && current.Name == name)
+                {
+                    return false;
+                }
+
+                return await this.ExistsNameAsync(name);
+            }
+
+            return await this.ExistsNameAsync(name);
         }
         #endregion
 
@@ -948,16 +1691,43 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <returns>是否存在</returns>
         public bool ExistsName<TSub>(string number, string name) where TSub : T
         {
-            number = string.IsNullOrWhiteSpace(number) ? Guid.NewGuid().ToString().Substring(0, 10) : number;
-
-            TSub current = this.SingleOrDefault<TSub>(number);
-
-            if (current != null && current.Name == name)
+            if (!string.IsNullOrWhiteSpace(number))
             {
-                return false;
+                TSub current = this.SingleOrDefault<TSub>(number);
+
+                if (current != null && current.Name == name)
+                {
+                    return false;
+                }
+
+                return this.ExistsName(name);
             }
 
             return this.ExistsName(name);
+        }
+        #endregion
+
+        #region # 是否存在给定名称的子类对象 —— Task<bool> ExistsNameAsync<TSub>(string number, string name)
+        /// <summary>
+        /// 是否存在给定名称的子类对象
+        /// </summary>
+        /// <param name="number">编号</param>
+        /// <param name="name">名称</param>
+        /// <returns>是否存在</returns>
+        public async Task<bool> ExistsNameAsync<TSub>(string number, string name) where TSub : T
+        {
+            if (!string.IsNullOrWhiteSpace(number))
+            {
+                TSub current = await this.SingleOrDefaultAsync<TSub>(number);
+                if (current != null && current.Name == name)
+                {
+                    return false;
+                }
+
+                return await this.ExistsNameAsync(name);
+            }
+
+            return await this.ExistsNameAsync(name);
         }
         #endregion
 
@@ -972,6 +1742,19 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <param name="parameters">参数集</param>
         /// <returns>实体对象列表</returns>
         public ICollection<TEntity> ExecuteSqlQuery<TEntity>(string sql, params object[] parameters)
+        {
+            throw new NotSupportedException("MongoDB不支持SQL");
+        }
+        #endregion
+
+        #region # 执行SQL查询 —— Task<ICollection<TEntity>> ExecuteSqlQueryAsync<TEntity>(string sql...
+        /// <summary>
+        /// 执行SQL查询
+        /// </summary>
+        /// <param name="sql">SQL语句</param>
+        /// <param name="parameters">参数集</param>
+        /// <returns>实体对象集合</returns>
+        public Task<ICollection<TEntity>> ExecuteSqlQueryAsync<TEntity>(string sql, params object[] parameters)
         {
             throw new NotSupportedException("MongoDB不支持SQL");
         }

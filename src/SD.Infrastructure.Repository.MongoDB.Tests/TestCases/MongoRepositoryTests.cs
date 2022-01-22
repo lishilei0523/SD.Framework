@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Infrastructure.Repository.MongoDB.Tests.Entities;
 using SD.Infrastructure.Repository.MongoDB.Tests.IRepositories;
 using SD.Infrastructure.Repository.MongoDB.Tests.Repositories;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
 {
@@ -27,7 +27,6 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
         public void Init()
         {
             this._productRep = new ProductRepository();
-            this._productRep.RemoveAll();
         }
 
         /// <summary>
@@ -36,7 +35,6 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
         [TestCleanup]
         public void CleanUp()
         {
-            this._productRep.RemoveAll();
             this._productRep.Dispose();
         }
 

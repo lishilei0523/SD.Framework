@@ -8,50 +8,50 @@ using System.Reflection;
 namespace SD.Infrastructure.RepositoryBase
 {
     /// <summary>
-    /// 仓储扩展工具类
+    /// 仓储扩展
     /// </summary>
     public static class RepositoryExtension
     {
         //Public
 
-        #region # 分页扩展方法 —— static IEnumerable<T> ToPage<T>(this IOrderedEnumerable<T> enumerable...
+        #region # 分页 —— static IEnumerable<T> ToPage<T>(this IOrderedEnumerable<T> orderedResult...
         /// <summary>
-        /// 分页扩展方法
+        /// 分页
         /// </summary>
-        /// <typeparam name="T">领域实体</typeparam>
-        /// <param name="enumerable">集合对象</param>
-        /// <param name="pageIndex">页索引</param>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="orderedResult">已排序集合对象</param>
+        /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">总记录条数</param>
+        /// <param name="rowCount">总记录数</param>
         /// <param name="pageCount">总页数</param>
-        /// <returns>对象列表</returns>
-        public static IEnumerable<T> ToPage<T>(this IOrderedEnumerable<T> enumerable, int pageIndex, int pageSize, out int rowCount, out int pageCount)
-            where T : PlainEntity
+        /// <returns>实体对象列表</returns>
+        public static IEnumerable<T> ToPage<T>(this IOrderedEnumerable<T> orderedResult, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
-            T[] list = enumerable.ToArray();
-            rowCount = list.Length;
+            T[] array = orderedResult?.ToArray() ?? new T[0]; ;
+            rowCount = array.Length;
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
-            return list.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+
+            return array.Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }
         #endregion
 
-        #region # 分页扩展方法 —— static IQueryable<T> ToPage<T>(this IOrderedQueryable<T> queryable...
+        #region # 分页 —— static IQueryable<T> ToPage<T>(this IOrderedQueryable<T> orderedResult...
         /// <summary>
-        /// 分页扩展方法
+        /// 分页
         /// </summary>
-        /// <typeparam name="T">领域实体</typeparam>
-        /// <param name="queryable">集合对象</param>
-        /// <param name="pageIndex">页索引</param>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="orderedResult">已排序集合对象</param>
+        /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">总记录条数</param>
+        /// <param name="rowCount">总记录数</param>
         /// <param name="pageCount">总页数</param>
-        /// <returns>对象列表</returns>
-        public static IQueryable<T> ToPage<T>(this IOrderedQueryable<T> queryable, int pageIndex, int pageSize, out int rowCount, out int pageCount)
-            where T : PlainEntity
+        /// <returns>实体对象列表</returns>
+        public static IQueryable<T> ToPage<T>(this IOrderedQueryable<T> orderedResult, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
-            rowCount = queryable.Count();
+            rowCount = orderedResult.Count();
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
-            return queryable.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+
+            return orderedResult.Skip((pageIndex - 1) * pageSize).Take(pageSize);
         }
         #endregion
 
