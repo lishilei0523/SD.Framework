@@ -385,5 +385,17 @@ namespace SD.Infrastructure
             set { this["external.service.crontab"] = value; }
         }
         #endregion
+
+        #region # Membership提供者节点 —— MembershipProviderElement MembershipProvider
+        /// <summary>
+        /// Membership提供者节点
+        /// </summary>
+        [ConfigurationProperty("membership.provider", IsRequired = false)]
+        public MembershipProviderElement MembershipProvider
+        {
+            get { return (MembershipProviderElement)this["membership.provider"]; }
+            set { this["membership.provider"] = value; }
+        }
+        #endregion
     }
 }

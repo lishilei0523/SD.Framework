@@ -54,6 +54,8 @@ namespace SD.Infrastructure.Tests.TestCases
             Trace.WriteLine(setting.OpcService.Value);
             Trace.WriteLine(setting.CrontabService.Value);
 
+            Trace.WriteLine(setting.MembershipProvider.Type);
+
             Assert.IsNotNull(setting);
         }
     }

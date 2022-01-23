@@ -59,5 +59,7 @@
     <external.service.opc>OPC服务地址</external.service.opc>
     <!--外部服务 - 定时任务服务-->
     <external.service.crontab>定时任务服务地址</external.service.crontab>
+    <!--Membership提供者-->
+    <membership.provider type="SD.IdentitySystem.MembershipProvider, SD.IdentitySystem.Membership.AspNet" />
   </sd.framework>
 </configuration>
