@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Markup;
 
 // 有关程序集的一般信息由以下
@@ -15,6 +16,8 @@ using System.Windows.Markup;
 
 // 如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
 [assembly: Guid("8a7ccb16-13c5-4778-ac33-2d185b40dc6c")]
+
+[assembly: ThemeInfo(ResourceDictionaryLocation.None, ResourceDictionaryLocation.SourceAssembly)]
 
 //XAML命名空间映射
 [assembly: XmlnsPrefix("https://github.com/lishilei0523/SD.Framework", "sd")]
