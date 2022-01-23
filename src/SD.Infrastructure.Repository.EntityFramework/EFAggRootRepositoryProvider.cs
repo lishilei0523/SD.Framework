@@ -595,8 +595,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (id.HasValue)
             {
-                T current = this.SingleOrDefault(id.Value);
-                if (current != null && current.Number == number)
+                string originalNumber = this.Find(x => x.Id == id.Value).Select(x => x.Number).SingleOrDefault();
+                if (!string.IsNullOrWhiteSpace(originalNumber) && originalNumber == number)
                 {
                     return false;
                 }
@@ -619,8 +619,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (id.HasValue)
             {
-                T current = await this.SingleOrDefaultAsync(id.Value);
-                if (current != null && current.Number == number)
+                string originalNumber = await this.Find(x => x.Id == id.Value).Select(x => x.Number).SingleOrDefaultAsync();
+                if (!string.IsNullOrWhiteSpace(originalNumber) && originalNumber == number)
                 {
                     return false;
                 }
@@ -643,16 +643,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (id.HasValue)
             {
-                TSub current = this.SingleOrDefault<TSub>(id.Value);
-                if (current != null && current.Number == number)
+                string originalNumber = this.Find<TSub>(x => x.Id == id.Value).Select(x => x.Number).SingleOrDefault();
+                if (!string.IsNullOrWhiteSpace(originalNumber) && originalNumber == number)
                 {
                     return false;
                 }
 
-                return this.ExistsNo(number);
+                return this.ExistsNo<TSub>(number);
             }
 
-            return this.ExistsNo(number);
+            return this.ExistsNo<TSub>(number);
         }
         #endregion
 
@@ -667,16 +667,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (id.HasValue)
             {
-                TSub current = await this.SingleOrDefaultAsync<TSub>(id.Value);
-                if (current != null && current.Number == number)
+                string originalNumber = await this.Find<TSub>(x => x.Id == id.Value).Select(x => x.Number).SingleOrDefaultAsync();
+                if (!string.IsNullOrWhiteSpace(originalNumber) && originalNumber == number)
                 {
                     return false;
                 }
 
-                return await this.ExistsNoAsync(number);
+                return await this.ExistsNoAsync<TSub>(number);
             }
 
-            return await this.ExistsNoAsync(number);
+            return await this.ExistsNoAsync<TSub>(number);
         }
         #endregion
 
@@ -775,8 +775,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (id.HasValue)
             {
-                T current = this.SingleOrDefault(id.Value);
-                if (current != null && current.Name == name)
+                string originalName = this.Find(x => x.Id == id.Value).Select(x => x.Name).SingleOrDefault();
+                if (!string.IsNullOrWhiteSpace(originalName) && originalName == name)
                 {
                     return false;
                 }
@@ -799,8 +799,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (id.HasValue)
             {
-                T current = await this.SingleOrDefaultAsync(id.Value);
-                if (current != null && current.Name == name)
+                string originalName = await this.Find(x => x.Id == id.Value).Select(x => x.Name).SingleOrDefaultAsync();
+                if (!string.IsNullOrWhiteSpace(originalName) && originalName == name)
                 {
                     return false;
                 }
@@ -823,16 +823,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (id.HasValue)
             {
-                TSub current = this.SingleOrDefault<TSub>(id.Value);
-                if (current != null && current.Name == name)
+                string originalName = this.Find<TSub>(x => x.Id == id.Value).Select(x => x.Name).SingleOrDefault();
+                if (!string.IsNullOrWhiteSpace(originalName) && originalName == name)
                 {
                     return false;
                 }
 
-                return this.ExistsName(name);
+                return this.ExistsName<TSub>(name);
             }
 
-            return this.ExistsName(name);
+            return this.ExistsName<TSub>(name);
         }
         #endregion
 
@@ -847,16 +847,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (id.HasValue)
             {
-                TSub current = await this.SingleOrDefaultAsync<TSub>(id.Value);
-                if (current != null && current.Name == name)
+                string originalName = await this.Find<TSub>(x => x.Id == id.Value).Select(x => x.Name).SingleOrDefaultAsync();
+                if (!string.IsNullOrWhiteSpace(originalName) && originalName == name)
                 {
                     return false;
                 }
 
-                return await this.ExistsNameAsync(name);
+                return await this.ExistsNameAsync<TSub>(name);
             }
 
-            return await this.ExistsNameAsync(name);
+            return await this.ExistsNameAsync<TSub>(name);
         }
         #endregion
 
@@ -871,8 +871,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (!string.IsNullOrWhiteSpace(number))
             {
-                T current = this.SingleOrDefault(number);
-                if (current != null && current.Name == name)
+                string originalName = this.Find(x => x.Number == number).Select(x => x.Name).SingleOrDefault();
+                if (!string.IsNullOrWhiteSpace(originalName) && originalName == name)
                 {
                     return false;
                 }
@@ -895,8 +895,8 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (!string.IsNullOrWhiteSpace(number))
             {
-                T current = await this.SingleOrDefaultAsync(number);
-                if (current != null && current.Name == name)
+                string originalName = await this.Find(x => x.Number == number).Select(x => x.Name).SingleOrDefaultAsync();
+                if (!string.IsNullOrWhiteSpace(originalName) && originalName == name)
                 {
                     return false;
                 }
@@ -919,16 +919,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (!string.IsNullOrWhiteSpace(number))
             {
-                TSub current = this.SingleOrDefault<TSub>(number);
-                if (current != null && current.Name == name)
+                string originalName = this.Find<TSub>(x => x.Number == number).Select(x => x.Name).SingleOrDefault();
+                if (!string.IsNullOrWhiteSpace(originalName) && originalName == name)
                 {
                     return false;
                 }
 
-                return this.ExistsName(name);
+                return this.ExistsName<TSub>(name);
             }
 
-            return this.ExistsName(name);
+            return this.ExistsName<TSub>(name);
         }
         #endregion
 
@@ -943,16 +943,16 @@ namespace SD.Infrastructure.Repository.EntityFramework
         {
             if (!string.IsNullOrWhiteSpace(number))
             {
-                TSub current = await this.SingleOrDefaultAsync<TSub>(number);
-                if (current != null && current.Name == name)
+                string originalName = await this.Find<TSub>(x => x.Number == number).Select(x => x.Name).SingleOrDefaultAsync();
+                if (!string.IsNullOrWhiteSpace(originalName) && originalName == name)
                 {
                     return false;
                 }
 
-                return await this.ExistsNameAsync(name);
+                return await this.ExistsNameAsync<TSub>(name);
             }
 
-            return await this.ExistsNameAsync(name);
+            return await this.ExistsNameAsync<TSub>(name);
         }
         #endregion
 

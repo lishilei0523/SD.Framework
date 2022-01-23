@@ -1422,10 +1422,10 @@ namespace SD.Infrastructure.Repository.MongoDB
                     return false;
                 }
 
-                return this.ExistsNo(number);
+                return this.ExistsNo<TSub>(number);
             }
 
-            return this.ExistsNo(number);
+            return this.ExistsNo<TSub>(number);
         }
         #endregion
 
@@ -1446,10 +1446,10 @@ namespace SD.Infrastructure.Repository.MongoDB
                     return false;
                 }
 
-                return await this.ExistsNoAsync(number);
+                return await this.ExistsNoAsync<TSub>(number);
             }
 
-            return await this.ExistsNoAsync(number);
+            return await this.ExistsNoAsync<TSub>(number);
         }
         #endregion
 
@@ -1602,10 +1602,10 @@ namespace SD.Infrastructure.Repository.MongoDB
                     return false;
                 }
 
-                return this.ExistsName(name);
+                return this.ExistsName<TSub>(name);
             }
 
-            return this.ExistsName(name);
+            return this.ExistsName<TSub>(name);
         }
         #endregion
 
@@ -1626,10 +1626,10 @@ namespace SD.Infrastructure.Repository.MongoDB
                     return false;
                 }
 
-                return await this.ExistsNameAsync(name);
+                return await this.ExistsNameAsync<TSub>(name);
             }
 
-            return await this.ExistsNameAsync(name);
+            return await this.ExistsNameAsync<TSub>(name);
         }
         #endregion
 
@@ -1700,10 +1700,10 @@ namespace SD.Infrastructure.Repository.MongoDB
                     return false;
                 }
 
-                return this.ExistsName(name);
+                return this.ExistsName<TSub>(name);
             }
 
-            return this.ExistsName(name);
+            return this.ExistsName<TSub>(name);
         }
         #endregion
 
@@ -1724,10 +1724,10 @@ namespace SD.Infrastructure.Repository.MongoDB
                     return false;
                 }
 
-                return await this.ExistsNameAsync(name);
+                return await this.ExistsNameAsync<TSub>(name);
             }
 
-            return await this.ExistsNameAsync(name);
+            return await this.ExistsNameAsync<TSub>(name);
         }
         #endregion
 
