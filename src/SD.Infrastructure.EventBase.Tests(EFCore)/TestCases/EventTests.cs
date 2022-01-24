@@ -1,18 +1,24 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SD.Common;
 using SD.Infrastructure.Constants;
 using SD.Infrastructure.EventBase.Mediators;
 using SD.Infrastructure.EventBase.Tests.Entities;
 using SD.Infrastructure.EventBase.Tests.IRepositories;
 using SD.Infrastructure.EventBase.Tests.Repositories.Base;
 using SD.Infrastructure.Global.Transaction;
+using SD.IOC.Core;
 using SD.IOC.Core.Mediators;
 using SD.IOC.Extension.NetCore;
+using SD.Toolkits;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Common;
 using System.Linq;
+using System.Reflection;
 using System.Transactions;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace SD.Infrastructure.EventBase.Tests.TestCases
 {
@@ -33,6 +39,13 @@ namespace SD.Infrastructure.EventBase.Tests.TestCases
         [TestInitialize]
         public void Init()
         {
+            //初始化配置文件
+            Assembly entryAssembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
+            FrameworkSection.Initialize(configuration);
+            DependencyInjectionSection.Initialize(configuration);
+            RedisSection.Initialize(configuration);
+
             if (!ResolveMediator.ContainerBuilt)
             {
                 IServiceCollection builder = ResolveMediator.GetServiceCollection();

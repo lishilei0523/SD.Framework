@@ -14,7 +14,7 @@
     <PackageReference Include="coverlet.collector" Version="1.3.0" />
     <PackageReference Include="MrAdvice" Version="2.9.5" />
     <PackageReference Include="Quartz" Version="3.3.3" />
-    <PackageReference Include="SD.Toolkits.Redis" Version="2.0.9" />
+    <PackageReference Include="SD.Toolkits.Redis" Version="2.1.0" />
     <PackageReference Include="SD.IOC.Core" Version="2.1.6" />
     <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.1.1" />
   </ItemGroup>
