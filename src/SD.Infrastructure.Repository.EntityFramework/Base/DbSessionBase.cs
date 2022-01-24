@@ -45,7 +45,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         protected DbSessionBase()
         {
-            base.Configuration.ValidateOnSaveEnabled = false;
+            this.Configuration.ValidateOnSaveEnabled = false;
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         protected DbSessionBase(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
-            base.Configuration.ValidateOnSaveEnabled = false;
+            this.Configuration.ValidateOnSaveEnabled = false;
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         protected DbSessionBase(DbConnection existingConnection, bool contextOwnsConnection)
             : base(existingConnection, contextOwnsConnection)
         {
-            base.Configuration.ValidateOnSaveEnabled = false;
+            this.Configuration.ValidateOnSaveEnabled = false;
         }
 
         #endregion

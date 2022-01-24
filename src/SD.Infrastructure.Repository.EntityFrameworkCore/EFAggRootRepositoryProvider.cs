@@ -22,7 +22,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// </summary>
         ~EFAggRootRepositoryProvider()
         {
-            base.Dispose();
+            this.Dispose();
         }
 
         #endregion
@@ -48,7 +48,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return base.SingleOrDefault(x => x.Number == number);
+            return this.SingleOrDefault(x => x.Number == number);
         }
         #endregion
 
@@ -69,7 +69,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return await base.SingleOrDefaultAsync(x => x.Number == number);
+            return await this.SingleOrDefaultAsync(x => x.Number == number);
         }
         #endregion
 
@@ -90,7 +90,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return base.SingleOrDefault<TSub>(x => x.Number == number);
+            return this.SingleOrDefault<TSub>(x => x.Number == number);
         }
         #endregion
 
@@ -111,7 +111,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return await base.SingleOrDefaultAsync<TSub>(x => x.Number == number);
+            return await this.SingleOrDefaultAsync<TSub>(x => x.Number == number);
         }
         #endregion
 
@@ -217,10 +217,10 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>实体对象列表</returns>
         public ICollection<T> Find(string keywords)
         {
-            IQueryable<T> entities = base.FindAllInner();
+            IQueryable<T> entities = this.FindAllInner();
             if (!string.IsNullOrWhiteSpace(keywords))
             {
-                entities = base.Find(x => x.Keywords.Contains(keywords));
+                entities = this.Find(x => x.Keywords.Contains(keywords));
             }
 
             return entities.ToList();
@@ -234,10 +234,10 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>实体对象列表</returns>
         public async Task<ICollection<T>> FindAsync(string keywords)
         {
-            IQueryable<T> entities = base.FindAllInner();
+            IQueryable<T> entities = this.FindAllInner();
             if (!string.IsNullOrWhiteSpace(keywords))
             {
-                entities = base.Find(x => x.Keywords.Contains(keywords));
+                entities = this.Find(x => x.Keywords.Contains(keywords));
             }
 
             return await entities.ToListAsync();
@@ -252,10 +252,10 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>子类对象列表</returns>
         public ICollection<TSub> Find<TSub>(string keywords) where TSub : T
         {
-            IQueryable<TSub> entities = base.FindAllInner<TSub>();
+            IQueryable<TSub> entities = this.FindAllInner<TSub>();
             if (!string.IsNullOrWhiteSpace(keywords))
             {
-                entities = base.Find<TSub>(x => x.Keywords.Contains(keywords));
+                entities = this.Find<TSub>(x => x.Keywords.Contains(keywords));
             }
 
             return entities.ToList();
@@ -270,10 +270,10 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>子类对象列表</returns>
         public async Task<ICollection<TSub>> FindAsync<TSub>(string keywords) where TSub : T
         {
-            IQueryable<TSub> entities = base.FindAllInner<TSub>();
+            IQueryable<TSub> entities = this.FindAllInner<TSub>();
             if (!string.IsNullOrWhiteSpace(keywords))
             {
-                entities = base.Find<TSub>(x => x.Keywords.Contains(keywords));
+                entities = this.Find<TSub>(x => x.Keywords.Contains(keywords));
             }
 
             return await entities.ToListAsync();
@@ -302,7 +302,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
                 condition = x => true;
             }
 
-            return base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToList();
+            return this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToList();
         }
         #endregion
 
@@ -328,7 +328,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
                 condition = x => true;
             }
 
-            Task<List<T>> task = base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToListAsync();
+            Task<List<T>> task = this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToListAsync();
 
             return new Task<ICollection<T>>(() => task.Result);
         }
@@ -358,7 +358,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
                 condition = x => true;
             }
 
-            return base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToList();
+            return this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToList();
         }
         #endregion
 
@@ -385,7 +385,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
                 condition = x => true;
             }
 
-            Task<List<TSub>> task = base.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToListAsync();
+            Task<List<TSub>> task = this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToListAsync();
 
             return new Task<ICollection<TSub>>(() => task.Result);
         }
@@ -518,7 +518,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return base.Exists(x => x.Number == number);
+            return this.Exists(x => x.Number == number);
         }
         #endregion
 
@@ -539,7 +539,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return await base.ExistsAsync(x => x.Number == number);
+            return await this.ExistsAsync(x => x.Number == number);
         }
         #endregion
 
@@ -560,7 +560,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return base.Exists<TSub>(x => x.Number == number);
+            return this.Exists<TSub>(x => x.Number == number);
         }
         #endregion
 
@@ -581,7 +581,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return await base.ExistsAsync<TSub>(x => x.Number == number);
+            return await this.ExistsAsync<TSub>(x => x.Number == number);
         }
         #endregion
 
@@ -698,7 +698,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return base.Exists(x => x.Name == name);
+            return this.Exists(x => x.Name == name);
         }
         #endregion
 
@@ -719,7 +719,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return await base.ExistsAsync(x => x.Name == name);
+            return await this.ExistsAsync(x => x.Name == name);
         }
         #endregion
 
@@ -740,7 +740,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return base.Exists<TSub>(x => x.Name == name);
+            return this.Exists<TSub>(x => x.Name == name);
         }
         #endregion
 
@@ -761,7 +761,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            return await base.ExistsAsync<TSub>(x => x.Name == name);
+            return await this.ExistsAsync<TSub>(x => x.Name == name);
         }
         #endregion
 
@@ -971,7 +971,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>实体对象编号列表</returns>
         protected IQueryable<string> FindNos(Expression<Func<T, bool>> condition)
         {
-            return base.Find(condition).Select(x => x.Number);
+            return this.Find(condition).Select(x => x.Number);
         }
         #endregion
 
@@ -983,7 +983,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>子类对象编号列表</returns>
         protected IQueryable<string> FindNos<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
-            return base.Find<TSub>(condition).Select(x => x.Number);
+            return this.Find<TSub>(condition).Select(x => x.Number);
         }
         #endregion
 
