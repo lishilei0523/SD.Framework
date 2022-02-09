@@ -1453,9 +1453,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据条件获取实体对象列表 —— IQueryable<T> ResolveRange<T>(...
+        #region # 获取实体对象列表 —— IQueryable<T> ResolveRange<T>(...
         /// <summary>
-        /// 根据条件获取实体对象列表
+        /// 获取实体对象列表
         /// </summary>
         /// <param name="condition">条件</param>
         /// <returns>实体对象列表</returns>

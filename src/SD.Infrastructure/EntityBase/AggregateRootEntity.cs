@@ -6,7 +6,7 @@ namespace SD.Infrastructure.EntityBase
     /// 聚合根实体基类
     /// </summary>
     [Serializable]
-    public abstract class AggregateRootEntity : PlainEntity, INumerable, INameable, ISearchable
+    public abstract class AggregateRootEntity : PlainEntity, INumerable, INameable, ISearchable, IDeletable
     {
         #region # 构造器
         /// <summary>

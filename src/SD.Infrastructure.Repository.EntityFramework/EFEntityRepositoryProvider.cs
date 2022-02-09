@@ -276,7 +276,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象</returns>
         public virtual T FirstOrDefault()
         {
-            return this.FindAllBySort().FirstOrDefault();
+            return this.FindAllAndSort().FirstOrDefault();
         }
         #endregion
 
@@ -287,7 +287,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象</returns>
         public virtual async Task<T> FirstOrDefaultAsync()
         {
-            return await this.FindAllBySort().FirstOrDefaultAsync();
+            return await this.FindAllAndSort().FirstOrDefaultAsync();
         }
         #endregion
 
@@ -913,32 +913,32 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 获取实体对象列表（默认排序） —— IOrderedQueryable<T> FindAllBySort()
+        #region # 获取实体对象列表（默认排序） —— IOrderedQueryable<T> FindAllAndSort()
         /// <summary>
         /// 获取实体对象列表（默认排序）
         /// </summary>
         /// <returns>实体对象列表</returns>
-        protected IOrderedQueryable<T> FindAllBySort()
+        protected IOrderedQueryable<T> FindAllAndSort()
         {
             return this.FindAndSort(x => true);
         }
         #endregion
 
-        #region # 获取给定类型子类对象列表（默认排序） —— IOrderedQueryable<TSub> FindAllBySort<TSub>()
+        #region # 获取给定类型子类对象列表（默认排序） —— IOrderedQueryable<TSub> FindAllAndSort<TSub>()
         /// <summary>
         /// 获取给定类型子类对象列表（默认排序）
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
-        protected IOrderedQueryable<TSub> FindAllBySort<TSub>() where TSub : T
+        protected IOrderedQueryable<TSub> FindAllAndSort<TSub>() where TSub : T
         {
             return this.FindAndSort<TSub>(x => true);
         }
         #endregion
 
-        #region # 根据条件获取实体对象列表 —— IQueryable<T> Find(Expression<Func<T, bool>> condition)
+        #region # 获取实体对象列表 —— IQueryable<T> Find(Expression<Func<T, bool>> condition)
         /// <summary>
-        /// 根据条件获取实体对象列表
+        /// 获取实体对象列表
         /// </summary>
         /// <param name="condition">条件表达式</param>
         /// <returns>实体对象列表</returns>
@@ -957,9 +957,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取子类对象列表 —— IQueryable<TSub> Find<TSub>(Expression<Func<TSub, bool>>...
+        #region # 获取子类对象列表 —— IQueryable<TSub> Find<TSub>(Expression<Func<TSub, bool>>...
         /// <summary>
-        /// 根据条件获取子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="condition">条件表达式</param>
@@ -979,9 +979,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取实体对象列表（默认排序） —— virtual IOrderedQueryable<T> FindAndSort(...
+        #region # 获取实体对象列表（默认排序） —— virtual IOrderedQueryable<T> FindAndSort(...
         /// <summary>
-        /// 根据条件获取实体对象列表（默认排序）
+        /// 获取实体对象列表（默认排序）
         /// </summary>
         /// <returns>实体对象列表</returns>
         protected virtual IOrderedQueryable<T> FindAndSort(Expression<Func<T, bool>> condition)
@@ -990,9 +990,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取子类对象列表（默认排序） —— virtual IOrderedQueryable<TSub> FindAndSort<TSub>(...
+        #region # 获取子类对象列表（默认排序） —— virtual IOrderedQueryable<TSub> FindAndSort<TSub>(...
         /// <summary>
-        /// 根据条件获取子类对象列表（默认排序）
+        /// 获取子类对象列表（默认排序）
         /// </summary>
         /// <returns>实体对象列表</returns>
         protected virtual IOrderedQueryable<TSub> FindAndSort<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
@@ -1001,9 +1001,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取实体对象Id列表 —— IQueryable<Guid> FindIds(Expression<Func<T, bool>> condition)
+        #region # 获取实体对象Id列表 —— IQueryable<Guid> FindIds(Expression<Func<T, bool>> condition)
         /// <summary>
-        /// 根据条件获取实体对象Id列表
+        /// 获取实体对象Id列表
         /// </summary>
         /// <param name="condition">条件表达式</param>
         /// <returns>实体对象Id列表</returns>
@@ -1013,9 +1013,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取子类对象Id列表 —— IQueryable<Guid> FindIds<TSub>(Expression<Func<...
+        #region # 获取子类对象Id列表 —— IQueryable<Guid> FindIds<TSub>(Expression<Func<...
         /// <summary>
-        /// 根据条件获取子类对象Id列表
+        /// 获取子类对象Id列表
         /// </summary>
         /// <param name="condition">条件表达式</param>
         /// <returns>子类对象Id列表</returns>
@@ -1025,14 +1025,14 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件分页获取实体对象列表 —— IQueryable<T> FindByPage(...
+        #region # 分页获取实体对象列表 —— IQueryable<T> FindByPage(...
         /// <summary>
-        /// 根据条件分页获取实体对象列表
+        /// 分页获取实体对象列表
         /// </summary>
         /// <param name="condition">条件表达式</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">总记录条数</param>
+        /// <param name="rowCount">总记录数</param>
         /// <param name="pageCount">总页数</param>
         /// <returns>实体对象列表</returns>
         protected IQueryable<T> FindByPage(Expression<Func<T, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount)
@@ -1041,20 +1041,49 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件分页获取子类对象列表 —— IQueryable<TSub> FindByPage<TSub>(...
+        #region # 分页获取实体对象列表 —— Task<Page<T>> FindByPageAsync(...
         /// <summary>
-        /// 根据条件分页获取子类对象列表
+        /// 分页获取实体对象列表
+        /// </summary>
+        /// <param name="condition">条件表达式</param>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <returns>实体对象列表</returns>
+        protected async Task<Page<T>> FindByPageAsync(Expression<Func<T, bool>> condition, int pageIndex, int pageSize)
+        {
+            return await this.FindAndSort(condition).ToPageAsync(pageIndex, pageSize);
+        }
+        #endregion
+
+        #region # 分页获取子类对象列表 —— IQueryable<TSub> FindByPage<TSub>(...
+        /// <summary>
+        /// 分页获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="condition">条件表达式</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">总记录条数</param>
+        /// <param name="rowCount">总记录数</param>
         /// <param name="pageCount">总页数</param>
         /// <returns>实体对象列表</returns>
         protected IQueryable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
         {
             return this.FindAndSort<TSub>(condition).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
+        }
+        #endregion
+
+        #region # 分页获取子类对象列表 —— Task<Page<TSub>> FindByPageAsync<TSub>(...
+        /// <summary>
+        /// 分页获取子类对象列表
+        /// </summary>
+        /// <typeparam name="TSub">子类类型</typeparam>
+        /// <param name="condition">条件表达式</param>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <returns>子类对象列表</returns>
+        protected async Task<Page<TSub>> FindByPageAsync<TSub>(Expression<Func<TSub, bool>> condition, int pageIndex, int pageSize) where TSub : T
+        {
+            return await this.FindAndSort<TSub>(condition).ToPageAsync(pageIndex, pageSize);
         }
         #endregion
 
