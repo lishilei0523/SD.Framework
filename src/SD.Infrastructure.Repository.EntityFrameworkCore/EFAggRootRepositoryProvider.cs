@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using SD.Infrastructure.DTOBase;
 using SD.Infrastructure.EntityBase;
 using SD.Infrastructure.RepositoryBase;
 using System;
@@ -306,17 +307,15 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据关键字分页获取实体对象列表 —— Task<ICollection<T>> FindByPageAsync(string keywords...
+        #region # 根据关键字分页获取实体对象列表 —— Task<PageModel<T>> FindByPageAsync(string keywords...
         /// <summary>
         /// 根据关键字分页获取实体对象列表
         /// </summary>
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">总记录条数</param>
-        /// <param name="pageCount">总页数</param>
         /// <returns>实体对象列表</returns>
-        public Task<ICollection<T>> FindByPageAsync(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount)
+        public async Task<PageModel<T>> FindByPageAsync(string keywords, int pageIndex, int pageSize)
         {
             Expression<Func<T, bool>> condition;
             if (!string.IsNullOrWhiteSpace(keywords))
@@ -328,9 +327,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
                 condition = x => true;
             }
 
-            Task<List<T>> task = this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToListAsync();
-
-            return new Task<ICollection<T>>(() => task.Result);
+            IOrderedQueryable<T> orderedResult = this.FindBySort(condition);
+            return await orderedResult.ToPageAsync(pageIndex, pageSize);
         }
         #endregion
 
@@ -362,7 +360,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
-        #region # 根据关键字分页获取子类对象列表 —— Task<ICollection<TSub>> FindByPageAsync<TSub>(string keywords...
+        #region # 根据关键字分页获取子类对象列表 —— Task<PageModel<TSub>> FindByPageAsync<TSub>(string keywords...
         /// <summary>
         /// 根据关键字分页获取子类对象列表
         /// </summary>
@@ -370,10 +368,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
-        /// <param name="rowCount">总记录条数</param>
-        /// <param name="pageCount">总页数</param>
         /// <returns>子类对象列表</returns>
-        public Task<ICollection<TSub>> FindByPageAsync<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
+        public async Task<PageModel<TSub>> FindByPageAsync<TSub>(string keywords, int pageIndex, int pageSize) where TSub : T
         {
             Expression<Func<TSub, bool>> condition;
             if (!string.IsNullOrWhiteSpace(keywords))
@@ -385,9 +381,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
                 condition = x => true;
             }
 
-            Task<List<TSub>> task = this.FindByPage(condition, pageIndex, pageSize, out rowCount, out pageCount).ToListAsync();
-
-            return new Task<ICollection<TSub>>(() => task.Result);
+            IOrderedQueryable<TSub> orderedResult = this.FindBySort<TSub>(condition);
+            return await orderedResult.ToPageAsync(pageIndex, pageSize);
         }
         #endregion
 

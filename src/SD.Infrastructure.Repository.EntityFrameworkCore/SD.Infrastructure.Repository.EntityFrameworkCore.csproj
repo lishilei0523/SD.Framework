@@ -5,9 +5,9 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - 仓储基础 - EntityFrameworkCore实现</Description>
     <Copyright>Copyright © SD 2021</Copyright>
-    <Version>2.4.3</Version>
-    <AssemblyVersion>2.4.3</AssemblyVersion>
-    <FileVersion>2.4.3.0</FileVersion>
+    <Version>2.4.4</Version>
+    <AssemblyVersion>2.4.4</AssemblyVersion>
+    <FileVersion>2.4.4.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
