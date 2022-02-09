@@ -920,7 +920,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象列表</returns>
         protected IOrderedQueryable<T> FindAllBySort()
         {
-            return this.FindBySort(x => true);
+            return this.FindAndSort(x => true);
         }
         #endregion
 
@@ -932,7 +932,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>子类对象列表</returns>
         protected IOrderedQueryable<TSub> FindAllBySort<TSub>() where TSub : T
         {
-            return this.FindBySort<TSub>(x => true);
+            return this.FindAndSort<TSub>(x => true);
         }
         #endregion
 
@@ -979,23 +979,23 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取实体对象列表（默认排序） —— virtual IOrderedQueryable<T> FindBySort(...
+        #region # 根据条件获取实体对象列表（默认排序） —— virtual IOrderedQueryable<T> FindAndSort(...
         /// <summary>
         /// 根据条件获取实体对象列表（默认排序）
         /// </summary>
         /// <returns>实体对象列表</returns>
-        protected virtual IOrderedQueryable<T> FindBySort(Expression<Func<T, bool>> condition)
+        protected virtual IOrderedQueryable<T> FindAndSort(Expression<Func<T, bool>> condition)
         {
             return this.Find(condition).OrderByDescending(x => x.AddedTime);
         }
         #endregion
 
-        #region # 根据条件获取子类对象列表（默认排序） —— virtual IOrderedQueryable<TSub> FindBySort<TSub>(...
+        #region # 根据条件获取子类对象列表（默认排序） —— virtual IOrderedQueryable<TSub> FindAndSort<TSub>(...
         /// <summary>
         /// 根据条件获取子类对象列表（默认排序）
         /// </summary>
         /// <returns>实体对象列表</returns>
-        protected virtual IOrderedQueryable<TSub> FindBySort<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
+        protected virtual IOrderedQueryable<TSub> FindAndSort<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
             return this.Find<TSub>(condition).OrderByDescending(x => x.AddedTime);
         }
@@ -1037,7 +1037,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象列表</returns>
         protected IQueryable<T> FindByPage(Expression<Func<T, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
-            return this.FindBySort(condition).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
+            return this.FindAndSort(condition).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
         }
         #endregion
 
@@ -1054,7 +1054,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体对象列表</returns>
         protected IQueryable<TSub> FindByPage<TSub>(Expression<Func<TSub, bool>> condition, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T
         {
-            return this.FindBySort<TSub>(condition).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
+            return this.FindAndSort<TSub>(condition).ToPage(pageIndex, pageSize, out rowCount, out pageCount);
         }
         #endregion
 

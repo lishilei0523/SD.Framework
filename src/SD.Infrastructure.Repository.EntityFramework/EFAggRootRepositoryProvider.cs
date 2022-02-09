@@ -327,7 +327,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
                 condition = x => true;
             }
 
-            IOrderedQueryable<T> orderedResult = this.FindBySort(condition);
+            IOrderedQueryable<T> orderedResult = this.FindAndSort(condition);
             return await orderedResult.ToPageAsync(pageIndex, pageSize);
         }
         #endregion
@@ -380,7 +380,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
                 condition = x => true;
             }
 
-            IOrderedQueryable<TSub> orderedResult = this.FindBySort<TSub>(condition);
+            IOrderedQueryable<TSub> orderedResult = this.FindAndSort<TSub>(condition);
             return await orderedResult.ToPageAsync(pageIndex, pageSize);
         }
         #endregion
