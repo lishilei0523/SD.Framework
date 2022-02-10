@@ -13,27 +13,27 @@ namespace SD.Infrastructure.RepositoryBase
     {
         //Single部分
 
-        #region # 根据Id获取唯一实体对象 —— T SingleOrDefault(Guid id)
+        #region # 获取唯一实体对象 —— T SingleOrDefault(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
         T SingleOrDefault(Guid id);
         #endregion
 
-        #region # 根据Id获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(Guid id)
+        #region # 获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
         Task<T> SingleOrDefaultAsync(Guid id);
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— TSub SingleOrDefault<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— TSub SingleOrDefault<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
@@ -41,81 +41,81 @@ namespace SD.Infrastructure.RepositoryBase
         TSub SingleOrDefault<TSub>(Guid id) where TSub : T;
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
         Task<TSub> SingleOrDefaultAsync<TSub>(Guid id) where TSub : T;
         #endregion
 
-        #region # 根据Id获取唯一实体对象 —— T Single(Guid id)
+        #region # 获取唯一实体对象 —— T Single(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
         T Single(Guid id);
         #endregion
 
-        #region # 根据Id获取唯一实体对象 —— Task<T> SingleAsync(Guid id)
+        #region # 获取唯一实体对象 —— Task<T> SingleAsync(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
         Task<T> SingleAsync(Guid id);
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— TSub Single<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— TSub Single<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
         TSub Single<TSub>(Guid id) where TSub : T;
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象，
+        /// 获取唯一子类对象，
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
         Task<TSub> SingleAsync<TSub>(Guid id) where TSub : T;
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— TRowable SingleOrDefault(long rowNo)
+        #region # 获取唯一实体对象 —— TRowable SingleOrDefault(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
         TRowable SingleOrDefault<TRowable>(long rowNo) where TRowable : T, IRowable;
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— Task<TRowable> SingleOrDefaultAsync(long rowNo)
+        #region # 获取唯一实体对象 —— Task<TRowable> SingleOrDefaultAsync(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
         Task<TRowable> SingleOrDefaultAsync<TRowable>(long rowNo) where TRowable : T, IRowable;
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— TRowable Single(long rowNo)
+        #region # 获取唯一实体对象 —— TRowable Single(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
         TRowable Single<TRowable>(long rowNo) where TRowable : T, IRowable;
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— Task<TRowable> SingleAsync(long rowNo)
+        #region # 获取唯一实体对象 —— Task<TRowable> SingleAsync(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
@@ -173,18 +173,18 @@ namespace SD.Infrastructure.RepositoryBase
         Task<ICollection<T>> FindAllAsync();
         #endregion
 
-        #region # 获取给定类型子类对象列表 —— ICollection<TSub> FindAll<TSub>()
+        #region # 获取子类对象列表 —— ICollection<TSub> FindAll<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
         ICollection<TSub> FindAll<TSub>() where TSub : T;
         #endregion
 
-        #region # 获取给定类型子类对象列表 —— Task<ICollection<TSub>> FindAllAsync<TSub>()
+        #region # 获取子类对象列表 —— Task<ICollection<TSub>> FindAllAsync<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
@@ -194,9 +194,9 @@ namespace SD.Infrastructure.RepositoryBase
 
         //IDictionary部分
 
-        #region # 根据Id集获取实体对象字典 —— IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
+        #region # 获取实体对象字典 —— IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>实体对象字典</returns>
@@ -204,9 +204,9 @@ namespace SD.Infrastructure.RepositoryBase
         IDictionary<Guid, T> Find(IEnumerable<Guid> ids);
         #endregion
 
-        #region # 根据Id集获取实体对象字典 —— Task<IDictionary<Guid, T>> FindAsync(IEnumerable<Guid> ids)
+        #region # 获取实体对象字典 —— Task<IDictionary<Guid, T>> FindAsync(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>实体对象字典</returns>
@@ -214,9 +214,9 @@ namespace SD.Infrastructure.RepositoryBase
         Task<IDictionary<Guid, T>> FindAsync(IEnumerable<Guid> ids);
         #endregion
 
-        #region # 根据Id集获取子类对象字典 —— IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids)
+        #region # 获取子类对象字典 —— IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取子类对象字典
+        /// 获取子类对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>子类对象字典</returns>
@@ -224,9 +224,9 @@ namespace SD.Infrastructure.RepositoryBase
         IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids) where TSub : T;
         #endregion
 
-        #region # 根据Id集获取子类对象字典 —— Task<IDictionary<Guid, TSub>> FindAsync<TSub>(IEnumerable<Guid> ids)
+        #region # 获取子类对象字典 —— Task<IDictionary<Guid, TSub>> FindAsync<TSub>(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取子类对象字典
+        /// 获取子类对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>子类对象字典</returns>
@@ -234,9 +234,9 @@ namespace SD.Infrastructure.RepositoryBase
         Task<IDictionary<Guid, TSub>> FindAsync<TSub>(IEnumerable<Guid> ids) where TSub : T;
         #endregion
 
-        #region # 根据行号集获取实体对象字典 —— IDictionary<long, TRowable> Find<TRowable>(IEnumerable<long> rowNos)
+        #region # 获取实体对象字典 —— IDictionary<long, TRowable> Find<TRowable>(IEnumerable<long> rowNos)
         /// <summary>
-        /// 根据行号集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="rowNos">行号集</param>
         /// <returns>实体对象字典</returns>
@@ -244,9 +244,9 @@ namespace SD.Infrastructure.RepositoryBase
         IDictionary<long, TRowable> Find<TRowable>(IEnumerable<long> rowNos) where TRowable : T, IRowable;
         #endregion
 
-        #region # 根据行号集获取实体对象字典 —— Task<IDictionary<long, TRowable>> FindAsync<TRowable>(IEnumerable<long> rowNos)
+        #region # 获取实体对象字典 —— Task<IDictionary<long, TRowable>> FindAsync<TRowable>(IEnumerable<long> rowNos)
         /// <summary>
-        /// 根据行号集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="rowNos">行号集</param>
         /// <returns>实体对象字典</returns>
@@ -257,35 +257,35 @@ namespace SD.Infrastructure.RepositoryBase
 
         //Count部分
 
-        #region # 获取总记录条数 —— long Count()
+        #region # 获取总记录数 —— long Count()
         /// <summary>
-        /// 获取总记录条数
+        /// 获取总记录数
         /// </summary>
-        /// <returns>总记录条数</returns>
+        /// <returns>总记录数</returns>
         long Count();
         #endregion
 
-        #region # 获取总记录条数 —— Task<long> CountAsync()
+        #region # 获取总记录数 —— Task<long> CountAsync()
         /// <summary>
-        /// 获取总记录条数
+        /// 获取总记录数
         /// </summary>
-        /// <returns>总记录条数</returns>
+        /// <returns>总记录数</returns>
         Task<long> CountAsync();
         #endregion
 
-        #region # 获取子类记录条数 —— long Count<TSub>()
+        #region # 获取子类记录数 —— long Count<TSub>()
         /// <summary>
-        /// 获取子类记录条数
+        /// 获取子类记录数
         /// </summary>
-        /// <returns>总记录条数</returns>
+        /// <returns>总记录数</returns>
         long Count<TSub>() where TSub : T;
         #endregion
 
-        #region # 获取子类记录条数 —— Task<long> CountAsync<TSub>()
+        #region # 获取子类记录数 —— Task<long> CountAsync<TSub>()
         /// <summary>
-        /// 获取子类记录条数
+        /// 获取子类记录数
         /// </summary>
-        /// <returns>总记录条数</returns>
+        /// <returns>总记录数</returns>
         Task<long> CountAsync<TSub>() where TSub : T;
         #endregion
 

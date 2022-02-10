@@ -59,9 +59,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
         //Single部分
 
-        #region # 根据Id获取唯一实体对象 —— T SingleOrDefault(Guid id)
+        #region # 获取唯一实体对象 —— T SingleOrDefault(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
@@ -71,9 +71,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(Guid id)
+        #region # 获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
@@ -83,9 +83,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— TSub SingleOrDefault<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— TSub SingleOrDefault<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
@@ -95,9 +95,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
@@ -107,9 +107,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id获取唯一实体对象 —— T Single(Guid id)
+        #region # 获取唯一实体对象 —— T Single(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
@@ -130,9 +130,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id获取唯一实体对象 —— Task<T> SingleAsync(Guid id)
+        #region # 获取唯一实体对象 —— Task<T> SingleAsync(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
@@ -153,9 +153,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— TSub Single<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— TSub Single<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
@@ -176,9 +176,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
@@ -199,9 +199,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— TRowable SingleOrDefault(long rowNo)
+        #region # 获取唯一实体对象 —— TRowable SingleOrDefault(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
@@ -211,9 +211,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— Task<TRowable> SingleOrDefaultAsync(long rowNo)
+        #region # 获取唯一实体对象 —— Task<TRowable> SingleOrDefaultAsync(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
@@ -223,9 +223,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— TRowable Single(long rowNo)
+        #region # 获取唯一实体对象 —— TRowable Single(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
@@ -246,9 +246,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— Task<TRowable> SingleAsync(long rowNo)
+        #region # 获取唯一实体对象 —— Task<TRowable> SingleAsync(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
@@ -338,9 +338,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 获取给定类型子类对象列表 —— ICollection<TSub> FindAll<TSub>()
+        #region # 获取子类对象列表 —— ICollection<TSub> FindAll<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
@@ -350,9 +350,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 获取给定类型子类对象列表 —— Task<ICollection<TSub>> FindAllAsync<TSub>()
+        #region # 获取子类对象列表 —— Task<ICollection<TSub>> FindAllAsync<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
@@ -365,9 +365,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
         //IDictionary部分
 
-        #region # 根据Id集获取实体对象字典 —— IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
+        #region # 获取实体对象字典 —— IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>实体对象字典</returns>
@@ -392,9 +392,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id集获取实体对象字典 —— Task<IDictionary<Guid, T>> FindAsync(IEnumerable<Guid> ids)
+        #region # 获取实体对象字典 —— Task<IDictionary<Guid, T>> FindAsync(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>实体对象字典</returns>
@@ -419,9 +419,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id集获取子类对象字典 —— IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids)
+        #region # 获取子类对象字典 —— IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取子类对象字典
+        /// 获取子类对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>子类对象字典</returns>
@@ -446,9 +446,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id集获取子类对象字典 —— Task<IDictionary<Guid, TSub>> FindAsync<TSub>(IEnumerable<Guid> ids)
+        #region # 获取子类对象字典 —— Task<IDictionary<Guid, TSub>> FindAsync<TSub>(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取子类对象字典
+        /// 获取子类对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>子类对象字典</returns>
@@ -473,9 +473,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据行号集获取实体对象字典 —— IDictionary<long, TRowable> Find<TRowable>(IEnumerable<long> rowNos)
+        #region # 获取实体对象字典 —— IDictionary<long, TRowable> Find<TRowable>(IEnumerable<long> rowNos)
         /// <summary>
-        /// 根据行号集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="rowNos">行号集</param>
         /// <returns>实体对象字典</returns>
@@ -500,9 +500,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据行号集获取实体对象字典 —— Task<IDictionary<long, TRowable>> FindAsync<TRowable>(IEnumerable<long> rowNos)
+        #region # 获取实体对象字典 —— Task<IDictionary<long, TRowable>> FindAsync<TRowable>(IEnumerable<long> rowNos)
         /// <summary>
-        /// 根据行号集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="rowNos">行号集</param>
         /// <returns>实体对象字典</returns>
@@ -530,31 +530,31 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
         //Count部分
 
-        #region # 获取总记录条数 —— long Count()
+        #region # 获取总记录数 —— long Count()
         /// <summary>
-        /// 获取总记录条数
+        /// 获取总记录数
         /// </summary>
-        /// <returns>总记录条数</returns>
+        /// <returns>总记录数</returns>
         public long Count()
         {
             return this.Count(x => true);
         }
         #endregion
 
-        #region # 获取总记录条数 —— Task<long> CountAsync()
+        #region # 获取总记录数 —— Task<long> CountAsync()
         /// <summary>
-        /// 获取总记录条数
+        /// 获取总记录数
         /// </summary>
-        /// <returns>总记录条数</returns>
+        /// <returns>总记录数</returns>
         public async Task<long> CountAsync()
         {
             return await this.CountAsync(x => true);
         }
         #endregion
 
-        #region # 获取子类记录条数 —— long Count<TSub>()
+        #region # 获取子类记录数 —— long Count<TSub>()
         /// <summary>
-        /// 获取子类记录条数
+        /// 获取子类记录数
         /// </summary>
         /// <returns>子类记录条数</returns>
         public long Count<TSub>() where TSub : T
@@ -563,9 +563,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 获取子类记录条数 —— Task<long> CountAsync<TSub>()
+        #region # 获取子类记录数 —— Task<long> CountAsync<TSub>()
         /// <summary>
-        /// 获取子类记录条数
+        /// 获取子类记录数
         /// </summary>
         /// <returns>子类记录条数</returns>
         public async Task<long> CountAsync<TSub>() where TSub : T
@@ -712,11 +712,11 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
         //Single部分
 
-        #region # 根据条件获取唯一实体对象 —— T SingleOrDefault(Expression<Func<T, bool>> condition)
+        #region # 获取唯一实体对象 —— T SingleOrDefault(Expression<Func<T, bool>> condition)
         /// <summary>
-        /// 根据条件获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>实体对象</returns>
         /// <remarks>无该对象时返回null</remarks>
         protected T SingleOrDefault(Expression<Func<T, bool>> condition)
@@ -734,11 +734,11 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>>...
+        #region # 获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>>...
         /// <summary>
-        /// 根据条件获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>实体对象</returns>
         protected async Task<T> SingleOrDefaultAsync(Expression<Func<T, bool>> condition)
         {
@@ -755,11 +755,11 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取唯一子类对象 —— TSub SingleOrDefault<TSub>(Expression<Func<TSub>...
+        #region # 获取唯一子类对象 —— TSub SingleOrDefault<TSub>(Expression<Func<TSub>...
         /// <summary>
-        /// 根据条件获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>子类对象</returns>
         /// <remarks>无该对象时返回null</remarks>
         protected TSub SingleOrDefault<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
@@ -777,11 +777,11 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(Expression...
+        #region # 获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(Expression...
         /// <summary>
-        /// 根据条件获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>子类对象</returns>
         protected async Task<TSub> SingleOrDefaultAsync<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
@@ -798,11 +798,11 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取第一个实体对象 —— T FirstOrDefault(Expression<Func<T, bool>> condition)
+        #region # 获取默认或第一个实体对象 —— T FirstOrDefault(Expression<Func<T, bool>> condition)
         /// <summary>
-        /// 根据条件获取第一个实体对象
+        /// 获取默认或第一个实体对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>实体对象</returns>
         protected T FirstOrDefault(Expression<Func<T, bool>> condition)
         {
@@ -819,11 +819,11 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取第一个实体对象 —— Task<T> FirstOrDefaultAsync(Expression<Func<T...
+        #region # 获取默认或第一个实体对象 —— Task<T> FirstOrDefaultAsync(Expression<Func<T...
         /// <summary>
-        /// 根据条件获取第一个实体对象
+        /// 获取默认或第一个实体对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>实体对象</returns>
         protected async Task<T> FirstOrDefaultAsync(Expression<Func<T, bool>> condition)
         {
@@ -840,12 +840,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取第一个子类对象 —— TSub FirstOrDefault<TSub>(Expression<Func<TSub...
+        #region # 获取默认或第一个子类对象 —— TSub FirstOrDefault<TSub>(Expression<Func<TSub...
         /// <summary>
-        /// 根据条件获取第一个子类对象
+        /// 获取默认或第一个子类对象
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>子类对象</returns>
         /// <remarks>无该对象时返回null</remarks>
         protected TSub FirstOrDefault<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
@@ -863,12 +863,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取第一个子类对象 —— Task<TSub> FirstOrDefaultAsync<TSub>(Expression...
+        #region # 获取默认或第一个子类对象 —— Task<TSub> FirstOrDefaultAsync<TSub>(Expression...
         /// <summary>
-        /// 根据条件获取第一个子类对象
+        /// 获取默认或第一个子类对象
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>子类对象</returns>
         /// <remarks>无该对象时返回null</remarks>
         protected async Task<TSub> FirstOrDefaultAsync<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
@@ -901,9 +901,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 获取给定类型子类对象列表 —— IQueryable<TSub> FindAllInner<TSub>()
+        #region # 获取子类对象列表 —— IQueryable<TSub> FindAllInner<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
@@ -924,9 +924,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 获取给定类型子类对象列表（默认排序） —— IOrderedQueryable<TSub> FindAllAndSort<TSub>()
+        #region # 获取子类对象列表（默认排序） —— IOrderedQueryable<TSub> FindAllAndSort<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象列表（默认排序）
+        /// 获取子类对象列表（默认排序）
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
@@ -1090,12 +1090,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
         //Count部分
 
-        #region # 根据条件获取记录条数 —— long Count(Expression<Func<T, bool>> condition)
+        #region # 获取记录数 —— long Count(Expression<Func<T, bool>> condition)
         /// <summary>
-        /// 根据条件获取记录条数
+        /// 获取记录数
         /// </summary>
         /// <param name="condition">条件表达式</param>
-        /// <returns>符合条件的记录条数</returns>
+        /// <returns>符合条件的记录数</returns>
         protected long Count(Expression<Func<T, bool>> condition)
         {
             #region # 验证
@@ -1111,12 +1111,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取记录条数 —— Task<long> CountAsync(Expression<Func<T, bool>> condition)
+        #region # 获取记录数 —— Task<long> CountAsync(Expression<Func<T, bool>> condition)
         /// <summary>
-        /// 根据条件获取记录条数
+        /// 获取记录数
         /// </summary>
         /// <param name="condition">条件表达式</param>
-        /// <returns>符合条件的记录条数</returns>
+        /// <returns>符合条件的记录数</returns>
         protected async Task<long> CountAsync(Expression<Func<T, bool>> condition)
         {
             #region # 验证
@@ -1132,12 +1132,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取子类记录条数 —— long Count(Expression<Func<T, bool>> condition)
+        #region # 获取子类记录数 —— long Count(Expression<Func<T, bool>> condition)
         /// <summary>
-        /// 根据条件获取子类记录条数
+        /// 获取子类记录数
         /// </summary>
         /// <param name="condition">条件表达式</param>
-        /// <returns>符合条件的子类记录条数</returns>
+        /// <returns>符合条件的子类记录数</returns>
         protected long Count<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
             #region # 验证
@@ -1153,12 +1153,12 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取子类记录条数 —— Task<long> CountAsync<TSub>(Expression<Func<TSub, bool>> condition)
+        #region # 获取子类记录数 —— Task<long> CountAsync<TSub>(Expression<Func<TSub, bool>> condition)
         /// <summary>
-        /// 根据条件获取子类记录条数
+        /// 获取子类记录数
         /// </summary>
         /// <param name="condition">条件表达式</param>
-        /// <returns>符合条件的子类记录条数</returns>
+        /// <returns>符合条件的子类记录数</returns>
         protected async Task<long> CountAsync<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
             #region # 验证
@@ -1181,7 +1181,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 是否存在给定条件的实体对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>是否存在</returns>
         protected bool Exists(Expression<Func<T, bool>> condition)
         {
@@ -1205,7 +1205,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 是否存在给定条件的实体对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>是否存在</returns>
         protected async Task<bool> ExistsAsync(Expression<Func<T, bool>> condition)
         {
@@ -1226,7 +1226,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 是否存在给定条件的子类对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>是否存在</returns>
         protected bool Exists<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {
@@ -1250,7 +1250,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 是否存在给定条件的子类对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>是否存在</returns>
         protected async Task<bool> ExistsAsync<TSub>(Expression<Func<TSub, bool>> condition) where TSub : T
         {

@@ -251,9 +251,9 @@ namespace SD.Infrastructure.RepositoryBase
 
         //Resolve部分
 
-        #region # 根据Id获取实体对象 —— T Resolve<T>(Guid id)
+        #region # 获取唯一实体对象 —— T Resolve<T>(Guid id)
         /// <summary>
-        /// 根据Id获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
@@ -261,9 +261,9 @@ namespace SD.Infrastructure.RepositoryBase
         T Resolve<T>(Guid id) where T : AggregateRootEntity;
         #endregion
 
-        #region # 根据Id获取实体对象 —— Task<T> ResolveAsync<T>(Guid id)
+        #region # 获取唯一实体对象 —— Task<T> ResolveAsync<T>(Guid id)
         /// <summary>
-        /// 根据Id获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
@@ -271,29 +271,9 @@ namespace SD.Infrastructure.RepositoryBase
         Task<T> ResolveAsync<T>(Guid id) where T : AggregateRootEntity;
         #endregion
 
-        #region # 根据Id集获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
+        #region # 获取唯一实体对象 —— T Resolve<T>(string number)
         /// <summary>
-        /// 根据Id集获取实体对象列表
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">标识Id集</param>
-        /// <returns>实体对象列表</returns>
-        ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
-        #endregion
-
-        #region # 根据Id集获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
-        /// <summary>
-        /// 根据Id集获取实体对象列表
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">标识Id集</param>
-        /// <returns>实体对象列表</returns>
-        Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
-        #endregion
-
-        #region # 根据编号获取实体对象 —— T Resolve<T>(string number)
-        /// <summary>
-        /// 根据编号获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
@@ -301,9 +281,9 @@ namespace SD.Infrastructure.RepositoryBase
         T Resolve<T>(string number) where T : AggregateRootEntity;
         #endregion
 
-        #region # 根据编号获取实体对象 —— Task<T> ResolveAsync<T>(string number)
+        #region # 获取唯一实体对象 —— Task<T> ResolveAsync<T>(string number)
         /// <summary>
-        /// 根据编号获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
@@ -311,29 +291,9 @@ namespace SD.Infrastructure.RepositoryBase
         Task<T> ResolveAsync<T>(string number) where T : AggregateRootEntity;
         #endregion
 
-        #region # 根据编号集获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
+        #region # 获取唯一实体对象 —— T Resolve<T>(long rowNo)
         /// <summary>
-        /// 根据编号集获取实体对象列表
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="numbers">编号集</param>
-        /// <returns>实体对象列表</returns>
-        ICollection<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity;
-        #endregion
-
-        #region # 根据编号集获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
-        /// <summary>
-        /// 根据编号集获取实体对象列表
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="numbers">编号集</param>
-        /// <returns>实体对象列表</returns>
-        Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<string> numbers) where T : AggregateRootEntity;
-        #endregion
-
-        #region # 根据行号获取实体对象 —— T Resolve<T>(long rowNo)
-        /// <summary>
-        /// 根据行号获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="rowNo">行号</param>
@@ -341,9 +301,9 @@ namespace SD.Infrastructure.RepositoryBase
         T Resolve<T>(long rowNo) where T : AggregateRootEntity, IRowable;
         #endregion
 
-        #region # 根据行号获取实体对象 —— Task<T> ResolveAsync<T>(long rowNo)
+        #region # 获取唯一实体对象 —— Task<T> ResolveAsync<T>(long rowNo)
         /// <summary>
-        /// 根据行号获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="rowNo">行号</param>
@@ -351,9 +311,49 @@ namespace SD.Infrastructure.RepositoryBase
         Task<T> ResolveAsync<T>(long rowNo) where T : AggregateRootEntity, IRowable;
         #endregion
 
-        #region # 根据行号集获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
+        #region # 获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
         /// <summary>
-        /// 根据行号集获取实体对象列表
+        /// 获取实体对象列表
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="ids">标识Id集</param>
+        /// <returns>实体对象列表</returns>
+        ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
+        #endregion
+
+        #region # 获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
+        /// <summary>
+        /// 获取实体对象列表
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="ids">标识Id集</param>
+        /// <returns>实体对象列表</returns>
+        Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity;
+        #endregion
+
+        #region # 获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
+        /// <summary>
+        /// 获取实体对象列表
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="numbers">编号集</param>
+        /// <returns>实体对象列表</returns>
+        ICollection<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity;
+        #endregion
+
+        #region # 获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
+        /// <summary>
+        /// 获取实体对象列表
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="numbers">编号集</param>
+        /// <returns>实体对象列表</returns>
+        Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<string> numbers) where T : AggregateRootEntity;
+        #endregion
+
+        #region # 获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
+        /// <summary>
+        /// 获取实体对象列表
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="rowNos">行号集</param>
@@ -361,9 +361,9 @@ namespace SD.Infrastructure.RepositoryBase
         ICollection<T> ResolveRange<T>(IEnumerable<long> rowNos) where T : AggregateRootEntity, IRowable;
         #endregion
 
-        #region # 根据行号集获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
+        #region # 获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
         /// <summary>
-        /// 根据行号集获取实体对象列表
+        /// 获取实体对象列表
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="rowNos">行号集</param>

@@ -837,9 +837,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
 
         //Resolve部分
 
-        #region # 根据Id获取实体对象 —— T Resolve<T>(Guid id)
+        #region # 获取唯一实体对象 —— T Resolve<T>(Guid id)
         /// <summary>
-        /// 根据Id获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
@@ -861,9 +861,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id获取实体对象 —— Task<T> ResolveAsync<T>(Guid id)
+        #region # 获取唯一实体对象 —— Task<T> ResolveAsync<T>(Guid id)
         /// <summary>
-        /// 根据Id获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="id">标识Id</param>
@@ -885,55 +885,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据Id集获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
+        #region # 获取唯一实体对象 —— T Resolve<T>(string number)
         /// <summary>
-        /// 根据Id集获取实体对象列表
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">标识Id集</param>
-        /// <returns>实体对象列表</returns>
-        public ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
-        {
-            #region # 验证
-
-            ids = ids?.Distinct().ToArray() ?? new Guid[0];
-            if (!ids.Any())
-            {
-                return new List<T>();
-            }
-
-            #endregion
-
-            return this.ResolveRange<T>(x => ids.Contains(x.Id)).ToList();
-        }
-        #endregion
-
-        #region # 根据Id集获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
-        /// <summary>
-        /// 根据Id集获取实体对象列表
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="ids">标识Id集</param>
-        /// <returns>实体对象列表</returns>
-        public async Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
-        {
-            #region # 验证
-
-            ids = ids?.Distinct().ToArray() ?? new Guid[0];
-            if (!ids.Any())
-            {
-                return new List<T>();
-            }
-
-            #endregion
-
-            return await this.ResolveRange<T>(x => ids.Contains(x.Id)).ToListAsync();
-        }
-        #endregion
-
-        #region # 根据编号获取实体对象 —— T Resolve<T>(string number)
-        /// <summary>
-        /// 根据编号获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
@@ -964,9 +918,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据编号获取实体对象 —— Task<T> ResolveAsync<T>(string number)
+        #region # 获取唯一实体对象 —— Task<T> ResolveAsync<T>(string number)
         /// <summary>
-        /// 根据编号获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="number">编号</param>
@@ -997,55 +951,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据编号集获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
+        #region # 获取唯一实体对象 —— T Resolve<T>(long rowNo)
         /// <summary>
-        /// 根据编号集获取实体对象列表
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="numbers">编号集</param>
-        /// <returns>实体对象列表</returns>
-        public ICollection<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
-        {
-            #region # 验证
-
-            numbers = numbers?.Distinct().ToArray() ?? new string[0];
-            if (!numbers.Any())
-            {
-                return new List<T>();
-            }
-
-            #endregion
-
-            return this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToList();
-        }
-        #endregion
-
-        #region # 根据编号集获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
-        /// <summary>
-        /// 根据编号集获取实体对象列表
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="numbers">编号集</param>
-        /// <returns>实体对象列表</returns>
-        public async Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
-        {
-            #region # 验证
-
-            numbers = numbers?.Distinct().ToArray() ?? new string[0];
-            if (!numbers.Any())
-            {
-                return new List<T>();
-            }
-
-            #endregion
-
-            return await this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToListAsync();
-        }
-        #endregion
-
-        #region # 根据行号获取实体对象 —— T Resolve<T>(long rowNo)
-        /// <summary>
-        /// 根据行号获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="rowNo">行号</param>
@@ -1067,9 +975,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据行号获取实体对象 —— Task<T> ResolveAsync<T>(long rowNo)
+        #region # 获取唯一实体对象 —— Task<T> ResolveAsync<T>(long rowNo)
         /// <summary>
-        /// 根据行号获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="rowNo">行号</param>
@@ -1091,9 +999,101 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据行号集获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
+        #region # 获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
         /// <summary>
-        /// 根据行号集获取实体对象列表
+        /// 获取实体对象列表
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="ids">标识Id集</param>
+        /// <returns>实体对象列表</returns>
+        public ICollection<T> ResolveRange<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
+        {
+            #region # 验证
+
+            ids = ids?.Distinct().ToArray() ?? new Guid[0];
+            if (!ids.Any())
+            {
+                return new List<T>();
+            }
+
+            #endregion
+
+            return this.ResolveRange<T>(x => ids.Contains(x.Id)).ToList();
+        }
+        #endregion
+
+        #region # 获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
+        /// <summary>
+        /// 获取实体对象列表
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="ids">标识Id集</param>
+        /// <returns>实体对象列表</returns>
+        public async Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<Guid> ids) where T : AggregateRootEntity
+        {
+            #region # 验证
+
+            ids = ids?.Distinct().ToArray() ?? new Guid[0];
+            if (!ids.Any())
+            {
+                return new List<T>();
+            }
+
+            #endregion
+
+            return await this.ResolveRange<T>(x => ids.Contains(x.Id)).ToListAsync();
+        }
+        #endregion
+
+        #region # 获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
+        /// <summary>
+        /// 获取实体对象列表
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="numbers">编号集</param>
+        /// <returns>实体对象列表</returns>
+        public ICollection<T> ResolveRange<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
+        {
+            #region # 验证
+
+            numbers = numbers?.Distinct().ToArray() ?? new string[0];
+            if (!numbers.Any())
+            {
+                return new List<T>();
+            }
+
+            #endregion
+
+            return this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToList();
+        }
+        #endregion
+
+        #region # 获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
+        /// <summary>
+        /// 获取实体对象列表
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="numbers">编号集</param>
+        /// <returns>实体对象列表</returns>
+        public async Task<ICollection<T>> ResolveRangeAsync<T>(IEnumerable<string> numbers) where T : AggregateRootEntity
+        {
+            #region # 验证
+
+            numbers = numbers?.Distinct().ToArray() ?? new string[0];
+            if (!numbers.Any())
+            {
+                return new List<T>();
+            }
+
+            #endregion
+
+            return await this.ResolveRange<T>(x => numbers.Contains(x.Number)).ToListAsync();
+        }
+        #endregion
+
+        #region # 获取实体对象列表 —— ICollection<T> ResolveRange<T>(...
+        /// <summary>
+        /// 获取实体对象列表
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="rowNos">行号集</param>
@@ -1114,9 +1114,9 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据行号集获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
+        #region # 获取实体对象列表 —— Task<ICollection<T>> ResolveRangeAsync<T>(...
         /// <summary>
-        /// 根据行号集获取实体对象列表
+        /// 获取实体对象列表
         /// </summary>
         /// <typeparam name="T">实体类型</typeparam>
         /// <param name="rowNos">行号集</param>
@@ -1400,11 +1400,11 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取实体对象 —— T ResolveOptional<T>(...
+        #region # 获取唯一实体对象 —— T ResolveOptional<T>(...
         /// <summary>
-        /// 根据条件获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>实体对象</returns>
         ///<remarks>查询不到将返回null</remarks>
         protected T ResolveOptional<T>(Expression<Func<T, bool>> condition) where T : AggregateRootEntity
@@ -1422,11 +1422,11 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
-        #region # 根据条件获取实体对象 —— Task<T> ResolveOptionalAsync<T>(...
+        #region # 获取唯一实体对象 —— Task<T> ResolveOptionalAsync<T>(...
         /// <summary>
-        /// 根据条件获取实体对象
+        /// 获取唯一实体对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>实体对象</returns>
         ///<remarks>查询不到将返回null</remarks>
         protected async Task<T> ResolveOptionalAsync<T>(Expression<Func<T, bool>> condition) where T : AggregateRootEntity
@@ -1448,7 +1448,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 获取实体对象列表
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>实体对象列表</returns>
         protected IQueryable<T> ResolveRange<T>(Expression<Func<T, bool>> condition) where T : AggregateRootEntity
         {
@@ -1469,7 +1469,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 是否存在给定条件的实体对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>是否存在</returns>
         protected bool Exists<T>(Expression<Func<T, bool>> condition) where T : AggregateRootEntity
         {
@@ -1493,7 +1493,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <summary>
         /// 是否存在给定条件的实体对象
         /// </summary>
-        /// <param name="condition">条件</param>
+        /// <param name="condition">条件表达式</param>
         /// <returns>是否存在</returns>
         protected async Task<bool> ExistsAsync<T>(Expression<Func<T, bool>> condition) where T : AggregateRootEntity
         {

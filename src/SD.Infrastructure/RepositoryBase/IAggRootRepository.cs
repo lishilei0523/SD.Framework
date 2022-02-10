@@ -13,72 +13,72 @@ namespace SD.Infrastructure.RepositoryBase
     {
         //Single部分
 
-        #region # 根据编号获取唯一实体对象 —— T SingleOrDefault(string number)
+        #region # 获取唯一实体对象 —— T SingleOrDefault(string number)
         /// <summary>
-        /// 根据编号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>实体对象</returns>
         T SingleOrDefault(string number);
         #endregion
 
-        #region # 根据编号获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(string number)
+        #region # 获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(string number)
         /// <summary>
-        /// 根据编号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>实体对象</returns>
         Task<T> SingleOrDefaultAsync(string number);
         #endregion
 
-        #region # 根据编号获取唯一子类对象 —— TSub SingleOrDefault<TSub>(string number)
+        #region # 获取唯一子类对象 —— TSub SingleOrDefault<TSub>(string number)
         /// <summary>
-        /// 根据编号获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>子类对象</returns>
         TSub SingleOrDefault<TSub>(string number) where TSub : T;
         #endregion
 
-        #region # 根据编号获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(string number)
+        #region # 获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(string number)
         /// <summary>
-        /// 根据编号获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>子类对象</returns>
         Task<TSub> SingleOrDefaultAsync<TSub>(string number) where TSub : T;
         #endregion
 
-        #region # 根据编号获取唯一实体对象 —— T Single(string number)
+        #region # 获取唯一实体对象 —— T Single(string number)
         /// <summary>
-        /// 根据编号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>实体对象</returns>
         T Single(string number);
         #endregion
 
-        #region # 根据编号获取唯一实体对象 —— Task<T> SingleAsync(string number)
+        #region # 获取唯一实体对象 —— Task<T> SingleAsync(string number)
         /// <summary>
-        /// 根据编号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>实体对象</returns>
         Task<T> SingleAsync(string number);
         #endregion
 
-        #region # 根据编号获取唯一子类对象 —— TSub Single<TSub>(string number)
+        #region # 获取唯一子类对象 —— TSub Single<TSub>(string number)
         /// <summary>
-        /// 根据编号获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>子类对象</returns>
         TSub Single<TSub>(string number) where TSub : T;
         #endregion
 
-        #region # 根据编号获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(string number)
+        #region # 获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(string number)
         /// <summary>
-        /// 根据编号获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>子类对象</returns>
@@ -88,43 +88,47 @@ namespace SD.Infrastructure.RepositoryBase
 
         //ICollection部分
 
-        #region # 根据关键字获取实体对象列表 —— ICollection<T> Find(string keywords)
+        #region # 获取实体对象列表 —— ICollection<T> Find(string keywords)
         /// <summary>
-        /// 根据关键字获取实体对象列表
+        /// 获取实体对象列表
         /// </summary>
+        /// <param name="keywords">关键字</param>
         /// <returns>实体对象列表</returns>
         ICollection<T> Find(string keywords);
         #endregion
 
-        #region # 根据关键字获取实体对象列表 —— Task<ICollection<T>> FindAsync(string keywords)
+        #region # 获取实体对象列表 —— Task<ICollection<T>> FindAsync(string keywords)
         /// <summary>
-        /// 根据关键字获取实体对象列表
+        /// 获取实体对象列表
         /// </summary>
+        /// <param name="keywords">关键字</param>
         /// <returns>实体对象列表</returns>
         Task<ICollection<T>> FindAsync(string keywords);
         #endregion
 
-        #region # 根据关键字获取子类对象列表 —— ICollection<TSub> Find<TSub>(string keywords)
+        #region # 获取子类对象列表 —— ICollection<TSub> Find<TSub>(string keywords)
         /// <summary>
-        /// 根据关键字获取子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
+        /// <param name="keywords">关键字</param>
         /// <returns>子类对象列表</returns>
         ICollection<TSub> Find<TSub>(string keywords) where TSub : T;
         #endregion
 
-        #region # 根据关键字获取子类对象列表 —— Task<ICollection<TSub>> FindAsync<TSub>(string keywords)
+        #region # 获取子类对象列表 —— Task<ICollection<TSub>> FindAsync<TSub>(string keywords)
         /// <summary>
-        /// 根据关键字获取子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
+        /// <param name="keywords">关键字</param>
         /// <returns>子类对象列表</returns>
         Task<ICollection<TSub>> FindAsync<TSub>(string keywords) where TSub : T;
         #endregion
 
-        #region # 根据关键字分页获取实体对象列表 —— ICollection<T> FindByPage(string keywords...
+        #region # 分页获取实体对象列表 —— ICollection<T> FindByPage(string keywords...
         /// <summary>
-        /// 根据关键字分页获取实体对象列表
+        /// 分页获取实体对象列表
         /// </summary>
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
@@ -135,9 +139,9 @@ namespace SD.Infrastructure.RepositoryBase
         ICollection<T> FindByPage(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount);
         #endregion
 
-        #region # 根据关键字分页获取实体对象列表 —— Task<Page<T>> FindByPageAsync(string keywords...
+        #region # 分页获取实体对象列表 —— Task<Page<T>> FindByPageAsync(string keywords...
         /// <summary>
-        /// 根据关键字分页获取实体对象列表
+        /// 分页获取实体对象列表
         /// </summary>
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
@@ -146,9 +150,9 @@ namespace SD.Infrastructure.RepositoryBase
         Task<Page<T>> FindByPageAsync(string keywords, int pageIndex, int pageSize);
         #endregion
 
-        #region # 根据关键字分页获取子类对象列表 —— ICollection<TSub> FindByPage<TSub>(string keywords...
+        #region # 分页获取子类对象列表 —— ICollection<TSub> FindByPage<TSub>(string keywords...
         /// <summary>
-        /// 根据关键字分页获取子类对象列表
+        /// 分页获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="keywords">关键字</param>
@@ -160,9 +164,9 @@ namespace SD.Infrastructure.RepositoryBase
         ICollection<TSub> FindByPage<TSub>(string keywords, int pageIndex, int pageSize, out int rowCount, out int pageCount) where TSub : T;
         #endregion
 
-        #region # 根据关键字分页获取子类对象列表 —— Task<Page<TSub>> FindByPageAsync<TSub>(string keywords...
+        #region # 分页获取子类对象列表 —— Task<Page<TSub>> FindByPageAsync<TSub>(string keywords...
         /// <summary>
-        /// 根据关键字分页获取子类对象列表
+        /// 分页获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="keywords">关键字</param>
@@ -175,37 +179,41 @@ namespace SD.Infrastructure.RepositoryBase
 
         //IDictionary部分
 
-        #region # 根据编号集获取实体对象字典 —— IDictionary<string, T> Find(IEnumerable<string> numbers)
+        #region # 获取实体对象字典 —— IDictionary<string, T> Find(IEnumerable<string> numbers)
         /// <summary>
-        /// 根据编号集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
+        /// <param name="numbers">编号集</param>
         /// <returns>实体对象字典</returns>
         /// <remarks>IDictionary[string, T]，[编号, 实体对象]</remarks>
         IDictionary<string, T> Find(IEnumerable<string> numbers);
         #endregion
 
-        #region # 根据编号集获取实体对象字典 —— Task<IDictionary<string, T>> FindAsync(IEnumerable<string> numbers)
+        #region # 获取实体对象字典 —— Task<IDictionary<string, T>> FindAsync(IEnumerable<string> numbers)
         /// <summary>
-        /// 根据编号集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
+        /// <param name="numbers">编号集</param>
         /// <returns>实体对象字典</returns>
         /// <remarks>IDictionary[string, T]，[编号, 实体对象]</remarks>
         Task<IDictionary<string, T>> FindAsync(IEnumerable<string> numbers);
         #endregion
 
-        #region # 根据编号集获取子类对象字典 —— IDictionary<string, TSub> Find<TSub>(IEnumerable<string>...
+        #region # 获取子类对象字典 —— IDictionary<string, TSub> Find<TSub>(IEnumerable<string>...
         /// <summary>
-        /// 根据编号集获取子类对象字典
+        /// 获取子类对象字典
         /// </summary>
+        /// <param name="numbers">编号集</param>
         /// <returns>子类对象字典</returns>
         /// <remarks>IDictionary[string, TSub]，[编号, 子类对象]</remarks>
         IDictionary<string, TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T;
         #endregion
 
-        #region # 根据编号集获取子类对象字典 —— Task<IDictionary<string, TSub>> FindAsync<TSub>(IEnumerable<string...
+        #region # 获取子类对象字典 —— Task<IDictionary<string, TSub>> FindAsync<TSub>(IEnumerable<string...
         /// <summary>
-        /// 根据编号集获取子类对象字典
+        /// 获取子类对象字典
         /// </summary>
+        /// <param name="numbers">编号集</param>
         /// <returns>子类对象字典</returns>
         /// <remarks>IDictionary[string, TSub]，[编号, 子类对象]</remarks>
         Task<IDictionary<string, TSub>> FindAsync<TSub>(IEnumerable<string> numbers) where TSub : T;

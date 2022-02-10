@@ -266,9 +266,9 @@ namespace SD.Infrastructure.Repository.MongoDB
 
         //Single部分
 
-        #region # 根据Id获取唯一实体对象 —— T SingleOrDefault(Guid id)
+        #region # 获取唯一实体对象 —— T SingleOrDefault(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
@@ -278,9 +278,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(Guid id)
+        #region # 获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
@@ -290,9 +290,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— TSub SingleOrDefault<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— TSub SingleOrDefault<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
@@ -302,9 +302,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
@@ -314,9 +314,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id获取唯一实体对象 —— T Single(Guid id)
+        #region # 获取唯一实体对象 —— T Single(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
@@ -337,9 +337,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id获取唯一实体对象 —— Task<T> SingleAsync(Guid id)
+        #region # 获取唯一实体对象 —— Task<T> SingleAsync(Guid id)
         /// <summary>
-        /// 根据Id获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>实体对象</returns>
@@ -360,9 +360,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— TSub Single<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— TSub Single<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
@@ -383,9 +383,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(Guid id)
+        #region # 获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(Guid id)
         /// <summary>
-        /// 根据Id获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="id">标识Id</param>
         /// <returns>子类对象</returns>
@@ -406,9 +406,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号获取唯一实体对象 —— T SingleOrDefault(string number)
+        #region # 获取唯一实体对象 —— T SingleOrDefault(string number)
         /// <summary>
-        /// 根据编号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>实体对象</returns>
@@ -427,9 +427,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(string number)
+        #region # 获取唯一实体对象 —— Task<T> SingleOrDefaultAsync(string number)
         /// <summary>
-        /// 根据编号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>实体对象</returns>
@@ -448,9 +448,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号获取唯一子类对象 —— TSub SingleOrDefault<TSub>(string number)
+        #region # 获取唯一子类对象 —— TSub SingleOrDefault<TSub>(string number)
         /// <summary>
-        /// 根据编号获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>子类对象</returns>
@@ -469,9 +469,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(string number)
+        #region # 获取唯一子类对象 —— Task<TSub> SingleOrDefaultAsync<TSub>(string number)
         /// <summary>
-        /// 根据编号获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>子类对象</returns>
@@ -490,9 +490,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号获取唯一实体对象 —— T Single(string number)
+        #region # 获取唯一实体对象 —— T Single(string number)
         /// <summary>
-        /// 根据编号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>实体对象</returns>
@@ -513,9 +513,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号获取唯一实体对象 —— Task<T> SingleAsync(string number)
+        #region # 获取唯一实体对象 —— Task<T> SingleAsync(string number)
         /// <summary>
-        /// 根据编号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>实体对象</returns>
@@ -536,9 +536,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号获取唯一子类对象 —— TSub Single<TSub>(string number)
+        #region # 获取唯一子类对象 —— TSub Single<TSub>(string number)
         /// <summary>
-        /// 根据编号获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>子类对象</returns>
@@ -559,9 +559,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(string number)
+        #region # 获取唯一子类对象 —— Task<TSub> SingleAsync<TSub>(string number)
         /// <summary>
-        /// 根据编号获取唯一子类对象
+        /// 获取唯一子类对象
         /// </summary>
         /// <param name="number">编号</param>
         /// <returns>子类对象</returns>
@@ -582,9 +582,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— TRowable SingleOrDefault(long rowNo)
+        #region # 获取唯一实体对象 —— TRowable SingleOrDefault(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
@@ -594,9 +594,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— Task<TRowable> SingleOrDefaultAsync(long rowNo)
+        #region # 获取唯一实体对象 —— Task<TRowable> SingleOrDefaultAsync(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
@@ -606,9 +606,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— TRowable Single(long rowNo)
+        #region # 获取唯一实体对象 —— TRowable Single(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
@@ -629,9 +629,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据行号获取唯一实体对象 —— Task<TRowable> SingleAsync(long rowNo)
+        #region # 获取唯一实体对象 —— Task<TRowable> SingleAsync(long rowNo)
         /// <summary>
-        /// 根据行号获取唯一实体对象
+        /// 获取唯一实体对象
         /// </summary>
         /// <param name="rowNo">行号</param>
         /// <returns>实体对象</returns>
@@ -721,9 +721,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 获取给定类型子类对象列表 —— ICollection<TSub> FindAll<TSub>()
+        #region # 获取子类对象列表 —— ICollection<TSub> FindAll<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
@@ -733,9 +733,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 获取给定类型子类对象列表 —— Task<ICollection<TSub>> FindAllAsync<TSub>()
+        #region # 获取子类对象列表 —— Task<ICollection<TSub>> FindAllAsync<TSub>()
         /// <summary>
-        /// 获取给定类型子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <returns>子类对象列表</returns>
@@ -745,10 +745,11 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字获取实体对象列表 —— ICollection<T> Find(string keywords)
+        #region # 获取实体对象列表 —— ICollection<T> Find(string keywords)
         /// <summary>
-        /// 根据关键字获取实体对象列表
+        /// 获取实体对象列表
         /// </summary>
+        /// <param name="keywords">关键字</param>
         /// <returns>实体对象列表</returns>
         public ICollection<T> Find(string keywords)
         {
@@ -760,10 +761,11 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字获取实体对象列表 —— Task<ICollection<T>> FindAsync(string keywords)
+        #region # 获取实体对象列表 —— Task<ICollection<T>> FindAsync(string keywords)
         /// <summary>
-        /// 根据关键字获取实体对象列表
+        /// 获取实体对象列表
         /// </summary>
+        /// <param name="keywords">关键字</param>
         /// <returns>实体对象列表</returns>
         public async Task<ICollection<T>> FindAsync(string keywords)
         {
@@ -775,11 +777,12 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字获取子类对象列表 —— ICollection<TSub> Find<TSub>(string keywords)
+        #region # 获取子类对象列表 —— ICollection<TSub> Find<TSub>(string keywords)
         /// <summary>
-        /// 根据关键字获取子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
+        /// <param name="keywords">关键字</param>
         /// <returns>子类对象列表</returns>
         public ICollection<TSub> Find<TSub>(string keywords) where TSub : T
         {
@@ -791,11 +794,12 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字获取子类对象列表 —— Task<ICollection<TSub>> FindAsync<TSub>(string keywords)
+        #region # 获取子类对象列表 —— Task<ICollection<TSub>> FindAsync<TSub>(string keywords)
         /// <summary>
-        /// 根据关键字获取子类对象列表
+        /// 获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
+        /// <param name="keywords">关键字</param>
         /// <returns>子类对象列表</returns>
         public async Task<ICollection<TSub>> FindAsync<TSub>(string keywords) where TSub : T
         {
@@ -807,9 +811,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字分页获取实体对象列表 —— ICollection<T> FindByPage(string keywords...
+        #region # 分页获取实体对象列表 —— ICollection<T> FindByPage(string keywords...
         /// <summary>
-        /// 根据关键字分页获取实体对象列表
+        /// 分页获取实体对象列表
         /// </summary>
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
@@ -827,9 +831,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字分页获取实体对象列表 —— Task<Page<T>> FindByPageAsync(string keywords...
+        #region # 分页获取实体对象列表 —— Task<Page<T>> FindByPageAsync(string keywords...
         /// <summary>
-        /// 根据关键字分页获取实体对象列表
+        /// 分页获取实体对象列表
         /// </summary>
         /// <param name="keywords">关键字</param>
         /// <param name="pageIndex">页码</param>
@@ -852,9 +856,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字分页获取子类对象列表 —— ICollection<TSub> FindByPage<TSub>(string keywords...
+        #region # 分页获取子类对象列表 —— ICollection<TSub> FindByPage<TSub>(string keywords...
         /// <summary>
-        /// 根据关键字分页获取子类对象列表
+        /// 分页获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="keywords">关键字</param>
@@ -874,9 +878,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据关键字分页获取子类对象列表 —— Task<Page<TSub>> FindByPageAsync<TSub>(string keywords...
+        #region # 分页获取子类对象列表 —— Task<Page<TSub>> FindByPageAsync<TSub>(string keywords...
         /// <summary>
-        /// 根据关键字分页获取子类对象列表
+        /// 分页获取子类对象列表
         /// </summary>
         /// <typeparam name="TSub">子类类型</typeparam>
         /// <param name="keywords">关键字</param>
@@ -903,9 +907,9 @@ namespace SD.Infrastructure.Repository.MongoDB
 
         //IDictionary部分
 
-        #region # 根据Id集获取实体对象字典 —— IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
+        #region # 获取实体对象字典 —— IDictionary<Guid, T> Find(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>实体对象字典</returns>
@@ -928,9 +932,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id集获取实体对象字典 —— Task<IDictionary<Guid, T>> FindAsync(IEnumerable<Guid> ids)
+        #region # 获取实体对象字典 —— Task<IDictionary<Guid, T>> FindAsync(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>实体对象字典</returns>
@@ -953,9 +957,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id集获取子类对象字典 —— IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids)
+        #region # 获取子类对象字典 —— IDictionary<Guid, TSub> Find<TSub>(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取子类对象字典
+        /// 获取子类对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>子类对象字典</returns>
@@ -978,9 +982,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据Id集获取子类对象字典 —— Task<IDictionary<Guid, TSub>> FindAsync<TSub>(IEnumerable<Guid> ids)
+        #region # 获取子类对象字典 —— Task<IDictionary<Guid, TSub>> FindAsync<TSub>(IEnumerable<Guid> ids)
         /// <summary>
-        /// 根据Id集获取子类对象字典
+        /// 获取子类对象字典
         /// </summary>
         /// <param name="ids">标识Id集</param>
         /// <returns>子类对象字典</returns>
@@ -1003,10 +1007,11 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号集获取实体对象字典 —— IDictionary<string, T> Find(IEnumerable<string> numbers)
+        #region # 获取实体对象字典 —— IDictionary<string, T> Find(IEnumerable<string> numbers)
         /// <summary>
-        /// 根据编号集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
+        /// <param name="numbers">编号集</param>
         /// <returns>实体对象字典</returns>
         /// <remarks>IDictionary[string, T]，[编号, 实体对象]</remarks>
         public IDictionary<string, T> Find(IEnumerable<string> numbers)
@@ -1027,10 +1032,11 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号集获取实体对象字典 —— Task<IDictionary<string, T>> FindAsync(IEnumerable<string> numbers)
+        #region # 获取实体对象字典 —— Task<IDictionary<string, T>> FindAsync(IEnumerable<string> numbers)
         /// <summary>
-        /// 根据编号集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
+        /// <param name="numbers">编号集</param>
         /// <returns>实体对象字典</returns>
         /// <remarks>IDictionary[string, T]，[编号, 实体对象]</remarks>
         public async Task<IDictionary<string, T>> FindAsync(IEnumerable<string> numbers)
@@ -1051,10 +1057,11 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号集获取子类对象字典 —— IDictionary<string, TSub> Find<TSub>(IEnumerable<string>...
+        #region # 获取子类对象字典 —— IDictionary<string, TSub> Find<TSub>(IEnumerable<string>...
         /// <summary>
-        /// 根据编号集获取子类对象字典
+        /// 获取子类对象字典
         /// </summary>
+        /// <param name="numbers">编号集</param>
         /// <returns>子类对象字典</returns>
         /// <remarks>IDictionary[string, TSub]，[编号, 子类对象]</remarks>
         public IDictionary<string, TSub> Find<TSub>(IEnumerable<string> numbers) where TSub : T
@@ -1075,10 +1082,11 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据编号集获取子类对象字典 —— Task<IDictionary<string, TSub>> FindAsync<TSub>(IEnumerable<string...
+        #region # 获取子类对象字典 —— Task<IDictionary<string, TSub>> FindAsync<TSub>(IEnumerable<string...
         /// <summary>
-        /// 根据编号集获取子类对象字典
+        /// 获取子类对象字典
         /// </summary>
+        /// <param name="numbers">编号集</param>
         /// <returns>子类对象字典</returns>
         /// <remarks>IDictionary[string, TSub]，[编号, 子类对象]</remarks>
         public async Task<IDictionary<string, TSub>> FindAsync<TSub>(IEnumerable<string> numbers) where TSub : T
@@ -1099,9 +1107,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据行号集获取实体对象字典 —— IDictionary<long, TRowable> Find<TRowable>(IEnumerable<long> rowNos)
+        #region # 获取实体对象字典 —— IDictionary<long, TRowable> Find<TRowable>(IEnumerable<long> rowNos)
         /// <summary>
-        /// 根据行号集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="rowNos">行号集</param>
         /// <returns>实体对象字典</returns>
@@ -1124,9 +1132,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 根据行号集获取实体对象字典 —— Task<IDictionary<long, TRowable>> FindAsync<TRowable>(IEnumerable<long> rowNos)
+        #region # 获取实体对象字典 —— Task<IDictionary<long, TRowable>> FindAsync<TRowable>(IEnumerable<long> rowNos)
         /// <summary>
-        /// 根据行号集获取实体对象字典
+        /// 获取实体对象字典
         /// </summary>
         /// <param name="rowNos">行号集</param>
         /// <returns>实体对象字典</returns>
@@ -1152,11 +1160,11 @@ namespace SD.Infrastructure.Repository.MongoDB
 
         //Count部分
 
-        #region # 获取总记录条数 —— long Count()
+        #region # 获取总记录数 —— long Count()
         /// <summary>
-        /// 获取总记录条数
+        /// 获取总记录数
         /// </summary>
-        /// <returns>总记录条数</returns>
+        /// <returns>总记录数</returns>
         public long Count()
         {
             long count = this.Find(x => true).CountDocuments();
@@ -1165,11 +1173,11 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 获取总记录条数 —— Task<long> CountAsync()
+        #region # 获取总记录数 —— Task<long> CountAsync()
         /// <summary>
-        /// 获取总记录条数
+        /// 获取总记录数
         /// </summary>
-        /// <returns>总记录条数</returns>
+        /// <returns>总记录数</returns>
         public async Task<long> CountAsync()
         {
             long count = await this.Find(x => true).CountDocumentsAsync();
@@ -1178,9 +1186,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 获取子类记录条数 —— long Count<TSub>()
+        #region # 获取子类记录数 —— long Count<TSub>()
         /// <summary>
-        /// 获取子类记录条数
+        /// 获取子类记录数
         /// </summary>
         /// <returns>子类记录条数</returns>
         public long Count<TSub>() where TSub : T
@@ -1191,9 +1199,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 获取子类记录条数 —— Task<long> CountAsync<TSub>()
+        #region # 获取子类记录数 —— Task<long> CountAsync<TSub>()
         /// <summary>
-        /// 获取子类记录条数
+        /// 获取子类记录数
         /// </summary>
         /// <returns>子类记录条数</returns>
         public async Task<long> CountAsync<TSub>() where TSub : T
@@ -1791,9 +1799,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 获取实体对象列表默认排序 —— IFindFluent<T, T> FindAndSort(...
+        #region # 获取实体对象列表（默认排序） —— IFindFluent<T, T> FindAndSort(...
         /// <summary>
-        /// 获取实体对象列表默认排序
+        /// 获取实体对象列表（默认排序）
         /// </summary>
         /// <param name="condition">条件表达式</param>
         /// <returns>实体对象列表</returns>
@@ -1803,9 +1811,9 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 获取子类对象列表默认排序 —— IFindFluent<TSub, TSub> FindAndSort<TSub>(...
+        #region # 获取子类对象列表（默认排序） —— IFindFluent<TSub, TSub> FindAndSort<TSub>(...
         /// <summary>
-        /// 获取子类对象列表默认排序
+        /// 获取子类对象列表（默认排序）
         /// </summary>
         /// <param name="condition">条件表达式</param>
         /// <returns>子类对象列表</returns>
@@ -1815,7 +1823,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 获取实体对象列表 —— IFindFluent<T, T> Find(...
+        #region # 获取实体对象列表 —— IFindFluent<T, T> Find(Expression<Func<T, bool>> condition)
         /// <summary>
         /// 获取实体对象列表
         /// </summary>
@@ -1827,7 +1835,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         }
         #endregion
 
-        #region # 获取子类对象列表 —— IFindFluent<TSub, TSub> Find<TSub>(...
+        #region # 获取子类对象列表 —— IFindFluent<TSub, TSub> Find<TSub>(Expression<Func<TSub, bool>>...
         /// <summary>
         /// 获取子类对象列表
         /// </summary>
