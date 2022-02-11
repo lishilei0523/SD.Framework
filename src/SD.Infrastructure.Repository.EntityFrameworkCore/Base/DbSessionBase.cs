@@ -41,6 +41,15 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
         }
 
         /// <summary>
+        /// 默认构造器
+        /// </summary>
+        protected DbSessionBase()
+        {
+            //默认超时时间
+            base.Database.SetCommandTimeout(120);
+        }
+
+        /// <summary>
         /// 配置
         /// </summary>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

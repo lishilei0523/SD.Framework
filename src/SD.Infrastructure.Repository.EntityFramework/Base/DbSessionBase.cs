@@ -45,6 +45,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         protected DbSessionBase()
         {
+            base.Database.CommandTimeout = 120;
             this.Configuration.ValidateOnSaveEnabled = false;
         }
 
