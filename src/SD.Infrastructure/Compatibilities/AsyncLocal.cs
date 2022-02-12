@@ -1,4 +1,5 @@
-﻿using System.Runtime.Remoting.Messaging;
+﻿#if NET40 || NET45
+using System.Runtime.Remoting.Messaging;
 
 // ReSharper disable once CheckNamespace
 namespace System.Threading
@@ -60,3 +61,4 @@ namespace System.Threading
         }
     }
 }
+#endif

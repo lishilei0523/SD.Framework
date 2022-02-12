@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if NET40_OR_GREATER
+using System;
 using System.ServiceModel.Configuration;
 
 namespace SD.Infrastructure.WCF.Server
@@ -26,3 +27,4 @@ namespace SD.Infrastructure.WCF.Server
         }
     }
 }
+#endif
