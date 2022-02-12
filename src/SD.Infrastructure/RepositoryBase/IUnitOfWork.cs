@@ -39,6 +39,16 @@ namespace SD.Infrastructure.RepositoryBase
         DbTransaction GetCurrentTransaction();
         #endregion
 
+        #region # 获取实体历史 —— IEntityHistory GetEntityHistory<T>(T entity)
+        /// <summary>
+        /// 获取实体历史
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="entity">实体对象</param>
+        /// <returns>实体历史</returns>
+        IEntityHistory GetEntityHistory<T>(T entity) where T : PlainEntity;
+        #endregion
+
         #region # 获取实体历史列表 —— ICollection<IEntityHistory> GetEntityHistories<T>()
         /// <summary>
         /// 获取实体历史列表

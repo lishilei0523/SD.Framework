@@ -117,6 +117,72 @@ namespace SD.Infrastructure.Repository.EntityFramework
         }
         #endregion
 
+        #region # 获取实体历史 —— IEntityHistory GetEntityHistory<T>(T entity)
+        /// <summary>
+        /// 获取实体历史
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="entity">实体对象</param>
+        /// <returns>实体历史</returns>
+        public IEntityHistory GetEntityHistory<T>(T entity) where T : PlainEntity
+        {
+            DbEntityEntry<T> entry = this._dbContext.ChangeTracker.Entries<T>().FirstOrDefault(x => x.Entity == entity);
+
+            #region # 验证
+
+            if (entry == null)
+            {
+                return null;
+            }
+
+            #endregion
+
+            LoginInfo loginInfo = GetLoginInfo?.Invoke();
+            ActionType actualActionType;
+            IDictionary<string, object> beforeSnapshot = new Dictionary<string, object>();
+            IDictionary<string, object> afterSnapshot = new Dictionary<string, object>();
+            if (entry.State == EntityState.Added)
+            {
+                actualActionType = ActionType.Create;
+                foreach (string propertyName in entry.CurrentValues.PropertyNames)
+                {
+                    DbPropertyEntry propertyEntry = entry.Property(propertyName);
+                    afterSnapshot[propertyName] = propertyEntry.CurrentValue;
+                }
+            }
+            else if (entry.State == EntityState.Modified)
+            {
+                actualActionType = ActionType.Update;
+                foreach (string propertyName in entry.OriginalValues.PropertyNames)
+                {
+                    DbPropertyEntry propertyEntry = entry.Property(propertyName);
+                    if (propertyEntry.OriginalValue?.ToString() != propertyEntry.CurrentValue?.ToString())
+                    {
+                        beforeSnapshot[propertyName] = propertyEntry.OriginalValue;
+                        afterSnapshot[propertyName] = propertyEntry.CurrentValue;
+                    }
+                }
+            }
+            else if (entry.State == EntityState.Deleted)
+            {
+                actualActionType = ActionType.Delete;
+                foreach (string propertyName in entry.OriginalValues.PropertyNames)
+                {
+                    DbPropertyEntry propertyEntry = entry.Property(propertyName);
+                    beforeSnapshot[propertyName] = propertyEntry.OriginalValue;
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+            EntityHistory entityHistory = new EntityHistory(actualActionType, typeof(T), entry.Entity.Id, beforeSnapshot, afterSnapshot, loginInfo?.LoginId, loginInfo?.RealName);
+
+            return entityHistory;
+        }
+        #endregion
+
         #region # 获取实体历史列表 —— ICollection<IEntityHistory> GetEntityHistories<T>()
         /// <summary>
         /// 获取实体历史列表
@@ -173,7 +239,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
                     continue;
                 }
 
-                EntityHistory entityHistory = new EntityHistory(actualActionType, entry.Entity.GetType(), entry.Entity.Id, beforeSnapshot, afterSnapshot, loginInfo?.LoginId, loginInfo?.RealName);
+                EntityHistory entityHistory = new EntityHistory(actualActionType, typeof(T), entry.Entity.Id, beforeSnapshot, afterSnapshot, loginInfo?.LoginId, loginInfo?.RealName);
                 entityHistories.Add(entityHistory);
             }
 

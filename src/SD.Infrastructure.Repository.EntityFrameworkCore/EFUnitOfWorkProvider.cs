@@ -121,6 +121,69 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         }
         #endregion
 
+        #region # 获取实体历史 —— IEntityHistory GetEntityHistory<T>(T entity)
+        /// <summary>
+        /// 获取实体历史
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="entity">实体对象</param>
+        /// <returns>实体历史</returns>
+        public IEntityHistory GetEntityHistory<T>(T entity) where T : PlainEntity
+        {
+            EntityEntry<T> entry = this._dbContext.ChangeTracker.Entries<T>().FirstOrDefault(x => x.Entity == entity);
+
+            #region # 验证
+
+            if (entry == null)
+            {
+                return null;
+            }
+
+            #endregion
+
+            LoginInfo loginInfo = GetLoginInfo?.Invoke();
+            ActionType actualActionType;
+            IDictionary<string, object> beforeSnapshot = new Dictionary<string, object>();
+            IDictionary<string, object> afterSnapshot = new Dictionary<string, object>();
+            if (entry.State == EntityState.Added)
+            {
+                actualActionType = ActionType.Create;
+                foreach (PropertyEntry propertyEntry in entry.Properties)
+                {
+                    afterSnapshot[propertyEntry.Metadata.Name] = propertyEntry.CurrentValue;
+                }
+            }
+            else if (entry.State == EntityState.Modified)
+            {
+                actualActionType = ActionType.Update;
+                foreach (PropertyEntry propertyEntry in entry.Properties)
+                {
+                    if (propertyEntry.OriginalValue?.ToString() != propertyEntry.CurrentValue?.ToString())
+                    {
+                        beforeSnapshot[propertyEntry.Metadata.Name] = propertyEntry.OriginalValue;
+                        afterSnapshot[propertyEntry.Metadata.Name] = propertyEntry.CurrentValue;
+                    }
+                }
+            }
+            else if (entry.State == EntityState.Deleted)
+            {
+                actualActionType = ActionType.Delete;
+                foreach (PropertyEntry propertyEntry in entry.Properties)
+                {
+                    beforeSnapshot[propertyEntry.Metadata.Name] = propertyEntry.OriginalValue;
+                }
+            }
+            else
+            {
+                return null;
+            }
+
+            EntityHistory entityHistory = new EntityHistory(actualActionType, entry.Metadata.ClrType, entry.Entity.Id, beforeSnapshot, afterSnapshot, loginInfo?.LoginId, loginInfo?.RealName);
+
+            return entityHistory;
+        }
+        #endregion
+
         #region # 获取实体历史列表 —— ICollection<IEntityHistory> GetEntityHistories<T>()
         /// <summary>
         /// 获取实体历史列表
