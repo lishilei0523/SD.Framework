@@ -22,7 +22,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
         /// <returns>实体对象列表</returns>
-        public static Page<T> ToPage<T>(this IOrderedQueryable<T> orderedResult, int pageIndex, int pageSize) where T : PlainEntity
+        public static Page<T> ToPage<T>(this IOrderedQueryable<T> orderedResult, int pageIndex, int pageSize)
         {
             int rowCount = orderedResult.Count();
             int pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
@@ -41,7 +41,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
         /// <returns>实体对象列表</returns>
-        public static async Task<Page<T>> ToPageAsync<T>(this IOrderedQueryable<T> orderedResult, int pageIndex, int pageSize) where T : PlainEntity
+        public static async Task<Page<T>> ToPageAsync<T>(this IOrderedQueryable<T> orderedResult, int pageIndex, int pageSize)
         {
             int rowCount = await orderedResult.CountAsync();
             int pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);

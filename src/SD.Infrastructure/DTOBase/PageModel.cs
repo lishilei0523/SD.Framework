@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 namespace SD.Infrastructure.DTOBase
 {
     /// <summary>
-    /// 分页数据模型
+    /// 分页数据传输对象
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
     [Serializable]

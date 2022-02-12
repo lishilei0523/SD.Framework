@@ -21,7 +21,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
         /// <returns>实体对象列表</returns>
-        public static Page<T> ToPage<T>(this IFindFluent<T, T> orderedResult, int pageIndex, int pageSize) where T : PlainEntity
+        public static Page<T> ToPage<T>(this IFindFluent<T, T> orderedResult, int pageIndex, int pageSize)
         {
             int rowCount = (int)orderedResult.CountDocuments();
             int pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
@@ -40,7 +40,7 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="pageIndex">页码</param>
         /// <param name="pageSize">页容量</param>
         /// <returns>实体对象列表</returns>
-        public static async Task<Page<T>> ToPageAsync<T>(this IFindFluent<T, T> orderedResult, int pageIndex, int pageSize) where T : PlainEntity
+        public static async Task<Page<T>> ToPageAsync<T>(this IFindFluent<T, T> orderedResult, int pageIndex, int pageSize)
         {
             int rowCount = (int)await orderedResult.CountDocumentsAsync();
             int pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);

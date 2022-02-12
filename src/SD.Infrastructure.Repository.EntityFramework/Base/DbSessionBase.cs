@@ -45,7 +45,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         /// </summary>
         protected DbSessionBase()
         {
-            base.Database.CommandTimeout = 120;
+            this.Database.CommandTimeout = 120;
             this.Configuration.ValidateOnSaveEnabled = false;
         }
 
@@ -56,6 +56,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         protected DbSessionBase(string nameOrConnectionString)
             : base(nameOrConnectionString)
         {
+            this.Database.CommandTimeout = 120;
             this.Configuration.ValidateOnSaveEnabled = false;
         }
 
@@ -67,6 +68,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Base
         protected DbSessionBase(DbConnection existingConnection, bool contextOwnsConnection)
             : base(existingConnection, contextOwnsConnection)
         {
+            this.Database.CommandTimeout = 120;
             this.Configuration.ValidateOnSaveEnabled = false;
         }
 

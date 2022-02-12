@@ -8,7 +8,7 @@ namespace SD.Infrastructure.EntityBase
     /// </summary>
     /// <typeparam name="T">类型</typeparam>
     [Serializable]
-    public class Page<T> : List<T> where T : PlainEntity
+    public class Page<T> : List<T>
     {
         #region # 构造器
 

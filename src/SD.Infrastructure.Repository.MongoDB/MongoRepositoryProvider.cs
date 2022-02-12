@@ -89,10 +89,6 @@ namespace SD.Infrastructure.Repository.MongoDB
             {
                 throw new ArgumentNullException(nameof(entity), $@"要添加的{typeof(T).Name}实体对象不可为空！");
             }
-            if (this.Exists(entity.Id))
-            {
-                throw new ArgumentOutOfRangeException(nameof(entity), $"Id为\"{entity.Id}\"的实体已存在！");
-            }
 
             #endregion
 
@@ -134,10 +130,6 @@ namespace SD.Infrastructure.Repository.MongoDB
             if (entity == null)
             {
                 throw new ArgumentNullException(nameof(entity), $"要保存的{typeof(T).Name}实体对象不可为空！");
-            }
-            if (!this.Exists(entity.Id))
-            {
-                throw new NullReferenceException($"不存在Id为{entity.Id}的{typeof(T).Name}实体对象，请尝试添加操作！");
             }
 
             #endregion
@@ -247,16 +239,6 @@ namespace SD.Infrastructure.Repository.MongoDB
             #endregion
 
             this._collection.DeleteManyAsync(x => numbers_.Contains(x.Number)).Wait();
-        }
-        #endregion
-
-        #region # 删除全部 —— void RemoveAll()
-        /// <summary>
-        /// 删除全部
-        /// </summary>
-        public void RemoveAll()
-        {
-            this._collection.DeleteManyAsync(x => true).Wait();
         }
         #endregion
 
