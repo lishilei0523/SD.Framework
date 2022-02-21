@@ -1,6 +1,8 @@
 ﻿using Caliburn.Micro;
 using SD.Infrastructure.WPF.Caliburn.Base;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Media;
 
 namespace SD.Infrastructure.WPF.Caliburn.Extensions
 {
@@ -34,6 +36,35 @@ namespace SD.Infrastructure.WPF.Caliburn.Extensions
                 {
                     conductorBase.Idle();
                 }
+
+                ICollection<DependencyObject> elements = new HashSet<DependencyObject>();
+                window.GetDeepSubElements(ref elements);
+                foreach (DependencyObject element in elements)
+                {
+                    object subViewModel = ViewModelLocator.LocateForView.Invoke(element);
+                    if (subViewModel is ScreenBase subScreenBase)
+                    {
+                        subScreenBase.Idle();
+                    }
+                    if (subViewModel is OneActiveConductorBase subConductorBase)
+                    {
+                        subConductorBase.Idle();
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// 深度获取子元素列表
+        /// </summary>
+        private static void GetDeepSubElements(this DependencyObject reference, ref ICollection<DependencyObject> elements)
+        {
+            for (int index = 0; index < VisualTreeHelper.GetChildrenCount(reference); index++)
+            {
+                DependencyObject subReference = VisualTreeHelper.GetChild(reference, index);
+                elements.Add(subReference);
+
+                GetDeepSubElements(subReference, ref elements);
             }
         }
     }
