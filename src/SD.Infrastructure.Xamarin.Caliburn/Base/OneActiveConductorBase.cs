@@ -1,9 +1,9 @@
 ﻿using Acr.UserDialogs;
 using Caliburn.Micro;
+using SD.Infrastructure.Xamarin.Caliburn.Extensions;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Xamarin.Essentials;
 
 namespace SD.Infrastructure.Xamarin.Caliburn.Base
 {
@@ -18,7 +18,7 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         /// </summary>
         protected void Busy(string title = "加载中...", MaskType? maskType = null)
         {
-            UserDialogs.Instance.ShowLoading(title, maskType);
+            MessageBox.Busy(title, maskType);
         }
         #endregion
 
@@ -28,7 +28,7 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         /// </summary>
         protected void Idle()
         {
-            UserDialogs.Instance.HideLoading();
+            MessageBox.Idle();
         }
         #endregion
 
@@ -38,7 +38,7 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         /// </summary>
         protected void Toast(string title, TimeSpan? dismissTimer = null)
         {
-            UserDialogs.Instance.Toast(title, dismissTimer);
+            MessageBox.Toast(title, dismissTimer);
         }
         #endregion
 
@@ -49,8 +49,7 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         /// <remarks>带振动</remarks>
         protected void ToastVibrantly(string title, TimeSpan? dismissTimer = null, int vibratedDuration = 500)
         {
-            Vibration.Vibrate(vibratedDuration);
-            UserDialogs.Instance.Toast(title, dismissTimer);
+            MessageBox.ToastVibrantly(title, dismissTimer, vibratedDuration);
         }
         #endregion
 
@@ -60,7 +59,7 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         /// </summary>
         protected async Task Alert(string message, string title = null, CancellationToken? cancelToken = null)
         {
-            await UserDialogs.Instance.AlertAsync(message, title, "确定", cancelToken);
+            await MessageBox.Alert(message, title, cancelToken);
         }
         #endregion
 
@@ -71,8 +70,7 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         /// <remarks>带振动</remarks>
         protected async Task AlertVibrantly(string message, string title = null, int vibratedDuration = 500, CancellationToken? cancelToken = null)
         {
-            Vibration.Vibrate(vibratedDuration);
-            await UserDialogs.Instance.AlertAsync(message, title, "确定", cancelToken);
+            await MessageBox.AlertVibrantly(message, title, vibratedDuration, cancelToken);
         }
         #endregion
 
@@ -82,7 +80,7 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         /// </summary>
         protected async Task<bool> Confirm(string message, string title = null, CancellationToken? cancelToken = null)
         {
-            return await UserDialogs.Instance.ConfirmAsync(message, title, "确定", "取消", cancelToken);
+            return await MessageBox.Confirm(message, title, cancelToken);
         }
         #endregion
 
@@ -92,8 +90,23 @@ namespace SD.Infrastructure.Xamarin.Caliburn.Base
         /// </summary>
         protected async Task<bool> ConfirmVibrantly(string message, string title = null, int vibratedDuration = 500, CancellationToken? cancelToken = null)
         {
-            Vibration.Vibrate(vibratedDuration);
-            return await UserDialogs.Instance.ConfirmAsync(message, title, "确定", "取消", cancelToken);
+            return await MessageBox.ConfirmVibrantly(message, title, vibratedDuration, cancelToken);
+        }
+        #endregion
+
+        #region # 关闭视图模型 —— override Task TryCloseAsync(bool? dialogResult = null)
+        /// <summary>
+        /// 关闭视图模型
+        /// </summary>
+        public override Task TryCloseAsync(bool? dialogResult = null)
+        {
+            object view = this.GetView();
+            if (view is Dialog dialog)
+            {
+                dialog.Dismiss(dialogResult);
+            }
+
+            return base.TryCloseAsync(dialogResult);
         }
         #endregion
     }

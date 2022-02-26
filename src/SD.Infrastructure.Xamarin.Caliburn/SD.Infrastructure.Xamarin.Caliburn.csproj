@@ -4,10 +4,10 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - Xamarin基础 - Caliburn.Micro扩展</Description>
-    <Copyright>Copyright © SD 2021</Copyright>
-    <Version>0.1.5</Version>
-    <AssemblyVersion>0.1.5</AssemblyVersion>
-    <FileVersion>0.1.5.0</FileVersion>
+    <Copyright>Copyright © SD 2022</Copyright>
+    <Version>0.2.0</Version>
+    <AssemblyVersion>0.2.0</AssemblyVersion>
+    <FileVersion>0.2.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -20,10 +20,11 @@
   <ItemGroup>
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.0" />
     <PackageReference Include="Caliburn.Micro.Core" Version="4.0.173" />
     <PackageReference Include="Caliburn.Micro.Xamarin.Forms" Version="4.0.173" />
-    <PackageReference Include="MrAdvice" Version="2.9.5" />
     <PackageReference Include="Acr.UserDialogs" Version="7.2.0.562" />
+    <PackageReference Include="MrAdvice" Version="2.9.5" />
     <PackageReference Include="SD.IOC.Core" Version="2.1.6" />
   </ItemGroup>
 </Project>
