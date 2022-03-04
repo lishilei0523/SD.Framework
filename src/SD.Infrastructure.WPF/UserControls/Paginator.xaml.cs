@@ -205,9 +205,6 @@ namespace SD.Infrastructure.WPF.UserControls
             paginator.EndRowIndex = (paginator.StartRowIndex + paginator.PageSize) > paginator.RowCount
                 ? paginator.RowCount
                 : paginator.StartRowIndex - 1 + paginator.PageSize;
-
-            //挂起路由事件
-            paginator.RaiseEvent(new RoutedEventArgs(_RefreshEvent, paginator));
         }
         #endregion
 
@@ -321,6 +318,9 @@ namespace SD.Infrastructure.WPF.UserControls
         {
             TextBox textBox = (TextBox)sender;
             this.PageIndex = int.Parse(textBox.Text);
+
+            //挂起路由事件
+            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
         }
         #endregion
 
@@ -334,6 +334,9 @@ namespace SD.Infrastructure.WPF.UserControls
             {
                 TextBox textBox = (TextBox)sender;
                 this.PageIndex = int.Parse(textBox.Text);
+
+                //挂起路由事件
+                this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
             }
         }
         #endregion
@@ -354,6 +357,9 @@ namespace SD.Infrastructure.WPF.UserControls
             }
 
             this.PageIndex = MinPageIndex;
+
+            //挂起路由事件
+            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
         }
         #endregion
 
@@ -374,6 +380,9 @@ namespace SD.Infrastructure.WPF.UserControls
             }
 
             this.PageIndex--;
+
+            //挂起路由事件
+            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
         }
         #endregion
 
@@ -394,6 +403,9 @@ namespace SD.Infrastructure.WPF.UserControls
             }
 
             this.PageIndex++;
+
+            //挂起路由事件
+            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
         }
         #endregion
 
@@ -413,6 +425,9 @@ namespace SD.Infrastructure.WPF.UserControls
             }
 
             this.PageIndex = this.PageCount;
+
+            //挂起路由事件
+            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
         }
         #endregion
 
@@ -422,7 +437,7 @@ namespace SD.Infrastructure.WPF.UserControls
         /// </summary>
         private void BtnRefreshClick(object sender, RoutedEventArgs eventArgs)
         {
-            base.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
+            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
         }
         #endregion
 

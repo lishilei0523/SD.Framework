@@ -41,7 +41,7 @@
         <Grid Grid.Column="0" Margin="{Binding ElementName=Control, Path=Padding}" HorizontalAlignment="Left">
             <ComboBox Width="44" Height="22"
                       Text="{Binding ElementName=Control, Path=PageSize}" 
-                      ItemsSource="{Binding ElementName=Control, Path=PageSizes}" 
+                      ItemsSource="{Binding ElementName=Control, Path=PageSizes}"
                       SelectedIndex="2" />
         </Grid>
         <!--控制区-->
@@ -57,14 +57,14 @@
             <!--第几页，共几页-->
             <TextBlock Margin="0,0,5,0">第</TextBlock>
             <TextBox Text="{Binding ElementName=Control, Path=PageIndex}" 
-                     Width="30" Height="22"
+                     MinWidth="30" Height="22"
                      HorizontalContentAlignment="Left" 
                      InputMethod.IsInputMethodEnabled="False" 
                      PreviewTextInput="TxtPageIndexTextInput" 
                      LostFocus="TxtPageIndexLostFocus" 
                      KeyDown="TxtPageIndexKeyDown" />
             <TextBlock Margin="5,0,5,0">共</TextBlock>
-            <TextBlock Text="{Binding ElementName=Control, Path=PageCount}" Width="21" />
+            <TextBlock Text="{Binding ElementName=Control, Path=PageCount}" MinWidth="21" />
             <TextBlock Margin="5,0,0,0">页</TextBlock>
             <!--下一页-->
             <Button Margin="5,0" Click="BtnNextPageClick">
