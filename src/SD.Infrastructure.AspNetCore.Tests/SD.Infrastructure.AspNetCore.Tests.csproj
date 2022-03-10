@@ -15,9 +15,6 @@
     <Compile Include="..\SD.Infrastructure.WCF.Tests\Stubs\StubDataInitializer.cs">
       <Link>Stubs\StubDataInitializer.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Infrastructure.WCF.Tests\Stubs\StubDbCleaner.cs">
-      <Link>Stubs\StubDbCleaner.cs</Link>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>

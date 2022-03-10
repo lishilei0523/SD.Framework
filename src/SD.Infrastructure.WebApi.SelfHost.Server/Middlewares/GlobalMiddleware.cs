@@ -1,7 +1,7 @@
 ﻿using Microsoft.Owin;
 using SD.Infrastructure.Global;
-using System.Threading.Tasks;
 using SD.IOC.Core.Mediators;
+using System.Threading.Tasks;
 
 namespace SD.Infrastructure.WebApi.SelfHost.Server.Middlewares
 {
@@ -37,9 +37,6 @@ namespace SD.Infrastructure.WebApi.SelfHost.Server.Middlewares
             }
             finally
             {
-                //清理数据库
-                Finalizer.CleanDb();
-
                 //清理依赖注入范围容器
                 ResolveMediator.Dispose();
             }

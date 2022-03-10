@@ -32,7 +32,6 @@ namespace SD.Infrastructure.AspNet.Server.Modules
 
             //注册事件
             context.BeginRequest += OnBeginRequest;
-            context.EndRequest += OnEndRequest;
         }
 
         /// <summary>
@@ -45,21 +44,11 @@ namespace SD.Infrastructure.AspNet.Server.Modules
         }
 
         /// <summary>
-        /// 请求结束事件
-        /// </summary>
-        private static void OnEndRequest(object sender, EventArgs eventArgs)
-        {
-            //清理数据库
-            Finalizer.CleanDb();
-        }
-
-        /// <summary>
         /// 释放资源
         /// </summary>
         public void Dispose()
         {
-            //清理数据库
-            Finalizer.CleanDb();
+
         }
     }
 }

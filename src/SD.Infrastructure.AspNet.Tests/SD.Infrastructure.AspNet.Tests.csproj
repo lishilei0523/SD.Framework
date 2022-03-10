@@ -68,9 +68,6 @@
     <Compile Include="..\SD.Infrastructure.WCF.Tests\Stubs\StubDataInitializer.cs">
       <Link>Stubs\StubDataInitializer.cs</Link>
     </Compile>
-    <Compile Include="..\SD.Infrastructure.WCF.Tests\Stubs\StubDbCleaner.cs">
-      <Link>Stubs\StubDbCleaner.cs</Link>
-    </Compile>
     <Content Include="Global.asax" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

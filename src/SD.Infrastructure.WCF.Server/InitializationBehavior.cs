@@ -57,7 +57,6 @@ namespace SD.Infrastructure.WCF.Server
 
                 //注册事件
                 ServiceInstanceProvider.OnGetInstance += InstanceProvider_OnGetInstance;
-                ServiceInstanceProvider.OnReleaseInstance += InstanceProvider_OnReleaseInstance;
 
                 //初始化完毕
                 Initialize();
@@ -71,15 +70,6 @@ namespace SD.Infrastructure.WCF.Server
         {
             //初始化SessionId
             Initializer.InitSessionId();
-        }
-
-        /// <summary>
-        /// 销毁服务实例事件
-        /// </summary>
-        private static void InstanceProvider_OnReleaseInstance(InstanceContext instanceContext, object instance)
-        {
-            //清理数据库
-            Finalizer.CleanDb();
         }
 
 

@@ -9,9 +9,4 @@
     <!--数据库写连接名称-->
     <database.write.connectionName>DefaultConnection</database.write.connectionName>
   </sd.framework>
-  <sd.ioc>
-    <asInterfaceTypes>
-      <type name="SD.Infrastructure.Repository.EntityFramework.DbCleaner" assembly="SD.Infrastructure.Repository.EntityFramework" />
-    </asInterfaceTypes>
-  </sd.ioc>
 </configuration>
