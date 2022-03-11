@@ -1,5 +1,4 @@
-﻿using SD.Infrastructure.DTOBase;
-using SD.Infrastructure.EntityBase;
+﻿using SD.Infrastructure.EntityBase;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +14,41 @@ namespace SD.Infrastructure.RepositoryBase
     {
         //Public
 
-        #region # 分页 —— static IEnumerable<T> ToPage<T>(this IOrderedEnumerable<T> orderedResult...
+        #region # 分页 —— static Page<T> ToPage<T>(this IEnumerable<T> orderedResult...
+        /// <summary>
+        /// 分页
+        /// </summary>
+        /// <typeparam name="T">实体类型</typeparam>
+        /// <param name="orderedResult">已排序集合对象</param>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">页容量</param>
+        /// <returns>实体对象列表</returns>
+        public static Page<T> ToPage<T>(this IEnumerable<T> orderedResult, int pageIndex, int pageSize)
+        {
+            #region # 验证
+
+            orderedResult = orderedResult?.ToArray() ?? new T[0];
+            if (!orderedResult.Any())
+            {
+                Page<T> page = new Page<T>
+                {
+                    RowCount = 0,
+                    PageCount = 0
+                };
+                return page;
+            }
+
+            #endregion
+
+            int rowCount = orderedResult.Count();
+            int pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
+            IEnumerable<T> pagedResult = orderedResult.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+
+            return new Page<T>(pagedResult, pageIndex, pageSize, pageCount, rowCount);
+        }
+        #endregion
+
+        #region # 分页 —— static IList<T> ToPage<T>(this IEnumerable<T> orderedResult...
         /// <summary>
         /// 分页
         /// </summary>
@@ -26,34 +59,25 @@ namespace SD.Infrastructure.RepositoryBase
         /// <param name="rowCount">总记录数</param>
         /// <param name="pageCount">总页数</param>
         /// <returns>实体对象列表</returns>
-        public static IEnumerable<T> ToPage<T>(this IOrderedEnumerable<T> orderedResult, int pageIndex, int pageSize, out int rowCount, out int pageCount)
+        public static IList<T> ToPage<T>(this IEnumerable<T> orderedResult, int pageIndex, int pageSize, out int rowCount, out int pageCount)
         {
-            T[] array = orderedResult?.ToArray() ?? new T[0];
-            rowCount = array.Length;
+            #region # 验证
+
+            orderedResult = orderedResult?.ToArray() ?? new T[0];
+            if (!orderedResult.Any())
+            {
+                rowCount = 0;
+                pageCount = 0;
+                return new List<T>();
+            }
+
+            #endregion
+
+            rowCount = orderedResult.Count();
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
+            IEnumerable<T> pagedResult = orderedResult.Skip((pageIndex - 1) * pageSize).Take(pageSize);
 
-            return array.Skip((pageIndex - 1) * pageSize).Take(pageSize);
-        }
-        #endregion
-
-        #region # 分页 —— static PageModel<T> ToPage<T>(this IOrderedEnumerable<T> orderedResult...
-        /// <summary>
-        /// 分页
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="orderedResult">已排序集合对象</param>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageSize">页容量</param>
-        /// <returns>实体对象列表</returns>
-        public static PageModel<T> ToPage<T>(this IOrderedEnumerable<T> orderedResult, int pageIndex, int pageSize)
-        {
-            T[] array = orderedResult?.ToArray() ?? new T[0];
-            int rowCount = array.Length;
-            int pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
-
-            IList<T> pagedResult = array.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-
-            return new PageModel<T>(pagedResult, pageIndex, pageSize, pageCount, rowCount);
+            return pagedResult.ToList();
         }
         #endregion
 
@@ -72,27 +96,9 @@ namespace SD.Infrastructure.RepositoryBase
         {
             rowCount = orderedResult.Count();
             pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
+            IQueryable<T> pagedResult = orderedResult.Skip((pageIndex - 1) * pageSize).Take(pageSize);
 
-            return orderedResult.Skip((pageIndex - 1) * pageSize).Take(pageSize);
-        }
-        #endregion
-
-        #region # 分页 —— static PageModel<T> ToPage<T>(this IOrderedQueryable<T> orderedResult...
-        /// <summary>
-        /// 分页
-        /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
-        /// <param name="orderedResult">已排序集合对象</param>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageSize">页容量</param>
-        /// <returns>实体对象列表</returns>
-        public static PageModel<T> ToPage<T>(this IOrderedQueryable<T> orderedResult, int pageIndex, int pageSize)
-        {
-            int rowCount = orderedResult.Count();
-            int pageCount = (int)Math.Ceiling(rowCount * 1.0 / pageSize);
-            IList<T> pagedResult = orderedResult.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-
-            return new PageModel<T>(pagedResult, pageIndex, pageSize, pageCount, rowCount);
+            return pagedResult;
         }
         #endregion
 

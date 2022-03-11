@@ -673,40 +673,51 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            DbConnection connection = this._dbContext.Database.GetDbConnection();
-            connection.Open();
-            DbCommand command = connection.CreateCommand();
-            command.CommandText = sql;
+            DbConnection dbConnection = this._dbContext.Database.GetDbConnection();
+            dbConnection.Open();
+            DbCommand dbCommand = dbConnection.CreateCommand();
+            dbCommand.CommandText = sql;
 
             if (parameters != null && parameters.Any())
             {
-                command.Parameters.AddRange(parameters);
+                dbCommand.Parameters.AddRange(parameters);
             }
 
-            DbDataReader reader = command.ExecuteReader();
+            DbDataReader dataReader = dbCommand.ExecuteReader();
             DataTable dataTable = new DataTable();
-            dataTable.Load(reader);
+            dataTable.Load(dataReader);
+            dataReader.Close();
 
-            reader.Close();
-            connection.Close();
+            //获取类型与属性列表
+            Type type = typeof(TEntity);
+            PropertyInfo[] propertyInfos = type.GetProperties();
 
-            PropertyInfo[] propertyInfos = typeof(TEntity).GetProperties();
-            IList<TEntity> list = new List<TEntity>();
-            foreach (DataRow row in dataTable.Rows)
+            //获取无参构造函数
+            ConstructorInfo[] constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            ConstructorInfo noParamConstructor = constructors.Single(ctor => ctor.GetParameters().Length == 0);
+
+            IList<TEntity> entities = new List<TEntity>();
+            foreach (DataRow dataRow in dataTable.Rows)
             {
-                TEntity instance = Activator.CreateInstance<TEntity>();
-                foreach (PropertyInfo propertyInfo in propertyInfos)
+                TEntity entity = (TEntity)noParamConstructor.Invoke(null);
+                foreach (PropertyInfo property in propertyInfos)
                 {
-                    if (dataTable.Columns.IndexOf(propertyInfo.Name) != -1 && row[propertyInfo.Name] != DBNull.Value)
+                    if (dataTable.Columns.Contains(property.Name))
                     {
-                        propertyInfo.SetValue(instance, row[propertyInfo.Name]);
+                        MethodInfo propertySetter = property.GetSetMethod(true);
+                        if (propertySetter != null)
+                        {
+                            object value = dataRow[property.Name] == DBNull.Value
+                                ? null
+                                : dataRow[property.Name];
+                            propertySetter.Invoke(entity, new[] { value });
+                        }
                     }
                 }
-
-                list.Add(instance);
+                entities.Add(entity);
             }
 
-            return list;
+            return entities;
         }
         #endregion
 
@@ -728,40 +739,51 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            DbConnection connection = this._dbContext.Database.GetDbConnection();
-            await connection.OpenAsync();
-            DbCommand command = connection.CreateCommand();
-            command.CommandText = sql;
+            DbConnection dbConnection = this._dbContext.Database.GetDbConnection();
+            await dbConnection.OpenAsync();
+            DbCommand dbCommand = dbConnection.CreateCommand();
+            dbCommand.CommandText = sql;
 
             if (parameters != null && parameters.Any())
             {
-                command.Parameters.AddRange(parameters);
+                dbCommand.Parameters.AddRange(parameters);
             }
 
-            DbDataReader reader = await command.ExecuteReaderAsync();
+            DbDataReader dataReader = await dbCommand.ExecuteReaderAsync();
             DataTable dataTable = new DataTable();
-            dataTable.Load(reader);
+            dataTable.Load(dataReader);
+            dataReader.Close();
 
-            reader.Close();
-            connection.Close();
+            //获取类型与属性列表
+            Type type = typeof(TEntity);
+            PropertyInfo[] propertyInfos = type.GetProperties();
 
-            PropertyInfo[] propertyInfos = typeof(TEntity).GetProperties();
-            IList<TEntity> list = new List<TEntity>();
-            foreach (DataRow row in dataTable.Rows)
+            //获取无参构造函数
+            ConstructorInfo[] constructors = type.GetConstructors(BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public);
+            ConstructorInfo noParamConstructor = constructors.Single(ctor => ctor.GetParameters().Length == 0);
+
+            IList<TEntity> entities = new List<TEntity>();
+            foreach (DataRow dataRow in dataTable.Rows)
             {
-                TEntity instance = Activator.CreateInstance<TEntity>();
-                foreach (PropertyInfo propertyInfo in propertyInfos)
+                TEntity entity = (TEntity)noParamConstructor.Invoke(null);
+                foreach (PropertyInfo property in propertyInfos)
                 {
-                    if (dataTable.Columns.IndexOf(propertyInfo.Name) != -1 && row[propertyInfo.Name] != DBNull.Value)
+                    if (dataTable.Columns.Contains(property.Name))
                     {
-                        propertyInfo.SetValue(instance, row[propertyInfo.Name]);
+                        MethodInfo propertySetter = property.GetSetMethod(true);
+                        if (propertySetter != null)
+                        {
+                            object value = dataRow[property.Name] == DBNull.Value
+                                ? null
+                                : dataRow[property.Name];
+                            propertySetter.Invoke(entity, new[] { value });
+                        }
                     }
                 }
-
-                list.Add(instance);
+                entities.Add(entity);
             }
 
-            return list;
+            return entities;
         }
         #endregion
 
