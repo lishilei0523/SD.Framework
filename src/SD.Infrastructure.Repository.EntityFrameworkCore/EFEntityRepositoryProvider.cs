@@ -379,8 +379,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
-            if (!ids_.Any())
+            ids = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            if (!ids.Any())
             {
                 return new Dictionary<Guid, T>();
             }
@@ -388,7 +388,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             var entities = from entity in this._dbContext.Set<T>()
-                           where ids_.Contains(entity.Id)
+                           where ids.Contains(entity.Id)
                            select new { entity.Id, entity };
 
             return entities.ToDictionary(x => x.Id, x => x.entity);
@@ -406,8 +406,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
-            if (!ids_.Any())
+            ids = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            if (!ids.Any())
             {
                 return new Dictionary<Guid, T>();
             }
@@ -415,7 +415,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             var entities = from entity in this._dbContext.Set<T>()
-                           where ids_.Contains(entity.Id)
+                           where ids.Contains(entity.Id)
                            select new { entity.Id, entity };
 
             return await entities.ToDictionaryAsync(x => x.Id, x => x.entity);
@@ -433,8 +433,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
-            if (!ids_.Any())
+            ids = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            if (!ids.Any())
             {
                 return new Dictionary<Guid, TSub>();
             }
@@ -442,7 +442,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             var entities = from entity in this._dbContext.Set<TSub>()
-                           where ids_.Contains(entity.Id)
+                           where ids.Contains(entity.Id)
                            select new { entity.Id, entity };
 
             return entities.ToDictionary(x => x.Id, x => x.entity);
@@ -460,8 +460,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
-            if (!ids_.Any())
+            ids = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            if (!ids.Any())
             {
                 return new Dictionary<Guid, TSub>();
             }
@@ -469,7 +469,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             var entities = from entity in this._dbContext.Set<TSub>()
-                           where ids_.Contains(entity.Id)
+                           where ids.Contains(entity.Id)
                            select new { entity.Id, entity };
 
             return await entities.ToDictionaryAsync(x => x.Id, x => x.entity);
@@ -487,8 +487,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            long[] rowNos_ = rowNos?.Distinct().ToArray() ?? Array.Empty<long>();
-            if (!rowNos_.Any())
+            rowNos = rowNos?.Distinct().ToArray() ?? Array.Empty<long>();
+            if (!rowNos.Any())
             {
                 return new Dictionary<long, TRowable>();
             }
@@ -496,7 +496,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             var entities = from entity in this._dbContext.Set<TRowable>()
-                           where rowNos_.Contains(entity.RowNo)
+                           where rowNos.Contains(entity.RowNo)
                            select new { entity.RowNo, entity };
 
             return entities.ToDictionary(x => x.RowNo, x => x.entity);
@@ -514,8 +514,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            long[] rowNos_ = rowNos?.Distinct().ToArray() ?? Array.Empty<long>();
-            if (!rowNos_.Any())
+            rowNos = rowNos?.Distinct().ToArray() ?? Array.Empty<long>();
+            if (!rowNos.Any())
             {
                 return new Dictionary<long, TRowable>();
             }
@@ -523,7 +523,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             var entities = from entity in this._dbContext.Set<TRowable>()
-                           where rowNos_.Contains(entity.RowNo)
+                           where rowNos.Contains(entity.RowNo)
                            select new { entity.RowNo, entity };
 
             return await entities.ToDictionaryAsync(x => x.RowNo, x => x.entity);
@@ -756,8 +756,12 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             DbDataReader dataReader = await dbCommand.ExecuteReaderAsync();
             DataTable dataTable = new DataTable();
             dataTable.Load(dataReader);
+#if NETSTANDARD2_0
+            dataReader.Close();
+#endif
+#if NETSTANDARD2_1
             await dataReader.CloseAsync();
-
+#endif
             //获取类型与属性列表
             Type type = typeof(TEntity);
             PropertyInfo[] propertyInfos = type.GetProperties();

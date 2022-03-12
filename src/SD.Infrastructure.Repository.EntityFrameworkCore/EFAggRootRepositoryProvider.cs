@@ -403,8 +403,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
-            if (!numbers_.Any())
+            numbers = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            if (!numbers.Any())
             {
                 return new Dictionary<string, T>();
             }
@@ -412,7 +412,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             var entities = from entity in this._dbContext.Set<T>()
-                           where numbers_.Contains(entity.Number)
+                           where numbers.Contains(entity.Number)
                            select new { entity.Number, entity };
 
             return entities.ToDictionary(x => x.Number, x => x.entity);
@@ -430,8 +430,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
-            if (!numbers_.Any())
+            numbers = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            if (!numbers.Any())
             {
                 return new Dictionary<string, T>();
             }
@@ -439,7 +439,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             var entities = from entity in this._dbContext.Set<T>()
-                           where numbers_.Contains(entity.Number)
+                           where numbers.Contains(entity.Number)
                            select new { entity.Number, entity };
 
             return await entities.ToDictionaryAsync(x => x.Number, x => x.entity);
@@ -457,8 +457,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
-            if (!numbers_.Any())
+            numbers = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            if (!numbers.Any())
             {
                 return new Dictionary<string, TSub>();
             }
@@ -466,7 +466,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             var entities = from entity in this._dbContext.Set<TSub>()
-                           where numbers_.Contains(entity.Number)
+                           where numbers.Contains(entity.Number)
                            select new { entity.Number, entity };
 
             return entities.ToDictionary(x => x.Number, x => x.entity);
@@ -484,8 +484,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
-            if (!numbers_.Any())
+            numbers = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            if (!numbers.Any())
             {
                 return new Dictionary<string, TSub>();
             }
@@ -493,7 +493,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             var entities = from entity in this._dbContext.Set<TSub>()
-                           where numbers_.Contains(entity.Number)
+                           where numbers.Contains(entity.Number)
                            select new { entity.Number, entity };
 
             return await entities.ToDictionaryAsync(x => x.Number, x => x.entity);
