@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("SD")]
 [assembly: AssemblyProduct("SD.Infrastructure.AspNet.Tests")]
-[assembly: AssemblyCopyright("Copyright © SD 2021")]
+[assembly: AssemblyCopyright("Copyright © SD 2022")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
