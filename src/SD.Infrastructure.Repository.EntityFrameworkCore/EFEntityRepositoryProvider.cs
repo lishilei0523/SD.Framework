@@ -674,10 +674,12 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             DbConnection dbConnection = this._dbContext.Database.GetDbConnection();
-            dbConnection.Open();
+            if (dbConnection.State != ConnectionState.Open)
+            {
+                dbConnection.Open();
+            }
             DbCommand dbCommand = dbConnection.CreateCommand();
             dbCommand.CommandText = sql;
-
             if (parameters != null && parameters.Any())
             {
                 dbCommand.Parameters.AddRange(parameters);
@@ -740,10 +742,12 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             DbConnection dbConnection = this._dbContext.Database.GetDbConnection();
-            await dbConnection.OpenAsync();
+            if (dbConnection.State != ConnectionState.Open)
+            {
+                await dbConnection.OpenAsync();
+            }
             DbCommand dbCommand = dbConnection.CreateCommand();
             dbCommand.CommandText = sql;
-
             if (parameters != null && parameters.Any())
             {
                 dbCommand.Parameters.AddRange(parameters);
@@ -752,7 +756,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             DbDataReader dataReader = await dbCommand.ExecuteReaderAsync();
             DataTable dataTable = new DataTable();
             dataTable.Load(dataReader);
-            dataReader.Close();
+            await dataReader.CloseAsync();
 
             //获取类型与属性列表
             Type type = typeof(TEntity);
