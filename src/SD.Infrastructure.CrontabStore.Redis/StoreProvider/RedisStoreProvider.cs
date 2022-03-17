@@ -55,6 +55,16 @@ namespace SD.Infrastructure.CrontabStoreProvider
         public T Get<T>(string crontabId) where T : ICrontab
         {
             string crontabStr = this._redisClient.HashGet(_CacheKey, crontabId);
+
+            #region # 验证
+
+            if (string.IsNullOrWhiteSpace(crontabStr))
+            {
+                return default(T);
+            }
+
+            #endregion
+
             ICrontab crontab = crontabStr.JsonToCrontab();
 
             return (T)crontab;
@@ -100,13 +110,21 @@ namespace SD.Infrastructure.CrontabStoreProvider
         /// <returns>定时任务列表</returns>
         public IList<ICrontab> FindAll()
         {
-            RedisValue[] crontabsStr = this._redisClient.HashValues(_CacheKey);
             IList<ICrontab> crontabs = new List<ICrontab>();
-
+            RedisValue[] crontabsStr = this._redisClient.HashValues(_CacheKey);
             foreach (string crontabStr in crontabsStr)
             {
-                ICrontab specCrontab = crontabStr.JsonToCrontab();
-                crontabs.Add(specCrontab);
+                #region # 验证
+
+                if (string.IsNullOrWhiteSpace(crontabStr))
+                {
+                    continue;
+                }
+
+                #endregion
+
+                ICrontab crontab = crontabStr.JsonToCrontab();
+                crontabs.Add(crontab);
             }
 
             return crontabs;
