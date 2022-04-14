@@ -41,6 +41,40 @@ namespace SD.Infrastructure.Constants
 
         //属性
 
+        #region # 应用程序名称 —— static string ApplicationName
+        /// <summary>
+        /// 应用程序名称
+        /// </summary>
+        public static string ApplicationName
+        {
+            get
+            {
+                string applicationName = string.IsNullOrWhiteSpace(FrameworkSection.Setting.ApplicationName.Value)
+                    ? "SD.Application"
+                    : FrameworkSection.Setting.ApplicationName.Value;
+
+                return applicationName;
+            }
+        }
+        #endregion
+
+        #region # 应用程序版本 —— static string ApplicationVersion
+        /// <summary>
+        /// 应用程序版本
+        /// </summary>
+        public static string ApplicationVersion
+        {
+            get
+            {
+                string applicationVersion = string.IsNullOrWhiteSpace(FrameworkSection.Setting.ApplicationVersion.Value)
+                    ? "v1.0.0"
+                    : FrameworkSection.Setting.ApplicationVersion.Value;
+
+                return applicationVersion;
+            }
+        }
+        #endregion
+
         #region # 读连接字符串 —— static string ReadConnectionString
         /// <summary>
         /// 读连接字符串
