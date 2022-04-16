@@ -32,7 +32,7 @@ export class Constants {
     public static readonly keyOfCurrentUserAuthorityPaths: string = "CurrentUserAuthorityPaths";
 
     /*当前公钥键*/
-    public static readonly keyOfPublicKey: string = "CurrentPublicKey";
+    public static readonly keyOfPublicKey: string = "PublicKey";
 
     /*应用程序配置*/
     public static appConfig: AppConfig;

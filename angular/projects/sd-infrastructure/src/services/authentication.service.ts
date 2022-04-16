@@ -16,7 +16,7 @@ export class AuthenticationService implements HttpInterceptor {
         let publicKey: string = Membership.loginInfo == null ? "" : Membership.loginInfo.publicKey;
         if (request.method == "GET" && publicKey) {
             let headers = {
-                "CurrentPublicKey": publicKey
+                "PublicKey": publicKey
             };
             return next.handle(request.clone({setHeaders: headers}));
         }
@@ -25,7 +25,7 @@ export class AuthenticationService implements HttpInterceptor {
             if (publicKey) {
                 let headers = {
                     "Content-Type": contentType,
-                    "CurrentPublicKey": publicKey
+                    "PublicKey": publicKey
                 };
                 return next.handle(request.clone({setHeaders: headers}));
             } else {
