@@ -216,6 +216,16 @@ namespace SD.Infrastructure.Constants
         }
         #endregion
 
+        #region # 用户信息键 —— static string MembershipKey
+        /// <summary>
+        /// 用户信息键
+        /// </summary>
+        public static string MembershipKey
+        {
+            get { return $"{SessionKey.CurrentUser}({ApplicationId})"; }
+        }
+        #endregion
+
 
         //方法
 

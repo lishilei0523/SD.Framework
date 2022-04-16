@@ -17,6 +17,7 @@ namespace SD.Infrastructure.Tests.TestCases
             FrameworkSection setting = FrameworkSection.Setting;
 
             Trace.WriteLine(GlobalSetting.ApplicationId);
+            Trace.WriteLine(GlobalSetting.MembershipKey);
             Trace.WriteLine(setting.ApplicationId.Value);
             Trace.WriteLine(setting.ApplicationName.Value);
             Trace.WriteLine(setting.ApplicationVersion.Value);
