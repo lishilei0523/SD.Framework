@@ -41,6 +41,23 @@ namespace SD.Infrastructure.Constants
 
         //属性
 
+        #region # 应用程序Id —— static string ApplicationId
+        /// <summary>
+        /// 应用程序Id
+        /// </summary>
+        public static string ApplicationId
+        {
+            get
+            {
+                string applicationName = string.IsNullOrWhiteSpace(FrameworkSection.Setting.ApplicationId.Value)
+                    ? CommonConstants.DefaultApplicationId
+                    : FrameworkSection.Setting.ApplicationId.Value;
+
+                return applicationName;
+            }
+        }
+        #endregion
+
         #region # 应用程序名称 —— static string ApplicationName
         /// <summary>
         /// 应用程序名称

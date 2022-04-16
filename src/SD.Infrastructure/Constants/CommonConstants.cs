@@ -53,6 +53,11 @@ namespace SD.Infrastructure.Constants
         #region # 其他
 
         /// <summary>
+        /// 默认应用程序Id
+        /// </summary>
+        public const string DefaultApplicationId = "7823C153-90F3-4049-9449-287307060AA4";
+
+        /// <summary>
         /// 日期格式
         /// </summary>
         public const string DateFormat = "yyyy-MM-dd";

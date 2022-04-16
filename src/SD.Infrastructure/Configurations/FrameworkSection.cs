@@ -69,6 +69,18 @@ namespace SD.Infrastructure
         }
         #endregion
 
+        #region # 应用程序Id节点 —— TextElement ApplicationId
+        /// <summary>
+        /// 应用程序Id节点
+        /// </summary>
+        [ConfigurationProperty("application.id", IsRequired = false)]
+        public TextElement ApplicationId
+        {
+            get { return (TextElement)this["application.id"]; }
+            set { this["application.id"] = value; }
+        }
+        #endregion
+
         #region # 应用程序名称节点 —— TextElement ApplicationName
         /// <summary>
         /// 应用程序名称节点

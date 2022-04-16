@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Infrastructure.Configurations;
+using SD.Infrastructure.Constants;
 using System.Diagnostics;
 
 namespace SD.Infrastructure.Tests.TestCases
@@ -15,6 +16,8 @@ namespace SD.Infrastructure.Tests.TestCases
         {
             FrameworkSection setting = FrameworkSection.Setting;
 
+            Trace.WriteLine(GlobalSetting.ApplicationId);
+            Trace.WriteLine(setting.ApplicationId.Value);
             Trace.WriteLine(setting.ApplicationName.Value);
             Trace.WriteLine(setting.ApplicationVersion.Value);
 
