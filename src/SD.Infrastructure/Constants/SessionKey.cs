@@ -11,23 +11,8 @@
         public const string ValidCode = "ValidCode";
 
         /// <summary>
-        /// 当前登录用户Session键
+        /// 公钥Session键
         /// </summary>
-        public const string CurrentUser = "CurrentUser";
-
-        /// <summary>
-        /// 当前公钥Session键
-        /// </summary>
-        public const string CurrentPublicKey = "CurrentPublicKey";
-
-        /// <summary>
-        /// 当前用户菜单树Session键
-        /// </summary>
-        public const string CurrentMenuTree = "CurrentMenus";
-
-        /// <summary>
-        /// 当前用户权限集Session键
-        /// </summary>
-        public const string CurrentAuthorities = "CurrentAuthorities";
+        public const string PublicKey = "PublicKey";
     }
 }

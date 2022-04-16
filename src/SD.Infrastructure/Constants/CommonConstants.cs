@@ -41,7 +41,7 @@ namespace SD.Infrastructure.Constants
         /// <summary>
         /// 默认应用程序Id
         /// </summary>
-        internal const string DefaultApplicationId = "7823C153-90F3-4049-9449-287307060AA4";
+        internal const string DefaultApplicationId = "00000000-0000-0000-0000-000000000000";
 
         #endregion
 

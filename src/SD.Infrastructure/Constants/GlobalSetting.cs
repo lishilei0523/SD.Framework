@@ -49,11 +49,15 @@ namespace SD.Infrastructure.Constants
         {
             get
             {
-                string applicationName = string.IsNullOrWhiteSpace(FrameworkSection.Setting.ApplicationId.Value)
+                string applicationId = string.IsNullOrWhiteSpace(FrameworkSection.Setting.ApplicationId.Value)
                     ? CommonConstants.DefaultApplicationId
                     : FrameworkSection.Setting.ApplicationId.Value;
 
-                return applicationName;
+                return applicationId;
+            }
+            set
+            {
+                FrameworkSection.Setting.ApplicationId.Value = value;
             }
         }
         #endregion
@@ -213,16 +217,6 @@ namespace SD.Infrastructure.Constants
                     ? FrameworkSection.Setting.AuthorizationEnabled.Value.Value
                     : true;
             }
-        }
-        #endregion
-
-        #region # 用户信息键 —— static string MembershipKey
-        /// <summary>
-        /// 用户信息键
-        /// </summary>
-        public static string MembershipKey
-        {
-            get { return $"{SessionKey.CurrentUser}({ApplicationId})"; }
         }
         #endregion
 

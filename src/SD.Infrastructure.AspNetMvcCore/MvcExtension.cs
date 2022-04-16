@@ -17,7 +17,7 @@ namespace SD.Infrastructure.AspNetMvcCore
         /// </summary>
         public static void Logout()
         {
-            OwinContextReader.Current.Session.Remove(SessionKey.CurrentUser);
+            OwinContextReader.Current.Session.Remove(GlobalSetting.ApplicationId);
         }
         #endregion
 

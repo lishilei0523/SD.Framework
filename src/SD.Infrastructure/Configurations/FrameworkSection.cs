@@ -57,7 +57,8 @@ namespace SD.Infrastructure
             {
                 if (_Setting == null)
                 {
-                    _Setting = (FrameworkSection)ConfigurationManager.GetSection("sd.framework");
+                    Configuration configuration = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                    _Setting = (FrameworkSection)configuration.GetSection("sd.framework");
                 }
                 if (_Setting == null)
                 {

@@ -44,11 +44,11 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
         public static void RegisterPublicKey(this HttpConnectionOptions options, Guid publicKey)
         {
             //添加Header
-            options.Headers.Add(SessionKey.CurrentPublicKey, publicKey.ToString());
+            options.Headers.Add(SessionKey.PublicKey, publicKey.ToString());
 
             //添加QueryString
             string url = options.Url.ToString();
-            string urlWithPublicKey = $"{url}?{SessionKey.CurrentPublicKey}={publicKey}";
+            string urlWithPublicKey = $"{url}?{SessionKey.PublicKey}={publicKey}";
             options.Url = new Uri(urlWithPublicKey);
         }
         #endregion

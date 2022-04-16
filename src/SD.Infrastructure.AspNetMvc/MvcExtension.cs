@@ -16,7 +16,7 @@ namespace SD.Infrastructure.AspNetMvc
         /// </summary>
         public static void Logout()
         {
-            HttpContext.Current.Session[SessionKey.CurrentUser] = null;
+            HttpContext.Current.Session[GlobalSetting.ApplicationId] = null;
         }
         #endregion
 
