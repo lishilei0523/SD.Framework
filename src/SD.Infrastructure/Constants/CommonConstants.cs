@@ -29,11 +29,6 @@ namespace SD.Infrastructure.Constants
         public const string AdminLoginId = "admin";
 
         /// <summary>
-        /// 系统管理员角色编号
-        /// </summary>
-        public const string ManagerRoleNo = "SystemAdmin";
-
-        /// <summary>
         /// 初始密码
         /// </summary>
         public const string InitialPassword = "888888";
@@ -41,21 +36,16 @@ namespace SD.Infrastructure.Constants
         /// <summary>
         /// WCF身份认证消息头名称
         /// </summary>
-        public const string WcfAuthHeaderName = "WcfAuthHeaderName";
-
-        /// <summary>
-        /// WCF身份认证消息头命名空间
-        /// </summary>
-        public const string WcfAuthHeaderNamespace = "WcfAuthHeaderNamespace";
-
-        #endregion
-
-        #region # 其他
+        public const string WCFAuthenticationHeader = "AuthenticationHeader";
 
         /// <summary>
         /// 默认应用程序Id
         /// </summary>
-        public const string DefaultApplicationId = "7823C153-90F3-4049-9449-287307060AA4";
+        internal const string DefaultApplicationId = "7823C153-90F3-4049-9449-287307060AA4";
+
+        #endregion
+
+        #region # 其他
 
         /// <summary>
         /// 日期格式
