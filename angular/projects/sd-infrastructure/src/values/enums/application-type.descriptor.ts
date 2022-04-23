@@ -19,9 +19,11 @@ export class ApplicationTypeDescriptor implements PipeTransform {
             case ApplicationType.Android:
                 return "Android应用程序";
             case ApplicationType.IOS:
-                return "IOS应用程序";
+                return "iOS应用程序";
             case ApplicationType.WindowsPhone:
                 return "Windows Phone应用程序";
+            case ApplicationType.Applet:
+                return "小程序";
             case ApplicationType.Complex:
                 return "复合应用程序";
         }
@@ -36,8 +38,9 @@ export class ApplicationTypeDescriptor implements PipeTransform {
         enumMembers.add({key: ApplicationType.Web, value: "Web应用程序"});
         enumMembers.add({key: ApplicationType.Windows, value: "Windows应用程序"});
         enumMembers.add({key: ApplicationType.Android, value: "Android应用程序"});
-        enumMembers.add({key: ApplicationType.IOS, value: "IOS应用程序"});
+        enumMembers.add({key: ApplicationType.IOS, value: "iOS应用程序"});
         enumMembers.add({key: ApplicationType.WindowsPhone, value: "Windows Phone应用程序"});
+        enumMembers.add({key: ApplicationType.Applet, value: "小程序"});
         enumMembers.add({key: ApplicationType.Complex, value: "复合应用程序"});
 
         return enumMembers;

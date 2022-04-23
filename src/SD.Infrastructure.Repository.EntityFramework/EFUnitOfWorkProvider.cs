@@ -126,7 +126,7 @@ namespace SD.Infrastructure.Repository.EntityFramework
         /// <returns>实体历史</returns>
         public IEntityHistory GetEntityHistory<T>(T entity) where T : PlainEntity
         {
-            DbEntityEntry<T> entry = this._dbContext.ChangeTracker.Entries<T>().FirstOrDefault(x => x.Entity == entity);
+            DbEntityEntry<T> entry = this._dbContext.ChangeTracker.Entries<T>().FirstOrDefault(x => x.Entity.Id == entity.Id);
 
             #region # 验证
 

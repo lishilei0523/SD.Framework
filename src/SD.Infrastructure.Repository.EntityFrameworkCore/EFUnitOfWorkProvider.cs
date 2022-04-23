@@ -130,7 +130,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <returns>实体历史</returns>
         public IEntityHistory GetEntityHistory<T>(T entity) where T : PlainEntity
         {
-            EntityEntry<T> entry = this._dbContext.ChangeTracker.Entries<T>().FirstOrDefault(x => x.Entity == entity);
+            EntityEntry<T> entry = this._dbContext.ChangeTracker.Entries<T>().FirstOrDefault(x => x.Entity.Id == entity.Id);
 
             #region # 验证
 

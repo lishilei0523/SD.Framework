@@ -33,10 +33,10 @@ namespace SD.Infrastructure.Constants
         Android = 2,
 
         /// <summary>
-        /// IOS应用程序
+        /// iOS应用程序
         /// </summary>
         [EnumMember]
-        [Description("IOS应用程序")]
+        [Description("iOS应用程序")]
         IOS = 3,
 
         /// <summary>
@@ -47,10 +47,17 @@ namespace SD.Infrastructure.Constants
         WindowsPhone = 4,
 
         /// <summary>
+        /// 小程序
+        /// </summary>
+        [EnumMember]
+        [Description("小程序")]
+        Applet = 5,
+
+        /// <summary>
         /// 复合应用程序
         /// </summary>
         [EnumMember]
         [Description("复合应用程序")]
-        Complex = 5
+        Complex = 6
     }
 }

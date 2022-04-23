@@ -57,7 +57,7 @@
     <Reference Include="System.Web.Routing" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.7" />
+    <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.8" />
     <PackageReference Include="SD.IOC.Core" Version="2.1.6" />
     <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.1.1" />
     <PackageReference Include="SD.IOC.Integration.AspNetMvc" Version="1.0.2" />

@@ -1,4 +1,5 @@
-﻿using SD.Infrastructure.CrontabBase;
+﻿using SD.Infrastructure.Constants;
+using SD.Infrastructure.CrontabBase;
 using SD.Infrastructure.CrontabStore.Redis.Toolkits;
 using SD.Toolkits.Redis;
 using StackExchange.Redis;
@@ -17,7 +18,7 @@ namespace SD.Infrastructure.CrontabStoreProvider
         /// <summary>
         /// 缓存键
         /// </summary>
-        private static readonly string _CacheKey = FrameworkSection.Setting.ApplicationName.Value;
+        private static readonly string _CacheKey = GlobalSetting.ApplicationId;
 
         /// <summary>
         /// Redis客户端
