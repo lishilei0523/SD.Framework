@@ -1,4 +1,6 @@
-﻿using System.Web;
+﻿using System.Configuration;
+using System.Web;
+using System.Web.Configuration;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -14,6 +16,10 @@ namespace SD.Infrastructure.AspNet.Tests
         /// </summary>
         protected void Application_Start()
         {
+            //初始化配置文件
+            Configuration configuration = WebConfigurationManager.OpenWebConfiguration("~");
+            FrameworkSection.Initialize(configuration);
+
             //注册区域
             AreaRegistration.RegisterAllAreas();
 
