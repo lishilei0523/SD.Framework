@@ -17,8 +17,8 @@ export enum ApplicationType {
     WindowsPhone = 4,
 
     /*小程序*/
-    Applet = 5,
+    Applet = 6,
 
     /*复合应用程序*/
-    Complex = 6
+    Complex = 5
 }

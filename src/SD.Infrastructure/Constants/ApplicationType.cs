@@ -51,13 +51,13 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         [EnumMember]
         [Description("小程序")]
-        Applet = 5,
+        Applet = 6,
 
         /// <summary>
         /// 复合应用程序
         /// </summary>
         [EnumMember]
         [Description("复合应用程序")]
-        Complex = 6
+        Complex = 5
     }
 }
