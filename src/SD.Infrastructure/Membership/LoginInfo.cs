@@ -103,6 +103,12 @@ namespace SD.Infrastructure.Membership
         public string TenantSpareConnectionString { get; set; }
 
         /// <summary>
+        /// 客户端Id
+        /// </summary>
+        [DataMember]
+        public string ClientId { get; set; }
+
+        /// <summary>
         /// 信息系统列表
         /// </summary>
         [DataMember]
