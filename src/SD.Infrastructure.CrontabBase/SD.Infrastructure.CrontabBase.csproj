@@ -5,9 +5,9 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - 定时任务基础</Description>
     <Copyright>Copyright © SD 2022</Copyright>
-    <Version>1.3.4</Version>
-    <AssemblyVersion>1.3.4</AssemblyVersion>
-    <FileVersion>1.3.4.0</FileVersion>
+    <Version>1.3.5</Version>
+    <AssemblyVersion>1.3.5</AssemblyVersion>
+    <FileVersion>1.3.5.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

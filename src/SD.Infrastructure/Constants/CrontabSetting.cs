@@ -38,7 +38,7 @@ namespace SD.Infrastructure.Constants
             _CrontabStrategies = new ConcurrentDictionary<string, ExecutionStrategy>();
             foreach (CrontabStrategyElement element in FrameworkSection.Setting.CrontabStrategyElements)
             {
-                ExecutionStrategy strategy = GetExecutionStrategy(element.StrategyType, element.Strategy);
+                ExecutionStrategy strategy = GetExecutionStrategy(element.StrategyType, element.Strategy, element.Enabled ?? true);
                 _CrontabStrategies.Add(element.Type, strategy);
             }
         }
@@ -97,13 +97,15 @@ namespace SD.Infrastructure.Constants
         /// </summary>
         /// <param name="strategyType">策略类型</param>
         /// <param name="strategy">策略</param>
+        /// <param name="enabled">是否启用</param>
         /// <returns>执行策略</returns>
-        public static ExecutionStrategy GetExecutionStrategy(string strategyType, string strategy)
+        public static ExecutionStrategy GetExecutionStrategy(string strategyType, string strategy, bool enabled)
         {
             if (strategyType == nameof(FixedTimeStrategy))
             {
                 DateTime triggerTime = DateTime.Parse(strategy);
                 FixedTimeStrategy fixedTimeStrategy = new FixedTimeStrategy(triggerTime);
+                fixedTimeStrategy.Enabled = enabled;
 
                 return fixedTimeStrategy;
             }
@@ -111,6 +113,7 @@ namespace SD.Infrastructure.Constants
             {
                 TimeSpan triggerTime = TimeSpan.Parse(strategy);
                 RepeatedTimeStrategy repeatedTimeStrategy = new RepeatedTimeStrategy(triggerTime);
+                repeatedTimeStrategy.Enabled = enabled;
 
                 return repeatedTimeStrategy;
             }
@@ -118,12 +121,14 @@ namespace SD.Infrastructure.Constants
             {
                 TimeSpan interval = TimeSpan.Parse(strategy);
                 RecurrenceStrategy recurrenceStrategy = new RecurrenceStrategy(interval);
+                recurrenceStrategy.Enabled = enabled;
 
                 return recurrenceStrategy;
             }
             if (strategyType == nameof(CronExpressionStrategy))
             {
                 CronExpressionStrategy cronExpressionStrategy = new CronExpressionStrategy(strategy);
+                cronExpressionStrategy.Enabled = enabled;
 
                 return cronExpressionStrategy;
             }

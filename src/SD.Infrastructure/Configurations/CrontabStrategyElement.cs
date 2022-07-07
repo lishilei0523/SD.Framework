@@ -42,5 +42,17 @@ namespace SD.Infrastructure.Configurations
             set { this["strategy"] = value; }
         }
         #endregion
+
+        #region # 是否启用 —— bool? Enabled
+        /// <summary>
+        /// 是否启用
+        /// </summary>
+        [ConfigurationProperty("enabled", IsRequired = false)]
+        public bool? Enabled
+        {
+            get { return (bool?)this["enabled"]; }
+            set { this["enabled"] = value; }
+        }
+        #endregion
     }
 }

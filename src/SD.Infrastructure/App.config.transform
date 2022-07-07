@@ -49,7 +49,7 @@
     <crontab.account.password>定时任务账号密码</crontab.account.password>
     <!--定时任务策略列表-->
     <crontab.strategies>
-      <strategy type="" strategyType="" strategy="" />
+      <strategy type="" strategyType="" strategy="" enabled="False" />
     </crontab.strategies>
     <!--外部服务 - 自动更新服务-->
     <external.service.autoUpdate>自动更新服务地址</external.service.autoUpdate>

@@ -47,6 +47,7 @@ namespace SD.Infrastructure.Tests.TestCases
                 Trace.WriteLine(element.Type);
                 Trace.WriteLine(element.StrategyType);
                 Trace.WriteLine(element.Strategy);
+                Trace.WriteLine(element.Enabled);
             }
 
             Trace.WriteLine(setting.AutoUpdateService.Value);

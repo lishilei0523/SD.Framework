@@ -75,6 +75,16 @@ namespace SD.Infrastructure.CrontabBase.Mediators
             #endregion
 
             ExecutionStrategy executionStrategy = CrontabSetting.CrontabStrategies[crontabType.Name];
+
+            #region # 验证
+
+            if (!executionStrategy.Enabled)
+            {
+                return;
+            }
+
+            #endregion
+
             ICrontab crontab = CrontabFactory.CreateCrontab(crontabType, executionStrategy);
 
             IEnumerable<ICrontabExecutor> crontabExecutors = CrontabExecutorFactory.GetCrontabExecutorsFor(crontabType);
