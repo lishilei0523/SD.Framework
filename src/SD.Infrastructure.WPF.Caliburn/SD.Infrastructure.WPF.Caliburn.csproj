@@ -31,8 +31,12 @@
     <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
   </ItemGroup>
 
+  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+    <PackageReference Include="Caliburn.Micro" Version="4.0.210" />
+  </ItemGroup>
+
   <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
-    <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
+    <PackageReference Include="Caliburn.Micro" Version="4.0.210" />
   </ItemGroup>
 
   <ItemGroup>

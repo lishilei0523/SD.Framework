@@ -21,7 +21,7 @@
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2291" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.0" />
     <PackageReference Include="Xamarin.CommunityToolkit" Version="2.0.0" />
-    <PackageReference Include="Caliburn.Micro.Core" Version="4.0.173" />
+    <PackageReference Include="Caliburn.Micro.Core" Version="4.0.210" />
     <PackageReference Include="Caliburn.Micro.Xamarin.Forms" Version="4.0.173" />
     <PackageReference Include="Acr.UserDialogs" Version="7.2.0.562" />
     <PackageReference Include="MrAdvice" Version="2.9.5" />
