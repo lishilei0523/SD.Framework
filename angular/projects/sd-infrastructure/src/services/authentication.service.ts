@@ -21,7 +21,10 @@ export class AuthenticationService implements HttpInterceptor {
             return next.handle(request.clone({setHeaders: headers}));
         }
         if (request.method == "POST") {
-            let contentType: string = "application/json";
+            let contentType: string | null = request.headers.get("Content-Type");
+            if (!contentType) {
+                contentType = "application/json";
+            }
             if (publicKey) {
                 let headers = {
                     "Content-Type": contentType,
