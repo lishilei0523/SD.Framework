@@ -21,20 +21,14 @@ export class AuthenticationService implements HttpInterceptor {
             return next.handle(request.clone({setHeaders: headers}));
         }
         if (request.method == "POST") {
-            let contentType: string | null = request.headers.get("Content-Type");
-            if (!contentType) {
-                contentType = "application/json";
+            let headers: any = {};
+            if (Object.prototype.toString.call(request.body) != "[object FormData]") {
+                headers["Content-Type"] = "application/json";
             }
             if (publicKey) {
-                let headers = {
-                    "Content-Type": contentType,
-                    "PublicKey": publicKey
-                };
+                headers["PublicKey"] = publicKey;
                 return next.handle(request.clone({setHeaders: headers}));
             } else {
-                let headers = {
-                    "Content-Type": contentType
-                };
                 return next.handle(request.clone({setHeaders: headers}));
             }
         }
