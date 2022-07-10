@@ -66,6 +66,21 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         }
         #endregion
 
+        #region # 测试Hello World —— void TestHelloWorld()
+        /// <summary>
+        /// 测试Hello World
+        /// </summary>
+        [TestMethod]
+        public void TestHelloWorld()
+        {
+            //开始调度
+            ScheduleMediator.Schedule<HelloWorldCrontab>();
+
+            //线程睡眠
+            Thread.Sleep(10000);
+        }
+        #endregion
+
         #region # 测试调度固定时间点 —— void TestScheduleFixedTimePoint()
         /// <summary>
         /// 测试调度固定时间点

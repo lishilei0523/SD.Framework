@@ -23,6 +23,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
                 Trace.WriteLine(element.Type);
                 Trace.WriteLine(element.StrategyType);
                 Trace.WriteLine(element.Strategy);
+                Trace.WriteLine(element.Enabled);
             }
         }
 
