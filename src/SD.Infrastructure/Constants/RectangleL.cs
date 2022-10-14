@@ -177,6 +177,27 @@ namespace SD.Infrastructure.Constants
         }
         #endregion
 
+        #region 转换字符串 —— override string ToString()
+        /// <summary>
+        /// 转换字符串
+        /// </summary>
+        public override string ToString()
+        {
+            double ax = this.TopLeft.X;
+            double ay = this.TopLeft.Y;
+            double bx = this.BottomLeft.X;
+            double by = this.BottomLeft.Y;
+            double cx = this.BottomRight.X;
+            double cy = this.BottomRight.Y;
+            double dx = this.TopRight.X;
+            double dy = this.TopRight.Y;
+
+            string locationPoints = $"A({ax},{ay}), B({bx},{by}), C({cx},{cy}), D({dx},{dy})";
+
+            return locationPoints;
+        }
+        #endregion
+
         #region 比较两个矩形是否相等 —— static bool operator ==(RectangleL source, RectangleL target)
         /// <summary>
         /// 比较两个矩形是否相等

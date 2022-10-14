@@ -206,6 +206,41 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
         }
         #endregion
 
+        #region 在UI线程执行 —— void OnUIThread(Action action)
+        /// <summary>
+        /// 在UI线程执行
+        /// </summary>
+        /// <param name="action">方法</param>
+        public void OnUIThread(System.Action action)
+        {
+            action.OnUIThread();
+        }
+        #endregion
+
+        #region 异步在UI线程执行 —— void BeginOnUIThread(Action action)
+        /// <summary>
+        /// 异步在UI线程执行
+        /// </summary>
+        /// <param name="action">方法</param>
+        public void BeginOnUIThread(System.Action action)
+        {
+            action.BeginOnUIThread();
+        }
+        #endregion
+
+        #region 异步等待在UI线程执行 —— Task OnUIThreadAsync(Func<Task> action)
+#if NET461 || NET462 || NETCOREAPP3_1
+        /// <summary>
+        /// 异步等待在UI线程执行
+        /// </summary>
+        /// <param name="action">方法</param>
+        public Task OnUIThreadAsync(System.Func<Task> action)
+        {
+            return action.OnUIThreadAsync();
+        }
+#endif
+        #endregion
+
         #endregion
     }
 }
