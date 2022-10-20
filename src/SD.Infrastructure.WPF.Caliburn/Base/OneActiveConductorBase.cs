@@ -1,8 +1,15 @@
 ﻿using Caliburn.Micro;
+using Microsoft.Win32;
 using SD.Infrastructure.WPF.Caliburn.Aspects;
 using SD.Infrastructure.WPF.Caliburn.Models;
+using SD.Infrastructure.WPF.Constants;
 using SD.Infrastructure.WPF.Interfaces;
+using SD.Infrastructure.WPF.Models;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
@@ -42,6 +49,9 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
                 options.Dispatcher = Dispatcher.CurrentDispatcher;
             });
             this._notifier.ClearMessages(new ClearAll());
+
+            //默认值
+            this.LiveMessages = new ObservableCollection<LiveMessage>();
         }
 
         #endregion
@@ -54,6 +64,14 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
         /// </summary>
         [DependencyProperty]
         public bool IsBusy { get; set; }
+        #endregion
+
+        #region 实时消息列表 —— ObservableCollection<LiveMessage> LiveMessages
+        /// <summary>
+        /// 实时消息列表
+        /// </summary>
+        [DependencyProperty]
+        public ObservableCollection<LiveMessage> LiveMessages { get; set; }
         #endregion
 
         #region 只读属性 - 通知设置 —— virtual NotifierOptions NotifierOptions
@@ -203,6 +221,62 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
             };
 
             this._notifier.ShowError(message, options);
+        }
+        #endregion
+
+        #region 发送实时消息 —— void SendMessage(string content...
+        /// <summary>
+        /// 发送实时消息
+        /// </summary>
+        /// <param name="content">内容</param>
+        /// <param name="messageType">消息类型</param>
+        public void SendMessage(string content, LiveMessageType messageType)
+        {
+            this.OnUIThread(() =>
+            {
+                LiveMessage liveMessage = new LiveMessage(content, messageType);
+                this.LiveMessages.Insert(0, liveMessage);
+            });
+        }
+        #endregion
+
+        #region 清空实时消息 —— void ClearMessages()
+        /// <summary>
+        /// 清空实时消息
+        /// </summary>
+        public void ClearMessages()
+        {
+            this.OnUIThread(() =>
+            {
+                this.LiveMessages.Clear();
+            });
+        }
+        #endregion
+
+        #region 导出实时消息 —— void ExportMessages()
+        /// <summary>
+        /// 导出实时消息
+        /// </summary>
+        public void ExportMessages()
+        {
+            IList<string> messages = new List<string>();
+            foreach (LiveMessage liveMessage in this.LiveMessages.ToArray())
+            {
+                messages.Add($"{liveMessage.Content}\t{liveMessage.MessageType.ToString()}\t{liveMessage.AddedTime:yyyy-MM-dd HH:mm:ss.fff}");
+            }
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "(*.txt)|*.txt",
+                FileName = $"实时消息_{DateTime.Now:yyyyMMddHHmmss}",
+                AddExtension = true,
+                RestoreDirectory = true
+            };
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string filePath = saveFileDialog.FileName;
+                File.WriteAllLines(filePath, messages);
+            }
         }
         #endregion
 
