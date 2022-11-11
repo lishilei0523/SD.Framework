@@ -1,6 +1,6 @@
 ﻿using System.Drawing;
 
-namespace SD.Infrastructure.Constants
+namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// 矩形
@@ -63,6 +63,13 @@ namespace SD.Infrastructure.Constants
         /// 高度
         /// </summary>
         public int Height { get; set; }
+        #endregion
+
+        #region 层次索引 —— int ZIndex
+        /// <summary>
+        /// 层次索引
+        /// </summary>
+        public int ZIndex { get; set; }
         #endregion
 
         #region 填充颜色 —— Color Fill
