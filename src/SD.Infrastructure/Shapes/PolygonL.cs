@@ -161,15 +161,15 @@ namespace SD.Infrastructure.Shapes
         /// <returns>是否相等</returns>
         public static bool operator ==(PolygonL source, PolygonL target)
         {
-            if (source == null && target == null)
+            if (source is null && target is null)
             {
                 return true;
             }
-            if (source == null)
+            if (source is null)
             {
                 return false;
             }
-            if (target == null)
+            if (target is null)
             {
                 return false;
             }
