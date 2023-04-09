@@ -3,7 +3,7 @@
     <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Copyright>Copyright © SD 2022</Copyright>
+    <Copyright>Copyright © SD 2023</Copyright>
   </PropertyGroup>
 
   <ItemGroup>

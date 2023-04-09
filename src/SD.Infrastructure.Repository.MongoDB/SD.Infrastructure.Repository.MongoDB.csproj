@@ -4,7 +4,7 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - 仓储基础 - MongoDB实现</Description>
-    <Copyright>Copyright © SD 2022</Copyright>
+    <Copyright>Copyright © SD 2023</Copyright>
     <Version>2.1.2</Version>
     <AssemblyVersion>2.1.2</AssemblyVersion>
     <FileVersion>2.1.2.0</FileVersion>
@@ -26,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MongoDB.Driver" Version="2.16.1" />
+    <PackageReference Include="MongoDB.Driver" Version="2.19.1" />
   </ItemGroup>
 
   <ItemGroup>
