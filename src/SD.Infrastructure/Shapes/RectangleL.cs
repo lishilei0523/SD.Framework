@@ -5,9 +5,23 @@ namespace SD.Infrastructure.Shapes
     /// <summary>
     /// 矩形
     /// </summary>
-    public struct RectangleL
+    public class RectangleL
     {
         #region # 构造器
+
+        #region 00.无参构造器
+        /// <summary>
+        /// 无参构造器
+        /// </summary>
+        public RectangleL()
+        {
+            //默认值
+            this.Fill = Color.Transparent;
+            this.Stroke = Color.Red;
+            this.StrokeThickness = 2;
+            this.Tag = null;
+        }
+        #endregion
 
         #region 01.创建矩形构造器
         /// <summary>
@@ -24,12 +38,6 @@ namespace SD.Infrastructure.Shapes
             this.Y = y;
             this.Width = width;
             this.Height = height;
-
-            //默认值
-            this.Fill = Color.Transparent;
-            this.Stroke = Color.Red;
-            this.StrokeThickness = 2;
-            this.Tag = null;
         }
         #endregion 
 
@@ -214,6 +222,19 @@ namespace SD.Infrastructure.Shapes
         /// <returns>是否相等</returns>
         public static bool operator ==(RectangleL source, RectangleL target)
         {
+            if (source is null && target is null)
+            {
+                return true;
+            }
+            if (source is null)
+            {
+                return false;
+            }
+            if (target is null)
+            {
+                return false;
+            }
+
             return source.X == target.X &&
                    source.Y == target.Y &&
                    source.Width == target.Width &&
