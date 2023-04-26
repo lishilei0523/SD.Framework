@@ -285,7 +285,7 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
         /// 在UI线程执行
         /// </summary>
         /// <param name="action">方法</param>
-        public void OnUIThread(System.Action action)
+        public new void OnUIThread(System.Action action)
         {
             action.OnUIThread();
         }
@@ -303,12 +303,12 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
         #endregion
 
         #region 异步等待在UI线程执行 —— Task OnUIThreadAsync(Func<Task> action)
-#if NET461 || NET462 || NETCOREAPP3_1
+#if NET461 || NET462 || NETCOREAPP3_1_OR_GREATER
         /// <summary>
         /// 异步等待在UI线程执行
         /// </summary>
         /// <param name="action">方法</param>
-        public Task OnUIThreadAsync(System.Func<Task> action)
+        public Task OnUIThreadAsync(Func<Task> action)
         {
             return action.OnUIThreadAsync();
         }

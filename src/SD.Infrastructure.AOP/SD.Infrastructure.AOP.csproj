@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
-    <PackageReference Include="CoreWCF.Primitives" Version="0.1.0" />
+    <PackageReference Include="CoreWCF.Primitives" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
