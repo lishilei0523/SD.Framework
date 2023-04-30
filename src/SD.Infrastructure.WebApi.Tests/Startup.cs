@@ -1,5 +1,5 @@
 ﻿using Owin;
-using SD.Infrastructure.WebApi.SelfHost.Server.Middlewares;
+using SD.Infrastructure.WebApi.Server.Middlewares;
 using SD.IOC.Integration.WebApi.SelfHost;
 using System.Web.Http;
 

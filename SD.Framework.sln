@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WWF", "sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "05 - BPMs", "05 - BPMs", "{5065859B-70BD-4391-8719-85C364652195}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WebApi.SelfHost.Server", "src\SD.Infrastructure.WebApi.SelfHost.Server\SD.Infrastructure.WebApi.SelfHost.Server.csproj", "{64646A3D-FA7D-4E1E-BBEF-AD36AC5D4673}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WebApi.Server", "src\SD.Infrastructure.WebApi.Server\SD.Infrastructure.WebApi.Server.csproj", "{64646A3D-FA7D-4E1E-BBEF-AD36AC5D4673}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.Repository.EntityFramework", "src\SD.Infrastructure.Repository.EntityFramework\SD.Infrastructure.Repository.EntityFramework.csproj", "{E96C09C4-4841-4B02-AA5D-7189909738F8}"
 EndProject

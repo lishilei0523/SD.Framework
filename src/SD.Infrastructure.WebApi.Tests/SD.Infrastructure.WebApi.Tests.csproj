@@ -32,7 +32,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
-    <ProjectReference Include="..\SD.Infrastructure.WebApi.SelfHost.Server\SD.Infrastructure.WebApi.SelfHost.Server.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.WebApi.Server\SD.Infrastructure.WebApi.Server.csproj" />
     <ProjectReference Include="..\SD.Infrastructure.StubAppService\SD.Infrastructure.StubAppService.csproj" />
     <ProjectReference Include="..\SD.Infrastructure.StubIAppService\SD.Infrastructure.StubIAppService.csproj" />
   </ItemGroup>

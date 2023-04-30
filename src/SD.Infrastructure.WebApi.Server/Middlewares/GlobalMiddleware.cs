@@ -3,7 +3,7 @@ using SD.Infrastructure.Global;
 using SD.IOC.Core.Mediators;
 using System.Threading.Tasks;
 
-namespace SD.Infrastructure.WebApi.SelfHost.Server.Middlewares
+namespace SD.Infrastructure.WebApi.Server.Middlewares
 {
     /// <summary>
     /// 全局中间件
