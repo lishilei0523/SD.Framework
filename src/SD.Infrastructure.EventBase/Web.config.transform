@@ -1,7 +1,0 @@
-﻿<configuration>
-  <sd.ioc>
-    <asInterfaceTypes>
-      <type name="SD.Infrastructure.EventStoreProvider.MemoryStoreProvider" assembly="SD.Infrastructure.EventBase" />
-    </asInterfaceTypes>
-  </sd.ioc>
-</configuration>
