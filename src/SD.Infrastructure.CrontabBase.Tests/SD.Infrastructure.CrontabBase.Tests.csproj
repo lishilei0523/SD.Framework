@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>net462</TargetFramework>
     <IsPackable>false</IsPackable>
     <Authors>Lee</Authors>
     <Company>SD</Company>
@@ -14,9 +14,9 @@
     <PackageReference Include="coverlet.collector" Version="1.3.0" />
     <PackageReference Include="MrAdvice" Version="2.12.0" />
     <PackageReference Include="Quartz" Version="3.6.2" />
-    <PackageReference Include="SD.Toolkits.Redis" Version="2.1.0" />
-    <PackageReference Include="SD.IOC.Core" Version="2.1.6" />
-    <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.1.1" />
+    <PackageReference Include="SD.Toolkits.Redis" Version="2.1.1" />
+    <PackageReference Include="SD.IOC.Core" Version="2.2.0" />
+    <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.2.0" />
   </ItemGroup>
 
   <ItemGroup>
