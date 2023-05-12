@@ -1,6 +1,4 @@
-﻿using SD.Infrastructure.Repository.EntityFramework.Tests.IRepositories;
-
-namespace SD.Infrastructure.Repository.EntityFramework.Tests.Repositories.Base
+﻿namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Base
 {
     /// <summary>
     /// 单元事务 - Stub
@@ -12,7 +10,7 @@ namespace SD.Infrastructure.Repository.EntityFramework.Tests.Repositories.Base
             string sql =
                 $"INSERT INTO dbo.[Order] (Id, Checked, Number, Name, Keywords, SavedTime, Deleted, DeletedTime, CreatorAccount, OperatorAccount,  OperatorName, AddedTime) VALUES (NEWID(), 0, '{orderNo}', '测试SQL', NULL, GETDATE(), 0, NULL, NULL, NULL, NULL, GETDATE());";
 
-            base.RegisterSqlCommand(sql);
+            this.RegisterSqlCommand(sql);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Entities;
+using SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Entities;
 
-namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.EntityConfigurations
+namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.EntityConfigurations
 {
     /// <summary>
     /// 用户数据映射配置
@@ -24,8 +24,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.EntityConfigura
 
             //设置索引
             builder.HasIndex(user => user.AddedTime).IsUnique(false).IsClustered().HasDatabaseName("IX_AddedTime");
-            builder.HasIndex(user => user.Number).IsUnique().Metadata.SetName("IX_Number");
-            builder.HasIndex(user => user.PrivateKey).IsUnique().Metadata.SetName("IX_PrivateKey");
+            builder.HasIndex(user => user.Number).IsUnique().Metadata.SetDatabaseName("IX_Number");
+            builder.HasIndex(user => user.PrivateKey).IsUnique().Metadata.SetDatabaseName("IX_PrivateKey");
         }
     }
 }

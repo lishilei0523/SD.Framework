@@ -1,15 +1,17 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Infrastructure.Constants;
-using SD.Infrastructure.Repository.EntityFramework.Tests.Entities;
-using SD.Infrastructure.Repository.EntityFramework.Tests.IRepositories;
-using SD.Infrastructure.Repository.EntityFramework.Tests.Repositories.Base;
+using SD.Common;
+using SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Base;
+using SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Entities;
+using SD.IOC.Core;
 using SD.IOC.Core.Mediators;
-using SD.IOC.Extension.NetFx;
+using SD.IOC.Extension.NetCore;
 using System;
-using System.Data.Entity.Infrastructure;
+using System.Configuration;
+using System.Reflection;
 
-namespace SD.Infrastructure.Repository.EntityFramework.Tests.TestCases
+namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
 {
     /// <summary>
     /// 注册SQL命令测试
@@ -28,6 +30,12 @@ namespace SD.Infrastructure.Repository.EntityFramework.Tests.TestCases
         [TestInitialize]
         public void Init()
         {
+            //初始化配置文件
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
+            FrameworkSection.Initialize(configuration);
+            DependencyInjectionSection.Initialize(configuration);
+
             //初始化依赖注入容器
             if (!ResolveMediator.ContainerBuilt)
             {
@@ -35,9 +43,6 @@ namespace SD.Infrastructure.Repository.EntityFramework.Tests.TestCases
                 serviceCollection.RegisterConfigs();
                 ResolveMediator.Build();
             }
-
-            DbSession dbSession = new DbSession(GlobalSetting.WriteConnectionString);
-            dbSession.Database.CreateIfNotExists();
 
             this._unitOfWork = ResolveMediator.Resolve<IUnitOfWorkStub>();
         }

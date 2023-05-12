@@ -1,6 +1,6 @@
 ﻿using SD.Infrastructure.RepositoryBase;
 
-namespace SD.Infrastructure.Repository.EntityFramework.Tests.IRepositories
+namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Base
 {
     /// <summary>
     /// 单元事务 - Stub

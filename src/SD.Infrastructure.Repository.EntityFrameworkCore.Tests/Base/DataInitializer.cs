@@ -1,6 +1,6 @@
 ﻿using SD.Infrastructure.RepositoryBase;
 
-namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Base
+namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Base
 {
     /// <summary>
     /// 数据初始化器实现

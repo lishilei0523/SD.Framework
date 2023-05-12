@@ -1,6 +1,6 @@
 ﻿using SD.Infrastructure.EntityBase;
 
-namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Entities
+namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Entities
 {
     /// <summary>
     /// 用户

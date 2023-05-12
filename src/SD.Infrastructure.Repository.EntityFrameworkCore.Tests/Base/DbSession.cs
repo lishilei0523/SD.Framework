@@ -2,7 +2,7 @@
 using SD.Infrastructure.Constants;
 using SD.Infrastructure.Repository.EntityFrameworkCore.Base;
 
-namespace SD.Infrastructure.Repository.EntityFrameworkCore.Stubs.Base
+namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Base
 {
     /// <summary>
     /// EF Core上下文

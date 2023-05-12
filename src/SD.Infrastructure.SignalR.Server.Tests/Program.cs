@@ -4,9 +4,9 @@ using SD.Toolkits.AspNet;
 
 namespace SD.Infrastructure.SignalR.Server.Tests
 {
-    public class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main()
         {
             IHostBuilder hostBuilder = Host.CreateDefaultBuilder();
 

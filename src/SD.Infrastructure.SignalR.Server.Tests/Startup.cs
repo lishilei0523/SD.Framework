@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace SD.Infrastructure.SignalR.Server.Tests
 {
+    /// <summary>
+    /// 应用程序启动器
+    /// </summary>
     public class Startup
     {
         /// <summary>
