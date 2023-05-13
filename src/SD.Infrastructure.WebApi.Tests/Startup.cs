@@ -1,6 +1,6 @@
 ﻿using Owin;
 using SD.Infrastructure.WebApi.Server.Middlewares;
-using SD.IOC.Integration.WebApi.SelfHost;
+using SD.IOC.Integration.WebApi;
 using System.Web.Http;
 
 namespace SD.Infrastructure.WebApi.Tests

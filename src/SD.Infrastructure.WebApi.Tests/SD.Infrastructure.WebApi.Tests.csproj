@@ -27,7 +27,6 @@
     <PackageReference Include="SD.IOC.Core" Version="2.2.0" />
     <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.2.0" />
     <PackageReference Include="SD.IOC.Integration.WebApi" Version="2.2.0" />
-    <PackageReference Include="SD.IOC.Integration.WebApi.SelfHost" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>

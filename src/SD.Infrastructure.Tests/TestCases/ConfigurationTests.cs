@@ -1,5 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Infrastructure.Configurations;
+using SD.Infrastructure.Constants;
+using System;
 using System.Diagnostics;
 
 namespace SD.Infrastructure.Tests.TestCases
@@ -59,6 +61,20 @@ namespace SD.Infrastructure.Tests.TestCases
             Trace.WriteLine(setting.MembershipProvider.Type);
 
             Assert.IsNotNull(setting);
+        }
+
+        [TestMethod]
+        public void TestApplicationId()
+        {
+            Trace.WriteLine(GlobalSetting.ApplicationId);
+
+            GlobalSetting.ApplicationId = Guid.Empty.ToString();
+
+            Trace.WriteLine(GlobalSetting.ApplicationId);
+
+            GlobalSetting.ApplicationId = Guid.NewGuid().ToString();
+
+            Trace.WriteLine(GlobalSetting.ApplicationId);
         }
     }
 }

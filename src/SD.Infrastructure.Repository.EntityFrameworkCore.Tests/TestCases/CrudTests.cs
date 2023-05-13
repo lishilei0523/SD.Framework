@@ -35,21 +35,19 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
         [TestMethod]
         public void TestAddUser()
         {
-            using (DbSession dbSession = new DbSession())
+            using DbSession dbSession = new DbSession();
+            dbSession.Database.Migrate();
+            User user = new User
             {
-                dbSession.Database.Migrate();
-                User user = new User
-                {
-                    PrivateKey = Guid.NewGuid().ToString(),
-                    Password = CommonConstants.InitialPassword,
-                    Enabled = true
-                };
+                PrivateKey = Guid.NewGuid().ToString(),
+                Password = CommonConstants.InitialPassword,
+                Enabled = true
+            };
 
-                dbSession.Set<User>().Add(user);
-                dbSession.SaveChanges();
+            dbSession.Set<User>().Add(user);
+            dbSession.SaveChanges();
 
-                Trace.WriteLine("创建成功！");
-            }
+            Trace.WriteLine("创建成功！");
         }
     }
 }
