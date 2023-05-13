@@ -1,5 +1,4 @@
-﻿
-namespace SD.Infrastructure.EntityBase
+﻿namespace SD.Infrastructure.EntityBase
 {
     /// <summary>
     /// 可命名接口

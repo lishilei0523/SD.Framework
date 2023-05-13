@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;net461</TargetFrameworks>
+    <TargetFrameworks>net45;net461;net6.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WWF基础</Description>
     <Copyright>Copyright © SD 2023</Copyright>
-    <Version>1.0.0</Version>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,12 +17,16 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.WWF.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
     <Reference Include="System.Activities" />
     <Reference Include="System.Activities.DurableInstancing" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Runtime.DurableInstancing" />
     <Reference Include="System.Xml.Linq" />
+  </ItemGroup>
+
+  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+    <PackageReference Include="UiPath.Workflow" Version="6.0.3" />
   </ItemGroup>
 
   <ItemGroup>

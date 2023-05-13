@@ -6,9 +6,14 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using System.Runtime.DurableInstancing;
 using System.Threading;
 using System.Threading.Tasks;
+#if NET45_OR_GREATER
+using System.Runtime.DurableInstancing;
+#endif
+#if NET6_0_OR_GREATER
+using System.Activities.Runtime.DurableInstancing;
+#endif
 
 namespace SD.Infrastructure.WWF.Base
 {
@@ -68,6 +73,7 @@ namespace SD.Infrastructure.WWF.Base
         /// </summary>
         static WorkflowApplicationProxy()
         {
+#if NET45_OR_GREATER
             //初始化连接字符串
             string connectionStringName = FrameworkSection.Setting.WorkflowConnectionName.Value;
             ConnectionStringSettings connectionStringSetting = ConfigurationManager.ConnectionStrings?[connectionStringName];
@@ -76,7 +82,7 @@ namespace SD.Infrastructure.WWF.Base
             {
                 throw new ApplicationException("工作流持久化连接字符串未设置！");
             }
-
+#endif
             //初始化最大实例锁定重试次数、默认20次
             _MaxInstanceLockedRetriesCount = FrameworkSection.Setting.WorkflowMaxInstanceLockedRetriesCount.Value.HasValue
                 ? FrameworkSection.Setting.WorkflowMaxInstanceLockedRetriesCount.Value.Value
@@ -112,7 +118,7 @@ namespace SD.Infrastructure.WWF.Base
             {
                 this.WorkflowApplication = new WorkflowApplication(workflowDefinition, parameters, definitionIdentity);
             }
-
+#if NET45_OR_GREATER
             //设置工作流持久化存储
             InstanceCompletionAction instanceCompletionAction = GetInstanceCompletionAction();
             SqlWorkflowInstanceStore instanceStore = new SqlWorkflowInstanceStore()
@@ -134,7 +140,7 @@ namespace SD.Infrastructure.WWF.Base
 
                 return PersistableIdleAction.None;
             };
-
+#endif
             //设置书签卸载事件
             this.WorkflowApplication.Idle = eventArgs =>
             {
@@ -312,6 +318,7 @@ namespace SD.Infrastructure.WWF.Base
         //Private
 
         #region 获取持久化模式 —— static InstanceCompletionAction GetInstanceCompletionAction()
+#if NET45_OR_GREATER
         /// <summary>
         /// 获取持久化模式
         /// </summary>
@@ -325,6 +332,7 @@ namespace SD.Infrastructure.WWF.Base
 
             return instanceCompletionAction;
         }
+#endif
         #endregion
 
         #region 记录异常日志 —— static void LogException(EventArgs...
@@ -352,9 +360,9 @@ namespace SD.Infrastructure.WWF.Base
         }
         #endregion
 
-        #region 写入文件方法 —— static void WriteFile(string path, string content)
+        #region 写入文件 —— static void WriteFile(string path, string content)
         /// <summary>
-        /// 写入文件方法
+        /// 写入文件
         /// </summary>
         /// <param name="path">路径</param>
         /// <param name="content">内容</param>
