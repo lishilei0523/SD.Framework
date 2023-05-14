@@ -5,9 +5,9 @@ using SD.Toolkits.AspNet;
 
 namespace SD.Infrastructure.WCF.Tests
 {
-    public class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
             IHostBuilder hostBuilder = Host.CreateDefaultBuilder();
 

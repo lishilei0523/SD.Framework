@@ -1,5 +1,8 @@
-﻿using Topshelf;
+﻿using Microsoft.Owin;
+using SD.Infrastructure.WebApi.Tests;
+using Topshelf;
 
+[assembly: OwinStartup(typeof(Startup))]
 namespace SD.Infrastructure.WebApi.Tests
 {
     class Program
