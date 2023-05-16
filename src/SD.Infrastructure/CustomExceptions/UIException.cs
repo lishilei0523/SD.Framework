@@ -3,7 +3,7 @@
 namespace SD.Infrastructure.CustomExceptions
 {
     /// <summary>
-    /// UI层异常基类
+    /// UI层异常
     /// </summary>
     [Serializable]
     public class UIException : ApplicationException
@@ -14,16 +14,24 @@ namespace SD.Infrastructure.CustomExceptions
         public UIException() { }
 
         /// <summary>
-        /// 构造函数
+        /// 构造器
         /// </summary>
         /// <param name="message">异常消息</param>
-        public UIException(string message) : base(message) { }
+        public UIException(string message)
+            : base(message)
+        {
+
+        }
 
         /// <summary>
-        /// 构造函数
+        /// 构造器
         /// </summary>
         /// <param name="message">异常消息</param>
         /// <param name="innerException">内部异常</param>
-        public UIException(string message, Exception innerException) : base(message, innerException) { }
+        public UIException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+
+        }
     }
 }

@@ -14,9 +14,13 @@ namespace SD.Infrastructure.CustomExceptions
         public AppServiceException() { }
 
         /// <summary>
-        /// 构造函数
+        /// 构造器
         /// </summary>
         /// <param name="message">异常消息</param>
-        public AppServiceException(string message) : base(message) { }
+        public AppServiceException(string message)
+            : base(message)
+        {
+
+        }
     }
 }
