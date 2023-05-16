@@ -4,6 +4,9 @@ using SD.Infrastructure.AspNetCore.Server.Middlewares;
 
 namespace SD.Infrastructure.AspNetCore.Tests
 {
+    /// <summary>
+    /// 应用程序启动器
+    /// </summary>
     public class Startup
     {
         /// <summary>

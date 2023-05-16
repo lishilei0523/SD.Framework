@@ -9,7 +9,7 @@ namespace SD.Infrastructure.SignalR.Client.Sender
 {
     class Program
     {
-        static async Task Main(string[] args)
+        static async Task Main()
         {
             string url = "http://localhost:2209/StubMessage";
 

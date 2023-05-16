@@ -7,7 +7,7 @@ namespace SD.Infrastructure.WCF.Tests
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             IHostBuilder hostBuilder = Host.CreateDefaultBuilder();
 
