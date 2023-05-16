@@ -12,8 +12,27 @@ namespace SD.Infrastructure.Tests.TestCases
     [TestClass]
     public class ConfigurationTests
     {
+        #region # 测试初始化 —— void Initialize()
+        /// <summary>
+        /// 测试初始化
+        /// </summary>
+        [TestInitialize]
+        public void Initialize()
+        {
+#if NET6_0_OR_GREATER
+            //Assembly assembly = Assembly.GetExecutingAssembly();
+            //Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
+            //FrameworkSection.Initialize(configuration);  
+#endif
+        }
+        #endregion
+
+        #region # 测试配置文件 —— void TestConfiguration()
+        /// <summary>
+        /// 测试配置文件
+        /// </summary>
         [TestMethod]
-        public void TestConfigurations()
+        public void TestConfiguration()
         {
             FrameworkSection setting = FrameworkSection.Setting;
 
@@ -62,7 +81,12 @@ namespace SD.Infrastructure.Tests.TestCases
 
             Assert.IsNotNull(setting);
         }
+        #endregion
 
+        #region # 测试应用程序Id —— void TestApplicationId()
+        /// <summary>
+        /// 测试应用程序Id
+        /// </summary>
         [TestMethod]
         public void TestApplicationId()
         {
@@ -76,5 +100,23 @@ namespace SD.Infrastructure.Tests.TestCases
 
             Trace.WriteLine(GlobalSetting.ApplicationId);
         }
+        #endregion
+
+        #region # 测试连接字符串 —— void TestConnectionString()
+        /// <summary>
+        /// 测试连接字符串
+        /// </summary>
+        [TestMethod]
+        public void TestConnectionString()
+        {
+            string readConnectionString = GlobalSetting.ReadConnectionString;
+            string writeConnectionString = GlobalSetting.WriteConnectionString;
+            Trace.WriteLine(readConnectionString);
+            Trace.WriteLine(writeConnectionString);
+
+            Assert.IsNotNull(readConnectionString);
+            Assert.IsNotNull(writeConnectionString);
+        }
+        #endregion
     }
 }

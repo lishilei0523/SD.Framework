@@ -19,16 +19,18 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
     [TestClass]
     public class RegisterSqlCommandTests
     {
+        #region # 测试初始化
+
         /// <summary>
         /// 单元事务
         /// </summary>
         private IUnitOfWorkStub _unitOfWork;
 
         /// <summary>
-        /// 初始化测试
+        /// 测试初始化
         /// </summary>
         [TestInitialize]
-        public void Init()
+        public void Initialize()
         {
             //初始化配置文件
             Assembly assembly = Assembly.GetExecutingAssembly();
@@ -47,15 +49,20 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
             this._unitOfWork = ResolveMediator.Resolve<IUnitOfWorkStub>();
         }
 
+        #endregion
+
+        #region # 测试清理 —— void Cleanup()
         /// <summary>
-        /// 清理测试
+        /// 测试清理
         /// </summary>
         [TestCleanup]
         public void Cleanup()
         {
             ResolveMediator.Dispose();
         }
+        #endregion
 
+        #region # 测试注册SQL命令 —— void TestRegisterSqlCommand()
         /// <summary>
         /// 测试注册SQL命令
         /// </summary>
@@ -74,7 +81,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
             this._unitOfWork.RegisterAddOrderBySql($"测试订单2-{DateTime.Now:yyyyMMddHHmmss}");
             this._unitOfWork.CommitAsync().Wait();
         }
+        #endregion
 
+        #region # 测试注册SQL命令异常 —— void TestRegisterSqlCommandException()
         /// <summary>
         /// 测试注册SQL命令异常
         /// </summary>
@@ -88,5 +97,6 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
             this._unitOfWork.RegisterAddOrderBySql("TESTSQL");
             this._unitOfWork.Commit();
         }
+        #endregion
     }
 }

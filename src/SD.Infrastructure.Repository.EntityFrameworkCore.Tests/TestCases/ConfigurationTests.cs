@@ -14,8 +14,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
     [TestClass]
     public class ConfigurationTests
     {
+        #region # 测试初始化 —— void Initialize()
         /// <summary>
-        /// 初始化测试
+        /// 测试初始化
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -25,12 +26,14 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
             Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
             FrameworkSection.Initialize(configuration);
         }
+        #endregion
 
+        #region # 测试配置文件 —— void TestConfiguration()
         /// <summary>
         /// 测试配置文件
         /// </summary>
         [TestMethod]
-        public void TestConfigurations()
+        public void TestConfiguration()
         {
             FrameworkSection setting = FrameworkSection.Setting;
 
@@ -75,5 +78,6 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
 
             Assert.IsNotNull(setting);
         }
+        #endregion
     }
 }

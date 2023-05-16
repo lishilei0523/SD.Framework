@@ -12,6 +12,10 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
     [TestClass]
     public class ConfigurationTests
     {
+        #region # 测试配置文件 —— void TestConfigurations()
+        /// <summary>
+        /// 测试配置文件
+        /// </summary>
         [TestMethod]
         public void TestConfigurations()
         {
@@ -26,7 +30,12 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
                 Trace.WriteLine(element.Enabled);
             }
         }
+        #endregion
 
+        #region # 测试定时任务配置 —— void TestCrontabSetting()
+        /// <summary>
+        /// 测试定时任务配置
+        /// </summary>
         [TestMethod]
         public void TestCrontabSetting()
         {
@@ -39,5 +48,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
                 Trace.WriteLine(kv.Value);
             }
         }
+        #endregion
     }
 }

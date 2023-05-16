@@ -13,10 +13,10 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
     [TestClass]
     public class MongoRepositoryTests
     {
-        #region # 初始化部分
+        #region # 测试初始化
 
         /// <summary>
-        /// 商品仓储
+        /// 商品仓储接口
         /// </summary>
         private IProductRepository _productRep;
 
@@ -24,11 +24,14 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
         /// 测试初始化
         /// </summary>
         [TestInitialize]
-        public void Init()
+        public void Initialize()
         {
             this._productRep = new ProductRepository();
         }
 
+        #endregion
+
+        #region # 测试清理 —— void CleanUp()
         /// <summary>
         /// 测试清理
         /// </summary>
@@ -37,13 +40,11 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
         {
             this._productRep.Dispose();
         }
-
         #endregion
 
-        #region # 用例部分
-
+        #region # 测试创建 —— void TestCreate()
         /// <summary>
-        /// 创建
+        /// 测试创建
         /// </summary>
         [TestMethod]
         public void TestCreate()
@@ -56,9 +57,11 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
 
             Assert.IsTrue(currentProduct != null);
         }
+        #endregion
 
+        #region # 测试删除 —— void TestRemove()
         /// <summary>
-        /// 删除
+        /// 测试删除
         /// </summary>
         [TestMethod]
         public void TestRemove()
@@ -71,9 +74,11 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
 
             Assert.IsTrue(!this._productRep.Exists(product.Id));
         }
+        #endregion
 
+        #region # 测试更新 —— void TestUpdate()
         /// <summary>
-        /// 更新
+        /// 测试更新
         /// </summary>
         [TestMethod]
         public void TestUpdate()
@@ -93,9 +98,11 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
             Assert.IsTrue(finalProduct.Name == currentProduct.Name);
             Assert.IsTrue(finalProduct.Price == currentProduct.Price);
         }
+        #endregion
 
+        #region # 测试查询 —— void TestFind()
         /// <summary>
-        /// 查询
+        /// 测试查询
         /// </summary>
         [TestMethod]
         public void TestFind()
@@ -115,7 +122,6 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
             IEnumerable<Product> specProducts = this._productRep.FindAll();
             Assert.IsTrue(specProducts.Count() == count);
         }
-
         #endregion
     }
 }

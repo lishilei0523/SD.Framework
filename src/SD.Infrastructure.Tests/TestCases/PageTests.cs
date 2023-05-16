@@ -13,6 +13,10 @@ namespace SD.Infrastructure.Tests.TestCases
     [TestClass]
     public class PageTests
     {
+        #region # 测试分页返回集合 —— void TestToPageReturnList()
+        /// <summary>
+        /// 测试分页返回集合
+        /// </summary>
         [TestMethod]
         public void TestToPageReturnList()
         {
@@ -29,7 +33,12 @@ namespace SD.Infrastructure.Tests.TestCases
             Assert.AreEqual(rowCount, numbers.Length);
             Assert.AreEqual(pageCount, (int)Math.Ceiling(rowCount * 1.0 / pageSize));
         }
+        #endregion
 
+        #region # 测试分页返回分页集合 —— void TestToPageReturnPage()
+        /// <summary>
+        /// 测试分页返回分页集合
+        /// </summary>
         [TestMethod]
         public void TestToPageReturnPage()
         {
@@ -46,5 +55,6 @@ namespace SD.Infrastructure.Tests.TestCases
             Assert.AreEqual(page.RowCount, numbers.Length);
             Assert.AreEqual(page.PageCount, (int)Math.Ceiling(page.RowCount * 1.0 / pageSize));
         }
+        #endregion
     }
 }

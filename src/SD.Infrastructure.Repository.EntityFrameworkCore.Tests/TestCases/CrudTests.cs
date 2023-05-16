@@ -17,8 +17,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
     [TestClass]
     public class CrudTests
     {
+        #region # 测试初始化 —— void Initialize()
         /// <summary>
-        /// 初始化测试
+        /// 测试初始化
         /// </summary>
         [TestInitialize]
         public void Initialize()
@@ -28,12 +29,14 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
             Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
             FrameworkSection.Initialize(configuration);
         }
+        #endregion
 
+        #region # 测试创建用户 —— void TestCreate()
         /// <summary>
-        /// 测试创建用户
+        /// 测试用户
         /// </summary>
         [TestMethod]
-        public void TestAddUser()
+        public void TestCreate()
         {
             using DbSession dbSession = new DbSession();
             dbSession.Database.Migrate();
@@ -49,5 +52,6 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
 
             Trace.WriteLine("创建成功！");
         }
+        #endregion
     }
 }
