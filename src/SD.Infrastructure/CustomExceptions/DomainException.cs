@@ -3,7 +3,7 @@
 namespace SD.Infrastructure.CustomExceptions
 {
     /// <summary>
-    /// 领域层异常基类
+    /// 领域层异常
     /// </summary>
     [Serializable]
     public class DomainException : ApplicationException

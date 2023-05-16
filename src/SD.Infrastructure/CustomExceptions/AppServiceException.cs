@@ -3,7 +3,7 @@
 namespace SD.Infrastructure.CustomExceptions
 {
     /// <summary>
-    /// 应用程序服务层异常基类
+    /// 应用程序服务层异常
     /// </summary>
     [Serializable]
     public class AppServiceException : ApplicationException
