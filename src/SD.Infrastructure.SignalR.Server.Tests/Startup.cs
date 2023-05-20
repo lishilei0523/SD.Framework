@@ -18,7 +18,7 @@ namespace SD.Infrastructure.SignalR.Server.Tests
         /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {
-            //ÅäÖÃ¿çÓò
+            //Ìí¼Ó¿çÓò
             services.AddCors(options => options.AddPolicy(typeof(Startup).FullName,
                 builder =>
                 {
@@ -28,7 +28,7 @@ namespace SD.Infrastructure.SignalR.Server.Tests
                         .AllowCredentials();
                 }));
 
-            //ÅäÖÃSignalR
+            //Ìí¼ÓSignalR
             ISignalRServerBuilder signalRServerBuilder = services.AddSignalR(options =>
             {
                 options.EnableDetailedErrors = true;
