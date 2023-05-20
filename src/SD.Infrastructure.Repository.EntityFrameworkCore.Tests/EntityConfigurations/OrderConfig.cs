@@ -5,7 +5,7 @@ using SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Entities;
 namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.EntityConfigurations
 {
     /// <summary>
-    /// 单据数据映射配置
+    /// 单据实体映射配置
     /// </summary>
     public class OrderConfig : IEntityTypeConfiguration<Order>
     {

@@ -1,4 +1,6 @@
-﻿using Topshelf;
+﻿using SD.Infrastructure.WCF.Tests.Implements;
+using System;
+using System.ServiceModel;
 
 namespace SD.Infrastructure.WCF.Tests
 {
@@ -6,20 +8,11 @@ namespace SD.Infrastructure.WCF.Tests
     {
         static void Main()
         {
-            HostFactory.Run(config =>
-            {
-                config.Service<ServiceLauncher>(host =>
-                {
-                    host.ConstructUsing(name => new ServiceLauncher());
-                    host.WhenStarted(launcher => launcher.Start());
-                    host.WhenStopped(launcher => launcher.Stop());
-                });
-                config.RunAsLocalSystem();
+            ServiceHost orderContractHost = new ServiceHost(typeof(OrderContract));
+            orderContractHost.Open();
 
-                config.SetServiceName("SD.Infrastructure.WCF.Tests");
-                config.SetDisplayName("SD.Infrastructure.WCF.Tests");
-                config.SetDescription("SD.Infrastructure.WCF测试");
-            });
+            Console.WriteLine("服务已启动...");
+            Console.ReadKey();
         }
     }
 }

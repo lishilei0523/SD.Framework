@@ -5,6 +5,11 @@
     /// </summary>
     public sealed class UnitOfWork : EFUnitOfWorkProvider, IUnitOfWorkStub
     {
+        #region # 注册SQL创建单据 —— void RegisterAddOrderBySql(string orderNo)
+        /// <summary>
+        /// 注册SQL创建单据
+        /// </summary>
+        /// <param name="orderNo">单据编号</param>
         public void RegisterAddOrderBySql(string orderNo)
         {
             string sql =
@@ -12,5 +17,6 @@
 
             this.RegisterSqlCommand(sql);
         }
+        #endregion
     }
 }

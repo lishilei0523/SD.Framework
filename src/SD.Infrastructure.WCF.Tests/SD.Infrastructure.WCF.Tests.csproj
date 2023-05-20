@@ -12,7 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Topshelf" Version="4.2.1" />
     <PackageReference Include="SD.IOC.Core" Version="2.2.0" />
     <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.2.0" />
   </ItemGroup>

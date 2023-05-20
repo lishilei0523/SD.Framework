@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace SD.Infrastructure.CrontabBase.Aspects
 {
     /// <summary>
-    /// 运行日志特性类
+    /// 运行日志特性
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]

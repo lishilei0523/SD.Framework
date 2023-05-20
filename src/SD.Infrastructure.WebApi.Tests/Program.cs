@@ -1,6 +1,8 @@
 ﻿using Microsoft.Owin;
+using Microsoft.Owin.Hosting;
 using SD.Infrastructure.WebApi.Tests;
-using Topshelf;
+using SD.Toolkits.AspNet;
+using System;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace SD.Infrastructure.WebApi.Tests
@@ -9,20 +11,18 @@ namespace SD.Infrastructure.WebApi.Tests
     {
         static void Main()
         {
-            HostFactory.Run(config =>
+            StartOptions startOptions = new StartOptions();
+            foreach (string url in AspNetSetting.OwinUrls)
             {
-                config.Service<ServiceLauncher>(host =>
-                {
-                    host.ConstructUsing(name => new ServiceLauncher());
-                    host.WhenStarted(launcher => launcher.Start());
-                    host.WhenStopped(launcher => launcher.Stop());
-                });
-                config.RunAsLocalSystem();
+                Console.WriteLine($"Listening: {url}");
+                startOptions.Urls.Add(url);
+            }
 
-                config.SetServiceName("SD.Infrastructure.WebApi.Tests");
-                config.SetDisplayName("SD.Infrastructure.WebApi.Tests");
-                config.SetDescription("SD.Infrastructure.WebApi.Tests");
-            });
+            //开启服务
+            WebApp.Start<Startup>(startOptions);
+
+            Console.WriteLine("服务已启动...");
+            Console.ReadKey();
         }
     }
 }

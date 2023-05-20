@@ -13,7 +13,7 @@ using CoreWCF;
 namespace SD.Infrastructure.AOP.Aspects.ForAny
 {
     /// <summary>
-    /// 应用程序服务层异常AOP特性类
+    /// 应用程序服务层异常AOP特性
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
@@ -22,8 +22,6 @@ namespace SD.Infrastructure.AOP.Aspects.ForAny
         /// <summary>
         /// 发生异常事件
         /// </summary>
-        /// <param name="context">方法元数据</param>
-        /// <param name="exception">异常实例</param>
         protected override void OnException(MethodAdviceContext context, Exception exception)
         {
             base.OnException(context, exception);

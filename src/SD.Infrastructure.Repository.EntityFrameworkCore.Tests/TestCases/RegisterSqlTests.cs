@@ -14,10 +14,10 @@ using System.Reflection;
 namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
 {
     /// <summary>
-    /// 注册SQL命令测试
+    /// 注册SQL测试
     /// </summary>
     [TestClass]
-    public class RegisterSqlCommandTests
+    public class RegisterSqlTests
     {
         #region # 测试初始化
 

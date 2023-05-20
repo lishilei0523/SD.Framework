@@ -31,12 +31,12 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
 
         #endregion
 
-        #region # 测试清理 —— void CleanUp()
+        #region # 测试清理 —— void Cleanup()
         /// <summary>
         /// 测试清理
         /// </summary>
         [TestCleanup]
-        public void CleanUp()
+        public void Cleanup()
         {
             this._productRep.Dispose();
         }

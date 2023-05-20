@@ -7,7 +7,7 @@ using System;
 namespace SD.Infrastructure.AOP.Aspects.ForAny
 {
     /// <summary>
-    /// UI层异常AOP特性类
+    /// UI层异常AOP特性
     /// </summary>
     [Serializable]
     [AttributeUsage(AttributeTargets.All, AllowMultiple = true)]
@@ -16,8 +16,6 @@ namespace SD.Infrastructure.AOP.Aspects.ForAny
         /// <summary>
         /// 发生异常事件
         /// </summary>
-        /// <param name="context">方法元数据</param>
-        /// <param name="exception">异常实例</param>
         protected override void OnException(MethodAdviceContext context, Exception exception)
         {
             base.OnException(context, exception);

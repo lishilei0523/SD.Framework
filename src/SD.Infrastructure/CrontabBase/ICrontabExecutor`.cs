@@ -5,10 +5,12 @@
     /// </summary>
     public interface ICrontabExecutor<in T> : ICrontabExecutor where T : ICrontab
     {
+        #region # 执行定时任务 —— void Execute(T crontab)
         /// <summary>
-        /// 执行任务
+        /// 执行定时任务
         /// </summary>
         /// <param name="crontab">定时任务</param>
         void Execute(T crontab);
+        #endregion
     }
 }

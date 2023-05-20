@@ -5,7 +5,7 @@ using SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Entities;
 namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.EntityConfigurations
 {
     /// <summary>
-    /// 用户数据映射配置
+    /// 用户实体映射配置
     /// </summary>
     public class UserConfig : IEntityTypeConfiguration<User>
     {

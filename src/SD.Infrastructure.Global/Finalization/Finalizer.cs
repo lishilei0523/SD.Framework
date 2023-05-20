@@ -3,7 +3,6 @@
 // ReSharper disable once CheckNamespace
 namespace SD.Infrastructure.Global
 {
-
     /// <summary>
     /// 终结器
     /// </summary>

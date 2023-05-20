@@ -40,12 +40,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
         {
             using DbSession dbSession = new DbSession();
             dbSession.Database.Migrate();
-            User user = new User
-            {
-                PrivateKey = Guid.NewGuid().ToString(),
-                Password = CommonConstants.InitialPassword,
-                Enabled = true
-            };
+            User user = new User(CommonConstants.AdminLoginId, "超级管理员", CommonConstants.InitialPassword, Guid.NewGuid().ToString(), 18);
 
             dbSession.Set<User>().Add(user);
             dbSession.SaveChanges();
