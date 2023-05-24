@@ -1,8 +1,12 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SD.Common;
 using SD.Infrastructure.Configurations;
 using SD.Infrastructure.Constants;
 using System;
+using System.Configuration;
 using System.Diagnostics;
+using System.Reflection;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace SD.Infrastructure.Tests.TestCases
 {
@@ -19,10 +23,10 @@ namespace SD.Infrastructure.Tests.TestCases
         [TestInitialize]
         public void Initialize()
         {
-#if NET6_0_OR_GREATER
-            //Assembly assembly = Assembly.GetExecutingAssembly();
-            //Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
-            //FrameworkSection.Initialize(configuration);  
+#if NETCOREAPP3_1_OR_GREATER
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
+            FrameworkSection.Initialize(configuration);
 #endif
         }
         #endregion

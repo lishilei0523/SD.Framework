@@ -1,9 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SD.Common;
 using SD.Infrastructure.EntityBase;
 using SD.Infrastructure.RepositoryBase;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
+using System.Reflection;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace SD.Infrastructure.Tests.TestCases
 {
@@ -13,6 +17,21 @@ namespace SD.Infrastructure.Tests.TestCases
     [TestClass]
     public class PageTests
     {
+        #region # 测试初始化 —— void Initialize()
+        /// <summary>
+        /// 测试初始化
+        /// </summary>
+        [TestInitialize]
+        public void Initialize()
+        {
+#if NETCOREAPP3_1_OR_GREATER
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
+            FrameworkSection.Initialize(configuration);
+#endif
+        }
+        #endregion
+
         #region # 测试分页返回集合 —— void TestToPageReturnList()
         /// <summary>
         /// 测试分页返回集合

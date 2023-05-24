@@ -1,9 +1,13 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SD.Common;
 using SD.Infrastructure.Repository.MongoDB.Tests.Entities;
 using SD.Infrastructure.Repository.MongoDB.Tests.IRepositories;
 using SD.Infrastructure.Repository.MongoDB.Tests.Repositories;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Reflection;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 
 namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
 {
@@ -26,6 +30,11 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
         [TestInitialize]
         public void Initialize()
         {
+#if NETCOREAPP3_1_OR_GREATER
+            Assembly entryAssembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
+            FrameworkSection.Initialize(configuration);
+#endif
             this._productRep = new ProductRepository();
         }
 

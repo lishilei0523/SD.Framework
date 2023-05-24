@@ -25,7 +25,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net6.0'))">
     <PackageReference Include="UiPath.Workflow" Version="6.0.3" />
   </ItemGroup>
 

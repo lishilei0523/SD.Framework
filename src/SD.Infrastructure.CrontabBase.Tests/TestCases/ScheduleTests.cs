@@ -1,13 +1,23 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using SD.Common;
 using SD.Infrastructure.CrontabBase.Mediators;
 using SD.Infrastructure.CrontabBase.Tests.StubCrontabs;
 using SD.IOC.Core.Mediators;
-using SD.IOC.Extension.NetFx;
+using SD.Toolkits;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
+using System.Reflection;
 using System.Threading;
+using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
+#if NET45_OR_GREATER
+using SD.IOC.Extension.NetFx;
+#endif
+#if NETCOREAPP3_1_OR_GREATER
+using SD.IOC.Extension.NetCore;
+#endif
 
 namespace SD.Infrastructure.CrontabBase.Tests.TestCases
 {
@@ -26,8 +36,14 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         /// 测试初始化
         /// </summary>
         [TestInitialize]
-        public void Init()
+        public void Initialize()
         {
+#if NETCOREAPP3_1_OR_GREATER
+            Assembly entryAssembly = Assembly.GetExecutingAssembly();
+            Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
+            FrameworkSection.Initialize(configuration);
+            RedisSection.Initialize(configuration);
+#endif
             if (!ResolveMediator.ContainerBuilt)
             {
                 IServiceCollection builder = ResolveMediator.GetServiceCollection();

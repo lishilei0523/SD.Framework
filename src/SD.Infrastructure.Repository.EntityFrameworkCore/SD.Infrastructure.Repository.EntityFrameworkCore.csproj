@@ -17,19 +17,19 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.Repository.EntityFrameworkCore.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.0'">
+  <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.32" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netstandard2.1'">
+  <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.1'))">
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.17" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net6.0'))">
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.15" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net7.0'))">
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.5" />
   </ItemGroup>
 

@@ -18,43 +18,43 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.WPF.Caliburn.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net40'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net40'))">
     <PackageReference Include="AsyncBridge" Version="0.3.1" />
     <PackageReference Include="MrAdvice" Version="2.9.9" />
     <PackageReference Include="Caliburn.Micro" Version="3.2.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net45'))">
     <PackageReference Include="MrAdvice" Version="2.9.9" />
     <PackageReference Include="Caliburn.Micro" Version="3.2.0" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net461'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net461'))">
     <PackageReference Include="MrAdvice" Version="2.12.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net462'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
     <PackageReference Include="MrAdvice" Version="2.12.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'netcoreapp3.1'">
+  <ItemGroup Condition="$(TargetFramework.Equals('netcoreapp3.1'))">
     <PackageReference Include="MrAdvice" Version="2.12.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net5.0-windows'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net5.0-windows'))">
     <PackageReference Include="MrAdvice" Version="2.12.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net6.0-windows'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net6.0-windows'))">
     <PackageReference Include="MrAdvice" Version="2.12.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
   </ItemGroup>
 
-  <ItemGroup Condition="'$(TargetFramework)' == 'net7.0-windows'">
+  <ItemGroup Condition="$(TargetFramework.Equals('net7.0-windows'))">
     <PackageReference Include="MrAdvice" Version="2.12.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
   </ItemGroup>
