@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Reference Include="System.ServiceModel" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="SD.IOC.Core" Version="2.2.0" />
     <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.2.0" />
   </ItemGroup>

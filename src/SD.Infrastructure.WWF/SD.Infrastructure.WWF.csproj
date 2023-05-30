@@ -17,7 +17,7 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.WWF.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System.Activities" />
     <Reference Include="System.Activities.DurableInstancing" />
     <Reference Include="System.Configuration" />

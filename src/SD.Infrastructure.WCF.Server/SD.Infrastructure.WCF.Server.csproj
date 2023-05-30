@@ -17,7 +17,7 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.WCF.Server.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition=" $(TargetFramework.StartsWith('net4')) ">
+  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
     <Reference Include="System.Configuration" />
     <Reference Include="System.ServiceModel" />
   </ItemGroup>

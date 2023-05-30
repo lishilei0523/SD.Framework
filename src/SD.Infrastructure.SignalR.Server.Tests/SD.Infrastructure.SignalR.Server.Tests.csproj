@@ -8,7 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="6.0.15" />
     <PackageReference Include="SD.Toolkits.AspNet" Version="1.1.3" />
     <PackageReference Include="SD.Toolkits.Redis" Version="2.1.1" />
