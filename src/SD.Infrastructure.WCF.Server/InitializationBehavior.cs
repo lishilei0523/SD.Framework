@@ -74,7 +74,21 @@ namespace SD.Infrastructure.WCF.Server
 
 
         //没有用
-        public void AddBindingParameters(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase, Collection<ServiceEndpoint> endpoints, BindingParameterCollection bindingParameters) { }
-        public void Validate(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase) { }
+
+        /// <summary>
+        /// 添加绑定参数
+        /// </summary>
+        public void AddBindingParameters(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase, Collection<ServiceEndpoint> endpoints, BindingParameterCollection bindingParameters)
+        {
+
+        }
+
+        /// <summary>
+        /// 验证
+        /// </summary>
+        public void Validate(ServiceDescription serviceDescription, ServiceHostBase serviceHostBase)
+        {
+
+        }
     }
 }

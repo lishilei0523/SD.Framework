@@ -49,6 +49,9 @@ namespace SD.Infrastructure.Xamarin.Converters
                     : enumMember.Description;
         }
 
+        /// <summary>
+        /// 转换回
+        /// </summary>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException();

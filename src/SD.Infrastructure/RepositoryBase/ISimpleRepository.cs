@@ -22,7 +22,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 添加实体对象列表
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="entities">实体对象集</param>
         void AddRange(IEnumerable<T> entities);
         #endregion
@@ -39,7 +38,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 保存实体对象列表
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="entities">实体对象集</param>
         void SaveRange(IEnumerable<T> entities);
         #endregion
@@ -72,7 +70,6 @@ namespace SD.Infrastructure.RepositoryBase
         /// <summary>
         /// 删除多个实体对象
         /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>
         void RemoveRange(IEnumerable<string> numbers);
         #endregion

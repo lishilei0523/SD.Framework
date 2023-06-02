@@ -44,9 +44,12 @@ namespace SD.Infrastructure.WPF.Converters
                 return this.GetTreeListView(parentTreeListViewItem);
             }
 
-            throw new NotImplementedException();
+            throw new NotSupportedException();
         }
 
+        /// <summary>
+        /// 转换回
+        /// </summary>
         public object ConvertBack(object value, Type type, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException();

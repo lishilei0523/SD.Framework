@@ -62,6 +62,9 @@ namespace SD.Infrastructure.WPF.Converters
             return this._valueDescriptions[0].Text;
         }
 
+        /// <summary>
+        /// 转换回
+        /// </summary>
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotSupportedException();

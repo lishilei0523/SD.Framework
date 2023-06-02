@@ -32,6 +32,9 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly DependencyProperty LabelTemplateProperty =
             DependencyProperty.Register(nameof(LabelTemplate), typeof(DataTemplate), typeof(FormItem), new PropertyMetadata(default(DataTemplate), OnLabelTemplateChanged));
 
+        /// <summary>
+        /// 构造器
+        /// </summary>
         public FormItem()
         {
             this.DefaultStyleKey = typeof(FormItem);

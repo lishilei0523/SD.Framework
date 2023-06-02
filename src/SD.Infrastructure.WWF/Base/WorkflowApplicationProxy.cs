@@ -1,14 +1,14 @@
-﻿using SD.Infrastructure.WorkflowBase;
-using System;
+﻿using System;
 using System.Activities;
-using System.Activities.DurableInstancing;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 #if NET45_OR_GREATER
+using SD.Infrastructure.WorkflowBase;
+using System.Activities.DurableInstancing;
+using System.Configuration;
 using System.Runtime.DurableInstancing;
 #endif
 #if NET6_0_OR_GREATER
@@ -34,11 +34,12 @@ namespace SD.Infrastructure.WWF.Base
         /// </summary>
         private static readonly string _ExceptionLogPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Workflow.ExceptionLogs\\{{0:yyyy-MM-dd}}.txt";
 
+#if NET45_OR_GREATER
         /// <summary>
         /// 工作流持久化数据库连接字符串
         /// </summary>
         private static readonly string _WorkflowPersistenceConnectionString;
-
+#endif
         /// <summary>
         /// 最大实例锁定重试次数
         /// </summary>

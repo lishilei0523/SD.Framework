@@ -100,7 +100,6 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <summary>
         /// 添加实体对象列表
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="entities">实体对象集</param>
         public void AddRange(IEnumerable<T> entities)
         {
@@ -144,7 +143,6 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <summary>
         /// 保存实体对象列表
         /// </summary>
-        /// <typeparam name="T">聚合根类型</typeparam>
         /// <param name="entities">实体对象集</param>
         public void SaveRange(IEnumerable<T> entities)
         {
@@ -202,21 +200,20 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <summary>
         /// 删除多个实体对象
         /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="ids">标识Id集</param>
         public void RemoveRange(IEnumerable<Guid> ids)
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
-            if (!ids_.Any())
+            ids = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            if (!ids.Any())
             {
                 throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的id集合不可为空！");
             }
 
             #endregion
 
-            this._collection.DeleteManyAsync(x => ids_.Contains(x.Id)).Wait();
+            this._collection.DeleteManyAsync(x => ids.Contains(x.Id)).Wait();
         }
         #endregion
 
@@ -224,21 +221,20 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <summary>
         /// 删除多个实体对象
         /// </summary>
-        /// <typeparam name="T">实体类型</typeparam>
         /// <param name="numbers">编号集</param>
         public void RemoveRange(IEnumerable<string> numbers)
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
-            if (!numbers_.Any())
+            numbers = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            if (!numbers.Any())
             {
                 throw new ArgumentNullException(nameof(numbers), $"要删除的{typeof(T).Name}的编号集合不可为空！");
             }
 
             #endregion
 
-            this._collection.DeleteManyAsync(x => numbers_.Contains(x.Number)).Wait();
+            this._collection.DeleteManyAsync(x => numbers.Contains(x.Number)).Wait();
         }
         #endregion
 
@@ -900,15 +896,15 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
-            if (!ids_.Any())
+            ids = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            if (!ids.Any())
             {
                 return new Dictionary<Guid, T>();
             }
 
             #endregion
 
-            IList<T> entities = this.Find(x => ids_.Contains(x.Id)).ToList();
+            IList<T> entities = this.Find(x => ids.Contains(x.Id)).ToList();
 
             return entities.ToDictionary(x => x.Id, x => x);
         }
@@ -925,15 +921,15 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
-            if (!ids_.Any())
+            ids = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            if (!ids.Any())
             {
                 return new Dictionary<Guid, T>();
             }
 
             #endregion
 
-            IList<T> entities = await this.Find(x => ids_.Contains(x.Id)).ToListAsync();
+            IList<T> entities = await this.Find(x => ids.Contains(x.Id)).ToListAsync();
 
             return entities.ToDictionary(x => x.Id, x => x);
         }
@@ -950,15 +946,15 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
-            if (!ids_.Any())
+            ids = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            if (!ids.Any())
             {
                 return new Dictionary<Guid, TSub>();
             }
 
             #endregion
 
-            IList<TSub> entities = this.Find<TSub>(x => ids_.Contains(x.Id)).ToList();
+            IList<TSub> entities = this.Find<TSub>(x => ids.Contains(x.Id)).ToList();
 
             return entities.ToDictionary(x => x.Id, x => x);
         }
@@ -975,15 +971,15 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            Guid[] ids_ = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
-            if (!ids_.Any())
+            ids = ids?.Distinct().ToArray() ?? Array.Empty<Guid>();
+            if (!ids.Any())
             {
                 return new Dictionary<Guid, TSub>();
             }
 
             #endregion
 
-            IList<TSub> entities = await this.Find<TSub>(x => ids_.Contains(x.Id)).ToListAsync();
+            IList<TSub> entities = await this.Find<TSub>(x => ids.Contains(x.Id)).ToListAsync();
 
             return entities.ToDictionary(x => x.Id, x => x);
         }
@@ -1000,15 +996,15 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
-            if (!numbers_.Any())
+            numbers = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            if (!numbers.Any())
             {
                 return new Dictionary<string, T>();
             }
 
             #endregion
 
-            IList<T> entities = this.Find<T>(x => numbers_.Contains(x.Number)).ToList();
+            IList<T> entities = this.Find<T>(x => numbers.Contains(x.Number)).ToList();
 
             return entities.ToDictionary(x => x.Number, x => x);
         }
@@ -1025,15 +1021,15 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
-            if (!numbers_.Any())
+            numbers = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            if (!numbers.Any())
             {
                 return new Dictionary<string, T>();
             }
 
             #endregion
 
-            IList<T> entities = await this.Find<T>(x => numbers_.Contains(x.Number)).ToListAsync();
+            IList<T> entities = await this.Find<T>(x => numbers.Contains(x.Number)).ToListAsync();
 
             return entities.ToDictionary(x => x.Number, x => x);
         }
@@ -1050,15 +1046,15 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
-            if (!numbers_.Any())
+            numbers = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            if (!numbers.Any())
             {
                 return new Dictionary<string, TSub>();
             }
 
             #endregion
 
-            IList<TSub> entities = this.Find<TSub>(x => numbers_.Contains(x.Number)).ToList();
+            IList<TSub> entities = this.Find<TSub>(x => numbers.Contains(x.Number)).ToList();
 
             return entities.ToDictionary(x => x.Number, x => x);
         }
@@ -1075,15 +1071,15 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            string[] numbers_ = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
-            if (!numbers_.Any())
+            numbers = numbers?.Distinct().ToArray() ?? Array.Empty<string>();
+            if (!numbers.Any())
             {
                 return new Dictionary<string, TSub>();
             }
 
             #endregion
 
-            IList<TSub> entities = await this.Find<TSub>(x => numbers_.Contains(x.Number)).ToListAsync();
+            IList<TSub> entities = await this.Find<TSub>(x => numbers.Contains(x.Number)).ToListAsync();
 
             return entities.ToDictionary(x => x.Number, x => x);
         }
@@ -1100,15 +1096,15 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            long[] rowNos_ = rowNos?.Distinct().ToArray() ?? Array.Empty<long>();
-            if (!rowNos_.Any())
+            rowNos = rowNos?.Distinct().ToArray() ?? Array.Empty<long>();
+            if (!rowNos.Any())
             {
                 return new Dictionary<long, TRowable>();
             }
 
             #endregion
 
-            IList<TRowable> entities = this.Find<TRowable>(x => rowNos_.Contains(x.RowNo)).ToList();
+            IList<TRowable> entities = this.Find<TRowable>(x => rowNos.Contains(x.RowNo)).ToList();
 
             return entities.ToDictionary(x => x.RowNo, x => x);
         }
@@ -1125,15 +1121,15 @@ namespace SD.Infrastructure.Repository.MongoDB
         {
             #region # 验证
 
-            long[] rowNos_ = rowNos?.Distinct().ToArray() ?? Array.Empty<long>();
-            if (!rowNos_.Any())
+            rowNos = rowNos?.Distinct().ToArray() ?? Array.Empty<long>();
+            if (!rowNos.Any())
             {
                 return new Dictionary<long, TRowable>();
             }
 
             #endregion
 
-            IList<TRowable> entities = await this.Find<TRowable>(x => rowNos_.Contains(x.RowNo)).ToListAsync();
+            IList<TRowable> entities = await this.Find<TRowable>(x => rowNos.Contains(x.RowNo)).ToListAsync();
 
             return entities.ToDictionary(x => x.RowNo, x => x);
         }
