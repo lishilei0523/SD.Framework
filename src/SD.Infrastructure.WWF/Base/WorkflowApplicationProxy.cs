@@ -378,7 +378,6 @@ namespace SD.Infrastructure.WWF.Base
                 {
                     //获取文件目录并判断是否存在
                     string directory = Path.GetDirectoryName(path);
-
                     if (string.IsNullOrEmpty(directory))
                     {
                         throw new ArgumentNullException(nameof(path), "目录不可为空！");

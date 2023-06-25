@@ -19,7 +19,7 @@ namespace SD.Infrastructure.SignalR.Server.Tests
         public void ConfigureServices(IServiceCollection services)
         {
             //Ìí¼Ó¿çÓò
-            services.AddCors(options => options.AddPolicy(typeof(Startup).FullName,
+            services.AddCors(options => options.AddPolicy(typeof(Startup).FullName!,
                 builder =>
                 {
                     builder.AllowAnyMethod()
@@ -45,7 +45,7 @@ namespace SD.Infrastructure.SignalR.Server.Tests
         public void Configure(IApplicationBuilder appBuilder)
         {
             //ÅäÖÃ¿çÓò
-            appBuilder.UseCors(typeof(Startup).FullName);
+            appBuilder.UseCors(typeof(Startup).FullName!);
 
             appBuilder.UseRouting();
             appBuilder.UseEndpoints(endpoints =>

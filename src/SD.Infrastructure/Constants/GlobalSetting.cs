@@ -213,9 +213,7 @@ namespace SD.Infrastructure.Constants
         {
             get
             {
-                return FrameworkSection.Setting.AuthorizationEnabled.Value.HasValue
-                    ? FrameworkSection.Setting.AuthorizationEnabled.Value.Value
-                    : true;
+                return !FrameworkSection.Setting.AuthorizationEnabled.Value.HasValue || FrameworkSection.Setting.AuthorizationEnabled.Value.Value;
             }
         }
         #endregion
