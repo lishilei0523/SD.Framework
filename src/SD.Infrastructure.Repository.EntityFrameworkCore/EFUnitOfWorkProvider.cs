@@ -1233,17 +1233,17 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
                     }
                     else
                     {
-                        using (IDbContextTransaction transaction = this._dbContext.Database.BeginTransaction())
-                        {
-                            //保存修改
-                            this._dbContext.SaveChanges();
+                        //开启事务
+                        using IDbContextTransaction transaction = this._dbContext.Database.BeginTransaction();
 
-                            //执行SQL命令
-                            this._dbContext.Database.ExecuteSqlRaw(sqlCommands);
+                        //保存修改
+                        this._dbContext.SaveChanges();
 
-                            //提交事务
-                            transaction.Commit();
-                        }
+                        //执行SQL命令
+                        this._dbContext.Database.ExecuteSqlRaw(sqlCommands);
+
+                        //提交事务
+                        transaction.Commit();
                     }
 
                     //清空SQL命令
@@ -1284,17 +1284,17 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
                     }
                     else
                     {
-                        using (IDbContextTransaction transaction = await this._dbContext.Database.BeginTransactionAsync())
-                        {
-                            //保存修改
-                            await this._dbContext.SaveChangesAsync();
+                        //开启事务
+                        await using IDbContextTransaction transaction = await this._dbContext.Database.BeginTransactionAsync();
 
-                            //执行SQL命令
-                            await this._dbContext.Database.ExecuteSqlRawAsync(sqlCommands);
+                        //保存修改
+                        await this._dbContext.SaveChangesAsync();
 
-                            //提交事务
-                            await transaction.CommitAsync();
-                        }
+                        //执行SQL命令
+                        await this._dbContext.Database.ExecuteSqlRawAsync(sqlCommands);
+
+                        //提交事务
+                        await transaction.CommitAsync();
                     }
 
                     //清空SQL命令
