@@ -92,7 +92,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             #endregion
 
-            this._collection.InsertOneAsync(entity).Wait();
+            this._collection.InsertOne(entity);
         }
         #endregion
 
@@ -135,7 +135,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             entity.SavedTime = DateTime.Now;
 
-            this._collection.FindOneAndReplaceAsync(x => x.Id == entity.Id, entity).Wait();
+            this._collection.FindOneAndReplace(x => x.Id == entity.Id, entity);
         }
         #endregion
 
@@ -181,7 +181,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <param name="id">标识Id</param>
         public void Remove(Guid id)
         {
-            this._collection.FindOneAndDeleteAsync(x => x.Id == id).Wait();
+            this._collection.FindOneAndDelete(x => x.Id == id);
         }
         #endregion
 
@@ -192,7 +192,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <param name="number">编号</param>
         public void Remove(string number)
         {
-            this._collection.FindOneAndDeleteAsync(x => x.Number == number).Wait();
+            this._collection.FindOneAndDelete(x => x.Number == number);
         }
         #endregion
 
@@ -213,7 +213,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             #endregion
 
-            this._collection.DeleteManyAsync(x => ids.Contains(x.Id)).Wait();
+            this._collection.DeleteMany(x => ids.Contains(x.Id));
         }
         #endregion
 
@@ -234,7 +234,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             #endregion
 
-            this._collection.DeleteManyAsync(x => numbers.Contains(x.Number)).Wait();
+            this._collection.DeleteMany(x => numbers.Contains(x.Number));
         }
         #endregion
 
@@ -1773,7 +1773,7 @@ namespace SD.Infrastructure.Repository.MongoDB
         /// <param name="requests">批量操作请求</param>
         protected void BulkWrite(IEnumerable<WriteModel<T>> requests)
         {
-            this._collection.BulkWriteAsync(requests).Wait();
+            this._collection.BulkWrite(requests);
         }
         #endregion
 

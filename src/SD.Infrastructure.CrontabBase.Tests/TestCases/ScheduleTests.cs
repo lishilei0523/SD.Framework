@@ -1,21 +1,21 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SD.Common;
 using SD.Infrastructure.CrontabBase.Mediators;
 using SD.Infrastructure.CrontabBase.Tests.StubCrontabs;
 using SD.IOC.Core.Mediators;
-using SD.Toolkits;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Reflection;
 using System.Threading;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 #if NET45_OR_GREATER
 using SD.IOC.Extension.NetFx;
 #endif
 #if NETCOREAPP3_1_OR_GREATER
+using SD.Common;
+using SD.Toolkits;
+using System.Configuration;
+using System.Reflection;
 using SD.IOC.Extension.NetCore;
 #endif
 
@@ -23,9 +23,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
 {
     /// <summary>
     /// 调度测试
-    /// <remarks>
-    /// Warning：测试用例请单个执行，同时执行存在问题。
-    /// </remarks>
+    /// <remarks>Warning：测试用例请单个执行，同时执行存在问题。</remarks>
     /// </summary>
     [TestClass]
     public class ScheduleTests

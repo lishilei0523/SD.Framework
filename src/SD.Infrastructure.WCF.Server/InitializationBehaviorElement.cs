@@ -14,7 +14,7 @@ namespace SD.Infrastructure.WCF.Server
         /// </summary>
         public override Type BehaviorType
         {
-            get { return typeof(InitializationBehavior); }
+            get => typeof(InitializationBehavior);
         }
 
         /// <summary>

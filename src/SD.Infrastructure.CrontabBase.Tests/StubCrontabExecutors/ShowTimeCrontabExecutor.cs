@@ -10,9 +10,8 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabExecutors
     public class ShowTimeCrontabExecutor : CrontabExecutor<ShowTimeCrontab>
     {
         /// <summary>
-        /// 调度任务
+        /// 执行任务
         /// </summary>
-        /// <param name="crontab">定时任务</param>
         public override void Execute(ShowTimeCrontab crontab)
         {
             Trace.WriteLine(crontab.Text);
@@ -23,7 +22,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabExecutors
                                      "［测试日志］" + 3 + Environment.NewLine +
                                      "［测试日志］" + 4);
 
-            if (crontab.Text == "Exception")
+            if (crontab.Text == nameof(Exception))
             {
                 throw new NullReferenceException("测试异常！");
             }

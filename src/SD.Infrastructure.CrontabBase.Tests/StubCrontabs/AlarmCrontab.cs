@@ -6,7 +6,7 @@
     public class AlarmCrontab : Crontab
     {
         /// <summary>
-        /// 无参构造器
+        /// 创建定时任务构造器
         /// </summary>
         public AlarmCrontab(string word, ExecutionStrategy executionStrategy)
             : base(executionStrategy)

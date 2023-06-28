@@ -12,7 +12,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.StubCrontabExecutors
         /// <summary>
         /// 执行任务
         /// </summary>
-        /// <param name="crontab">定时任务</param>
         public override void Execute(RecurrenceCrontab crontab)
         {
             Trace.WriteLine(DateTime.Now);
