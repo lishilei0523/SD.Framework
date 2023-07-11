@@ -67,7 +67,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
         /// 测试注册SQL命令
         /// </summary>
         [TestMethod]
-        public void TestRegisterSqlCommand()
+        public async void TestRegisterSqlCommand()
         {
             Order order1 = new Order($"SL1-{DateTime.Now:yyyyMMddHHmmss}", $"销售订单1-{DateTime.Now:yyyyMMddHHmmss}");
 
@@ -79,7 +79,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
 
             this._unitOfWork.RegisterAdd(order2);
             this._unitOfWork.RegisterAddOrderBySql($"测试订单2-{DateTime.Now:yyyyMMddHHmmss}");
-            this._unitOfWork.CommitAsync().Wait();
+            await this._unitOfWork.CommitAsync();
         }
         #endregion
 

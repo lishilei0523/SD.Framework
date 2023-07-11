@@ -28,9 +28,9 @@ namespace SD.Infrastructure.SignalR.Client.Mediators
         /// <typeparam name="T">消息类型</typeparam>
         /// <param name="hubConnection">Hub连接</param>
         /// <param name="message">消息</param>
-        public static void Send<T>(HubConnection hubConnection, T message) where T : IMessage
+        public static async void Send<T>(HubConnection hubConnection, T message) where T : IMessage
         {
-            hubConnection.InvokeAsync(nameof(IMessageHub<T>.Exchange), message).Wait();
+            await hubConnection.InvokeAsync(nameof(IMessageHub<T>.Exchange), message);
 
             //消息已发送事件
             OnMessageSent?.Invoke(message);

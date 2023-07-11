@@ -60,7 +60,7 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         /// <typeparam name="T">任务类型</typeparam>
         /// <param name="delay">延迟时间(毫秒)</param>
         /// <remarks>适用于没有参数，只有策略的任务</remarks>
-        public static void Schedule<T>(int delay = 1000) where T : class, ICrontab
+        public static async void Schedule<T>(int delay = 1000) where T : class, ICrontab
         {
             //调度任务
             Type crontabType = typeof(T);
@@ -108,14 +108,14 @@ namespace SD.Infrastructure.CrontabBase.Mediators
                     ITrigger trigger = GetTrigger(crontab.ExecutionStrategy);
 
                     //为调度者添加任务明细与触发器
-                    _Scheduler.ScheduleJob(jobDetail, trigger).Wait();
+                    await _Scheduler.ScheduleJob(jobDetail, trigger);
 
                     //开始调度
-                    _Scheduler.StartDelayed(TimeSpan.FromMilliseconds(delay)).Wait();
+                    await _Scheduler.StartDelayed(TimeSpan.FromMilliseconds(delay));
                 }
                 else
                 {
-                    _Scheduler.ResumeJob(jobKey).Wait();
+                    await _Scheduler.ResumeJob(jobKey);
                 }
             }
 
@@ -134,7 +134,7 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         /// </summary>
         /// <param name="crontab">定时任务</param>
         /// <param name="delay">延迟时间(毫秒)</param>
-        public static void Schedule(ICrontab crontab, int delay = 1000)
+        public static async void Schedule(ICrontab crontab, int delay = 1000)
         {
             #region # 验证
 
@@ -168,14 +168,14 @@ namespace SD.Infrastructure.CrontabBase.Mediators
                     ITrigger trigger = GetTrigger(crontab.ExecutionStrategy);
 
                     //为调度者添加任务明细与触发器
-                    _Scheduler.ScheduleJob(jobDetail, trigger).Wait();
+                    await _Scheduler.ScheduleJob(jobDetail, trigger);
 
                     //开始调度
-                    _Scheduler.StartDelayed(TimeSpan.FromMilliseconds(delay)).Wait();
+                    await _Scheduler.StartDelayed(TimeSpan.FromMilliseconds(delay));
                 }
                 else
                 {
-                    _Scheduler.ResumeJob(jobKey).Wait();
+                    await _Scheduler.ResumeJob(jobKey);
                 }
             }
 
@@ -195,7 +195,7 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         /// <typeparam name="T">定时任务类型</typeparam>
         /// <param name="crontab">定时任务</param>
         /// <param name="delay">延迟时间(毫秒)</param>
-        public static void ScheduleGenerally<T>(T crontab, int delay = 1000) where T : class, ICrontab
+        public static async void ScheduleGenerally<T>(T crontab, int delay = 1000) where T : class, ICrontab
         {
             #region # 验证
 
@@ -228,14 +228,14 @@ namespace SD.Infrastructure.CrontabBase.Mediators
                     ITrigger trigger = GetTrigger(crontab.ExecutionStrategy);
 
                     //为调度者添加任务明细与触发器
-                    _Scheduler.ScheduleJob(jobDetail, trigger).Wait();
+                    await _Scheduler.ScheduleJob(jobDetail, trigger);
 
                     //开始调度
-                    _Scheduler.StartDelayed(TimeSpan.FromMilliseconds(delay)).Wait();
+                    await _Scheduler.StartDelayed(TimeSpan.FromMilliseconds(delay));
                 }
                 else
                 {
-                    _Scheduler.ResumeJob(jobKey).Wait();
+                    await _Scheduler.ResumeJob(jobKey);
                 }
             }
 
@@ -253,12 +253,12 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         /// 暂停任务
         /// </summary>
         /// <param name="crontabId">定时任务Id</param>
-        public static void Pause(string crontabId)
+        public static async void Pause(string crontabId)
         {
             JobKey jobKey = new JobKey(crontabId);
             if (_Scheduler.CheckExists(jobKey).Result)
             {
-                _Scheduler.PauseJob(jobKey).Wait();
+                await _Scheduler.PauseJob(jobKey);
             }
             else
             {
@@ -283,12 +283,12 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         /// 恢复任务
         /// </summary>
         /// <param name="crontabId">定时任务Id</param>
-        public static void Resume(string crontabId)
+        public static async void Resume(string crontabId)
         {
             JobKey jobKey = new JobKey(crontabId);
             if (_Scheduler.CheckExists(jobKey).Result)
             {
-                _Scheduler.ResumeJob(jobKey).Wait();
+                await _Scheduler.ResumeJob(jobKey);
             }
             else
             {
@@ -327,12 +327,12 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         /// 删除任务
         /// </summary>
         /// <param name="crontab">定时任务</param>
-        public static void Remove<T>(T crontab) where T : class, ICrontab
+        public static async void Remove<T>(T crontab) where T : class, ICrontab
         {
             JobKey jobKey = new JobKey(crontab.Id);
             if (_Scheduler.CheckExists(jobKey).Result)
             {
-                _Scheduler.DeleteJob(jobKey).Wait();
+                await _Scheduler.DeleteJob(jobKey);
             }
 
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
@@ -347,12 +347,12 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         /// 删除任务
         /// </summary>
         /// <param name="crontabId">定时任务Id</param>
-        public static void Remove(string crontabId)
+        public static async void Remove(string crontabId)
         {
             JobKey jobKey = new JobKey(crontabId);
             if (_Scheduler.CheckExists(jobKey).Result)
             {
-                _Scheduler.DeleteJob(jobKey).Wait();
+                await _Scheduler.DeleteJob(jobKey);
             }
 
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
@@ -390,9 +390,9 @@ namespace SD.Infrastructure.CrontabBase.Mediators
         /// <summary>
         /// 清空任务
         /// </summary>
-        public static void Clear()
+        public static async void Clear()
         {
-            _Scheduler.Clear().Wait();
+            await _Scheduler.Clear();
 
             using (ICrontabStore crontabStore = ResolveMediator.ResolveOptional<ICrontabStore>())
             {

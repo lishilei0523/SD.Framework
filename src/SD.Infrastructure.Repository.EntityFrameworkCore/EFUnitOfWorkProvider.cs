@@ -1467,8 +1467,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="sql">SQL脚本</param>
         protected void RegisterSqlCommand(string sql)
         {
-            this._sqlCommandBuilder.Append(sql);
-            this._sqlCommandBuilder.Append(";");
+            this._sqlCommandBuilder.AppendLine($"{sql};");
         }
         #endregion
 
