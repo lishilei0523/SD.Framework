@@ -75,7 +75,6 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
                 lock (_Sync)
                 {
                     DbSessionBase dbContext = _CommandInstanceCall.Value;
-
                     if (dbContext == null || dbContext.Disposed)
                     {
                         dbContext = ResolveMediator.Resolve<DbSessionBase>();
@@ -100,13 +99,11 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Base
                 lock (_Sync)
                 {
                     DbSessionBase dbContext = _QueryInstanceCall.Value;
-
                     if (dbContext == null || dbContext.Disposed)
                     {
                         dbContext = ResolveMediator.Resolve<DbSessionBase>();
                         dbContext.Database.SetConnectionString(dbContext.ReadConnectionString);
                         dbContext.ChangeTracker.AutoDetectChangesEnabled = false;/*关闭自动跟踪实体变化状态*/
-
                         _QueryInstanceCall.Value = dbContext;
                     }
 
