@@ -26,15 +26,15 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.1'))">
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.19" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.20" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net6.0'))">
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.19" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.20" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net7.0'))">
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.8" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.9" />
   </ItemGroup>
 
   <ItemGroup>

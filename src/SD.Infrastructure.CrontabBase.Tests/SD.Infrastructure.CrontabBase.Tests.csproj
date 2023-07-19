@@ -18,8 +18,8 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.6.3" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.0.4" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.0.4" />
+    <PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
     <PackageReference Include="coverlet.collector" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -28,7 +28,7 @@
     <PackageReference Include="MrAdvice" Version="2.12.0" />
     <PackageReference Include="SD.Common" Version="3.1.6" />
     <PackageReference Include="SD.Toolkits.Redis" Version="2.1.1" />
-    <PackageReference Include="SD.IOC.Core" Version="2.2.0" />
+    <PackageReference Include="SD.IOC.Core" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>
