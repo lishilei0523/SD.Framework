@@ -759,7 +759,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 #if NETSTANDARD2_0
             dataReader.Close();
 #endif
-#if NETSTANDARD2_1
+#if NETSTANDARD2_1 || NETCOREAPP3_1_OR_GREATER
             await dataReader.CloseAsync();
 #endif
             //获取类型与属性列表
