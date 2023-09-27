@@ -6,9 +6,9 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WPF基础</Description>
     <Copyright>Copyright © SD 2023</Copyright>
-    <Version>1.2.0</Version>
-    <AssemblyVersion>1.2.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
+    <Version>1.2.1</Version>
+    <AssemblyVersion>1.2.1</AssemblyVersion>
+    <FileVersion>1.2.1.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,20 +17,4 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.WPF.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
-    <Reference Include="System.Drawing" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('netcoreapp3.1'))">
-    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net6.0-windows'))">
-    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net7.0-windows'))">
-    <PackageReference Include="System.Drawing.Common" Version="6.0.0" />
-  </ItemGroup>
 </Project>

@@ -52,7 +52,7 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <local:StretchableThumb DragDirection="MiddleCenter" Grid.RowSpan="3" Grid.ColumnSpan="3" Cursor="SizeAll" Style="{StaticResource AreaThumbStyle}" />
+            <local:StretchableThumb DragDirection="MiddleCenter" Style="{StaticResource AreaThumbStyle}" Grid.RowSpan="3" Grid.ColumnSpan="3" Cursor="SizeAll" />
             <local:StretchableThumb DragDirection="TopLeft" Style="{StaticResource CornerThumbStyle}" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Cursor="SizeNWSE" />
             <local:StretchableThumb DragDirection="TopCenter" Style="{StaticResource CornerThumbStyle}" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top" Cursor="SizeNS" />
             <local:StretchableThumb DragDirection="TopRight" Style="{StaticResource CornerThumbStyle}" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Cursor="SizeNESW" />

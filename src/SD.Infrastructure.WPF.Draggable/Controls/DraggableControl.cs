@@ -18,7 +18,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         static DraggableControl()
         {
-            TargetElementProperty = DependencyProperty.Register(nameof(TargetElement), typeof(FrameworkElement), typeof(DraggableControl), new FrameworkPropertyMetadata(default(FrameworkElement), DraggableControl.OnTargetElementChanged));
+            TargetElementProperty = DependencyProperty.Register(nameof(TargetElement), typeof(FrameworkElement), typeof(DraggableControl), new FrameworkPropertyMetadata(default(FrameworkElement), OnTargetElementChanged));
             IsSelectableProperty = DependencyProperty.RegisterAttached(nameof(IsSelectable), typeof(bool), typeof(DraggableControlBase), new PropertyMetadata(false));
             IsEditableProperty = DependencyProperty.RegisterAttached(nameof(IsEditable), typeof(bool), typeof(DraggableControlBase), new PropertyMetadata(false));
         }
