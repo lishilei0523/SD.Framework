@@ -48,8 +48,8 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public FrameworkElement TargetElement
         {
-            get { return (FrameworkElement)base.GetValue(TargetElementProperty); }
-            set { base.SetValue(TargetElementProperty, value); }
+            get => (FrameworkElement)base.GetValue(TargetElementProperty);
+            set => base.SetValue(TargetElementProperty, value);
         }
 
         #endregion 
@@ -66,8 +66,8 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public static DependencyProperty IsEditable
         {
-            get { return IsEditableProperty; }
-            set { IsEditableProperty = value; }
+            get => IsEditableProperty;
+            set => IsEditableProperty = value;
         }
 
         /// <summary>
@@ -100,8 +100,8 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public static DependencyProperty IsSelectable
         {
-            get { return IsSelectableProperty; }
-            set { IsSelectableProperty = value; }
+            get => IsSelectableProperty;
+            set => IsSelectableProperty = value;
         }
 
         /// <summary>
@@ -345,61 +345,61 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         }
         #endregion
 
-        #region 附加目标元素事件 —— void AttachTatgetEvents(FrameworkElement target)
+        #region 附加目标元素事件 —— void AttachTatgetEvents(FrameworkElement targetElement)
         /// <summary>
         /// 附加目标元素事件
         /// </summary>
-        /// <param name="target">目标元素</param>
-        private void AttachTatgetEvents(FrameworkElement target)
+        /// <param name="targetElement">目标元素</param>
+        private void AttachTatgetEvents(FrameworkElement targetElement)
         {
             #region # 验证
 
-            if (target == null)
+            if (targetElement == null)
             {
-                throw new ArgumentNullException(nameof(target));
+                throw new ArgumentNullException(nameof(targetElement));
             }
 
             #endregion
 
-            target.Focusable = true;
-            target.GotFocus += this.OnTargetElementGotFocus;
-            target.LostFocus += this.OnTargetElementLostFocus;
+            targetElement.Focusable = true;
+            targetElement.GotFocus += this.OnTargetElementGotFocus;
+            targetElement.LostFocus += this.OnTargetElementLostFocus;
 
             double thickness = 1.0;
-            if (target is Shape shape)
+            if (targetElement is Shape shape)
             {
                 thickness = shape.StrokeThickness;
             }
 
-            bool editable = GetIsEditable(target);
+            bool editable = GetIsEditable(targetElement);
             this.InitVisualProperties(thickness, editable);
         }
         #endregion
 
-        #region 脱离目标元素事件 —— void DetachTatgetEvents(FrameworkElement target)
+        #region 脱离目标元素事件 —— void DetachTatgetEvents(FrameworkElement targetElement)
         /// <summary>
         /// 脱离目标元素事件
         /// </summary>
-        /// <param name="target">目标元素</param>
-        private void DetachTatgetEvents(FrameworkElement target)
+        /// <param name="targetElement">目标元素</param>
+        private void DetachTatgetEvents(FrameworkElement targetElement)
         {
-            if (target != null)
+            if (targetElement != null)
             {
-                target.GotFocus -= this.OnTargetElementGotFocus;
-                target.LostFocus -= this.OnTargetElementLostFocus;
+                targetElement.GotFocus -= this.OnTargetElementGotFocus;
+                targetElement.LostFocus -= this.OnTargetElementLostFocus;
             }
         }
         #endregion
 
-        #region 检查目标是否可选择 —— bool CheckTargetIsSelectable(FrameworkElement target)
+        #region 检查目标是否可选择 —— bool CheckTargetIsSelectable(FrameworkElement targetElement)
         /// <summary>
         /// 检查目标是否可选择
         /// </summary>
-        /// <param name="target">目标元素</param>
+        /// <param name="targetElement">目标元素</param>
         /// <returns>是否可选择</returns>
-        private bool CheckTargetIsSelectable(FrameworkElement target)
+        private bool CheckTargetIsSelectable(FrameworkElement targetElement)
         {
-            return (target != null) && !target.Equals(this.Parent) && !target.Equals(this) && GetIsSelectable(target);
+            return (targetElement != null) && !targetElement.Equals(this.Parent) && !targetElement.Equals(this) && GetIsSelectable(targetElement);
         }
         #endregion 
 

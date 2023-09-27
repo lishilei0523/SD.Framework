@@ -64,8 +64,8 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public int CornerWidth
         {
-            get { return (int)base.GetValue(CornerWidthProperty); }
-            set { base.SetValue(CornerWidthProperty, value); }
+            get => (int)base.GetValue(CornerWidthProperty);
+            set => base.SetValue(CornerWidthProperty, value);
         }
 
         #endregion
@@ -86,8 +86,8 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public event DraggedEventHandler DragChanging
         {
-            add { this.AddHandler(DragChangingEvent, value); }
-            remove { this.RemoveHandler(DragChangingEvent, value); }
+            add => this.AddHandler(DragChangingEvent, value);
+            remove => this.RemoveHandler(DragChangingEvent, value);
         }
 
         #endregion
@@ -104,8 +104,8 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public event DraggedEventHandler DragCompleted
         {
-            add { this.AddHandler(DragCompletedEvent, value); }
-            remove { this.RemoveHandler(DragCompletedEvent, value); }
+            add => this.AddHandler(DragCompletedEvent, value);
+            remove => this.RemoveHandler(DragCompletedEvent, value);
         }
 
         #endregion
@@ -128,11 +128,11 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
 
         #region # 方法
 
-        #region 适用元素模板 —— sealed override void OnApplyTemplate()
+        #region 适用元素模板 —— override void OnApplyTemplate()
         /// <summary>
         /// 适用元素模板
         /// </summary>
-        public sealed override void OnApplyTemplate()
+        public override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
 
@@ -146,9 +146,9 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         }
         #endregion
 
-        #region 拖拽移动事件 —— void OnDragDelta(object sender, DragDeltaEventArgs eventArgs)
+        #region 拖拽移动回调方法 —— void OnDragDelta(object sender, DragDeltaEventArgs eventArgs)
         /// <summary>
-        /// 拖拽移动事件
+        /// 拖拽移动回调方法
         /// </summary>
         private void OnDragDelta(object sender, DragDeltaEventArgs eventArgs)
         {
@@ -180,9 +180,9 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         }
         #endregion
 
-        #region 拖拽完成事件 —— void OnDragCompleted(object sender, RoutedEventArgs eventArgs)
+        #region 拖拽完成回调方法 —— void OnDragCompleted(object sender, RoutedEventArgs eventArgs)
         /// <summary>
-        /// 拖拽完成事件
+        /// 拖拽完成回调方法
         /// </summary>
         private void OnDragCompleted(object sender, RoutedEventArgs eventArgs)
         {
@@ -367,75 +367,75 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         #endregion
 
 
-        #region 从顶端调整大小 —— static void ResizeFromTop(FrameworkElement parent, double oldTop...
+        #region 从顶端调整大小 —— static void ResizeFromTop(FrameworkElement parentElement, double oldTop...
         /// <summary>
         /// 从顶端调整大小
         /// </summary>
-        /// <param name="parent">上级元素</param>
+        /// <param name="parentElement">上级元素</param>
         /// <param name="oldTop">原顶端位置</param>
         /// <param name="oldHeight">原高度</param>
         /// <param name="verticalChange">垂直变化</param>
         /// <param name="newTop">新顶端位置</param>
         /// <param name="newHeight">新高度</param>
-        private static void ResizeFromTop(FrameworkElement parent, double oldTop, double oldHeight, double verticalChange, out double newTop, out double newHeight)
+        private static void ResizeFromTop(FrameworkElement parentElement, double oldTop, double oldHeight, double verticalChange, out double newTop, out double newHeight)
         {
             double top = oldTop + verticalChange;
-            newTop = (top + MinSize) > (oldHeight + oldTop)
+            newTop = top + MinSize > oldHeight + oldTop
                 ? oldHeight + oldTop - MinSize
                 : top;
             newTop = newTop < 0 ? 0 : newTop;
             newHeight = oldHeight + oldTop - newTop;
-            newHeight = CorrectHeight(parent, newTop, newHeight);
+            newHeight = CorrectHeight(parentElement, newTop, newHeight);
         }
         #endregion
 
-        #region 从左端调整大小 —— static void ResizeFromLeft(FrameworkElement parent, double oldLeft...
+        #region 从左端调整大小 —— static void ResizeFromLeft(FrameworkElement parentElement, double oldLeft...
         /// <summary>
         /// 从左端调整大小
         /// </summary>
-        /// <param name="parent">上级元素</param>
+        /// <param name="parentElement">上级元素</param>
         /// <param name="oldLeft">原左端位置</param>
         /// <param name="oldWidth">原宽度</param>
         /// <param name="horizontalChange">水平变化</param>
         /// <param name="newLeft">新左端位置</param>
         /// <param name="newWidth">新宽度</param>
-        private static void ResizeFromLeft(FrameworkElement parent, double oldLeft, double oldWidth, double horizontalChange, out double newLeft, out double newWidth)
+        private static void ResizeFromLeft(FrameworkElement parentElement, double oldLeft, double oldWidth, double horizontalChange, out double newLeft, out double newWidth)
         {
             double left = oldLeft + horizontalChange;
-            newLeft = (left + MinSize) > (oldWidth + oldLeft)
+            newLeft = left + MinSize > oldWidth + oldLeft
                 ? oldWidth + oldLeft - MinSize
                 : left;
             newLeft = newLeft < 0 ? 0 : newLeft;
             newWidth = oldWidth + oldLeft - newLeft;
-            newWidth = CorrectWidth(parent, newLeft, newWidth);
+            newWidth = CorrectWidth(parentElement, newLeft, newWidth);
         }
         #endregion
 
-        #region 从右端调整大小 —— static void ResizeFromRight(FrameworkElement parent, double oldLeft...
+        #region 从右端调整大小 —— static void ResizeFromRight(FrameworkElement parentElement, double oldLeft...
         /// <summary>
         /// 从右端调整大小
         /// </summary>
-        /// <param name="parent">上级元素</param>
+        /// <param name="parentElement">上级元素</param>
         /// <param name="oldLeft">原左端位置</param>
         /// <param name="oldWidth">原宽度</param>
         /// <param name="horizontalChange">水平变化</param>
         /// <param name="newWidth">新宽度</param>
-        private static void ResizeFromRight(FrameworkElement parent, double oldLeft, double oldWidth, double horizontalChange, out double newWidth)
+        private static void ResizeFromRight(FrameworkElement parentElement, double oldLeft, double oldWidth, double horizontalChange, out double newWidth)
         {
-            if (oldLeft + oldWidth + horizontalChange < parent.ActualWidth)
+            if (oldLeft + oldWidth + horizontalChange < parentElement.ActualWidth)
             {
                 newWidth = oldWidth + horizontalChange;
             }
             else
             {
-                newWidth = parent.ActualWidth - oldLeft;
+                newWidth = parentElement.ActualWidth - oldLeft;
             }
 
             newWidth = newWidth < 0 ? 0 : newWidth;
         }
         #endregion
 
-        #region 从底端调整大小 —— static void ResizeFromBottom(FrameworkElement parent, double oldTop...
+        #region 从底端调整大小 —— static void ResizeFromBottom(FrameworkElement parentElement, double oldTop...
         /// <summary>
         /// 从底端调整大小
         /// </summary>
@@ -459,7 +459,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         }
         #endregion
 
-        #region 修正顶端位置 —— static double CorrectTop(FrameworkElement parent, double top...
+        #region 修正顶端位置 —— static double CorrectTop(FrameworkElement parentElement, double top...
         /// <summary>
         /// 修正顶端位置
         /// </summary>
@@ -477,7 +477,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         }
         #endregion
 
-        #region 修正左端位置 —— static double CorrectLeft(FrameworkElement parent, double left...
+        #region 修正左端位置 —— static double CorrectLeft(FrameworkElement parentElement, double left...
         /// <summary>
         /// 修正左端位置
         /// </summary>
@@ -495,7 +495,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         }
         #endregion
 
-        #region 修正宽度 —— static double CorrectWidth(FrameworkElement parent, double left...
+        #region 修正宽度 —— static double CorrectWidth(FrameworkElement parentElement, double left...
         /// <summary>
         /// 修正宽度
         /// </summary>
@@ -513,7 +513,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         }
         #endregion
 
-        #region 修正高度 —— static double CorrectHeight(FrameworkElement parent, double top...
+        #region 修正高度 —— static double CorrectHeight(FrameworkElement parentElement, double top...
         /// <summary>
         /// 修正高度
         /// </summary>
