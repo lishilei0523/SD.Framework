@@ -13,6 +13,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Resource Include="Content\Images\Earth.jpg" />
     <Resource Include="Content\Images\Tumbler.jpg" />
   </ItemGroup>
 

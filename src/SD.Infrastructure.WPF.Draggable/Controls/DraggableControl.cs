@@ -210,8 +210,19 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         {
             FrameworkElement selectedElement = eventArgs.OriginalSource as FrameworkElement;
             this.TargetElement = this.CheckTargetIsSelectable(selectedElement) ? selectedElement : null;
-
-            selectedElement?.Focus();
+            if (selectedElement != null && selectedElement != this.Parent)
+            {
+                selectedElement.Focus();
+                this.Visibility = Visibility.Visible;
+            }
+            else if (selectedElement != null && selectedElement == this.Parent)
+            {
+                this.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                this.Visibility = Visibility.Collapsed;
+            }
         }
         #endregion
 
