@@ -1,6 +1,7 @@
-﻿using System.Windows.Controls.Primitives;
+﻿using SD.Infrastructure.WPF.Constants;
+using System.Windows.Controls.Primitives;
 
-namespace SD.Infrastructure.WPF.Draggable.Controls
+namespace SD.Infrastructure.WPF.Models
 {
     /// <summary>
     /// 可伸缩拖动控件

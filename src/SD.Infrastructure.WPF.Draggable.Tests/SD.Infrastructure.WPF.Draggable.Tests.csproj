@@ -18,6 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SD.Infrastructure.WPF.Draggable\SD.Infrastructure.WPF.Draggable.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.WPF\SD.Infrastructure.WPF.csproj" />
   </ItemGroup>
 </Project>

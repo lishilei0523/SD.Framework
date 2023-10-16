@@ -1,10 +1,11 @@
-﻿using System;
+﻿using SD.Infrastructure.WPF.Models;
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Shapes;
 
-namespace SD.Infrastructure.WPF.Draggable.Controls
+namespace SD.Infrastructure.WPF.CustomControls
 {
     /// <summary>
     /// 可拖拽控件
@@ -18,9 +19,9 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         static DraggableControl()
         {
-            TargetElementProperty = DependencyProperty.Register(nameof(TargetElement), typeof(FrameworkElement), typeof(DraggableControl), new FrameworkPropertyMetadata(default(FrameworkElement), OnTargetElementChanged));
-            IsSelectableProperty = DependencyProperty.RegisterAttached(nameof(IsSelectable), typeof(bool), typeof(DraggableControlBase), new PropertyMetadata(false));
-            IsEditableProperty = DependencyProperty.RegisterAttached(nameof(IsEditable), typeof(bool), typeof(DraggableControlBase), new PropertyMetadata(false));
+            DraggableControl.TargetElementProperty = DependencyProperty.Register(nameof(DraggableControl.TargetElement), typeof(FrameworkElement), typeof(DraggableControl), new FrameworkPropertyMetadata(default(FrameworkElement), DraggableControl.OnTargetElementChanged));
+            DraggableControl.IsSelectableProperty = DependencyProperty.RegisterAttached(nameof(DraggableControl.IsSelectable), typeof(bool), typeof(DraggableControlBase), new PropertyMetadata(false));
+            DraggableControl.IsEditableProperty = DependencyProperty.RegisterAttached(nameof(DraggableControl.IsEditable), typeof(bool), typeof(DraggableControlBase), new PropertyMetadata(false));
         }
 
         /// <summary>
@@ -48,8 +49,8 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public FrameworkElement TargetElement
         {
-            get => (FrameworkElement)base.GetValue(TargetElementProperty);
-            set => base.SetValue(TargetElementProperty, value);
+            get => (FrameworkElement)base.GetValue(DraggableControl.TargetElementProperty);
+            set => base.SetValue(DraggableControl.TargetElementProperty, value);
         }
 
         #endregion 
@@ -66,8 +67,8 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public static DependencyProperty IsEditable
         {
-            get => IsEditableProperty;
-            set => IsEditableProperty = value;
+            get => DraggableControl.IsEditableProperty;
+            set => DraggableControl.IsEditableProperty = value;
         }
 
         /// <summary>
@@ -75,7 +76,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public static bool GetIsEditable(DependencyObject dependencyObject)
         {
-            return (bool)dependencyObject.GetValue(IsEditableProperty);
+            return (bool)dependencyObject.GetValue(DraggableControl.IsEditableProperty);
         }
 
         /// <summary>
@@ -83,7 +84,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public static void SetIsEditable(DependencyObject dependencyObject, bool value)
         {
-            dependencyObject.SetValue(IsEditableProperty, value);
+            dependencyObject.SetValue(DraggableControl.IsEditableProperty, value);
         }
 
         #endregion
@@ -100,8 +101,8 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public static DependencyProperty IsSelectable
         {
-            get => IsSelectableProperty;
-            set => IsSelectableProperty = value;
+            get => DraggableControl.IsSelectableProperty;
+            set => DraggableControl.IsSelectableProperty = value;
         }
 
         /// <summary>
@@ -109,7 +110,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public static bool GetIsSelectable(DependencyObject dependencyObject)
         {
-            return (bool)dependencyObject.GetValue(IsSelectableProperty);
+            return (bool)dependencyObject.GetValue(DraggableControl.IsSelectableProperty);
         }
 
         /// <summary>
@@ -117,7 +118,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// </summary>
         public static void SetIsSelectable(DependencyObject dependencyObject, bool value)
         {
-            dependencyObject.SetValue(IsSelectableProperty, value);
+            dependencyObject.SetValue(DraggableControl.IsSelectableProperty, value);
         }
 
         #endregion
@@ -175,7 +176,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
                 newElement.RenderSize.IsEmpty ||
                 double.IsNaN(newElement.RenderSize.Width) ||
                 double.IsNaN(newElement.RenderSize.Height) ||
-                !GetIsSelectable(newElement))
+                !DraggableControl.GetIsSelectable(newElement))
             {
                 draggableControl.Visibility = Visibility.Collapsed;
                 return;
@@ -191,8 +192,8 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
                 Panel.SetZIndex(draggableControl, zIndex + 1);
             }
 
-            double x = CorrectDoubleValue(Canvas.GetLeft(newElement));
-            double y = CorrectDoubleValue(Canvas.GetTop(newElement));
+            double x = DraggableControlBase.CorrectDoubleValue(Canvas.GetLeft(newElement));
+            double y = DraggableControlBase.CorrectDoubleValue(Canvas.GetTop(newElement));
 
             Canvas.SetLeft(draggableControl, x);
             Canvas.SetTop(draggableControl, y);
@@ -258,7 +259,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// <returns>是否可编辑</returns>
         protected override bool GetTargetIsEditable()
         {
-            return GetIsEditable(this.TargetElement);
+            return DraggableControl.GetIsEditable(this.TargetElement);
         }
         #endregion
 
@@ -278,8 +279,8 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
 
             #endregion
 
-            double left = CorrectDoubleValue(Canvas.GetLeft(this.TargetElement));
-            double top = CorrectDoubleValue(Canvas.GetTop(this.TargetElement));
+            double left = DraggableControlBase.CorrectDoubleValue(Canvas.GetLeft(this.TargetElement));
+            double top = DraggableControlBase.CorrectDoubleValue(Canvas.GetTop(this.TargetElement));
 
             return new Rect(left, top, this.TargetElement.ActualWidth, this.TargetElement.ActualHeight);
         }
@@ -309,7 +310,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// <param name="newBound">新边界</param>
         protected override void RaiseDragChangingEvent(Rect newBound)
         {
-            DraggedEventArgs eventArgs = new DraggedEventArgs(DragChangingEvent, newBound, this.TargetElement);
+            DraggedEventArgs eventArgs = new DraggedEventArgs(DraggableControlBase.DragChangingEvent, newBound, this.TargetElement);
             base.RaiseEvent(eventArgs);
         }
         #endregion
@@ -321,7 +322,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// <param name="newBound">新边界</param>
         protected override void RaiseDragCompletedEvent(Rect newBound)
         {
-            DraggedEventArgs eventArgs = new DraggedEventArgs(DragCompletedEvent, newBound, this.TargetElement);
+            DraggedEventArgs eventArgs = new DraggedEventArgs(DraggableControlBase.DragCompletedEvent, newBound, this.TargetElement);
             base.RaiseEvent(eventArgs);
         }
         #endregion
@@ -382,7 +383,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
                 thickness = shape.StrokeThickness;
             }
 
-            bool editable = GetIsEditable(targetElement);
+            bool editable = DraggableControl.GetIsEditable(targetElement);
             this.InitVisualProperties(thickness, editable);
         }
         #endregion
@@ -410,7 +411,7 @@ namespace SD.Infrastructure.WPF.Draggable.Controls
         /// <returns>是否可选择</returns>
         private bool CheckTargetIsSelectable(FrameworkElement targetElement)
         {
-            return (targetElement != null) && !targetElement.Equals(this.Parent) && !targetElement.Equals(this) && GetIsSelectable(targetElement);
+            return (targetElement != null) && !targetElement.Equals(this.Parent) && !targetElement.Equals(this) && DraggableControl.GetIsSelectable(targetElement);
         }
         #endregion 
 

@@ -1,4 +1,4 @@
-﻿namespace SD.Infrastructure.WPF.Draggable.Controls
+﻿namespace SD.Infrastructure.WPF.Constants
 {
     /// <summary>
     /// 拖拽方向

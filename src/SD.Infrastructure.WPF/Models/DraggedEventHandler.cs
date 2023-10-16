@@ -1,4 +1,4 @@
-﻿namespace SD.Infrastructure.WPF.Draggable.Controls
+﻿namespace SD.Infrastructure.WPF.Models
 {
     /// <summary>
     /// 拖拽事件处理器
