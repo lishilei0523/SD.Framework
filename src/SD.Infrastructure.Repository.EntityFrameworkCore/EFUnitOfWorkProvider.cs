@@ -338,17 +338,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            #region # 设置操作人信息
-
-            if (GetLoginInfo != null)
-            {
-                LoginInfo loginInfo = GetLoginInfo.Invoke();
-                entity.OperatorAccount = loginInfo?.LoginId;
-                entity.OperatorName = loginInfo?.RealName;
-            }
-
-            #endregion
-
+            LoginInfo loginInfo = GetLoginInfo?.Invoke();
+            entity.OperatorAccount = loginInfo?.LoginId;
+            entity.OperatorName = loginInfo?.RealName;
             entity.SavedTime = DateTime.Now;
             EntityEntry entry = this._dbContext.Entry<T>(entity);
             entry.State = EntityState.Modified;
@@ -373,19 +365,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            LoginInfo loginInfo = null;
-
-            #region # 获取操作人信息
-
-            if (GetLoginInfo != null)
-            {
-                loginInfo = GetLoginInfo.Invoke();
-            }
-
-            #endregion
-
+            LoginInfo loginInfo = GetLoginInfo?.Invoke();
             DateTime savedTime = DateTime.Now;
-
             foreach (T entity in entities)
             {
                 entity.OperatorAccount = loginInfo?.LoginId;
@@ -490,12 +471,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            IEnumerable<T> entities = this.ResolveRange<T>(ids);
-
-            foreach (T entity in entities)
-            {
-                this._dbContext.Set<T>().Remove(entity);
-            }
+            ICollection<T> entities = this.ResolveRange<T>(ids);
+            this._dbContext.Set<T>().RemoveRange(entities);
         }
         #endregion
 
@@ -740,9 +717,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         {
             #region # 验证
 
-            Guid[] entityIds = ids?.ToArray() ?? Array.Empty<Guid>();
-
-            if (!entityIds.Any())
+            ids = ids?.ToArray() ?? Array.Empty<Guid>();
+            if (!ids.Any())
             {
                 throw new ArgumentNullException(nameof(ids), $"要删除的{typeof(T).Name}的Id集不可为空！");
             }
@@ -750,6 +726,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             #endregion
 
             LoginInfo loginInfo = null;
+            DateTime deletedTime = DateTime.Now;
 
             #region # 获取操作人信息
 
@@ -760,9 +737,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
 
             #endregion
 
-            IQueryable<T> entities = this.ResolveRange<T>(x => entityIds.Contains(x.Id));
-            DateTime deletedTime = DateTime.Now;
-
+            ICollection<T> entities = this.ResolveRange<T>(ids);
             foreach (T entity in entities)
             {
                 entity.OperatorAccount = loginInfo?.LoginId;
