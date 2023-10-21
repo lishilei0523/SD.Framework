@@ -39,7 +39,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="SD.Common" Version="3.1.6" />
-    <PackageReference Include="SD.IOC.Core" Version="2.2.2" />
+    <PackageReference Include="SD.IOC.Core" Version="2.2.3" />
     <PackageReference Include="SD.IOC.Extension.NetCore" Version="1.2.0" />
   </ItemGroup>
 

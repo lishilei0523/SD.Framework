@@ -20,7 +20,7 @@
   <ItemGroup>
     <PackageReference Include="Quartz" Version="3.7.0" />
     <PackageReference Include="MrAdvice" Version="2.12.0" />
-    <PackageReference Include="SD.IOC.Core" Version="2.2.2" />
+    <PackageReference Include="SD.IOC.Core" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
