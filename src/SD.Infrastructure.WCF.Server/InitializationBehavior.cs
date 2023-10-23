@@ -49,14 +49,15 @@ namespace SD.Infrastructure.WCF.Server
         {
             if (!_Initialized)
             {
+#if NET40_OR_GREATER
                 //初始化SessionId
                 Initializer.InitSessionId();
-
+#endif
                 //初始化数据库
                 Initializer.InitDataBase();
 
                 //注册事件
-                ServiceInstanceProvider.OnGetInstance += InstanceProvider_OnGetInstance;
+                ServiceInstanceProvider.OnGetInstance += OnGetInstance;
 
                 //初始化完毕
                 Initialize();
@@ -66,10 +67,12 @@ namespace SD.Infrastructure.WCF.Server
         /// <summary>
         /// 获取服务实例事件
         /// </summary>
-        private static void InstanceProvider_OnGetInstance(InstanceContext instanceContext)
+        private static void OnGetInstance(InstanceContext instanceContext)
         {
+#if NET40_OR_GREATER
             //初始化SessionId
             Initializer.InitSessionId();
+#endif
         }
 
 
