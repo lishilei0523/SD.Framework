@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
-    <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.2.1" />
+    <PackageReference Include="SD.IOC.Extension.NetFramework" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net6.0'))">

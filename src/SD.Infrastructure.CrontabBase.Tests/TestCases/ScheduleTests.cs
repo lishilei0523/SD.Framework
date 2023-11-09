@@ -9,7 +9,7 @@ using System.IO;
 using System.Threading;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 #if NET45_OR_GREATER
-using SD.IOC.Extension.NetFx;
+using SD.IOC.Extension.NetFramework;
 #endif
 #if NETCOREAPP3_1_OR_GREATER
 using SD.Common;
@@ -46,7 +46,6 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             {
                 IServiceCollection builder = ResolveMediator.GetServiceCollection();
                 builder.RegisterConfigs();
-
                 ResolveMediator.Build();
             }
 

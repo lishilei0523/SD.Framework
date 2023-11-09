@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;net48</TargetFrameworks>
+    <TargetFramework>net462</TargetFramework>
     <OutputType>Exe</OutputType>
     <Authors>Lee</Authors>
     <Company>SD</Company>
@@ -9,7 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="SD.IOC.Core" Version="2.2.3" />
-    <PackageReference Include="SD.IOC.Extension.NetFx" Version="1.2.1" />
+    <PackageReference Include="SD.IOC.Extension.NetFramework" Version="1.2.1" />
   </ItemGroup>
 
   <ItemGroup>
