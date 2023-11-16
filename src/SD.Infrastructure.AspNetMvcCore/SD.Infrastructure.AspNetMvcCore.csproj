@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="SD.Toolkits.OwinCore" Version="1.1.0" />
-    <PackageReference Include="SD.Toolkits.Drawing" Version="1.0.1" />
+    <PackageReference Include="SD.Toolkits.Drawing" Version="1.0.2" />
   </ItemGroup>
 
   <ItemGroup>
