@@ -26,6 +26,16 @@ namespace SD.Infrastructure.WPF.CustomControls
         private const double MinSize = 10;
 
         /// <summary>
+        /// 是否拖拽中
+        /// </summary>
+        private bool _isDraging;
+
+        /// <summary>
+        /// 原边界
+        /// </summary>
+        private Rect _oldBound;
+
+        /// <summary>
         /// 主窗格
         /// </summary>
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
@@ -168,14 +178,23 @@ namespace SD.Infrastructure.WPF.CustomControls
 
             #endregion
 
+            Rect targetActualBound = this.GetTargetActualBound();
+
+            if (!this._isDraging)
+            {
+                this._oldBound = targetActualBound;
+                this._isDraging = true;
+            }
+
             double verticalChange = eventArgs.VerticalChange;
             double horizontalChange = eventArgs.HorizontalChange;
 
-            Rect newBound = stretchableThumb.DragDirection == DragDirection.MiddleCenter
-                ? this.DragElement(horizontalChange, verticalChange)
-                : this.ResizeElement(stretchableThumb, horizontalChange, verticalChange);
+            DragMode dragMode = this.GetDragMode(stretchableThumb.DragDirection);
+            Rect newBound = dragMode == DragMode.Move
+                ? this.DragElement(targetActualBound, horizontalChange, verticalChange)
+                : this.ResizeElement(targetActualBound, stretchableThumb, horizontalChange, verticalChange);
 
-            this.RaiseDragChangingEvent(newBound);
+            this.RaiseDragChangingEvent(targetActualBound, newBound, dragMode, stretchableThumb.DragDirection);
             this.SetTargetActualBound(newBound);
 
             eventArgs.Handled = true;
@@ -188,6 +207,16 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         private void OnDragCompleted(object sender, RoutedEventArgs eventArgs)
         {
+            #region # 验证
+
+            if (!(eventArgs.OriginalSource is StretchableThumb stretchableThumb))
+            {
+                return;
+            }
+
+            #endregion
+
+            this._isDraging = false;
             Rect newBound = new Rect
             {
                 Y = Canvas.GetTop(this),
@@ -195,8 +224,8 @@ namespace SD.Infrastructure.WPF.CustomControls
                 Width = this.ActualWidth,
                 Height = this.ActualHeight
             };
-
-            this.RaiseDragCompletedEvent(newBound);
+            DragMode dragMode = this.GetDragMode(stretchableThumb.DragDirection);
+            this.RaiseDragCompletedEvent(this._oldBound, newBound, dragMode, stretchableThumb.DragDirection);
 
             eventArgs.Handled = true;
         }
@@ -256,33 +285,55 @@ namespace SD.Infrastructure.WPF.CustomControls
         protected abstract void SetTargetActualBound(Rect newBound);
         #endregion
 
-        #region 挂起拖拽改变事件 —— abstract void RaiseDragChangingEvent(Rect newBound)
+        #region 挂起拖拽改变事件 —— abstract void RaiseDragChangingEvent(Rect oldBound...
         /// <summary>
         /// 挂起拖拽改变事件
         /// </summary>
+        /// <param name="oldBound">原边界</param>
         /// <param name="newBound">新边界</param>
-        protected abstract void RaiseDragChangingEvent(Rect newBound);
+        /// <param name="dragMode">拖拽模式</param>
+        /// <param name="dragDirection">拖拽方向</param>
+        protected abstract void RaiseDragChangingEvent(Rect oldBound, Rect newBound, DragMode dragMode, DragDirection dragDirection);
         #endregion
 
-        #region 挂起拖拽完成事件 —— abstract void RaiseDragCompletedEvent(Rect newBound)
+        #region 挂起拖拽完成事件 —— abstract void RaiseDragCompletedEvent(Rect oldBound...
         /// <summary>
         /// 挂起拖拽完成事件
         /// </summary>
+        /// <param name="oldBound">原边界</param>
         /// <param name="newBound">新边界</param>
-        protected abstract void RaiseDragCompletedEvent(Rect newBound);
+        /// <param name="dragMode">拖拽模式</param>
+        /// <param name="dragDirection">拖拽方向</param>
+        protected abstract void RaiseDragCompletedEvent(Rect oldBound, Rect newBound, DragMode dragMode, DragDirection dragDirection);
         #endregion
 
+
+        #region 获取拖拽模式 —— DragMode GetDragMode(DragDirection dragDirection)
+        /// <summary>
+        /// 获取拖拽模式
+        /// </summary>
+        /// <param name="dragDirection">拖拽方向</param>
+        /// <returns>拖拽模式</returns>
+        private DragMode GetDragMode(DragDirection dragDirection)
+        {
+            DragMode dragMode = dragDirection == DragDirection.MiddleCenter
+                ? DragMode.Move
+                : DragMode.Resize;
+
+            return dragMode;
+        }
+        #endregion
 
         #region 拖拽元素 —— Rect DragElement(double horizontalChange, double verticalChange)
         /// <summary>
         /// 拖拽元素
         /// </summary>
+        /// <param name="targetActualBound">目标实际边界</param>
         /// <param name="horizontalChange">水平变化</param>
         /// <param name="verticalChange">垂直变化</param>
         /// <returns>新边界</returns>
-        private Rect DragElement(double horizontalChange, double verticalChange)
+        private Rect DragElement(Rect targetActualBound, double horizontalChange, double verticalChange)
         {
-            Rect targetActualBound = this.GetTargetActualBound();
 
             double oldTop = CorrectDoubleValue(targetActualBound.Y);
             double oldLeft = CorrectDoubleValue(targetActualBound.X);
@@ -305,11 +356,12 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 调整元素大小
         /// </summary>
+        /// <param name="targetActualBound">目标实际边界</param>
         /// <param name="hitedThumb">选中可伸缩拖动控件</param>
         /// <param name="horizontalChange">水平变化</param>
         /// <param name="verticalChange">垂直变化</param>
         /// <returns>新边界</returns>
-        private Rect ResizeElement(StretchableThumb hitedThumb, double horizontalChange, double verticalChange)
+        private Rect ResizeElement(Rect targetActualBound, StretchableThumb hitedThumb, double horizontalChange, double verticalChange)
         {
             #region # 验证
 
@@ -319,8 +371,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             }
 
             #endregion
-
-            Rect targetActualBound = this.GetTargetActualBound();
 
             double oldTop = CorrectDoubleValue(targetActualBound.Y);
             double oldLeft = CorrectDoubleValue(targetActualBound.X);
@@ -448,13 +498,13 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <param name="newHeight">新高度</param>
         private static void ResizeFromBottom(FrameworkElement parent, double oldTop, double oldHeight, double verticalChange, out double newHeight)
         {
-            if (oldTop + oldHeight + verticalChange < parent.ActualWidth)
+            if (oldTop + oldHeight + verticalChange < parent.ActualHeight)
             {
                 newHeight = oldHeight + verticalChange;
             }
             else
             {
-                newHeight = parent.ActualWidth - oldTop;
+                newHeight = parent.ActualHeight - oldTop;
             }
 
             newHeight = newHeight < 0 ? 0 : newHeight;
