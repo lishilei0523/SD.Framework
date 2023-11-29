@@ -3,9 +3,9 @@
 namespace SD.Infrastructure.Shapes
 {
     /// <summary>
-    /// 矩形
+    /// 椭圆形
     /// </summary>
-    public class RectangleL : ShapeL
+    public class EllipseL : ShapeL
     {
         #region # 构造器
 
@@ -13,18 +13,18 @@ namespace SD.Infrastructure.Shapes
         /// <summary>
         /// 无参构造器
         /// </summary>
-        public RectangleL() { }
+        public EllipseL() { }
         #endregion
 
-        #region 01.创建矩形构造器
+        #region 01.创建椭圆形构造器
         /// <summary>
-        /// 创建矩形构造器
+        /// 创建椭圆形构造器
         /// </summary>
         /// <param name="x">顶点横坐标值</param>
         /// <param name="y">顶点纵坐标值</param>
         /// <param name="width">宽度</param>
         /// <param name="height">高度</param>
-        public RectangleL(int x, int y, int width, int height)
+        public EllipseL(int x, int y, int width, int height)
             : this()
         {
             this.X = x;
@@ -110,13 +110,13 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
-        #region 只读属性 - 空矩形 —— static RectangleL Empty
+        #region 只读属性 - 空椭圆形 —— static EllipseL Empty
         /// <summary>
-        /// 只读属性 - 空矩形
+        /// 只读属性 - 空椭圆形
         /// </summary>
-        public static RectangleL Empty
+        public static EllipseL Empty
         {
-            get => new RectangleL(0, 0, 0, 0);
+            get => new EllipseL(0, 0, 0, 0);
         }
         #endregion
 
@@ -130,9 +130,9 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override bool Equals(object instance)
         {
-            if (instance is RectangleL rectangle)
+            if (instance is EllipseL ellipse)
             {
-                return rectangle == this;
+                return ellipse == this;
             }
 
             return false;
@@ -156,29 +156,20 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override string ToString()
         {
-            double ax = this.TopLeft.X;
-            double ay = this.TopLeft.Y;
-            double bx = this.BottomLeft.X;
-            double by = this.BottomLeft.Y;
-            double cx = this.BottomRight.X;
-            double cy = this.BottomRight.Y;
-            double dx = this.TopRight.X;
-            double dy = this.TopRight.Y;
-
-            string locationPoints = $"A({ax},{ay}), B({bx},{by}), C({cx},{cy}), D({dx},{dy})";
+            string locationPoints = $"Ø({this.X},{this.Y})|{this.Width}*{this.Height}";
 
             return locationPoints;
         }
         #endregion
 
-        #region 比较两个矩形是否相等 —— static bool operator ==(RectangleL source, RectangleL target)
+        #region 比较两个椭圆形是否相等 —— static bool operator ==(EllipseL source, EllipseL target)
         /// <summary>
-        /// 比较两个矩形是否相等
+        /// 比较两个椭圆形是否相等
         /// </summary>
-        /// <param name="source">源矩形</param>
-        /// <param name="target">目标矩形</param>
+        /// <param name="source">源椭圆形</param>
+        /// <param name="target">目标椭圆形</param>
         /// <returns>是否相等</returns>
-        public static bool operator ==(RectangleL source, RectangleL target)
+        public static bool operator ==(EllipseL source, EllipseL target)
         {
             if (source is null && target is null)
             {
@@ -200,14 +191,14 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
-        #region 比较两个矩形是否不等 —— static bool operator !=(RectangleL source, RectangleL target)
+        #region 比较两个椭圆形是否不等 —— static bool operator !=(EllipseL source, EllipseL target)
         /// <summary>
-        /// 比较两个矩形是否不等
+        /// 比较两个椭圆形是否不等
         /// </summary>
-        /// <param name="source">源矩形</param>
-        /// <param name="target">目标矩形</param>
+        /// <param name="source">源椭圆形</param>
+        /// <param name="target">目标椭圆形</param>
         /// <returns>是否不等</returns>
-        public static bool operator !=(RectangleL source, RectangleL target)
+        public static bool operator !=(EllipseL source, EllipseL target)
         {
             return !(source == target);
         }
