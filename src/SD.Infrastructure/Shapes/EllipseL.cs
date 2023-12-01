@@ -34,6 +34,22 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
+        #region 02.创建椭圆形构造器
+        /// <summary>
+        /// 创建椭圆形构造器
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="x">顶点横坐标值</param>
+        /// <param name="y">顶点纵坐标值</param>
+        /// <param name="width">宽度</param>
+        /// <param name="height">高度</param>
+        public EllipseL(string name, int x, int y, int width, int height)
+            : this(x, y, width, height)
+        {
+            base.Name = name;
+        }
+        #endregion
+
         #endregion
 
         #region # 属性

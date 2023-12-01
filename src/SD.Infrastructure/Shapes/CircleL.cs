@@ -32,6 +32,21 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion 
 
+        #region 02.创建圆形构造器
+        /// <summary>
+        /// 创建圆形构造器
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="x">圆心横坐标值</param>
+        /// <param name="y">圆心纵坐标值</param>
+        /// <param name="radius">半径</param>
+        public CircleL(string name, int x, int y, int radius)
+            : this(x, y, radius)
+        {
+            base.Name = name;
+        }
+        #endregion 
+
         #endregion
 
         #region # 属性

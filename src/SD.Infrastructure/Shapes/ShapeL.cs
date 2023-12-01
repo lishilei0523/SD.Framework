@@ -27,6 +27,13 @@ namespace SD.Infrastructure.Shapes
 
         #region # 属性
 
+        #region 名称 —— string Name
+        /// <summary>
+        /// 名称
+        /// </summary>
+        public string Name { get; set; }
+        #endregion
+
         #region 层次索引 —— int ZIndex
         /// <summary>
         /// 层次索引

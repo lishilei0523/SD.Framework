@@ -33,6 +33,21 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
+        #region 02.创建三角形构造器
+        /// <summary>
+        /// 创建三角形构造器
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="vertexA">顶点A</param>
+        /// <param name="vertexB">顶点B</param>
+        /// <param name="vertexC">顶点C</param>
+        public TriangleL(string name, Point vertexA, Point vertexB, Point vertexC)
+            : this(vertexA, vertexB, vertexC)
+        {
+            base.Name = name;
+        }
+        #endregion
+
         #endregion
 
         #region # 属性

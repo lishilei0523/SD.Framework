@@ -39,6 +39,19 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
+        #region 02.创建多边形构造器
+        /// <summary>
+        /// 创建多边形构造器
+        /// </summary>
+        /// <param name="name">名称</param>
+        /// <param name="points">点坐标集</param>
+        public PolygonL(string name, IEnumerable<Point> points)
+            : this(points)
+        {
+            base.Name = name;
+        }
+        #endregion
+
         #endregion
 
         #region # 属性
