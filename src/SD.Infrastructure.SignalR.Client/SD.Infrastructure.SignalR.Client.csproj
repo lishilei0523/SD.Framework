@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net461;net462;netstandard2.0;netstandard2.1</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - ASP.NET Core SignalR客户端基础</Description>
@@ -21,20 +21,16 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.32" />
   </ItemGroup>
 
+  <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.25" />
+  </ItemGroup>
+
   <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="3.1.32" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.25" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.1'))">
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.20" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net6.0'))">
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="6.0.20" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net7.0'))">
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>

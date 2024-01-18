@@ -18,8 +18,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Quartz" Version="3.7.0" />
-    <PackageReference Include="MrAdvice" Version="2.12.0" />
+    <PackageReference Include="Quartz" Version="3.8.0" />
+    <PackageReference Include="MrAdvice" Version="2.14.0" />
     <PackageReference Include="SD.IOC.Core" Version="2.2.3" />
   </ItemGroup>
 

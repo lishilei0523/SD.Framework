@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;netstandard2.1;net6.0;net8.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <Authors>Lee</Authors>
     <Company>SD</Company>
@@ -27,11 +27,11 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net6.0'))">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.20" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="6.0.25" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Equals('net7.0'))">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.10" />
+  <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>

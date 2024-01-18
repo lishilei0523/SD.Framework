@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>net40;net45;net461;net462;netcoreapp3.1;net6.0-windows;net7.0-windows</TargetFrameworks>
+    <TargetFrameworks>net40;net45;net461;net462;netcoreapp3.1;net6.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <Authors>Lee</Authors>
     <Company>SD</Company>
@@ -30,27 +30,22 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net461'))">
-    <PackageReference Include="MrAdvice" Version="2.12.0" />
+    <PackageReference Include="MrAdvice" Version="2.14.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
-    <PackageReference Include="MrAdvice" Version="2.12.0" />
+    <PackageReference Include="MrAdvice" Version="2.14.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('netcoreapp3.1'))">
-    <PackageReference Include="MrAdvice" Version="2.12.0" />
+    <PackageReference Include="MrAdvice" Version="2.14.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net6.0-windows'))">
-    <PackageReference Include="MrAdvice" Version="2.12.0" />
-    <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net7.0-windows'))">
-    <PackageReference Include="MrAdvice" Version="2.12.0" />
+    <PackageReference Include="MrAdvice" Version="2.14.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
   </ItemGroup>
 
