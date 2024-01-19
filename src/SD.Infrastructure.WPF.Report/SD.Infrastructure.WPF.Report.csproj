@@ -30,11 +30,11 @@
 
   <ItemGroup Condition="$(TargetFramework.Equals('net45'))">
     <PackageReference Include="Microsoft.SqlServer.Types" Version="14.0.1016.290" />
-    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1586.0" />
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1620.0" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
     <PackageReference Include="Microsoft.SqlServer.Types" Version="160.1000.6" />
-    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1586.0" />
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1620.0" />
   </ItemGroup>
 </Project>

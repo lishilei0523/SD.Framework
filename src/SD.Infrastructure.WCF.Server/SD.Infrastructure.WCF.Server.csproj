@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;net461;net462;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net45;net462;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WCF服务端基础</Description>
@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.2.2" />
+    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>

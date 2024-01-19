@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net462;netcoreapp3.1;net6.0</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0;net8.0</TargetFrameworks>
     <IsPackable>false</IsPackable>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Copyright>Copyright © SD 2024</Copyright>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Equals('netcoreapp3.1')) Or $(TargetFramework.Equals('net6.0'))">
+  <ItemGroup Condition="$(TargetFramework.Equals('net6.0')) Or $(TargetFramework.Equals('net8.0'))">
     <EmbeddedResource Include="App.config" />
   </ItemGroup>
 
@@ -19,7 +19,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SD.Common" Version="3.2.0" />
+    <PackageReference Include="SD.Common" Version="3.2.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
   <PropertyGroup>
-    <TargetFrameworks>net40;net45;net461;net462;netcoreapp3.1;net6.0-windows</TargetFrameworks>
+    <TargetFrameworks>net40;net45;net462;netcoreapp3.1;net6.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <Authors>Lee</Authors>
     <Company>SD</Company>
@@ -27,11 +27,6 @@
   <ItemGroup Condition="$(TargetFramework.Equals('net45'))">
     <PackageReference Include="MrAdvice" Version="2.9.9" />
     <PackageReference Include="Caliburn.Micro" Version="3.2.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net461'))">
-    <PackageReference Include="MrAdvice" Version="2.14.0" />
-    <PackageReference Include="Caliburn.Micro" Version="4.0.173" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
