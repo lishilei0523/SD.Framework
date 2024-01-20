@@ -12,17 +12,21 @@ using SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Base;
 namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Migrations
 {
     [DbContext(typeof(DbSession))]
-    [Migration("20230512075946_v1.0.0")]
+    [Migration("20240120124332_v1.0.0")]
     partial class v100
     {
+        /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.15")
+                .HasAnnotation("ProductVersion", "7.0.15")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Entities.Order", b =>
                 {

@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Common;
 using SD.Infrastructure.Constants;
 using SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Base;
@@ -39,7 +38,6 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
         public void TestCreate()
         {
             using DbSession dbSession = new DbSession();
-            dbSession.Database.Migrate();
             User user = new User(CommonConstants.AdminLoginId, "超级管理员", CommonConstants.InitialPassword, Guid.NewGuid().ToString(), 18);
 
             dbSession.Set<User>().Add(user);

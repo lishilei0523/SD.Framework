@@ -49,10 +49,9 @@ namespace SD.Infrastructure.WCF.Server
         {
             if (!_Initialized)
             {
-#if NET40_OR_GREATER
                 //初始化SessionId
                 Initializer.InitSessionId();
-#endif
+
                 //初始化数据库
                 Initializer.InitDataBase();
 
@@ -69,10 +68,8 @@ namespace SD.Infrastructure.WCF.Server
         /// </summary>
         private static void OnGetInstance(InstanceContext instanceContext)
         {
-#if NET40_OR_GREATER
             //初始化SessionId
             Initializer.InitSessionId();
-#endif
         }
 
 

@@ -5,8 +5,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Migrations
 {
+    /// <inheritdoc />
     public partial class v100 : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
@@ -94,6 +96,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.Migrations
                 filter: "[PrivateKey] IS NOT NULL");
         }
 
+        /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(

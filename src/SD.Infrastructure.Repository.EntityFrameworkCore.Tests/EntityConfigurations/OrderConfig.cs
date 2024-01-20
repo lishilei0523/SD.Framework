@@ -16,11 +16,9 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.EntityConfigura
         {
             //配置属性
             builder.HasKey(order => order.Id).IsClustered(false);
-
-            //设置编号长度
             builder.Property(order => order.Number).HasMaxLength(32);
 
-            //设置索引
+            //配置索引
             builder.HasIndex(order => order.AddedTime).IsUnique(false).IsClustered().HasDatabaseName("IX_AddedTime");
             builder.HasIndex(order => order.Number).IsUnique().Metadata.SetDatabaseName("IX_Number");
         }

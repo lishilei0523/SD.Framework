@@ -7,7 +7,7 @@ using System.Diagnostics;
 namespace SD.Infrastructure.AspNetCore.Tests.Controllers
 {
     /// <summary>
-    /// 订单控制器
+    /// 订单服务WebApi接口
     /// </summary>
     [ApiController]
     [Route("Api/[controller]/[action]")]
@@ -35,6 +35,7 @@ namespace SD.Infrastructure.AspNetCore.Tests.Controllers
         {
             Trace.WriteLine($"当前会话Id：\"{GlobalSetting.CurrentSessionId}\"");
             Console.WriteLine($"当前会话Id：\"{GlobalSetting.CurrentSessionId}\"");
+
             return this._productContract.GetProducts();
         }
     }

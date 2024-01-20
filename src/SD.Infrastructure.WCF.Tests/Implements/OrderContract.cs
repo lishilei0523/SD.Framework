@@ -39,6 +39,7 @@ namespace SD.Infrastructure.WCF.Tests.Implements
         {
             Trace.WriteLine($"当前会话Id：\"{GlobalSetting.CurrentSessionId}\"");
             Console.WriteLine($"当前会话Id：\"{GlobalSetting.CurrentSessionId}\"");
+
             return this._productContract.GetProducts();
         }
     }

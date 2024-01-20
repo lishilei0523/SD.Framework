@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Common;
@@ -67,7 +67,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
         /// 测试注册SQL命令
         /// </summary>
         [TestMethod]
-        public async void TestRegisterSqlCommand()
+        public void TestRegisterSqlCommand()
         {
             Order order1 = new Order($"SL1-{DateTime.Now:yyyyMMddHHmmss}", $"销售订单1-{DateTime.Now:yyyyMMddHHmmss}");
 
@@ -79,7 +79,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
 
             this._unitOfWork.RegisterAdd(order2);
             this._unitOfWork.RegisterAddOrderBySql($"测试订单2-{DateTime.Now:yyyyMMddHHmmss}");
-            await this._unitOfWork.CommitAsync();
+            this._unitOfWork.Commit();
         }
         #endregion
 
@@ -88,7 +88,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
         /// 测试注册SQL命令异常
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(DbUpdateException))]
+        [ExpectedException(typeof(SqlException))]
         public void TestRegisterSqlCommandException()
         {
             Order order = new Order("TESTSQL", $"销售订单-{DateTime.Now:yyyyMMddHHmmss}");
