@@ -5,9 +5,9 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - AOP基础</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>2.1.2</Version>
-    <AssemblyVersion>2.1.2</AssemblyVersion>
-    <FileVersion>2.1.2.0</FileVersion>
+    <Version>2.2.0</Version>
+    <AssemblyVersion>2.2.0</AssemblyVersion>
+    <FileVersion>2.2.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -28,9 +28,5 @@
   <ItemGroup>
     <PackageReference Include="SD.Toolkits.Json" Version="1.0.3" />
     <PackageReference Include="SD.AOP.Core" Version="2.3.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
   </ItemGroup>
 </Project>

@@ -22,5 +22,16 @@ namespace SD.Infrastructure.CustomExceptions
         {
 
         }
+
+        /// <summary>
+        /// 构造器
+        /// </summary>
+        /// <param name="message">异常消息</param>
+        /// <param name="innerException">内部异常</param>
+        public NoPermissionException(string message, Exception innerException)
+            : base(message, innerException)
+        {
+
+        }
     }
 }

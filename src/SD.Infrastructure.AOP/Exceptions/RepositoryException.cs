@@ -1,23 +1,23 @@
 ﻿using System;
 
-namespace SD.Infrastructure.CustomExceptions
+namespace SD.Infrastructure.AOP.Exceptions
 {
     /// <summary>
-    /// 领域层异常
+    /// 仓储层异常
     /// </summary>
     [Serializable]
-    public class DomainException : ApplicationException
+    public class RepositoryException : ApplicationException
     {
         /// <summary>
         /// 无参构造器
         /// </summary>
-        public DomainException() { }
+        public RepositoryException() { }
 
         /// <summary>
         /// 构造器
         /// </summary>
         /// <param name="message">异常消息</param>
-        public DomainException(string message)
+        public RepositoryException(string message)
             : base(message)
         {
 
@@ -28,7 +28,7 @@ namespace SD.Infrastructure.CustomExceptions
         /// </summary>
         /// <param name="message">异常消息</param>
         /// <param name="innerException">内部异常</param>
-        public DomainException(string message, Exception innerException)
+        public RepositoryException(string message, Exception innerException)
             : base(message, innerException)
         {
 

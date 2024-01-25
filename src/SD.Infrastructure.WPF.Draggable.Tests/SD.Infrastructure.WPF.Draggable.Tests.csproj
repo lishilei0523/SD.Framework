@@ -10,6 +10,8 @@
 
   <PropertyGroup Condition="'$(Platform)'=='AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>full</DebugType>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
 
   <ItemGroup>

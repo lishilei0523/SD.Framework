@@ -1,6 +1,6 @@
 ﻿using ArxOne.MrAdvice.Advice;
 using SD.AOP.Core.Aspects.ForAny;
-using SD.Infrastructure.CustomExceptions;
+using SD.Infrastructure.AOP.Exceptions;
 using SD.Toolkits.Json;
 using System;
 #if NET40_OR_GREATER
@@ -10,7 +10,7 @@ using System.ServiceModel;
 using CoreWCF;
 #endif
 
-namespace SD.Infrastructure.AOP.Aspects.ForAny
+namespace SD.Infrastructure.AOP.Aspects
 {
     /// <summary>
     /// 应用程序服务层异常AOP特性

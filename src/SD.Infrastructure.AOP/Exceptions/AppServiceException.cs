@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SD.Infrastructure.CustomExceptions
+namespace SD.Infrastructure.AOP.Exceptions
 {
     /// <summary>
     /// 应用程序服务层异常

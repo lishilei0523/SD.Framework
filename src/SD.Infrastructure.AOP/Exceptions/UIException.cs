@@ -1,23 +1,23 @@
 ﻿using System;
 
-namespace SD.Infrastructure.CustomExceptions
+namespace SD.Infrastructure.AOP.Exceptions
 {
     /// <summary>
-    /// 表现层异常
+    /// UI层异常
     /// </summary>
     [Serializable]
-    public class PresentationException : ApplicationException
+    public class UIException : ApplicationException
     {
         /// <summary>
         /// 无参构造器
         /// </summary>
-        public PresentationException() { }
+        public UIException() { }
 
         /// <summary>
         /// 构造器
         /// </summary>
         /// <param name="message">异常消息</param>
-        public PresentationException(string message)
+        public UIException(string message)
             : base(message)
         {
 
@@ -28,7 +28,7 @@ namespace SD.Infrastructure.CustomExceptions
         /// </summary>
         /// <param name="message">异常消息</param>
         /// <param name="innerException">内部异常</param>
-        public PresentationException(string message, Exception innerException)
+        public UIException(string message, Exception innerException)
             : base(message, innerException)
         {
 

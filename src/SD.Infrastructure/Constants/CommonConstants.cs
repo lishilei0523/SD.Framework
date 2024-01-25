@@ -53,14 +53,14 @@ namespace SD.Infrastructure.Constants
         public const string DateFormat = "yyyy-MM-dd";
 
         /// <summary>
-        /// 日期时间格式
-        /// </summary>
-        public const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
-
-        /// <summary>
         /// 时间格式
         /// </summary>
         public const string TimeFormat = "HH:mm:ss";
+
+        /// <summary>
+        /// 日期时间格式
+        /// </summary>
+        public const string DateTimeFormat = "yyyy-MM-dd HH:mm:ss";
 
         /// <summary>
         /// 最小时间
