@@ -27,11 +27,11 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net6.0'))">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.15" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.16" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.2" />
   </ItemGroup>
 
   <ItemGroup>
