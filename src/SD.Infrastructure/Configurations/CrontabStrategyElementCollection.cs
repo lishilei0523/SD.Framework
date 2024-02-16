@@ -10,7 +10,7 @@ namespace SD.Infrastructure.Configurations
         /// <summary>
         /// 创建新配置节点
         /// </summary>
-        /// <returns></returns>
+        /// <returns>配置节点</returns>
         protected override ConfigurationElement CreateNewElement()
         {
             return new CrontabStrategyElement();
