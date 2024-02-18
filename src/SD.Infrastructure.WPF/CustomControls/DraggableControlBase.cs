@@ -194,8 +194,8 @@ namespace SD.Infrastructure.WPF.CustomControls
                 ? this.DragElement(targetActualBound, horizontalChange, verticalChange)
                 : this.ResizeElement(targetActualBound, stretchableThumb, horizontalChange, verticalChange);
 
-            this.RaiseDragChangingEvent(targetActualBound, newBound, dragMode, stretchableThumb.DragDirection);
             this.SetTargetActualBound(newBound);
+            this.RaiseDragChangingEvent(targetActualBound, newBound, dragMode, stretchableThumb.DragDirection);
 
             eventArgs.Handled = true;
         }

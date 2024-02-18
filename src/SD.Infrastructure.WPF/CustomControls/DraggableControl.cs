@@ -186,6 +186,10 @@ namespace SD.Infrastructure.WPF.CustomControls
                 draggableControl.Visibility = Visibility.Collapsed;
                 return;
             }
+            else
+            {
+                draggableControl.Visibility = Visibility.Visible;
+            }
 
             #endregion
 
@@ -216,18 +220,15 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             FrameworkElement selectedElement = eventArgs.OriginalSource as FrameworkElement;
             this.TargetElement = this.CheckTargetIsSelectable(selectedElement) ? selectedElement : null;
-            if (selectedElement != null && selectedElement != this.Parent)
-            {
-                selectedElement.Focus();
-                this.Visibility = Visibility.Visible;
-            }
-            else if (selectedElement != null && selectedElement == this.Parent)
+
+            if (this.TargetElement == null)
             {
                 this.Visibility = Visibility.Collapsed;
             }
             else
             {
-                this.Visibility = Visibility.Collapsed;
+                this.TargetElement.Focus();
+                this.Visibility = Visibility.Visible;
             }
         }
         #endregion
