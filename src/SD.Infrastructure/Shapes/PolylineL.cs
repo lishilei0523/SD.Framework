@@ -6,9 +6,9 @@ using System.Text;
 namespace SD.Infrastructure.Shapes
 {
     /// <summary>
-    /// 多边形
+    /// 多边形曲线
     /// </summary>
-    public class PolygonL : ShapeL
+    public class PolylineL : ShapeL
     {
         #region # 构造器
 
@@ -16,19 +16,19 @@ namespace SD.Infrastructure.Shapes
         /// <summary>
         /// 无参构造器
         /// </summary>
-        public PolygonL()
+        public PolylineL()
         {
             //默认值
             this.Points = new HashSet<Point>();
         }
         #endregion
 
-        #region 01.创建多边形构造器
+        #region 01.创建多边形曲线构造器
         /// <summary>
-        /// 创建多边形构造器
+        /// 创建多边形曲线构造器
         /// </summary>
         /// <param name="points">点坐标集</param>
-        public PolygonL(IEnumerable<Point> points)
+        public PolylineL(IEnumerable<Point> points)
             : this()
         {
             points = points?.ToArray() ?? new Point[0];
@@ -39,13 +39,13 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
-        #region 02.创建多边形构造器
+        #region 02.创建多边形曲线构造器
         /// <summary>
-        /// 创建多边形构造器
+        /// 创建多边形曲线构造器
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="points">点坐标集</param>
-        public PolygonL(string name, IEnumerable<Point> points)
+        public PolylineL(string name, IEnumerable<Point> points)
             : this(points)
         {
             base.Name = name;
@@ -63,13 +63,13 @@ namespace SD.Infrastructure.Shapes
         public ICollection<Point> Points { get; set; }
         #endregion
 
-        #region 只读属性 - 空多边形 —— static PolygonL Empty
+        #region 只读属性 - 空多边形曲线 —— static PolylineL Empty
         /// <summary>
-        /// 只读属性 - 空多边形
+        /// 只读属性 - 空多边形曲线
         /// </summary>
-        public static PolygonL Empty
+        public static PolylineL Empty
         {
-            get => new PolygonL();
+            get => new PolylineL();
         }
         #endregion
 
@@ -83,7 +83,7 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override bool Equals(object instance)
         {
-            if (instance is PolygonL polygon)
+            if (instance is PolylineL polygon)
             {
                 return polygon == this;
             }
@@ -126,14 +126,14 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
-        #region 比较两个多边形是否相等 —— static bool operator ==(PolygonL source, PolygonL target)
+        #region 比较两个多边形曲线是否相等 —— static bool operator ==(PolylineL source, PolylineL target)
         /// <summary>
-        /// 比较两个多边形是否相等
+        /// 比较两个多边形曲线是否相等
         /// </summary>
-        /// <param name="source">源多边形</param>
-        /// <param name="target">目标多边形</param>
+        /// <param name="source">源多边形曲线</param>
+        /// <param name="target">目标多边形曲线</param>
         /// <returns>是否相等</returns>
-        public static bool operator ==(PolygonL source, PolygonL target)
+        public static bool operator ==(PolylineL source, PolylineL target)
         {
             if (source is null && target is null)
             {
@@ -164,14 +164,14 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
-        #region 比较两个多边形是否不等 —— static bool operator !=(PolygonL source, PolygonL target)
+        #region 比较两个多边形曲线是否不等 —— static bool operator !=(PolylineL source, PolylineL target)
         /// <summary>
-        /// 比较两个多边形是否不等
+        /// 比较两个多边形曲线是否不等
         /// </summary>
-        /// <param name="source">源多边形</param>
-        /// <param name="target">目标多边形</param>
+        /// <param name="source">源多边形曲线</param>
+        /// <param name="target">目标多边形曲线</param>
         /// <returns>是否不等</returns>
-        public static bool operator !=(PolygonL source, PolygonL target)
+        public static bool operator !=(PolylineL source, PolylineL target)
         {
             return !(source == target);
         }
