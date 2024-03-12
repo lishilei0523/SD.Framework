@@ -239,7 +239,10 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         private void OnTargetElementGotFocus(object sender, RoutedEventArgs eventArgs)
         {
-            this.Visibility = Visibility.Visible;
+            if (this.TargetElement != null)
+            {
+                this.Visibility = Visibility.Visible;
+            }
         }
         #endregion
 
