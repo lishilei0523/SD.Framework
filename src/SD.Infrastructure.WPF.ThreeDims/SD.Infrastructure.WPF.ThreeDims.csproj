@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net461;net6.0-windows;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net40;net462;net6.0-windows;net8.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <Authors>Lee</Authors>
     <Company>SD</Company>
@@ -18,7 +18,15 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.WPF.ThreeDims.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="$(TargetFramework.Equals('net40'))">
+    <PackageReference Include="MathNet.Numerics" Version="4.15.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition="$(TargetFramework.Equals('net6.0-windows')) Or $(TargetFramework.Equals('net8.0-windows'))">
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
   </ItemGroup>
 </Project>
