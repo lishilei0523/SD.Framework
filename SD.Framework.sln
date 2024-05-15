@@ -79,6 +79,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.WPF.Dragg
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SD.Infrastructure.AspNetMvcCore", "src\SD.Infrastructure.AspNetMvcCore\SD.Infrastructure.AspNetMvcCore.csproj", "{37879132-506E-448F-B987-2C663C1FB412}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SD.Infrastructure.WPF.ThreeDims", "src\SD.Infrastructure.WPF.ThreeDims\SD.Infrastructure.WPF.ThreeDims.csproj", "{800503B8-AB89-4881-B377-68608CFA9E06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -213,6 +215,10 @@ Global
 		{37879132-506E-448F-B987-2C663C1FB412}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{37879132-506E-448F-B987-2C663C1FB412}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{37879132-506E-448F-B987-2C663C1FB412}.Release|Any CPU.Build.0 = Release|Any CPU
+		{800503B8-AB89-4881-B377-68608CFA9E06}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{800503B8-AB89-4881-B377-68608CFA9E06}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{800503B8-AB89-4881-B377-68608CFA9E06}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{800503B8-AB89-4881-B377-68608CFA9E06}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -250,6 +256,7 @@ Global
 		{1D0E6A87-88CE-4698-9164-865F5EE94016} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{25D0CEF0-E8D1-4D77-866D-4A31E9BA4F1C} = {9674117A-466B-4315-A502-DCDFFC4E05B3}
 		{37879132-506E-448F-B987-2C663C1FB412} = {D564BEC1-ECEB-4739-992C-2133EDEC51D6}
+		{800503B8-AB89-4881-B377-68608CFA9E06} = {D564BEC1-ECEB-4739-992C-2133EDEC51D6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0B5E3D78-0B5E-4D21-BFEF-9B2A85D15716}
