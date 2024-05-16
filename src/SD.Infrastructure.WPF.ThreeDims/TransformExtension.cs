@@ -9,6 +9,16 @@ namespace SD.Infrastructure.WPF.ThreeDims
     /// </summary>
     public static class TransformExtension
     {
+        #region # 获取位置坐标 —— static Point3D GetLocation(this Matrix3D matrix3D)
+        /// <summary>
+        /// 获取位置坐标
+        /// </summary>
+        public static Point3D GetLocation(this Matrix3D matrix3D)
+        {
+            return new Point3D(matrix3D.OffsetX, matrix3D.OffsetY, matrix3D.OffsetZ);
+        }
+        #endregion
+
         #region # Matrix3D转换Matrix —— static Matrix<double> ToMatrix(this Matrix3D matrix3D)
         /// <summary>
         /// Matrix3D转换Matrix
