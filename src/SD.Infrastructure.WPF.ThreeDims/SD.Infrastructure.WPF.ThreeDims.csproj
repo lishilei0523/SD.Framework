@@ -19,12 +19,14 @@
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
-    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
     <PackageReference Include="HelixToolkit.Wpf.SharpDX" Version="2.25.0" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net6.0-windows')) Or $(TargetFramework.Equals('net8.0-windows'))">
-    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
     <PackageReference Include="HelixToolkit.SharpDX.Core.Wpf" Version="2.25.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
   </ItemGroup>
 </Project>

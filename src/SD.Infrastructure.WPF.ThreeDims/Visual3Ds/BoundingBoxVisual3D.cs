@@ -1,15 +1,16 @@
-﻿#if NET462_OR_GREATER
-using HelixToolkit.Wpf.SharpDX;
+﻿using HelixToolkit.Wpf.SharpDX;
 using System.Windows;
 using System.Windows.Media.Media3D;
-using MeshGeometry3D = HelixToolkit.Wpf.SharpDX.MeshGeometry3D;
+#if NET6_0_OR_GREATER
+using HelixToolkit.SharpDX.Core;
+#endif
 
 namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
 {
     /// <summary>
     /// A visual element that shows a wireframe for the specified bounding box.
     /// </summary>
-    public class BoundingBoxVisual3D : MeshElement3D
+    public class BoundingBoxVisual3D : LineGeometryModel3D
     {
         /// <summary>
         /// Identifies the <see cref="BoundingBox"/> dependency property.
@@ -17,16 +18,10 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         public static readonly DependencyProperty BoundingBoxProperty;
 
         /// <summary>
-        /// Identifies the <see cref="Diameter"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty DiameterProperty;
-
-        /// <summary>
         /// Static constructor
         /// </summary>
         static BoundingBoxVisual3D()
         {
-            DiameterProperty = DependencyProperty.Register(nameof(Diameter), typeof(double), typeof(BoundingBoxVisual3D), new UIPropertyMetadata(0.1, GeometryChanged));
             BoundingBoxProperty = DependencyProperty.Register(nameof(BoundingBox), typeof(Rect3D), typeof(BoundingBoxVisual3D), new UIPropertyMetadata(new Rect3D(0, 0, 0, 1, 1, 1), GeometryChanged));
         }
 
@@ -36,45 +31,26 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value> The bounding box. </value>
         public Rect3D BoundingBox
         {
-            get
-            {
-                return (Rect3D)this.GetValue(BoundingBoxVisual3D.BoundingBoxProperty);
-            }
-
-            set
-            {
-                this.SetValue(BoundingBoxVisual3D.BoundingBoxProperty, value);
-            }
+            get => (Rect3D)this.GetValue(BoundingBoxProperty);
+            set => this.SetValue(BoundingBoxProperty, value);
         }
 
         /// <summary>
-        /// Gets or sets the diameter.
+        /// Updates the geometry.
         /// </summary>
-        /// <value> The diameter. </value>
-        public double Diameter
+        protected void UpdateGeometry()
         {
-            get
-            {
-                return (double)this.GetValue(BoundingBoxVisual3D.DiameterProperty);
-            }
-
-            set
-            {
-                this.SetValue(BoundingBoxVisual3D.DiameterProperty, value);
-            }
+            this.Geometry = LineBuilder.GenerateBoundingBox(this.BoundingBox.ToBoundingBox());
         }
 
         /// <summary>
-        /// Do the tessellation and return the <see cref="T:System.Windows.Media.Media3D.MeshGeometry3D" />.
+        /// Called when geometry properties have changed.
         /// </summary>
-        /// <returns>A triangular mesh geometry.</returns>
-        protected override MeshGeometry3D Tessellate()
+        /// <param name="sender">The sender.</param>
+        /// <param name="e">The <see cref="DependencyPropertyChangedEventArgs"/> instance containing the event data.</param>
+        protected static void GeometryChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            MeshBuilder meshBuilder = new MeshBuilder(false, false);
-            meshBuilder.AddBoundingBox(this.BoundingBox, this.Diameter);
-
-            return meshBuilder.ToMesh();
+            ((BoundingBoxVisual3D)sender).UpdateGeometry();
         }
     }
 }
-#endif
