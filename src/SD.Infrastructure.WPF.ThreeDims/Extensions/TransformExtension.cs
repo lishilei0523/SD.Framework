@@ -2,7 +2,7 @@
 using MathNet.Numerics.LinearAlgebra.Double;
 using System.Windows.Media.Media3D;
 
-namespace SD.Infrastructure.WPF.ThreeDims
+namespace SD.Infrastructure.WPF.ThreeDims.Extensions
 {
     /// <summary>
     /// 变换扩展
