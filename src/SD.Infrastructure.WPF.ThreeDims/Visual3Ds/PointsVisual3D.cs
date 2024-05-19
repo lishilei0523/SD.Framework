@@ -37,8 +37,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The points collection.</value>
         public Point3DCollection Points
         {
-            get { return (Point3DCollection)this.GetValue(PointsProperty); }
-            set { this.SetValue(PointsProperty, value); }
+            get => (Point3DCollection)this.GetValue(PointsProperty);
+            set => this.SetValue(PointsProperty, value);
         }
 
         /// <summary>

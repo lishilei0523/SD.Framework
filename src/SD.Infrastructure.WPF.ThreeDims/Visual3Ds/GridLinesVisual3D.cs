@@ -82,15 +82,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The center.</value>
         public Vector3 Center
         {
-            get
-            {
-                return (Vector3)this.GetValue(GridLinesVisual3D.CenterProperty);
-            }
-
-            set
-            {
-                this.SetValue(GridLinesVisual3D.CenterProperty, value);
-            }
+            get => (Vector3)this.GetValue(CenterProperty);
+            set => this.SetValue(CenterProperty, value);
         }
 
         /// <summary>
@@ -99,15 +92,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The length.</value>
         public float Length
         {
-            get
-            {
-                return (float)this.GetValue(GridLinesVisual3D.LengthProperty);
-            }
-
-            set
-            {
-                this.SetValue(GridLinesVisual3D.LengthProperty, value);
-            }
+            get => (float)this.GetValue(LengthProperty);
+            set => this.SetValue(LengthProperty, value);
         }
 
         /// <summary>
@@ -116,15 +102,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The length direction.</value>
         public Vector3 LengthDirection
         {
-            get
-            {
-                return (Vector3)this.GetValue(GridLinesVisual3D.LengthDirectionProperty);
-            }
-
-            set
-            {
-                this.SetValue(GridLinesVisual3D.LengthDirectionProperty, value);
-            }
+            get => (Vector3)this.GetValue(LengthDirectionProperty);
+            set => this.SetValue(LengthDirectionProperty, value);
         }
 
         /// <summary>
@@ -133,15 +112,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The distance.</value>
         public float MajorDistance
         {
-            get
-            {
-                return (float)this.GetValue(GridLinesVisual3D.MajorDistanceProperty);
-            }
-
-            set
-            {
-                this.SetValue(GridLinesVisual3D.MajorDistanceProperty, value);
-            }
+            get => (float)this.GetValue(MajorDistanceProperty);
+            set => this.SetValue(MajorDistanceProperty, value);
         }
 
         /// <summary>
@@ -150,15 +122,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The distance.</value>
         public float MinorDistance
         {
-            get
-            {
-                return (float)this.GetValue(GridLinesVisual3D.MinorDistanceProperty);
-            }
-
-            set
-            {
-                this.SetValue(GridLinesVisual3D.MinorDistanceProperty, value);
-            }
+            get => (float)this.GetValue(MinorDistanceProperty);
+            set => this.SetValue(MinorDistanceProperty, value);
         }
 
         /// <summary>
@@ -167,15 +132,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The normal.</value>
         public Vector3 Normal
         {
-            get
-            {
-                return (Vector3)this.GetValue(GridLinesVisual3D.NormalProperty);
-            }
-
-            set
-            {
-                this.SetValue(GridLinesVisual3D.NormalProperty, value);
-            }
+            get => (Vector3)this.GetValue(NormalProperty);
+            set => this.SetValue(NormalProperty, value);
         }
 
         /// <summary>
@@ -184,15 +142,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The thickness.</value>
         public float Thickness
         {
-            get
-            {
-                return (float)this.GetValue(GridLinesVisual3D.ThicknessProperty);
-            }
-
-            set
-            {
-                this.SetValue(GridLinesVisual3D.ThicknessProperty, value);
-            }
+            get => (float)this.GetValue(ThicknessProperty);
+            set => this.SetValue(ThicknessProperty, value);
         }
 
         /// <summary>
@@ -201,15 +152,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The width.</value>
         public float Width
         {
-            get
-            {
-                return (float)this.GetValue(GridLinesVisual3D.WidthProperty);
-            }
-
-            set
-            {
-                this.SetValue(GridLinesVisual3D.WidthProperty, value);
-            }
+            get => (float)this.GetValue(WidthProperty);
+            set => this.SetValue(WidthProperty, value);
         }
 
         /// <summary>
@@ -249,7 +193,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
             while (x <= maxX + eps)
             {
                 float t = this.Thickness;
-                if (GridLinesVisual3D.IsMultipleOf(x, this.MajorDistance))
+                if (IsMultipleOf(x, this.MajorDistance))
                 {
                     t *= 2;
                 }
@@ -262,7 +206,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
             while (y <= maxY + eps)
             {
                 float t = this.Thickness;
-                if (GridLinesVisual3D.IsMultipleOf(y, this.MajorDistance))
+                if (IsMultipleOf(y, this.MajorDistance))
                 {
                     t *= 2;
                 }

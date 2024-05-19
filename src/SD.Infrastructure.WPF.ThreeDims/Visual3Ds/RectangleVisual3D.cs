@@ -59,15 +59,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The number of divisions.</value>
         public int DivLength
         {
-            get
-            {
-                return (int)this.GetValue(RectangleVisual3D.DivLengthProperty);
-            }
-
-            set
-            {
-                this.SetValue(RectangleVisual3D.DivLengthProperty, value);
-            }
+            get => (int)this.GetValue(DivLengthProperty);
+            set => this.SetValue(DivLengthProperty, value);
         }
 
         /// <summary>
@@ -76,15 +69,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The number of divisions.</value>
         public int DivWidth
         {
-            get
-            {
-                return (int)this.GetValue(RectangleVisual3D.DivWidthProperty);
-            }
-
-            set
-            {
-                this.SetValue(RectangleVisual3D.DivWidthProperty, value);
-            }
+            get => (int)this.GetValue(DivWidthProperty);
+            set => this.SetValue(DivWidthProperty, value);
         }
 
         /// <summary>
@@ -93,15 +79,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The length.</value>
         public float Length
         {
-            get
-            {
-                return (float)this.GetValue(RectangleVisual3D.LengthProperty);
-            }
-
-            set
-            {
-                this.SetValue(RectangleVisual3D.LengthProperty, value);
-            }
+            get => (float)this.GetValue(LengthProperty);
+            set => this.SetValue(LengthProperty, value);
         }
 
         /// <summary>
@@ -110,15 +89,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The length direction.</value>
         public Vector3 LengthDirection
         {
-            get
-            {
-                return (Vector3)this.GetValue(RectangleVisual3D.LengthDirectionProperty);
-            }
-
-            set
-            {
-                this.SetValue(RectangleVisual3D.LengthDirectionProperty, value);
-            }
+            get => (Vector3)this.GetValue(LengthDirectionProperty);
+            set => this.SetValue(LengthDirectionProperty, value);
         }
 
         /// <summary>
@@ -127,15 +99,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The normal.</value>
         public Vector3 Normal
         {
-            get
-            {
-                return (Vector3)this.GetValue(RectangleVisual3D.NormalProperty);
-            }
-
-            set
-            {
-                this.SetValue(RectangleVisual3D.NormalProperty, value);
-            }
+            get => (Vector3)this.GetValue(NormalProperty);
+            set => this.SetValue(NormalProperty, value);
         }
 
         /// <summary>
@@ -144,15 +109,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The origin.</value>
         public Vector3 Origin
         {
-            get
-            {
-                return (Vector3)this.GetValue(RectangleVisual3D.OriginProperty);
-            }
-
-            set
-            {
-                this.SetValue(RectangleVisual3D.OriginProperty, value);
-            }
+            get => (Vector3)this.GetValue(OriginProperty);
+            set => this.SetValue(OriginProperty, value);
         }
 
         /// <summary>
@@ -161,15 +119,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The width.</value>
         public float Width
         {
-            get
-            {
-                return (float)this.GetValue(RectangleVisual3D.WidthProperty);
-            }
-
-            set
-            {
-                this.SetValue(RectangleVisual3D.WidthProperty, value);
-            }
+            get => (float)this.GetValue(WidthProperty);
+            set => this.SetValue(WidthProperty, value);
         }
 
         /// <summary>

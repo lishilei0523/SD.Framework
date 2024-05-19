@@ -19,56 +19,34 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
     public class BoxVisual3D : MeshElement3D
     {
         /// <summary>
-        /// Identifies the <see cref="BottomFace"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty BottomFaceProperty = DependencyProperty.Register(
-            nameof(BottomFace), typeof(bool), typeof(BoxVisual3D), new UIPropertyMetadata(true, GeometryChanged));
-
-        /// <summary>
         /// Identifies the <see cref="Center"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty CenterProperty = DependencyProperty.Register(
-            nameof(Center), typeof(Vector3), typeof(BoxVisual3D), new UIPropertyMetadata(new Vector3(), GeometryChanged));
-
-        /// <summary>
-        /// Identifies the <see cref="Height"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty HeightProperty = DependencyProperty.Register(
-            nameof(Height), typeof(double), typeof(BoxVisual3D), new UIPropertyMetadata(1.0, GeometryChanged));
+        public static readonly DependencyProperty CenterProperty = DependencyProperty.Register(nameof(Center), typeof(Vector3), typeof(BoxVisual3D), new UIPropertyMetadata(new Vector3(), GeometryChanged));
 
         /// <summary>
         /// Identifies the <see cref="Length"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty LengthProperty = DependencyProperty.Register(
-            nameof(Length), typeof(double), typeof(BoxVisual3D), new UIPropertyMetadata(1.0, GeometryChanged));
-
-        /// <summary>
-        /// Identifies the <see cref="TopFace"/> dependency property.
-        /// </summary>
-        public static readonly DependencyProperty TopFaceProperty = DependencyProperty.Register(
-            nameof(TopFace), typeof(bool), typeof(BoxVisual3D), new UIPropertyMetadata(true, GeometryChanged));
+        public static readonly DependencyProperty LengthProperty = DependencyProperty.Register(nameof(Length), typeof(double), typeof(BoxVisual3D), new UIPropertyMetadata(1.0, GeometryChanged));
 
         /// <summary>
         /// Identifies the <see cref="Width"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty WidthProperty = DependencyProperty.Register(
-            nameof(Width), typeof(double), typeof(BoxVisual3D), new UIPropertyMetadata(1.0, GeometryChanged));
+        public static readonly DependencyProperty WidthProperty = DependencyProperty.Register(nameof(Width), typeof(double), typeof(BoxVisual3D), new UIPropertyMetadata(1.0, GeometryChanged));
 
         /// <summary>
-        /// Gets or sets a value indicating whether to include the bottom face.
+        /// Identifies the <see cref="Height"/> dependency property.
         /// </summary>
-        public bool BottomFace
-        {
-            get
-            {
-                return (bool)this.GetValue(BoxVisual3D.BottomFaceProperty);
-            }
+        public static readonly DependencyProperty HeightProperty = DependencyProperty.Register(nameof(Height), typeof(double), typeof(BoxVisual3D), new UIPropertyMetadata(1.0, GeometryChanged));
 
-            set
-            {
-                this.SetValue(BoxVisual3D.BottomFaceProperty, value);
-            }
-        }
+        /// <summary>
+        /// Identifies the <see cref="TopFace"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty TopFaceProperty = DependencyProperty.Register(nameof(TopFace), typeof(bool), typeof(BoxVisual3D), new UIPropertyMetadata(true, GeometryChanged));
+
+        /// <summary>
+        /// Identifies the <see cref="BottomFace"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty BottomFaceProperty = DependencyProperty.Register(nameof(BottomFace), typeof(bool), typeof(BoxVisual3D), new UIPropertyMetadata(true, GeometryChanged));
 
         /// <summary>
         /// Gets or sets the center of the box.
@@ -76,32 +54,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The center.</value>
         public Vector3 Center
         {
-            get
-            {
-                return (Vector3)this.GetValue(BoxVisual3D.CenterProperty);
-            }
-
-            set
-            {
-                this.SetValue(BoxVisual3D.CenterProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets the height (along local z-axis).
-        /// </summary>
-        /// <value>The height.</value>
-        public double Height
-        {
-            get
-            {
-                return (double)this.GetValue(BoxVisual3D.HeightProperty);
-            }
-
-            set
-            {
-                this.SetValue(BoxVisual3D.HeightProperty, value);
-            }
+            get => (Vector3)this.GetValue(CenterProperty);
+            set => this.SetValue(CenterProperty, value);
         }
 
         /// <summary>
@@ -110,31 +64,8 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The length.</value>
         public double Length
         {
-            get
-            {
-                return (double)this.GetValue(BoxVisual3D.LengthProperty);
-            }
-
-            set
-            {
-                this.SetValue(BoxVisual3D.LengthProperty, value);
-            }
-        }
-
-        /// <summary>
-        /// Gets or sets a value indicating whether to include the top face.
-        /// </summary>
-        public bool TopFace
-        {
-            get
-            {
-                return (bool)this.GetValue(BoxVisual3D.TopFaceProperty);
-            }
-
-            set
-            {
-                this.SetValue(BoxVisual3D.TopFaceProperty, value);
-            }
+            get => (double)this.GetValue(LengthProperty);
+            set => this.SetValue(LengthProperty, value);
         }
 
         /// <summary>
@@ -143,15 +74,36 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <value>The width.</value>
         public double Width
         {
-            get
-            {
-                return (double)this.GetValue(BoxVisual3D.WidthProperty);
-            }
+            get => (double)this.GetValue(WidthProperty);
+            set => this.SetValue(WidthProperty, value);
+        }
 
-            set
-            {
-                this.SetValue(BoxVisual3D.WidthProperty, value);
-            }
+        /// <summary>
+        /// Gets or sets the height (along local z-axis).
+        /// </summary>
+        /// <value>The height.</value>
+        public double Height
+        {
+            get => (double)this.GetValue(HeightProperty);
+            set => this.SetValue(HeightProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to include the top face.
+        /// </summary>
+        public bool TopFace
+        {
+            get => (bool)this.GetValue(TopFaceProperty);
+            set => this.SetValue(TopFaceProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether to include the bottom face.
+        /// </summary>
+        public bool BottomFace
+        {
+            get => (bool)this.GetValue(BottomFaceProperty);
+            set => this.SetValue(BottomFaceProperty, value);
         }
 
         /// <summary>
