@@ -1,8 +1,15 @@
-﻿using HelixToolkit.Wpf.SharpDX;
-using SharpDX;
+﻿using SharpDX;
 using System;
 using System.Collections.Generic;
 using System.Windows;
+#if NET462_OR_GREATER
+using HelixToolkit.Wpf.SharpDX;
+using MeshGeometry3D = HelixToolkit.Wpf.SharpDX.MeshGeometry3D;
+#endif
+#if NET6_0_OR_GREATER
+using HelixToolkit.SharpDX.Core;
+using MeshGeometry3D = HelixToolkit.SharpDX.Core.MeshGeometry3D;
+#endif
 
 namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
 {

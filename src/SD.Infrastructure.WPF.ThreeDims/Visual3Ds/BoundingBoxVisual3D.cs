@@ -1,4 +1,5 @@
-﻿using HelixToolkit.Wpf.SharpDX;
+﻿#if NET462_OR_GREATER
+using HelixToolkit.Wpf.SharpDX;
 using System.Windows;
 using System.Windows.Media.Media3D;
 using MeshGeometry3D = HelixToolkit.Wpf.SharpDX.MeshGeometry3D;
@@ -76,3 +77,4 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         }
     }
 }
+#endif

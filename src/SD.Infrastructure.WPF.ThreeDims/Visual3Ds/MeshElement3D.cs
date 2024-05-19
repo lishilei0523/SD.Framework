@@ -1,6 +1,8 @@
 ﻿using HelixToolkit.Wpf.SharpDX;
 using System.Windows;
-using MeshGeometry3D = HelixToolkit.Wpf.SharpDX.MeshGeometry3D;
+#if NET6_0_OR_GREATER
+using HelixToolkit.SharpDX.Core;
+#endif
 
 namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
 {
