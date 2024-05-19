@@ -1,6 +1,9 @@
-﻿using MathNet.Numerics.LinearAlgebra;
+﻿using HelixToolkit.Wpf.SharpDX;
+using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
+using SharpDX;
 using System.Windows.Media.Media3D;
+
 
 namespace SD.Infrastructure.WPF.ThreeDims.Extensions
 {
@@ -74,6 +77,86 @@ namespace SD.Infrastructure.WPF.ThreeDims.Extensions
             Matrix3D matrix3D = new Matrix3D(m11, m12, m13, m14, m21, m22, m23, m24, m31, m32, m33, m34, m41, m42, m43, m44);
 
             return matrix3D;
+        }
+        #endregion
+
+        #region # 3D元素是否包含点 —— static bool ContainsPoint(this ModelVisual3D visual3D, Point3D point)
+        /// <summary>
+        /// 3D元素是否包含点
+        /// </summary>
+        /// <param name="visual3D">3D元素</param>
+        /// <param name="point">点</param>
+        /// <returns>是否包含</returns>
+        public static bool ContainsPoint(this ModelVisual3D visual3D, Point3D point)
+        {
+            Point3D projectedPoint = point;
+
+            //逆变换
+            GeneralTransform3D transformInverse = visual3D.Transform.Inverse;
+            if (transformInverse != null)
+            {
+                projectedPoint = transformInverse.Transform(point);
+            }
+
+            bool contained = visual3D.Content.Bounds.Contains(projectedPoint);
+
+            return contained;
+        }
+        #endregion
+
+        #region # 3D元素是否包含点 —— static bool ContainsPoint(this Element3D element3D, Point3D point)
+        /// <summary>
+        /// 3D元素是否包含点
+        /// </summary>
+        /// <param name="element3D">3D元素</param>
+        /// <param name="point">点</param>
+        /// <returns>是否包含</returns>
+        public static bool ContainsPoint(this Element3D element3D, Point3D point)
+        {
+            Point3D projectedPoint = point;
+
+            //逆变换
+            GeneralTransform3D transformInverse = element3D.Transform.Inverse;
+            if (transformInverse != null)
+            {
+                projectedPoint = transformInverse.Transform(point);
+            }
+
+            ContainmentType result = element3D.Bounds.Contains(projectedPoint.ToVector3());
+            if (result == ContainmentType.Disjoint)
+            {
+                return false;
+            }
+
+            return true;
+        }
+        #endregion
+
+        #region # 3D元素是否包含点 —— static bool ContainsPoint(this Element3D element3D, Vector3 point)
+        /// <summary>
+        /// 3D元素是否包含点
+        /// </summary>
+        /// <param name="element3D">3D元素</param>
+        /// <param name="point">点</param>
+        /// <returns>是否包含</returns>
+        public static bool ContainsPoint(this Element3D element3D, Vector3 point)
+        {
+            Point3D projectedPoint = point.ToPoint3D();
+
+            //逆变换
+            GeneralTransform3D transformInverse = element3D.Transform.Inverse;
+            if (transformInverse != null)
+            {
+                projectedPoint = transformInverse.Transform(projectedPoint);
+            }
+
+            ContainmentType result = element3D.Bounds.Contains(projectedPoint.ToVector3());
+            if (result == ContainmentType.Disjoint)
+            {
+                return false;
+            }
+
+            return true;
         }
         #endregion
     }
