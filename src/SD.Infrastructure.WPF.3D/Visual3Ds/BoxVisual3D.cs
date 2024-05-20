@@ -112,7 +112,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <returns>The mesh geometry.</returns>
         protected override MeshGeometry3D Tessellate()
         {
-            MeshBuilder meshBuilder = new MeshBuilder(false, true);
+            MeshBuilder meshBuilder = new MeshBuilder();
             meshBuilder.AddCubeFace(this.Center, new Vector3(-1, 0, 0), new Vector3(0, 0, 1), this.Length, this.Width, this.Height);
             meshBuilder.AddCubeFace(this.Center, new Vector3(1, 0, 0), new Vector3(0, 0, -1), this.Length, this.Width, this.Height);
             meshBuilder.AddCubeFace(this.Center, new Vector3(0, -1, 0), new Vector3(0, 0, 1), this.Width, this.Length, this.Height);

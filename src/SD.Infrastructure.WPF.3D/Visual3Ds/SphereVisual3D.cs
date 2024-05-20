@@ -82,7 +82,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <returns>A triangular mesh geometry.</returns>
         protected override MeshGeometry3D Tessellate()
         {
-            MeshBuilder builder = new MeshBuilder(true, true);
+            MeshBuilder builder = new MeshBuilder();
             builder.AddSphere(this.Center, this.Radius, this.ThetaDiv, this.PhiDiv);
             return builder.ToMesh();
         }

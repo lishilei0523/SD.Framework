@@ -182,7 +182,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
             this._widthDirection.Normalize();
             // #136 
 
-            MeshBuilder mesh = new MeshBuilder(true, false);
+            MeshBuilder mesh = new MeshBuilder();
             float minX = -this.Width / 2;
             float minY = -this.Length / 2;
             float maxX = this.Width / 2;

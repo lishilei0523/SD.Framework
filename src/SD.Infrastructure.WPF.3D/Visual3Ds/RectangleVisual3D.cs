@@ -152,7 +152,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
                 }
             }
 
-            MeshBuilder builder = new MeshBuilder(false, true);
+            MeshBuilder builder = new MeshBuilder();
             builder.AddRectangularMesh(pts, this.DivWidth);
 
             return builder.ToMesh();
