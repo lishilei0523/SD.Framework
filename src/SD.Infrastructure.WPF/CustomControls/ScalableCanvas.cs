@@ -12,10 +12,18 @@ namespace SD.Infrastructure.WPF.CustomControls
     {
         #region # 字段及构造器
 
+        //TODO 嵌入网格线
+        //TODO 圆形状实现
+
         /// <summary>
         /// 缩放系数依赖属性
         /// </summary>
         public static readonly DependencyProperty ScaledFactorProperty;
+
+        /// <summary>
+        /// 背景图像依赖属性
+        /// </summary>
+        public static readonly DependencyProperty BackgroundImageProperty;
 
         /// <summary>
         /// 静态构造器
@@ -23,6 +31,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         static ScalableCanvas()
         {
             ScaledFactorProperty = DependencyProperty.Register(nameof(ScaledFactor), typeof(float), typeof(ScalableCanvas), new PropertyMetadata(1.1f));
+            BackgroundImageProperty = DependencyProperty.Register(nameof(BackgroundImage), typeof(Image), typeof(ScalableCanvas), new PropertyMetadata(null, OnBackgroundImageChanged));
         }
 
         /// <summary>
@@ -64,6 +73,17 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
+        #region 依赖属性 - 背景图像 —— Image BackgroundImage
+        /// <summary>
+        /// 依赖属性 - 背景图像
+        /// </summary>
+        public Image BackgroundImage
+        {
+            get => (Image)this.GetValue(ScaledFactorProperty);
+            set => this.SetValue(ScaledFactorProperty, value);
+        }
+        #endregion
+
         #region 只读属性 - 缩放率 —— double ScaledRatio
         /// <summary>
         /// 只读属性 - 缩放率
@@ -87,6 +107,28 @@ namespace SD.Infrastructure.WPF.CustomControls
         #endregion
 
         #region # 方法
+
+        #region 背景图像改变事件 —— static void OnBackgroundImageChanged(DependencyObject dependencyObject...
+        /// <summary>
+        /// 背景图像改变事件
+        /// </summary>
+        private static void OnBackgroundImageChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            ScalableCanvas canvas = (ScalableCanvas)dependencyObject;
+            Image oldImage = eventArgs.OldValue as Image;
+            Image newImage = eventArgs.NewValue as Image;
+            if (oldImage != null && canvas.Children.Contains(oldImage))
+            {
+                canvas.Children.Remove(oldImage);
+            }
+            if (newImage != null)
+            {
+                newImage.Stretch = Stretch.Uniform;
+                SetZIndex(newImage, int.MinValue);
+                canvas.Children.Add(newImage);
+            }
+        }
+        #endregion
 
         #region 获取矫正左边距 —— double GetRectifiedLeft(UIElement element)
         /// <summary>

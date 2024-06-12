@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
-namespace SD.Infrastructure.WPF.CustomControls
+namespace SD.Infrastructure.WPF.Shapes
 {
     /// <summary>
     /// 2D网格线
