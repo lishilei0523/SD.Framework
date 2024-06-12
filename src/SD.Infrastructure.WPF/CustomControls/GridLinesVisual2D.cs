@@ -28,6 +28,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly DependencyProperty StepSizeProperty;
 
         /// <summary>
+        /// 中心可见性依赖属性
+        /// </summary>
+        public static readonly DependencyProperty CenterVisibleProperty;
+
+        /// <summary>
         /// 静态构造器
         /// </summary>
         static GridLinesVisual2D()
@@ -35,6 +40,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             RowsProperty = DependencyProperty.Register(nameof(Rows), typeof(int), typeof(GridLinesVisual2D), new PropertyMetadata(2000));
             ColsProperty = DependencyProperty.Register(nameof(Cols), typeof(int), typeof(GridLinesVisual2D), new PropertyMetadata(2000));
             StepSizeProperty = DependencyProperty.Register(nameof(StepSize), typeof(int), typeof(GridLinesVisual2D), new PropertyMetadata(100));
+            CenterVisibleProperty = DependencyProperty.Register(nameof(CenterVisible), typeof(bool), typeof(GridLinesVisual2D), new PropertyMetadata(false));
         }
 
         /// <summary>
@@ -83,6 +89,17 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
+        #region 依赖属性 - 中心可见性 —— bool CenterVisible
+        /// <summary>
+        /// 依赖属性 - 中心可见性
+        /// </summary>
+        public bool CenterVisible
+        {
+            get => (bool)this.GetValue(CenterVisibleProperty);
+            set => this.SetValue(CenterVisibleProperty, value);
+        }
+        #endregion
+
         #region 只读属性 - 几何对象 —— override Geometry DefiningGeometry
         /// <summary>
         /// 只读属性 - 几何对象
@@ -128,12 +145,15 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             base.OnRender(drawingContext);
 
-            //绘制中心点
-            Point center = new Point(this.Cols / 2.0, this.Rows / 2.0);
-            double thickness = base.StrokeThickness * 2;
-            SolidColorBrush brush = new SolidColorBrush(Colors.Red);
-            Pen pen = new Pen(brush, thickness);
-            drawingContext.DrawEllipse(brush, pen, center, thickness, thickness);
+            if (this.CenterVisible)
+            {
+                //绘制中心点
+                Point center = new Point(this.Cols / 2.0, this.Rows / 2.0);
+                double thickness = base.StrokeThickness * 2;
+                SolidColorBrush brush = new SolidColorBrush(Colors.Red);
+                Pen pen = new Pen(brush, thickness);
+                drawingContext.DrawEllipse(brush, pen, center, thickness, thickness);
+            }
         }
         #endregion
 

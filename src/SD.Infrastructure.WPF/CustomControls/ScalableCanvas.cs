@@ -97,6 +97,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         public double GetRectifiedLeft(UIElement element)
         {
             double left = GetLeft(element);
+            left = double.IsNaN(left) ? 0 : left;
             double retifiedLeft = left / this.ScaledRatio;
 
             return retifiedLeft;
@@ -112,6 +113,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         public double GetRectifiedTop(UIElement element)
         {
             double top = GetTop(element);
+            top = double.IsNaN(top) ? 0 : top;
             double retifiedTop = top / this.ScaledRatio;
 
             return retifiedTop;
