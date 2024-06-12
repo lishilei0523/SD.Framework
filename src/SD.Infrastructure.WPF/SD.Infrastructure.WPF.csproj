@@ -1,14 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net40;net45;net6.0-windows;net8.0-windows</TargetFrameworks>
+    <LangVersion>8.0</LangVersion>
     <UseWPF>true</UseWPF>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WPF基础</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>1.3.5</Version>
-    <AssemblyVersion>1.3.5</AssemblyVersion>
-    <FileVersion>1.3.5.0</FileVersion>
+    <Version>1.3.6</Version>
+    <AssemblyVersion>1.3.6</AssemblyVersion>
+    <FileVersion>1.3.6.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
