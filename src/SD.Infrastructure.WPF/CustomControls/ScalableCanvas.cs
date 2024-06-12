@@ -125,6 +125,8 @@ namespace SD.Infrastructure.WPF.CustomControls
             {
                 newImage.Stretch = Stretch.Uniform;
                 SetZIndex(newImage, int.MinValue);
+                DraggableCanvas.SetDraggable(newImage, false);
+                //TODO ResizableCanvas.SetResizable(newImage, false);
                 canvas.Children.Add(newImage);
             }
         }
