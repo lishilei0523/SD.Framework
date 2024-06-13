@@ -240,8 +240,8 @@ namespace SD.Infrastructure.WPF.CustomControls
                 Mouse.OverrideCursor = Cursors.Hand;
 
                 Point mousePosition = eventArgs.GetPosition(this);
-                Point mousePositionInverse = this._matrixTransform.Inverse!.Transform(mousePosition);
-                Vector delta = Point.Subtract(mousePositionInverse, this._rectifiedStartPosition.Value);
+                Point rectifiedMousePosition = this._matrixTransform.Inverse!.Transform(mousePosition);
+                Vector delta = Point.Subtract(rectifiedMousePosition, this._rectifiedStartPosition.Value);
                 TranslateTransform transform = new TranslateTransform(delta.X, delta.Y);
                 this._matrixTransform.Matrix = transform.Value * this._matrixTransform.Matrix;
                 foreach (UIElement element in this.Children)
