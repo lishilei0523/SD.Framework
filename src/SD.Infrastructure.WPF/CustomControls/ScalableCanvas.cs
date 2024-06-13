@@ -58,6 +58,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             base.MouseMove += this.OnMouseMove;
             base.MouseWheel += this.OnMouseWheel;
             base.MouseUp += this.OnMouseUp;
+            base.ClipToBounds = true;
             base.HorizontalAlignment = HorizontalAlignment.Stretch;
             base.VerticalAlignment = VerticalAlignment.Stretch;
             base.Background = new SolidColorBrush(Colors.Transparent);
