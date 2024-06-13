@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using SD.Infrastructure.WPF.Visual2Ds;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -12,9 +13,6 @@ namespace SD.Infrastructure.WPF.CustomControls
     {
         #region # 字段及构造器
 
-        //TODO 嵌入网格线
-        //TODO 圆形状实现
-
         /// <summary>
         /// 缩放系数依赖属性
         /// </summary>
@@ -26,12 +24,18 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly DependencyProperty BackgroundImageProperty;
 
         /// <summary>
+        /// 显示网格线依赖属性
+        /// </summary>
+        public static readonly DependencyProperty ShowGridLinesProperty;
+
+        /// <summary>
         /// 静态构造器
         /// </summary>
         static ScalableCanvas()
         {
             ScaledFactorProperty = DependencyProperty.Register(nameof(ScaledFactor), typeof(float), typeof(ScalableCanvas), new PropertyMetadata(1.1f));
             BackgroundImageProperty = DependencyProperty.Register(nameof(BackgroundImage), typeof(Image), typeof(ScalableCanvas), new PropertyMetadata(null, OnBackgroundImageChanged));
+            ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(ScalableCanvas), new PropertyMetadata(false, OnShowGridLinesChanged));
         }
 
         /// <summary>
@@ -58,6 +62,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             base.VerticalAlignment = VerticalAlignment.Stretch;
             base.Background = new SolidColorBrush(Colors.Transparent);
         }
+
         #endregion
 
         #region # 属性
@@ -81,6 +86,17 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             get => (Image)this.GetValue(ScaledFactorProperty);
             set => this.SetValue(ScaledFactorProperty, value);
+        }
+        #endregion
+
+        #region 依赖属性 - 显示网格线 —— bool ShowGridLines
+        /// <summary>
+        /// 依赖属性 - 显示网格线
+        /// </summary>
+        public bool ShowGridLines
+        {
+            get => (bool)this.GetValue(ShowGridLinesProperty);
+            set => this.SetValue(ShowGridLinesProperty, value);
         }
         #endregion
 
@@ -126,8 +142,42 @@ namespace SD.Infrastructure.WPF.CustomControls
                 newImage.Stretch = Stretch.Uniform;
                 SetZIndex(newImage, int.MinValue);
                 DraggableCanvas.SetDraggable(newImage, false);
-                //TODO ResizableCanvas.SetResizable(newImage, false);
+                ResizableCanvas.SetResizable(newImage, false);
                 canvas.Children.Add(newImage);
+            }
+        }
+        #endregion
+
+        #region 显示网格线改变事件 —— static void OnShowGridLinesChanged(DependencyObject dependencyObject...
+        /// <summary>
+        /// 显示网格线改变事件
+        /// </summary>
+        private static void OnShowGridLinesChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            ScalableCanvas canvas = (ScalableCanvas)dependencyObject;
+            bool oldShow = (bool)eventArgs.OldValue;
+            bool newShow = (bool)eventArgs.NewValue;
+            if (oldShow && newShow)
+            {
+                return;
+            }
+            if (oldShow && !newShow)
+            {
+                foreach (UIElement element in canvas.Children)
+                {
+                    if (element is GridLinesVisual2D)
+                    {
+                        canvas.Children.Remove(element);
+                    }
+                }
+            }
+            if (!oldShow && newShow)
+            {
+                GridLinesVisual2D gridLines = new GridLinesVisual2D();
+                SetZIndex(gridLines, int.MaxValue);
+                DraggableCanvas.SetDraggable(gridLines, false);
+                ResizableCanvas.SetResizable(gridLines, false);
+                canvas.Children.Add(gridLines);
             }
         }
         #endregion
