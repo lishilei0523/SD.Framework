@@ -42,7 +42,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         public CircleVisual2D()
         {
             base.Stroke = new SolidColorBrush(Colors.Red);
-            base.StrokeThickness = 1;
+            base.StrokeThickness = 2;
             base.Fill = new SolidColorBrush(Colors.Transparent);
         }
 

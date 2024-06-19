@@ -11,26 +11,22 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 标识 IsRequired 依赖属性。
         /// </summary>
-        public static readonly DependencyProperty IsRequiredProperty =
-            DependencyProperty.Register(nameof(IsRequired), typeof(bool), typeof(FormItem), new PropertyMetadata(default(bool)));
+        public static readonly DependencyProperty IsRequiredProperty = DependencyProperty.Register(nameof(IsRequired), typeof(bool), typeof(FormItem), new PropertyMetadata(default(bool)));
 
         /// <summary>
         /// 标识 Description 依赖属性。
         /// </summary>
-        public static readonly DependencyProperty DescriptionProperty =
-            DependencyProperty.Register(nameof(Description), typeof(object), typeof(FormItem), new PropertyMetadata(default(object)));
+        public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(nameof(Description), typeof(object), typeof(FormItem), new PropertyMetadata(default(object)));
 
         /// <summary>
         /// 标识 Label 依赖属性。
         /// </summary>
-        public static readonly DependencyProperty LabelProperty =
-            DependencyProperty.Register(nameof(Label), typeof(object), typeof(FormItem), new PropertyMetadata(default, OnLabelChanged));
+        public static readonly DependencyProperty LabelProperty = DependencyProperty.Register(nameof(Label), typeof(object), typeof(FormItem), new PropertyMetadata(default, OnLabelChanged));
 
         /// <summary>
         /// 标识 LabelTemplate 依赖属性。
         /// </summary>
-        public static readonly DependencyProperty LabelTemplateProperty =
-            DependencyProperty.Register(nameof(LabelTemplate), typeof(DataTemplate), typeof(FormItem), new PropertyMetadata(default(DataTemplate), OnLabelTemplateChanged));
+        public static readonly DependencyProperty LabelTemplateProperty = DependencyProperty.Register(nameof(LabelTemplate), typeof(DataTemplate), typeof(FormItem), new PropertyMetadata(default(DataTemplate), OnLabelTemplateChanged));
 
         /// <summary>
         /// 构造器
@@ -83,6 +79,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <param name="newValue">Label 属性的新值。</param>
         protected virtual void OnLabelChanged(object oldValue, object newValue)
         {
+
         }
 
         /// <summary>
@@ -92,6 +89,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <param name="newValue">LabelTemplate 属性的新值。</param>
         protected virtual void OnLabelTemplateChanged(DataTemplate oldValue, DataTemplate newValue)
         {
+
         }
 
         private static void OnLabelChanged(DependencyObject obj, DependencyPropertyChangedEventArgs args)
@@ -112,7 +110,9 @@ namespace SD.Infrastructure.WPF.CustomControls
             DataTemplate oldValue = (DataTemplate)args.OldValue;
             DataTemplate newValue = (DataTemplate)args.NewValue;
             if (oldValue == newValue)
+            {
                 return;
+            }
 
             FormItem target = obj as FormItem;
             target?.OnLabelTemplateChanged(oldValue, newValue);

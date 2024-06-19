@@ -9,16 +9,6 @@ namespace SD.Infrastructure.WPF.CustomControls
     public class TreeListView : TreeView
     {
         /// <summary>
-        /// 静态构造器
-        /// </summary>
-        static TreeListView()
-        {
-            //注册依赖属性
-            IndentUnitSizeProperty = DependencyProperty.Register(nameof(IndentUnitSize), typeof(double), typeof(TreeListView), new PropertyMetadata(14.0));
-            ColumnsDefinitionProperty = DependencyProperty.Register(nameof(ColumnsDefinition), typeof(GridViewColumnCollection), typeof(TreeListView));
-        }
-
-        /// <summary>
         /// 缩进单位尺寸依赖属性
         /// </summary>
         public static readonly DependencyProperty IndentUnitSizeProperty;
@@ -27,6 +17,16 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// 列集合依赖属性
         /// </summary>
         public static readonly DependencyProperty ColumnsDefinitionProperty;
+
+        /// <summary>
+        /// 静态构造器
+        /// </summary>
+        static TreeListView()
+        {
+            //注册依赖属性
+            IndentUnitSizeProperty = DependencyProperty.Register(nameof(IndentUnitSize), typeof(double), typeof(TreeListView), new PropertyMetadata(14.0));
+            ColumnsDefinitionProperty = DependencyProperty.Register(nameof(ColumnsDefinition), typeof(GridViewColumnCollection), typeof(TreeListView));
+        }
 
         /// <summary>
         /// 缩进单位尺寸
