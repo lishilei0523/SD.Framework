@@ -36,10 +36,10 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         /// </summary>
         static GridLinesVisual2D()
         {
-            RowsProperty = DependencyProperty.Register(nameof(Rows), typeof(int), typeof(GridLinesVisual2D), new PropertyMetadata(2000));
-            ColsProperty = DependencyProperty.Register(nameof(Cols), typeof(int), typeof(GridLinesVisual2D), new PropertyMetadata(2000));
-            StepSizeProperty = DependencyProperty.Register(nameof(StepSize), typeof(int), typeof(GridLinesVisual2D), new PropertyMetadata(100));
-            CenterVisibleProperty = DependencyProperty.Register(nameof(CenterVisible), typeof(bool), typeof(GridLinesVisual2D), new PropertyMetadata(false));
+            RowsProperty = DependencyProperty.Register(nameof(Rows), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(2000, FrameworkPropertyMetadataOptions.AffectsRender));
+            ColsProperty = DependencyProperty.Register(nameof(Cols), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(2000, FrameworkPropertyMetadataOptions.AffectsRender));
+            StepSizeProperty = DependencyProperty.Register(nameof(StepSize), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(100, FrameworkPropertyMetadataOptions.AffectsRender));
+            CenterVisibleProperty = DependencyProperty.Register(nameof(CenterVisible), typeof(bool), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
         /// <summary>
