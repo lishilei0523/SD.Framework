@@ -85,8 +85,8 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         public Image BackgroundImage
         {
-            get => (Image)this.GetValue(ScaledFactorProperty);
-            set => this.SetValue(ScaledFactorProperty, value);
+            get => (Image)this.GetValue(BackgroundImageProperty);
+            set => this.SetValue(BackgroundImageProperty, value);
         }
         #endregion
 
