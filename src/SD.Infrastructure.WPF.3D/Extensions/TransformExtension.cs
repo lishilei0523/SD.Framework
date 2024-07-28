@@ -4,7 +4,6 @@ using MathNet.Numerics.LinearAlgebra.Double;
 using SharpDX;
 using System.Windows.Media.Media3D;
 
-
 namespace SD.Infrastructure.WPF.ThreeDims.Extensions
 {
     /// <summary>
