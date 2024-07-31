@@ -1,0 +1,25 @@
+﻿<UserControl x:Class="SD.Infrastructure.WPF.UserControls.ImageViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             Name="Control">
+
+    <Grid Name="Frame" ClipToBounds="True">
+        <Viewbox Name="Viewbox"
+                 MouseDown="OnViewBoxMouseDown"
+                 MouseMove="OnViewBoxMouseMove"
+                 MouseWheel="OnViewBoxMouseWheel"
+                 MouseUp="OnViewBoxMouseUp">
+            <Viewbox.RenderTransform>
+                <MatrixTransform>
+                    <MatrixTransform.Matrix>
+                        <Matrix OffsetX="0" OffsetY="0" />
+                    </MatrixTransform.Matrix>
+                </MatrixTransform>
+            </Viewbox.RenderTransform>
+            <Image Source="{Binding ElementName=Control, Path=ImageSource}" Stretch="Uniform" />
+        </Viewbox>
+    </Grid>
+</UserControl>
