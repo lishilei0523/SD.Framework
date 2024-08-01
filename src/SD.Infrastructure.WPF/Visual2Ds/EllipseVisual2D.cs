@@ -5,9 +5,9 @@ using System.Windows.Shapes;
 namespace SD.Infrastructure.WPF.Visual2Ds
 {
     /// <summary>
-    /// 圆
+    /// 椭圆
     /// </summary>
-    public class CircleVisual2D : Shape
+    public class EllipseVisual2D : Shape
     {
         #region # 字段及构造器
 
@@ -17,9 +17,9 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         public static readonly DependencyProperty CenterProperty;
 
         /// <summary>
-        /// 半径依赖属性
+        /// 尺寸依赖属性
         /// </summary>
-        public static readonly DependencyProperty RadiusProperty;
+        public static readonly DependencyProperty SizeProperty;
 
         /// <summary>
         /// 显示圆心依赖属性
@@ -29,17 +29,17 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static CircleVisual2D()
+        static EllipseVisual2D()
         {
-            CenterProperty = DependencyProperty.Register(nameof(Center), typeof(Point), typeof(CircleVisual2D), new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
-            RadiusProperty = DependencyProperty.Register(nameof(Radius), typeof(double), typeof(CircleVisual2D), new FrameworkPropertyMetadata(100.0, FrameworkPropertyMetadataOptions.AffectsRender));
-            ShowCenterProperty = DependencyProperty.Register(nameof(ShowCenter), typeof(bool), typeof(CircleVisual2D), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
+            CenterProperty = DependencyProperty.Register(nameof(Center), typeof(Point), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
+            SizeProperty = DependencyProperty.Register(nameof(Size), typeof(Size), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(new Size(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
+            ShowCenterProperty = DependencyProperty.Register(nameof(ShowCenter), typeof(bool), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
         /// <summary>
         /// 默认构造器
         /// </summary>
-        public CircleVisual2D()
+        public EllipseVisual2D()
         {
             base.Fill = new SolidColorBrush(Colors.Transparent);
             base.Stroke = new SolidColorBrush(Colors.Red);
@@ -61,14 +61,14 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         }
         #endregion
 
-        #region 依赖属性 - 半径 —— double Radius
+        #region 依赖属性 - 尺寸 —— Size Size
         /// <summary>
-        /// 依赖属性 - 半径
+        /// 依赖属性 - 尺寸
         /// </summary>
-        public double Radius
+        public Size Size
         {
-            get => (double)this.GetValue(RadiusProperty);
-            set => this.SetValue(RadiusProperty, value);
+            get => (Size)this.GetValue(SizeProperty);
+            set => this.SetValue(SizeProperty, value);
         }
         #endregion
 
@@ -91,9 +91,9 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         {
             get
             {
-                EllipseGeometry circleGeometry = new EllipseGeometry(this.Center, this.Radius, this.Radius);
+                EllipseGeometry ellipseGeometry = new EllipseGeometry(this.Center, this.Size.Width, this.Size.Height);
 
-                return circleGeometry;
+                return ellipseGeometry;
             }
         }
         #endregion

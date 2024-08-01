@@ -107,21 +107,21 @@ namespace SD.Infrastructure.WPF.Visual2Ds
             get
             {
                 GeometryGroup gridLines = new GeometryGroup();
-                for (int x = 0; x <= this.Rows; x += this.StepSize)
+                for (int x = 0; x <= this.Cols; x += this.StepSize)
                 {
                     LineGeometry verticalLine = new LineGeometry
                     {
                         StartPoint = new Point(x, 0),
-                        EndPoint = new Point(x, this.Cols)
+                        EndPoint = new Point(x, this.Rows)
                     };
                     gridLines.Children.Add(verticalLine);
                 }
-                for (int y = 0; y <= this.Cols; y += this.StepSize)
+                for (int y = 0; y <= this.Rows; y += this.StepSize)
                 {
                     LineGeometry horizontalLine = new LineGeometry
                     {
                         StartPoint = new Point(0, y),
-                        EndPoint = new Point(this.Rows, y)
+                        EndPoint = new Point(this.Cols, y)
                     };
                     gridLines.Children.Add(horizontalLine);
                 }
