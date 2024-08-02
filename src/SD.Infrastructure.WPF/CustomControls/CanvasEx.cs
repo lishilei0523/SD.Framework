@@ -8,16 +8,16 @@ using System.Windows.Media;
 namespace SD.Infrastructure.WPF.CustomControls
 {
     /// <summary>
-    /// 可缩放Canvas
+    /// 增强Canvas
     /// </summary>
-    public class ScalableCanvas : Canvas
+    public class CanvasEx : Canvas
     {
         #region # 字段及构造器
 
         /// <summary>
         /// 操作模式依赖属性
         /// </summary>
-        public static readonly DependencyProperty OperationModeProperty;
+        public static readonly DependencyProperty ModeProperty;
 
         /// <summary>
         /// 缩放系数依赖属性
@@ -35,20 +35,33 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly DependencyProperty ShowGridLinesProperty;
 
         /// <summary>
-        /// 静态构造器
+        /// 元素可拖拽依赖属性
         /// </summary>
-        static ScalableCanvas()
-        {
-            OperationModeProperty = DependencyProperty.Register(nameof(OperationMode), typeof(CanvasMode), typeof(ScalableCanvas), new PropertyMetadata(CanvasMode.Scale));
-            ScaledFactorProperty = DependencyProperty.Register(nameof(ScaledFactor), typeof(float), typeof(ScalableCanvas), new PropertyMetadata(1.1f));
-            BackgroundImageProperty = DependencyProperty.Register(nameof(BackgroundImage), typeof(Image), typeof(ScalableCanvas), new PropertyMetadata(null, OnBackgroundImageChanged));
-            ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(ScalableCanvas), new PropertyMetadata(false, OnShowGridLinesChanged));
-        }
+        public static readonly DependencyProperty DraggableProperty;
 
         /// <summary>
-        /// 矫正起始位置
+        /// 元素可改变尺寸依赖属性
         /// </summary>
-        private Point? _rectifiedStartPosition;
+        public static readonly DependencyProperty ResizableProperty;
+
+        /// <summary>
+        /// 元素改变尺寸路由事件
+        /// </summary>
+        public static readonly RoutedEvent ElementResizeEvent;
+
+        /// <summary>
+        /// 静态构造器
+        /// </summary>
+        static CanvasEx()
+        {
+            ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(CanvasMode), typeof(CanvasEx), new PropertyMetadata(CanvasMode.Scale));
+            ScaledFactorProperty = DependencyProperty.Register(nameof(ScaledFactor), typeof(float), typeof(CanvasEx), new PropertyMetadata(1.1f));
+            BackgroundImageProperty = DependencyProperty.Register(nameof(BackgroundImage), typeof(Image), typeof(CanvasEx), new PropertyMetadata(null, OnBackgroundImageChanged));
+            ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(CanvasEx), new PropertyMetadata(false, OnShowGridLinesChanged));
+            DraggableProperty = DependencyProperty.Register(nameof(Draggable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
+            ResizableProperty = DependencyProperty.Register(nameof(Resizable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
+            ElementResizeEvent = EventManager.RegisterRoutedEvent(nameof(ElementResize), RoutingStrategy.Direct, typeof(ElementResizeEventHandler), typeof(CanvasEx));
+        }
 
         /// <summary>
         /// 变换矩阵
@@ -56,9 +69,24 @@ namespace SD.Infrastructure.WPF.CustomControls
         private readonly MatrixTransform _matrixTransform;
 
         /// <summary>
+        /// 矫正起始位置
+        /// </summary>
+        private Point? _rectifiedStartPosition;
+
+        /// <summary>
+        /// 拖拽位置
+        /// </summary>
+        private Vector _draggingPosition;
+
+        /// <summary>
+        /// 选中元素
+        /// </summary>
+        private UIElement _selectedVisual;
+
+        /// <summary>
         /// 默认构造器
         /// </summary>
-        public ScalableCanvas()
+        public CanvasEx()
         {
             this._matrixTransform = new MatrixTransform();
             base.MouseDown += this.OnMouseDown;
@@ -75,14 +103,14 @@ namespace SD.Infrastructure.WPF.CustomControls
 
         #region # 属性
 
-        #region 依赖属性 - 操作模式 —— CanvasMode OperationMode
+        #region 依赖属性 - 操作模式 —— CanvasMode Mode
         /// <summary>
         /// 依赖属性 - 操作模式
         /// </summary>
-        public CanvasMode OperationMode
+        public CanvasMode Mode
         {
-            get => (CanvasMode)this.GetValue(OperationModeProperty);
-            set => this.SetValue(OperationModeProperty, value);
+            get => (CanvasMode)this.GetValue(ModeProperty);
+            set => this.SetValue(ModeProperty, value);
         }
         #endregion
 
@@ -119,6 +147,68 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
+        #region 依赖属性 - 元素可拖拽 —— bool Draggable
+        /// <summary>
+        /// 依赖属性 - 元素可拖拽
+        /// </summary>
+        public bool Draggable
+        {
+            get => (bool)this.GetValue(DraggableProperty);
+            set => this.SetValue(DraggableProperty, value);
+        }
+        #endregion
+
+        #region 依赖属性 - 元素可改变尺寸 —— bool Resizable
+        /// <summary>
+        /// 依赖属性 - 元素可改变尺寸
+        /// </summary>
+        public bool Resizable
+        {
+            get => (bool)this.GetValue(ResizableProperty);
+            set => this.SetValue(ResizableProperty, value);
+        }
+        #endregion
+
+        #region 附加属性 - 元素可拖拽 —— bool Draggable
+
+        /// <summary>
+        /// 获取元素可拖拽
+        /// </summary>
+        public static bool GetDraggable(DependencyObject dependencyObject)
+        {
+            return (bool)dependencyObject.GetValue(DraggableProperty);
+        }
+
+        /// <summary>
+        /// 设置元素可拖拽
+        /// </summary>
+        public static void SetDraggable(DependencyObject dependencyObject, bool value)
+        {
+            dependencyObject.SetValue(DraggableProperty, value);
+        }
+
+        #endregion
+
+        #region 附加属性 - 元素可改变尺寸 —— bool Resizable
+
+        /// <summary>
+        /// 获取元素可改变尺寸
+        /// </summary>
+        public static bool GetResizable(DependencyObject dependencyObject)
+        {
+            return (bool)dependencyObject.GetValue(ResizableProperty);
+        }
+
+        /// <summary>
+        /// 设置元素可改变尺寸
+        /// </summary>
+        public static void SetResizable(DependencyObject dependencyObject, bool value)
+        {
+            dependencyObject.SetValue(ResizableProperty, value);
+        }
+
+        #endregion
+
         #region 只读属性 - 缩放率 —— double ScaledRatio
         /// <summary>
         /// 只读属性 - 缩放率
@@ -139,6 +229,47 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
+        #region 只读属性 - 矫正起始位置 —— Point? RectifiedStartPosition
+        /// <summary>
+        /// 只读属性 - 矫正起始位置
+        /// </summary>
+        public Point? RectifiedStartPosition
+        {
+            get => this._rectifiedStartPosition;
+        }
+        #endregion
+
+        #region 只读属性 - 拖拽位置 —— Vector DraggingPosition
+        /// <summary>
+        /// 只读属性 - 拖拽位置
+        /// </summary>
+        public Vector DraggingPosition
+        {
+            get => this._draggingPosition;
+        }
+        #endregion
+
+        #region 只读属性 - 选中元素 —— UIElement SelectedVisual
+        /// <summary>
+        /// 只读属性 - 选中元素
+        /// </summary>
+        public UIElement SelectedVisual
+        {
+            get => this._selectedVisual;
+        }
+        #endregion
+
+        #region 路由事件 - 元素改变尺寸 —— event ElementResizeEventHandler ElementResize
+        /// <summary>
+        /// 路由事件 - 元素改变尺寸
+        /// </summary>
+        public event ElementResizeEventHandler ElementResize
+        {
+            add => base.AddHandler(ElementResizeEvent, value);
+            remove => base.RemoveHandler(ElementResizeEvent, value);
+        }
+        #endregion
+
         #endregion
 
         #region # 方法
@@ -149,7 +280,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         private static void OnBackgroundImageChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
-            ScalableCanvas canvas = (ScalableCanvas)dependencyObject;
+            CanvasEx canvas = (CanvasEx)dependencyObject;
             Image oldImage = eventArgs.OldValue as Image;
             Image newImage = eventArgs.NewValue as Image;
             if (oldImage != null && canvas.Children.Contains(oldImage))
@@ -160,8 +291,8 @@ namespace SD.Infrastructure.WPF.CustomControls
             {
                 newImage.Stretch = Stretch.Uniform;
                 SetZIndex(newImage, int.MinValue);
-                DraggableCanvas.SetDraggable(newImage, false);
-                ResizableCanvas.SetResizable(newImage, false);
+                SetDraggable(newImage, false);
+                SetResizable(newImage, false);
                 canvas.Children.Add(newImage);
             }
         }
@@ -173,7 +304,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         private static void OnShowGridLinesChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
-            ScalableCanvas canvas = (ScalableCanvas)dependencyObject;
+            CanvasEx canvas = (CanvasEx)dependencyObject;
             bool oldShow = (bool)eventArgs.OldValue;
             bool newShow = (bool)eventArgs.NewValue;
             if (oldShow && newShow)
@@ -194,8 +325,8 @@ namespace SD.Infrastructure.WPF.CustomControls
             {
                 GridLinesVisual2D gridLines = new GridLinesVisual2D();
                 SetZIndex(gridLines, int.MaxValue);
-                DraggableCanvas.SetDraggable(gridLines, false);
-                ResizableCanvas.SetResizable(gridLines, false);
+                SetDraggable(gridLines, false);
+                SetResizable(gridLines, false);
                 canvas.Children.Add(gridLines);
             }
         }
@@ -239,10 +370,23 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         private void OnMouseDown(object sender, MouseButtonEventArgs eventArgs)
         {
+            Point mousePosition = eventArgs.GetPosition(this);
             if (eventArgs.ChangedButton == MouseButton.Middle)
             {
-                Point mousePosition = eventArgs.GetPosition(this);
                 this._rectifiedStartPosition = this._matrixTransform.Inverse!.Transform(mousePosition);
+            }
+            if ((this.Mode == CanvasMode.Drag || this.Mode == CanvasMode.Resize) &&
+                (eventArgs.ChangedButton == MouseButton.Left))
+            {
+                UIElement element = (UIElement)eventArgs.Source;
+                if (this.Children.Contains(element))
+                {
+                    double elementX = double.IsNaN(GetLeft(element)) ? 0 : GetLeft(element);
+                    double elementY = double.IsNaN(GetTop(element)) ? 0 : GetTop(element);
+                    Point elementPosition = new Point(elementX, elementY);
+                    this._selectedVisual = element;
+                    this._draggingPosition = elementPosition - mousePosition;
+                }
             }
         }
         #endregion
@@ -253,19 +397,43 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         private void OnMouseMove(object sender, MouseEventArgs eventArgs)
         {
+            Point mousePosition = eventArgs.GetPosition(this);
+            Point rectifiedMousePosition = this._matrixTransform.Inverse!.Transform(mousePosition);
             if (eventArgs.MiddleButton == MouseButtonState.Pressed && this._rectifiedStartPosition.HasValue)
             {
                 //设置光标
                 Mouse.OverrideCursor = Cursors.Hand;
 
-                Point mousePosition = eventArgs.GetPosition(this);
-                Point rectifiedMousePosition = this._matrixTransform.Inverse!.Transform(mousePosition);
                 Vector delta = Point.Subtract(rectifiedMousePosition, this._rectifiedStartPosition.Value);
                 TranslateTransform transform = new TranslateTransform(delta.X, delta.Y);
                 this._matrixTransform.Matrix = transform.Value * this._matrixTransform.Matrix;
                 foreach (UIElement element in this.Children)
                 {
                     element.RenderTransform = this._matrixTransform;
+                }
+            }
+            if (this.Mode == CanvasMode.Drag && eventArgs.LeftButton == MouseButtonState.Pressed && this._selectedVisual != null)
+            {
+                bool elementIsDraggable = GetDraggable(this._selectedVisual);
+                if (elementIsDraggable)
+                {
+                    //设置光标
+                    Mouse.OverrideCursor = Cursors.Hand;
+
+                    SetLeft(this._selectedVisual, mousePosition.X + this._draggingPosition.X);
+                    SetTop(this._selectedVisual, mousePosition.Y + this._draggingPosition.Y);
+                }
+            }
+            if (this.Mode == CanvasMode.Resize && eventArgs.LeftButton == MouseButtonState.Pressed && this._selectedVisual != null)
+            {
+                bool elementIsResizable = GetResizable(this._selectedVisual);
+                if (elementIsResizable)
+                {
+                    //设置光标
+                    Mouse.OverrideCursor = Cursors.SizeNWSE;
+
+                    //挂起路由事件
+                    this.RaiseEvent(new ElementResizeEventArgs(ElementResizeEvent, this, mousePosition, rectifiedMousePosition));
                 }
             }
         }
@@ -310,9 +478,43 @@ namespace SD.Infrastructure.WPF.CustomControls
             Mouse.OverrideCursor = Cursors.Arrow;
 
             this._rectifiedStartPosition = null;
+            this._selectedVisual = null;
         }
         #endregion 
 
         #endregion
+    }
+
+
+    /// <summary>
+    /// 元素改变尺寸事件处理程序
+    /// </summary>
+    public delegate void ElementResizeEventHandler(CanvasEx canvas, ElementResizeEventArgs eventArgs);
+
+
+    /// <summary>
+    /// 元素改变尺寸事件参数
+    /// </summary>
+    public class ElementResizeEventArgs : RoutedEventArgs
+    {
+        /// <summary>
+        /// 创建元素改变尺寸事件参数构造器
+        /// </summary>
+        public ElementResizeEventArgs(RoutedEvent routedEvent, object source, Point mousePosition, Point rectifiedMousePosition)
+            : base(routedEvent, source)
+        {
+            this.MousePosition = mousePosition;
+            this.RectifiedMousePosition = rectifiedMousePosition;
+        }
+
+        /// <summary>
+        /// 鼠标位置
+        /// </summary>
+        public Point MousePosition { get; set; }
+
+        /// <summary>
+        /// 矫正鼠标位置
+        /// </summary>
+        public Point RectifiedMousePosition { get; set; }
     }
 }
