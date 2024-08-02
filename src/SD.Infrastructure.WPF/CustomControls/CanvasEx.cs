@@ -1,4 +1,5 @@
 ﻿using SD.Infrastructure.WPF.Constants;
+using SD.Infrastructure.WPF.Models;
 using SD.Infrastructure.WPF.Visual2Ds;
 using System.Windows;
 using System.Windows.Controls;
@@ -69,14 +70,34 @@ namespace SD.Infrastructure.WPF.CustomControls
         private readonly MatrixTransform _matrixTransform;
 
         /// <summary>
-        /// 矫正起始位置
+        /// 鼠标起始位置
         /// </summary>
+        /// <remarks>基于Viewport坐标系</remarks>
+        private Point? _startPosition;
+
+        /// <summary>
+        /// 鼠标实时位置
+        /// </summary>
+        /// <remarks>基于Viewport坐标系</remarks>
+        private Point? _mousePosition;
+
+        /// <summary>
+        /// 矫正鼠标起始位置
+        /// </summary>
+        /// <remarks>基于CanvasEx坐标系</remarks>
         private Point? _rectifiedStartPosition;
 
         /// <summary>
-        /// 拖拽位置
+        /// 矫正鼠标实时位置
         /// </summary>
-        private Vector _draggingPosition;
+        /// <remarks>基于CanvasEx坐标系</remarks>
+        private Point? _rectifiedMousePosition;
+
+        /// <summary>
+        /// 拖拽偏移量
+        /// </summary>
+        /// <remarks>鼠标位置与元素位置的偏移</remarks>
+        private Vector _draggingOffset;
 
         /// <summary>
         /// 选中元素
@@ -209,6 +230,17 @@ namespace SD.Infrastructure.WPF.CustomControls
 
         #endregion
 
+        #region 路由事件 - 元素改变尺寸 —— event ElementResizeEventHandler ElementResize
+        /// <summary>
+        /// 路由事件 - 元素改变尺寸
+        /// </summary>
+        public event ElementResizeEventHandler ElementResize
+        {
+            add => base.AddHandler(ElementResizeEvent, value);
+            remove => base.RemoveHandler(ElementResizeEvent, value);
+        }
+        #endregion
+
         #region 只读属性 - 缩放率 —— double ScaledRatio
         /// <summary>
         /// 只读属性 - 缩放率
@@ -229,23 +261,58 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
-        #region 只读属性 - 矫正起始位置 —— Point? RectifiedStartPosition
+        #region 只读属性 - 鼠标起始位置 —— Point? StartPosition
         /// <summary>
-        /// 只读属性 - 矫正起始位置
+        /// 只读属性 - 鼠标起始位置
         /// </summary>
+        /// <remarks>基于Viewport坐标系</remarks>
+        public Point? StartPosition
+        {
+            get => this._startPosition;
+        }
+        #endregion
+
+        #region 只读属性 - 鼠标实时位置 —— Point? MousePosition
+        /// <summary>
+        /// 只读属性 - 鼠标实时位置
+        /// </summary>
+        /// <remarks>基于Viewport坐标系</remarks>
+        public Point? MousePosition
+        {
+            get => this._mousePosition;
+        }
+        #endregion
+
+        #region 只读属性 - 矫正鼠标起始位置 —— Point? RectifiedStartPosition
+        /// <summary>
+        /// 只读属性 - 矫正鼠标起始位置
+        /// </summary>
+        /// <remarks>基于CanvasEx坐标系</remarks>
         public Point? RectifiedStartPosition
         {
             get => this._rectifiedStartPosition;
         }
         #endregion
 
-        #region 只读属性 - 拖拽位置 —— Vector DraggingPosition
+        #region 只读属性 - 矫正鼠标实时位置 —— Point? RectifiedMousePosition
         /// <summary>
-        /// 只读属性 - 拖拽位置
+        /// 只读属性 - 矫正鼠标实时位置
         /// </summary>
-        public Vector DraggingPosition
+        /// <remarks>基于CanvasEx坐标系</remarks>
+        public Point? RectifiedMousePosition
         {
-            get => this._draggingPosition;
+            get => this._rectifiedMousePosition;
+        }
+        #endregion
+
+        #region 只读属性 - 拖拽偏移量 —— Vector DraggingOffset
+        /// <summary>
+        /// 只读属性 - 拖拽偏移量
+        /// </summary>
+        /// <remarks>鼠标位置与元素位置的偏移</remarks>
+        public Vector DraggingOffset
+        {
+            get => this._draggingOffset;
         }
         #endregion
 
@@ -256,17 +323,6 @@ namespace SD.Infrastructure.WPF.CustomControls
         public UIElement SelectedVisual
         {
             get => this._selectedVisual;
-        }
-        #endregion
-
-        #region 路由事件 - 元素改变尺寸 —— event ElementResizeEventHandler ElementResize
-        /// <summary>
-        /// 路由事件 - 元素改变尺寸
-        /// </summary>
-        public event ElementResizeEventHandler ElementResize
-        {
-            add => base.AddHandler(ElementResizeEvent, value);
-            remove => base.RemoveHandler(ElementResizeEvent, value);
         }
         #endregion
 
@@ -370,22 +426,22 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         private void OnMouseDown(object sender, MouseButtonEventArgs eventArgs)
         {
-            Point mousePosition = eventArgs.GetPosition(this);
-            if (eventArgs.ChangedButton == MouseButton.Middle)
+            Point startPosition = eventArgs.GetPosition(this);
+            this._startPosition = startPosition;
+            this._rectifiedStartPosition = this._matrixTransform.Inverse!.Transform(startPosition);
+            if (eventArgs.ChangedButton == MouseButton.Left)
             {
-                this._rectifiedStartPosition = this._matrixTransform.Inverse!.Transform(mousePosition);
-            }
-            if ((this.Mode == CanvasMode.Drag || this.Mode == CanvasMode.Resize) &&
-                (eventArgs.ChangedButton == MouseButton.Left))
-            {
-                UIElement element = (UIElement)eventArgs.Source;
-                if (this.Children.Contains(element))
+                if (eventArgs.Source is UIElement element && this.Children.Contains(element))
                 {
-                    double elementX = double.IsNaN(GetLeft(element)) ? 0 : GetLeft(element);
-                    double elementY = double.IsNaN(GetTop(element)) ? 0 : GetTop(element);
-                    Point elementPosition = new Point(elementX, elementY);
                     this._selectedVisual = element;
-                    this._draggingPosition = elementPosition - mousePosition;
+
+                    //计算鼠标位置与元素位置偏移量
+                    double elementX = GetLeft(element);
+                    double elementY = GetTop(element);
+                    elementX = double.IsNaN(elementX) ? 0 : elementX;
+                    elementY = double.IsNaN(elementY) ? 0 : elementY;
+                    Point elementPosition = new Point(elementX, elementY);
+                    this._draggingOffset = elementPosition - startPosition;
                 }
             }
         }
@@ -399,6 +455,8 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             Point mousePosition = eventArgs.GetPosition(this);
             Point rectifiedMousePosition = this._matrixTransform.Inverse!.Transform(mousePosition);
+            this._mousePosition = mousePosition;
+            this._rectifiedMousePosition = rectifiedMousePosition;
             if (eventArgs.MiddleButton == MouseButtonState.Pressed && this._rectifiedStartPosition.HasValue)
             {
                 //设置光标
@@ -420,8 +478,8 @@ namespace SD.Infrastructure.WPF.CustomControls
                     //设置光标
                     Mouse.OverrideCursor = Cursors.Hand;
 
-                    SetLeft(this._selectedVisual, mousePosition.X + this._draggingPosition.X);
-                    SetTop(this._selectedVisual, mousePosition.Y + this._draggingPosition.Y);
+                    Canvas.SetLeft(this._selectedVisual, mousePosition.X + this._draggingOffset.X);
+                    Canvas.SetTop(this._selectedVisual, mousePosition.Y + this._draggingOffset.Y);
                 }
             }
             if (this.Mode == CanvasMode.Resize && eventArgs.LeftButton == MouseButtonState.Pressed && this._selectedVisual != null)
@@ -433,7 +491,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                     Mouse.OverrideCursor = Cursors.SizeNWSE;
 
                     //挂起路由事件
-                    this.RaiseEvent(new ElementResizeEventArgs(ElementResizeEvent, this, mousePosition, rectifiedMousePosition));
+                    this.RaiseEvent(new RoutedEventArgs(ElementResizeEvent, this));
                 }
             }
         }
@@ -477,44 +535,14 @@ namespace SD.Infrastructure.WPF.CustomControls
             //设置光标
             Mouse.OverrideCursor = Cursors.Arrow;
 
+            this._startPosition = null;
+            this._mousePosition = null;
             this._rectifiedStartPosition = null;
+            this._rectifiedMousePosition = null;
             this._selectedVisual = null;
         }
         #endregion 
 
         #endregion
-    }
-
-
-    /// <summary>
-    /// 元素改变尺寸事件处理程序
-    /// </summary>
-    public delegate void ElementResizeEventHandler(CanvasEx canvas, ElementResizeEventArgs eventArgs);
-
-
-    /// <summary>
-    /// 元素改变尺寸事件参数
-    /// </summary>
-    public class ElementResizeEventArgs : RoutedEventArgs
-    {
-        /// <summary>
-        /// 创建元素改变尺寸事件参数构造器
-        /// </summary>
-        public ElementResizeEventArgs(RoutedEvent routedEvent, object source, Point mousePosition, Point rectifiedMousePosition)
-            : base(routedEvent, source)
-        {
-            this.MousePosition = mousePosition;
-            this.RectifiedMousePosition = rectifiedMousePosition;
-        }
-
-        /// <summary>
-        /// 鼠标位置
-        /// </summary>
-        public Point MousePosition { get; set; }
-
-        /// <summary>
-        /// 矫正鼠标位置
-        /// </summary>
-        public Point RectifiedMousePosition { get; set; }
     }
 }
