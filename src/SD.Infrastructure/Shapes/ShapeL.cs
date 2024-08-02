@@ -3,7 +3,7 @@
 namespace SD.Infrastructure.Shapes
 {
     /// <summary>
-    /// 形状基类
+    /// 形状
     /// </summary>
     public abstract class ShapeL
     {
@@ -67,7 +67,17 @@ namespace SD.Infrastructure.Shapes
         /// 自定义标签
         /// </summary>
         public object Tag { get; set; }
-        #endregion 
+        #endregion
+
+        #region 只读属性 - 文本 —— string Text
+        /// <summary>
+        /// 只读属性 - 文本
+        /// </summary>
+        public string Text
+        {
+            get => this.ToString();
+        }
+        #endregion
 
         #endregion
     }

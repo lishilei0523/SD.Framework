@@ -5,7 +5,7 @@ using System.Windows.Shapes;
 namespace SD.Infrastructure.WPF.Visual2Ds
 {
     /// <summary>
-    /// 圆
+    /// 圆形
     /// </summary>
     public class CircleVisual2D : Shape
     {

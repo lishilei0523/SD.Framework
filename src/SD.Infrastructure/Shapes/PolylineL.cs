@@ -6,7 +6,7 @@ using System.Text;
 namespace SD.Infrastructure.Shapes
 {
     /// <summary>
-    /// 多边形曲线
+    /// 折线段
     /// </summary>
     public class PolylineL : ShapeL
     {
@@ -23,9 +23,9 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
-        #region 01.创建多边形曲线构造器
+        #region 01.创建折线段构造器
         /// <summary>
-        /// 创建多边形曲线构造器
+        /// 创建折线段构造器
         /// </summary>
         /// <param name="points">点坐标集</param>
         public PolylineL(IEnumerable<Point> points)
@@ -39,9 +39,9 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
-        #region 02.创建多边形曲线构造器
+        #region 02.创建折线段构造器
         /// <summary>
-        /// 创建多边形曲线构造器
+        /// 创建折线段构造器
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="points">点坐标集</param>
@@ -63,9 +63,9 @@ namespace SD.Infrastructure.Shapes
         public ICollection<Point> Points { get; set; }
         #endregion
 
-        #region 只读属性 - 空多边形曲线 —— static PolylineL Empty
+        #region 只读属性 - 空折线段 —— static PolylineL Empty
         /// <summary>
-        /// 只读属性 - 空多边形曲线
+        /// 只读属性 - 空折线段
         /// </summary>
         public static PolylineL Empty
         {
@@ -126,12 +126,12 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
-        #region 比较两个多边形曲线是否相等 —— static bool operator ==(PolylineL source, PolylineL target)
+        #region 比较两个折线段是否相等 —— static bool operator ==(PolylineL source, PolylineL target)
         /// <summary>
-        /// 比较两个多边形曲线是否相等
+        /// 比较两个折线段是否相等
         /// </summary>
-        /// <param name="source">源多边形曲线</param>
-        /// <param name="target">目标多边形曲线</param>
+        /// <param name="source">源折线段</param>
+        /// <param name="target">目标折线段</param>
         /// <returns>是否相等</returns>
         public static bool operator ==(PolylineL source, PolylineL target)
         {
@@ -164,12 +164,12 @@ namespace SD.Infrastructure.Shapes
         }
         #endregion
 
-        #region 比较两个多边形曲线是否不等 —— static bool operator !=(PolylineL source, PolylineL target)
+        #region 比较两个折线段是否不等 —— static bool operator !=(PolylineL source, PolylineL target)
         /// <summary>
-        /// 比较两个多边形曲线是否不等
+        /// 比较两个折线段是否不等
         /// </summary>
-        /// <param name="source">源多边形曲线</param>
-        /// <param name="target">目标多边形曲线</param>
+        /// <param name="source">源折线段</param>
+        /// <param name="target">目标折线段</param>
         /// <returns>是否不等</returns>
         public static bool operator !=(PolylineL source, PolylineL target)
         {

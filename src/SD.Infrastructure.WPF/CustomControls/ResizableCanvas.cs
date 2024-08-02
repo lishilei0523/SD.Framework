@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using SD.Infrastructure.WPF.Constants;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SD.Infrastructure.WPF.CustomControls
@@ -94,7 +95,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         private void OnMouseMove(object sender, MouseEventArgs eventArgs)
         {
             ResizableCanvas canvas = (ResizableCanvas)sender;
-            if (eventArgs.LeftButton == MouseButtonState.Pressed && Keyboard.IsKeyDown(Key.LeftCtrl) && canvas.SelectedVisual != null)
+            if (this.OperationMode == CanvasMode.Resize && eventArgs.LeftButton == MouseButtonState.Pressed && canvas.SelectedVisual != null)
             {
                 bool elementIsResizable = GetResizable(canvas.SelectedVisual);
                 if (elementIsResizable)
@@ -105,7 +106,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                     //挂起路由事件
                     Point mousePosition = eventArgs.GetPosition(canvas);
                     Point retifiedMousePosition = canvas.MatrixTransform.Inverse!.Transform(mousePosition);
-                    this.RaiseEvent(new ElementResizeEventArgs(ElementResizeEvent, canvas, retifiedMousePosition));
+                    this.RaiseEvent(new ElementResizeEventArgs(ElementResizeEvent, canvas, mousePosition, retifiedMousePosition));
                 }
             }
         }
@@ -129,11 +130,17 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 创建元素改变尺寸事件参数构造器
         /// </summary>
-        public ElementResizeEventArgs(RoutedEvent routedEvent, object source, Point retifiedMousePosition)
+        public ElementResizeEventArgs(RoutedEvent routedEvent, object source, Point mousePosition, Point retifiedMousePosition)
             : base(routedEvent, source)
         {
+            this.MousePosition = mousePosition;
             this.RetifiedMousePosition = retifiedMousePosition;
         }
+
+        /// <summary>
+        /// 鼠标位置
+        /// </summary>
+        public Point MousePosition { get; set; }
 
         /// <summary>
         /// 矫正鼠标位置

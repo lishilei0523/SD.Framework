@@ -1,4 +1,5 @@
-﻿using SD.Infrastructure.WPF.Visual2Ds;
+﻿using SD.Infrastructure.WPF.Constants;
+using SD.Infrastructure.WPF.Visual2Ds;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -12,6 +13,11 @@ namespace SD.Infrastructure.WPF.CustomControls
     public class ScalableCanvas : Canvas
     {
         #region # 字段及构造器
+
+        /// <summary>
+        /// 操作模式依赖属性
+        /// </summary>
+        public static readonly DependencyProperty OperationModeProperty;
 
         /// <summary>
         /// 缩放系数依赖属性
@@ -33,6 +39,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         static ScalableCanvas()
         {
+            OperationModeProperty = DependencyProperty.Register(nameof(OperationMode), typeof(CanvasMode), typeof(ScalableCanvas), new PropertyMetadata(CanvasMode.Scale));
             ScaledFactorProperty = DependencyProperty.Register(nameof(ScaledFactor), typeof(float), typeof(ScalableCanvas), new PropertyMetadata(1.1f));
             BackgroundImageProperty = DependencyProperty.Register(nameof(BackgroundImage), typeof(Image), typeof(ScalableCanvas), new PropertyMetadata(null, OnBackgroundImageChanged));
             ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(ScalableCanvas), new PropertyMetadata(false, OnShowGridLinesChanged));
@@ -67,6 +74,17 @@ namespace SD.Infrastructure.WPF.CustomControls
         #endregion
 
         #region # 属性
+
+        #region 依赖属性 - 操作模式 —— CanvasMode OperationMode
+        /// <summary>
+        /// 依赖属性 - 操作模式
+        /// </summary>
+        public CanvasMode OperationMode
+        {
+            get => (CanvasMode)this.GetValue(OperationModeProperty);
+            set => this.SetValue(OperationModeProperty, value);
+        }
+        #endregion
 
         #region 依赖属性 - 缩放系数 —— float ScaledFactor
         /// <summary>

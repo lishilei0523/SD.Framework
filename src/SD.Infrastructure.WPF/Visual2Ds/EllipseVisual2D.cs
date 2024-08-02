@@ -5,7 +5,7 @@ using System.Windows.Shapes;
 namespace SD.Infrastructure.WPF.Visual2Ds
 {
     /// <summary>
-    /// 椭圆
+    /// 椭圆形
     /// </summary>
     public class EllipseVisual2D : Shape
     {

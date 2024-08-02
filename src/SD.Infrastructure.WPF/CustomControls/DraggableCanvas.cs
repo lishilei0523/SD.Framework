@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using SD.Infrastructure.WPF.Constants;
+using System.Windows;
 using System.Windows.Input;
 
 namespace SD.Infrastructure.WPF.CustomControls
@@ -108,7 +109,8 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         private void OnMouseDown(object sender, MouseButtonEventArgs eventArgs)
         {
-            if (eventArgs.ChangedButton == MouseButton.Left)
+            if ((this.OperationMode == CanvasMode.Drag || this.OperationMode == CanvasMode.Resize) &&
+                eventArgs.ChangedButton == MouseButton.Left)
             {
                 UIElement element = (UIElement)eventArgs.Source;
                 if (this.Children.Contains(element))
@@ -131,15 +133,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         private void OnMouseMove(object sender, MouseEventArgs eventArgs)
         {
             Point mousePosition = eventArgs.GetPosition(this);
-            if (eventArgs.LeftButton == MouseButtonState.Pressed &&
-                Keyboard.IsKeyUp(Key.LeftCtrl) &&
-                Keyboard.IsKeyUp(Key.LeftAlt) &&
-                Keyboard.IsKeyUp(Key.LeftShift) &&
-                Keyboard.IsKeyUp(Key.RightCtrl) &&
-                Keyboard.IsKeyUp(Key.RightAlt) &&
-                Keyboard.IsKeyUp(Key.RightShift) &&
-                Keyboard.IsKeyUp(Key.Space) &&
-                this._selectedVisual != null)
+            if (this.OperationMode == CanvasMode.Drag && eventArgs.LeftButton == MouseButtonState.Pressed && this._selectedVisual != null)
             {
                 bool elementIsDraggable = GetDraggable(this._selectedVisual);
                 if (elementIsDraggable)
@@ -160,10 +154,13 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         private void OnMouseUp(object sender, MouseButtonEventArgs eventArgs)
         {
-            //设置光标
-            Mouse.OverrideCursor = Cursors.Arrow;
+            if (this.OperationMode == CanvasMode.Drag)
+            {
+                //设置光标
+                Mouse.OverrideCursor = Cursors.Arrow;
 
-            this._selectedVisual = null;
+                this._selectedVisual = null;
+            }
         }
         #endregion
 
