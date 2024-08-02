@@ -51,6 +51,16 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly RoutedEvent ElementResizeEvent;
 
         /// <summary>
+        /// 绘制中路由事件
+        /// </summary>
+        public static readonly RoutedEvent DrawingEvent;
+
+        /// <summary>
+        /// 绘制完成路由事件
+        /// </summary>
+        public static readonly RoutedEvent DrawnEvent;
+
+        /// <summary>
         /// 静态构造器
         /// </summary>
         static CanvasEx()
@@ -61,7 +71,9 @@ namespace SD.Infrastructure.WPF.CustomControls
             ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(CanvasEx), new PropertyMetadata(false, OnShowGridLinesChanged));
             DraggableProperty = DependencyProperty.Register(nameof(Draggable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ResizableProperty = DependencyProperty.Register(nameof(Resizable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
-            ElementResizeEvent = EventManager.RegisterRoutedEvent(nameof(ElementResize), RoutingStrategy.Direct, typeof(ElementResizeEventHandler), typeof(CanvasEx));
+            ElementResizeEvent = EventManager.RegisterRoutedEvent(nameof(ElementResize), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
+            DrawingEvent = EventManager.RegisterRoutedEvent(nameof(Drawing), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
+            DrawnEvent = EventManager.RegisterRoutedEvent(nameof(Drawn), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
         }
 
         /// <summary>
@@ -230,14 +242,36 @@ namespace SD.Infrastructure.WPF.CustomControls
 
         #endregion
 
-        #region 路由事件 - 元素改变尺寸 —— event ElementResizeEventHandler ElementResize
+        #region 路由事件 - 元素改变尺寸 —— event CanvasEventHandler ElementResize
         /// <summary>
         /// 路由事件 - 元素改变尺寸
         /// </summary>
-        public event ElementResizeEventHandler ElementResize
+        public event CanvasEventHandler ElementResize
         {
             add => base.AddHandler(ElementResizeEvent, value);
             remove => base.RemoveHandler(ElementResizeEvent, value);
+        }
+        #endregion
+
+        #region 路由事件 - 绘制中 —— event CanvasEventHandler Drawing
+        /// <summary>
+        /// 路由事件 - 绘制中
+        /// </summary>
+        public event CanvasEventHandler Drawing
+        {
+            add => base.AddHandler(DrawingEvent, value);
+            remove => base.RemoveHandler(DrawingEvent, value);
+        }
+        #endregion
+
+        #region 路由事件 - 绘制完成 —— event CanvasEventHandler Drawn
+        /// <summary>
+        /// 路由事件 - 绘制完成
+        /// </summary>
+        public event CanvasEventHandler Drawn
+        {
+            add => base.AddHandler(DrawnEvent, value);
+            remove => base.RemoveHandler(DrawnEvent, value);
         }
         #endregion
 
@@ -494,6 +528,14 @@ namespace SD.Infrastructure.WPF.CustomControls
                     this.RaiseEvent(new RoutedEventArgs(ElementResizeEvent, this));
                 }
             }
+            if (this.Mode == CanvasMode.Draw && eventArgs.LeftButton == MouseButtonState.Pressed && this._rectifiedStartPosition.HasValue)
+            {
+                //设置光标
+                Mouse.OverrideCursor = Cursors.Cross;
+
+                //挂起路由事件
+                this.RaiseEvent(new RoutedEventArgs(DrawingEvent, this));
+            }
         }
         #endregion
 
@@ -540,6 +582,12 @@ namespace SD.Infrastructure.WPF.CustomControls
             this._rectifiedStartPosition = null;
             this._rectifiedMousePosition = null;
             this._selectedVisual = null;
+
+            if (this.Mode == CanvasMode.Draw)
+            {
+                //挂起路由事件
+                this.RaiseEvent(new RoutedEventArgs(DrawnEvent, this));
+            }
         }
         #endregion 
 
