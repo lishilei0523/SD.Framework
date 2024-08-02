@@ -172,18 +172,9 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override string ToString()
         {
-            double ax = this.TopLeft.X;
-            double ay = this.TopLeft.Y;
-            double bx = this.BottomLeft.X;
-            double by = this.BottomLeft.Y;
-            double cx = this.BottomRight.X;
-            double cy = this.BottomRight.Y;
-            double dx = this.TopRight.X;
-            double dy = this.TopRight.Y;
+            string rectangle = $"A({this.X},{this.Y})|{this.Width}*{this.Height}"; ;
 
-            string locationPoints = $"A({ax},{ay}), B({bx},{by}), C({cx},{cy}), D({dx},{dy})";
-
-            return locationPoints;
+            return rectangle;
         }
         #endregion
 

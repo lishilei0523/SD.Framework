@@ -172,9 +172,9 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override string ToString()
         {
-            string locationPoints = $"Ø({this.X},{this.Y})|{this.Width}*{this.Height}";
+            string ellipse = $"O({this.X},{this.Y})|{this.Width}*{this.Height}";
 
-            return locationPoints;
+            return ellipse;
         }
         #endregion
 

@@ -128,9 +128,9 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override string ToString()
         {
-            string locationPoints = $"⊙({this.X},{this.Y})|r={this.Radius}";
+            string circle = $"O({this.X},{this.Y})|r={this.Radius}";
 
-            return locationPoints;
+            return circle;
         }
         #endregion
 

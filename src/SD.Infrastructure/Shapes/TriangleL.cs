@@ -220,7 +220,7 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override string ToString()
         {
-            string vertexPoints = $"△({this.VertexA.X},{this.VertexA.Y})({this.VertexB.X},{this.VertexB.Y})({this.VertexC.X},{this.VertexC.Y})";
+            string vertexPoints = $"A({this.VertexA.X},{this.VertexA.Y})|B({this.VertexB.X},{this.VertexB.Y})|C({this.VertexC.X},{this.VertexC.Y})";
 
             return vertexPoints;
         }
