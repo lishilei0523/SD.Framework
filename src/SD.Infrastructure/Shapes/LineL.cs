@@ -137,7 +137,9 @@ namespace SD.Infrastructure.Shapes
             }
 
             return source.A.X == target.A.X &&
-                   source.A.Y == target.B.Y;
+                   source.A.Y == target.A.Y &&
+                   source.B.X == target.B.X &&
+                   source.B.Y == target.B.Y;
         }
         #endregion
 
