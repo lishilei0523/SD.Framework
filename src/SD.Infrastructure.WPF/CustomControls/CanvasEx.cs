@@ -51,6 +51,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly RoutedEvent ElementResizeEvent;
 
         /// <summary>
+        /// 绘制开始路由事件
+        /// </summary>
+        public static readonly RoutedEvent DrawEvent;
+
+        /// <summary>
         /// 绘制中路由事件
         /// </summary>
         public static readonly RoutedEvent DrawingEvent;
@@ -72,6 +77,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             DraggableProperty = DependencyProperty.Register(nameof(Draggable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ResizableProperty = DependencyProperty.Register(nameof(Resizable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ElementResizeEvent = EventManager.RegisterRoutedEvent(nameof(ElementResize), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
+            DrawEvent = EventManager.RegisterRoutedEvent(nameof(Draw), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             DrawingEvent = EventManager.RegisterRoutedEvent(nameof(Drawing), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             DrawnEvent = EventManager.RegisterRoutedEvent(nameof(Drawn), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
         }
@@ -250,6 +256,17 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             add => base.AddHandler(ElementResizeEvent, value);
             remove => base.RemoveHandler(ElementResizeEvent, value);
+        }
+        #endregion
+
+        #region 路由事件 - 绘制开始 —— event CanvasEventHandler Draw
+        /// <summary>
+        /// 路由事件 - 绘制开始
+        /// </summary>
+        public event CanvasEventHandler Draw
+        {
+            add => base.AddHandler(DrawEvent, value);
+            remove => base.RemoveHandler(DrawEvent, value);
         }
         #endregion
 
@@ -477,6 +494,14 @@ namespace SD.Infrastructure.WPF.CustomControls
                     Point elementPosition = new Point(elementX, elementY);
                     this._draggingOffset = elementPosition - startPosition;
                 }
+            }
+            if (this.Mode == CanvasMode.Draw)
+            {
+                //设置光标
+                Mouse.OverrideCursor = Cursors.Cross;
+
+                //挂起路由事件
+                this.RaiseEvent(new RoutedEventArgs(DrawEvent, this));
             }
         }
         #endregion
