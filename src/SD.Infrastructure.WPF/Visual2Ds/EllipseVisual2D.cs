@@ -17,9 +17,14 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         public static readonly DependencyProperty CenterProperty;
 
         /// <summary>
-        /// 尺寸依赖属性
+        /// X轴半径依赖属性
         /// </summary>
-        public static readonly DependencyProperty SizeProperty;
+        public static readonly DependencyProperty RadiusXProperty;
+
+        /// <summary>
+        /// Y轴半径依赖属性
+        /// </summary>
+        public static readonly DependencyProperty RadiusYProperty;
 
         /// <summary>
         /// 显示圆心依赖属性
@@ -32,7 +37,8 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         static EllipseVisual2D()
         {
             CenterProperty = DependencyProperty.Register(nameof(Center), typeof(Point), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
-            SizeProperty = DependencyProperty.Register(nameof(Size), typeof(Size), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(new Size(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
+            RadiusXProperty = DependencyProperty.Register(nameof(RadiusX), typeof(double), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
+            RadiusYProperty = DependencyProperty.Register(nameof(RadiusY), typeof(double), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
             ShowCenterProperty = DependencyProperty.Register(nameof(ShowCenter), typeof(bool), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
@@ -61,14 +67,25 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         }
         #endregion
 
-        #region 依赖属性 - 尺寸 —— Size Size
+        #region 依赖属性 - X轴半径 —— double RadiusX
         /// <summary>
-        /// 依赖属性 - 尺寸
+        /// 依赖属性 - X轴半径
         /// </summary>
-        public Size Size
+        public double RadiusX
         {
-            get => (Size)this.GetValue(SizeProperty);
-            set => this.SetValue(SizeProperty, value);
+            get => (double)this.GetValue(RadiusXProperty);
+            set => this.SetValue(RadiusXProperty, value);
+        }
+        #endregion
+
+        #region 依赖属性 - Y轴半径 —— double RadiusY
+        /// <summary>
+        /// 依赖属性 - Y轴半径
+        /// </summary>
+        public double RadiusY
+        {
+            get => (double)this.GetValue(RadiusYProperty);
+            set => this.SetValue(RadiusYProperty, value);
         }
         #endregion
 
@@ -91,7 +108,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         {
             get
             {
-                EllipseGeometry ellipseGeometry = new EllipseGeometry(this.Center, this.Size.Width, this.Size.Height);
+                EllipseGeometry ellipseGeometry = new EllipseGeometry(this.Center, this.RadiusX, this.RadiusY);
 
                 return ellipseGeometry;
             }

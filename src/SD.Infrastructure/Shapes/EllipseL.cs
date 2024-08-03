@@ -20,17 +20,17 @@ namespace SD.Infrastructure.Shapes
         /// <summary>
         /// 创建椭圆形构造器
         /// </summary>
-        /// <param name="x">顶点横坐标值</param>
-        /// <param name="y">顶点纵坐标值</param>
-        /// <param name="width">宽度</param>
-        /// <param name="height">高度</param>
-        public EllipseL(int x, int y, int width, int height)
+        /// <param name="x">圆心横坐标值</param>
+        /// <param name="y">圆心纵坐标值</param>
+        /// <param name="radiusX">X轴半径</param>
+        /// <param name="radiusY">Y轴半径</param>
+        public EllipseL(int x, int y, int radiusX, int radiusY)
             : this()
         {
             this.X = x;
             this.Y = y;
-            this.Width = width;
-            this.Height = height;
+            this.RadiusX = radiusX;
+            this.RadiusY = radiusY;
         }
         #endregion
 
@@ -39,12 +39,12 @@ namespace SD.Infrastructure.Shapes
         /// 创建椭圆形构造器
         /// </summary>
         /// <param name="name">名称</param>
-        /// <param name="x">顶点横坐标值</param>
-        /// <param name="y">顶点纵坐标值</param>
-        /// <param name="width">宽度</param>
-        /// <param name="height">高度</param>
-        public EllipseL(string name, int x, int y, int width, int height)
-            : this(x, y, width, height)
+        /// <param name="x">圆心横坐标值</param>
+        /// <param name="y">圆心纵坐标值</param>
+        /// <param name="radiusX">X轴半径</param>
+        /// <param name="radiusY">Y轴半径</param>
+        public EllipseL(string name, int x, int y, int radiusX, int radiusY)
+            : this(x, y, radiusX, radiusY)
         {
             base.Name = name;
         }
@@ -54,75 +54,41 @@ namespace SD.Infrastructure.Shapes
 
         #region # 属性
 
-        #region 顶点横坐标值 —— int X
+        #region 圆心横坐标值 —— int X
         /// <summary>
-        /// 顶点横坐标值
+        /// 圆心横坐标值
         /// </summary>
         public int X { get; set; }
         #endregion
 
-        #region 顶点纵坐标值 —— int Y
+        #region 圆心纵坐标值 —— int Y
         /// <summary>
-        /// 顶点纵坐标值
+        /// 圆心纵坐标值
         /// </summary>
         public int Y { get; set; }
         #endregion
 
-        #region 宽度 —— int Width
+        #region X轴半径 —— int RadiusX
         /// <summary>
-        /// 宽度
+        /// X轴半径
         /// </summary>
-        public int Width { get; set; }
+        public int RadiusX { get; set; }
         #endregion
 
-        #region 高度 —— int Height
+        #region Y轴半径 —— int RadiusY
         /// <summary>
-        /// 高度
+        /// Y轴半径
         /// </summary>
-        public int Height { get; set; }
+        public int RadiusY { get; set; }
         #endregion
 
-        #region 只读属性 - 左上顶点坐标 —— Point TopLeft
+        #region 只读属性 - 圆心坐标 —— Point Center
         /// <summary>
-        /// 只读属性 - 左上顶点坐标
+        /// 只读属性 - 圆心坐标
         /// </summary>
-        /// <remarks>A点</remarks>
-        public Point TopLeft
+        public Point Center
         {
             get => new Point(this.X, this.Y);
-        }
-        #endregion
-
-        #region 只读属性 - 右上顶点坐标 —— Point TopRight
-        /// <summary>
-        /// 只读属性 - 右上顶点坐标
-        /// </summary>
-        /// <remarks>D点</remarks>
-        public Point TopRight
-        {
-            get => new Point(this.X + this.Width, this.Y);
-        }
-        #endregion
-
-        #region 只读属性 - 左下顶点坐标 —— Point BottomLeft
-        /// <summary>
-        /// 只读属性 - 左下顶点坐标
-        /// </summary>
-        /// <remarks>B点</remarks>
-        public Point BottomLeft
-        {
-            get => new Point(this.X, this.Y + this.Height);
-        }
-        #endregion
-
-        #region 只读属性 - 右下顶点坐标 —— Point BottomRight
-        /// <summary>
-        /// 只读属性 - 右下顶点坐标
-        /// </summary>
-        /// <remarks>C点</remarks>
-        public Point BottomRight
-        {
-            get => new Point(this.X + this.Width, this.Y + this.Height);
         }
         #endregion
 
@@ -162,7 +128,7 @@ namespace SD.Infrastructure.Shapes
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return this.X.GetHashCode() ^ this.Y.GetHashCode() ^ this.Width.GetHashCode() ^ this.Height.GetHashCode();
+            return this.X.GetHashCode() ^ this.Y.GetHashCode() ^ this.RadiusX.GetHashCode() ^ this.RadiusY.GetHashCode();
         }
         #endregion
 
@@ -172,7 +138,7 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override string ToString()
         {
-            string ellipse = $"O({this.X},{this.Y})|{this.Width}*{this.Height}";
+            string ellipse = $"O({this.X},{this.Y})|rx={this.RadiusX},ry={this.RadiusY}";
 
             return ellipse;
         }
@@ -202,8 +168,8 @@ namespace SD.Infrastructure.Shapes
 
             return source.X == target.X &&
                    source.Y == target.Y &&
-                   source.Width == target.Width &&
-                   source.Height == target.Height;
+                   source.RadiusX == target.RadiusX &&
+                   source.RadiusY == target.RadiusY;
         }
         #endregion
 
