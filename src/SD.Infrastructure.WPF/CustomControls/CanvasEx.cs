@@ -128,10 +128,10 @@ namespace SD.Infrastructure.WPF.CustomControls
         public CanvasEx()
         {
             this._matrixTransform = new MatrixTransform();
-            base.MouseDown += this.OnMouseDown;
-            base.MouseMove += this.OnMouseMove;
-            base.MouseWheel += this.OnMouseWheel;
-            base.MouseUp += this.OnMouseUp;
+            base.PreviewMouseDown += this.OnMouseDown;
+            base.PreviewMouseMove += this.OnMouseMove;
+            base.PreviewMouseWheel += this.OnMouseWheel;
+            base.PreviewMouseUp += this.OnMouseUp;
             base.ClipToBounds = true;
             base.HorizontalAlignment = HorizontalAlignment.Stretch;
             base.VerticalAlignment = VerticalAlignment.Stretch;
@@ -495,7 +495,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                     this._draggingOffset = elementPosition - startPosition;
                 }
             }
-            if (this.Mode == CanvasMode.Draw)
+            if (this.Mode == CanvasMode.Draw && eventArgs.ChangedButton == MouseButton.Left)
             {
                 //设置光标
                 Mouse.OverrideCursor = Cursors.Cross;
