@@ -84,11 +84,9 @@ namespace SD.Infrastructure.WPF.UserControls
 
             if (eventArgs.MiddleButton == MouseButtonState.Pressed)
             {
-                this.Cursor = Cursors.Hand;
                 this.Viewbox.CaptureMouse();
                 this._vertex = eventArgs.MouseDevice.GetPosition(this.Frame);
                 this._moving = true;
-                eventArgs.Handled = true;
             }
         }
         #endregion
@@ -107,6 +105,9 @@ namespace SD.Infrastructure.WPF.UserControls
             }
 
             #endregion
+
+            //设置光标
+            Mouse.OverrideCursor = Cursors.Hand;
 
             Point position = eventArgs.MouseDevice.GetPosition(this.Frame);
             Matrix matrix = this.Viewbox.RenderTransform.Value;
@@ -151,7 +152,9 @@ namespace SD.Infrastructure.WPF.UserControls
         {
             if (eventArgs.MiddleButton == MouseButtonState.Released)
             {
-                this.Cursor = Cursors.Arrow;
+                //设置光标
+                Mouse.OverrideCursor = Cursors.Arrow;
+
                 this.Viewbox.ReleaseMouseCapture();
                 this._moving = false;
             }
