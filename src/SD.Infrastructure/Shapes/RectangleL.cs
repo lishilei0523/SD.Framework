@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace SD.Infrastructure.Shapes
+﻿namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// 矩形
@@ -82,47 +80,47 @@ namespace SD.Infrastructure.Shapes
         public int Height { get; set; }
         #endregion
 
-        #region 只读属性 - 左上顶点坐标 —— Point TopLeft
+        #region 只读属性 - 左上顶点坐标 —— PointL TopLeft
         /// <summary>
         /// 只读属性 - 左上顶点坐标
         /// </summary>
         /// <remarks>A点</remarks>
-        public Point TopLeft
+        public PointL TopLeft
         {
-            get => new Point(this.X, this.Y);
+            get => new PointL(this.X, this.Y);
         }
         #endregion
 
-        #region 只读属性 - 右上顶点坐标 —— Point TopRight
+        #region 只读属性 - 右上顶点坐标 —— PointL TopRight
         /// <summary>
         /// 只读属性 - 右上顶点坐标
         /// </summary>
         /// <remarks>D点</remarks>
-        public Point TopRight
+        public PointL TopRight
         {
-            get => new Point(this.X + this.Width, this.Y);
+            get => new PointL(this.X + this.Width, this.Y);
         }
         #endregion
 
-        #region 只读属性 - 左下顶点坐标 —— Point BottomLeft
+        #region 只读属性 - 左下顶点坐标 —— PointL BottomLeft
         /// <summary>
         /// 只读属性 - 左下顶点坐标
         /// </summary>
         /// <remarks>B点</remarks>
-        public Point BottomLeft
+        public PointL BottomLeft
         {
-            get => new Point(this.X, this.Y + this.Height);
+            get => new PointL(this.X, this.Y + this.Height);
         }
         #endregion
 
-        #region 只读属性 - 右下顶点坐标 —— Point BottomRight
+        #region 只读属性 - 右下顶点坐标 —— PointL BottomRight
         /// <summary>
         /// 只读属性 - 右下顶点坐标
         /// </summary>
         /// <remarks>C点</remarks>
-        public Point BottomRight
+        public PointL BottomRight
         {
-            get => new Point(this.X + this.Width, this.Y + this.Height);
+            get => new PointL(this.X + this.Width, this.Y + this.Height);
         }
         #endregion
 

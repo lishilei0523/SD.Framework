@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 using System.Text;
 
@@ -19,7 +18,7 @@ namespace SD.Infrastructure.Shapes
         public PolylineL()
         {
             //默认值
-            this.Points = new HashSet<Point>();
+            this.Points = new HashSet<PointL>();
         }
         #endregion
 
@@ -28,11 +27,11 @@ namespace SD.Infrastructure.Shapes
         /// 创建折线段构造器
         /// </summary>
         /// <param name="points">点坐标集</param>
-        public PolylineL(IEnumerable<Point> points)
+        public PolylineL(IEnumerable<PointL> points)
             : this()
         {
-            points = points?.ToArray() ?? new Point[0];
-            foreach (Point point in points)
+            points = points?.ToArray() ?? new PointL[0];
+            foreach (PointL point in points)
             {
                 this.Points.Add(point);
             }
@@ -45,7 +44,7 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="points">点坐标集</param>
-        public PolylineL(string name, IEnumerable<Point> points)
+        public PolylineL(string name, IEnumerable<PointL> points)
             : this(points)
         {
             base.Name = name;
@@ -56,11 +55,11 @@ namespace SD.Infrastructure.Shapes
 
         #region # 属性
 
-        #region 点坐标列表 —— ICollection<Point> Points
+        #region 点坐标列表 —— ICollection<PointL> Points
         /// <summary>
         /// 点坐标列表
         /// </summary>
-        public ICollection<Point> Points { get; set; }
+        public ICollection<PointL> Points { get; set; }
         #endregion
 
         #region 只读属性 - 空折线段 —— static PolylineL Empty
@@ -100,7 +99,7 @@ namespace SD.Infrastructure.Shapes
         public override int GetHashCode()
         {
             int hashCode = 0;
-            foreach (Point point in this.Points)
+            foreach (PointL point in this.Points)
             {
                 hashCode = hashCode ^ point.X ^ point.Y;
             }
@@ -116,7 +115,7 @@ namespace SD.Infrastructure.Shapes
         public override string ToString()
         {
             StringBuilder locationPoints = new StringBuilder();
-            foreach (Point point in this.Points)
+            foreach (PointL point in this.Points)
             {
                 locationPoints.Append($"({point.X},{point.Y})");
                 locationPoints.Append(",");

@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace SD.Infrastructure.Shapes
+﻿namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// 形状
@@ -16,8 +14,8 @@ namespace SD.Infrastructure.Shapes
         protected ShapeL()
         {
             //默认值
-            this.Fill = Color.Transparent;
-            this.Stroke = Color.Red;
+            this.Fill = new ColorL(255, 255, 255, 0);
+            this.Stroke = new ColorL(255, 0, 0);
             this.StrokeThickness = 2;
             this.Tag = null;
         }
@@ -41,18 +39,18 @@ namespace SD.Infrastructure.Shapes
         public int ZIndex { get; set; }
         #endregion
 
-        #region 填充颜色 —— Color Fill
+        #region 填充颜色 —— ColorL Fill
         /// <summary>
         /// 填充颜色
         /// </summary>
-        public Color Fill { get; set; }
+        public ColorL Fill { get; set; }
         #endregion
 
-        #region 边框颜色 —— Color Stroke
+        #region 边框颜色 —— ColorL Stroke
         /// <summary>
         /// 边框颜色
         /// </summary>
-        public Color Stroke { get; set; }
+        public ColorL Stroke { get; set; }
         #endregion
 
         #region 边框宽度 —— int StrokeThickness

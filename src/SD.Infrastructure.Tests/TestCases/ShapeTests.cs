@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using SD.Infrastructure.Shapes;
-using System.Drawing;
 
 namespace SD.Infrastructure.Tests.TestCases
 {
@@ -17,9 +16,9 @@ namespace SD.Infrastructure.Tests.TestCases
         [TestMethod]
         public void TestTriangle()
         {
-            Point pointA = new Point(0, 0);
-            Point pointB = new Point(50, 0);
-            Point pointC = new Point(0, 120);
+            PointL pointA = new PointL(0, 0);
+            PointL pointB = new PointL(50, 0);
+            PointL pointC = new PointL(0, 120);
             TriangleL triangle = new TriangleL(pointA, pointB, pointC);
 
             Assert.AreEqual(triangle.AngleA + triangle.AngleB + triangle.AngleC, 180);

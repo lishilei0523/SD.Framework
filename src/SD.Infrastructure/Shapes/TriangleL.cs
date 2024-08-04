@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 
 namespace SD.Infrastructure.Shapes
 {
@@ -24,7 +23,7 @@ namespace SD.Infrastructure.Shapes
         /// <param name="vertexA">顶点A</param>
         /// <param name="vertexB">顶点B</param>
         /// <param name="vertexC">顶点C</param>
-        public TriangleL(Point vertexA, Point vertexB, Point vertexC)
+        public TriangleL(PointL vertexA, PointL vertexB, PointL vertexC)
             : this()
         {
             this.VertexA = vertexA;
@@ -41,7 +40,7 @@ namespace SD.Infrastructure.Shapes
         /// <param name="vertexA">顶点A</param>
         /// <param name="vertexB">顶点B</param>
         /// <param name="vertexC">顶点C</param>
-        public TriangleL(string name, Point vertexA, Point vertexB, Point vertexC)
+        public TriangleL(string name, PointL vertexA, PointL vertexB, PointL vertexC)
             : this(vertexA, vertexB, vertexC)
         {
             base.Name = name;
@@ -52,25 +51,25 @@ namespace SD.Infrastructure.Shapes
 
         #region # 属性
 
-        #region 顶点A —— Point VertexA
+        #region 顶点A —— PointL VertexA
         /// <summary>
         /// 顶点A
         /// </summary>
-        public Point VertexA { get; set; }
+        public PointL VertexA { get; set; }
         #endregion
 
-        #region 顶点B —— Point VertexB
+        #region 顶点B —— PointL VertexB
         /// <summary>
         /// 顶点B
         /// </summary>
-        public Point VertexB { get; set; }
+        public PointL VertexB { get; set; }
         #endregion
 
-        #region 顶点C —— Point VertexC
+        #region 顶点C —— PointL VertexC
         /// <summary>
         /// 顶点C
         /// </summary>
-        public Point VertexC { get; set; }
+        public PointL VertexC { get; set; }
         #endregion
 
         #region 只读属性 - 边AB长度 —— double SideAB

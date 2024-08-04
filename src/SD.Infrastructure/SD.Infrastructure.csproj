@@ -5,9 +5,9 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>3.7.4</Version>
-    <AssemblyVersion>3.7.4</AssemblyVersion>
-    <FileVersion>3.7.4.0</FileVersion>
+    <Version>3.7.5</Version>
+    <AssemblyVersion>3.7.5</AssemblyVersion>
+    <FileVersion>3.7.5.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

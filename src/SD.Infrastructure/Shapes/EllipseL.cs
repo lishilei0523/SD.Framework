@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-
-namespace SD.Infrastructure.Shapes
+﻿namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// 椭圆形
@@ -82,13 +80,13 @@ namespace SD.Infrastructure.Shapes
         public int RadiusY { get; set; }
         #endregion
 
-        #region 只读属性 - 圆心坐标 —— Point Center
+        #region 只读属性 - 圆心坐标 —— PointL Center
         /// <summary>
         /// 只读属性 - 圆心坐标
         /// </summary>
-        public Point Center
+        public PointL Center
         {
-            get => new Point(this.X, this.Y);
+            get => new PointL(this.X, this.Y);
         }
         #endregion
 

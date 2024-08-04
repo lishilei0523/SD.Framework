@@ -1,9 +1,9 @@
 ﻿namespace SD.Infrastructure.Shapes
 {
     /// <summary>
-    /// 线段
+    /// 点
     /// </summary>
-    public class LineL : ShapeL
+    public class PointL : ShapeL
     {
         #region # 构造器
 
@@ -11,32 +11,32 @@
         /// <summary>
         /// 无参构造器
         /// </summary>
-        public LineL() { }
+        public PointL() { }
         #endregion
 
-        #region 01.创建线段构造器
+        #region 01.创建点构造器
         /// <summary>
-        /// 创建线段构造器
+        /// 创建点构造器
         /// </summary>
-        /// <param name="a">点A</param>
-        /// <param name="b">点B</param>
-        public LineL(PointL a, PointL b)
+        /// <param name="x">横坐标值</param>
+        /// <param name="y">纵坐标值</param>
+        public PointL(int x, int y)
             : this()
         {
-            this.A = a;
-            this.B = b;
+            this.X = x;
+            this.Y = y;
         }
         #endregion 
 
-        #region 02.创建线段构造器
+        #region 02.创建点构造器
         /// <summary>
-        /// 创建线段构造器
+        /// 创建点构造器
         /// </summary>
         /// <param name="name">名称</param>
-        /// <param name="a">点A</param>
-        /// <param name="b">点B</param>
-        public LineL(string name, PointL a, PointL b)
-            : this(a, b)
+        /// <param name="x">横坐标值</param>
+        /// <param name="y">纵坐标值</param>
+        public PointL(string name, int x, int y)
+            : this(x, y)
         {
             base.Name = name;
         }
@@ -46,27 +46,27 @@
 
         #region # 属性
 
-        #region 点B —— PointL A
+        #region 横坐标值 —— int X
         /// <summary>
-        /// 点A
+        /// 横坐标值
         /// </summary>
-        public PointL A { get; set; }
+        public int X { get; set; }
         #endregion
 
-        #region 点B —— PointL B
+        #region 纵坐标值 —— int Y
         /// <summary>
-        /// 点B
+        /// 纵坐标值
         /// </summary>
-        public PointL B { get; set; }
+        public int Y { get; set; }
         #endregion
 
-        #region 只读属性 - 空线段 —— static LineL Empty
+        #region 只读属性 - 空点 —— static PointL Empty
         /// <summary>
-        /// 只读属性 - 空线段
+        /// 只读属性 - 空点
         /// </summary>
-        public static LineL Empty
+        public static PointL Empty
         {
-            get => new LineL(PointL.Empty, PointL.Empty);
+            get => new PointL(0, 0);
         }
         #endregion
 
@@ -80,9 +80,9 @@
         /// </summary>
         public override bool Equals(object instance)
         {
-            if (instance is LineL line)
+            if (instance is PointL point)
             {
-                return line == this;
+                return point == this;
             }
 
             return false;
@@ -96,7 +96,7 @@
         /// <returns></returns>
         public override int GetHashCode()
         {
-            return this.A.X.GetHashCode() ^ this.A.Y.GetHashCode() ^ this.B.X.GetHashCode() ^ this.B.Y.GetHashCode();
+            return this.X.GetHashCode() ^ this.Y.GetHashCode();
         }
         #endregion
 
@@ -106,20 +106,20 @@
         /// </summary>
         public override string ToString()
         {
-            string line = $"A({this.A.X},{this.A.Y})|B({this.B.X},{this.B.Y})";
+            string point = $"({this.X},{this.Y})";
 
-            return line;
+            return point;
         }
         #endregion
 
-        #region 比较两个线段是否相等 —— static bool operator ==(LineL source, LineL target)
+        #region 比较两个点是否相等 —— static bool operator ==(PointL source, PointL target)
         /// <summary>
-        /// 比较两个线段是否相等
+        /// 比较两个点是否相等
         /// </summary>
-        /// <param name="source">源线段</param>
-        /// <param name="target">目标线段</param>
+        /// <param name="source">源点</param>
+        /// <param name="target">目标点</param>
         /// <returns>是否相等</returns>
-        public static bool operator ==(LineL source, LineL target)
+        public static bool operator ==(PointL source, PointL target)
         {
             if (source is null && target is null)
             {
@@ -134,21 +134,18 @@
                 return false;
             }
 
-            return source.A.X == target.A.X &&
-                   source.A.Y == target.A.Y &&
-                   source.B.X == target.B.X &&
-                   source.B.Y == target.B.Y;
+            return source.X == target.X && source.Y == target.Y;
         }
         #endregion
 
-        #region 比较两个线段是否不等 —— static bool operator !=(LineL source, LineL target)
+        #region 比较两个点是否不等 —— static bool operator !=(PointL source, PointL target)
         /// <summary>
-        /// 比较两个线段是否不等
+        /// 比较两个点是否不等
         /// </summary>
-        /// <param name="source">源线段</param>
-        /// <param name="target">目标线段</param>
+        /// <param name="source">源点</param>
+        /// <param name="target">目标点</param>
         /// <returns>是否不等</returns>
-        public static bool operator !=(LineL source, LineL target)
+        public static bool operator !=(PointL source, PointL target)
         {
             return !(source == target);
         }
