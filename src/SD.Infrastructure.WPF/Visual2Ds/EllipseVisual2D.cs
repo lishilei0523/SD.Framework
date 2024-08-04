@@ -37,8 +37,8 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         static EllipseVisual2D()
         {
             CenterProperty = DependencyProperty.Register(nameof(Center), typeof(Point), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
-            RadiusXProperty = DependencyProperty.Register(nameof(RadiusX), typeof(double), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
-            RadiusYProperty = DependencyProperty.Register(nameof(RadiusY), typeof(double), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
+            RadiusXProperty = DependencyProperty.Register(nameof(RadiusX), typeof(double), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(50.0d, FrameworkPropertyMetadataOptions.AffectsRender));
+            RadiusYProperty = DependencyProperty.Register(nameof(RadiusY), typeof(double), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(25.0d, FrameworkPropertyMetadataOptions.AffectsRender));
             ShowCenterProperty = DependencyProperty.Register(nameof(ShowCenter), typeof(bool), typeof(EllipseVisual2D), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 

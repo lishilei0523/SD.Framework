@@ -32,7 +32,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         static CircleVisual2D()
         {
             CenterProperty = DependencyProperty.Register(nameof(Center), typeof(Point), typeof(CircleVisual2D), new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
-            RadiusProperty = DependencyProperty.Register(nameof(Radius), typeof(double), typeof(CircleVisual2D), new FrameworkPropertyMetadata(100.0, FrameworkPropertyMetadataOptions.AffectsRender));
+            RadiusProperty = DependencyProperty.Register(nameof(Radius), typeof(double), typeof(CircleVisual2D), new FrameworkPropertyMetadata(50.0d, FrameworkPropertyMetadataOptions.AffectsRender));
             ShowCenterProperty = DependencyProperty.Register(nameof(ShowCenter), typeof(bool), typeof(CircleVisual2D), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 

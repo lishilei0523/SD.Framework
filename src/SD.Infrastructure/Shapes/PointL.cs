@@ -11,7 +11,11 @@
         /// <summary>
         /// 无参构造器
         /// </summary>
-        public PointL() { }
+        public PointL()
+        {
+            //默认值
+            this.Thickness = 6;
+        }
         #endregion
 
         #region 01.创建点构造器
@@ -58,6 +62,13 @@
         /// 纵坐标值
         /// </summary>
         public int Y { get; set; }
+        #endregion
+
+        #region 厚度 —— int Thickness
+        /// <summary>
+        /// 厚度
+        /// </summary>
+        public int Thickness { get; set; }
         #endregion
 
         #region 只读属性 - 空点 —— static PointL Empty

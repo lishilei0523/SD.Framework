@@ -29,7 +29,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         static RectangleVisual2D()
         {
             LocationProperty = DependencyProperty.Register(nameof(Location), typeof(Point), typeof(RectangleVisual2D), new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
-            SizeProperty = DependencyProperty.Register(nameof(Size), typeof(Size), typeof(RectangleVisual2D), new FrameworkPropertyMetadata(new Size(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
+            SizeProperty = DependencyProperty.Register(nameof(Size), typeof(Size), typeof(RectangleVisual2D), new FrameworkPropertyMetadata(new Size(50, 25), FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
         /// <summary>

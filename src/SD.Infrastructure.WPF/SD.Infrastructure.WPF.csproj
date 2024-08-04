@@ -7,9 +7,9 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WPF基础</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>1.4.8</Version>
-    <AssemblyVersion>1.4.8</AssemblyVersion>
-    <FileVersion>1.4.8.0</FileVersion>
+    <Version>1.5.0</Version>
+    <AssemblyVersion>1.5.0</AssemblyVersion>
+    <FileVersion>1.5.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,4 +18,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.WPF.xml</DocumentationFile>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
+  </ItemGroup>
 </Project>

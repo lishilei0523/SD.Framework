@@ -33,7 +33,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         {
             XProperty = DependencyProperty.Register(nameof(X), typeof(double), typeof(PointVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
             YProperty = DependencyProperty.Register(nameof(Y), typeof(double), typeof(PointVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
-            ThicknessProperty = DependencyProperty.Register(nameof(Thickness), typeof(double), typeof(PointVisual2D), new FrameworkPropertyMetadata(5.0d, FrameworkPropertyMetadataOptions.AffectsRender));
+            ThicknessProperty = DependencyProperty.Register(nameof(Thickness), typeof(double), typeof(PointVisual2D), new FrameworkPropertyMetadata(6.0d, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
         /// <summary>
@@ -92,7 +92,8 @@ namespace SD.Infrastructure.WPF.Visual2Ds
             get
             {
                 Point point = new Point(this.X, this.Y);
-                EllipseGeometry circleGeometry = new EllipseGeometry(point, this.Thickness, this.Thickness);
+                double radius = this.Thickness / 2;
+                EllipseGeometry circleGeometry = new EllipseGeometry(point, radius, radius);
 
                 return circleGeometry;
             }
