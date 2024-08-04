@@ -2,7 +2,7 @@
 using Microsoft.Win32;
 using SD.Infrastructure.WPF.Caliburn.Aspects;
 using SD.Infrastructure.WPF.Caliburn.Models;
-using SD.Infrastructure.WPF.Constants;
+using SD.Infrastructure.WPF.Enums;
 using SD.Infrastructure.WPF.Interfaces;
 using SD.Infrastructure.WPF.Models;
 using System;

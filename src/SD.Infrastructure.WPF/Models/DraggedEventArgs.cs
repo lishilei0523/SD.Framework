@@ -1,4 +1,4 @@
-﻿using SD.Infrastructure.WPF.Constants;
+﻿using SD.Infrastructure.WPF.Enums;
 using System.Windows;
 
 namespace SD.Infrastructure.WPF.Models

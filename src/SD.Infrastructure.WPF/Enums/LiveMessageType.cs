@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.Serialization;
 
-namespace SD.Infrastructure.WPF.Constants
+namespace SD.Infrastructure.WPF.Enums
 {
     /// <summary>
     /// 实时消息类型

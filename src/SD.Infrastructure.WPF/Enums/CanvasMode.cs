@@ -1,4 +1,4 @@
-﻿namespace SD.Infrastructure.WPF.Constants
+﻿namespace SD.Infrastructure.WPF.Enums
 {
     /// <summary>
     /// Canvas模式
