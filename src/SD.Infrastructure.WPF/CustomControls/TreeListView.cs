@@ -8,6 +8,8 @@ namespace SD.Infrastructure.WPF.CustomControls
     /// </summary>
     public class TreeListView : TreeView
     {
+        #region # 字段及构造器
+
         /// <summary>
         /// 缩进单位尺寸依赖属性
         /// </summary>
@@ -28,24 +30,37 @@ namespace SD.Infrastructure.WPF.CustomControls
             ColumnsDefinitionProperty = DependencyProperty.Register(nameof(ColumnsDefinition), typeof(GridViewColumnCollection), typeof(TreeListView));
         }
 
+        #endregion
+
+        #region # 属性
+
+        #region 依赖属性 - 缩进单位尺寸 —— double IndentUnitSize
         /// <summary>
-        /// 缩进单位尺寸
+        /// 依赖属性 - 缩进单位尺寸
         /// </summary>
         public double IndentUnitSize
         {
-            get { return (double)base.GetValue(IndentUnitSizeProperty); }
-            set { base.SetValue(IndentUnitSizeProperty, value); }
+            get => (double)base.GetValue(IndentUnitSizeProperty);
+            set => base.SetValue(IndentUnitSizeProperty, value);
         }
+        #endregion
 
+        #region 依赖属性 - 列定义 —— GridViewColumnCollection ColumnsDefinition
         /// <summary>
-        /// 列定义
+        /// 依赖属性 - 列定义
         /// </summary>
         public GridViewColumnCollection ColumnsDefinition
         {
-            get { return (GridViewColumnCollection)base.GetValue(ColumnsDefinitionProperty); }
-            set { base.SetValue(ColumnsDefinitionProperty, value); }
+            get => (GridViewColumnCollection)base.GetValue(ColumnsDefinitionProperty);
+            set => base.SetValue(ColumnsDefinitionProperty, value);
         }
+        #endregion
 
+        #endregion
+
+        #region # 方法
+
+        #region 获取容器中覆盖元素 —— override DependencyObject GetContainerForItemOverride()
         /// <summary>
         /// 获取容器中覆盖元素
         /// </summary>
@@ -55,7 +70,9 @@ namespace SD.Infrastructure.WPF.CustomControls
 
             return treeListViewItem;
         }
+        #endregion
 
+        #region 是否已覆盖容器默认元素 —— override bool IsItemItsOwnContainerOverride(object item)
         /// <summary>
         /// 是否已覆盖容器默认元素
         /// </summary>
@@ -63,5 +80,8 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             return item is TreeListViewItem;
         }
+        #endregion 
+
+        #endregion
     }
 }

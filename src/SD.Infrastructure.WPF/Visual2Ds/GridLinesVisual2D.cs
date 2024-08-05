@@ -27,9 +27,9 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         public static readonly DependencyProperty StepSizeProperty;
 
         /// <summary>
-        /// 中心可见性依赖属性
+        /// 显示中心依赖属性
         /// </summary>
-        public static readonly DependencyProperty CenterVisibleProperty;
+        public static readonly DependencyProperty ShowCenterProperty;
 
         /// <summary>
         /// 静态构造器
@@ -39,7 +39,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
             RowsProperty = DependencyProperty.Register(nameof(Rows), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(2000, FrameworkPropertyMetadataOptions.AffectsRender));
             ColsProperty = DependencyProperty.Register(nameof(Cols), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(2000, FrameworkPropertyMetadataOptions.AffectsRender));
             StepSizeProperty = DependencyProperty.Register(nameof(StepSize), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(100, FrameworkPropertyMetadataOptions.AffectsRender));
-            CenterVisibleProperty = DependencyProperty.Register(nameof(CenterVisible), typeof(bool), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
+            ShowCenterProperty = DependencyProperty.Register(nameof(ShowCenter), typeof(bool), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
         /// <summary>
@@ -87,14 +87,14 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         }
         #endregion
 
-        #region 依赖属性 - 中心可见性 —— bool CenterVisible
+        #region 依赖属性 - 显示中心 —— bool ShowCenter
         /// <summary>
-        /// 依赖属性 - 中心可见性
+        /// 依赖属性 - 显示中心
         /// </summary>
-        public bool CenterVisible
+        public bool ShowCenter
         {
-            get => (bool)this.GetValue(CenterVisibleProperty);
-            set => this.SetValue(CenterVisibleProperty, value);
+            get => (bool)this.GetValue(ShowCenterProperty);
+            set => this.SetValue(ShowCenterProperty, value);
         }
         #endregion
 
@@ -143,7 +143,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         {
             base.OnRender(drawingContext);
 
-            if (this.CenterVisible)
+            if (this.ShowCenter)
             {
                 //绘制中心点
                 Point center = new Point(this.Cols / 2.0, this.Rows / 2.0);
