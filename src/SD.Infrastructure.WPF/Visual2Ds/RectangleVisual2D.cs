@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
-using Size = System.Windows.Size;
 
 namespace SD.Infrastructure.WPF.Visual2Ds
 {
