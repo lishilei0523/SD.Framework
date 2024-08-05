@@ -72,6 +72,30 @@ namespace SD.Infrastructure.WPF.Extensions
         }
         #endregion
 
+        #region # 颜色映射 —— static Color ToColor(this ColorL colorL)
+        /// <summary>
+        /// 颜色映射
+        /// </summary>
+        public static Color ToColor(this ColorL colorL)
+        {
+            Color color = Color.FromArgb(colorL.A, colorL.R, colorL.G, colorL.B);
+
+            return color;
+        }
+        #endregion
+
+        #region # 颜色映射 —— static ColorL ToColorL(this Color color)
+        /// <summary>
+        /// 颜色映射
+        /// </summary>
+        public static ColorL ToColorL(this Color color)
+        {
+            ColorL colorL = new ColorL(color.R, color.G, color.B, color.A);
+
+            return colorL;
+        }
+        #endregion
+
         #region # 点映射 —— static Point ToPoint(this PointL pointL)
         /// <summary>
         /// 点映射
@@ -99,8 +123,8 @@ namespace SD.Infrastructure.WPF.Extensions
                 X = pointL.X,
                 Y = pointL.Y,
                 Thickness = pointL.Thickness,
-                Fill = new SolidColorBrush(Color.FromArgb(pointL.Fill.A, pointL.Fill.R, pointL.Fill.G, pointL.Fill.B)),
-                Stroke = new SolidColorBrush(Color.FromArgb(pointL.Stroke.A, pointL.Stroke.R, pointL.Stroke.G, pointL.Stroke.B)),
+                Fill = new SolidColorBrush(pointL.Fill.ToColor()),
+                Stroke = new SolidColorBrush(pointL.Stroke.ToColor()),
                 StrokeThickness = pointL.StrokeThickness
             };
 
@@ -137,8 +161,8 @@ namespace SD.Infrastructure.WPF.Extensions
                 X = (int)Math.Ceiling(point.X),
                 Y = (int)Math.Ceiling(point.Y),
                 Thickness = (int)Math.Ceiling(point.Thickness),
-                Fill = new ColorL(fillBrush.Color.R, fillBrush.Color.G, fillBrush.Color.B, fillBrush.Color.A),
-                Stroke = new ColorL(strokeBrush.Color.R, strokeBrush.Color.G, strokeBrush.Color.B, strokeBrush.Color.A),
+                Fill = fillBrush.Color.ToColorL(),
+                Stroke = strokeBrush.Color.ToColorL(),
                 StrokeThickness = (int)Math.Ceiling(point.StrokeThickness)
             };
 
@@ -158,8 +182,8 @@ namespace SD.Infrastructure.WPF.Extensions
                 Y1 = lineL.A.Y,
                 X2 = lineL.B.X,
                 Y2 = lineL.B.Y,
-                Fill = new SolidColorBrush(Color.FromArgb(lineL.Fill.A, lineL.Fill.R, lineL.Fill.G, lineL.Fill.B)),
-                Stroke = new SolidColorBrush(Color.FromArgb(lineL.Stroke.A, lineL.Stroke.R, lineL.Stroke.G, lineL.Stroke.B)),
+                Fill = new SolidColorBrush(lineL.Fill.ToColor()),
+                Stroke = new SolidColorBrush(lineL.Stroke.ToColor()),
                 StrokeThickness = lineL.StrokeThickness
             };
 
@@ -179,8 +203,8 @@ namespace SD.Infrastructure.WPF.Extensions
             {
                 A = new PointL((int)Math.Ceiling(line.X1), (int)Math.Ceiling(line.Y1)),
                 B = new PointL((int)Math.Ceiling(line.X2), (int)Math.Ceiling(line.Y2)),
-                Fill = new ColorL(fillBrush.Color.R, fillBrush.Color.G, fillBrush.Color.B, fillBrush.Color.A),
-                Stroke = new ColorL(strokeBrush.Color.R, strokeBrush.Color.G, strokeBrush.Color.B, strokeBrush.Color.A),
+                Fill = fillBrush.Color.ToColorL(),
+                Stroke = strokeBrush.Color.ToColorL(),
                 StrokeThickness = (int)Math.Ceiling(line.StrokeThickness)
             };
 
@@ -198,8 +222,8 @@ namespace SD.Infrastructure.WPF.Extensions
             {
                 Width = rectangleL.Width,
                 Height = rectangleL.Height,
-                Fill = new SolidColorBrush(Color.FromArgb(rectangleL.Fill.A, rectangleL.Fill.R, rectangleL.Fill.G, rectangleL.Fill.B)),
-                Stroke = new SolidColorBrush(Color.FromArgb(rectangleL.Stroke.A, rectangleL.Stroke.R, rectangleL.Stroke.G, rectangleL.Stroke.B)),
+                Fill = new SolidColorBrush(rectangleL.Fill.ToColor()),
+                Stroke = new SolidColorBrush(rectangleL.Stroke.ToColor()),
                 StrokeThickness = rectangleL.StrokeThickness
             };
             Canvas.SetLeft(rectangle, rectangleL.X);
@@ -219,8 +243,8 @@ namespace SD.Infrastructure.WPF.Extensions
             {
                 Location = new Point(rectangleL.X, rectangleL.Y),
                 Size = new Size(rectangleL.Width, rectangleL.Height),
-                Fill = new SolidColorBrush(Color.FromArgb(rectangleL.Fill.A, rectangleL.Fill.R, rectangleL.Fill.G, rectangleL.Fill.B)),
-                Stroke = new SolidColorBrush(Color.FromArgb(rectangleL.Stroke.A, rectangleL.Stroke.R, rectangleL.Stroke.G, rectangleL.Stroke.B)),
+                Fill = new SolidColorBrush(rectangleL.Fill.ToColor()),
+                Stroke = new SolidColorBrush(rectangleL.Stroke.ToColor()),
                 StrokeThickness = rectangleL.StrokeThickness
             };
 
@@ -228,6 +252,224 @@ namespace SD.Infrastructure.WPF.Extensions
         }
         #endregion
 
-        //TODO 颜色、圆、椭圆、多边形、折线段映射
+        #region # 矩形映射 —— static RectangleL ToRectangleL(this Rectangle rectangle)
+        /// <summary>
+        /// 矩形映射
+        /// </summary>
+        public static RectangleL ToRectangleL(this Rectangle rectangle)
+        {
+            int leftMargin = (int)Math.Ceiling(Canvas.GetLeft(rectangle));
+            int topMargin = (int)Math.Ceiling(Canvas.GetTop(rectangle));
+            SolidColorBrush fillBrush = (SolidColorBrush)rectangle.Fill;
+            SolidColorBrush strokeBrush = (SolidColorBrush)rectangle.Stroke;
+            RectangleL rectangleL = new RectangleL
+            {
+                X = leftMargin,
+                Y = topMargin,
+                Width = (int)Math.Ceiling(rectangle.Width),
+                Height = (int)Math.Ceiling(rectangle.Height),
+                Fill = fillBrush.Color.ToColorL(),
+                Stroke = strokeBrush.Color.ToColorL(),
+                StrokeThickness = (int)Math.Ceiling(rectangle.StrokeThickness)
+            };
+
+            return rectangleL;
+        }
+        #endregion
+
+        #region # 矩形映射 —— static RectangleL ToRectangleL(this RectangleVisual2D rectangle)
+        /// <summary>
+        /// 矩形映射
+        /// </summary>
+        public static RectangleL ToRectangleL(this RectangleVisual2D rectangle)
+        {
+            SolidColorBrush fillBrush = (SolidColorBrush)rectangle.Fill;
+            SolidColorBrush strokeBrush = (SolidColorBrush)rectangle.Stroke;
+            RectangleL rectangleL = new RectangleL
+            {
+                X = (int)Math.Ceiling(rectangle.Location.X),
+                Y = (int)Math.Ceiling(rectangle.Location.Y),
+                Width = (int)Math.Ceiling(rectangle.Size.Width),
+                Height = (int)Math.Ceiling(rectangle.Size.Height),
+                Fill = fillBrush.Color.ToColorL(),
+                Stroke = strokeBrush.Color.ToColorL(),
+                StrokeThickness = (int)Math.Ceiling(rectangle.StrokeThickness)
+            };
+
+            return rectangleL;
+        }
+        #endregion
+
+        #region # 圆形映射 —— static CircleVisual2D ToCircle(this CircleL circleL)
+        /// <summary>
+        /// 圆形映射
+        /// </summary>
+        public static CircleVisual2D ToCircle(this CircleL circleL)
+        {
+            CircleVisual2D circle = new CircleVisual2D
+            {
+                Center = new Point(circleL.X, circleL.Y),
+                Radius = circleL.Radius,
+                Fill = new SolidColorBrush(circleL.Fill.ToColor()),
+                Stroke = new SolidColorBrush(circleL.Stroke.ToColor()),
+                StrokeThickness = circleL.StrokeThickness
+            };
+
+            return circle;
+        }
+        #endregion
+
+        #region # 圆形映射 —— static CircleL ToCircleL(this CircleVisual2D circle)
+        /// <summary>
+        /// 圆形映射
+        /// </summary>
+        public static CircleL ToCircleL(this CircleVisual2D circle)
+        {
+            SolidColorBrush fillBrush = (SolidColorBrush)circle.Fill;
+            SolidColorBrush strokeBrush = (SolidColorBrush)circle.Stroke;
+            CircleL circleL = new CircleL
+            {
+                X = (int)Math.Ceiling(circle.Center.X),
+                Y = (int)Math.Ceiling(circle.Center.Y),
+                Radius = (int)Math.Ceiling(circle.Radius),
+                Fill = fillBrush.Color.ToColorL(),
+                Stroke = strokeBrush.Color.ToColorL(),
+                StrokeThickness = (int)Math.Ceiling(circle.StrokeThickness)
+            };
+
+            return circleL;
+        }
+        #endregion
+
+        #region # 椭圆形映射 —— static EllipseVisual2D ToEllipse(this EllipseL ellipseL)
+        /// <summary>
+        /// 椭圆形映射
+        /// </summary>
+        public static EllipseVisual2D ToEllipse(this EllipseL ellipseL)
+        {
+            EllipseVisual2D ellipse = new EllipseVisual2D
+            {
+                Center = new Point(ellipseL.X, ellipseL.Y),
+                RadiusX = ellipseL.RadiusX,
+                RadiusY = ellipseL.RadiusY,
+                Fill = new SolidColorBrush(ellipseL.Fill.ToColor()),
+                Stroke = new SolidColorBrush(ellipseL.Stroke.ToColor()),
+                StrokeThickness = ellipseL.StrokeThickness
+            };
+
+            return ellipse;
+        }
+        #endregion
+
+        #region # 椭圆形映射 —— static EllipseL ToEllipseL(this EllipseVisual2D ellipse)
+        /// <summary>
+        /// 椭圆形映射
+        /// </summary>
+        public static EllipseL ToEllipseL(this EllipseVisual2D ellipse)
+        {
+            SolidColorBrush fillBrush = (SolidColorBrush)ellipse.Fill;
+            SolidColorBrush strokeBrush = (SolidColorBrush)ellipse.Stroke;
+            EllipseL ellipseL = new EllipseL
+            {
+                X = (int)Math.Ceiling(ellipse.Center.X),
+                Y = (int)Math.Ceiling(ellipse.Center.Y),
+                RadiusX = (int)Math.Ceiling(ellipse.RadiusX),
+                RadiusY = (int)Math.Ceiling(ellipse.RadiusY),
+                Fill = fillBrush.Color.ToColorL(),
+                Stroke = strokeBrush.Color.ToColorL(),
+                StrokeThickness = (int)Math.Ceiling(ellipse.StrokeThickness)
+            };
+
+            return ellipseL;
+        }
+        #endregion
+
+        #region # 多边形映射 —— static Polygon ToPolygon(this PolygonL polygonL)
+        /// <summary>
+        /// 多边形映射
+        /// </summary>
+        public static Polygon ToPolygon(this PolygonL polygonL)
+        {
+            PointCollection points = new PointCollection();
+            foreach (PointL pointL in polygonL.Points)
+            {
+                Point point = pointL.ToPoint();
+                points.Add(point);
+            }
+            Polygon polygon = new Polygon
+            {
+                Points = points,
+                Fill = new SolidColorBrush(polygonL.Fill.ToColor()),
+                Stroke = new SolidColorBrush(polygonL.Stroke.ToColor()),
+                StrokeThickness = polygonL.StrokeThickness
+            };
+
+            return polygon;
+        }
+        #endregion
+
+        #region # 多边形映射 —— static PolygonL ToPolygonL(this Polygon polygon)
+        /// <summary>
+        /// 多边形映射
+        /// </summary>
+        public static PolygonL ToPolygonL(this Polygon polygon)
+        {
+            SolidColorBrush fillBrush = (SolidColorBrush)polygon.Fill;
+            SolidColorBrush strokeBrush = (SolidColorBrush)polygon.Stroke;
+            IEnumerable<PointL> pointLs = polygon.Points.Select(point => point.ToPointL());
+            PolygonL polygonL = new PolygonL(pointLs)
+            {
+                Fill = fillBrush.Color.ToColorL(),
+                Stroke = strokeBrush.Color.ToColorL(),
+                StrokeThickness = (int)Math.Ceiling(polygon.StrokeThickness)
+            };
+
+            return polygonL;
+        }
+        #endregion
+
+        #region # 折线段映射 —— static Polyline ToPolyline(this PolylineL polylineL)
+        /// <summary>
+        /// 折线段映射
+        /// </summary>
+        public static Polyline ToPolyline(this PolylineL polylineL)
+        {
+            PointCollection points = new PointCollection();
+            foreach (PointL pointL in polylineL.Points)
+            {
+                Point point = pointL.ToPoint();
+                points.Add(point);
+            }
+            Polyline polyline = new Polyline
+            {
+                Points = points,
+                Fill = new SolidColorBrush(polylineL.Fill.ToColor()),
+                Stroke = new SolidColorBrush(polylineL.Stroke.ToColor()),
+                StrokeThickness = polylineL.StrokeThickness
+            };
+
+            return polyline;
+        }
+        #endregion
+
+        #region # 折线段映射 —— static PolylineL ToPolylineL(this Polyline polyline)
+        /// <summary>
+        /// 折线段映射
+        /// </summary>
+        public static PolylineL ToPolylineL(this Polyline polyline)
+        {
+            SolidColorBrush fillBrush = (SolidColorBrush)polyline.Fill;
+            SolidColorBrush strokeBrush = (SolidColorBrush)polyline.Stroke;
+            IEnumerable<PointL> pointLs = polyline.Points.Select(point => point.ToPointL());
+            PolylineL polylineL = new PolylineL(pointLs)
+            {
+                Fill = fillBrush.Color.ToColorL(),
+                Stroke = strokeBrush.Color.ToColorL(),
+                StrokeThickness = (int)Math.Ceiling(polyline.StrokeThickness)
+            };
+
+            return polylineL;
+        }
+        #endregion
     }
 }
