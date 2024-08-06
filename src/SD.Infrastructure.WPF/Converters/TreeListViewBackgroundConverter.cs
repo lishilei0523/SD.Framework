@@ -21,12 +21,12 @@ namespace SD.Infrastructure.WPF.Converters
             ItemsControl parentItem = ItemsControl.ItemsControlFromItemContainer(treeListViewItem);
 
             int parentIndex = 0;
-            if (parentItem != null && parentItem is TreeListViewItem parentTreeListViewItem)
+            if (parentItem is TreeListViewItem parentTreeListViewItem)
             {
                 parentIndex = this.GetRelativeIndex(parentTreeListViewItem);
             }
 
-            int level = treeListViewItem.Level;
+            int level = treeListViewItem!.Level;
             int index = this.GetRelativeIndex(treeListViewItem);
             int levelBit = level % 2;
             int indexBit = (index + parentIndex) % 2;

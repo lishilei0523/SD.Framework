@@ -29,6 +29,41 @@ namespace SD.Infrastructure.WPF.UserControls
         private static readonly int[] _PageSizes;
 
         /// <summary>
+        /// 页码依赖属性
+        /// </summary>
+        public static readonly DependencyProperty PageIndexProperty;
+
+        /// <summary>
+        /// 页容量依赖属性
+        /// </summary>
+        public static readonly DependencyProperty PageSizeProperty;
+
+        /// <summary>
+        /// 总记录数依赖属性
+        /// </summary>
+        public static readonly DependencyProperty RowCountProperty;
+
+        /// <summary>
+        /// 总页数依赖属性
+        /// </summary>
+        public static readonly DependencyProperty PageCountProperty;
+
+        /// <summary>
+        /// 起始行依赖属性
+        /// </summary>
+        public static readonly DependencyProperty StartRowIndexProperty;
+
+        /// <summary>
+        /// 终止行依赖属性
+        /// </summary>
+        public static readonly DependencyProperty EndRowIndexProperty;
+
+        /// <summary>
+        /// 刷新数据路由事件
+        /// </summary>
+        public static readonly RoutedEvent RefreshEvent;
+
+        /// <summary>
         /// 静态构造器
         /// </summary>
         static Paginator()
@@ -45,7 +80,7 @@ namespace SD.Infrastructure.WPF.UserControls
             EndRowIndexProperty = DependencyProperty.Register(nameof(EndRowIndex), typeof(int), typeof(Paginator), new PropertyMetadata(0));
 
             //注册路由事件
-            _RefreshEvent = EventManager.RegisterRoutedEvent(nameof(Refresh), RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(Paginator));
+            RefreshEvent = EventManager.RegisterRoutedEvent(nameof(Refresh), RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(Paginator));
         }
 
         /// <summary>
@@ -60,112 +95,81 @@ namespace SD.Infrastructure.WPF.UserControls
 
         #region # 依赖属性
 
-        #region 页码 —— int PageIndex
-
+        #region 依赖属性 - 页码 —— int PageIndex
         /// <summary>
-        /// 页码依赖属性
-        /// </summary>
-        public static DependencyProperty PageIndexProperty;
-
-        /// <summary>
-        /// 页码
+        /// 依赖属性 - 页码
         /// </summary>
         public int PageIndex
         {
-            get { return Convert.ToInt32(base.GetValue(PageIndexProperty)); }
-            set { base.SetValue(PageIndexProperty, value); }
+            get => Convert.ToInt32(base.GetValue(PageIndexProperty));
+            set => base.SetValue(PageIndexProperty, value);
         }
-
         #endregion
 
-        #region 页容量 —— int PageSize
-
+        #region 依赖属性 - 页容量 —— int PageSize
         /// <summary>
-        /// 页容量依赖属性
-        /// </summary>
-        public static DependencyProperty PageSizeProperty;
-
-        /// <summary>
-        /// 页容量
+        /// 依赖属性 - 页容量
         /// </summary>
         public int PageSize
         {
-            get { return Convert.ToInt32(base.GetValue(PageSizeProperty)); }
-            set { base.SetValue(PageSizeProperty, value); }
+            get => Convert.ToInt32(base.GetValue(PageSizeProperty));
+            set => base.SetValue(PageSizeProperty, value);
         }
-
         #endregion
 
-        #region 总记录数 —— int RowCount
-
+        #region 依赖属性 - 总记录数 —— int RowCount
         /// <summary>
-        /// 总记录数依赖属性
-        /// </summary>
-        public static DependencyProperty RowCountProperty;
-
-        /// <summary>
-        /// 总记录数
+        /// 依赖属性 - 总记录数
         /// </summary>
         public int RowCount
         {
-            get { return Convert.ToInt32(base.GetValue(RowCountProperty)); }
-            set { base.SetValue(RowCountProperty, value); }
+            get => Convert.ToInt32(base.GetValue(RowCountProperty));
+            set => base.SetValue(RowCountProperty, value);
         }
-
         #endregion
 
-        #region 总页数 —— int PageCount
-
+        #region 依赖属性 - 总页数 —— int PageCount
         /// <summary>
-        /// 总页数依赖属性
-        /// </summary>
-        public static DependencyProperty PageCountProperty;
-
-        /// <summary>
-        /// 总页数
+        /// 依赖属性 - 总页数
         /// </summary>
         public int PageCount
         {
-            get { return Convert.ToInt32(base.GetValue(PageCountProperty)); }
-            set { base.SetValue(PageCountProperty, value); }
+            get => Convert.ToInt32(base.GetValue(PageCountProperty));
+            set => base.SetValue(PageCountProperty, value);
         }
-
         #endregion
 
-        #region 起始行 —— int StartRowIndex
-
+        #region 依赖属性 - 起始行 —— int StartRowIndex
         /// <summary>
-        /// 起始行依赖属性
-        /// </summary>
-        public static DependencyProperty StartRowIndexProperty;
-
-        /// <summary>
-        /// 起始行
+        /// 依赖属性 - 起始行
         /// </summary>
         public int StartRowIndex
         {
-            get { return Convert.ToInt32(base.GetValue(StartRowIndexProperty)); }
-            set { base.SetValue(StartRowIndexProperty, value); }
+            get => Convert.ToInt32(base.GetValue(StartRowIndexProperty));
+            set => base.SetValue(StartRowIndexProperty, value);
         }
-
         #endregion
 
-        #region 终止行 —— int EndRowIndex
-
+        #region 依赖属性 - 终止行 —— int EndRowIndex
         /// <summary>
-        /// 终止行依赖属性
-        /// </summary>
-        public static DependencyProperty EndRowIndexProperty;
-
-        /// <summary>
-        /// 终止行
+        /// 依赖属性 - 终止行
         /// </summary>
         public int EndRowIndex
         {
-            get { return Convert.ToInt32(base.GetValue(EndRowIndexProperty)); }
-            set { base.SetValue(EndRowIndexProperty, value); }
+            get => Convert.ToInt32(base.GetValue(EndRowIndexProperty));
+            set => base.SetValue(EndRowIndexProperty, value);
         }
+        #endregion
 
+        #region 路由事件 - 刷新数据 —— event RoutedEventHandler Refresh
+        /// <summary>
+        /// 路由事件 - 刷新数据
+        /// </summary>
+        public event RoutedEventHandler Refresh
+        {
+            add => base.AddHandler(RefreshEvent, value);
+            remove => base.RemoveHandler(RefreshEvent, value);
+        }
         #endregion
 
         #region 只读属性 - 页容量列表 —— int[] PageSizes
@@ -174,13 +178,13 @@ namespace SD.Infrastructure.WPF.UserControls
         /// </summary>
         public int[] PageSizes
         {
-            get { return _PageSizes; }
+            get => _PageSizes;
         }
         #endregion
 
         #endregion
 
-        #region # 回调方法
+        #region # 方法
 
         #region 页码改变回调方法 —— static void OnPageIndexChanged(...
         /// <summary>
@@ -230,7 +234,7 @@ namespace SD.Infrastructure.WPF.UserControls
                 : paginator.StartRowIndex - 1 + paginator.PageSize;
 
             //挂起路由事件
-            paginator.RaiseEvent(new RoutedEventArgs(_RefreshEvent, paginator));
+            paginator.RaiseEvent(new RoutedEventArgs(RefreshEvent, paginator));
         }
         #endregion
 
@@ -274,32 +278,6 @@ namespace SD.Infrastructure.WPF.UserControls
         }
         #endregion
 
-        #endregion
-
-        #region # 路由事件
-
-        #region 刷新数据路由事件 —— RoutedEvent Refresh
-
-        /// <summary>
-        /// 刷新数据路由事件
-        /// </summary>
-        private static readonly RoutedEvent _RefreshEvent;
-
-        /// <summary>
-        /// 刷新数据路由事件处理程序
-        /// </summary>
-        public event RoutedEventHandler Refresh
-        {
-            add { base.AddHandler(_RefreshEvent, value); }
-            remove { base.RemoveHandler(_RefreshEvent, value); }
-        }
-
-        #endregion
-
-        #endregion
-
-        #region # 事件处理程序
-
         #region 页码文本框输入事件 —— void TxtPageIndexTextInput(...
         /// <summary>
         /// 页码文本框输入事件
@@ -320,7 +298,7 @@ namespace SD.Infrastructure.WPF.UserControls
             this.PageIndex = int.Parse(textBox.Text);
 
             //挂起路由事件
-            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
+            this.RaiseEvent(new RoutedEventArgs(RefreshEvent, this));
         }
         #endregion
 
@@ -336,7 +314,7 @@ namespace SD.Infrastructure.WPF.UserControls
                 this.PageIndex = int.Parse(textBox.Text);
 
                 //挂起路由事件
-                this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
+                this.RaiseEvent(new RoutedEventArgs(RefreshEvent, this));
             }
         }
         #endregion
@@ -359,7 +337,7 @@ namespace SD.Infrastructure.WPF.UserControls
             this.PageIndex = MinPageIndex;
 
             //挂起路由事件
-            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
+            this.RaiseEvent(new RoutedEventArgs(RefreshEvent, this));
         }
         #endregion
 
@@ -382,7 +360,7 @@ namespace SD.Infrastructure.WPF.UserControls
             this.PageIndex--;
 
             //挂起路由事件
-            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
+            this.RaiseEvent(new RoutedEventArgs(RefreshEvent, this));
         }
         #endregion
 
@@ -405,7 +383,7 @@ namespace SD.Infrastructure.WPF.UserControls
             this.PageIndex++;
 
             //挂起路由事件
-            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
+            this.RaiseEvent(new RoutedEventArgs(RefreshEvent, this));
         }
         #endregion
 
@@ -427,7 +405,7 @@ namespace SD.Infrastructure.WPF.UserControls
             this.PageIndex = this.PageCount;
 
             //挂起路由事件
-            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
+            this.RaiseEvent(new RoutedEventArgs(RefreshEvent, this));
         }
         #endregion
 
@@ -437,7 +415,7 @@ namespace SD.Infrastructure.WPF.UserControls
         /// </summary>
         private void BtnRefreshClick(object sender, RoutedEventArgs eventArgs)
         {
-            this.RaiseEvent(new RoutedEventArgs(_RefreshEvent, this));
+            this.RaiseEvent(new RoutedEventArgs(RefreshEvent, this));
         }
         #endregion
 

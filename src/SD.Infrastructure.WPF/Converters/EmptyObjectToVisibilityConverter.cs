@@ -14,13 +14,13 @@ namespace SD.Infrastructure.WPF.Converters
         /// 标识 EmptyValue 依赖属性。
         /// </summary>
         public static readonly DependencyProperty EmptyValueProperty =
-            DependencyProperty.Register(nameof(EmptyObjectToVisibilityConverter.EmptyValue), typeof(Visibility), typeof(EmptyObjectToVisibilityConverter), new PropertyMetadata(default(Visibility)));
+            DependencyProperty.Register(nameof(EmptyValue), typeof(Visibility), typeof(EmptyObjectToVisibilityConverter), new PropertyMetadata(default(Visibility)));
 
         /// <summary>
         /// 标识 NotEmptyValue 依赖属性。
         /// </summary>
         public static readonly DependencyProperty NotEmptyValueProperty =
-            DependencyProperty.Register(nameof(EmptyObjectToVisibilityConverter.NotEmptyValue), typeof(Visibility), typeof(EmptyObjectToVisibilityConverter), new PropertyMetadata(default(Visibility)));
+            DependencyProperty.Register(nameof(NotEmptyValue), typeof(Visibility), typeof(EmptyObjectToVisibilityConverter), new PropertyMetadata(default(Visibility)));
 
         /// <summary>
         /// 构造器
@@ -36,8 +36,8 @@ namespace SD.Infrastructure.WPF.Converters
         /// </summary>
         public Visibility EmptyValue
         {
-            get => (Visibility)this.GetValue(EmptyObjectToVisibilityConverter.EmptyValueProperty);
-            set => this.SetValue(EmptyObjectToVisibilityConverter.EmptyValueProperty, value);
+            get => (Visibility)this.GetValue(EmptyValueProperty);
+            set => this.SetValue(EmptyValueProperty, value);
         }
 
         /// <summary>
@@ -45,8 +45,8 @@ namespace SD.Infrastructure.WPF.Converters
         /// </summary>
         public Visibility NotEmptyValue
         {
-            get => (Visibility)this.GetValue(EmptyObjectToVisibilityConverter.NotEmptyValueProperty);
-            set => this.SetValue(EmptyObjectToVisibilityConverter.NotEmptyValueProperty, value);
+            get => (Visibility)this.GetValue(NotEmptyValueProperty);
+            set => this.SetValue(NotEmptyValueProperty, value);
         }
 
         /// <summary>
@@ -55,9 +55,13 @@ namespace SD.Infrastructure.WPF.Converters
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if (value == null)
+            {
                 return this.EmptyValue;
+            }
             else
+            {
                 return this.NotEmptyValue;
+            }
         }
 
         /// <summary>

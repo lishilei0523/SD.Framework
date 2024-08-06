@@ -9,7 +9,7 @@ namespace SD.Infrastructure.WPF.Commands
     /// </summary>
     public class RelayCommand : ICommand
     {
-        #region # 字段与构造器
+        #region # 字段及构造器
 
         /// <summary>
         /// 命令委托

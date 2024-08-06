@@ -24,7 +24,7 @@ namespace SD.Infrastructure.WPF.Converters
         /// </summary>
         public IList ValueDescriptions
         {
-            get { return (IList)this._valueDescriptions; }
+            get => (IList)this._valueDescriptions;
         }
 
         /// <summary>

@@ -50,11 +50,11 @@ namespace SD.Infrastructure.WPF.UserControls
 
         #endregion
 
-        #region # 依赖属性
+        #region # 属性
 
-        #region 图片源 —— ImageSource ImageSource
+        #region 依赖属性 - 图片源 —— ImageSource ImageSource
         /// <summary>
-        /// 图片源
+        /// 依赖属性 - 图片源
         /// </summary>
         public ImageSource ImageSource
         {
@@ -65,7 +65,7 @@ namespace SD.Infrastructure.WPF.UserControls
 
         #endregion
 
-        #region # 事件处理程序
+        #region # 方法
 
         #region ViewBox鼠标点击事件 —— void OnViewBoxMouseDown(object sender...
         /// <summary>

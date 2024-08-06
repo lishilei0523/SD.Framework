@@ -20,7 +20,7 @@ namespace SD.Infrastructure.WPF.Converters
             TreeListViewItem treeListViewItem = (TreeListViewItem)value;
             TreeListView treeListView = this.GetTreeListView(treeListViewItem);
 
-            int level/*树节点级别*/ = treeListViewItem.Level;
+            int level/*树节点级别*/ = treeListViewItem!.Level;
             double indentSize/*缩进尺寸*/ = level * treeListView.IndentUnitSize;
             Thickness margin = new Thickness(indentSize, 0, 0, 0);
 
