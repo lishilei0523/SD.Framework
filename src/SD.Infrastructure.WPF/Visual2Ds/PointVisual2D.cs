@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Media;
 using System.Windows.Shapes;
 
@@ -27,6 +28,11 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         public static readonly DependencyProperty ThicknessProperty;
 
         /// <summary>
+        /// 标签依赖属性
+        /// </summary>
+        public static readonly DependencyProperty LabelProperty;
+
+        /// <summary>
         /// 静态构造器
         /// </summary>
         static PointVisual2D()
@@ -34,6 +40,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
             XProperty = DependencyProperty.Register(nameof(X), typeof(double), typeof(PointVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
             YProperty = DependencyProperty.Register(nameof(Y), typeof(double), typeof(PointVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
             ThicknessProperty = DependencyProperty.Register(nameof(Thickness), typeof(double), typeof(PointVisual2D), new FrameworkPropertyMetadata(6.0d, FrameworkPropertyMetadataOptions.AffectsRender));
+            LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(PointVisual2D), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
         /// <summary>
@@ -83,6 +90,17 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         }
         #endregion
 
+        #region 依赖属性 - 标签 —— string Label
+        /// <summary>
+        /// 依赖属性 - 标签
+        /// </summary>
+        public string Label
+        {
+            get => (string)this.GetValue(LabelProperty);
+            set => this.SetValue(LabelProperty, value);
+        }
+        #endregion
+
         #region 只读属性 - 几何对象 —— override Geometry DefiningGeometry
         /// <summary>
         /// 只读属性 - 几何对象
@@ -96,6 +114,34 @@ namespace SD.Infrastructure.WPF.Visual2Ds
                 EllipseGeometry circleGeometry = new EllipseGeometry(point, radius, radius);
 
                 return circleGeometry;
+            }
+        }
+        #endregion
+
+        #endregion
+
+        #region # 方法
+
+        #region 渲染事件 —— override void OnRender(DrawingContext drawingContext)
+        /// <summary>
+        ///  渲染事件
+        /// </summary>
+        protected override void OnRender(DrawingContext drawingContext)
+        {
+            base.OnRender(drawingContext);
+
+            if (!string.IsNullOrWhiteSpace(this.Label))
+            {
+                //绘制文本
+                FontFamily fontFamily = new FontFamily("微软雅黑");
+                Typeface typeface = new Typeface(fontFamily, FontStyles.Normal, FontWeights.Thin, FontStretches.Normal);
+
+                FormattedText formattedText = new FormattedText(this.Label, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, 10, base.Stroke);
+                Point origin = new Point(this.X + base.StrokeThickness, this.Y + base.StrokeThickness);
+                Geometry textGeometry = formattedText.BuildGeometry(origin);
+
+                Pen pen = new Pen(base.Stroke, 1);
+                drawingContext.DrawGeometry(base.Stroke, pen, textGeometry);
             }
         }
         #endregion

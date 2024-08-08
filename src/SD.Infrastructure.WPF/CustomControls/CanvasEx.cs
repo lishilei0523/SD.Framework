@@ -1,10 +1,13 @@
 ﻿using SD.Infrastructure.WPF.Enums;
 using SD.Infrastructure.WPF.Models;
 using SD.Infrastructure.WPF.Visual2Ds;
+using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace SD.Infrastructure.WPF.CustomControls
 {
@@ -46,6 +49,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly DependencyProperty ResizableProperty;
 
         /// <summary>
+        /// 形状列表依赖属性
+        /// </summary>
+        public static readonly DependencyProperty ShapesSourceProperty;
+
+        /// <summary>
         /// 元素拖拽路由事件
         /// </summary>
         public static readonly RoutedEvent ElementDragEvent;
@@ -81,6 +89,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(CanvasEx), new PropertyMetadata(false, OnShowGridLinesChanged));
             DraggableProperty = DependencyProperty.Register(nameof(Draggable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ResizableProperty = DependencyProperty.Register(nameof(Resizable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
+            ShapesSourceProperty = DependencyProperty.Register(nameof(ShapesSource), typeof(ObservableCollection<Shape>), typeof(CanvasEx), new PropertyMetadata(new ObservableCollection<Shape>(), OnShapesChanged));
             ElementDragEvent = EventManager.RegisterRoutedEvent(nameof(ElementDrag), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             ElementResizeEvent = EventManager.RegisterRoutedEvent(nameof(ElementResize), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             DrawEvent = EventManager.RegisterRoutedEvent(nameof(Draw), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
@@ -211,6 +220,17 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             get => (bool)this.GetValue(ResizableProperty);
             set => this.SetValue(ResizableProperty, value);
+        }
+        #endregion
+
+        #region 依赖属性 - 形状列表 —— ObservableCollection<Shape> ShapesSource
+        /// <summary>
+        /// 依赖属性 - 形状列表
+        /// </summary>
+        public ObservableCollection<Shape> ShapesSource
+        {
+            get => (ObservableCollection<Shape>)this.GetValue(ShapesSourceProperty);
+            set => this.SetValue(ShapesSourceProperty, value);
         }
         #endregion
 
@@ -452,6 +472,72 @@ namespace SD.Infrastructure.WPF.CustomControls
                 SetDraggable(gridLines, false);
                 SetResizable(gridLines, false);
                 canvas.Children.Add(gridLines);
+            }
+        }
+        #endregion
+
+        #region 形状列表改变事件 —— static void OnShapesChanged(DependencyObject dependencyObject...
+        /// <summary>
+        /// 形状列表改变事件
+        /// </summary>
+        private static void OnShapesChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            CanvasEx canvas = (CanvasEx)dependencyObject;
+            ObservableCollection<Shape> oldShapes = eventArgs.OldValue as ObservableCollection<Shape>;
+            ObservableCollection<Shape> newShapes = eventArgs.NewValue as ObservableCollection<Shape>;
+            if (oldShapes != null)
+            {
+                foreach (Shape shape in oldShapes)
+                {
+                    if (canvas.Children.Contains(shape))
+                    {
+                        canvas.Children.Remove(shape);
+                    }
+                }
+            }
+            if (newShapes != null)
+            {
+                foreach (Shape shape in newShapes)
+                {
+                    shape.RenderTransform = canvas.MatrixTransform;
+                    if (!canvas.Children.Contains(shape))
+                    {
+                        canvas.Children.Add(shape);
+                    }
+                }
+
+                //注册集合元素变更事件
+                newShapes.CollectionChanged += canvas.OnShapesItemsChanged;
+            }
+        }
+        #endregion
+
+        #region 形状列表元素改变事件 —— void OnShapesItemsChanged(object sender, NotifyCollectionChangedEventArgs...
+        /// <summary>
+        /// 形状列表元素改变事件
+        /// </summary>
+        private void OnShapesItemsChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
+        {
+            if (eventArgs.OldItems != null)
+            {
+                foreach (Shape shape in eventArgs.OldItems)
+                {
+                    if (this.Children.Contains(shape))
+                    {
+                        this.Children.Remove(shape);
+                    }
+                }
+            }
+            if (eventArgs.NewItems != null)
+            {
+                foreach (Shape shape in eventArgs.NewItems)
+                {
+                    shape.RenderTransform = this.MatrixTransform;
+                    if (!this.Children.Contains(shape))
+                    {
+                        this.Children.Add(shape);
+                    }
+                }
             }
         }
         #endregion
