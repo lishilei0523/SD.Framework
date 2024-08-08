@@ -106,19 +106,22 @@ namespace SD.Infrastructure.WPF.UserControls
 
             #endregion
 
-            //设置光标
-            Mouse.OverrideCursor = Cursors.Hand;
+            if (eventArgs.MiddleButton == MouseButtonState.Pressed)
+            {
+                //设置光标
+                Mouse.OverrideCursor = Cursors.Hand;
 
-            Point position = eventArgs.MouseDevice.GetPosition(this.Frame);
-            Matrix matrix = this.Viewbox.RenderTransform.Value;
+                Point position = eventArgs.MouseDevice.GetPosition(this.Frame);
+                Matrix matrix = this.Viewbox.RenderTransform.Value;
 
-            //计算偏移量 
-            matrix.OffsetX = matrix.OffsetX + position.X - this._vertex.X;
-            matrix.OffsetY = matrix.OffsetY + position.Y - this._vertex.Y;
+                //计算偏移量
+                matrix.OffsetX = matrix.OffsetX + position.X - this._vertex.X;
+                matrix.OffsetY = matrix.OffsetY + position.Y - this._vertex.Y;
 
-            //给鼠标起点和图片临时位置重新赋值
-            this._vertex = position;
-            this.Viewbox.RenderTransform = new MatrixTransform(matrix);
+                //给鼠标起点和图片临时位置重新赋值
+                this._vertex = position;
+                this.Viewbox.RenderTransform = new MatrixTransform(matrix);
+            }
         }
         #endregion 
 
