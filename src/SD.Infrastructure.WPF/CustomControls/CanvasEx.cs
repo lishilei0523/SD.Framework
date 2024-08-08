@@ -1,6 +1,7 @@
 ﻿using SD.Infrastructure.WPF.Enums;
 using SD.Infrastructure.WPF.Models;
 using SD.Infrastructure.WPF.Visual2Ds;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
@@ -103,6 +104,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         private readonly MatrixTransform _matrixTransform;
 
         /// <summary>
+        /// 形状列表
+        /// </summary>
+        private readonly IList<Shape> _shapes;
+
+        /// <summary>
         /// 鼠标起始位置
         /// </summary>
         /// <remarks>基于Viewport坐标系</remarks>
@@ -143,6 +149,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         public CanvasEx()
         {
             this._matrixTransform = new MatrixTransform();
+            this._shapes = new List<Shape>();
             base.PreviewMouseDown += this.OnMouseDown;
             base.PreviewMouseMove += this.OnMouseMove;
             base.PreviewMouseWheel += this.OnMouseWheel;
@@ -492,6 +499,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                     if (canvas.Children.Contains(shape))
                     {
                         canvas.Children.Remove(shape);
+                        canvas._shapes.Remove(shape);
                     }
                 }
             }
@@ -503,11 +511,23 @@ namespace SD.Infrastructure.WPF.CustomControls
                     if (!canvas.Children.Contains(shape))
                     {
                         canvas.Children.Add(shape);
+                        canvas._shapes.Add(shape);
                     }
                 }
 
                 //注册集合元素变更事件
                 newShapes.CollectionChanged += canvas.OnShapesItemsChanged;
+            }
+            if (newShapes == null)
+            {
+                foreach (Shape shape in canvas._shapes)
+                {
+                    if (canvas.Children.Contains(shape))
+                    {
+                        canvas.Children.Remove(shape);
+                    }
+                }
+                canvas._shapes.Clear();
             }
         }
         #endregion
@@ -525,6 +545,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                     if (this.Children.Contains(shape))
                     {
                         this.Children.Remove(shape);
+                        this._shapes.Remove(shape);
                     }
                 }
             }
@@ -536,8 +557,20 @@ namespace SD.Infrastructure.WPF.CustomControls
                     if (!this.Children.Contains(shape))
                     {
                         this.Children.Add(shape);
+                        this._shapes.Add(shape);
                     }
                 }
+            }
+            if (eventArgs.Action == NotifyCollectionChangedAction.Reset)
+            {
+                foreach (Shape shape in this._shapes)
+                {
+                    if (this.Children.Contains(shape))
+                    {
+                        this.Children.Remove(shape);
+                    }
+                }
+                this._shapes.Clear();
             }
         }
         #endregion
