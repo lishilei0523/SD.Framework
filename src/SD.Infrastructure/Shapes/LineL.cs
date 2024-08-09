@@ -93,7 +93,6 @@
         /// <summary>
         /// 获取哈希码
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             return this.A.X.GetHashCode() ^ this.A.Y.GetHashCode() ^ this.B.X.GetHashCode() ^ this.B.Y.GetHashCode();

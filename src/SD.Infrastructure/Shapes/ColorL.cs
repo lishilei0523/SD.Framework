@@ -1,13 +1,15 @@
-﻿using System.Runtime.InteropServices;
-
-namespace SD.Infrastructure.Shapes
+﻿namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// RGBA颜色
     /// </summary>
-    [StructLayout(LayoutKind.Sequential)]
     public readonly struct ColorL
     {
+        /// <summary>
+        /// 只读字段 - 空颜色
+        /// </summary>
+        public static readonly ColorL Empty = new ColorL(0, 0, 0, 0);
+
         /// <summary>
         /// 创建RGB颜色构造器
         /// </summary>
@@ -67,6 +69,52 @@ namespace SD.Infrastructure.Shapes
             byte nb = (byte)(255 - this.B);
 
             return new ColorL(nr, ng, nb);
+        }
+
+        /// <summary>
+        /// 是否相等
+        /// </summary>
+        public override bool Equals(object instance)
+        {
+            if (instance is ColorL color)
+            {
+                return color == this;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// 获取哈希码
+        /// </summary>
+        public override int GetHashCode()
+        {
+            return this.A.GetHashCode() ^ this.R.GetHashCode() ^ this.G.GetHashCode() ^ this.B.GetHashCode();
+        }
+
+        /// <summary>
+        /// 比较颜色是否相等
+        /// </summary>
+        /// <param name="source">源颜色</param>
+        /// <param name="target">目标颜色</param>
+        /// <returns>是否相等</returns>
+        public static bool operator ==(ColorL source, ColorL target)
+        {
+            return source.A == target.A &&
+                   source.R == target.R &&
+                   source.G == target.G &&
+                   source.B == target.B;
+        }
+
+        /// <summary>
+        /// 比较颜色是否不等
+        /// </summary>
+        /// <param name="source">源颜色</param>
+        /// <param name="target">目标颜色</param>
+        /// <returns>是否不等</returns>
+        public static bool operator !=(ColorL source, ColorL target)
+        {
+            return !(source == target);
         }
     }
 }

@@ -95,7 +95,6 @@ namespace SD.Infrastructure.Shapes
         /// <summary>
         /// 获取哈希码
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             int hashCode = 0;

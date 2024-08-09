@@ -104,7 +104,6 @@
         /// <summary>
         /// 获取哈希码
         /// </summary>
-        /// <returns></returns>
         public override int GetHashCode()
         {
             return this.X.GetHashCode() ^ this.Y.GetHashCode();
