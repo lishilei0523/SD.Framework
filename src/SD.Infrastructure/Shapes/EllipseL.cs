@@ -1,8 +1,13 @@
-﻿namespace SD.Infrastructure.Shapes
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// 椭圆形
     /// </summary>
+    [Serializable]
+    [DataContract]
     public class EllipseL : ShapeL
     {
         #region # 构造器
@@ -56,6 +61,7 @@
         /// <summary>
         /// 圆心横坐标值
         /// </summary>
+        [DataMember]
         public int X { get; set; }
         #endregion
 
@@ -63,6 +69,7 @@
         /// <summary>
         /// 圆心纵坐标值
         /// </summary>
+        [DataMember]
         public int Y { get; set; }
         #endregion
 
@@ -70,6 +77,7 @@
         /// <summary>
         /// X轴半径
         /// </summary>
+        [DataMember]
         public int RadiusX { get; set; }
         #endregion
 
@@ -77,6 +85,7 @@
         /// <summary>
         /// Y轴半径
         /// </summary>
+        [DataMember]
         public int RadiusY { get; set; }
         #endregion
 

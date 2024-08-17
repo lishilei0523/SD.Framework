@@ -1,8 +1,13 @@
-﻿namespace SD.Infrastructure.Shapes
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// 矩形
     /// </summary>
+    [Serializable]
+    [DataContract]
     public class RectangleL : ShapeL
     {
         #region # 构造器
@@ -56,6 +61,7 @@
         /// <summary>
         /// 顶点横坐标值
         /// </summary>
+        [DataMember]
         public int X { get; set; }
         #endregion
 
@@ -63,6 +69,7 @@
         /// <summary>
         /// 顶点纵坐标值
         /// </summary>
+        [DataMember]
         public int Y { get; set; }
         #endregion
 
@@ -70,6 +77,7 @@
         /// <summary>
         /// 宽度
         /// </summary>
+        [DataMember]
         public int Width { get; set; }
         #endregion
 
@@ -77,6 +85,7 @@
         /// <summary>
         /// 高度
         /// </summary>
+        [DataMember]
         public int Height { get; set; }
         #endregion
 

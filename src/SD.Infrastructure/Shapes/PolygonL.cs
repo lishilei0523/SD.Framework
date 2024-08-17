@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace SD.Infrastructure.Shapes
@@ -7,6 +9,8 @@ namespace SD.Infrastructure.Shapes
     /// <summary>
     /// 多边形
     /// </summary>
+    [Serializable]
+    [DataContract]
     public class PolygonL : ShapeL
     {
         #region # 构造器
@@ -59,6 +63,7 @@ namespace SD.Infrastructure.Shapes
         /// <summary>
         /// 点坐标列表
         /// </summary>
+        [DataMember]
         public ICollection<PointL> Points { get; set; }
         #endregion
 

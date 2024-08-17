@@ -1,8 +1,13 @@
-﻿namespace SD.Infrastructure.Shapes
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// 点
     /// </summary>
+    [Serializable]
+    [DataContract]
     public class PointL : ShapeL
     {
         #region # 构造器
@@ -44,7 +49,7 @@
         {
             base.Name = name;
         }
-        #endregion 
+        #endregion
 
         #endregion
 
@@ -54,6 +59,7 @@
         /// <summary>
         /// 横坐标值
         /// </summary>
+        [DataMember]
         public int X { get; set; }
         #endregion
 
@@ -61,6 +67,7 @@
         /// <summary>
         /// 纵坐标值
         /// </summary>
+        [DataMember]
         public int Y { get; set; }
         #endregion
 
@@ -68,6 +75,7 @@
         /// <summary>
         /// 厚度
         /// </summary>
+        [DataMember]
         public int Thickness { get; set; }
         #endregion
 

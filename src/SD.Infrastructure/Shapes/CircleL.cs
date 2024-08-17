@@ -1,8 +1,13 @@
-﻿namespace SD.Infrastructure.Shapes
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// 圆形
     /// </summary>
+    [Serializable]
+    [DataContract]
     public class CircleL : ShapeL
     {
         #region # 构造器
@@ -43,7 +48,7 @@
         {
             base.Name = name;
         }
-        #endregion 
+        #endregion
 
         #endregion
 
@@ -53,6 +58,7 @@
         /// <summary>
         /// 圆心横坐标值
         /// </summary>
+        [DataMember]
         public int X { get; set; }
         #endregion
 
@@ -60,6 +66,7 @@
         /// <summary>
         /// 圆心纵坐标值
         /// </summary>
+        [DataMember]
         public int Y { get; set; }
         #endregion
 
@@ -67,6 +74,7 @@
         /// <summary>
         /// 半径
         /// </summary>
+        [DataMember]
         public int Radius { get; set; }
         #endregion
 

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// 三角形
     /// </summary>
+    [Serializable]
+    [DataContract]
     public class TriangleL : ShapeL
     {
         #region # 构造器
@@ -55,6 +58,7 @@ namespace SD.Infrastructure.Shapes
         /// <summary>
         /// 顶点A
         /// </summary>
+        [DataMember]
         public PointL VertexA { get; set; }
         #endregion
 
@@ -62,6 +66,7 @@ namespace SD.Infrastructure.Shapes
         /// <summary>
         /// 顶点B
         /// </summary>
+        [DataMember]
         public PointL VertexB { get; set; }
         #endregion
 
@@ -69,6 +74,7 @@ namespace SD.Infrastructure.Shapes
         /// <summary>
         /// 顶点C
         /// </summary>
+        [DataMember]
         public PointL VertexC { get; set; }
         #endregion
 

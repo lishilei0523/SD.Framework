@@ -1,8 +1,21 @@
-﻿namespace SD.Infrastructure.Shapes
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// 形状
     /// </summary>
+    [Serializable]
+    [DataContract]
+    [KnownType(typeof(RectangleL))]
+    [KnownType(typeof(CircleL))]
+    [KnownType(typeof(EllipseL))]
+    [KnownType(typeof(LineL))]
+    [KnownType(typeof(PointL))]
+    [KnownType(typeof(PolygonL))]
+    [KnownType(typeof(PolylineL))]
+    [KnownType(typeof(TriangleL))]
     public abstract class ShapeL
     {
         #region # 构造器
@@ -29,6 +42,7 @@
         /// <summary>
         /// 名称
         /// </summary>
+        [DataMember]
         public string Name { get; set; }
         #endregion
 
@@ -36,6 +50,7 @@
         /// <summary>
         /// 层次索引
         /// </summary>
+        [DataMember]
         public int ZIndex { get; set; }
         #endregion
 
@@ -43,6 +58,7 @@
         /// <summary>
         /// 填充颜色
         /// </summary>
+        [DataMember]
         public ColorL Fill { get; set; }
         #endregion
 
@@ -50,6 +66,7 @@
         /// <summary>
         /// 边框颜色
         /// </summary>
+        [DataMember]
         public ColorL Stroke { get; set; }
         #endregion
 
@@ -57,6 +74,7 @@
         /// <summary>
         /// 边框宽度
         /// </summary>
+        [DataMember]
         public int StrokeThickness { get; set; }
         #endregion
 
@@ -64,6 +82,7 @@
         /// <summary>
         /// 自定义标签
         /// </summary>
+        [DataMember]
         public object Tag { get; set; }
         #endregion
 

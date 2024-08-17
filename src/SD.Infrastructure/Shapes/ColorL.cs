@@ -1,8 +1,13 @@
-﻿namespace SD.Infrastructure.Shapes
+﻿using System;
+using System.Runtime.Serialization;
+
+namespace SD.Infrastructure.Shapes
 {
     /// <summary>
     /// RGBA颜色
     /// </summary>
+    [Serializable]
+    [DataContract]
     public readonly struct ColorL
     {
         /// <summary>
@@ -41,21 +46,25 @@
         /// <summary>
         /// R值
         /// </summary>
+        [DataMember]
         public readonly byte R;
 
         /// <summary>
         /// G值
         /// </summary>
+        [DataMember]
         public readonly byte G;
 
         /// <summary>
         /// B值
         /// </summary>
+        [DataMember]
         public readonly byte B;
 
         /// <summary>
         /// A值
         /// </summary>
+        [DataMember]
         public readonly byte A;
 
         /// <summary>
