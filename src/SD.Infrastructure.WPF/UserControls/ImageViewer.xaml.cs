@@ -19,7 +19,7 @@ namespace SD.Infrastructure.WPF.UserControls
         /// <summary>
         /// 图片源依赖属性
         /// </summary>
-        public static DependencyProperty ImageSourceProperty;
+        public static readonly DependencyProperty ImageSourceProperty;
 
         /// <summary>
         /// 静态构造器

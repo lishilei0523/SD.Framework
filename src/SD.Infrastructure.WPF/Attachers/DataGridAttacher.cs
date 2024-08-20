@@ -8,7 +8,12 @@ namespace SD.Infrastructure.WPF.Attachers
     /// </summary>
     public static class DataGridAttacher
     {
-        #region # 构造器
+        #region # 字段及构造器
+
+        /// <summary>
+        /// 是否显示行号依赖属性
+        /// </summary>
+        public static readonly DependencyProperty DisplayRowNumberProperty;
 
         /// <summary>
         /// 静态构造器
@@ -16,34 +21,12 @@ namespace SD.Infrastructure.WPF.Attachers
         static DataGridAttacher()
         {
             //注册依赖属性
-            DisplayRowNumberProperty = DependencyProperty.RegisterAttached(nameof(DisplayRowNumber), typeof(bool), typeof(DataGridAttacher), new PropertyMetadata(false, OnDisplayRowNumberChanged));
+            DisplayRowNumberProperty = DependencyProperty.RegisterAttached("DisplayRowNumber", typeof(bool), typeof(DataGridAttacher), new PropertyMetadata(false, OnDisplayRowNumberChanged));
         }
 
         #endregion
 
-        #region # 依赖属性
-
-        #region 是否显示行号 —— DependencyProperty DisplayRowNumber
-
-        /// <summary>
-        /// 是否显示行号依赖属性
-        /// </summary>
-        public static DependencyProperty DisplayRowNumberProperty;
-
-        /// <summary>
-        /// 是否显示行号
-        /// </summary>
-        public static DependencyProperty DisplayRowNumber
-        {
-            get { return DisplayRowNumberProperty; }
-            set { DisplayRowNumberProperty = value; }
-        }
-
-        #endregion
-
-        #endregion
-
-        #region # Getter and Setter
+        #region # 属性
 
         #region 获取是否显示行号 —— static bool GetDisplayRowNumber(DependencyObject...
         /// <summary>
@@ -68,7 +51,7 @@ namespace SD.Infrastructure.WPF.Attachers
 
         #endregion
 
-        #region # 回调方法
+        #region # 方法
 
         #region 是否显示行号改变回调方法 —— static void OnDisplayRowNumberChanged(DependencyObject...
         /// <summary>
@@ -89,10 +72,6 @@ namespace SD.Infrastructure.WPF.Attachers
         }
         #endregion
 
-        #endregion
-
-        #region # 事件处理程序
-
         #region DataGrid加载行事件处理程序 —— static void DataGridLoadingRowEventHandler(object sender...
         /// <summary>
         /// DataGrid加载行事件处理程序
@@ -101,7 +80,7 @@ namespace SD.Infrastructure.WPF.Attachers
         {
             eventArgs.Row.Header = eventArgs.Row.GetIndex() + 1;
         }
-        #endregion 
+        #endregion
 
         #endregion
     }

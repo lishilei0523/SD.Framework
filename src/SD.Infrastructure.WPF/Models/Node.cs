@@ -10,9 +10,18 @@ namespace SD.Infrastructure.WPF.Models
     /// </summary>
     public class Node : DependencyObject
     {
-        #region # 构造器
+        #region # 字段及构造器
 
-        #region 00.静态构造器
+        /// <summary>
+        /// 是否选中依赖属性
+        /// </summary>
+        public static readonly DependencyProperty IsSelectedProperty;
+
+        /// <summary>
+        /// 是否勾选依赖属性
+        /// </summary>
+        public static readonly DependencyProperty IsCheckedProperty;
+
         /// <summary>
         /// 静态构造器
         /// </summary>
@@ -22,9 +31,7 @@ namespace SD.Infrastructure.WPF.Models
             IsSelectedProperty = DependencyProperty.Register(nameof(IsSelected), typeof(bool?), typeof(Node), new PropertyMetadata(false));
             IsCheckedProperty = DependencyProperty.Register(nameof(IsChecked), typeof(bool?), typeof(Node), new PropertyMetadata(false, OnIsCheckedChanged));
         }
-        #endregion
 
-        #region 01.无参构造器
         /// <summary>
         /// 无参构造器
         /// </summary>
@@ -37,9 +44,6 @@ namespace SD.Infrastructure.WPF.Models
             this.IsSelected = false;
             this.IsChecked = false;
         }
-        #endregion
-
-        #region 02.创建节点构造器
         /// <summary>
         /// 创建节点构造器
         /// </summary>
@@ -58,9 +62,7 @@ namespace SD.Infrastructure.WPF.Models
             this.ParentNode = parentNode;
             parentNode?.SubNodes.Add(this);
         }
-        #endregion
 
-        #region 03.创建节点构造器
         /// <summary>
         /// 创建节点构造器
         /// </summary>
@@ -81,7 +83,6 @@ namespace SD.Infrastructure.WPF.Models
             this.ParentNode = parentNode;
             parentNode?.SubNodes.Add(this);
         }
-        #endregion
 
         #endregion
 
@@ -115,40 +116,26 @@ namespace SD.Infrastructure.WPF.Models
         public string Icon { get; set; }
         #endregion
 
-        #region 是否选中 —— bool? IsSelected
-
+        #region 依赖属性 - 是否选中 —— bool? IsSelected
         /// <summary>
-        /// 是否选中依赖属性
-        /// </summary>
-        public static DependencyProperty IsSelectedProperty;
-
-        /// <summary>
-        /// 是否选中
+        /// 依赖属性 - 是否选中
         /// </summary>
         public bool? IsSelected
         {
-            get { return base.GetValue(IsSelectedProperty) == null ? (bool?)null : Convert.ToBoolean(base.GetValue(IsSelectedProperty)); }
-            set { base.SetValue(IsSelectedProperty, value); }
+            get => base.GetValue(IsSelectedProperty) == null ? (bool?)null : Convert.ToBoolean(base.GetValue(IsSelectedProperty));
+            set => base.SetValue(IsSelectedProperty, value);
         }
-
         #endregion
 
-        #region 是否勾选 —— bool? IsChecked
-
+        #region 依赖属性 - 是否勾选 —— bool? IsChecked
         /// <summary>
-        /// 是否勾选依赖属性
-        /// </summary>
-        public static DependencyProperty IsCheckedProperty;
-
-        /// <summary>
-        /// 是否勾选
+        /// 依赖属性 - 是否勾选
         /// </summary>
         public bool? IsChecked
         {
-            get { return base.GetValue(IsCheckedProperty) == null ? (bool?)null : Convert.ToBoolean(base.GetValue(IsCheckedProperty)); }
-            set { base.SetValue(IsCheckedProperty, value); }
+            get => base.GetValue(IsCheckedProperty) == null ? (bool?)null : Convert.ToBoolean(base.GetValue(IsCheckedProperty));
+            set => base.SetValue(IsCheckedProperty, value);
         }
-
         #endregion
 
         #region 只读属性 - 是否有三种状态 —— bool IsThreeState
@@ -157,7 +144,7 @@ namespace SD.Infrastructure.WPF.Models
         /// </summary>
         public bool IsThreeState
         {
-            get { return !this.IsLeaf; }
+            get => !this.IsLeaf;
         }
         #endregion
 
@@ -167,7 +154,7 @@ namespace SD.Infrastructure.WPF.Models
         /// </summary>
         public bool IsRoot
         {
-            get { return this.ParentNode == null; }
+            get => this.ParentNode == null;
         }
         #endregion
 
@@ -177,7 +164,7 @@ namespace SD.Infrastructure.WPF.Models
         /// </summary>
         public bool IsLeaf
         {
-            get { return !this.SubNodes.Any(); }
+            get => !this.SubNodes.Any();
         }
         #endregion
 
@@ -276,7 +263,7 @@ namespace SD.Infrastructure.WPF.Models
                 UncheckDown(subNode);
             }
         }
-        #endregion 
+        #endregion
 
         #endregion
     }

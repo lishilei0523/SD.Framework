@@ -82,10 +82,7 @@ namespace SD.Infrastructure.WPF.Models
         /// </summary>
         public bool? IsSelected
         {
-            get
-            {
-                return this._isSelected;
-            }
+            get => this._isSelected;
             set
             {
                 this._isSelected = value;
@@ -106,10 +103,7 @@ namespace SD.Infrastructure.WPF.Models
         /// </summary>
         public bool? IsChecked
         {
-            get
-            {
-                return this._isChecked;
-            }
+            get => this._isChecked;
             set
             {
                 this._isChecked = value;
