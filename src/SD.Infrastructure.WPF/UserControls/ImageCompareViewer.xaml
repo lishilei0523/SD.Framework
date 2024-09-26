@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="SD.Infrastructure.WPF.UserControls.ImageCompareViewer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d"
+             Name="Control">
+
+    <Grid Name="Frame" ClipToBounds="True">
+        <Viewbox Name="Viewbox"
+                 MouseDown="OnViewBoxMouseDown"
+                 MouseMove="OnViewBoxMouseMove"
+                 MouseWheel="OnViewBoxMouseWheel"
+                 MouseUp="OnViewBoxMouseUp">
+            <Viewbox.RenderTransform>
+                <MatrixTransform>
+                    <MatrixTransform.Matrix>
+                        <Matrix OffsetX="0" OffsetY="0" />
+                    </MatrixTransform.Matrix>
+                </MatrixTransform>
+            </Viewbox.RenderTransform>
+            <Grid>
+                <Image Source="{Binding ElementName=Control, Path=ImageSource1}"
+                       Opacity="{Binding ElementName=Control, Path=ImageSource1Opacity}"
+                       Stretch="Uniform"  />
+                <Image Source="{Binding ElementName=Control, Path=ImageSource2}"
+                       Opacity="{Binding ElementName=Control, Path=ImageSource2Opacity}"
+                       Stretch="Uniform" />
+            </Grid>
+        </Viewbox>
+    </Grid>
+</UserControl>

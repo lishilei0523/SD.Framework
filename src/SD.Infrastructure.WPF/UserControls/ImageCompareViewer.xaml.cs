@@ -5,9 +5,9 @@ using System.Windows.Media;
 namespace SD.Infrastructure.WPF.UserControls
 {
     /// <summary>
-    /// 图像查看控件
+    /// 图像对比查看控件
     /// </summary>
-    public partial class ImageViewer
+    public partial class ImageCompareViewer
     {
         #region # 字段及构造器
 
@@ -17,17 +17,35 @@ namespace SD.Infrastructure.WPF.UserControls
         private const float ScaleFactor = 1.1F;
 
         /// <summary>
-        /// 图像源依赖属性
+        /// 图像源1依赖属性
         /// </summary>
-        public static readonly DependencyProperty ImageSourceProperty;
+        public static readonly DependencyProperty ImageSource1Property;
+
+        /// <summary>
+        /// 图像源1透明度依赖属性
+        /// </summary>
+        public static readonly DependencyProperty ImageSource1OpacityProperty;
+
+        /// <summary>
+        /// 图像源2依赖属性
+        /// </summary>
+        public static readonly DependencyProperty ImageSource2Property;
+
+        /// <summary>
+        /// 图像源2透明度依赖属性
+        /// </summary>
+        public static readonly DependencyProperty ImageSource2OpacityProperty;
 
         /// <summary>
         /// 静态构造器
         /// </summary>
-        static ImageViewer()
+        static ImageCompareViewer()
         {
             //注册依赖属性
-            ImageSourceProperty = DependencyProperty.Register(nameof(ImageSource), typeof(ImageSource), typeof(ImageViewer), new PropertyMetadata(null));
+            ImageSource1Property = DependencyProperty.Register(nameof(ImageSource1), typeof(ImageSource), typeof(ImageCompareViewer), new PropertyMetadata(null));
+            ImageSource1OpacityProperty = DependencyProperty.Register(nameof(ImageSource1Opacity), typeof(double), typeof(ImageCompareViewer), new PropertyMetadata(0.5d));
+            ImageSource2Property = DependencyProperty.Register(nameof(ImageSource2), typeof(ImageSource), typeof(ImageCompareViewer), new PropertyMetadata(null));
+            ImageSource2OpacityProperty = DependencyProperty.Register(nameof(ImageSource2Opacity), typeof(double), typeof(ImageCompareViewer), new PropertyMetadata(0.5d));
         }
 
         /// <summary>
@@ -43,7 +61,7 @@ namespace SD.Infrastructure.WPF.UserControls
         /// <summary>
         /// 构造器
         /// </summary>
-        public ImageViewer()
+        public ImageCompareViewer()
         {
             this.InitializeComponent();
         }
@@ -52,14 +70,47 @@ namespace SD.Infrastructure.WPF.UserControls
 
         #region # 属性
 
-        #region 依赖属性 - 图像源 —— ImageSource ImageSource
+        #region 依赖属性 - 图像源1 —— ImageSource ImageSource1
+        /// <summary>
+        /// 依赖属性 - 图像源1
+        /// </summary>
+        public ImageSource ImageSource1
+        {
+            get => (ImageSource)base.GetValue(ImageSource1Property);
+            set => base.SetValue(ImageSource1Property, value);
+        }
+        #endregion
+
+        #region 依赖属性 - 图像源1透明度 —— double ImageSource1Opacity
+        /// <summary>
+        /// 依赖属性 - 图像源1透明度
+        /// </summary>
+        public double ImageSource1Opacity
+        {
+            get => (double)base.GetValue(ImageSource1OpacityProperty);
+            set => base.SetValue(ImageSource1OpacityProperty, value);
+        }
+        #endregion
+
+        #region 依赖属性 - 图像源2 —— ImageSource ImageSource2
         /// <summary>
         /// 依赖属性 - 图像源
         /// </summary>
-        public ImageSource ImageSource
+        public ImageSource ImageSource2
         {
-            get => (ImageSource)base.GetValue(ImageSourceProperty);
-            set => base.SetValue(ImageSourceProperty, value);
+            get => (ImageSource)base.GetValue(ImageSource2Property);
+            set => base.SetValue(ImageSource2Property, value);
+        }
+        #endregion
+
+        #region 依赖属性 - 图像源2透明度 —— double ImageSource2Opacity
+        /// <summary>
+        /// 依赖属性 - 图像源2透明度
+        /// </summary>
+        public double ImageSource2Opacity
+        {
+            get => (double)base.GetValue(ImageSource2OpacityProperty);
+            set => base.SetValue(ImageSource2OpacityProperty, value);
         }
         #endregion
 
