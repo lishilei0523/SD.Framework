@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.IOC.Core" Version="2.2.4" />
+    <PackageReference Include="SD.IOC.Core" Version="2.3.0" />
     <PackageReference Include="SD.IOC.Extension.NetFramework" Version="1.2.2" />
   </ItemGroup>
 

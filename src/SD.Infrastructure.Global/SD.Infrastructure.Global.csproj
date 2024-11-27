@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net45;net462;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - 全局（初始化、清理）基础</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>2.1.4</Version>
-    <AssemblyVersion>2.1.4</AssemblyVersion>
-    <FileVersion>2.1.4.0</FileVersion>
+    <Version>2.2.0</Version>
+    <AssemblyVersion>2.2.0</AssemblyVersion>
+    <FileVersion>2.2.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.IOC.Core" Version="2.2.4" />
+    <PackageReference Include="SD.IOC.Core" Version="2.3.0" />
   </ItemGroup>
 
   <ItemGroup>

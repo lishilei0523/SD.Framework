@@ -30,12 +30,12 @@
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
-    <PackageReference Include="MrAdvice" Version="2.15.0" />
+    <PackageReference Include="MrAdvice" Version="2.16.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net6.0-windows')) Or $(TargetFramework.Equals('net8.0-windows'))">
-    <PackageReference Include="MrAdvice" Version="2.15.0" />
+    <PackageReference Include="MrAdvice" Version="2.16.0" />
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
   </ItemGroup>
 
