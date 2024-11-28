@@ -16,6 +16,7 @@ using SD.Common;
 using SD.Toolkits;
 using System.Configuration;
 using System.Reflection;
+using SD.IOC.Core;
 using SD.IOC.Extension.NetCore;
 #endif
 
@@ -40,6 +41,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
             Assembly entryAssembly = Assembly.GetExecutingAssembly();
             Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
             FrameworkSection.Initialize(configuration);
+            DependencyInjectionSection.Initialize(configuration);
             RedisSection.Initialize(configuration);
 #endif
             if (!ResolveMediator.ContainerBuilt)
