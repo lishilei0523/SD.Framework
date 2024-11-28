@@ -41,7 +41,6 @@ namespace SD.Infrastructure.WPF.Converters
         {
             Type type = @enum.GetType();
             FieldInfo field = type.GetField(@enum.ToString());
-
 #if NET40
             object[] attributes = field.GetCustomAttributes(typeof(DescriptionAttribute), false);
             DescriptionAttribute enumMember = attributes.Any() ? (DescriptionAttribute)attributes[0] : null;

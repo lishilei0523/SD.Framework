@@ -24,7 +24,7 @@ namespace SD.Infrastructure.Tests.TestCases
         [TestInitialize]
         public void Initialize()
         {
-#if NETCOREAPP3_1_OR_GREATER
+#if NET8_0_OR_GREATER
             Assembly assembly = Assembly.GetExecutingAssembly();
             Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(assembly);
             FrameworkSection.Initialize(configuration);

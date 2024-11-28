@@ -756,12 +756,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
             DbDataReader dataReader = await dbCommand.ExecuteReaderAsync();
             DataTable dataTable = new DataTable();
             dataTable.Load(dataReader);
-#if NETSTANDARD2_0
-            dataReader.Close();
-#endif
-#if NETSTANDARD2_1 || NETCOREAPP3_1_OR_GREATER
             await dataReader.CloseAsync();
-#endif
+
             //获取类型与属性列表
             Type type = typeof(TEntity);
             PropertyInfo[] propertyInfos = type.GetProperties();

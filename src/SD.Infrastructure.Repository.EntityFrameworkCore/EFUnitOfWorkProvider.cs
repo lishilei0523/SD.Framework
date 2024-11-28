@@ -100,9 +100,7 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore
         /// <param name="dbTransaction">事务</param>
         public void UseTransaction(DbTransaction dbTransaction)
         {
-#if NETSTANDARD2_1_OR_GREATER
             this._dbContext.Database.SetDbConnection(dbTransaction.Connection);
-#endif
             this._dbContext.Database.UseTransaction(dbTransaction);
         }
         #endregion

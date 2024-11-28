@@ -3,7 +3,7 @@ using SD.AOP.Core.Aspects.ForAny;
 using SD.Infrastructure.AOP.Exceptions;
 using SD.Toolkits.Json;
 using System;
-#if NET40_OR_GREATER
+#if NET462_OR_GREATER
 using System.ServiceModel;
 #endif
 #if NETSTANDARD2_0_OR_GREATER

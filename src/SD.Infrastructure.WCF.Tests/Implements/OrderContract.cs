@@ -3,10 +3,10 @@ using SD.Infrastructure.StubIAppService.Interfaces;
 using SD.Infrastructure.WCF.Tests.Interfaces;
 using System;
 using System.Diagnostics;
-#if NET40_OR_GREATER
+#if NET462_OR_GREATER
 using System.ServiceModel;
 #endif
-#if NETCOREAPP3_1_OR_GREATER
+#if NET8_0_OR_GREATER
 using CoreWCF;
 #endif
 

@@ -30,7 +30,7 @@ namespace SD.Infrastructure.Repository.MongoDB.Tests.TestCases
         [TestInitialize]
         public void Initialize()
         {
-#if NETCOREAPP3_1_OR_GREATER
+#if NET8_0_OR_GREATER
             Assembly entryAssembly = Assembly.GetExecutingAssembly();
             Configuration configuration = ConfigurationExtension.GetConfigurationFromAssembly(entryAssembly);
             FrameworkSection.Initialize(configuration);
