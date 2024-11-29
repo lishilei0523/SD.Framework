@@ -5,9 +5,9 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - AOP基础</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>2.3.0</Version>
-    <AssemblyVersion>2.3.0</AssemblyVersion>
-    <FileVersion>2.3.0.0</FileVersion>
+    <Version>2.4.0</Version>
+    <AssemblyVersion>2.4.0</AssemblyVersion>
+    <FileVersion>2.4.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -16,14 +16,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.AOP.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup Condition="$(TargetFramework.StartsWith('net4'))">
-    <Reference Include="System.ServiceModel" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('netstandard2.0'))">
-    <PackageReference Include="CoreWCF.Primitives" Version="1.6.0" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="SD.Toolkits.Json" Version="1.1.0" />

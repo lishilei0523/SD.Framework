@@ -3,12 +3,6 @@ using SD.AOP.Core.Aspects.ForAny;
 using SD.Infrastructure.AOP.Exceptions;
 using SD.Toolkits.Json;
 using System;
-#if NET462_OR_GREATER
-using System.ServiceModel;
-#endif
-#if NETSTANDARD2_0_OR_GREATER
-using CoreWCF;
-#endif
 
 namespace SD.Infrastructure.AOP.Aspects
 {
@@ -25,11 +19,6 @@ namespace SD.Infrastructure.AOP.Aspects
         protected override void OnException(MethodAdviceContext context, Exception exception)
         {
             base.OnException(context, exception);
-
-            if (OperationContext.Current != null)
-            {
-                throw new FaultException(base._exceptionMessage.ToJson());
-            }
 
             throw new AppServiceException(base._exceptionMessage.ToJson());
         }
