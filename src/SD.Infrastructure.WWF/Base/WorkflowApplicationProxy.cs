@@ -5,13 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-#if NET45_OR_GREATER
+#if NET462_OR_GREATER
 using SD.Infrastructure.WorkflowBase;
 using System.Activities.DurableInstancing;
 using System.Configuration;
 using System.Runtime.DurableInstancing;
 #endif
-#if NET6_0_OR_GREATER
+#if NET8_0_OR_GREATER
 using System.Activities.Runtime.DurableInstancing;
 #endif
 
@@ -34,7 +34,7 @@ namespace SD.Infrastructure.WWF.Base
         /// </summary>
         private static readonly string _ExceptionLogPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\Workflow.ExceptionLogs\\{{0:yyyy-MM-dd}}.txt";
 
-#if NET45_OR_GREATER
+#if NET462_OR_GREATER
         /// <summary>
         /// 工作流持久化数据库连接字符串
         /// </summary>
@@ -74,7 +74,7 @@ namespace SD.Infrastructure.WWF.Base
         /// </summary>
         static WorkflowApplicationProxy()
         {
-#if NET45_OR_GREATER
+#if NET462_OR_GREATER
             //初始化连接字符串
             string connectionStringName = FrameworkSection.Setting.WorkflowConnectionName.Value;
             ConnectionStringSettings connectionStringSetting = ConfigurationManager.ConnectionStrings?[connectionStringName];
@@ -119,7 +119,7 @@ namespace SD.Infrastructure.WWF.Base
             {
                 this.WorkflowApplication = new WorkflowApplication(workflowDefinition, parameters, definitionIdentity);
             }
-#if NET45_OR_GREATER
+#if NET462_OR_GREATER
             //设置工作流持久化存储
             InstanceCompletionAction instanceCompletionAction = GetInstanceCompletionAction();
             SqlWorkflowInstanceStore instanceStore = new SqlWorkflowInstanceStore()
@@ -319,7 +319,7 @@ namespace SD.Infrastructure.WWF.Base
         //Private
 
         #region 获取持久化模式 —— static InstanceCompletionAction GetInstanceCompletionAction()
-#if NET45_OR_GREATER
+#if NET462_OR_GREATER
         /// <summary>
         /// 获取持久化模式
         /// </summary>

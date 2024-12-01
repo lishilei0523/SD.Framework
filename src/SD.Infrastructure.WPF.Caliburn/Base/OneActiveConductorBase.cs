@@ -92,23 +92,14 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
         /// <summary>
         /// 失去活动
         /// </summary>
-#if NET40 || NET45
-        protected override void OnDeactivate(bool close)
-#endif
-#if NET461_OR_GREATER || NETCOREAPP3_1_OR_GREATER
         protected override Task OnDeactivateAsync(bool close, CancellationToken cancellationToken)
-#endif
         {
             if (close)
             {
                 this._notifier.Dispose();
             }
-#if NET40 || NET45
-            base.OnDeactivate(close);
-#endif
-#if NET461_OR_GREATER || NETCOREAPP3_1_OR_GREATER
+
             return base.OnDeactivateAsync(close, cancellationToken);
-#endif
         }
         #endregion
 
@@ -303,7 +294,6 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
         #endregion
 
         #region 异步等待在UI线程执行 —— Task OnUIThreadAsync(Func<Task> action)
-#if NET461 || NET462 || NETCOREAPP3_1_OR_GREATER
         /// <summary>
         /// 异步等待在UI线程执行
         /// </summary>
@@ -312,7 +302,6 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
         {
             return action.OnUIThreadAsync();
         }
-#endif
         #endregion
 
         #endregion

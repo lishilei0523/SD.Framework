@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net40;net45;net462</TargetFrameworks>
+    <TargetFramework>net462</TargetFramework>
     <UseWPF>true</UseWPF>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WPF基础 - RDLC报表扩展</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>1.0.2</Version>
-    <AssemblyVersion>1.0.2</AssemblyVersion>
-    <FileVersion>1.0.2.0</FileVersion>
+    <Version>1.1.0</Version>
+    <AssemblyVersion>1.1.0</AssemblyVersion>
+    <FileVersion>1.1.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -23,17 +23,7 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Equals('net40'))">
-    <PackageReference Include="Microsoft.SqlServer.Types" Version="14.0.1016.290" />
-    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.900.148" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net45'))">
-    <PackageReference Include="Microsoft.SqlServer.Types" Version="14.0.1016.290" />
-    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1652.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
+  <ItemGroup>
     <PackageReference Include="Microsoft.SqlServer.Types" Version="160.1000.6" />
     <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1652.0" />
   </ItemGroup>

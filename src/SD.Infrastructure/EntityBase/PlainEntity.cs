@@ -1,7 +1,5 @@
 ﻿using System;
-#if !NET40
 using System.ComponentModel.DataAnnotations.Schema;
-#endif
 
 namespace SD.Infrastructure.EntityBase
 {
@@ -28,9 +26,7 @@ namespace SD.Infrastructure.EntityBase
         /// <summary>
         /// 标识
         /// </summary>
-#if !NET40
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-#endif
         public Guid Id { get; protected set; }
         #endregion
 
@@ -56,7 +52,7 @@ namespace SD.Infrastructure.EntityBase
 
             if (id == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(id), @"Id不可为空！");
+                throw new ArgumentNullException(nameof(id), "Id不可为空！");
             }
 
             #endregion

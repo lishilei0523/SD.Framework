@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net40;net45;net462;net6.0-windows;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0-windows;net8.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WPF基础 - Caliburn.Micro扩展</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>1.2.2</Version>
-    <AssemblyVersion>1.2.2</AssemblyVersion>
-    <FileVersion>1.2.2.0</FileVersion>
+    <Version>1.3.0</Version>
+    <AssemblyVersion>1.3.0</AssemblyVersion>
+    <FileVersion>1.3.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -18,28 +18,9 @@
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.WPF.Caliburn.xml</DocumentationFile>
   </PropertyGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Equals('net40'))">
-    <PackageReference Include="AsyncBridge" Version="0.3.1" />
-    <PackageReference Include="MrAdvice" Version="2.9.9" />
-    <PackageReference Include="Caliburn.Micro" Version="3.2.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net45'))">
-    <PackageReference Include="MrAdvice" Version="2.9.9" />
-    <PackageReference Include="Caliburn.Micro" Version="3.2.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
-    <PackageReference Include="MrAdvice" Version="2.16.0" />
-    <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net6.0-windows')) Or $(TargetFramework.Equals('net8.0-windows'))">
-    <PackageReference Include="MrAdvice" Version="2.16.0" />
-    <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
-  </ItemGroup>
-
   <ItemGroup>
+    <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
+    <PackageReference Include="MrAdvice" Version="2.16.0" />
     <PackageReference Include="ToastNotifications.Unofficial" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages.Unofficial" Version="2.5.1" />
   </ItemGroup>
