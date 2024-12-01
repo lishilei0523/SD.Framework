@@ -87,7 +87,7 @@ namespace SD.Infrastructure.Repository.MongoDB
 
             if (entity == null)
             {
-                throw new ArgumentNullException(nameof(entity), $@"要添加的{typeof(T).Name}实体对象不可为空！");
+                throw new ArgumentNullException(nameof(entity), $"要添加的{typeof(T).Name}实体对象不可为空！");
             }
 
             #endregion
