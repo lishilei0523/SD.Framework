@@ -26,7 +26,7 @@
     </PackageReference>
     <PackageReference Include="Quartz" Version="3.13.1" />
     <PackageReference Include="MrAdvice" Version="2.16.0" />
-    <PackageReference Include="SD.Common" Version="3.3.0" />
+    <PackageReference Include="SD.Common" Version="3.4.0" />
     <PackageReference Include="SD.Toolkits.Redis" Version="2.2.0" />
     <PackageReference Include="SD.IOC.Core" Version="2.3.0" />
   </ItemGroup>

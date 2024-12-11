@@ -52,15 +52,15 @@ namespace SD.Infrastructure.CrontabStore.Redis.Toolkits
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 TypeNameHandling = TypeNameHandling.All
             };
-
             var typedInstance = new
             {
                 Type = crontab.GetType().FullName,
                 Assembly = crontab.GetType().Assembly.FullName,
                 Instance = JsonConvert.SerializeObject(crontab, Formatting.None, settting)
             };
+            string json = JsonConvert.SerializeObject(typedInstance, Formatting.None, settting);
 
-            return JsonConvert.SerializeObject(typedInstance, Formatting.None, settting);
+            return json;
         }
         #endregion
 
@@ -82,14 +82,12 @@ namespace SD.Infrastructure.CrontabStore.Redis.Toolkits
             #endregion
 
             JObject jObject = (JObject)JsonConvert.DeserializeObject(crontabJson);
-
-            JToken typeProperty = jObject.GetValue(TypePropertyName);
-            JToken assemblyProperty = jObject.GetValue(AssemblyPropertyName);
-            JToken instanceProperty = jObject.GetValue(InstancePropertyName);
-
-            string typePropertyValue = typeProperty.Value<string>();
-            string assemblyPropertyValue = assemblyProperty.Value<string>();
-            string instancePropertyValue = instanceProperty.Value<string>();
+            JToken typeProperty = jObject!.GetValue(TypePropertyName);
+            JToken assemblyProperty = jObject!.GetValue(AssemblyPropertyName);
+            JToken instanceProperty = jObject!.GetValue(InstancePropertyName);
+            string typePropertyValue = typeProperty!.Value<string>();
+            string assemblyPropertyValue = assemblyProperty!.Value<string>();
+            string instancePropertyValue = instanceProperty!.Value<string>();
 
             Type crontabType = Type.GetType($"{typePropertyValue},{assemblyPropertyValue}");
 
