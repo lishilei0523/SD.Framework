@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.Toolkits.Json" Version="2.0.0" />
+    <PackageReference Include="SD.Toolkits.Json" Version="2.1.0" />
     <PackageReference Include="SD.AOP.Core" Version="2.4.1" />
   </ItemGroup>
 </Project>
