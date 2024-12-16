@@ -2,16 +2,30 @@
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SD.Infrastructure.WPF.Report.UserControls
 {
     /// <summary>
     /// RDLC报表查看器用户控件
     /// </summary>
-    public partial class ReportViewer : UserControl
+    public partial class ReportViewer
     {
         #region # 构造器
+
+        /// <summary>
+        /// 报表路径依赖属性
+        /// </summary>
+        public static readonly DependencyProperty ReportPathProperty;
+
+        /// <summary>
+        /// 报表数据源列表依赖属性
+        /// </summary>
+        public static readonly DependencyProperty ReportDataSourcesProperty;
+
+        /// <summary>
+        /// 钻取报表路由事件
+        /// </summary>
+        public static readonly RoutedEvent DrillthroughEvent;
 
         /// <summary>
         /// 静态构造器
@@ -23,8 +37,7 @@ namespace SD.Infrastructure.WPF.Report.UserControls
             ReportDataSourcesProperty = DependencyProperty.Register(nameof(ReportDataSources), typeof(ObservableCollection<ReportDataSource>), typeof(ReportViewer), new FrameworkPropertyMetadata(OnReportDataSourcesChanged));
 
             //注册路由事件
-            _DrillthroughEvent = EventManager.RegisterRoutedEvent(nameof(Drillthrough), RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(ReportViewer));
-
+            DrillthroughEvent = EventManager.RegisterRoutedEvent(nameof(Drillthrough), RoutingStrategy.Direct, typeof(RoutedEventHandler), typeof(ReportViewer));
         }
 
         /// <summary>
@@ -37,51 +50,48 @@ namespace SD.Infrastructure.WPF.Report.UserControls
 
         #endregion
 
-        #region # 依赖属性
+        #region # 依赖属性 & 路由事件
 
         #region 报表路径 —— string ReportPath
-
-        /// <summary>
-        /// 报表路径依赖属性
-        /// </summary>
-        public static DependencyProperty ReportPathProperty;
-
         /// <summary>
         /// 报表路径
         /// </summary>
         public string ReportPath
         {
-            get { return base.GetValue(ReportPathProperty)?.ToString(); }
-            set { base.SetValue(ReportPathProperty, value); }
+            get => base.GetValue(ReportPathProperty)?.ToString();
+            set => base.SetValue(ReportPathProperty, value);
         }
-
         #endregion
 
         #region 报表数据源列表 —— ObservableCollection<ReportDataSource> ReportDataSources
-
-        /// <summary>
-        /// 报表数据源列表依赖属性
-        /// </summary>
-        public static DependencyProperty ReportDataSourcesProperty;
-
         /// <summary>
         /// 报表数据源列表
         /// </summary>
         public ObservableCollection<ReportDataSource> ReportDataSources
         {
-            get { return (ObservableCollection<ReportDataSource>)base.GetValue(ReportDataSourcesProperty); }
+            get => (ObservableCollection<ReportDataSource>)base.GetValue(ReportDataSourcesProperty);
             set { base.SetValue(ReportDataSourcesProperty, value); value.CollectionChanged += OnReportDataSourcesItemChanged; }
         }
-
         #endregion
 
-        #endregion
-
-        #region # 回调方法
-
-        #region 报表路径改变回调方法 —— static void OnReportPathChanged(...
+        #region 钻取报表路由事件 —— RoutedEvent Drillthrough
         /// <summary>
-        /// 报表路径改变回调方法
+        /// 钻取报表路由事件
+        /// </summary>
+        public event RoutedEventHandler Drillthrough
+        {
+            add => base.AddHandler(DrillthroughEvent, value);
+            remove => base.RemoveHandler(DrillthroughEvent, value);
+        }
+        #endregion
+
+        #endregion
+
+        #region # 事件处理程序
+
+        #region 报表路径改变事件 —— static void OnReportPathChanged(...
+        /// <summary>
+        /// 报表路径改变事件
         /// </summary>
         private static void OnReportPathChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
@@ -94,9 +104,9 @@ namespace SD.Infrastructure.WPF.Report.UserControls
         }
         #endregion
 
-        #region 报表数据源列表改变回调方法 —— static void OnReportDataSourcesChanged(...
+        #region 报表数据源列表改变事件 —— static void OnReportDataSourcesChanged(...
         /// <summary>
-        /// 报表数据源列表改变回调方法
+        /// 报表数据源列表改变事件
         /// </summary>
         private static void OnReportDataSourcesChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
@@ -115,16 +125,16 @@ namespace SD.Infrastructure.WPF.Report.UserControls
         }
         #endregion
 
-        #region 报表数据源列表元素改变回调方法 —— static void OnReportDataSourcesItemChanged(...
+        #region 报表数据源列表元素改变事件 —— static void OnReportDataSourcesItemChanged(...
         /// <summary>
-        /// 报表数据源列表元素改变回调方法
+        /// 报表数据源列表元素改变事件
         /// </summary>
         private static void OnReportDataSourcesItemChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
         {
             ReportViewer reportViewer = (ReportViewer)sender;
 
             reportViewer.ReportContainer.LocalReport.DataSources.Clear();
-            foreach (ReportDataSource reportDataSource in eventArgs.NewItems)
+            foreach (ReportDataSource reportDataSource in eventArgs.NewItems!)
             {
                 reportViewer.ReportContainer.LocalReport.DataSources.Add(reportDataSource);
             }
@@ -133,39 +143,13 @@ namespace SD.Infrastructure.WPF.Report.UserControls
         }
         #endregion
 
-        #endregion
-
-        #region # 路由事件
-
-        #region 钻取报表路由事件 —— RoutedEvent Drillthrough
-
-        /// <summary>
-        /// 钻取报表路由事件
-        /// </summary>
-        private static readonly RoutedEvent _DrillthroughEvent;
-
-        /// <summary>
-        /// 钻取报表路由事件处理程序
-        /// </summary>
-        public event RoutedEventHandler Drillthrough
-        {
-            add { base.AddHandler(_DrillthroughEvent, value); }
-            remove { base.RemoveHandler(_DrillthroughEvent, value); }
-        }
-
-        #endregion
-
-        #endregion
-
-        #region # 事件处理程序
-
-        #region 钻取报表事件 —— void ReportOnDrillthrough(object sender...
+        #region 钻取报表事件 —— void OnReportDrillthrough(object sender...
         /// <summary>
         /// 钻取报表事件
         /// </summary>
-        private void ReportOnDrillthrough(object sender, DrillthroughEventArgs eventArgs)
+        private void OnReportDrillthrough(object sender, DrillthroughEventArgs eventArgs)
         {
-            base.RaiseEvent(new RoutedEventArgs(_DrillthroughEvent, this));
+            base.RaiseEvent(new RoutedEventArgs(DrillthroughEvent, this));
         }
         #endregion 
 

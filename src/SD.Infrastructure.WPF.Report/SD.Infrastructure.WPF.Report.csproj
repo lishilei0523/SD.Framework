@@ -1,14 +1,16 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net462</TargetFramework>
+    <TargetFrameworks>net462;net6.0-windows;net8.0-windows</TargetFrameworks>
+    <LangVersion>8.0</LangVersion>
+    <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - WPF基础 - RDLC报表扩展</Description>
     <Copyright>Copyright © SD 2024</Copyright>
-    <Version>1.1.0</Version>
-    <AssemblyVersion>1.1.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.2.0</Version>
+    <AssemblyVersion>1.2.0</AssemblyVersion>
+    <FileVersion>1.2.0.0</FileVersion>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -17,11 +19,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.WPF.Report.xml</DocumentationFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="WindowsFormsIntegration" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.SqlServer.Types" Version="160.1000.6" />
