@@ -52,7 +52,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 形状列表依赖属性
         /// </summary>
-        public static readonly DependencyProperty ShapesSourceProperty;
+        public static readonly DependencyProperty ItemsSourceProperty;
 
         /// <summary>
         /// 元素拖拽路由事件
@@ -90,7 +90,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(CanvasEx), new PropertyMetadata(false, OnShowGridLinesChanged));
             DraggableProperty = DependencyProperty.Register(nameof(Draggable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ResizableProperty = DependencyProperty.Register(nameof(Resizable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
-            ShapesSourceProperty = DependencyProperty.Register(nameof(ShapesSource), typeof(ObservableCollection<Shape>), typeof(CanvasEx), new PropertyMetadata(new ObservableCollection<Shape>(), OnShapesChanged));
+            ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(ObservableCollection<Shape>), typeof(CanvasEx), new PropertyMetadata(new ObservableCollection<Shape>(), OnItemsSourceChanged));
             ElementDragEvent = EventManager.RegisterRoutedEvent(nameof(ElementDrag), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             ElementResizeEvent = EventManager.RegisterRoutedEvent(nameof(ElementResize), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             DrawEvent = EventManager.RegisterRoutedEvent(nameof(Draw), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
@@ -230,14 +230,14 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
-        #region 依赖属性 - 形状列表 —— ObservableCollection<Shape> ShapesSource
+        #region 依赖属性 - 形状列表 —— ObservableCollection<Shape> ItemsSource
         /// <summary>
         /// 依赖属性 - 形状列表
         /// </summary>
-        public ObservableCollection<Shape> ShapesSource
+        public ObservableCollection<Shape> ItemsSource
         {
-            get => (ObservableCollection<Shape>)this.GetValue(ShapesSourceProperty);
-            set => this.SetValue(ShapesSourceProperty, value);
+            get => (ObservableCollection<Shape>)this.GetValue(ItemsSourceProperty);
+            set => this.SetValue(ItemsSourceProperty, value);
         }
         #endregion
 
@@ -483,11 +483,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
-        #region 形状列表改变事件 —— static void OnShapesChanged(DependencyObject dependencyObject...
+        #region 形状列表源改变事件 —— static void OnItemsSourceChanged(DependencyObject dependencyObject...
         /// <summary>
-        /// 形状列表改变事件
+        /// 形状列表源改变事件
         /// </summary>
-        private static void OnShapesChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        private static void OnItemsSourceChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
         {
             CanvasEx canvas = (CanvasEx)dependencyObject;
             ObservableCollection<Shape> oldShapes = eventArgs.OldValue as ObservableCollection<Shape>;
@@ -515,8 +515,8 @@ namespace SD.Infrastructure.WPF.CustomControls
                     }
                 }
 
-                //注册集合元素变更事件
-                newShapes.CollectionChanged += canvas.OnShapesItemsChanged;
+                //注册集合元素改变事件
+                newShapes.CollectionChanged += canvas.OnShapeItemsChanged;
             }
             if (newShapes == null)
             {
@@ -532,11 +532,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
-        #region 形状列表元素改变事件 —— void OnShapesItemsChanged(object sender, NotifyCollectionChangedEventArgs...
+        #region 形状列表元素改变事件 —— void OnShapeItemsChanged(object sender, NotifyCollectionChangedEventArgs...
         /// <summary>
         /// 形状列表元素改变事件
         /// </summary>
-        private void OnShapesItemsChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
+        private void OnShapeItemsChanged(object sender, NotifyCollectionChangedEventArgs eventArgs)
         {
             if (eventArgs.OldItems != null)
             {
