@@ -133,15 +133,13 @@ namespace SD.Infrastructure.WPF.Visual2Ds
             if (!string.IsNullOrWhiteSpace(this.Label))
             {
                 //绘制文本
-                FontFamily fontFamily = new FontFamily("微软雅黑");
+                const int fontSize = 10;
+                FontFamily fontFamily = new FontFamily("Times New Roman,SimSun");
                 Typeface typeface = new Typeface(fontFamily, FontStyles.Normal, FontWeights.Thin, FontStretches.Normal);
-
-                FormattedText formattedText = new FormattedText(this.Label, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, 10, base.Stroke);
+                FormattedText formattedText = new FormattedText(this.Label, CultureInfo.CurrentCulture, FlowDirection.LeftToRight, typeface, fontSize, base.Stroke, new NumberSubstitution(), 1.25);
                 Point origin = new Point(this.X + base.StrokeThickness, this.Y + base.StrokeThickness);
                 Geometry textGeometry = formattedText.BuildGeometry(origin);
-
-                Pen pen = new Pen(base.Stroke, 1);
-                drawingContext.DrawGeometry(base.Stroke, pen, textGeometry);
+                drawingContext.DrawGeometry(base.Stroke, null, textGeometry);
             }
         }
         #endregion
