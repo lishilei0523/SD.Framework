@@ -1,14 +1,15 @@
 ﻿using System;
+using System.Numerics;
 using System.Runtime.Serialization;
 
 namespace SD.Infrastructure.Shapes
 {
     /// <summary>
-    /// 矩形
+    /// 旋转矩形
     /// </summary>
     [Serializable]
     [DataContract]
-    public class RectangleL : ShapeL
+    public class RotatedRectangleL : ShapeL
     {
         #region # 构造器
 
@@ -16,38 +17,41 @@ namespace SD.Infrastructure.Shapes
         /// <summary>
         /// 无参构造器
         /// </summary>
-        public RectangleL() { }
+        public RotatedRectangleL() { }
         #endregion
 
-        #region 01.创建矩形构造器
+        #region 01.创建旋转矩形构造器
         /// <summary>
-        /// 创建矩形构造器
+        /// 创建旋转矩形构造器
         /// </summary>
         /// <param name="x">顶点横坐标值</param>
         /// <param name="y">顶点纵坐标值</param>
         /// <param name="width">宽度</param>
         /// <param name="height">高度</param>
-        public RectangleL(int x, int y, int width, int height)
+        /// <param name="angle">角度</param>
+        public RotatedRectangleL(int x, int y, int width, int height, float angle)
             : this()
         {
             this.X = x;
             this.Y = y;
             this.Width = width;
             this.Height = height;
+            this.Angle = angle;
         }
         #endregion
 
-        #region 02.创建矩形构造器
+        #region 02.创建旋转矩形构造器
         /// <summary>
-        /// 创建矩形构造器
+        /// 创建旋转矩形构造器
         /// </summary>
         /// <param name="name">名称</param>
         /// <param name="x">顶点横坐标值</param>
         /// <param name="y">顶点纵坐标值</param>
         /// <param name="width">宽度</param>
         /// <param name="height">高度</param>
-        public RectangleL(string name, int x, int y, int width, int height)
-            : this(x, y, width, height)
+        /// <param name="angle">角度</param>
+        public RotatedRectangleL(string name, int x, int y, int width, int height, float angle)
+            : this(x, y, width, height, angle)
         {
             base.Name = name;
         }
@@ -89,6 +93,14 @@ namespace SD.Infrastructure.Shapes
         public int Height { get; set; }
         #endregion
 
+        #region 角度 —— float Angle
+        /// <summary>
+        /// 角度
+        /// </summary>
+        [DataMember]
+        public float Angle { get; set; }
+        #endregion
+
         #region 只读属性 - 左上顶点坐标 —— PointL TopLeft
         /// <summary>
         /// 只读属性 - 左上顶点坐标
@@ -96,7 +108,15 @@ namespace SD.Infrastructure.Shapes
         /// <remarks>A点</remarks>
         public PointL TopLeft
         {
-            get => new PointL(this.X, this.Y);
+            get
+            {
+                Vector2 point = new Vector2(this.X, this.Y);
+                Vector2 transformedpoint = Vector2.Transform(point, this.TransformMatrix);
+                int x = (int)Math.Ceiling(transformedpoint.X);
+                int y = (int)Math.Ceiling(transformedpoint.Y);
+
+                return new PointL(x, y);
+            }
         }
         #endregion
 
@@ -107,7 +127,15 @@ namespace SD.Infrastructure.Shapes
         /// <remarks>D点</remarks>
         public PointL TopRight
         {
-            get => new PointL(this.X + this.Width, this.Y);
+            get
+            {
+                Vector2 point = new Vector2(this.X + this.Width, this.Y);
+                Vector2 transformedpoint = Vector2.Transform(point, this.TransformMatrix);
+                int x = (int)Math.Ceiling(transformedpoint.X);
+                int y = (int)Math.Ceiling(transformedpoint.Y);
+
+                return new PointL(x, y);
+            }
         }
         #endregion
 
@@ -118,7 +146,15 @@ namespace SD.Infrastructure.Shapes
         /// <remarks>B点</remarks>
         public PointL BottomLeft
         {
-            get => new PointL(this.X, this.Y + this.Height);
+            get
+            {
+                Vector2 point = new Vector2(this.X, this.Y + this.Height);
+                Vector2 transformedpoint = Vector2.Transform(point, this.TransformMatrix);
+                int x = (int)Math.Ceiling(transformedpoint.X);
+                int y = (int)Math.Ceiling(transformedpoint.Y);
+
+                return new PointL(x, y);
+            }
         }
         #endregion
 
@@ -129,17 +165,43 @@ namespace SD.Infrastructure.Shapes
         /// <remarks>C点</remarks>
         public PointL BottomRight
         {
-            get => new PointL(this.X + this.Width, this.Y + this.Height);
+            get
+            {
+                Vector2 point = new Vector2(this.X + this.Width, this.Y + this.Height);
+                Vector2 transformedpoint = Vector2.Transform(point, this.TransformMatrix);
+                int x = (int)Math.Ceiling(transformedpoint.X);
+                int y = (int)Math.Ceiling(transformedpoint.Y);
+
+                return new PointL(x, y);
+            }
         }
         #endregion
 
-        #region 只读属性 - 空矩形 —— static RectangleL Empty
+        #region 只读属性 - 变换矩阵 —— Matrix3x2 TransformMatrix
         /// <summary>
-        /// 只读属性 - 空矩形
+        /// 只读属性 - 变换矩阵
         /// </summary>
-        public static RectangleL Empty
+        public Matrix3x2 TransformMatrix
         {
-            get => new RectangleL(0, 0, 0, 0);
+            get
+            {
+                float radians = (float)(Math.PI / 180f * this.Angle);
+                float centerX = this.X + this.Width / 2.0f;
+                float centerY = this.Y + this.Height / 2.0f;
+                Matrix3x2 matrix = Matrix3x2.CreateRotation(radians, new Vector2(centerX, centerY));
+
+                return matrix;
+            }
+        }
+        #endregion
+
+        #region 只读属性 - 空旋转矩形 —— static RotatedRectangleL Empty
+        /// <summary>
+        /// 只读属性 - 空旋转矩形
+        /// </summary>
+        public static RotatedRectangleL Empty
+        {
+            get => new RotatedRectangleL(0, 0, 0, 0, 0);
         }
         #endregion
 
@@ -153,7 +215,7 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override bool Equals(object instance)
         {
-            if (instance is RectangleL rectangle)
+            if (instance is RotatedRectangleL rectangle)
             {
                 return rectangle == this;
             }
@@ -168,7 +230,7 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override int GetHashCode()
         {
-            return this.X.GetHashCode() ^ this.Y.GetHashCode() ^ this.Width.GetHashCode() ^ this.Height.GetHashCode();
+            return this.X.GetHashCode() ^ this.Y.GetHashCode() ^ this.Width.GetHashCode() ^ this.Height.GetHashCode() ^ this.Angle.GetHashCode();
         }
         #endregion
 
@@ -178,20 +240,20 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override string ToString()
         {
-            string rectangle = $"A({this.X},{this.Y})|{this.Width}*{this.Height}";
+            string rectangle = $"A({this.X},{this.Y})|{this.Width}*{this.Height}|{this.Angle:F2}";
 
             return rectangle;
         }
         #endregion
 
-        #region 比较两个矩形是否相等 —— static bool operator ==(RectangleL source, RectangleL target)
+        #region 比较两个旋转矩形是否相等 —— static bool operator ==(RotatedRectangleL source, RotatedRectangleL target)
         /// <summary>
-        /// 比较两个矩形是否相等
+        /// 比较两个旋转矩形是否相等
         /// </summary>
-        /// <param name="source">源矩形</param>
-        /// <param name="target">目标矩形</param>
+        /// <param name="source">源旋转矩形</param>
+        /// <param name="target">目标旋转矩形</param>
         /// <returns>是否相等</returns>
-        public static bool operator ==(RectangleL source, RectangleL target)
+        public static bool operator ==(RotatedRectangleL source, RotatedRectangleL target)
         {
             if (source is null && target is null)
             {
@@ -209,18 +271,19 @@ namespace SD.Infrastructure.Shapes
             return source.X == target.X &&
                    source.Y == target.Y &&
                    source.Width == target.Width &&
-                   source.Height == target.Height;
+                   source.Height == target.Height &&
+                   source.Angle.Equals(target.Angle);
         }
         #endregion
 
-        #region 比较两个矩形是否不等 —— static bool operator !=(RectangleL source, RectangleL target)
+        #region 比较两个旋转矩形是否不等 —— static bool operator !=(RotatedRectangleL source, RotatedRectangleL target)
         /// <summary>
-        /// 比较两个矩形是否不等
+        /// 比较两个旋转矩形是否不等
         /// </summary>
-        /// <param name="source">源矩形</param>
-        /// <param name="target">目标矩形</param>
+        /// <param name="source">源旋转矩形</param>
+        /// <param name="target">目标旋转矩形</param>
         /// <returns>是否不等</returns>
-        public static bool operator !=(RectangleL source, RectangleL target)
+        public static bool operator !=(RotatedRectangleL source, RotatedRectangleL target)
         {
             return !(source == target);
         }
