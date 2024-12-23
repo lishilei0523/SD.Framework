@@ -507,6 +507,11 @@ namespace SD.Infrastructure.WPF.CustomControls
             {
                 foreach (Shape shape in newShapes)
                 {
+                    if (shape.Parent is Panel panel)
+                    {
+                        panel.Children.Remove(shape);
+                    }
+
                     shape.RenderTransform = canvas.MatrixTransform;
                     if (!canvas.Children.Contains(shape))
                     {
@@ -553,6 +558,11 @@ namespace SD.Infrastructure.WPF.CustomControls
             {
                 foreach (Shape shape in eventArgs.NewItems)
                 {
+                    if (shape.Parent is Panel panel)
+                    {
+                        panel.Children.Remove(shape);
+                    }
+
                     shape.RenderTransform = this.MatrixTransform;
                     if (!this.Children.Contains(shape))
                     {
