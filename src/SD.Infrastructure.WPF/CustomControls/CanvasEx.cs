@@ -1,4 +1,5 @@
-﻿using SD.Infrastructure.WPF.Enums;
+﻿using SD.Infrastructure.Shapes;
+using SD.Infrastructure.WPF.Enums;
 using SD.Infrastructure.WPF.Models;
 using SD.Infrastructure.WPF.Visual2Ds;
 using System.Collections.Generic;
@@ -101,16 +102,21 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly RoutedEvent DrawnEvent;
 
         /// <summary>
+        /// 形状点击路由事件
+        /// </summary>
+        public static readonly RoutedEvent ShapeClickEvent;
+
+        /// <summary>
         /// 静态构造器
         /// </summary>
         static CanvasEx()
         {
             ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(CanvasMode), typeof(CanvasEx), new PropertyMetadata(CanvasMode.Scale));
             ScaledFactorProperty = DependencyProperty.Register(nameof(ScaledFactor), typeof(float), typeof(CanvasEx), new PropertyMetadata(DefaultScaledFactor));
-            BorderThicknessProperty = DependencyProperty.Register(nameof(BorderThickness), typeof(double), typeof(CanvasEx), new FrameworkPropertyMetadata(DefaultBorderThickness, FrameworkPropertyMetadataOptions.AffectsRender, OnBorderThicknessChanged));
-            BorderBrushProperty = DependencyProperty.Register(nameof(BorderBrush), typeof(Brush), typeof(CanvasEx), new FrameworkPropertyMetadata(new SolidColorBrush(Colors.Red), FrameworkPropertyMetadataOptions.AffectsRender, OnBorderBrushChanged));
+            BorderThicknessProperty = DependencyProperty.Register(nameof(BorderThickness), typeof(double), typeof(CanvasEx), new PropertyMetadata(DefaultBorderThickness, OnBorderThicknessChanged));
+            BorderBrushProperty = DependencyProperty.Register(nameof(BorderBrush), typeof(Brush), typeof(CanvasEx), new PropertyMetadata(new SolidColorBrush(Colors.Red), OnBorderBrushChanged));
             BackgroundImageProperty = DependencyProperty.Register(nameof(BackgroundImage), typeof(Image), typeof(CanvasEx), new PropertyMetadata(null, OnBackgroundImageChanged));
-            ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(CanvasEx), new PropertyMetadata(false, OnShowGridLinesChanged));
+            ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(CanvasEx), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender, OnShowGridLinesChanged));
             DraggableProperty = DependencyProperty.Register(nameof(Draggable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ResizableProperty = DependencyProperty.Register(nameof(Resizable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(ObservableCollection<Shape>), typeof(CanvasEx), new PropertyMetadata(null, OnItemsSourceChanged));
@@ -119,6 +125,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             DrawEvent = EventManager.RegisterRoutedEvent(nameof(Draw), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             DrawingEvent = EventManager.RegisterRoutedEvent(nameof(Drawing), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             DrawnEvent = EventManager.RegisterRoutedEvent(nameof(Drawn), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
+            ShapeClickEvent = EventManager.RegisterRoutedEvent(nameof(ShapeClick), RoutingStrategy.Direct, typeof(ShapeEventHandler), typeof(CanvasEx));
         }
 
         /// <summary>
@@ -181,7 +188,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             base.HorizontalAlignment = HorizontalAlignment.Stretch;
             base.VerticalAlignment = VerticalAlignment.Stretch;
             base.Background = new SolidColorBrush(Colors.Transparent);
-            this.ItemsSource = new ObservableCollection<Shape>();
         }
 
         #endregion
@@ -379,6 +385,17 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             add => base.AddHandler(DrawnEvent, value);
             remove => base.RemoveHandler(DrawnEvent, value);
+        }
+        #endregion
+
+        #region 路由事件 - 形状点击 —— event ShapeEventHandler ShapeClick
+        /// <summary>
+        /// 路由事件 - 形状点击
+        /// </summary>
+        public event ShapeEventHandler ShapeClick
+        {
+            add => base.AddHandler(ShapeClickEvent, value);
+            remove => base.RemoveHandler(ShapeClickEvent, value);
         }
         #endregion
 
@@ -608,6 +625,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                     }
 
                     shape.RenderTransform = canvas.MatrixTransform;
+                    shape.MouseLeftButtonDown += canvas.OnShapeMouseLeftDown;
                     if (!canvas.Children.Contains(shape))
                     {
                         canvas.Children.Add(shape);
@@ -659,6 +677,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                     }
 
                     shape.RenderTransform = this.MatrixTransform;
+                    shape.MouseLeftButtonDown += this.OnShapeMouseLeftDown;
                     if (!this.Children.Contains(shape))
                     {
                         this.Children.Add(shape);
@@ -677,6 +696,21 @@ namespace SD.Infrastructure.WPF.CustomControls
                 }
                 this._shapes.Clear();
             }
+        }
+        #endregion
+
+        #region 形状鼠标左击事件 —— void OnShapeMouseLeftDown(object sender, MouseButtonEventArgs eventArgs)
+        /// <summary>
+        /// 形状鼠标左击事件
+        /// </summary>
+        private void OnShapeMouseLeftDown(object sender, MouseButtonEventArgs eventArgs)
+        {
+            Shape shape = (Shape)sender;
+            ShapeL shapeL = (ShapeL)shape.Tag;
+            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeClickEvent, shape, shapeL);
+
+            //挂起路由事件
+            this.RaiseEvent(shapeEventArgs);
         }
         #endregion
 

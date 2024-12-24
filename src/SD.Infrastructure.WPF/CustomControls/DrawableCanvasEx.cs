@@ -95,11 +95,6 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly DependencyProperty DatasSourceProperty;
 
         /// <summary>
-        /// 形状点击路由事件
-        /// </summary>
-        public static readonly RoutedEvent ShapeClickEvent;
-
-        /// <summary>
         /// 形状绘制完成路由事件
         /// </summary>
         public static readonly RoutedEvent ShapeDrawnEvent;
@@ -122,7 +117,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             PolygonCheckedProperty = DependencyProperty.Register(nameof(PolygonChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnPolygonCheckedChanged));
             PolylineCheckedProperty = DependencyProperty.Register(nameof(PolylineChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnPolylineCheckedChanged));
             DatasSourceProperty = DependencyProperty.Register(nameof(DatasSource), typeof(ObservableCollection<ShapeL>), typeof(DrawableCanvasEx), new PropertyMetadata(null));
-            ShapeClickEvent = EventManager.RegisterRoutedEvent(nameof(ShapeClick), RoutingStrategy.Direct, typeof(ShapeEventHandler), typeof(DrawableCanvasEx));
             ShapeDrawnEvent = EventManager.RegisterRoutedEvent(nameof(ShapeDrawn), RoutingStrategy.Direct, typeof(ShapeEventHandler), typeof(DrawableCanvasEx));
         }
 
@@ -186,7 +180,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             this._polyAnchorLines = new List<Line>();
             this._horizontalLine = new Line();
             this._verticalLine = new Line();
-            this.DatasSource = new ObservableCollection<ShapeL>();
 
             //初始化参考线
             this.Children.Add(this._horizontalLine);
@@ -349,17 +342,6 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             get => (ObservableCollection<ShapeL>)this.GetValue(DatasSourceProperty);
             set => this.SetValue(DatasSourceProperty, value);
-        }
-        #endregion
-
-        #region 路由事件 - 形状点击 —— event ShapeEventHandler ShapeClick
-        /// <summary>
-        /// 路由事件 - 形状点击
-        /// </summary>
-        public event ShapeEventHandler ShapeClick
-        {
-            add => base.AddHandler(ShapeClickEvent, value);
-            remove => base.RemoveHandler(ShapeClickEvent, value);
         }
         #endregion
 
@@ -691,21 +673,6 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
-        #region 形状鼠标左击事件 —— void OnShapeMouseLeftDown(object sender...
-        /// <summary>
-        /// 形状鼠标左击事件
-        /// </summary>
-        private void OnShapeMouseLeftDown(object sender, MouseButtonEventArgs eventArgs)
-        {
-            Shape shape = (Shape)sender;
-            ShapeL shapeL = (ShapeL)shape.Tag;
-            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeClickEvent, shape, shapeL);
-
-            //挂起路由事件
-            this.RaiseEvent(shapeEventArgs);
-        }
-        #endregion
-
         #region 画布鼠标移动事件 —— void OnCanvasMouseMove(object sender...
         /// <summary>
         /// 画布鼠标移动事件
@@ -715,7 +682,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             CanvasEx canvas = (CanvasEx)sender;
 
             //十字参考线
-            if (this.BackgroundImage != null)
+            if (this.BackgroundImage?.Source != null)
             {
                 Point rectifiedPosition = canvas.RectifiedMousePosition!.Value;
 
@@ -1363,9 +1330,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             this.DatasSource.Add(pointL);
             this.ItemsSource.Add(point);
 
-            //事件处理
-            point.MouseLeftButtonDown += this.OnShapeMouseLeftDown;
-
             //挂起路由事件
             ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, point, pointL);
             this.RaiseEvent(shapeEventArgs);
@@ -1387,7 +1351,6 @@ namespace SD.Infrastructure.WPF.CustomControls
                     StrokeThickness = this.BorderThickness / canvas.ScaledRatio,
                     RenderTransform = canvas.MatrixTransform
                 };
-                this._line.MouseLeftButtonDown += this.OnShapeMouseLeftDown;
                 canvas.Children.Add(this._line);
             }
 
@@ -1416,7 +1379,6 @@ namespace SD.Infrastructure.WPF.CustomControls
                     StrokeThickness = this.BorderThickness / canvas.ScaledRatio,
                     RenderTransform = canvas.MatrixTransform
                 };
-                this._brush.MouseLeftButtonDown += this.OnShapeMouseLeftDown;
                 canvas.Children.Add(this._brush);
             }
 
@@ -1440,7 +1402,6 @@ namespace SD.Infrastructure.WPF.CustomControls
                     StrokeThickness = this.BorderThickness / canvas.ScaledRatio,
                     RenderTransform = canvas.MatrixTransform
                 };
-                this._rectangle.MouseLeftButtonDown += this.OnShapeMouseLeftDown;
                 canvas.Children.Add(this._rectangle);
             }
 
@@ -1485,7 +1446,6 @@ namespace SD.Infrastructure.WPF.CustomControls
                     StrokeThickness = this.BorderThickness / canvas.ScaledRatio,
                     RenderTransform = canvas.MatrixTransform
                 };
-                this._circle.MouseLeftButtonDown += this.OnShapeMouseLeftDown;
                 canvas.Children.Add(this._circle);
             }
 
@@ -1513,7 +1473,6 @@ namespace SD.Infrastructure.WPF.CustomControls
                     StrokeThickness = this.BorderThickness / canvas.ScaledRatio,
                     RenderTransform = canvas.MatrixTransform
                 };
-                this._ellipse.MouseLeftButtonDown += this.OnShapeMouseLeftDown;
                 canvas.Children.Add(this._ellipse);
             }
 
@@ -1631,9 +1590,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             this._polyAnchors.Clear();
             this._polyAnchorLines.Clear();
 
-            //事件处理
-            polygon.MouseLeftButtonDown += this.OnShapeMouseLeftDown;
-
             //挂起路由事件
             ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, polygon, polygonL);
             this.RaiseEvent(shapeEventArgs);
@@ -1690,9 +1646,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             }
             this._polyAnchors.Clear();
             this._polyAnchorLines.Clear();
-
-            //事件处理
-            polyline.MouseLeftButtonDown += this.OnShapeMouseLeftDown;
 
             //挂起路由事件
             ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, polyline, polylineL);
