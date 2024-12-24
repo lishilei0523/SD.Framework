@@ -13,6 +13,21 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         #region # 字段及构造器
 
         /// <summary>
+        /// 默认边框厚度
+        /// </summary>
+        public const double DefaultStrokeThickness = 0.1d;
+
+        /// <summary>
+        /// 默认字号
+        /// </summary>
+        public const double DefaultFontSize = 14d;
+
+        /// <summary>
+        /// 默认字体
+        /// </summary>
+        public const string DefaultFontFamily = "Times New Roman,SimSun";
+
+        /// <summary>
         /// X坐标依赖属性
         /// </summary>
         public static readonly DependencyProperty XProperty;
@@ -45,8 +60,8 @@ namespace SD.Infrastructure.WPF.Visual2Ds
             XProperty = DependencyProperty.Register(nameof(X), typeof(double), typeof(TextVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
             YProperty = DependencyProperty.Register(nameof(Y), typeof(double), typeof(TextVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
             TextProperty = DependencyProperty.Register(nameof(Text), typeof(string), typeof(TextVisual2D), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
-            FontSizeProperty = DependencyProperty.Register(nameof(FontSize), typeof(double), typeof(TextVisual2D), new FrameworkPropertyMetadata(14d, FrameworkPropertyMetadataOptions.AffectsRender));
-            FontFamilyProperty = DependencyProperty.Register(nameof(FontFamily), typeof(FontFamily), typeof(TextVisual2D), new FrameworkPropertyMetadata(new FontFamily("Times New Roman,SimSun"), FrameworkPropertyMetadataOptions.AffectsRender));
+            FontSizeProperty = DependencyProperty.Register(nameof(FontSize), typeof(double), typeof(TextVisual2D), new FrameworkPropertyMetadata(DefaultFontSize, FrameworkPropertyMetadataOptions.AffectsRender));
+            FontFamilyProperty = DependencyProperty.Register(nameof(FontFamily), typeof(FontFamily), typeof(TextVisual2D), new FrameworkPropertyMetadata(new FontFamily(DefaultFontFamily), FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
         /// <summary>
@@ -56,7 +71,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         {
             base.Fill = new SolidColorBrush(Colors.Red);
             base.Stroke = base.Fill;
-            base.StrokeThickness = 0.1;
+            base.StrokeThickness = DefaultStrokeThickness;
         }
 
         #endregion

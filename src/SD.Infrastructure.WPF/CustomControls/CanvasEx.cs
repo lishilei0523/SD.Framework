@@ -20,6 +20,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         #region # 字段及构造器
 
         /// <summary>
+        /// 缩放系数默认值
+        /// </summary>
+        public const float DefaultScaledFactor = 1.1f;
+
+        /// <summary>
         /// 操作模式依赖属性
         /// </summary>
         public static readonly DependencyProperty ModeProperty;
@@ -85,7 +90,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         static CanvasEx()
         {
             ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(CanvasMode), typeof(CanvasEx), new PropertyMetadata(CanvasMode.Scale));
-            ScaledFactorProperty = DependencyProperty.Register(nameof(ScaledFactor), typeof(float), typeof(CanvasEx), new PropertyMetadata(1.1f));
+            ScaledFactorProperty = DependencyProperty.Register(nameof(ScaledFactor), typeof(float), typeof(CanvasEx), new PropertyMetadata(DefaultScaledFactor));
             BackgroundImageProperty = DependencyProperty.Register(nameof(BackgroundImage), typeof(Image), typeof(CanvasEx), new PropertyMetadata(null, OnBackgroundImageChanged));
             ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(CanvasEx), new PropertyMetadata(false, OnShowGridLinesChanged));
             DraggableProperty = DependencyProperty.Register(nameof(Draggable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));

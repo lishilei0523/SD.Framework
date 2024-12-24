@@ -12,6 +12,11 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         #region # 字段及构造器
 
         /// <summary>
+        /// 默认边框厚度
+        /// </summary>
+        public const double DefaultStrokeThickness = 2.0d;
+
+        /// <summary>
         /// 圆心依赖属性
         /// </summary>
         public static readonly DependencyProperty CenterProperty;
@@ -49,7 +54,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         {
             base.Fill = new SolidColorBrush(Colors.Transparent);
             base.Stroke = new SolidColorBrush(Colors.Red);
-            base.StrokeThickness = 2;
+            base.StrokeThickness = DefaultStrokeThickness;
         }
 
         #endregion

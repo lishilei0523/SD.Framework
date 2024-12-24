@@ -13,6 +13,16 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         #region # 字段及构造器
 
         /// <summary>
+        /// 默认厚度
+        /// </summary>
+        public const double DefaultThickness = 6.0d;
+
+        /// <summary>
+        /// 默认边框厚度
+        /// </summary>
+        public const double DefaultStrokeThickness = 3.0d;
+
+        /// <summary>
         /// X坐标依赖属性
         /// </summary>
         public static readonly DependencyProperty XProperty;
@@ -39,7 +49,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         {
             XProperty = DependencyProperty.Register(nameof(X), typeof(double), typeof(PointVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
             YProperty = DependencyProperty.Register(nameof(Y), typeof(double), typeof(PointVisual2D), new FrameworkPropertyMetadata(0.0d, FrameworkPropertyMetadataOptions.AffectsRender));
-            ThicknessProperty = DependencyProperty.Register(nameof(Thickness), typeof(double), typeof(PointVisual2D), new FrameworkPropertyMetadata(6.0d, FrameworkPropertyMetadataOptions.AffectsRender));
+            ThicknessProperty = DependencyProperty.Register(nameof(Thickness), typeof(double), typeof(PointVisual2D), new FrameworkPropertyMetadata(DefaultThickness, FrameworkPropertyMetadataOptions.AffectsRender));
             LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(PointVisual2D), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
@@ -50,7 +60,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         {
             base.Fill = new SolidColorBrush(Colors.Black);
             base.Stroke = new SolidColorBrush(Colors.Red);
-            base.StrokeThickness = 3;
+            base.StrokeThickness = DefaultStrokeThickness;
         }
 
         #endregion
