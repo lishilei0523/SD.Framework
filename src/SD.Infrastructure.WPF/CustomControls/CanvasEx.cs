@@ -174,20 +174,23 @@ namespace SD.Infrastructure.WPF.CustomControls
         private UIElement _selectedVisual;
 
         /// <summary>
-        /// 默认构造器
+        /// 实例构造器
         /// </summary>
         public CanvasEx()
         {
+            //默认值
             this._matrixTransform = new MatrixTransform();
             this._shapes = new List<Shape>();
-            base.PreviewMouseDown += this.OnMouseDown;
-            base.PreviewMouseMove += this.OnMouseMove;
-            base.PreviewMouseWheel += this.OnMouseWheel;
-            base.PreviewMouseUp += this.OnMouseUp;
             base.ClipToBounds = true;
             base.HorizontalAlignment = HorizontalAlignment.Stretch;
             base.VerticalAlignment = VerticalAlignment.Stretch;
             base.Background = new SolidColorBrush(Colors.Transparent);
+
+            //注册事件
+            base.PreviewMouseDown += this.OnMouseDown;
+            base.PreviewMouseMove += this.OnMouseMove;
+            base.PreviewMouseWheel += this.OnMouseWheel;
+            base.PreviewMouseUp += this.OnMouseUp;
         }
 
         #endregion
@@ -707,9 +710,9 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             Shape shape = (Shape)sender;
             ShapeL shapeL = (ShapeL)shape.Tag;
-            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeClickEvent, shape, shapeL);
 
             //挂起路由事件
+            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeClickEvent, shape, shapeL);
             this.RaiseEvent(shapeEventArgs);
         }
         #endregion

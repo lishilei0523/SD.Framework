@@ -182,27 +182,26 @@ namespace SD.Infrastructure.WPF.CustomControls
             this._verticalLine = new Line();
 
             //初始化参考线
-            this.Children.Add(this._horizontalLine);
-            this.Children.Add(this._verticalLine);
+            base.Children.Add(this._horizontalLine);
+            base.Children.Add(this._verticalLine);
             this.InitGuideLines();
 
             //注册事件
-            this.ElementDrag += this.OnDragElement;
-            this.ElementResize += this.OnResizeElement;
-            this.Draw += this.OnDraw;
-            this.Drawing += this.OnDrawing;
-            this.Drawn += this.OnDrawn;
-            this.MouseMove += this.OnCanvasMouseMove;
-            this.MouseWheel += this.OnCanvasMouseWheel;
-            this.MouseMove += this.OnCanvasMouseMove;
-            this.MouseLeave += this.OnCanvasMouseLeave;
+            base.ElementDrag += this.OnDragElement;
+            base.ElementResize += this.OnResizeElement;
+            base.Draw += this.OnDraw;
+            base.Drawing += this.OnDrawing;
+            base.Drawn += this.OnDrawn;
+            base.MouseMove += this.OnCanvasMouseMove;
+            base.MouseWheel += this.OnCanvasMouseWheel;
+            base.MouseLeave += this.OnCanvasMouseLeave;
         }
 
         #endregion
 
         #region # 属性
 
-        #region 依赖属性 - 参考线可见性 —— Color GuideLinesVisibility
+        #region 依赖属性 - 参考线可见性 —— Visibility GuideLinesVisibility
         /// <summary>
         /// 依赖属性 - 参考线可见性
         /// </summary>
@@ -334,7 +333,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
-        #region 依赖属性 - 形状数据列表 —— ObservableCollection<Shape> DatasSource
+        #region 依赖属性 - 形状数据列表 —— ObservableCollection<ShapeL> DatasSource
         /// <summary>
         /// 依赖属性 - 形状数据列表
         /// </summary>
@@ -366,7 +365,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 拖拽元素事件
         /// </summary>
-        public void OnDragElement(CanvasEx canvas, RoutedEventArgs eventArgs)
+        private void OnDragElement(CanvasEx canvas, RoutedEventArgs eventArgs)
         {
             double leftMargin = canvas.GetRectifiedLeft(canvas.SelectedVisual);
             double topMargin = canvas.GetRectifiedTop(canvas.SelectedVisual);
@@ -406,7 +405,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 改变元素尺寸事件
         /// </summary>
-        public void OnResizeElement(CanvasEx canvas, RoutedEventArgs eventArgs)
+        private void OnResizeElement(CanvasEx canvas, RoutedEventArgs eventArgs)
         {
             double leftMargin = canvas.GetRectifiedLeft(canvas.SelectedVisual);
             double topMargin = canvas.GetRectifiedTop(canvas.SelectedVisual);
@@ -510,7 +509,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 绘制开始事件
         /// </summary>
-        public void OnDraw(CanvasEx canvas, RoutedEventArgs eventArgs)
+        private void OnDraw(CanvasEx canvas, RoutedEventArgs eventArgs)
         {
             if (this.PointChecked)
             {
@@ -544,7 +543,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 绘制中事件
         /// </summary>
-        public void OnDrawing(CanvasEx canvas, RoutedEventArgs eventArgs)
+        private void OnDrawing(CanvasEx canvas, RoutedEventArgs eventArgs)
         {
             if (this.LineChecked)
             {
@@ -573,7 +572,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 绘制完成事件
         /// </summary>
-        public void OnDrawn(CanvasEx canvas, RoutedEventArgs eventArgs)
+        private void OnDrawn(CanvasEx canvas, RoutedEventArgs eventArgs)
         {
             if (this._line != null)
             {
@@ -677,7 +676,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 画布鼠标移动事件
         /// </summary>
-        public void OnCanvasMouseMove(object sender, MouseEventArgs eventArgs)
+        private void OnCanvasMouseMove(object sender, MouseEventArgs eventArgs)
         {
             CanvasEx canvas = (CanvasEx)sender;
 
@@ -727,7 +726,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 画布鼠标滚轮事件
         /// </summary>
-        public void OnCanvasMouseWheel(object sender, MouseEventArgs eventArgs)
+        private void OnCanvasMouseWheel(object sender, MouseEventArgs eventArgs)
         {
             CanvasEx canvas = (CanvasEx)sender;
             if (!canvas.ScaledRatio.Equals(0))
@@ -771,7 +770,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 画布鼠标离开事件
         /// </summary>
-        public void OnCanvasMouseLeave(object sender, MouseEventArgs eventArgs)
+        private void OnCanvasMouseLeave(object sender, MouseEventArgs eventArgs)
         {
             //设置光标
             Mouse.OverrideCursor = Cursors.Arrow;
