@@ -20,9 +20,14 @@ namespace SD.Infrastructure.WPF.CustomControls
         #region # 字段及构造器
 
         /// <summary>
-        /// 缩放系数默认值
+        /// 默认缩放系数
         /// </summary>
         public const float DefaultScaledFactor = 1.1f;
+
+        /// <summary>
+        /// 默认边框厚度
+        /// </summary>
+        public const double DefaultBorderThickness = 2.0d;
 
         /// <summary>
         /// 操作模式依赖属性
@@ -33,6 +38,16 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// 缩放系数依赖属性
         /// </summary>
         public static readonly DependencyProperty ScaledFactorProperty;
+
+        /// <summary>
+        /// 边框厚度依赖属性
+        /// </summary>
+        public static readonly DependencyProperty BorderThicknessProperty;
+
+        /// <summary>
+        /// 边框画刷依赖属性
+        /// </summary>
+        public static readonly DependencyProperty BorderBrushProperty;
 
         /// <summary>
         /// 背景图像依赖属性
@@ -91,6 +106,8 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(CanvasMode), typeof(CanvasEx), new PropertyMetadata(CanvasMode.Scale));
             ScaledFactorProperty = DependencyProperty.Register(nameof(ScaledFactor), typeof(float), typeof(CanvasEx), new PropertyMetadata(DefaultScaledFactor));
+            BorderThicknessProperty = DependencyProperty.Register(nameof(BorderThickness), typeof(double), typeof(CanvasEx), new FrameworkPropertyMetadata(DefaultBorderThickness, FrameworkPropertyMetadataOptions.AffectsRender));
+            BorderBrushProperty = DependencyProperty.Register(nameof(BorderBrush), typeof(Brush), typeof(CanvasEx), new FrameworkPropertyMetadata(new SolidColorBrush(Colors.Red), FrameworkPropertyMetadataOptions.AffectsRender));
             BackgroundImageProperty = DependencyProperty.Register(nameof(BackgroundImage), typeof(Image), typeof(CanvasEx), new PropertyMetadata(null, OnBackgroundImageChanged));
             ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(CanvasEx), new PropertyMetadata(false, OnShowGridLinesChanged));
             DraggableProperty = DependencyProperty.Register(nameof(Draggable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
@@ -188,6 +205,28 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             get => (float)this.GetValue(ScaledFactorProperty);
             set => this.SetValue(ScaledFactorProperty, value);
+        }
+        #endregion
+
+        #region 依赖属性 - 边框厚度 —— double BorderThickness
+        /// <summary>
+        /// 依赖属性 - 边框厚度
+        /// </summary>
+        public double BorderThickness
+        {
+            get => (double)this.GetValue(BorderThicknessProperty);
+            set => this.SetValue(BorderThicknessProperty, value);
+        }
+        #endregion
+
+        #region 依赖属性 - 边框画刷 —— Brush BorderBrush
+        /// <summary>
+        /// 依赖属性 - 边框画刷
+        /// </summary>
+        public Brush BorderBrush
+        {
+            get => (Brush)this.GetValue(BorderBrushProperty);
+            set => this.SetValue(BorderBrushProperty, value);
         }
         #endregion
 
