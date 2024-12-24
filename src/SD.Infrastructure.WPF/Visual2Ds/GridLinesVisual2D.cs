@@ -12,6 +12,21 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         #region # 字段及构造器
 
         /// <summary>
+        /// 默认行数
+        /// </summary>
+        public const int DefaultRows = 2000;
+
+        /// <summary>
+        /// 默认列数
+        /// </summary>
+        public const int DefaultCols = 2000;
+
+        /// <summary>
+        /// 默认步长
+        /// </summary>
+        public const int DefaultStepSize = 100;
+
+        /// <summary>
         /// 行数依赖属性
         /// </summary>
         public static readonly DependencyProperty RowsProperty;
@@ -36,9 +51,9 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         /// </summary>
         static GridLinesVisual2D()
         {
-            RowsProperty = DependencyProperty.Register(nameof(Rows), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(2000, FrameworkPropertyMetadataOptions.AffectsRender));
-            ColsProperty = DependencyProperty.Register(nameof(Cols), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(2000, FrameworkPropertyMetadataOptions.AffectsRender));
-            StepSizeProperty = DependencyProperty.Register(nameof(StepSize), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(100, FrameworkPropertyMetadataOptions.AffectsRender));
+            RowsProperty = DependencyProperty.Register(nameof(Rows), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(DefaultRows, FrameworkPropertyMetadataOptions.AffectsRender));
+            ColsProperty = DependencyProperty.Register(nameof(Cols), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(DefaultCols, FrameworkPropertyMetadataOptions.AffectsRender));
+            StepSizeProperty = DependencyProperty.Register(nameof(StepSize), typeof(int), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(DefaultStepSize, FrameworkPropertyMetadataOptions.AffectsRender));
             ShowCenterProperty = DependencyProperty.Register(nameof(ShowCenter), typeof(bool), typeof(GridLinesVisual2D), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
