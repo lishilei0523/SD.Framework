@@ -4,6 +4,7 @@ using SD.Infrastructure.WPF.Visual2Ds;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -106,13 +107,13 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             ModeProperty = DependencyProperty.Register(nameof(Mode), typeof(CanvasMode), typeof(CanvasEx), new PropertyMetadata(CanvasMode.Scale));
             ScaledFactorProperty = DependencyProperty.Register(nameof(ScaledFactor), typeof(float), typeof(CanvasEx), new PropertyMetadata(DefaultScaledFactor));
-            BorderThicknessProperty = DependencyProperty.Register(nameof(BorderThickness), typeof(double), typeof(CanvasEx), new FrameworkPropertyMetadata(DefaultBorderThickness, FrameworkPropertyMetadataOptions.AffectsRender));
-            BorderBrushProperty = DependencyProperty.Register(nameof(BorderBrush), typeof(Brush), typeof(CanvasEx), new FrameworkPropertyMetadata(new SolidColorBrush(Colors.Red), FrameworkPropertyMetadataOptions.AffectsRender));
+            BorderThicknessProperty = DependencyProperty.Register(nameof(BorderThickness), typeof(double), typeof(CanvasEx), new FrameworkPropertyMetadata(DefaultBorderThickness, FrameworkPropertyMetadataOptions.AffectsRender, OnBorderThicknessChanged));
+            BorderBrushProperty = DependencyProperty.Register(nameof(BorderBrush), typeof(Brush), typeof(CanvasEx), new FrameworkPropertyMetadata(new SolidColorBrush(Colors.Red), FrameworkPropertyMetadataOptions.AffectsRender, OnBorderBrushChanged));
             BackgroundImageProperty = DependencyProperty.Register(nameof(BackgroundImage), typeof(Image), typeof(CanvasEx), new PropertyMetadata(null, OnBackgroundImageChanged));
             ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(CanvasEx), new PropertyMetadata(false, OnShowGridLinesChanged));
             DraggableProperty = DependencyProperty.Register(nameof(Draggable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ResizableProperty = DependencyProperty.Register(nameof(Resizable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
-            ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(ObservableCollection<Shape>), typeof(CanvasEx), new PropertyMetadata(new ObservableCollection<Shape>(), OnItemsSourceChanged));
+            ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(ObservableCollection<Shape>), typeof(CanvasEx), new PropertyMetadata(null, OnItemsSourceChanged));
             ElementDragEvent = EventManager.RegisterRoutedEvent(nameof(ElementDrag), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             ElementResizeEvent = EventManager.RegisterRoutedEvent(nameof(ElementResize), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             DrawEvent = EventManager.RegisterRoutedEvent(nameof(Draw), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
@@ -180,6 +181,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             base.HorizontalAlignment = HorizontalAlignment.Stretch;
             base.VerticalAlignment = VerticalAlignment.Stretch;
             base.Background = new SolidColorBrush(Colors.Transparent);
+            this.ItemsSource = new ObservableCollection<Shape>();
         }
 
         #endregion
@@ -468,6 +470,55 @@ namespace SD.Infrastructure.WPF.CustomControls
         #endregion
 
         #region # 方法
+
+        #region 边框厚度改变事件 —— static void OnBorderThicknessChanged(DependencyObject dependencyObject...
+        /// <summary>
+        /// 边框厚度改变事件
+        /// </summary>
+        private static void OnBorderThicknessChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            CanvasEx canvas = (CanvasEx)dependencyObject;
+            if (eventArgs.NewValue is double thickness)
+            {
+                double scaledRatio = canvas.ScaledRatio.Equals(0) ? 1 : canvas.ScaledRatio;
+
+                //网格线粗细调整
+                foreach (GridLinesVisual2D gridLines in canvas.Children.OfType<GridLinesVisual2D>())
+                {
+                    gridLines.StrokeThickness = thickness / scaledRatio;
+                }
+
+                //图形边框粗细调整
+                if (canvas.ItemsSource != null)
+                {
+                    foreach (Shape shape in canvas.ItemsSource)
+                    {
+                        shape.StrokeThickness = thickness / scaledRatio;
+                    }
+                }
+            }
+        }
+        #endregion
+
+        #region 边框画刷改变事件 —— static void OnBorderBrushChanged(DependencyObject dependencyObject...
+        /// <summary>
+        /// 边框画刷改变事件
+        /// </summary>
+        private static void OnBorderBrushChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            CanvasEx canvas = (CanvasEx)dependencyObject;
+            if (eventArgs.NewValue is Brush brush)
+            {
+                if (canvas.ItemsSource != null)
+                {
+                    foreach (Shape shape in canvas.ItemsSource)
+                    {
+                        shape.Stroke = brush;
+                    }
+                }
+            }
+        }
+        #endregion
 
         #region 背景图像改变事件 —— static void OnBackgroundImageChanged(DependencyObject dependencyObject...
         /// <summary>

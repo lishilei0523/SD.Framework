@@ -25,56 +25,6 @@ namespace SD.Infrastructure.WPF.CustomControls
         #region # 字段及构造器
 
         /// <summary>
-        /// 线段
-        /// </summary>
-        private Line _line;
-
-        /// <summary>
-        /// 画刷
-        /// </summary>
-        private Polyline _brush;
-
-        /// <summary>
-        /// 矩形
-        /// </summary>
-        private RectangleVisual2D _rectangle;
-
-        /// <summary>
-        /// 圆形
-        /// </summary>
-        private CircleVisual2D _circle;
-
-        /// <summary>
-        /// 椭圆形
-        /// </summary>
-        private EllipseVisual2D _ellipse;
-
-        /// <summary>
-        /// 实时锚线
-        /// </summary>
-        private Line _realAnchorLine;
-
-        /// <summary>
-        /// 锚点集
-        /// </summary>
-        private readonly IList<PointVisual2D> _polyAnchors;
-
-        /// <summary>
-        /// 锚线集
-        /// </summary>
-        private readonly IList<Line> _polyAnchorLines;
-
-        /// <summary>
-        /// 水平参考线
-        /// </summary>
-        private readonly Line _horizontalLine;
-
-        /// <summary>
-        /// 垂直参考线
-        /// </summary>
-        private readonly Line _verticalLine;
-
-        /// <summary>
         /// 参考线厚度
         /// </summary>
         public const double GuideLineThickness = 2.0d;
@@ -161,20 +111,70 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             GuideLinesVisibilityProperty = DependencyProperty.Register(nameof(GuideLinesVisibility), typeof(Visibility), typeof(DrawableCanvasEx), new FrameworkPropertyMetadata(Visibility.Visible, FrameworkPropertyMetadataOptions.AffectsRender));
             ScaleCheckedProperty = DependencyProperty.Register(nameof(ScaleChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(true, OnScaleCheckedChanged));
-            DragCheckedProperty = DependencyProperty.Register(nameof(DragChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(true, OnDragCheckedChanged));
-            ResizeCheckedProperty = DependencyProperty.Register(nameof(ResizeChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(true, OnResizeCheckedChanged));
-            PointCheckedProperty = DependencyProperty.Register(nameof(PointChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(true, OnPointCheckedChanged));
-            LineCheckedProperty = DependencyProperty.Register(nameof(LineChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(true, OnLineCheckedChanged));
-            BrushCheckedProperty = DependencyProperty.Register(nameof(BrushChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(true, OnBrushCheckedChanged));
-            RectangleCheckedProperty = DependencyProperty.Register(nameof(RectangleChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(true, OnRectangleCheckedChanged));
-            CircleCheckedProperty = DependencyProperty.Register(nameof(CircleChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(true, OnCircleCheckedChanged));
-            EllipseCheckedProperty = DependencyProperty.Register(nameof(EllipseChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(true, OnEllipseCheckedChanged));
-            PolygonCheckedProperty = DependencyProperty.Register(nameof(PolygonChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(true, OnPolygonCheckedChanged));
-            PolylineCheckedProperty = DependencyProperty.Register(nameof(PolylineChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(true, OnPolylineCheckedChanged));
-            DatasSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(ObservableCollection<ShapeL>), typeof(DrawableCanvasEx), new PropertyMetadata(new ObservableCollection<ShapeL>()));
+            DragCheckedProperty = DependencyProperty.Register(nameof(DragChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnDragCheckedChanged));
+            ResizeCheckedProperty = DependencyProperty.Register(nameof(ResizeChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnResizeCheckedChanged));
+            PointCheckedProperty = DependencyProperty.Register(nameof(PointChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnPointCheckedChanged));
+            LineCheckedProperty = DependencyProperty.Register(nameof(LineChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnLineCheckedChanged));
+            BrushCheckedProperty = DependencyProperty.Register(nameof(BrushChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnBrushCheckedChanged));
+            RectangleCheckedProperty = DependencyProperty.Register(nameof(RectangleChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnRectangleCheckedChanged));
+            CircleCheckedProperty = DependencyProperty.Register(nameof(CircleChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnCircleCheckedChanged));
+            EllipseCheckedProperty = DependencyProperty.Register(nameof(EllipseChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnEllipseCheckedChanged));
+            PolygonCheckedProperty = DependencyProperty.Register(nameof(PolygonChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnPolygonCheckedChanged));
+            PolylineCheckedProperty = DependencyProperty.Register(nameof(PolylineChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnPolylineCheckedChanged));
+            DatasSourceProperty = DependencyProperty.Register(nameof(DatasSource), typeof(ObservableCollection<ShapeL>), typeof(DrawableCanvasEx), new PropertyMetadata(null));
             ShapeClickEvent = EventManager.RegisterRoutedEvent(nameof(ShapeClick), RoutingStrategy.Direct, typeof(ShapeEventHandler), typeof(DrawableCanvasEx));
             ShapeDrawnEvent = EventManager.RegisterRoutedEvent(nameof(ShapeDrawn), RoutingStrategy.Direct, typeof(ShapeEventHandler), typeof(DrawableCanvasEx));
         }
+
+        /// <summary>
+        /// 线段
+        /// </summary>
+        private Line _line;
+
+        /// <summary>
+        /// 画刷
+        /// </summary>
+        private Polyline _brush;
+
+        /// <summary>
+        /// 矩形
+        /// </summary>
+        private RectangleVisual2D _rectangle;
+
+        /// <summary>
+        /// 圆形
+        /// </summary>
+        private CircleVisual2D _circle;
+
+        /// <summary>
+        /// 椭圆形
+        /// </summary>
+        private EllipseVisual2D _ellipse;
+
+        /// <summary>
+        /// 实时锚线
+        /// </summary>
+        private Line _realAnchorLine;
+
+        /// <summary>
+        /// 锚点集
+        /// </summary>
+        private readonly IList<PointVisual2D> _polyAnchors;
+
+        /// <summary>
+        /// 锚线集
+        /// </summary>
+        private readonly IList<Line> _polyAnchorLines;
+
+        /// <summary>
+        /// 水平参考线
+        /// </summary>
+        private readonly Line _horizontalLine;
+
+        /// <summary>
+        /// 垂直参考线
+        /// </summary>
+        private readonly Line _verticalLine;
 
         /// <summary>
         /// 实例构造器
@@ -186,11 +186,12 @@ namespace SD.Infrastructure.WPF.CustomControls
             this._polyAnchorLines = new List<Line>();
             this._horizontalLine = new Line();
             this._verticalLine = new Line();
+            this.DatasSource = new ObservableCollection<ShapeL>();
 
             //初始化参考线
             this.Children.Add(this._horizontalLine);
             this.Children.Add(this._verticalLine);
-            this.InitGuidLines();
+            this.InitGuideLines();
 
             //注册事件
             this.ElementDrag += this.OnDragElement;
@@ -201,6 +202,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             this.MouseMove += this.OnCanvasMouseMove;
             this.MouseWheel += this.OnCanvasMouseWheel;
             this.MouseMove += this.OnCanvasMouseMove;
+            this.MouseLeave += this.OnCanvasMouseLeave;
         }
 
         #endregion
@@ -726,11 +728,6 @@ namespace SD.Infrastructure.WPF.CustomControls
                     ? this.BackgroundImage.Source.Width
                     : rectifiedPosition.X < 0 ? 0 : rectifiedPosition.X;
                 this._verticalLine.X2 = this._verticalLine.X1;
-                if (!canvas.ScaledRatio.Equals(0))
-                {
-                    this._horizontalLine.StrokeThickness = GuideLineThickness / canvas.ScaledRatio;
-                    this._verticalLine.StrokeThickness = GuideLineThickness / canvas.ScaledRatio;
-                }
 
                 //设置光标
                 Mouse.OverrideCursor = Cursors.Cross;
@@ -766,21 +763,39 @@ namespace SD.Infrastructure.WPF.CustomControls
         public void OnCanvasMouseWheel(object sender, MouseEventArgs eventArgs)
         {
             CanvasEx canvas = (CanvasEx)sender;
-
-            //参考线粗细调整
             if (!canvas.ScaledRatio.Equals(0))
             {
+                //参考线粗细调整
                 this._horizontalLine.StrokeThickness = GuideLineThickness / canvas.ScaledRatio;
                 this._verticalLine.StrokeThickness = GuideLineThickness / canvas.ScaledRatio;
-            }
-            //图形边框粗细调整
-            foreach (Shape shape in canvas.Children.OfType<Shape>())
-            {
-                shape.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
-            }
-            foreach (PointVisual2D pointVisual2D in canvas.Children.OfType<PointVisual2D>())
-            {
-                pointVisual2D.Thickness = PointVisual2D.DefaultThickness / canvas.ScaledRatio;
+
+                //网格线粗细调整
+                foreach (GridLinesVisual2D gridLines in canvas.Children.OfType<GridLinesVisual2D>())
+                {
+                    gridLines.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
+                }
+
+                //图形边框粗细调整
+                if (this._realAnchorLine != null)
+                {
+                    this._realAnchorLine.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
+                }
+                foreach (Shape shape in this.ItemsSource)
+                {
+                    shape.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
+                }
+                foreach (Line line in this._polyAnchorLines)
+                {
+                    line.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
+                }
+                foreach (PointVisual2D pointVisual2D in this.ItemsSource.OfType<PointVisual2D>())
+                {
+                    pointVisual2D.Thickness = PointVisual2D.DefaultThickness / canvas.ScaledRatio;
+                }
+                foreach (PointVisual2D pointVisual2D in this._polyAnchors)
+                {
+                    pointVisual2D.Thickness = PointVisual2D.DefaultThickness / canvas.ScaledRatio;
+                }
             }
         }
         #endregion
@@ -1074,11 +1089,11 @@ namespace SD.Infrastructure.WPF.CustomControls
 
         //Private
 
-        #region 初始化参考线 —— void InitGuidLines()
+        #region 初始化参考线 —— void InitGuideLines()
         /// <summary>
         /// 初始化参考线
         /// </summary>
-        private void InitGuidLines()
+        private void InitGuideLines()
         {
             DropShadowEffect effect = new DropShadowEffect
             {
@@ -1100,11 +1115,11 @@ namespace SD.Infrastructure.WPF.CustomControls
             this._verticalLine.RenderTransform = base.MatrixTransform;
             this._verticalLine.Effect = effect;
 
-            Binding horizontalLineX2Binding = new Binding(nameof(Width));
-            Binding verticalLineY2Binding = new Binding(nameof(Height));
+            Binding horizontalLineX2Binding = new Binding("BackgroundImage.Source.Width");
+            Binding verticalLineY2Binding = new Binding("BackgroundImage.Source.Height");
             Binding visibilityBinding = new Binding(nameof(GuideLinesVisibility));
-            horizontalLineX2Binding.Source = this.BackgroundImage.Source;
-            verticalLineY2Binding.Source = this.BackgroundImage.Source;
+            horizontalLineX2Binding.Source = this;
+            verticalLineY2Binding.Source = this;
             visibilityBinding.Source = this;
             this._horizontalLine.SetBinding(Line.X2Property, horizontalLineX2Binding);
             this._horizontalLine.SetBinding(Line.VisibilityProperty, visibilityBinding);
