@@ -566,7 +566,6 @@ namespace SD.Infrastructure.WPF.CustomControls
 
                 this._line.Tag = lineL;
                 lineL.Tag = this._line;
-                this.DatasSource.Add(lineL);
                 this.ItemsSource.Add(this._line);
 
                 //挂起路由事件
@@ -588,7 +587,6 @@ namespace SD.Infrastructure.WPF.CustomControls
                 PolylineL polylineL = new PolylineL(pointLs);
                 this._brush.Tag = polylineL;
                 polylineL.Tag = this._brush;
-                this.DatasSource.Add(polylineL);
                 this.ItemsSource.Add(this._brush);
 
                 //挂起路由事件
@@ -605,7 +603,6 @@ namespace SD.Infrastructure.WPF.CustomControls
 
                 this._rectangle.Tag = rectangleL;
                 rectangleL.Tag = this._rectangle;
-                this.DatasSource.Add(rectangleL);
                 this.ItemsSource.Add(this._rectangle);
 
                 //挂起路由事件
@@ -621,7 +618,6 @@ namespace SD.Infrastructure.WPF.CustomControls
 
                 this._circle.Tag = circleL;
                 circleL.Tag = this._circle;
-                this.DatasSource.Add(circleL);
                 this.ItemsSource.Add(this._circle);
 
                 //挂起路由事件
@@ -638,7 +634,6 @@ namespace SD.Infrastructure.WPF.CustomControls
 
                 this._ellipse.Tag = ellipseL;
                 ellipseL.Tag = this._ellipse;
-                this.DatasSource.Add(ellipseL);
                 this.ItemsSource.Add(this._ellipse);
 
                 //挂起路由事件
@@ -1333,7 +1328,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             };
 
             pointL.Tag = point;
-            this.DatasSource.Add(pointL);
             this.ItemsSource.Add(point);
 
             //挂起路由事件
@@ -1578,7 +1572,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             };
 
             polygonL.Tag = polygon;
-            this.DatasSource.Add(polygonL);
             this.ItemsSource.Add(polygon);
 
             //清空锚点、锚线
@@ -1635,7 +1628,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             };
 
             polylineL.Tag = polyline;
-            this.DatasSource.Add(polylineL);
             this.ItemsSource.Add(polyline);
 
             //清空锚点、锚线
