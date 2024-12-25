@@ -116,7 +116,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             EllipseCheckedProperty = DependencyProperty.Register(nameof(EllipseChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnEllipseCheckedChanged));
             PolygonCheckedProperty = DependencyProperty.Register(nameof(PolygonChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnPolygonCheckedChanged));
             PolylineCheckedProperty = DependencyProperty.Register(nameof(PolylineChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnPolylineCheckedChanged));
-            DatasSourceProperty = DependencyProperty.Register(nameof(DatasSource), typeof(ObservableCollection<ShapeL>), typeof(DrawableCanvasEx), new PropertyMetadata(null));
+            DatasSourceProperty = DependencyProperty.Register(nameof(DatasSource), typeof(ObservableCollection<ShapeL>), typeof(DrawableCanvasEx), new PropertyMetadata(new ObservableCollection<ShapeL>()));
             ShapeDrawnEvent = EventManager.RegisterRoutedEvent(nameof(ShapeDrawn), RoutingStrategy.Direct, typeof(ShapeEventHandler), typeof(DrawableCanvasEx));
         }
 

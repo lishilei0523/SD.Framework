@@ -119,7 +119,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             ShowGridLinesProperty = DependencyProperty.Register(nameof(ShowGridLines), typeof(bool), typeof(CanvasEx), new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.AffectsRender, OnShowGridLinesChanged));
             DraggableProperty = DependencyProperty.Register(nameof(Draggable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ResizableProperty = DependencyProperty.Register(nameof(Resizable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
-            ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(ObservableCollection<Shape>), typeof(CanvasEx), new PropertyMetadata(null, OnItemsSourceChanged));
+            ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(ObservableCollection<Shape>), typeof(CanvasEx), new PropertyMetadata(new ObservableCollection<Shape>(), OnItemsSourceChanged));
             ElementDragEvent = EventManager.RegisterRoutedEvent(nameof(ElementDrag), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             ElementResizeEvent = EventManager.RegisterRoutedEvent(nameof(ElementResize), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             DrawEvent = EventManager.RegisterRoutedEvent(nameof(Draw), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
@@ -511,12 +511,9 @@ namespace SD.Infrastructure.WPF.CustomControls
                 }
 
                 //图形边框粗细调整
-                if (canvas.ItemsSource != null)
+                foreach (Shape shape in canvas.ItemsSource)
                 {
-                    foreach (Shape shape in canvas.ItemsSource)
-                    {
-                        shape.StrokeThickness = thickness / scaledRatio;
-                    }
+                    shape.StrokeThickness = thickness / scaledRatio;
                 }
             }
         }
@@ -531,12 +528,9 @@ namespace SD.Infrastructure.WPF.CustomControls
             CanvasEx canvas = (CanvasEx)dependencyObject;
             if (eventArgs.NewValue is Brush brush)
             {
-                if (canvas.ItemsSource != null)
+                foreach (Shape shape in canvas.ItemsSource)
                 {
-                    foreach (Shape shape in canvas.ItemsSource)
-                    {
-                        shape.Stroke = brush;
-                    }
+                    shape.Stroke = brush;
                 }
             }
         }
