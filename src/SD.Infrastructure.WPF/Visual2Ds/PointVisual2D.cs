@@ -20,7 +20,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         /// <summary>
         /// 默认边框厚度
         /// </summary>
-        public const double DefaultStrokeThickness = 3.0d;
+        public const double DefaultStrokeThickness = 2.0d;
 
         /// <summary>
         /// X坐标依赖属性

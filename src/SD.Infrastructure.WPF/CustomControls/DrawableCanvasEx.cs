@@ -719,6 +719,30 @@ namespace SD.Infrastructure.WPF.CustomControls
                 this._realAnchorLine.X2 = endPoint.X;
                 this._realAnchorLine.Y2 = endPoint.Y;
             }
+            //起始锚点滑过放大
+            if (this._polyAnchors.Count > 1)
+            {
+                //定义最小距离
+                double minDistance = 8.0 / canvas.ScaledRatio;
+
+                //计算鼠标位置与起始锚点的距离
+                PointVisual2D startAnchor = this._polyAnchors.First();
+                Point targetPoint = new Point(startAnchor.X, startAnchor.Y);
+                Point mousePosition = canvas.RectifiedMousePosition!.Value;
+                Vector vector = Point.Subtract(mousePosition, targetPoint);
+
+                //判断距离
+                if (vector.Length < minDistance)
+                {
+                    startAnchor.Thickness = PointVisual2D.DefaultThickness / canvas.ScaledRatio * 3;
+                    startAnchor.StrokeThickness = canvas.BorderThickness / canvas.ScaledRatio * 3;
+                }
+                else
+                {
+                    startAnchor.Thickness = PointVisual2D.DefaultThickness / canvas.ScaledRatio;
+                    startAnchor.StrokeThickness = canvas.BorderThickness / canvas.ScaledRatio;
+                }
+            }
         }
         #endregion
 
@@ -761,6 +785,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 foreach (PointVisual2D pointVisual2D in this._polyAnchors)
                 {
                     pointVisual2D.Thickness = PointVisual2D.DefaultThickness / canvas.ScaledRatio;
+                    pointVisual2D.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
                 }
             }
         }
@@ -1494,7 +1519,9 @@ namespace SD.Infrastructure.WPF.CustomControls
             Brush fillBrush = new SolidColorBrush(Colors.Black);
             Brush borderBrush = this._polyAnchors.Any()
                 ? this.BorderBrush
-                : new SolidColorBrush(Colors.Yellow);
+                : this.BorderBrush is SolidColorBrush solidColorBrush
+                    ? new SolidColorBrush(solidColorBrush.Color.Invert())
+                    : new SolidColorBrush(Colors.Yellow);
             PointVisual2D anchor = new PointVisual2D
             {
                 X = rectifiedPoint.X,
