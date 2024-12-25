@@ -1,4 +1,5 @@
 ﻿using SD.Infrastructure.Shapes;
+using SD.Infrastructure.WPF.Animations;
 using SD.Infrastructure.WPF.Visual2Ds;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 
 namespace SD.Infrastructure.WPF.Extensions
@@ -469,6 +471,68 @@ namespace SD.Infrastructure.WPF.Extensions
             };
 
             return polylineL;
+        }
+        #endregion
+
+        #region # 闪烁形状 —— static void Blink(this Shape shape, int duration)
+        /// <summary>
+        /// 闪烁形状
+        /// </summary>
+        /// <param name="shape">形状</param>
+        /// <param name="duration">持续时长(毫秒)</param>
+        public static void Blink(this Shape shape, int duration = 2000)
+        {
+            BrushAnimation brushAnimation;
+            Duration animationDuration = new Duration(TimeSpan.FromMilliseconds(duration));
+            if (shape.Stroke is SolidColorBrush solidColorBrush)
+            {
+                brushAnimation = new BrushAnimation
+                {
+                    From = new SolidColorBrush(solidColorBrush.Color.Invert()),
+                    To = shape.Stroke,
+                    Duration = animationDuration
+                };
+            }
+            else if (shape.Stroke is LinearGradientBrush linearGradientBrush)
+            {
+                GradientStop firstStop = linearGradientBrush.GradientStops.First();
+                GradientStop lastStop = linearGradientBrush.GradientStops.Last();
+                LinearGradientBrush invertBrush = new LinearGradientBrush(lastStop.Color, firstStop.Color,
+                    linearGradientBrush.StartPoint, linearGradientBrush.EndPoint);
+                brushAnimation = new BrushAnimation
+                {
+                    From = invertBrush,
+                    To = shape.Stroke,
+                    Duration = animationDuration
+                };
+            }
+            else if (shape.Stroke is RadialGradientBrush radialGradientBrush)
+            {
+                GradientStop firstStop = radialGradientBrush.GradientStops.First();
+                GradientStop lastStop = radialGradientBrush.GradientStops.Last();
+                RadialGradientBrush invertBrush = new RadialGradientBrush(lastStop.Color, firstStop.Color);
+                brushAnimation = new BrushAnimation
+                {
+                    From = invertBrush,
+                    To = shape.Stroke,
+                    Duration = animationDuration
+                };
+            }
+            else
+            {
+                brushAnimation = new BrushAnimation
+                {
+                    From = new SolidColorBrush(Colors.Transparent),
+                    To = shape.Stroke,
+                    Duration = animationDuration
+                };
+            }
+
+            Storyboard storyboard = new Storyboard();
+            Storyboard.SetTarget(brushAnimation, shape);
+            Storyboard.SetTargetProperty(brushAnimation, new PropertyPath(Shape.StrokeProperty));
+            storyboard.Children.Add(brushAnimation);
+            storyboard.Begin();
         }
         #endregion
     }

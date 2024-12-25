@@ -5,7 +5,6 @@ using SD.Infrastructure.WPF.Models;
 using SD.Infrastructure.WPF.Visual2Ds;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -90,11 +89,6 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly DependencyProperty PolylineCheckedProperty;
 
         /// <summary>
-        /// 形状数据列表依赖属性
-        /// </summary>
-        public static readonly DependencyProperty DatasSourceProperty;
-
-        /// <summary>
         /// 形状绘制完成路由事件
         /// </summary>
         public static readonly RoutedEvent ShapeDrawnEvent;
@@ -116,7 +110,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             EllipseCheckedProperty = DependencyProperty.Register(nameof(EllipseChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnEllipseCheckedChanged));
             PolygonCheckedProperty = DependencyProperty.Register(nameof(PolygonChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnPolygonCheckedChanged));
             PolylineCheckedProperty = DependencyProperty.Register(nameof(PolylineChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnPolylineCheckedChanged));
-            DatasSourceProperty = DependencyProperty.Register(nameof(DatasSource), typeof(ObservableCollection<ShapeL>), typeof(DrawableCanvasEx), new PropertyMetadata(new ObservableCollection<ShapeL>()));
             ShapeDrawnEvent = EventManager.RegisterRoutedEvent(nameof(ShapeDrawn), RoutingStrategy.Direct, typeof(ShapeEventHandler), typeof(DrawableCanvasEx));
         }
 
@@ -330,17 +323,6 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             get => (bool)this.GetValue(PolylineCheckedProperty);
             set => this.SetValue(PolylineCheckedProperty, value);
-        }
-        #endregion
-
-        #region 依赖属性 - 形状数据列表 —— ObservableCollection<ShapeL> DatasSource
-        /// <summary>
-        /// 依赖属性 - 形状数据列表
-        /// </summary>
-        public ObservableCollection<ShapeL> DatasSource
-        {
-            get => (ObservableCollection<ShapeL>)this.GetValue(DatasSourceProperty);
-            set => this.SetValue(DatasSourceProperty, value);
         }
         #endregion
 

@@ -77,6 +77,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly DependencyProperty ItemsSourceProperty;
 
         /// <summary>
+        /// 形状数据列表依赖属性
+        /// </summary>
+        public static readonly DependencyProperty DatasSourceProperty;
+
+        /// <summary>
         /// 元素拖拽路由事件
         /// </summary>
         public static readonly RoutedEvent ElementDragEvent;
@@ -120,6 +125,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             DraggableProperty = DependencyProperty.Register(nameof(Draggable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ResizableProperty = DependencyProperty.Register(nameof(Resizable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(ObservableCollection<Shape>), typeof(CanvasEx), new PropertyMetadata(new ObservableCollection<Shape>(), OnItemsSourceChanged));
+            DatasSourceProperty = DependencyProperty.Register(nameof(DatasSource), typeof(ObservableCollection<ShapeL>), typeof(CanvasEx), new PropertyMetadata(new ObservableCollection<ShapeL>()));
             ElementDragEvent = EventManager.RegisterRoutedEvent(nameof(ElementDrag), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             ElementResizeEvent = EventManager.RegisterRoutedEvent(nameof(ElementResize), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             DrawEvent = EventManager.RegisterRoutedEvent(nameof(Draw), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
@@ -293,6 +299,17 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             get => (ObservableCollection<Shape>)this.GetValue(ItemsSourceProperty);
             set => this.SetValue(ItemsSourceProperty, value);
+        }
+        #endregion
+
+        #region 依赖属性 - 形状数据列表 —— ObservableCollection<ShapeL> DatasSource
+        /// <summary>
+        /// 依赖属性 - 形状数据列表
+        /// </summary>
+        public ObservableCollection<ShapeL> DatasSource
+        {
+            get => (ObservableCollection<ShapeL>)this.GetValue(DatasSourceProperty);
+            set => this.SetValue(DatasSourceProperty, value);
         }
         #endregion
 
@@ -611,6 +628,10 @@ namespace SD.Infrastructure.WPF.CustomControls
                     {
                         canvas.Children.Remove(shape);
                         canvas._shapes.Remove(shape);
+                        if (shape.Tag is ShapeL shapeL && canvas.DatasSource.Contains(shapeL))
+                        {
+                            canvas.DatasSource.Remove(shapeL);
+                        }
                     }
                 }
             }
@@ -629,6 +650,10 @@ namespace SD.Infrastructure.WPF.CustomControls
                     {
                         canvas.Children.Add(shape);
                         canvas._shapes.Add(shape);
+                        if (shape.Tag is ShapeL shapeL && !canvas.DatasSource.Contains(shapeL))
+                        {
+                            canvas.DatasSource.Add(shapeL);
+                        }
                     }
                 }
 
@@ -642,6 +667,10 @@ namespace SD.Infrastructure.WPF.CustomControls
                     if (canvas.Children.Contains(shape))
                     {
                         canvas.Children.Remove(shape);
+                        if (shape.Tag is ShapeL shapeL && canvas.DatasSource.Contains(shapeL))
+                        {
+                            canvas.DatasSource.Remove(shapeL);
+                        }
                     }
                 }
                 canvas._shapes.Clear();
@@ -663,6 +692,10 @@ namespace SD.Infrastructure.WPF.CustomControls
                     {
                         this.Children.Remove(shape);
                         this._shapes.Remove(shape);
+                        if (shape.Tag is ShapeL shapeL && this.DatasSource.Contains(shapeL))
+                        {
+                            this.DatasSource.Remove(shapeL);
+                        }
                     }
                 }
             }
@@ -681,6 +714,10 @@ namespace SD.Infrastructure.WPF.CustomControls
                     {
                         this.Children.Add(shape);
                         this._shapes.Add(shape);
+                        if (shape.Tag is ShapeL shapeL && !this.DatasSource.Contains(shapeL))
+                        {
+                            this.DatasSource.Add(shapeL);
+                        }
                     }
                 }
             }
@@ -691,6 +728,10 @@ namespace SD.Infrastructure.WPF.CustomControls
                     if (this.Children.Contains(shape))
                     {
                         this.Children.Remove(shape);
+                        if (shape.Tag is ShapeL shapeL && this.DatasSource.Contains(shapeL))
+                        {
+                            this.DatasSource.Remove(shapeL);
+                        }
                     }
                 }
                 this._shapes.Clear();
