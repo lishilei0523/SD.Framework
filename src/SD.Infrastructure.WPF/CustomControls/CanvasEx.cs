@@ -165,7 +165,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// <summary>
         /// 拖拽偏移量
         /// </summary>
-        /// <remarks>鼠标位置与元素位置的偏移</remarks>
+        /// <remarks>鼠标位置与元素边距的偏移</remarks>
         private Vector _draggingOffset;
 
         /// <summary>
@@ -491,6 +491,8 @@ namespace SD.Infrastructure.WPF.CustomControls
 
         #region # 方法
 
+        //Events
+
         #region 边框厚度改变事件 —— static void OnBorderThicknessChanged(DependencyObject dependencyObject...
         /// <summary>
         /// 边框厚度改变事件
@@ -764,13 +766,13 @@ namespace SD.Infrastructure.WPF.CustomControls
                 {
                     this._selectedVisual = element;
 
-                    //计算鼠标位置与元素位置偏移量
-                    double elementX = GetLeft(element);
-                    double elementY = GetTop(element);
-                    elementX = double.IsNaN(elementX) ? 0 : elementX;
-                    elementY = double.IsNaN(elementY) ? 0 : elementY;
-                    Point elementPosition = new Point(elementX, elementY);
-                    this._draggingOffset = elementPosition - startPosition;
+                    //计算鼠标位置与元素边距偏移量
+                    double marginX = GetLeft(element);
+                    double marginY = GetTop(element);
+                    marginX = double.IsNaN(marginX) ? 0 : marginX;
+                    marginY = double.IsNaN(marginY) ? 0 : marginY;
+                    Point elementMargin = new Point(marginX, marginY);
+                    this._draggingOffset = elementMargin - startPosition;
                 }
             }
             if (this.Mode == CanvasMode.Draw && eventArgs.ChangedButton == MouseButton.Left)
@@ -851,26 +853,12 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         private void OnMouseWheel(object sender, MouseWheelEventArgs eventArgs)
         {
-            float scaledFactor = this.ScaledFactor;
-            if (eventArgs.Delta < 0)
-            {
-                scaledFactor = 1f / scaledFactor;
-            }
-
+            float scaledFactor = eventArgs.Delta < 0
+                ? 1f / this.ScaledFactor
+                : this.ScaledFactor;
             Point mousePostion = eventArgs.GetPosition(this);
-            Matrix scaledMatrix = this._matrixTransform.Matrix;
-            scaledMatrix.ScaleAt(scaledFactor, scaledFactor, mousePostion.X, mousePostion.Y);
-            this._matrixTransform.Matrix = scaledMatrix;
-            foreach (UIElement element in this.Children)
-            {
-                double x = GetLeft(element);
-                double y = GetTop(element);
-                double scaledX = x * scaledFactor;
-                double scaledY = y * scaledFactor;
-                SetLeft(element, scaledX);
-                SetTop(element, scaledY);
-                element.RenderTransform = this._matrixTransform;
-            }
+
+            this.Scale(scaledFactor, mousePostion.X, mousePostion.Y);
         }
         #endregion
 
@@ -895,7 +883,35 @@ namespace SD.Infrastructure.WPF.CustomControls
                 this.RaiseEvent(new RoutedEventArgs(DrawnEvent, this));
             }
         }
-        #endregion 
+        #endregion
+
+
+        //Private
+
+        #region 缩放 —— void Scale(double scaleRatio, double centerX, double centerY)
+        /// <summary>
+        /// 缩放
+        /// </summary>
+        /// <param name="scaleRatio">缩放率</param>
+        /// <param name="centerX">缩放中心X坐标</param>
+        /// <param name="centerY">缩放中心Y坐标</param>
+        private void Scale(double scaleRatio, double centerX, double centerY)
+        {
+            Matrix scaledMatrix = this._matrixTransform.Matrix;
+            scaledMatrix.ScaleAt(scaleRatio, scaleRatio, centerX, centerY);
+            this._matrixTransform.Matrix = scaledMatrix;
+            foreach (UIElement element in this.Children)
+            {
+                double x = GetLeft(element);
+                double y = GetTop(element);
+                double scaledX = x * scaleRatio;
+                double scaledY = y * scaleRatio;
+                SetLeft(element, scaledX);
+                SetTop(element, scaledY);
+                element.RenderTransform = this._matrixTransform;
+            }
+        }
+        #endregion
 
         #endregion
     }
