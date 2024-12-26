@@ -19,10 +19,10 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         public const double DefaultStrokeThickness = 2.0d;
 
         /// <summary>
-        /// 位置依赖属性
+        /// 中心依赖属性
         /// </summary>
-        /// <remarks>左上点坐标</remarks>
-        public static readonly DependencyProperty LocationProperty;
+        /// <remarks>中心点坐标</remarks>
+        public static readonly DependencyProperty CenterProperty;
 
         /// <summary>
         /// 尺寸依赖属性
@@ -45,15 +45,21 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         public static readonly DependencyProperty FontSizeProperty;
 
         /// <summary>
+        /// 显示中心依赖属性
+        /// </summary>
+        public static readonly DependencyProperty ShowCenterProperty;
+
+        /// <summary>
         /// 静态构造器
         /// </summary>
         static RotatedRectangleVisual2D()
         {
-            LocationProperty = DependencyProperty.Register(nameof(Location), typeof(Point), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(new Point(0, 0), FrameworkPropertyMetadataOptions.AffectsRender));
+            CenterProperty = DependencyProperty.Register(nameof(Center), typeof(Point), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(new Point(50, 50), FrameworkPropertyMetadataOptions.AffectsRender));
             SizeProperty = DependencyProperty.Register(nameof(Size), typeof(Size), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(new Size(50, 25), FrameworkPropertyMetadataOptions.AffectsRender));
             AngleProperty = DependencyProperty.Register(nameof(Angle), typeof(double), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsRender));
             LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
             FontSizeProperty = DependencyProperty.Register(nameof(FontSize), typeof(double), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(14d, FrameworkPropertyMetadataOptions.AffectsRender));
+            ShowCenterProperty = DependencyProperty.Register(nameof(ShowCenter), typeof(bool), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsRender));
         }
 
         /// <summary>
@@ -70,15 +76,15 @@ namespace SD.Infrastructure.WPF.Visual2Ds
 
         #region # 属性
 
-        #region 依赖属性 - 位置 —— Point Location
+        #region 依赖属性 - 中心 —— Point Center
         /// <summary>
-        /// 依赖属性 - 位置
+        /// 依赖属性 - 中心
         /// </summary>
-        /// <remarks>左上点坐标</remarks>
-        public Point Location
+        /// <remarks>中心点坐标</remarks>
+        public Point Center
         {
-            get => (Point)this.GetValue(LocationProperty);
-            set => this.SetValue(LocationProperty, value);
+            get => (Point)this.GetValue(CenterProperty);
+            set => this.SetValue(CenterProperty, value);
         }
         #endregion
 
@@ -123,6 +129,17 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         {
             get => (double)this.GetValue(FontSizeProperty);
             set => this.SetValue(FontSizeProperty, value);
+        }
+        #endregion
+
+        #region 依赖属性 - 显示中心 —— bool ShowCenter
+        /// <summary>
+        /// 依赖属性 - 显示中心
+        /// </summary>
+        public bool ShowCenter
+        {
+            get => (bool)this.GetValue(ShowCenterProperty);
+            set => this.SetValue(ShowCenterProperty, value);
         }
         #endregion
 
@@ -182,20 +199,24 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         }
         #endregion
 
+        #region 只读属性 - 位置 —— Point Location
+        /// <summary>
+        /// 只读属性 - 位置
+        /// </summary>
+        /// <remarks>左上角坐标</remarks>
+        public Point Location
+        {
+            get => new Point(this.Center.X - this.Size.Width / 2, this.Center.Y - this.Size.Height / 2);
+        }
+        #endregion
+
         #region 只读属性 - 旋转变换 —— RotateTransform RotateTransform
         /// <summary>
         /// 只读属性 - 旋转变换
         /// </summary>
         public RotateTransform RotateTransform
         {
-            get
-            {
-                double centerX = this.Location.X + this.Size.Width / 2;
-                double centerY = this.Location.Y + this.Size.Height / 2;
-                RotateTransform transform = new RotateTransform(this.Angle, centerX, centerY);
-
-                return transform;
-            }
+            get => new RotateTransform(this.Angle, this.Center.X, this.Center.Y);
         }
         #endregion
 
@@ -264,6 +285,13 @@ namespace SD.Infrastructure.WPF.Visual2Ds
 
                 //绘制文本
                 drawingContext.DrawGeometry(textBrush, null, textGeometry);
+
+                //绘制中心
+                if (this.ShowCenter)
+                {
+                    double radius = base.StrokeThickness * 1.5;
+                    drawingContext.DrawEllipse(base.Stroke, null, this.Center, radius, radius);
+                }
             }
         }
         #endregion

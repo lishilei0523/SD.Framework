@@ -24,16 +24,16 @@ namespace SD.Infrastructure.Shapes
         /// <summary>
         /// 创建旋转矩形构造器
         /// </summary>
-        /// <param name="x">顶点横坐标值</param>
-        /// <param name="y">顶点纵坐标值</param>
+        /// <param name="centerX">中心点横坐标值</param>
+        /// <param name="centerY">中心点纵坐标值</param>
         /// <param name="width">宽度</param>
         /// <param name="height">高度</param>
         /// <param name="angle">角度</param>
-        public RotatedRectangleL(int x, int y, int width, int height, float angle)
+        public RotatedRectangleL(int centerX, int centerY, int width, int height, float angle)
             : this()
         {
-            this.X = x;
-            this.Y = y;
+            this.CenterX = centerX;
+            this.CenterY = centerY;
             this.Width = width;
             this.Height = height;
             this.Angle = angle;
@@ -45,13 +45,13 @@ namespace SD.Infrastructure.Shapes
         /// 创建旋转矩形构造器
         /// </summary>
         /// <param name="name">名称</param>
-        /// <param name="x">顶点横坐标值</param>
-        /// <param name="y">顶点纵坐标值</param>
+        /// <param name="centerX">中心点横坐标值</param>
+        /// <param name="centerY">中心点纵坐标值</param>
         /// <param name="width">宽度</param>
         /// <param name="height">高度</param>
         /// <param name="angle">角度</param>
-        public RotatedRectangleL(string name, int x, int y, int width, int height, float angle)
-            : this(x, y, width, height, angle)
+        public RotatedRectangleL(string name, int centerX, int centerY, int width, int height, float angle)
+            : this(centerX, centerY, width, height, angle)
         {
             base.Name = name;
         }
@@ -61,20 +61,20 @@ namespace SD.Infrastructure.Shapes
 
         #region # 属性
 
-        #region 顶点横坐标值 —— int X
+        #region 中心点横坐标值 —— int CenterX
         /// <summary>
-        /// 顶点横坐标值
+        /// 中心点横坐标值
         /// </summary>
         [DataMember]
-        public int X { get; set; }
+        public int CenterX { get; set; }
         #endregion
 
-        #region 顶点纵坐标值 —— int Y
+        #region 中心点纵坐标值 —— int CenterY
         /// <summary>
-        /// 顶点纵坐标值
+        /// 中心点纵坐标值
         /// </summary>
         [DataMember]
-        public int Y { get; set; }
+        public int CenterY { get; set; }
         #endregion
 
         #region 宽度 —— int Width
@@ -101,6 +101,21 @@ namespace SD.Infrastructure.Shapes
         public float Angle { get; set; }
         #endregion
 
+        #region 只读属性 - 位置 —— PointL Location
+        /// <summary>
+        /// 只读属性 - 位置
+        /// </summary>
+        /// <remarks>左上角坐标</remarks>
+        public PointL Location
+        {
+            get
+            {
+                PointL location = new PointL(this.CenterX - this.Width / 2, this.CenterY - this.Height / 2);
+                return location;
+            }
+        }
+        #endregion
+
         #region 只读属性 - 左上顶点坐标 —— PointL TopLeft
         /// <summary>
         /// 只读属性 - 左上顶点坐标
@@ -110,7 +125,7 @@ namespace SD.Infrastructure.Shapes
         {
             get
             {
-                Vector2 point = new Vector2(this.X, this.Y);
+                Vector2 point = new Vector2(this.Location.X, this.Location.Y);
                 Vector2 transformedpoint = Vector2.Transform(point, this.TransformMatrix);
                 int x = (int)Math.Ceiling(transformedpoint.X);
                 int y = (int)Math.Ceiling(transformedpoint.Y);
@@ -129,7 +144,7 @@ namespace SD.Infrastructure.Shapes
         {
             get
             {
-                Vector2 point = new Vector2(this.X + this.Width, this.Y);
+                Vector2 point = new Vector2(this.Location.X + this.Width, this.Location.Y);
                 Vector2 transformedpoint = Vector2.Transform(point, this.TransformMatrix);
                 int x = (int)Math.Ceiling(transformedpoint.X);
                 int y = (int)Math.Ceiling(transformedpoint.Y);
@@ -148,7 +163,7 @@ namespace SD.Infrastructure.Shapes
         {
             get
             {
-                Vector2 point = new Vector2(this.X, this.Y + this.Height);
+                Vector2 point = new Vector2(this.Location.X, this.Location.Y + this.Height);
                 Vector2 transformedpoint = Vector2.Transform(point, this.TransformMatrix);
                 int x = (int)Math.Ceiling(transformedpoint.X);
                 int y = (int)Math.Ceiling(transformedpoint.Y);
@@ -167,7 +182,7 @@ namespace SD.Infrastructure.Shapes
         {
             get
             {
-                Vector2 point = new Vector2(this.X + this.Width, this.Y + this.Height);
+                Vector2 point = new Vector2(this.Location.X + this.Width, this.Location.Y + this.Height);
                 Vector2 transformedpoint = Vector2.Transform(point, this.TransformMatrix);
                 int x = (int)Math.Ceiling(transformedpoint.X);
                 int y = (int)Math.Ceiling(transformedpoint.Y);
@@ -186,9 +201,7 @@ namespace SD.Infrastructure.Shapes
             get
             {
                 float radians = (float)(Math.PI / 180f * this.Angle);
-                float centerX = this.X + this.Width / 2.0f;
-                float centerY = this.Y + this.Height / 2.0f;
-                Matrix3x2 matrix = Matrix3x2.CreateRotation(radians, new Vector2(centerX, centerY));
+                Matrix3x2 matrix = Matrix3x2.CreateRotation(radians, new Vector2(this.CenterX, this.CenterY));
 
                 return matrix;
             }
@@ -230,7 +243,7 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override int GetHashCode()
         {
-            return this.X.GetHashCode() ^ this.Y.GetHashCode() ^ this.Width.GetHashCode() ^ this.Height.GetHashCode() ^ this.Angle.GetHashCode();
+            return this.CenterX.GetHashCode() ^ this.CenterY.GetHashCode() ^ this.Width.GetHashCode() ^ this.Height.GetHashCode() ^ this.Angle.GetHashCode();
         }
         #endregion
 
@@ -240,7 +253,7 @@ namespace SD.Infrastructure.Shapes
         /// </summary>
         public override string ToString()
         {
-            string rectangle = $"A({this.X},{this.Y})|{this.Width}*{this.Height}|{this.Angle:F2}";
+            string rectangle = $"O({this.CenterX},{this.CenterY})|{this.Width}*{this.Height}|{this.Angle:F2}";
 
             return rectangle;
         }
@@ -268,8 +281,8 @@ namespace SD.Infrastructure.Shapes
                 return false;
             }
 
-            return source.X == target.X &&
-                   source.Y == target.Y &&
+            return source.CenterX == target.CenterX &&
+                   source.CenterY == target.CenterY &&
                    source.Width == target.Width &&
                    source.Height == target.Height &&
                    source.Angle.Equals(target.Angle);
