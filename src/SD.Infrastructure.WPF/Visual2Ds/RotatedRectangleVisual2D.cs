@@ -249,6 +249,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         {
             base.OnRender(drawingContext);
 
+            //绘制标签
             if (!string.IsNullOrWhiteSpace(this.Label))
             {
                 //定义文本形状
@@ -285,13 +286,13 @@ namespace SD.Infrastructure.WPF.Visual2Ds
 
                 //绘制文本
                 drawingContext.DrawGeometry(textBrush, null, textGeometry);
+            }
 
-                //绘制中心
-                if (this.ShowCenter)
-                {
-                    double radius = base.StrokeThickness * 1.5;
-                    drawingContext.DrawEllipse(base.Stroke, null, this.Center, radius, radius);
-                }
+            //绘制中心
+            if (this.ShowCenter)
+            {
+                double radius = base.StrokeThickness * 1.5;
+                drawingContext.DrawEllipse(base.Stroke, null, this.Center, radius, radius);
             }
         }
         #endregion

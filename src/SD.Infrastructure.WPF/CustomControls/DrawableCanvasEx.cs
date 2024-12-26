@@ -69,6 +69,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly DependencyProperty RectangleCheckedProperty;
 
         /// <summary>
+        /// 选中旋转矩形依赖属性
+        /// </summary>
+        public static readonly DependencyProperty RotatedRectangleCheckedProperty;
+
+        /// <summary>
         /// 选中圆形依赖属性
         /// </summary>
         public static readonly DependencyProperty CircleCheckedProperty;
@@ -106,6 +111,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             LineCheckedProperty = DependencyProperty.Register(nameof(LineChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnLineCheckedChanged));
             BrushCheckedProperty = DependencyProperty.Register(nameof(BrushChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnBrushCheckedChanged));
             RectangleCheckedProperty = DependencyProperty.Register(nameof(RectangleChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnRectangleCheckedChanged));
+            RotatedRectangleCheckedProperty = DependencyProperty.Register(nameof(RotatedRectangleChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnRotatedRectangleCheckedChanged));
             CircleCheckedProperty = DependencyProperty.Register(nameof(CircleChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnCircleCheckedChanged));
             EllipseCheckedProperty = DependencyProperty.Register(nameof(EllipseChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnEllipseCheckedChanged));
             PolygonCheckedProperty = DependencyProperty.Register(nameof(PolygonChecked), typeof(bool), typeof(DrawableCanvasEx), new PropertyMetadata(false, OnPolygonCheckedChanged));
@@ -127,6 +133,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// 矩形
         /// </summary>
         private RectangleVisual2D _rectangle;
+
+        /// <summary>
+        /// 旋转矩形
+        /// </summary>
+        private RotatedRectangleVisual2D _rotatedRectangle;
 
         /// <summary>
         /// 圆形
@@ -282,6 +293,17 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
+        #region 依赖属性 - 选中旋转矩形 —— bool RotatedRectangleChecked
+        /// <summary>
+        /// 依赖属性 - 选中旋转矩形
+        /// </summary>
+        public bool RotatedRectangleChecked
+        {
+            get => (bool)this.GetValue(RotatedRectangleCheckedProperty);
+            set => this.SetValue(RotatedRectangleCheckedProperty, value);
+        }
+        #endregion
+
         #region 依赖属性 - 选中圆形 —— bool CircleChecked
         /// <summary>
         /// 依赖属性 - 选中圆形
@@ -364,6 +386,10 @@ namespace SD.Infrastructure.WPF.CustomControls
             {
                 this.RebuildRectangle(rectangle, leftMargin, topMargin);
             }
+            if (canvas.SelectedVisual is RotatedRectangleVisual2D rotatedRectangle)
+            {
+                this.RebuildRotatedRectangle(rotatedRectangle, leftMargin, topMargin);
+            }
             if (canvas.SelectedVisual is CircleVisual2D circle)
             {
                 this.RebuildCircle(circle, leftMargin, topMargin);
@@ -420,6 +446,26 @@ namespace SD.Infrastructure.WPF.CustomControls
                 }
 
                 this.RebuildRectangle(rectangle, leftMargin, topMargin);
+            }
+            if (canvas.SelectedVisual is RotatedRectangleVisual2D rotatedRectangle)
+            {
+                //旋转
+                if (Keyboard.IsKeyDown(Key.LeftCtrl) && Keyboard.IsKeyDown(Key.LeftAlt))
+                {
+                    Point startPosition = canvas.RectifiedStartPosition!.Value;
+                    Point endPosition = canvas.RectifiedMousePosition!.Value;
+                    rotatedRectangle.Angle = Math.Ceiling(endPosition.X - startPosition.X + endPosition.Y - startPosition.Y);
+                }
+                //改变尺寸
+                else
+                {
+                    Point retifiedCenter = new Point(rotatedRectangle.Center.X + leftMargin, rotatedRectangle.Center.Y + topMargin);
+                    double width = Math.Abs(retifiedCenter.X - canvas.RectifiedMousePosition!.Value.X) * 2;
+                    double height = Math.Abs(retifiedCenter.Y - canvas.RectifiedMousePosition!.Value.Y) * 2;
+                    rotatedRectangle.Size = new Size(width, height);
+                }
+
+                this.RebuildRotatedRectangle(rotatedRectangle, leftMargin, topMargin);
             }
             if (canvas.SelectedVisual is CircleVisual2D circle)
             {
@@ -539,6 +585,10 @@ namespace SD.Infrastructure.WPF.CustomControls
             {
                 this.DrawRectangle(canvas);
             }
+            if (this.RotatedRectangleChecked)
+            {
+                this.DrawRotatedRectangle(canvas);
+            }
             if (this.CircleChecked)
             {
                 this.DrawCircle(canvas);
@@ -609,6 +659,23 @@ namespace SD.Infrastructure.WPF.CustomControls
                 ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._rectangle, rectangleL);
                 this.RaiseEvent(shapeEventArgs);
             }
+            if (this._rotatedRectangle != null)
+            {
+                int centerX = (int)Math.Ceiling(this._rotatedRectangle.Center.X);
+                int centerY = (int)Math.Ceiling(this._rotatedRectangle.Center.Y);
+                int width = (int)Math.Ceiling(this._rotatedRectangle.Size.Width);
+                int height = (int)Math.Ceiling(this._rotatedRectangle.Size.Height);
+                float angle = (float)this._rotatedRectangle.Angle;
+                RotatedRectangleL rotatedRectangleL = new RotatedRectangleL(centerX, centerY, width, height, angle);
+
+                this._rotatedRectangle.Tag = rotatedRectangleL;
+                rotatedRectangleL.Tag = this._rotatedRectangle;
+                this.ItemsSource.Add(this._rotatedRectangle);
+
+                //挂起路由事件
+                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._rotatedRectangle, rotatedRectangleL);
+                this.RaiseEvent(shapeEventArgs);
+            }
             if (this._circle != null)
             {
                 int x = (int)Math.Ceiling(this._circle.Center.X);
@@ -644,6 +711,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             this._line = null;
             this._brush = null;
             this._rectangle = null;
+            this._rotatedRectangle = null;
             this._circle = null;
             this._ellipse = null;
         }
@@ -796,6 +864,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 canvas.LineChecked = false;
                 canvas.BrushChecked = false;
                 canvas.RectangleChecked = false;
+                canvas.RotatedRectangleChecked = false;
                 canvas.CircleChecked = false;
                 canvas.EllipseChecked = false;
                 canvas.PolygonChecked = false;
@@ -821,6 +890,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 canvas.LineChecked = false;
                 canvas.BrushChecked = false;
                 canvas.RectangleChecked = false;
+                canvas.RotatedRectangleChecked = false;
                 canvas.CircleChecked = false;
                 canvas.EllipseChecked = false;
                 canvas.PolygonChecked = false;
@@ -846,6 +916,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 canvas.LineChecked = false;
                 canvas.BrushChecked = false;
                 canvas.RectangleChecked = false;
+                canvas.RotatedRectangleChecked = false;
                 canvas.CircleChecked = false;
                 canvas.EllipseChecked = false;
                 canvas.PolygonChecked = false;
@@ -871,6 +942,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 canvas.LineChecked = false;
                 canvas.BrushChecked = false;
                 canvas.RectangleChecked = false;
+                canvas.RotatedRectangleChecked = false;
                 canvas.CircleChecked = false;
                 canvas.EllipseChecked = false;
                 canvas.PolygonChecked = false;
@@ -896,6 +968,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 canvas.PointChecked = false;
                 canvas.BrushChecked = false;
                 canvas.RectangleChecked = false;
+                canvas.RotatedRectangleChecked = false;
                 canvas.CircleChecked = false;
                 canvas.EllipseChecked = false;
                 canvas.PolygonChecked = false;
@@ -921,6 +994,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 canvas.PointChecked = false;
                 canvas.LineChecked = false;
                 canvas.RectangleChecked = false;
+                canvas.RotatedRectangleChecked = false;
                 canvas.CircleChecked = false;
                 canvas.EllipseChecked = false;
                 canvas.PolygonChecked = false;
@@ -946,6 +1020,33 @@ namespace SD.Infrastructure.WPF.CustomControls
                 canvas.PointChecked = false;
                 canvas.LineChecked = false;
                 canvas.BrushChecked = false;
+                canvas.RotatedRectangleChecked = false;
+                canvas.CircleChecked = false;
+                canvas.EllipseChecked = false;
+                canvas.PolygonChecked = false;
+                canvas.PolylineChecked = false;
+            }
+        }
+        #endregion
+
+        #region 选中旋转矩形改变事件 —— static void OnRotatedRectangleCheckedChanged(DependencyObject dependencyObject...
+        /// <summary>
+        /// 选中旋转矩形改变事件
+        /// </summary>
+        private static void OnRotatedRectangleCheckedChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            DrawableCanvasEx canvas = (DrawableCanvasEx)dependencyObject;
+            bool rotatedRectangleChecked = (bool)eventArgs.NewValue;
+            if (rotatedRectangleChecked)
+            {
+                canvas.Mode = CanvasMode.Draw;
+                canvas.ScaleChecked = false;
+                canvas.DragChecked = false;
+                canvas.ResizeChecked = false;
+                canvas.PointChecked = false;
+                canvas.LineChecked = false;
+                canvas.BrushChecked = false;
+                canvas.RectangleChecked = false;
                 canvas.CircleChecked = false;
                 canvas.EllipseChecked = false;
                 canvas.PolygonChecked = false;
@@ -972,6 +1073,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 canvas.LineChecked = false;
                 canvas.BrushChecked = false;
                 canvas.RectangleChecked = false;
+                canvas.RotatedRectangleChecked = false;
                 canvas.EllipseChecked = false;
                 canvas.PolygonChecked = false;
                 canvas.PolylineChecked = false;
@@ -997,6 +1099,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 canvas.LineChecked = false;
                 canvas.BrushChecked = false;
                 canvas.RectangleChecked = false;
+                canvas.RotatedRectangleChecked = false;
                 canvas.CircleChecked = false;
                 canvas.PolygonChecked = false;
                 canvas.PolylineChecked = false;
@@ -1022,6 +1125,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 canvas.LineChecked = false;
                 canvas.BrushChecked = false;
                 canvas.RectangleChecked = false;
+                canvas.RotatedRectangleChecked = false;
                 canvas.CircleChecked = false;
                 canvas.EllipseChecked = false;
                 canvas.PolylineChecked = false;
@@ -1047,6 +1151,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 canvas.LineChecked = false;
                 canvas.BrushChecked = false;
                 canvas.RectangleChecked = false;
+                canvas.RotatedRectangleChecked = false;
                 canvas.CircleChecked = false;
                 canvas.EllipseChecked = false;
                 canvas.PolygonChecked = false;
@@ -1181,6 +1286,35 @@ namespace SD.Infrastructure.WPF.CustomControls
                 rectangle.Tag = newRectangleL;
                 newRectangleL.Tag = rectangle;
                 this.DatasSource.Insert(index, newRectangleL);
+            }
+        }
+        #endregion
+
+        #region 重建旋转矩形 —— void RebuildRotatedRectangle(RotatedRectangleVisual2D...
+        /// <summary>
+        /// 重建旋转矩形
+        /// </summary>
+        /// <param name="rotatedRectangle">旋转矩形</param>
+        /// <param name="leftMargin">左边距</param>
+        /// <param name="topMargin">上边距</param>
+        private void RebuildRotatedRectangle(RotatedRectangleVisual2D rotatedRectangle, double leftMargin, double topMargin)
+        {
+            RotatedRectangleL rotatedRectangleL = (RotatedRectangleL)rotatedRectangle.Tag;
+            int index = this.DatasSource.IndexOf(rotatedRectangleL);
+            if (index != -1)
+            {
+                this.DatasSource.Remove(rotatedRectangleL);
+
+                int centerX = (int)Math.Ceiling(rotatedRectangle.Center.X + leftMargin);
+                int centerY = (int)Math.Ceiling(rotatedRectangle.Center.Y + topMargin);
+                int width = (int)Math.Ceiling(rotatedRectangle.Size.Width);
+                int height = (int)Math.Ceiling(rotatedRectangle.Size.Height);
+                float angle = (float)rotatedRectangle.Angle;
+                RotatedRectangleL newRotatedRectangleL = new RotatedRectangleL(centerX, centerY, width, height, angle);
+
+                rotatedRectangle.Tag = newRotatedRectangleL;
+                newRotatedRectangleL.Tag = rotatedRectangle;
+                this.DatasSource.Insert(index, newRotatedRectangleL);
             }
         }
         #endregion
@@ -1428,6 +1562,34 @@ namespace SD.Infrastructure.WPF.CustomControls
             double width = Math.Abs(rectifiedPosition.X - rectifiedVertex.X);
             double height = Math.Abs(rectifiedPosition.Y - rectifiedVertex.Y);
             this._rectangle.Size = new Size(width, height);
+        }
+        #endregion
+
+        #region 绘制旋转矩形 —— void DrawRotatedRectangle(CanvasEx canvas)
+        /// <summary>
+        /// 绘制旋转矩形
+        /// </summary>
+        private void DrawRotatedRectangle(CanvasEx canvas)
+        {
+            if (this._rotatedRectangle == null)
+            {
+                this._rotatedRectangle = new RotatedRectangleVisual2D()
+                {
+                    Fill = new SolidColorBrush(Colors.Transparent),
+                    Stroke = this.BorderBrush,
+                    StrokeThickness = this.BorderThickness / canvas.ScaledRatio,
+                    RenderTransform = canvas.MatrixTransform
+                };
+                canvas.Children.Add(this._rotatedRectangle);
+            }
+
+            Point rectifiedCenter = canvas.RectifiedStartPosition!.Value;
+            Point rectifiedPosition = canvas.RectifiedMousePosition!.Value;
+
+            double width = Math.Abs(rectifiedPosition.X - rectifiedCenter.X) * 2;
+            double height = Math.Abs(rectifiedPosition.Y - rectifiedCenter.Y) * 2;
+            this._rotatedRectangle.Center = rectifiedCenter;
+            this._rotatedRectangle.Size = new Size(width, height);
         }
         #endregion
 

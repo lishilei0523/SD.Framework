@@ -520,12 +520,7 @@ namespace SD.Infrastructure.WPF.Extensions
             }
             else
             {
-                brushAnimation = new BrushAnimation
-                {
-                    From = new SolidColorBrush(Colors.Transparent),
-                    To = shape.Stroke,
-                    Duration = animationDuration
-                };
+                return;
             }
 
             Storyboard storyboard = new Storyboard();
