@@ -198,7 +198,6 @@ namespace SD.Infrastructure.WPF.CustomControls
             base.Drawn += this.OnDrawn;
             base.MouseMove += this.OnCanvasMouseMove;
             base.MouseWheel += this.OnCanvasMouseWheel;
-            base.MouseLeave += this.OnCanvasMouseLeave;
         }
 
         #endregion
@@ -619,7 +618,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 this.ItemsSource.Add(this._line);
 
                 //挂起路由事件
-                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._line, lineL);
+                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._line);
                 this.RaiseEvent(shapeEventArgs);
             }
             if (this._brush != null)
@@ -640,7 +639,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 this.ItemsSource.Add(this._brush);
 
                 //挂起路由事件
-                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._brush, polylineL);
+                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._brush);
                 this.RaiseEvent(shapeEventArgs);
             }
             if (this._rectangle != null)
@@ -656,7 +655,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 this.ItemsSource.Add(this._rectangle);
 
                 //挂起路由事件
-                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._rectangle, rectangleL);
+                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._rectangle);
                 this.RaiseEvent(shapeEventArgs);
             }
             if (this._rotatedRectangle != null)
@@ -673,7 +672,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 this.ItemsSource.Add(this._rotatedRectangle);
 
                 //挂起路由事件
-                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._rotatedRectangle, rotatedRectangleL);
+                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._rotatedRectangle);
                 this.RaiseEvent(shapeEventArgs);
             }
             if (this._circle != null)
@@ -688,7 +687,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 this.ItemsSource.Add(this._circle);
 
                 //挂起路由事件
-                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._circle, circleL);
+                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._circle);
                 this.RaiseEvent(shapeEventArgs);
             }
             if (this._ellipse != null)
@@ -704,7 +703,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 this.ItemsSource.Add(this._ellipse);
 
                 //挂起路由事件
-                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._ellipse, ellipseL);
+                ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, this._ellipse);
                 this.RaiseEvent(shapeEventArgs);
             }
 
@@ -797,35 +796,21 @@ namespace SD.Infrastructure.WPF.CustomControls
         /// </summary>
         private void OnCanvasMouseWheel(object sender, MouseEventArgs eventArgs)
         {
-            CanvasEx canvas = (CanvasEx)sender;
+            DrawableCanvasEx canvas = (DrawableCanvasEx)sender;
             if (!canvas.ScaledRatio.Equals(0))
             {
                 //参考线粗细调整
                 this._horizontalLine.StrokeThickness = GuideLineThickness / canvas.ScaledRatio;
                 this._verticalLine.StrokeThickness = GuideLineThickness / canvas.ScaledRatio;
 
-                //网格线粗细调整
-                foreach (GridLinesVisual2D gridLines in canvas.Children.OfType<GridLinesVisual2D>())
-                {
-                    gridLines.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
-                }
-
-                //图形边框粗细调整
+                //锚点、锚线粗细调整
                 if (this._realAnchorLine != null)
                 {
                     this._realAnchorLine.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
                 }
-                foreach (Shape shape in this.ItemsSource)
-                {
-                    shape.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
-                }
                 foreach (Line line in this._polyAnchorLines)
                 {
                     line.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
-                }
-                foreach (PointVisual2D pointVisual2D in this.ItemsSource.OfType<PointVisual2D>())
-                {
-                    pointVisual2D.Thickness = PointVisual2D.DefaultThickness / canvas.ScaledRatio;
                 }
                 foreach (PointVisual2D pointVisual2D in this._polyAnchors)
                 {
@@ -833,17 +818,6 @@ namespace SD.Infrastructure.WPF.CustomControls
                     pointVisual2D.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
                 }
             }
-        }
-        #endregion
-
-        #region 画布鼠标离开事件 —— void OnCanvasMouseLeave(object sender...
-        /// <summary>
-        /// 画布鼠标离开事件
-        /// </summary>
-        private void OnCanvasMouseLeave(object sender, MouseEventArgs eventArgs)
-        {
-            //设置光标
-            Mouse.OverrideCursor = Cursors.Arrow;
         }
         #endregion
 
@@ -1465,7 +1439,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             this.ItemsSource.Add(point);
 
             //挂起路由事件
-            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, point, pointL);
+            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, point);
             this.RaiseEvent(shapeEventArgs);
         }
         #endregion
@@ -1754,7 +1728,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             this._polyAnchorLines.Clear();
 
             //挂起路由事件
-            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, polygon, polygonL);
+            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, polygon);
             this.RaiseEvent(shapeEventArgs);
         }
         #endregion
@@ -1810,7 +1784,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             this._polyAnchorLines.Clear();
 
             //挂起路由事件
-            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, polyline, polylineL);
+            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeDrawnEvent, polyline);
             this.RaiseEvent(shapeEventArgs);
         }
         #endregion

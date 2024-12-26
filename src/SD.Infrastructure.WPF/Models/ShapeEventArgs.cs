@@ -1,5 +1,4 @@
-﻿using SD.Infrastructure.Shapes;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Shapes;
 
 namespace SD.Infrastructure.WPF.Models
@@ -14,22 +13,15 @@ namespace SD.Infrastructure.WPF.Models
         /// </summary>
         /// <param name="routedEvent">路由事件</param>
         /// <param name="shape">形状</param>
-        /// <param name="shapeL">形状数据</param>
-        public ShapeEventArgs(RoutedEvent routedEvent, Shape shape, ShapeL shapeL)
+        public ShapeEventArgs(RoutedEvent routedEvent, Shape shape)
             : base(routedEvent)
         {
             this.Shape = shape;
-            this.ShapeL = shapeL;
         }
 
         /// <summary>
         /// 形状
         /// </summary>
         public Shape Shape { get; set; }
-
-        /// <summary>
-        /// 形状数据
-        /// </summary>
-        public ShapeL ShapeL { get; set; }
     }
 }

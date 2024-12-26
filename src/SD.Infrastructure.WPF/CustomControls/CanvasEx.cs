@@ -197,6 +197,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             base.PreviewMouseMove += this.OnMouseMove;
             base.PreviewMouseWheel += this.OnMouseWheel;
             base.PreviewMouseUp += this.OnMouseUp;
+            base.MouseLeave += this.OnMouseLeave;
         }
 
         #endregion
@@ -746,10 +747,9 @@ namespace SD.Infrastructure.WPF.CustomControls
         private void OnShapeMouseLeftDown(object sender, MouseButtonEventArgs eventArgs)
         {
             Shape shape = (Shape)sender;
-            ShapeL shapeL = (ShapeL)shape.Tag;
 
             //挂起路由事件
-            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeClickEvent, shape, shapeL);
+            ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeClickEvent, shape);
             this.RaiseEvent(shapeEventArgs);
         }
         #endregion
@@ -894,6 +894,26 @@ namespace SD.Infrastructure.WPF.CustomControls
             Point mousePostion = eventArgs.GetPosition(this);
 
             this.Scale(scaledFactor, mousePostion.X, mousePostion.Y);
+
+            CanvasEx canvas = (CanvasEx)sender;
+            if (!canvas.ScaledRatio.Equals(0))
+            {
+                //网格线粗细调整
+                foreach (GridLinesVisual2D gridLines in canvas.Children.OfType<GridLinesVisual2D>())
+                {
+                    gridLines.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
+                }
+
+                //图形边框粗细调整
+                foreach (Shape shape in this.ItemsSource)
+                {
+                    shape.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
+                }
+                foreach (PointVisual2D pointVisual2D in this.ItemsSource.OfType<PointVisual2D>())
+                {
+                    pointVisual2D.Thickness = PointVisual2D.DefaultThickness / canvas.ScaledRatio;
+                }
+            }
         }
         #endregion
 
@@ -917,6 +937,17 @@ namespace SD.Infrastructure.WPF.CustomControls
                 //挂起路由事件
                 this.RaiseEvent(new RoutedEventArgs(DrawnEvent, this));
             }
+        }
+        #endregion
+
+        #region 鼠标离开事件 —— void OnMouseLeave(object sender, MouseEventArgs eventArgs)
+        /// <summary>
+        /// 鼠标离开事件
+        /// </summary>
+        private void OnMouseLeave(object sender, MouseEventArgs eventArgs)
+        {
+            //设置光标
+            Mouse.OverrideCursor = Cursors.Arrow;
         }
         #endregion
 
