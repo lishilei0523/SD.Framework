@@ -82,6 +82,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly DependencyProperty DatasSourceProperty;
 
         /// <summary>
+        /// 形状上下文菜单依赖属性
+        /// </summary>
+        public static readonly DependencyProperty ShapeContextMenuProperty;
+
+        /// <summary>
         /// 元素拖拽路由事件
         /// </summary>
         public static readonly RoutedEvent ElementDragEvent;
@@ -126,6 +131,7 @@ namespace SD.Infrastructure.WPF.CustomControls
             ResizableProperty = DependencyProperty.Register(nameof(Resizable), typeof(bool), typeof(CanvasEx), new PropertyMetadata(true));
             ItemsSourceProperty = DependencyProperty.Register(nameof(ItemsSource), typeof(ObservableCollection<Shape>), typeof(CanvasEx), new PropertyMetadata(new ObservableCollection<Shape>(), OnItemsSourceChanged));
             DatasSourceProperty = DependencyProperty.Register(nameof(DatasSource), typeof(ObservableCollection<ShapeL>), typeof(CanvasEx), new PropertyMetadata(new ObservableCollection<ShapeL>()));
+            ShapeContextMenuProperty = DependencyProperty.Register(nameof(ShapeContextMenu), typeof(ContextMenu), typeof(CanvasEx), new PropertyMetadata(null));
             ElementDragEvent = EventManager.RegisterRoutedEvent(nameof(ElementDrag), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             ElementResizeEvent = EventManager.RegisterRoutedEvent(nameof(ElementResize), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
             DrawEvent = EventManager.RegisterRoutedEvent(nameof(Draw), RoutingStrategy.Direct, typeof(CanvasEventHandler), typeof(CanvasEx));
@@ -311,6 +317,17 @@ namespace SD.Infrastructure.WPF.CustomControls
         {
             get => (ObservableCollection<ShapeL>)this.GetValue(DatasSourceProperty);
             set => this.SetValue(DatasSourceProperty, value);
+        }
+        #endregion
+
+        #region 依赖属性 - 形状上下文菜单 —— ContextMenu ShapeContextMenu
+        /// <summary>
+        /// 依赖属性 - 形状上下文菜单
+        /// </summary>
+        public ContextMenu ShapeContextMenu
+        {
+            get => (ContextMenu)this.GetValue(ShapeContextMenuProperty);
+            set => this.SetValue(ShapeContextMenuProperty, value);
         }
         #endregion
 
@@ -646,6 +663,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                     }
 
                     shape.RenderTransform = canvas.MatrixTransform;
+                    shape.ContextMenu = canvas.ShapeContextMenu;
                     shape.MouseLeftButtonDown += canvas.OnShapeMouseLeftDown;
                     if (!canvas.Children.Contains(shape))
                     {
@@ -710,6 +728,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                     }
 
                     shape.RenderTransform = this.MatrixTransform;
+                    shape.ContextMenu = this.ShapeContextMenu;
                     shape.MouseLeftButtonDown += this.OnShapeMouseLeftDown;
                     if (!this.Children.Contains(shape))
                     {
