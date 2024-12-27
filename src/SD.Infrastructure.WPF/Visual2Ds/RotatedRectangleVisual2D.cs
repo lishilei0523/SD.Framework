@@ -56,7 +56,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         {
             CenterProperty = DependencyProperty.Register(nameof(Center), typeof(Point), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(new Point(50, 50), FrameworkPropertyMetadataOptions.AffectsRender));
             SizeProperty = DependencyProperty.Register(nameof(Size), typeof(Size), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(new Size(50, 25), FrameworkPropertyMetadataOptions.AffectsRender));
-            AngleProperty = DependencyProperty.Register(nameof(Angle), typeof(double), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsRender));
+            AngleProperty = DependencyProperty.Register(nameof(Angle), typeof(double), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(0d, FrameworkPropertyMetadataOptions.AffectsRender, OnAngleChanged));
             LabelProperty = DependencyProperty.Register(nameof(Label), typeof(string), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(null, FrameworkPropertyMetadataOptions.AffectsRender));
             FontSizeProperty = DependencyProperty.Register(nameof(FontSize), typeof(double), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(14d, FrameworkPropertyMetadataOptions.AffectsRender));
             ShowCenterProperty = DependencyProperty.Register(nameof(ShowCenter), typeof(bool), typeof(RotatedRectangleVisual2D), new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.AffectsRender));
@@ -293,6 +293,20 @@ namespace SD.Infrastructure.WPF.Visual2Ds
             {
                 double radius = base.StrokeThickness * 1.5;
                 drawingContext.DrawEllipse(base.Stroke, null, this.Center, radius, radius);
+            }
+        }
+        #endregion
+
+        #region 角度改变事件 —— static void OnAngleChanged(DependencyObject dependencyObject...
+        /// <summary>
+        /// 角度改变事件
+        /// </summary>
+        private static void OnAngleChanged(DependencyObject dependencyObject, DependencyPropertyChangedEventArgs eventArgs)
+        {
+            RotatedRectangleVisual2D rotatedRectangle = (RotatedRectangleVisual2D)dependencyObject;
+            if (eventArgs.NewValue is double angle)
+            {
+
             }
         }
         #endregion

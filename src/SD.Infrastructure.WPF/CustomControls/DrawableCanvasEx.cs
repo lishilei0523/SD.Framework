@@ -453,7 +453,8 @@ namespace SD.Infrastructure.WPF.CustomControls
                 {
                     Point startPosition = canvas.RectifiedStartPosition!.Value;
                     Point endPosition = canvas.RectifiedMousePosition!.Value;
-                    rotatedRectangle.Angle = Math.Ceiling(endPosition.X - startPosition.X + endPosition.Y - startPosition.Y);
+                    double angle = (endPosition.X - startPosition.X + endPosition.Y - startPosition.Y) % 180;
+                    rotatedRectangle.Angle = Math.Ceiling(angle);
                 }
                 //改变尺寸
                 else
