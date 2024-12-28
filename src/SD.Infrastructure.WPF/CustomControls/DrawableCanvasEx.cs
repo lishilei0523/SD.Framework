@@ -364,6 +364,21 @@ namespace SD.Infrastructure.WPF.CustomControls
 
         //Events
 
+        #region 初始化结束事件 —— override void EndInit()
+        /// <summary>
+        /// 初始化结束事件
+        /// </summary>
+        public override void EndInit()
+        {
+            base.EndInit();
+
+            //注册所在窗体键盘事件
+            Window hostWindow = Window.GetWindow(this);
+            hostWindow!.KeyDown -= this.OnCanvasKeyDown;
+            hostWindow!.KeyDown += this.OnCanvasKeyDown;
+        }
+        #endregion
+
         #region 拖拽元素事件 —— void OnDragElement(CanvasEx canvas...
         /// <summary>
         /// 拖拽元素事件
@@ -724,12 +739,11 @@ namespace SD.Infrastructure.WPF.CustomControls
         private void OnCanvasMouseMove(object sender, MouseEventArgs eventArgs)
         {
             CanvasEx canvas = (CanvasEx)sender;
+            Point rectifiedPosition = canvas.RectifiedMousePosition!.Value;
 
             //十字参考线
             if (this.BackgroundImage?.Source != null)
             {
-                Point rectifiedPosition = canvas.RectifiedMousePosition!.Value;
-
                 //参考线坐标调整
                 this._horizontalLine.Y1 = rectifiedPosition.Y > this.BackgroundImage.Source.Height
                     ? this.BackgroundImage.Source.Height
@@ -743,6 +757,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 //设置光标
                 Mouse.OverrideCursor = Cursors.Cross;
             }
+
             //实时锚线
             if ((this.PolygonChecked || this.PolylineChecked) && this._polyAnchors.Any())
             {
@@ -758,12 +773,13 @@ namespace SD.Infrastructure.WPF.CustomControls
                     canvas.Children.Add(this._realAnchorLine);
                 }
                 PointVisual2D startPoint = this._polyAnchors.Last();
-                Point endPoint = canvas.RectifiedMousePosition!.Value;
+                Point endPoint = rectifiedPosition;
                 this._realAnchorLine.X1 = startPoint.X;
                 this._realAnchorLine.Y1 = startPoint.Y;
                 this._realAnchorLine.X2 = endPoint.X;
                 this._realAnchorLine.Y2 = endPoint.Y;
             }
+
             //起始锚点滑过放大
             if (this._polyAnchors.Count > 1)
             {
@@ -773,8 +789,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 //计算鼠标位置与起始锚点的距离
                 PointVisual2D startAnchor = this._polyAnchors.First();
                 Point targetPoint = new Point(startAnchor.X, startAnchor.Y);
-                Point mousePosition = canvas.RectifiedMousePosition!.Value;
-                Vector vector = Point.Subtract(mousePosition, targetPoint);
+                Vector vector = Point.Subtract(rectifiedPosition, targetPoint);
 
                 //判断距离
                 if (vector.Length < minDistance)
@@ -818,6 +833,41 @@ namespace SD.Infrastructure.WPF.CustomControls
                     pointVisual2D.Thickness = PointVisual2D.DefaultThickness / canvas.ScaledRatio;
                     pointVisual2D.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
                 }
+            }
+        }
+        #endregion
+
+        #region 画布键盘按下事件 —— void OnCanvasKeyDown(object sender...
+        /// <summary>
+        /// 画布键盘按下事件
+        /// </summary>
+        private void OnCanvasKeyDown(object sender, KeyEventArgs eventArgs)
+        {
+            //取消绘制
+            if (Keyboard.IsKeyDown(Key.Escape))
+            {
+                foreach (PointVisual2D anchor in this._polyAnchors)
+                {
+                    if (this.Children.Contains(anchor))
+                    {
+                        this.Children.Remove(anchor);
+                    }
+                }
+                foreach (Line anchorLine in this._polyAnchorLines)
+                {
+                    if (this.Children.Contains(anchorLine))
+                    {
+                        this.Children.Remove(anchorLine);
+                    }
+                }
+                if (this.Children.Contains(this._realAnchorLine))
+                {
+                    this.Children.Remove(this._realAnchorLine);
+                }
+
+                this._polyAnchors.Clear();
+                this._polyAnchorLines.Clear();
+                this._realAnchorLine = null;
             }
         }
         #endregion
