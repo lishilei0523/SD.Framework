@@ -22,7 +22,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         #region # 字段及构造器
 
         /// <summary>
-        /// 默认缩放系数
+        /// 默认缩放因子
         /// </summary>
         public const float DefaultScaledFactor = 1.1f;
 
@@ -37,7 +37,7 @@ namespace SD.Infrastructure.WPF.CustomControls
         public static readonly DependencyProperty ModeProperty;
 
         /// <summary>
-        /// 缩放系数依赖属性
+        /// 缩放因子依赖属性
         /// </summary>
         public static readonly DependencyProperty ScaledFactorProperty;
 
@@ -221,9 +221,9 @@ namespace SD.Infrastructure.WPF.CustomControls
         }
         #endregion
 
-        #region 依赖属性 - 缩放系数 —— float ScaledFactor
+        #region 依赖属性 - 缩放因子 —— float ScaledFactor
         /// <summary>
-        /// 依赖属性 - 缩放系数
+        /// 依赖属性 - 缩放因子
         /// </summary>
         public float ScaledFactor
         {
@@ -537,18 +537,16 @@ namespace SD.Infrastructure.WPF.CustomControls
             CanvasEx canvas = (CanvasEx)dependencyObject;
             if (eventArgs.NewValue is double thickness)
             {
-                double scaledRatio = canvas.ScaledRatio.Equals(0) ? 1 : canvas.ScaledRatio;
-
                 //网格线粗细调整
                 foreach (GridLinesVisual2D gridLines in canvas.Children.OfType<GridLinesVisual2D>())
                 {
-                    gridLines.StrokeThickness = thickness / scaledRatio;
+                    gridLines.StrokeThickness = thickness / canvas.ScaledRatio;
                 }
 
                 //图形边框粗细调整
                 foreach (Shape shape in canvas.ItemsSource)
                 {
-                    shape.StrokeThickness = thickness / scaledRatio;
+                    shape.StrokeThickness = thickness / canvas.ScaledRatio;
                 }
             }
         }
@@ -665,6 +663,8 @@ namespace SD.Infrastructure.WPF.CustomControls
                     shape.RenderTransform = canvas.MatrixTransform;
                     shape.ContextMenu = canvas.ShapeContextMenu;
                     shape.MouseLeftButtonDown += canvas.OnShapeMouseLeftDown;
+                    shape.MouseEnter += canvas.OnShapeMouseEnter;
+                    shape.MouseLeave += canvas.OnShapeMouseLeave;
                     if (!canvas.Children.Contains(shape))
                     {
                         canvas.Children.Add(shape);
@@ -730,6 +730,8 @@ namespace SD.Infrastructure.WPF.CustomControls
                     shape.RenderTransform = this.MatrixTransform;
                     shape.ContextMenu = this.ShapeContextMenu;
                     shape.MouseLeftButtonDown += this.OnShapeMouseLeftDown;
+                    shape.MouseEnter += this.OnShapeMouseEnter;
+                    shape.MouseLeave += this.OnShapeMouseLeave;
                     if (!this.Children.Contains(shape))
                     {
                         this.Children.Add(shape);
@@ -770,6 +772,28 @@ namespace SD.Infrastructure.WPF.CustomControls
             //挂起路由事件
             ShapeEventArgs shapeEventArgs = new ShapeEventArgs(ShapeClickEvent, shape);
             this.RaiseEvent(shapeEventArgs);
+        }
+        #endregion
+
+        #region 形状鼠标进入事件 —— void OnShapeMouseEnter(object sender, MouseEventArgs e)
+        /// <summary>
+        /// 形状鼠标进入事件
+        /// </summary>
+        private void OnShapeMouseEnter(object sender, MouseEventArgs e)
+        {
+            Shape shape = (Shape)sender;
+            shape.StrokeThickness = this.BorderThickness / this.ScaledRatio * 1.5;
+        }
+        #endregion
+
+        #region 形状鼠标离开事件 —— void OnShapeMouseLeave(object sender, MouseEventArgs e)
+        /// <summary>
+        /// 形状鼠标离开事件
+        /// </summary>
+        private void OnShapeMouseLeave(object sender, MouseEventArgs e)
+        {
+            Shape shape = (Shape)sender;
+            shape.StrokeThickness = this.BorderThickness / this.ScaledRatio;
         }
         #endregion
 

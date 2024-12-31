@@ -12,9 +12,9 @@ namespace SD.Infrastructure.WPF.UserControls
         #region # 字段及构造器
 
         /// <summary>
-        /// 缩放系数
+        /// 默认缩放因子
         /// </summary>
-        private const float ScaleFactor = 1.1F;
+        public const float ScaleFactor = 1.1F;
 
         /// <summary>
         /// 图像源1依赖属性
