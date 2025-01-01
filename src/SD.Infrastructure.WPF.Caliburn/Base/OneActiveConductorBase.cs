@@ -43,7 +43,19 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
             //初始化通知
             this._notifier = new Notifier(options =>
             {
-                options.PositionProvider = new WindowPositionProvider(Application.Current.MainWindow, this.NotifierOptions.Location, this.NotifierOptions.MarginX, this.NotifierOptions.MarginY);
+                Window[] windows = Application.Current.Windows.Cast<Window>().ToArray();
+                Window currentWindow = windows.Any(window => window.IsActive)
+                    ? windows.Single(window => window.IsActive)
+                    : Application.Current.MainWindow;
+                if (currentWindow != null)
+                {
+                    options.PositionProvider = new WindowPositionProvider(currentWindow, this.NotifierOptions.Location, this.NotifierOptions.MarginX, this.NotifierOptions.MarginY);
+                }
+                else
+                {
+                    options.PositionProvider = new PrimaryScreenPositionProvider(this.NotifierOptions.Location, this.NotifierOptions.MarginX, this.NotifierOptions.MarginY);
+                }
+
                 options.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(TimeSpan.FromSeconds(this.NotifierOptions.Lifetime), MaximumNotificationCount.FromCount(this.NotifierOptions.MaxCount));
                 options.DisplayOptions.TopMost = false;
                 options.Dispatcher = Dispatcher.CurrentDispatcher;
