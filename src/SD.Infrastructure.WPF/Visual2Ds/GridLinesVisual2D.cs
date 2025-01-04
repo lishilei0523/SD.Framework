@@ -12,6 +12,11 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         #region # 字段及构造器
 
         /// <summary>
+        /// 默认边框厚度
+        /// </summary>
+        public const double DefaultStrokeThickness = 1d;
+
+        /// <summary>
         /// 默认行数
         /// </summary>
         public const int DefaultRows = 2000;
@@ -63,6 +68,7 @@ namespace SD.Infrastructure.WPF.Visual2Ds
         public GridLinesVisual2D()
         {
             base.Stroke = new SolidColorBrush(Colors.Gray);
+            base.StrokeThickness = DefaultStrokeThickness;
         }
 
         #endregion

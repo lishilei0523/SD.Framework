@@ -540,7 +540,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 //网格线粗细调整
                 foreach (GridLinesVisual2D gridLines in canvas.Children.OfType<GridLinesVisual2D>())
                 {
-                    gridLines.StrokeThickness = thickness / canvas.ScaledRatio;
+                    gridLines.StrokeThickness = GridLinesVisual2D.DefaultStrokeThickness / canvas.ScaledRatio;
                 }
 
                 //图形边框粗细调整
@@ -782,7 +782,14 @@ namespace SD.Infrastructure.WPF.CustomControls
         private void OnShapeMouseEnter(object sender, MouseEventArgs e)
         {
             Shape shape = (Shape)sender;
-            shape.StrokeThickness = this.BorderThickness / this.ScaledRatio * 1.5;
+            if (shape is TextVisual2D)
+            {
+                shape.StrokeThickness = TextVisual2D.DefaultStrokeThickness / this.ScaledRatio * 10;
+            }
+            else
+            {
+                shape.StrokeThickness = this.BorderThickness / this.ScaledRatio * 1.5;
+            }
         }
         #endregion
 
@@ -793,7 +800,14 @@ namespace SD.Infrastructure.WPF.CustomControls
         private void OnShapeMouseLeave(object sender, MouseEventArgs e)
         {
             Shape shape = (Shape)sender;
-            shape.StrokeThickness = this.BorderThickness / this.ScaledRatio;
+            if (shape is TextVisual2D)
+            {
+                shape.StrokeThickness = TextVisual2D.DefaultStrokeThickness / this.ScaledRatio;
+            }
+            else
+            {
+                shape.StrokeThickness = this.BorderThickness / this.ScaledRatio;
+            }
         }
         #endregion
 
@@ -944,7 +958,7 @@ namespace SD.Infrastructure.WPF.CustomControls
                 //网格线粗细调整
                 foreach (GridLinesVisual2D gridLines in canvas.Children.OfType<GridLinesVisual2D>())
                 {
-                    gridLines.StrokeThickness = this.BorderThickness / canvas.ScaledRatio;
+                    gridLines.StrokeThickness = GridLinesVisual2D.DefaultStrokeThickness / canvas.ScaledRatio;
                 }
 
                 //图形边框粗细调整
@@ -955,6 +969,10 @@ namespace SD.Infrastructure.WPF.CustomControls
                 foreach (PointVisual2D pointVisual2D in this.ItemsSource.OfType<PointVisual2D>())
                 {
                     pointVisual2D.Thickness = PointVisual2D.DefaultThickness / canvas.ScaledRatio;
+                }
+                foreach (TextVisual2D textVisual2D in this.ItemsSource.OfType<TextVisual2D>())
+                {
+                    textVisual2D.StrokeThickness = TextVisual2D.DefaultStrokeThickness / canvas.ScaledRatio;
                 }
             }
         }

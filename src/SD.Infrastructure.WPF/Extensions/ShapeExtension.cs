@@ -497,8 +497,7 @@ namespace SD.Infrastructure.WPF.Extensions
             {
                 GradientStop firstStop = linearGradientBrush.GradientStops.First();
                 GradientStop lastStop = linearGradientBrush.GradientStops.Last();
-                LinearGradientBrush invertBrush = new LinearGradientBrush(lastStop.Color, firstStop.Color,
-                    linearGradientBrush.StartPoint, linearGradientBrush.EndPoint);
+                LinearGradientBrush invertBrush = new LinearGradientBrush(lastStop.Color, firstStop.Color, linearGradientBrush.StartPoint, linearGradientBrush.EndPoint);
                 brushAnimation = new BrushAnimation
                 {
                     From = invertBrush,
@@ -554,8 +553,7 @@ namespace SD.Infrastructure.WPF.Extensions
             {
                 GradientStop firstStop = linearGradientBrush.GradientStops.First();
                 GradientStop lastStop = linearGradientBrush.GradientStops.Last();
-                LinearGradientBrush invertBrush = new LinearGradientBrush(lastStop.Color, firstStop.Color,
-                    linearGradientBrush.StartPoint, linearGradientBrush.EndPoint);
+                LinearGradientBrush invertBrush = new LinearGradientBrush(lastStop.Color, firstStop.Color, linearGradientBrush.StartPoint, linearGradientBrush.EndPoint);
                 brushAnimation = new BrushAnimation
                 {
                     From = invertBrush,
