@@ -4,7 +4,7 @@
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - 定时任务基础</Description>
-    <Copyright>Copyright © SD 2024</Copyright>
+    <Copyright>Copyright © SD 2025</Copyright>
     <Version>1.4.0</Version>
     <AssemblyVersion>1.4.0</AssemblyVersion>
     <FileVersion>1.4.0.0</FileVersion>
@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Quartz" Version="3.13.1" />
-    <PackageReference Include="MrAdvice" Version="2.16.0" />
+    <PackageReference Include="MrAdvice" Version="2.17.0" />
     <PackageReference Include="SD.IOC.Core" Version="2.3.0" />
   </ItemGroup>
 

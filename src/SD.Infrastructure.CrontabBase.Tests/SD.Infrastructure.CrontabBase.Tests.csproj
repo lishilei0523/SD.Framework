@@ -4,7 +4,7 @@
     <IsPackable>false</IsPackable>
     <Authors>Lee</Authors>
     <Company>SD</Company>
-    <Copyright>Copyright © SD 2024</Copyright>
+    <Copyright>Copyright © SD 2025</Copyright>
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
@@ -18,14 +18,14 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.12.0" />
-    <PackageReference Include="MSTest.TestAdapter" Version="3.6.4" />
-    <PackageReference Include="MSTest.TestFramework" Version="3.6.4" />
-    <PackageReference Include="coverlet.collector" Version="6.0.2">
+    <PackageReference Include="MSTest.TestAdapter" Version="3.7.0" />
+    <PackageReference Include="MSTest.TestFramework" Version="3.7.0" />
+    <PackageReference Include="coverlet.collector" Version="6.0.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Quartz" Version="3.13.1" />
-    <PackageReference Include="MrAdvice" Version="2.16.0" />
+    <PackageReference Include="MrAdvice" Version="2.17.0" />
     <PackageReference Include="SD.Common" Version="3.4.0" />
     <PackageReference Include="SD.Toolkits.Redis" Version="2.2.0" />
     <PackageReference Include="SD.IOC.Core" Version="2.3.0" />
