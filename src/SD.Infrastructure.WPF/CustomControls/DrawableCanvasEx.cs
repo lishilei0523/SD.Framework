@@ -475,8 +475,13 @@ namespace SD.Infrastructure.WPF.CustomControls
                 else
                 {
                     Point retifiedCenter = new Point(rotatedRectangle.Center.X + leftMargin, rotatedRectangle.Center.Y + topMargin);
-                    double width = Math.Abs(retifiedCenter.X - canvas.RectifiedMousePosition!.Value.X) * 2;
-                    double height = Math.Abs(retifiedCenter.Y - canvas.RectifiedMousePosition!.Value.Y) * 2;
+
+                    GeneralTransform inverseTransform = rotatedRectangle.RotateTransform.Inverse!;
+                    Point centerPosition = inverseTransform.Transform(retifiedCenter);
+                    Point mousePosition = inverseTransform.Transform(canvas.RectifiedMousePosition!.Value);
+
+                    double width = Math.Abs(centerPosition.X - mousePosition.X) * 2;
+                    double height = Math.Abs(centerPosition.Y - mousePosition.Y) * 2;
                     rotatedRectangle.Size = new Size(width, height);
                 }
 
