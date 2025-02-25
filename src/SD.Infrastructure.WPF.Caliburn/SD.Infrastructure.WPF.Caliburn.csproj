@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <PackageReference Include="Caliburn.Micro" Version="4.0.212" />
-    <PackageReference Include="MrAdvice" Version="2.17.0" />
+    <PackageReference Include="MrAdvice" Version="2.19.1" />
     <PackageReference Include="ToastNotifications.Unofficial" Version="2.5.1" />
     <PackageReference Include="ToastNotifications.Messages.Unofficial" Version="2.5.1" />
   </ItemGroup>

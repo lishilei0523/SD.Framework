@@ -20,11 +20,11 @@
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
-    <PackageReference Include="HelixToolkit.Wpf.SharpDX" Version="2.25.0" />
+    <PackageReference Include="HelixToolkit.Wpf.SharpDX" Version="2.26.0" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net6.0-windows')) Or $(TargetFramework.Equals('net8.0-windows'))">
-    <PackageReference Include="HelixToolkit.SharpDX.Core.Wpf" Version="2.25.0" />
+    <PackageReference Include="HelixToolkit.SharpDX.Core.Wpf" Version="2.26.0" />
   </ItemGroup>
 
   <ItemGroup>

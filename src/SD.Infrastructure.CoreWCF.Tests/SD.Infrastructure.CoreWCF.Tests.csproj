@@ -23,10 +23,10 @@
 
   <ItemGroup>
     <PackageReference Include="System.ServiceModel.Primitives" Version="8.1.1" />
-    <PackageReference Include="CoreWCF.Primitives" Version="1.6.0" />
-    <PackageReference Include="CoreWCF.Http" Version="1.6.0" />
-    <PackageReference Include="CoreWCF.NetTcp" Version="1.6.0" />
-    <PackageReference Include="CoreWCF.ConfigurationManager" Version="1.6.0">
+    <PackageReference Include="CoreWCF.Primitives" Version="1.7.0" />
+    <PackageReference Include="CoreWCF.Http" Version="1.7.0" />
+    <PackageReference Include="CoreWCF.NetTcp" Version="1.7.0" />
+    <PackageReference Include="CoreWCF.ConfigurationManager" Version="1.7.0">
       <ExcludeAssets>contentFiles</ExcludeAssets>
     </PackageReference>
     <PackageReference Include="SD.Common" Version="3.4.0" />
