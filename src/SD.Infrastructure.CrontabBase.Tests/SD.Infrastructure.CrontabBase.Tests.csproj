@@ -24,7 +24,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Quartz" Version="3.13.1" />
+    <PackageReference Include="Quartz" Version="3.14.0" />
     <PackageReference Include="MrAdvice" Version="2.19.1" />
     <PackageReference Include="SD.Common" Version="3.4.0" />
     <PackageReference Include="SD.Toolkits.Redis" Version="2.2.0" />
