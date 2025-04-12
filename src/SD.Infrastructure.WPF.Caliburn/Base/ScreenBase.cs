@@ -210,7 +210,7 @@ namespace SD.Infrastructure.WPF.Caliburn.Base
         }
         #endregion
 
-        #region 在UI线程执行 —— void OnUIThread(System.Action action)
+        #region 在UI线程执行 —— void OnUIThread(Action action)
         /// <summary>
         /// 在UI线程执行
         /// </summary>

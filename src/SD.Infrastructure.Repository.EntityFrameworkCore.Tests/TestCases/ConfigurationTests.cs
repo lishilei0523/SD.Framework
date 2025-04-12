@@ -52,6 +52,8 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
             Trace.WriteLine(setting.EntityConfigAssembly.Value);
             Trace.WriteLine(setting.EntityTablePrefix.Value);
 
+            Trace.WriteLine(setting.MessageAssembly.Value);
+
             Trace.WriteLine(setting.WorkflowAssembly.Value);
             Trace.WriteLine(setting.WorkflowConnectionName.Value);
             Trace.WriteLine(setting.WorkflowPersistenceMode.Value);

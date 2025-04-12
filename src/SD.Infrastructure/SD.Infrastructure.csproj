@@ -5,16 +5,14 @@
     <Company>SD</Company>
     <Description>SD.Framework 基础设施</Description>
     <Copyright>Copyright © SD 2025</Copyright>
-    <Version>3.8.1</Version>
-    <AssemblyVersion>3.8.1</AssemblyVersion>
-    <FileVersion>3.8.1.0</FileVersion>
+    <Version>3.8.2</Version>
+    <AssemblyVersion>3.8.2</AssemblyVersion>
+    <FileVersion>3.8.2.0</FileVersion>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\$(TargetFramework)\SD.Infrastructure.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\$(TargetFramework)\SD.Infrastructure.xml</DocumentationFile>
+  <PropertyGroup>
+    <BaseOutputPath>bin\</BaseOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">

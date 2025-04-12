@@ -29,6 +29,13 @@
     <entity.config.assembly>实体配置所在程序集</entity.config.assembly>
     <!--实体数据表名前缀-->
     <entity.tablePrefix>实体数据表名前缀</entity.tablePrefix>
+    <!--消息所在程序集-->
+    <message.assembly>消息所在程序集</message.assembly>
+    <!--视图模型程序集列表-->
+    <viewModel.assemblies>
+      <assembly name="程序集1" />
+      <assembly name="程序集2" />
+    </viewModel.assemblies>
     <!--工作流所在程序集-->
     <workflow.assembly>工作流所在程序集</workflow.assembly>
     <!--工作流持久化连接名称-->

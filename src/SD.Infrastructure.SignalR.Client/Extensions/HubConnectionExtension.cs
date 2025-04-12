@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace SD.Infrastructure.SignalR.Client.Extensions
 {
     /// <summary>
-    /// Hub连接扩展方法
+    /// Hub连接扩展
     /// </summary>
     public static class HubConnectionExtension
     {
@@ -30,7 +30,7 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
         static HubConnectionExtension()
         {
             _Sync = new object();
-            _LogPath = $"{AppDomain.CurrentDomain.BaseDirectory}\\SignalR.Logs\\{{0:yyyy-MM-dd}}.txt";
+            _LogPath = $@"{AppDomain.CurrentDomain.BaseDirectory}\SignalR.Logs\{{0:yyyy-MM-dd}}.txt";
         }
 
         #endregion
@@ -47,7 +47,7 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
             options.Headers.Add(SessionKey.PublicKey, publicKey.ToString());
 
             //添加QueryString
-            string url = options.Url.ToString();
+            string url = options.Url!.ToString();
             string urlWithPublicKey = $"{url}?{SessionKey.PublicKey}={publicKey}";
             options.Url = new Uri(urlWithPublicKey);
         }
@@ -131,9 +131,9 @@ namespace SD.Infrastructure.SignalR.Client.Extensions
 
         //Private 
 
-        #region # 写入文件方法 —— static void WriteFile(string path, string content)
+        #region # 写入文件 —— static void WriteFile(string path, string content)
         /// <summary>
-        /// 写入文件方法
+        /// 写入文件
         /// </summary>
         /// <param name="path">路径</param>
         /// <param name="content">内容</param>

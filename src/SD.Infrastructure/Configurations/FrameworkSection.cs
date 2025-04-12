@@ -214,6 +214,35 @@ namespace SD.Infrastructure
         }
         #endregion
 
+        #region # 消息所在程序集节点 —— TextElement MessageAssembly
+        /// <summary>
+        /// 消息所在程序集节点
+        /// </summary>
+        [ConfigurationProperty("message.assembly", IsRequired = false)]
+        public TextElement MessageAssembly
+        {
+            get { return (TextElement)this["message.assembly"]; }
+            set { this["message.assembly"] = value; }
+        }
+        #endregion
+
+        #region # 视图模型程序集节点列表 —— ViewModelAssemblyElementCollection ViewModelAssemblyElements
+        /// <summary>
+        /// 视图模型程序集节点列表
+        /// </summary>
+        [ConfigurationProperty("viewModel.assemblies")]
+        [ConfigurationCollection(typeof(CrontabStrategyElementCollection), AddItemName = "assembly")]
+        public ViewModelAssemblyElementCollection ViewModelAssemblyElements
+        {
+            get
+            {
+                ViewModelAssemblyElementCollection collection = this["viewModel.assemblies"] as ViewModelAssemblyElementCollection;
+                return collection ?? new ViewModelAssemblyElementCollection();
+            }
+            set { this["viewModel.assemblies"] = value; }
+        }
+        #endregion
+
         #region # 工作流所在程序集节点 —— TextElement WorkflowAssembly
         /// <summary>
         /// 工作流所在程序集节点

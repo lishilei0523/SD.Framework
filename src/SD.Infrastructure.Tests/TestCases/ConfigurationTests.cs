@@ -56,6 +56,12 @@ namespace SD.Infrastructure.Tests.TestCases
             Trace.WriteLine(setting.EntityConfigAssembly.Value);
             Trace.WriteLine(setting.EntityTablePrefix.Value);
 
+            Trace.WriteLine(setting.MessageAssembly.Value);
+            foreach (ViewModelAssemblyElement element in setting.ViewModelAssemblyElements)
+            {
+                Trace.WriteLine(element.Name);
+            }
+
             Trace.WriteLine(setting.WorkflowAssembly.Value);
             Trace.WriteLine(setting.WorkflowConnectionName.Value);
             Trace.WriteLine(setting.WorkflowPersistenceMode.Value);
