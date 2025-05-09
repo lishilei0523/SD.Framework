@@ -1743,7 +1743,6 @@ namespace SD.Infrastructure.WPF.CustomControls
                 let topMargin = canvas.GetRectifiedTop(anchor)
                 select new Point(anchor.X + leftMargin, anchor.Y + topMargin);
             PointCollection points = new PointCollection(point2ds);
-            points = points.Sequentialize();
 
             //构建点集
             IEnumerable<PointL> pointLs =
