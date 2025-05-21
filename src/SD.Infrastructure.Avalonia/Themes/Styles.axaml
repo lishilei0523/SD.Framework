@@ -1,0 +1,20 @@
+﻿<Styles xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sd="https://github.com/lishilei0523/SD.Framework">
+
+  <Styles.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceInclude Source="/Themes/Resources.axaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Styles.Resources>
+
+  <!--FormItem模板样式-->
+  <Style Selector="sd|FormItem">
+    <Setter Property="IsTabStop" Value="False" />
+    <Setter Property="Margin" Value="12,0,12,12" />
+    <Setter Property="Padding" Value="3" />
+    <Setter Property="Template" Value="{StaticResource FormItem.ControlTemplate}" />
+  </Style>
+</Styles>

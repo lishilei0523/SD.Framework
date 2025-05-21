@@ -1,0 +1,43 @@
+<UserControl x:Class="SD.Infrastructure.Avalonia.UserControls.GroupBox"
+             xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:sd="https://github.com/lishilei0523/SD.Framework"
+             mc:Ignorable="d">
+
+  <UserControl.Styles>
+    <Style Selector="sd|GroupBox">
+      <Setter Property="Template">
+        <ControlTemplate>
+          <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto" />
+              <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0"
+                    Background="{DynamicResource SystemListLowColorBrush}"
+                    BorderBrush="{DynamicResource SystemBaseLowColorBrush}"
+                    BorderThickness="1"
+                    CornerRadius="0"
+                    UseLayoutRounding="True">
+              <ContentControl Margin="4" FontSize="14" Content="{TemplateBinding Header}" />
+            </Border>
+            <Border Grid.Row="1"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{DynamicResource SystemBaseLowColorBrush}"
+                    BorderThickness="1,0,1,1"
+                    CornerRadius="0"
+                    UseLayoutRounding="True">
+              <ContentPresenter Margin="{TemplateBinding Padding}"
+                                Content="{TemplateBinding Content}"
+                                ContentTemplate="{TemplateBinding ContentTemplate}"
+                                Cursor="{TemplateBinding Cursor}"
+                                UseLayoutRounding="False" />
+            </Border>
+          </Grid>
+        </ControlTemplate>
+      </Setter>
+    </Style>
+  </UserControl.Styles>
+</UserControl>

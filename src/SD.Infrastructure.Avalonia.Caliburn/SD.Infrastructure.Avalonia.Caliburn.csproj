@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFrameworks>net8.0</TargetFrameworks>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Description>SD.Framework 基础设施 - Avalonia基础 - Caliburn.Micro扩展</Description>
+    <Copyright>Copyright © SD 2025</Copyright>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <BaseOutputPath>bin\</BaseOutputPath>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Caliburn.Micro.Core" Version="5.0.175-beta" />
+    <PackageReference Include="Caliburn.Micro.Avalonia" Version="5.0.175-beta" />
+    <PackageReference Include="MrAdvice" Version="2.19.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\SD.Infrastructure.Avalonia\SD.Infrastructure.Avalonia.csproj" />
+  </ItemGroup>
+</Project>

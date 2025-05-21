@@ -1,0 +1,42 @@
+﻿<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sd="https://github.com/lishilei0523/SD.Framework">
+
+  <sd:EmptyObjectToVisibilityConverter x:Key="EmptyObjectToVisibilityConverter" />
+
+  <!--FormItem控件模板-->
+  <ControlTemplate x:Key="FormItem.ControlTemplate" TargetType="sd:FormItem">
+    <Grid x:Name="Root">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="Auto" SharedSizeGroup="Header" />
+        <ColumnDefinition />
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto" />
+        <RowDefinition Height="Auto" />
+      </Grid.RowDefinitions>
+      <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+        <TextBlock x:Name="IsRequiredMark"
+                   Margin="0,0,2,0"
+                   VerticalAlignment="Center"
+                   IsVisible="{TemplateBinding IsRequired}"
+                   Text="*"
+                   Foreground="Red" />
+        <ContentPresenter Content="{TemplateBinding Label}"
+                          Foreground="#FF444444"
+                          ContentTemplate="{TemplateBinding LabelTemplate}"
+                          IsVisible="{Binding Label,RelativeSource={RelativeSource Mode=TemplatedParent},Converter={StaticResource EmptyObjectToVisibilityConverter}}" />
+      </StackPanel>
+      <ContentPresenter Grid.Row="0"
+                        Grid.Column="1"
+                        Content="{TemplateBinding Content}"
+                        Margin="{TemplateBinding Padding}" />
+      <ContentPresenter Grid.Row="1"
+                        Grid.Column="1"
+                        IsVisible="{Binding Description,RelativeSource={RelativeSource Mode=TemplatedParent},Converter={StaticResource EmptyObjectToVisibilityConverter}}"
+                        Margin="{TemplateBinding Padding}"
+                        Content="{TemplateBinding Description}"
+                        Foreground="Gray" />
+    </Grid>
+  </ControlTemplate>
+</ResourceDictionary>
