@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.100" />
-    <PackageReference Include="Xamarin.AndroidX.Core" Version="1.15.0.2" />
-    <PackageReference Include="Acr.UserDialogs" Version="9.2.1" />
+    <PackageReference Include="Xamarin.AndroidX.Core" Version="1.16.0.2" />
+    <PackageReference Include="Acr.UserDialogs" Version="9.2.2" />
   </ItemGroup>
 </Project>

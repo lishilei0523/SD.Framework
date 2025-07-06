@@ -20,7 +20,7 @@
     <PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
     <PackageReference Include="Caliburn.Micro.Core" Version="5.0.175-beta" />
     <PackageReference Include="Caliburn.Micro.Maui" Version="5.0.175-beta" />
-    <PackageReference Include="Acr.UserDialogs" Version="9.2.1" />
+    <PackageReference Include="Acr.UserDialogs" Version="9.2.2" />
     <PackageReference Include="MrAdvice" Version="2.19.1" />
     <PackageReference Include="SD.IOC.Core" Version="2.3.0" />
   </ItemGroup>
