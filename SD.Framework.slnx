@@ -1,0 +1,49 @@
+<Solution>
+  <Folder Name="/01 - Infrastructures/">
+    <Project Path="src/SD.Infrastructure.AOP/SD.Infrastructure.AOP.csproj" />
+    <Project Path="src/SD.Infrastructure.Global/SD.Infrastructure.Global.csproj" />
+    <Project Path="src/SD.Infrastructure/SD.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/02 - Servers/">
+    <Project Path="src/SD.Infrastructure.AspNetCore.Server/SD.Infrastructure.AspNetCore.Server.csproj" />
+    <Project Path="src/SD.Infrastructure.WCF.Server/SD.Infrastructure.WCF.Server.csproj" />
+  </Folder>
+  <Folder Name="/03 - Clients/">
+    <Project Path="src/SD.Infrastructure.Avalonia.Caliburn/SD.Infrastructure.Avalonia.Caliburn.csproj" />
+    <Project Path="src/SD.Infrastructure.Avalonia/SD.Infrastructure.Avalonia.csproj" />
+    <Project Path="src/SD.Infrastructure.Maui.Android/SD.Infrastructure.Maui.Android.csproj" />
+    <Project Path="src/SD.Infrastructure.Maui.Caliburn/SD.Infrastructure.Maui.Caliburn.csproj" />
+    <Project Path="src/SD.Infrastructure.Maui/SD.Infrastructure.Maui.csproj" />
+    <Project Path="src/SD.Infrastructure.WPF.3D/SD.Infrastructure.WPF.3D.csproj" />
+    <Project Path="src/SD.Infrastructure.WPF.Caliburn/SD.Infrastructure.WPF.Caliburn.csproj" />
+    <Project Path="src/SD.Infrastructure.WPF.Report/SD.Infrastructure.WPF.Report.csproj" />
+    <Project Path="src/SD.Infrastructure.WPF/SD.Infrastructure.WPF.csproj" />
+  </Folder>
+  <Folder Name="/04 - Repositories/">
+    <Project Path="src/SD.Infrastructure.Repository.EntityFrameworkCore/SD.Infrastructure.Repository.EntityFrameworkCore.csproj" />
+    <Project Path="src/SD.Infrastructure.Repository.MongoDB/SD.Infrastructure.Repository.MongoDB.csproj" />
+  </Folder>
+  <Folder Name="/05 - BPMs/">
+    <Project Path="src/SD.Infrastructure.CrontabBase/SD.Infrastructure.CrontabBase.csproj" />
+    <Project Path="src/SD.Infrastructure.CrontabStore.Redis/SD.Infrastructure.CrontabStore.Redis.csproj" />
+    <Project Path="src/SD.Infrastructure.SignalR.Client/SD.Infrastructure.SignalR.Client.csproj" />
+    <Project Path="src/SD.Infrastructure.SignalR.Server/SD.Infrastructure.SignalR.Server.csproj" />
+    <Project Path="src/SD.Infrastructure.WWF/SD.Infrastructure.WWF.csproj" />
+  </Folder>
+  <Folder Name="/06 - Tests/">
+    <Project Path="src/SD.Infrastructure.AspNetCore.Tests/SD.Infrastructure.AspNetCore.Tests.csproj" />
+    <Project Path="src/SD.Infrastructure.CoreWCF.Tests/SD.Infrastructure.CoreWCF.Tests.csproj" />
+    <Project Path="src/SD.Infrastructure.CrontabBase.Tests/SD.Infrastructure.CrontabBase.Tests.csproj" />
+    <Project Path="src/SD.Infrastructure.Repository.EntityFrameworkCore.Tests/SD.Infrastructure.Repository.EntityFrameworkCore.Tests.csproj" />
+    <Project Path="src/SD.Infrastructure.Repository.MongoDB.Tests/SD.Infrastructure.Repository.MongoDB.Tests.csproj" />
+    <Project Path="src/SD.Infrastructure.SignalR.Client.Receiver/SD.Infrastructure.SignalR.Client.Receiver.csproj" />
+    <Project Path="src/SD.Infrastructure.SignalR.Client.Sender/SD.Infrastructure.SignalR.Client.Sender.csproj" />
+    <Project Path="src/SD.Infrastructure.SignalR.Server.Tests/SD.Infrastructure.SignalR.Server.Tests.csproj" />
+    <Project Path="src/SD.Infrastructure.SignalR.Stubs/SD.Infrastructure.SignalR.Stubs.csproj" />
+    <Project Path="src/SD.Infrastructure.StubAppService/SD.Infrastructure.StubAppService.csproj" />
+    <Project Path="src/SD.Infrastructure.StubIAppService/SD.Infrastructure.StubIAppService.csproj" />
+    <Project Path="src/SD.Infrastructure.Tests/SD.Infrastructure.Tests.csproj" />
+    <Project Path="src/SD.Infrastructure.WCF.Tests/SD.Infrastructure.WCF.Tests.csproj" />
+    <Project Path="src/SD.Infrastructure.WPF.Draggable.Tests/SD.Infrastructure.WPF.Draggable.Tests.csproj" />
+  </Folder>
+</Solution>

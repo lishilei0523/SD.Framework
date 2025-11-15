@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0-android34;net8.0-ios18</TargetFrameworks>
+    <TargetFramework>net8.0-android34</TargetFramework>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Description>SD.Framework 基础设施 - MAUI基础 - Caliburn.Micro扩展</Description>
@@ -18,8 +18,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.100" />
     <PackageReference Include="CommunityToolkit.Maui" Version="8.0.1" />
-    <PackageReference Include="Caliburn.Micro.Core" Version="5.0.175-beta" />
-    <PackageReference Include="Caliburn.Micro.Maui" Version="5.0.175-beta" />
+    <PackageReference Include="Caliburn.Micro.Core" Version="5.0.258-beta" />
+    <PackageReference Include="Caliburn.Micro.Maui" Version="5.0.258-beta" />
     <PackageReference Include="Acr.UserDialogs" Version="9.2.2" />
     <PackageReference Include="MrAdvice" Version="2.19.1" />
     <PackageReference Include="SD.IOC.Core" Version="2.3.0" />

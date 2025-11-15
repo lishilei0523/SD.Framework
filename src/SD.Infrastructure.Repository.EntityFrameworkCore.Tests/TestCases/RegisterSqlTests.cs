@@ -88,14 +88,14 @@ namespace SD.Infrastructure.Repository.EntityFrameworkCore.Tests.TestCases
         /// 测试注册SQL命令异常
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(SqlException))]
         public void TestRegisterSqlCommandException()
         {
             Order order = new Order("TESTSQL", $"销售订单-{DateTime.Now:yyyyMMddHHmmss}");
 
             this._unitOfWork.RegisterAdd(order);
             this._unitOfWork.RegisterAddOrderBySql("TESTSQL");
-            this._unitOfWork.Commit();
+
+            Assert.ThrowsExactly<SqlException>(() => this._unitOfWork.Commit());
         }
         #endregion
     }

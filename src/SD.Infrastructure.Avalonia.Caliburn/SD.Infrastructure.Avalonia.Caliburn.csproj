@@ -16,8 +16,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Caliburn.Micro.Core" Version="5.0.175-beta" />
-    <PackageReference Include="Caliburn.Micro.Avalonia" Version="5.0.175-beta" />
+    <PackageReference Include="Caliburn.Micro.Core" Version="5.0.258-beta" />
+    <PackageReference Include="Caliburn.Micro.Avalonia" Version="5.0.258-beta" />
     <PackageReference Include="MrAdvice" Version="2.19.1" />
   </ItemGroup>
 
