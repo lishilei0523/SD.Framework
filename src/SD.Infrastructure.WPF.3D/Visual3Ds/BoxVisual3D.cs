@@ -1,11 +1,8 @@
-﻿using SharpDX;
+﻿using HelixToolkit.Geometry;
+using HelixToolkit.SharpDX;
+using System.Numerics;
 using System.Windows;
-#if NET462_OR_GREATER
-using HelixToolkit.Wpf.SharpDX;
-#endif
-#if NET6_0_OR_GREATER
-using HelixToolkit.SharpDX.Core;
-#endif
+using MeshGeometry3D = HelixToolkit.SharpDX.MeshGeometry3D;
 
 namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
 {
@@ -62,9 +59,9 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// Gets or sets the length of the box (along local x-axis).
         /// </summary>
         /// <value>The length.</value>
-        public double Length
+        public float Length
         {
-            get => (double)this.GetValue(LengthProperty);
+            get => (float)this.GetValue(LengthProperty);
             set => this.SetValue(LengthProperty, value);
         }
 
@@ -72,9 +69,9 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// Gets or sets the width of the box (along local y-axis).
         /// </summary>
         /// <value>The width.</value>
-        public double Width
+        public float Width
         {
-            get => (double)this.GetValue(WidthProperty);
+            get => (float)this.GetValue(WidthProperty);
             set => this.SetValue(WidthProperty, value);
         }
 
@@ -82,9 +79,9 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// Gets or sets the height (along local z-axis).
         /// </summary>
         /// <value>The height.</value>
-        public double Height
+        public float Height
         {
-            get => (double)this.GetValue(HeightProperty);
+            get => (float)this.GetValue(HeightProperty);
             set => this.SetValue(HeightProperty, value);
         }
 
@@ -107,7 +104,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         }
 
         /// <summary>
-        /// Do the tessellation and return the <see cref="MeshGeometry3D"/>.
+        /// Do the tessellation and return the <see cref="HelixToolkit.SharpDX.MeshGeometry3D"/>.
         /// </summary>
         /// <returns>The mesh geometry.</returns>
         protected override MeshGeometry3D Tessellate()
@@ -126,7 +123,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
                 meshBuilder.AddCubeFace(this.Center, new Vector3(0, 0, -1), new Vector3(0, 1, 0), this.Height, this.Length, this.Width);
             }
 
-            return meshBuilder.ToMesh();
+            return meshBuilder.ToMesh().ToMeshGeometry3D();
         }
     }
 }

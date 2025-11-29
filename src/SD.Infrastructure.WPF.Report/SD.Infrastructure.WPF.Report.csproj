@@ -4,22 +4,12 @@
     <LangVersion>8.0</LangVersion>
     <UseWindowsForms>true</UseWindowsForms>
     <UseWPF>true</UseWPF>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Description>SD.Framework 基础设施 - WPF基础 - RDLC报表扩展</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
     <Version>1.2.0</Version>
-    <AssemblyVersion>1.2.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Description>SD.Framework 基础设施 - WPF基础 - RDLC报表扩展</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.SqlServer.Types" Version="160.1000.6" />
+    <PackageReference Include="Microsoft.SqlServer.Types" Version="170.1000.7" />
     <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.Winforms" Version="150.1652.0" />
   </ItemGroup>
 </Project>

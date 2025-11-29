@@ -6,7 +6,7 @@ using StackExchange.Redis;
 using System.Collections.Generic;
 
 // ReSharper disable once CheckNamespace
-namespace SD.Infrastructure.CrontabStoreProvider
+namespace SD.Infrastructure.CrontabStore
 {
     /// <summary>
     /// 定时任务存储 - Redis提供者

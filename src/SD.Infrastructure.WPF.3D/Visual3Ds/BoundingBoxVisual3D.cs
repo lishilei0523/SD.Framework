@@ -1,9 +1,7 @@
-﻿using HelixToolkit.Wpf.SharpDX;
+﻿using HelixToolkit.SharpDX;
+using HelixToolkit.Wpf.SharpDX;
 using System.Windows;
 using System.Windows.Media.Media3D;
-#if NET6_0_OR_GREATER
-using HelixToolkit.SharpDX.Core;
-#endif
 
 namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
 {

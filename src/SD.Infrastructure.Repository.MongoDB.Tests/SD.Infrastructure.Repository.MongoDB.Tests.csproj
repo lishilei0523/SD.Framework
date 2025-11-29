@@ -1,10 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net472;net8.0</TargetFrameworks>
-    <IsPackable>false</IsPackable>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Copyright>Copyright © SD 2025</Copyright>
+    <IsPackable>False</IsPackable>
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">
@@ -19,7 +16,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SD.Common" Version="3.4.0" />
+    <PackageReference Include="SD.Common" Version="3.4.1" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,22 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
+    <Version>2.4.2</Version>
     <Description>SD.Framework 基础设施 - AOP基础</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
-    <Version>2.4.1</Version>
-    <AssemblyVersion>2.4.1</AssemblyVersion>
-    <FileVersion>2.4.1.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.Toolkits.Json" Version="2.1.0" />
-    <PackageReference Include="SD.AOP.Core" Version="2.4.1" />
+    <PackageReference Include="SD.Toolkits.Json" Version="2.1.1" />
+    <PackageReference Include="SD.AOP.Core" Version="2.4.2" />
   </ItemGroup>
 </Project>

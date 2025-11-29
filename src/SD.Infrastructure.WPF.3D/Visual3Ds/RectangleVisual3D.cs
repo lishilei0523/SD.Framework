@@ -1,15 +1,10 @@
-﻿using SharpDX;
+﻿using HelixToolkit.Geometry;
+using HelixToolkit.SharpDX;
 using System;
 using System.Collections.Generic;
+using System.Numerics;
 using System.Windows;
-#if NET462_OR_GREATER
-using HelixToolkit.Wpf.SharpDX;
-using MeshGeometry3D = HelixToolkit.Wpf.SharpDX.MeshGeometry3D;
-#endif
-#if NET6_0_OR_GREATER
-using HelixToolkit.SharpDX.Core;
-using MeshGeometry3D = HelixToolkit.SharpDX.Core.MeshGeometry3D;
-#endif
+using MeshGeometry3D = HelixToolkit.SharpDX.MeshGeometry3D;
 
 namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
 {
@@ -134,9 +129,9 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
             Vector3 v = Vector3.Cross(w, u);
             u = Vector3.Cross(v, w);
 
-            u.Normalize();
-            v.Normalize();
-            w.Normalize();
+            u = Vector3.Normalize(u);
+            v = Vector3.Normalize(v);
+            w = Vector3.Normalize(w);
 
             float le = this.Length;
             float wi = this.Width;
@@ -155,7 +150,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
             MeshBuilder builder = new MeshBuilder();
             builder.AddRectangularMesh(pts, this.DivWidth);
 
-            return builder.ToMesh();
+            return builder.ToMesh().ToMeshGeometry3D();
         }
 
         /// <summary>

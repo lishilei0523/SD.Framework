@@ -1,24 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
+    <LangVersion>8.0</LangVersion>
+    <Version>1.4.1</Version>
     <Description>SD.Framework 基础设施 - 定时任务基础</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
-    <Version>1.4.0</Version>
-    <AssemblyVersion>1.4.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Quartz" Version="3.15.1" />
     <PackageReference Include="MrAdvice" Version="2.19.1" />
-    <PackageReference Include="SD.IOC.Core" Version="2.3.0" />
+    <PackageReference Include="SD.IOC.Core" Version="2.3.3" />
   </ItemGroup>
 
   <ItemGroup>

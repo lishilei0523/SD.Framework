@@ -1,4 +1,4 @@
-﻿using SD.Infrastructure.SignalR.Server.Base;
+﻿using SD.Infrastructure.AspNetCore.Server.Base;
 using SD.Infrastructure.SignalR.Stubs.Messages;
 
 namespace SD.Infrastructure.SignalR.Server.Tests.Hubs

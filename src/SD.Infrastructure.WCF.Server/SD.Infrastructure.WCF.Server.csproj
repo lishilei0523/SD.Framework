@@ -1,18 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
+    <Version>2.3.0</Version>
     <Description>SD.Framework 基础设施 - WCF服务端基础</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
-    <Version>2.2.0</Version>
-    <AssemblyVersion>2.2.0</AssemblyVersion>
-    <FileVersion>2.2.0.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
@@ -25,11 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.3.0" />
+    <PackageReference Include="SD.IOC.Integration.WCF" Version="2.3.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
-    <ProjectReference Include="..\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj" />
   </ItemGroup>
 </Project>

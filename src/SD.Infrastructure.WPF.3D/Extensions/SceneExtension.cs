@@ -1,10 +1,5 @@
-﻿using System.Collections.Generic;
-#if NET462_OR_GREATER
-using HelixToolkit.Wpf.SharpDX.Model.Scene;
-#endif
-#if NET6_0_OR_GREATER
-using HelixToolkit.SharpDX.Core.Model.Scene;
-#endif
+﻿using HelixToolkit.SharpDX.Model.Scene;
+using System.Collections.Generic;
 
 namespace SD.Infrastructure.WPF.ThreeDims.Extensions
 {

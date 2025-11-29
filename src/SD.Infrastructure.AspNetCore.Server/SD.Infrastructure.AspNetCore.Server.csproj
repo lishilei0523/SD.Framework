@@ -1,18 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0</TargetFrameworks>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
+    <Version>1.3.0</Version>
     <Description>SD.Framework 基础设施 - ASP.NET Core服务端基础</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
-    <Version>1.2.0</Version>
-    <AssemblyVersion>1.2.0</AssemblyVersion>
-    <FileVersion>1.2.0.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +10,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="SD.IOC.Core" Version="2.3.3" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
-    <ProjectReference Include="..\SD.Infrastructure.Global\SD.Infrastructure.Global.csproj" />
   </ItemGroup>
 </Project>

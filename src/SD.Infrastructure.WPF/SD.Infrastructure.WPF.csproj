@@ -3,18 +3,8 @@
     <TargetFrameworks>net462;net8.0-windows</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
     <UseWPF>true</UseWPF>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
+    <Version>1.8.0</Version>
     <Description>SD.Framework 基础设施 - WPF基础</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
-    <Version>1.7.15</Version>
-    <AssemblyVersion>1.7.15</AssemblyVersion>
-    <FileVersion>1.7.15.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

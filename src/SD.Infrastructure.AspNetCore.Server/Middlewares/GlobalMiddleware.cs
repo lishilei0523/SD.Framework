@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SD.Infrastructure.Global;
+using SD.Infrastructure.Constants;
+using SD.Infrastructure.RepositoryBase;
 using SD.IOC.Core.Mediators;
 using System.Threading.Tasks;
 
@@ -10,6 +11,11 @@ namespace SD.Infrastructure.AspNetCore.Server.Middlewares
     /// </summary>
     public class GlobalMiddleware
     {
+        /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync = new object();
+
         /// <summary>
         /// 请求委托
         /// </summary>
@@ -23,10 +29,15 @@ namespace SD.Infrastructure.AspNetCore.Server.Middlewares
             this._next = next;
 
             //初始化SessionId
-            Initializer.InitSessionId();
+            lock (_Sync)
+            {
+                GlobalSetting.FreeCurrentSessionId();
+                GlobalSetting.InitCurrentSessionId();
+            }
 
             //初始化数据库
-            Initializer.InitDataBase();
+            IDataInitializer initializer = ResolveMediator.Resolve<IDataInitializer>();
+            initializer.Initialize();
         }
 
         /// <summary>
@@ -37,7 +48,11 @@ namespace SD.Infrastructure.AspNetCore.Server.Middlewares
             try
             {
                 //初始化SessionId
-                Initializer.InitSessionId();
+                lock (_Sync)
+                {
+                    GlobalSetting.FreeCurrentSessionId();
+                    GlobalSetting.InitCurrentSessionId();
+                }
 
                 await this._next.Invoke(context);
             }

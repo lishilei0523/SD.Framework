@@ -1,31 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net462;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
     <RootNamespace>SD.Infrastructure.WPF.ThreeDims</RootNamespace>
     <UseWPF>true</UseWPF>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
+    <Version>1.1.0</Version>
     <Description>SD.Framework 基础设施 - WPF 3D基础</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
-    <Version>1.0.1</Version>
-    <AssemblyVersion>1.0.1</AssemblyVersion>
-    <FileVersion>1.0.1.0</FileVersion>
   </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
-  </PropertyGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
-    <PackageReference Include="HelixToolkit.Wpf.SharpDX" Version="2.27.3" />
-  </ItemGroup>
-
-  <ItemGroup Condition="$(TargetFramework.Equals('net6.0-windows')) Or $(TargetFramework.Equals('net8.0-windows'))">
-    <PackageReference Include="HelixToolkit.SharpDX.Core.Wpf" Version="2.27.3" />
-  </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="HelixToolkit.Wpf.SharpDX" Version="3.1.2" />
     <PackageReference Include="MathNet.Numerics" Version="5.0.0" />
   </ItemGroup>
 </Project>

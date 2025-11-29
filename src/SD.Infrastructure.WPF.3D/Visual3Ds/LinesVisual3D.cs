@@ -1,15 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using HelixToolkit.SharpDX;
+using HelixToolkit.Wpf.SharpDX;
+using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Windows;
 using System.Windows.Media.Media3D;
-using SharpDX;
-#if NET462_OR_GREATER
-using HelixToolkit.Wpf.SharpDX;
-#endif
-#if NET6_0_OR_GREATER
-using HelixToolkit.Wpf.SharpDX;
-using HelixToolkit.SharpDX.Core;
-#endif
 
 namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
 {

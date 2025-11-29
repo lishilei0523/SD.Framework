@@ -1,16 +1,12 @@
-﻿using SharpDX;
+﻿using HelixToolkit.Geometry;
+using HelixToolkit.Maths;
+using HelixToolkit.SharpDX;
+using HelixToolkit.Wpf.SharpDX;
 using System;
+using System.Numerics;
 using System.Windows;
 using System.Windows.Media.Media3D;
-#if NET462_OR_GREATER
-using HelixToolkit.Wpf.SharpDX;
-using MeshGeometry3D = HelixToolkit.Wpf.SharpDX.MeshGeometry3D;
-#endif
-#if NET6_0_OR_GREATER
-using HelixToolkit.SharpDX.Core;
-using HelixToolkit.Wpf.SharpDX;
-using MeshGeometry3D = HelixToolkit.SharpDX.Core.MeshGeometry3D;
-#endif
+using MeshGeometry3D = HelixToolkit.SharpDX.MeshGeometry3D;
 
 namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
 {
@@ -158,7 +154,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         }
 
         /// <summary>
-        /// Do the tessellation and return the <see cref="MeshGeometry3D" />.
+        /// Do the tessellation and return the <see cref="System.Windows.Media.Media3D.MeshGeometry3D" />.
         /// </summary>
         /// <returns>A triangular mesh geometry.</returns>
         protected override MeshGeometry3D Tessellate()
@@ -214,7 +210,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
                 y += this.MinorDistance;
             }
 
-            MeshGeometry3D meshGeometry3D = meshBuilder.ToMesh();
+            MeshGeometry3D meshGeometry3D = meshBuilder.ToMesh().ToMeshGeometry3D();
 
             return meshGeometry3D;
         }

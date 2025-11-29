@@ -1,6 +1,8 @@
-﻿using SD.Infrastructure.Global;
+﻿using SD.IOC.Core.Mediators;
 using SD.IOC.Integration.WCF.Providers;
 using System.Collections.ObjectModel;
+using SD.Infrastructure.Constants;
+using SD.Infrastructure.RepositoryBase;
 #if NET462_OR_GREATER
 using System.ServiceModel;
 using System.ServiceModel.Channels;
@@ -50,10 +52,15 @@ namespace SD.Infrastructure.WCF.Server
             if (!_Initialized)
             {
                 //初始化SessionId
-                Initializer.InitSessionId();
+                lock (_Sync)
+                {
+                    GlobalSetting.FreeCurrentSessionId();
+                    GlobalSetting.InitCurrentSessionId();
+                }
 
                 //初始化数据库
-                Initializer.InitDataBase();
+                IDataInitializer initializer = ResolveMediator.Resolve<IDataInitializer>();
+                initializer.Initialize();
 
                 //注册事件
                 ServiceInstanceProvider.OnGetInstance += OnGetInstance;
@@ -69,7 +76,11 @@ namespace SD.Infrastructure.WCF.Server
         private static void OnGetInstance(InstanceContext instanceContext)
         {
             //初始化SessionId
-            Initializer.InitSessionId();
+            lock (_Sync)
+            {
+                GlobalSetting.FreeCurrentSessionId();
+                GlobalSetting.InitCurrentSessionId();
+            }
         }
 
 

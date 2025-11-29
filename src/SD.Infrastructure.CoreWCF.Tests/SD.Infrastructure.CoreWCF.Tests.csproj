@@ -1,12 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
     <AssemblyName>SD.Infrastructure.WCF.Tests</AssemblyName>
     <RootNamespace>SD.Infrastructure.WCF.Tests</RootNamespace>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Copyright>Copyright © SD 2025</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,10 +25,10 @@
     <PackageReference Include="CoreWCF.ConfigurationManager" Version="1.8.0">
       <ExcludeAssets>contentFiles</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="SD.Common" Version="3.4.0" />
-    <PackageReference Include="SD.Toolkits.AspNet" Version="1.2.0" />
-    <PackageReference Include="SD.IOC.Core" Version="2.3.0" />
-    <PackageReference Include="SD.IOC.Extension.NetCore" Version="2.3.0" />
+    <PackageReference Include="SD.Common" Version="3.4.1" />
+    <PackageReference Include="SD.Toolkits.AspNet" Version="1.2.1" />
+    <PackageReference Include="SD.IOC.Core" Version="2.3.3" />
+    <PackageReference Include="SD.IOC.Extension.NetCore" Version="2.3.3" />
   </ItemGroup>
 
   <ItemGroup>

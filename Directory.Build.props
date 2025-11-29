@@ -1,0 +1,29 @@
+<Project DefaultTargets="Build">
+  <PropertyGroup>
+    <BaseOutputPath>bin\</BaseOutputPath>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <Title>$(AssemblyName)</Title>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Owners>$(Company)</Owners>
+    <Copyright>Copyright © SD $([System.DateTime]::Now.ToString(yyyy))</Copyright>
+    <PackageIcon>content\favicon.png</PackageIcon>
+    <PackageOutputPath>$(SolutionDir)\packages</PackageOutputPath>
+    <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">True</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="$(SolutionDir)\assets\favicon.png">
+      <Pack>True</Pack>
+      <PackagePath>content\</PackagePath>
+      <Visible>False</Visible>
+    </None>
+    <None Include="*.config.transform">
+      <Pack>True</Pack>
+      <PackagePath>content\</PackagePath>
+    </None>
+  </ItemGroup>
+</Project>

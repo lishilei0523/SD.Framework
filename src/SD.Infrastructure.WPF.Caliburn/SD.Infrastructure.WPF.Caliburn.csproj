@@ -2,18 +2,8 @@
   <PropertyGroup>
     <TargetFrameworks>net462;net8.0-windows</TargetFrameworks>
     <UseWPF>true</UseWPF>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Description>SD.Framework 基础设施 - WPF基础 - Caliburn.Micro扩展</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
     <Version>1.4.0</Version>
-    <AssemblyVersion>1.4.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <Description>SD.Framework 基础设施 - WPF基础 - Caliburn.Micro扩展</Description>
   </PropertyGroup>
 
   <ItemGroup>

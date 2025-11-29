@@ -1,21 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Copyright>Copyright © SD 2025</Copyright>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.22" />
-    <PackageReference Include="SD.Toolkits.AspNet" Version="1.2.0" />
-    <PackageReference Include="SD.Toolkits.Redis" Version="2.2.0" />
+    <PackageReference Include="SD.Toolkits.AspNet" Version="1.2.1" />
+    <PackageReference Include="SD.Toolkits.Redis" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SD.Infrastructure\SD.Infrastructure.csproj" />
-    <ProjectReference Include="..\SD.Infrastructure.SignalR.Server\SD.Infrastructure.SignalR.Server.csproj" />
+    <ProjectReference Include="..\SD.Infrastructure.AspNetCore.Server\SD.Infrastructure.AspNetCore.Server.csproj" />
     <ProjectReference Include="..\SD.Infrastructure.SignalR.Stubs\SD.Infrastructure.SignalR.Stubs.csproj" />
   </ItemGroup>
 </Project>

@@ -1,7 +1,9 @@
 <Solution>
+  <Folder Name="/00 - Global/">
+    <File Path="Directory.Build.props" />
+  </Folder>
   <Folder Name="/01 - Infrastructures/">
     <Project Path="src/SD.Infrastructure.AOP/SD.Infrastructure.AOP.csproj" />
-    <Project Path="src/SD.Infrastructure.Global/SD.Infrastructure.Global.csproj" />
     <Project Path="src/SD.Infrastructure/SD.Infrastructure.csproj" />
   </Folder>
   <Folder Name="/02 - Servers/">
@@ -27,7 +29,6 @@
     <Project Path="src/SD.Infrastructure.CrontabBase/SD.Infrastructure.CrontabBase.csproj" />
     <Project Path="src/SD.Infrastructure.CrontabStore.Redis/SD.Infrastructure.CrontabStore.Redis.csproj" />
     <Project Path="src/SD.Infrastructure.SignalR.Client/SD.Infrastructure.SignalR.Client.csproj" />
-    <Project Path="src/SD.Infrastructure.SignalR.Server/SD.Infrastructure.SignalR.Server.csproj" />
     <Project Path="src/SD.Infrastructure.WWF/SD.Infrastructure.WWF.csproj" />
   </Folder>
   <Folder Name="/06 - Tests/">
@@ -44,6 +45,5 @@
     <Project Path="src/SD.Infrastructure.StubIAppService/SD.Infrastructure.StubIAppService.csproj" />
     <Project Path="src/SD.Infrastructure.Tests/SD.Infrastructure.Tests.csproj" />
     <Project Path="src/SD.Infrastructure.WCF.Tests/SD.Infrastructure.WCF.Tests.csproj" />
-    <Project Path="src/SD.Infrastructure.WPF.Draggable.Tests/SD.Infrastructure.WPF.Draggable.Tests.csproj" />
   </Folder>
 </Solution>

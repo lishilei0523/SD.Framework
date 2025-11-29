@@ -76,7 +76,7 @@ namespace SD.Infrastructure.CrontabStore.Redis.Toolkits
 
             if (string.IsNullOrWhiteSpace(crontabJson))
             {
-                throw new ArgumentNullException(nameof(crontabJson), @"JSON字符串不可为空！");
+                throw new ArgumentNullException(nameof(crontabJson), "JSON字符串不可为空！");
             }
 
             #endregion
@@ -91,7 +91,7 @@ namespace SD.Infrastructure.CrontabStore.Redis.Toolkits
 
             Type crontabType = Type.GetType($"{typePropertyValue},{assemblyPropertyValue}");
 
-            #region # 验证类型
+            #region # 验证
 
             if (crontabType == null)
             {
@@ -109,7 +109,6 @@ namespace SD.Infrastructure.CrontabStore.Redis.Toolkits
                 ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                 TypeNameHandling = TypeNameHandling.All
             };
-
             object instance = JsonConvert.DeserializeObject(instancePropertyValue, crontabType, settting);
 
             return (ICrontab)instance;

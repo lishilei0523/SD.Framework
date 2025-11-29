@@ -2,7 +2,7 @@
 using SD.Infrastructure.MessageBase;
 using System.Threading.Tasks;
 
-namespace SD.Infrastructure.SignalR.Server.Base
+namespace SD.Infrastructure.AspNetCore.Server.Base
 {
     /// <summary>
     /// 消息Hub基类

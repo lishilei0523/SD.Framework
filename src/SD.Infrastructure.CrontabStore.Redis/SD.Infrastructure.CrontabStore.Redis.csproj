@@ -2,23 +2,13 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
+    <Version>1.4.1</Version>
     <Description>SD.Framework 基础设施 - 定时任务基础 - Redis存储提供者</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
-    <Version>1.4.0</Version>
-    <AssemblyVersion>1.4.0</AssemblyVersion>
-    <FileVersion>1.4.0.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="SD.Toolkits.Redis" Version="2.2.0" />
+    <PackageReference Include="SD.Toolkits.Redis" Version="2.2.1" />
   </ItemGroup>
 
   <ItemGroup>

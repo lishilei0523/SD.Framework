@@ -1,13 +1,8 @@
-﻿using SharpDX;
+﻿using HelixToolkit.Geometry;
+using HelixToolkit.SharpDX;
+using System.Numerics;
 using System.Windows;
-#if NET462_OR_GREATER
-using HelixToolkit.Wpf.SharpDX;
-using MeshGeometry3D = HelixToolkit.Wpf.SharpDX.MeshGeometry3D;
-#endif
-#if NET6_0_OR_GREATER
-using HelixToolkit.SharpDX.Core;
-using MeshGeometry3D = HelixToolkit.SharpDX.Core.MeshGeometry3D;
-#endif
+using MeshGeometry3D = HelixToolkit.SharpDX.MeshGeometry3D;
 
 namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
 {
@@ -60,9 +55,9 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// Gets or sets the radius of the sphere.
         /// </summary>
         /// <value>The radius.</value>
-        public double Radius
+        public float Radius
         {
-            get => (double)this.GetValue(RadiusProperty);
+            get => (float)this.GetValue(RadiusProperty);
             set => this.SetValue(RadiusProperty, value);
         }
 
@@ -77,14 +72,15 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         }
 
         /// <summary>
-        /// Do the tessellation and return the <see cref="MeshGeometry3D"/>.
+        /// Do the tessellation and return the <see cref="HelixToolkit.SharpDX.MeshGeometry3D"/>.
         /// </summary>
         /// <returns>A triangular mesh geometry.</returns>
         protected override MeshGeometry3D Tessellate()
         {
             MeshBuilder builder = new MeshBuilder();
             builder.AddSphere(this.Center, this.Radius, this.ThetaDiv, this.PhiDiv);
-            return builder.ToMesh();
+
+            return builder.ToMesh().ToMeshGeometry3D();
         }
     }
 }

@@ -19,24 +19,24 @@ namespace SD.Infrastructure.CrontabBase.Aspects
         #region # 字段
 
         /// <summary>
+        /// 同步锁
+        /// </summary>
+        private static readonly object _Sync = new object();
+
+        /// <summary>
         /// 日志目录
         /// </summary>
-        private static readonly string _LogDirectory = $"{AppDomain.CurrentDomain.BaseDirectory}\\ScheduleLogs";
+        private static readonly string _LogDirectory = $@"{AppDomain.CurrentDomain.BaseDirectory}\ScheduleLogs";
 
         /// <summary>
         /// 运行日志路径
         /// </summary>
-        private static readonly string _RunningLogPath = $"{_LogDirectory}\\RunningLogs\\{{0:yyyyMMdd}}.txt";
+        private static readonly string _RunningLogPath = $@"{_LogDirectory}\RunningLogs\{{0:yyyyMMdd}}.log";
 
         /// <summary>
         /// 异常日志路径
         /// </summary>
-        private static readonly string _ExceptionLogPath = $"{_LogDirectory}\\ExceptionLogs\\{{0:yyyyMMdd}}.txt";
-
-        /// <summary>
-        /// 同步锁
-        /// </summary>
-        private static readonly object _Sync = new object();
+        private static readonly string _ExceptionLogPath = $@"{_LogDirectory}\ExceptionLogs\{{0:yyyyMMdd}}.log";
 
         #endregion
 
@@ -48,22 +48,21 @@ namespace SD.Infrastructure.CrontabBase.Aspects
         public void Advise(MethodAdviceContext context)
         {
             Type executorType = context.TargetMethod.DeclaringType;
-            FieldInfo logAppenderfField = executorType.GetField("_logAppender", BindingFlags.NonPublic | BindingFlags.Instance);
+            FieldInfo logAppenderfField = executorType!.GetField("_logAppender", BindingFlags.NonPublic | BindingFlags.Instance);
             string crontabName = executorType.GenericTypeArguments.Single().Name;
-
-            Stopwatch watch = new Stopwatch();
+            StringBuilder logAppender = (StringBuilder)logAppenderfField!.GetValue(context.Target);
 
             try
             {
+                Stopwatch watch = new Stopwatch();
                 DateTime startTime = DateTime.Now;
                 watch.Start();
 
                 context.Proceed();
 
-                watch.Stop();
                 DateTime endTime = DateTime.Now;
+                watch.Stop();
 
-                StringBuilder logAppender = (StringBuilder)logAppenderfField.GetValue(context.Target);
                 Task.Run(() =>
                 {
                     this.WriteFile(string.Format(_RunningLogPath, DateTime.Today),
@@ -78,7 +77,6 @@ namespace SD.Infrastructure.CrontabBase.Aspects
             }
             catch (Exception exception)
             {
-                StringBuilder logAppender = (StringBuilder)logAppenderfField.GetValue(context.Target);
                 Task.Run(() =>
                 {
                     this.WriteFile(string.Format(_ExceptionLogPath, DateTime.Today),
@@ -96,9 +94,9 @@ namespace SD.Infrastructure.CrontabBase.Aspects
         }
         #endregion
 
-        #region # 写入文件方法 —— void WriteFile(string path, string content)
+        #region # 写入文件 —— void WriteFile(string path, string content)
         /// <summary>
-        /// 写入文件方法
+        /// 写入文件
         /// </summary>
         /// <param name="path">路径</param>
         /// <param name="content">内容</param>

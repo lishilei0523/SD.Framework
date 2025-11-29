@@ -1,7 +1,8 @@
-﻿using HelixToolkit.Wpf.SharpDX;
+﻿using HelixToolkit.Maths;
+using HelixToolkit.Wpf.SharpDX;
 using MathNet.Numerics.LinearAlgebra;
 using MathNet.Numerics.LinearAlgebra.Double;
-using SharpDX;
+using System.Numerics;
 using System.Windows.Media.Media3D;
 
 namespace SD.Infrastructure.WPF.ThreeDims.Extensions

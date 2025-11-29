@@ -47,6 +47,7 @@ namespace SD.Infrastructure.Avalonia.Caliburn.Aspects
                     }
                     MessageBox.Show(exception.Message, "错误", MessageBoxButton.OK, PackIconMaterialDesignKind.Error);
                 }
+
                 BusyExtension.GlobalIdle();
             }
         }

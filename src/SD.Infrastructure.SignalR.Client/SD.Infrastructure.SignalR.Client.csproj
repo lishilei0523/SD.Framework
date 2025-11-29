@@ -2,18 +2,8 @@
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
     <LangVersion>8.0</LangVersion>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
+    <Version>2.3.1</Version>
     <Description>SD.Framework 基础设施 - ASP.NET Core SignalR客户端基础</Description>
-    <Copyright>Copyright © SD 2025</Copyright>
-    <Version>2.3.0</Version>
-    <AssemblyVersion>2.3.0</AssemblyVersion>
-    <FileVersion>2.3.0.0</FileVersion>
-  </PropertyGroup>
-
-  <PropertyGroup>
-    <BaseOutputPath>bin\</BaseOutputPath>
-    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

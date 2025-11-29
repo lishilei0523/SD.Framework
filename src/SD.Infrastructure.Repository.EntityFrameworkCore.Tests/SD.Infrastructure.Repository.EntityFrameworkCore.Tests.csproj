@@ -1,10 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-    <IsPackable>false</IsPackable>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Copyright>Copyright © SD 2025</Copyright>
+    <IsPackable>False</IsPackable>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,9 +35,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="SD.Common" Version="3.4.0" />
-    <PackageReference Include="SD.IOC.Core" Version="2.3.0" />
-    <PackageReference Include="SD.IOC.Extension.NetCore" Version="2.3.0" />
+    <PackageReference Include="SD.Common" Version="3.4.1" />
+    <PackageReference Include="SD.IOC.Core" Version="2.3.3" />
+    <PackageReference Include="SD.IOC.Extension.NetCore" Version="2.3.3" />
   </ItemGroup>
 
   <ItemGroup>
