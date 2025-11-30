@@ -23,17 +23,17 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <summary>
         /// Identifies the <see cref="Length"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty LengthProperty = DependencyProperty.Register(nameof(Length), typeof(double), typeof(BoxVisual3D), new UIPropertyMetadata(1.0, GeometryChanged));
+        public static readonly DependencyProperty LengthProperty = DependencyProperty.Register(nameof(Length), typeof(float), typeof(BoxVisual3D), new UIPropertyMetadata(1.0f, GeometryChanged));
 
         /// <summary>
         /// Identifies the <see cref="Width"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty WidthProperty = DependencyProperty.Register(nameof(Width), typeof(double), typeof(BoxVisual3D), new UIPropertyMetadata(1.0, GeometryChanged));
+        public static readonly DependencyProperty WidthProperty = DependencyProperty.Register(nameof(Width), typeof(float), typeof(BoxVisual3D), new UIPropertyMetadata(1.0f, GeometryChanged));
 
         /// <summary>
         /// Identifies the <see cref="Height"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty HeightProperty = DependencyProperty.Register(nameof(Height), typeof(double), typeof(BoxVisual3D), new UIPropertyMetadata(1.0, GeometryChanged));
+        public static readonly DependencyProperty HeightProperty = DependencyProperty.Register(nameof(Height), typeof(float), typeof(BoxVisual3D), new UIPropertyMetadata(1.0f, GeometryChanged));
 
         /// <summary>
         /// Identifies the <see cref="TopFace"/> dependency property.

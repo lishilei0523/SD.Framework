@@ -221,9 +221,9 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <param name="y">The y.</param>
         /// <param name="d">The d.</param>
         /// <returns>The is multiple of.</returns>
-        private static bool IsMultipleOf(double y, double d)
+        private static bool IsMultipleOf(float y, float d)
         {
-            double y2 = d * (int)(y / d);
+            float y2 = d * (int)(y / d);
             return Math.Abs(y - y2) < 1e-3;
         }
 

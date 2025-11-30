@@ -24,7 +24,7 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
         /// <summary>
         /// Identifies the <see cref="Radius"/> dependency property.
         /// </summary>
-        public static readonly DependencyProperty RadiusProperty = DependencyProperty.Register(nameof(Radius), typeof(double), typeof(SphereVisual3D), new PropertyMetadata(1.0, GeometryChanged));
+        public static readonly DependencyProperty RadiusProperty = DependencyProperty.Register(nameof(Radius), typeof(float), typeof(SphereVisual3D), new PropertyMetadata(1.0f, GeometryChanged));
 
         /// <summary>
         /// Identifies the <see cref="ThetaDiv"/> dependency property.
