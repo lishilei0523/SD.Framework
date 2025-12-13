@@ -1,8 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;net8.0-windows</TargetFrameworks>
-    <UseWPF>true</UseWPF>
-    <Version>1.4.0</Version>
+    <UseWPF>True</UseWPF>
     <Description>SD.Framework 基础设施 - WPF基础 - Caliburn.Micro扩展</Description>
   </PropertyGroup>
 

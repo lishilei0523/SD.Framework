@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net8.0;net9.0</TargetFrameworks>
-    <Version>2.6.2</Version>
     <Description>SD.Framework 基础设施 - 仓储基础 - EntityFrameworkCore实现</Description>
   </PropertyGroup>
 

@@ -1,0 +1,7 @@
+<Project DefaultTargets="Build">
+  <!--NuGet-->
+  <PropertyGroup>
+    <Title>$(AssemblyName)</Title>
+    <Owners>$(Company)</Owners>
+  </PropertyGroup>
+</Project>

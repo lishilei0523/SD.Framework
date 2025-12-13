@@ -1,24 +1,33 @@
 <Project DefaultTargets="Build">
   <PropertyGroup>
+    <LangVersion>Latest</LangVersion>
     <BaseOutputPath>bin\</BaseOutputPath>
-    <AssemblyVersion>$(Version)</AssemblyVersion>
-    <FileVersion>$(Version)</FileVersion>
-    <Title>$(AssemblyName)</Title>
-    <Authors>Lee</Authors>
-    <Company>SD</Company>
-    <Owners>$(Company)</Owners>
-    <Copyright>Copyright © SD $([System.DateTime]::Now.ToString(yyyy))</Copyright>
-    <PackageIcon>content\favicon.png</PackageIcon>
-    <PackageOutputPath>$(SolutionDir)\packages</PackageOutputPath>
     <NoDefaultLaunchSettingsFile>True</NoDefaultLaunchSettingsFile>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <!--Version-->
+  <PropertyGroup>
+    <Version>4.0.0</Version>
+    <AssemblyVersion>$(Version)</AssemblyVersion>
+    <FileVersion>$(Version)</FileVersion>
+    <Authors>Lee</Authors>
+    <Company>SD</Company>
+    <Copyright>Copyright © SD $([System.DateTime]::Now.ToString(yyyy))</Copyright>
+  </PropertyGroup>
+
+  <!--NuGet-->
+  <PropertyGroup>
+    <PackageIcon>Icon.png</PackageIcon>
+    <PackageOutputPath>$(SolutionDir)\packages</PackageOutputPath>
     <GeneratePackageOnBuild Condition="'$(Configuration)'=='Release'">True</GeneratePackageOnBuild>
   </PropertyGroup>
 
+  <!--NuGet-->
   <ItemGroup>
     <None Include="$(SolutionDir)\assets\favicon.png">
       <Pack>True</Pack>
-      <PackagePath>content\</PackagePath>
+      <PackagePath>Icon.png</PackagePath>
       <Visible>False</Visible>
     </None>
     <None Include="*.config.transform">

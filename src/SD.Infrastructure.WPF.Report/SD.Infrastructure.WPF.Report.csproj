@@ -1,10 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;net8.0-windows</TargetFrameworks>
-    <LangVersion>8.0</LangVersion>
-    <UseWindowsForms>true</UseWindowsForms>
-    <UseWPF>true</UseWPF>
-    <Version>1.2.0</Version>
+    <UseWindowsForms>True</UseWindowsForms>
+    <UseWPF>True</UseWPF>
     <Description>SD.Framework 基础设施 - WPF基础 - RDLC报表扩展</Description>
   </PropertyGroup>
 

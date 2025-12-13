@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
-    <Version>2.4.2</Version>
     <Description>SD.Framework 基础设施 - AOP基础</Description>
   </PropertyGroup>
 

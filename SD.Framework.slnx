@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/00 - Global/">
     <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
   </Folder>
   <Folder Name="/01 - Infrastructures/">
     <Project Path="src/SD.Infrastructure.AOP/SD.Infrastructure.AOP.csproj" />

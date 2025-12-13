@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;net8.0</TargetFrameworks>
-    <Version>1.2.0</Version>
     <Description>SD.Framework 基础设施 - WWF基础</Description>
   </PropertyGroup>
 

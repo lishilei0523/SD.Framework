@@ -1,8 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net462;netstandard2.0</TargetFrameworks>
-    <LangVersion>8.0</LangVersion>
-    <Version>2.3.1</Version>
     <Description>SD.Framework 基础设施 - ASP.NET Core SignalR客户端基础</Description>
   </PropertyGroup>
 

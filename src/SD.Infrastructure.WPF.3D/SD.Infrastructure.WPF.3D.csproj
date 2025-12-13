@@ -2,8 +2,7 @@
   <PropertyGroup>
     <TargetFrameworks>net48;net8.0-windows</TargetFrameworks>
     <RootNamespace>SD.Infrastructure.WPF.ThreeDims</RootNamespace>
-    <UseWPF>true</UseWPF>
-    <Version>1.1.1</Version>
+    <UseWPF>True</UseWPF>
     <Description>SD.Framework 基础设施 - WPF 3D基础</Description>
   </PropertyGroup>
 
