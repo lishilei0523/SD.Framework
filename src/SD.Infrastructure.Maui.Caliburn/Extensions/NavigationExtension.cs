@@ -70,7 +70,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Extensions
         public static async Task<bool?> ShowDialogAsync<TViewModel>(this INavigationService navigationService, CancellationToken token = default) where TViewModel : INotifyPropertyChanged
         {
             Element view = ViewLocator.LocateForModelType(typeof(TViewModel), null, null);
-            if (view is Popup popup)
+            if (view is Popup<bool?> popup)
             {
                 //TODO 注意调试
                 NavigationPage navigationPage = ResolveMediator.Resolve<NavigationPage>();
@@ -79,7 +79,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Extensions
                 return (bool?)result;
             }
 
-            throw new InvalidCastException($"\"{view.GetType()}\"未继承\"{typeof(Popup)}\"！");
+            throw new InvalidCastException($"\"{view.GetType()}\"未继承\"{typeof(Popup<bool?>)}\"！");
         }
         #endregion
 
@@ -90,7 +90,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Extensions
         public static async Task<bool?> ShowDialogAsync<TViewModel>(this INavigationService navigationService, TViewModel viewModel, CancellationToken token = default) where TViewModel : ScreenBase
         {
             Element view = ViewLocator.LocateForModel(viewModel, null, null);
-            if (view is Popup popup)
+            if (view is Popup<bool?> popup)
             {
                 //TODO 注意调试
                 ViewModelBinder.Bind(viewModel, view, null);
@@ -100,7 +100,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Extensions
                 return (bool?)result;
             }
 
-            throw new InvalidCastException($"\"{view.GetType()}\"未继承\"{typeof(Popup)}\"！");
+            throw new InvalidCastException($"\"{view.GetType()}\"未继承\"{typeof(Popup<bool?>)}\"！");
         }
         #endregion
     }

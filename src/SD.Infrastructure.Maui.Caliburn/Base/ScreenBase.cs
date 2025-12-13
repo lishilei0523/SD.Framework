@@ -102,9 +102,9 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
         public override async Task TryCloseAsync(bool? dialogResult = null)
         {
             object view = this.GetView();
-            if (view is Popup popup)
+            if (view is Popup<bool?> popup)
             {
-                await popup.CloseAsync();//TODO 调试
+                await popup.CloseAsync(dialogResult);//TODO 调试
             }
 
             await base.TryCloseAsync(dialogResult);
