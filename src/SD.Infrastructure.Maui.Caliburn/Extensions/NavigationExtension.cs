@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro.Maui;
+using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Maui.Views;
 using Microsoft.Maui.Controls;
 using SD.Infrastructure.Maui.Caliburn.Base;
@@ -71,8 +72,9 @@ namespace SD.Infrastructure.Maui.Caliburn.Extensions
             Element view = ViewLocator.LocateForModelType(typeof(TViewModel), null, null);
             if (view is Popup popup)
             {
+                //TODO 注意调试
                 NavigationPage navigationPage = ResolveMediator.Resolve<NavigationPage>();
-                object result = await navigationPage.ShowPopupAsync(popup, token);
+                object result = await navigationPage.ShowPopupAsync(popup, null, token);
 
                 return (bool?)result;
             }
@@ -90,9 +92,10 @@ namespace SD.Infrastructure.Maui.Caliburn.Extensions
             Element view = ViewLocator.LocateForModel(viewModel, null, null);
             if (view is Popup popup)
             {
+                //TODO 注意调试
                 ViewModelBinder.Bind(viewModel, view, null);
                 NavigationPage navigationPage = ResolveMediator.Resolve<NavigationPage>();
-                object result = await navigationPage.ShowPopupAsync(popup, token);
+                object result = await navigationPage.ShowPopupAsync(popup, null, token);
 
                 return (bool?)result;
             }

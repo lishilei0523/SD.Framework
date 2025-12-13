@@ -104,7 +104,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
             object view = this.GetView();
             if (view is Popup popup)
             {
-                await popup.CloseAsync(dialogResult);
+                await popup.CloseAsync();//TODO 调试
             }
 
             await base.TryCloseAsync(dialogResult);

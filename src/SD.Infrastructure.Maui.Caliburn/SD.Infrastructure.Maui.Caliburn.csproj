@@ -7,7 +7,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.11" />
     <PackageReference Include="Microsoft.Maui.Essentials" Version="10.0.11" />
-    <PackageReference Include="CommunityToolkit.Maui" Version="11.2.0" />
+    <PackageReference Include="CommunityToolkit.Maui" Version="13.0.0" />
     <PackageReference Include="Caliburn.Micro.Core" Version="5.0.258" />
     <PackageReference Include="Caliburn.Micro.Maui" Version="5.0.258-beta" />
     <PackageReference Include="Acr.UserDialogs" Version="9.2.2" />
