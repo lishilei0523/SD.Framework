@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net462;net8.0</TargetFrameworks>
+    <TargetFrameworks>net462;net8.0;net10.0</TargetFrameworks>
     <Description>SD.Framework 基础设施 - WWF基础</Description>
   </PropertyGroup>
 
@@ -12,7 +12,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
 
-  <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">
+  <ItemGroup Condition="$(TargetFramework.Equals('net8.0')) Or $(TargetFramework.Equals('net10.0'))">
     <PackageReference Include="workflow-80" Version="6.0.3" />
   </ItemGroup>
 

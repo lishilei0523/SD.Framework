@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
     <Description>SD.Framework 基础设施 - ASP.NET Core服务端基础</Description>
   </PropertyGroup>
 
@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.IOC.Core" Version="2.3.3" />
+    <PackageReference Include="SD.IOC.Core" Version="3.0.0" />
   </ItemGroup>
 
   <ItemGroup>

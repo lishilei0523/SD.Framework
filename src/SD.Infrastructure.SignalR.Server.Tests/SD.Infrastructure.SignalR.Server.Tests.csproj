@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="8.0.22" />
-    <PackageReference Include="SD.Toolkits.AspNet" Version="1.2.1" />
-    <PackageReference Include="SD.Toolkits.Redis" Version="2.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="10.0.1" />
+    <PackageReference Include="SD.Toolkits.AspNet" Version="4.0.0" />
+    <PackageReference Include="SD.Toolkits.Redis" Version="4.0.0" />
   </ItemGroup>
 
   <ItemGroup>

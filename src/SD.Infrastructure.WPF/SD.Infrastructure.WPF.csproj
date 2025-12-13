@@ -1,6 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net462;net8.0-windows</TargetFrameworks>
+    <TargetFrameworks>net462;net8.0-windows;net10.0-windows</TargetFrameworks>
     <UseWPF>True</UseWPF>
     <Description>SD.Framework 基础设施 - WPF基础</Description>
   </PropertyGroup>
