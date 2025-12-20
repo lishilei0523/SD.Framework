@@ -1,0 +1,167 @@
+﻿using HelixToolkit.Geometry;
+using HelixToolkit.SharpDX;
+using System;
+using System.Collections.Generic;
+using System.Numerics;
+using System.Windows;
+using MeshGeometry3D = HelixToolkit.SharpDX.MeshGeometry3D;
+
+namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
+{
+    /// <summary>
+    /// A visual element that shows a 3D rectangle defined by origin, normal, length and width.
+    /// </summary>
+    public class AxialPlaneVisual3D : MeshElement3D
+    {
+        /// <summary>
+        /// Identifies the <see cref="DivLength"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty DivLengthProperty = DependencyProperty.Register(nameof(DivLength), typeof(int), typeof(AxialPlaneVisual3D), new UIPropertyMetadata(10, GeometryChanged, CoerceDivValue));
+
+        /// <summary>
+        /// Identifies the <see cref="DivWidth"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty DivWidthProperty = DependencyProperty.Register(nameof(DivWidth), typeof(int), typeof(AxialPlaneVisual3D), new UIPropertyMetadata(10, GeometryChanged, CoerceDivValue));
+
+        /// <summary>
+        /// Identifies the <see cref="LengthDirection"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty LengthDirectionProperty = DependencyProperty.Register(nameof(LengthDirection), typeof(Vector3), typeof(AxialPlaneVisual3D), new PropertyMetadata(new Vector3(1, 0, 0), GeometryChanged));
+
+        /// <summary>
+        /// Identifies the <see cref="Length"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty LengthProperty = DependencyProperty.Register(nameof(Length), typeof(float), typeof(AxialPlaneVisual3D), new PropertyMetadata(10.0f, GeometryChanged));
+
+        /// <summary>
+        /// Identifies the <see cref="Normal"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty NormalProperty = DependencyProperty.Register(nameof(Normal), typeof(Vector3), typeof(AxialPlaneVisual3D), new PropertyMetadata(new Vector3(0, 0, 1), GeometryChanged));
+
+        /// <summary>
+        /// Identifies the <see cref="Origin"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty OriginProperty = DependencyProperty.Register(nameof(Origin), typeof(Vector3), typeof(AxialPlaneVisual3D), new PropertyMetadata(new Vector3(0, 0, 0), GeometryChanged));
+
+        /// <summary>
+        /// Identifies the <see cref="Width"/> dependency property.
+        /// </summary>
+        public static readonly DependencyProperty WidthProperty = DependencyProperty.Register(nameof(Width), typeof(float), typeof(AxialPlaneVisual3D), new PropertyMetadata(10.0f, GeometryChanged));
+
+        /// <summary>
+        /// Gets or sets the number of divisions in the 'length' direction.
+        /// </summary>
+        /// <value>The number of divisions.</value>
+        public int DivLength
+        {
+            get => (int)this.GetValue(DivLengthProperty);
+            set => this.SetValue(DivLengthProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the number of divisions in the 'width' direction.
+        /// </summary>
+        /// <value>The number of divisions.</value>
+        public int DivWidth
+        {
+            get => (int)this.GetValue(DivWidthProperty);
+            set => this.SetValue(DivWidthProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the length.
+        /// </summary>
+        /// <value>The length.</value>
+        public float Length
+        {
+            get => (float)this.GetValue(LengthProperty);
+            set => this.SetValue(LengthProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the length direction.
+        /// </summary>
+        /// <value>The length direction.</value>
+        public Vector3 LengthDirection
+        {
+            get => (Vector3)this.GetValue(LengthDirectionProperty);
+            set => this.SetValue(LengthDirectionProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the normal vector of the plane.
+        /// </summary>
+        /// <value>The normal.</value>
+        public Vector3 Normal
+        {
+            get => (Vector3)this.GetValue(NormalProperty);
+            set => this.SetValue(NormalProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the center point of the plane.
+        /// </summary>
+        /// <value>The origin.</value>
+        public Vector3 Origin
+        {
+            get => (Vector3)this.GetValue(OriginProperty);
+            set => this.SetValue(OriginProperty, value);
+        }
+
+        /// <summary>
+        /// Gets or sets the width.
+        /// </summary>
+        /// <value>The width.</value>
+        public float Width
+        {
+            get => (float)this.GetValue(WidthProperty);
+            set => this.SetValue(WidthProperty, value);
+        }
+
+        /// <summary>
+        /// Do the tessellation and return the <see cref="System.Windows.Media.Media3D.MeshGeometry3D"/>.
+        /// </summary>
+        /// <returns>A triangular mesh geometry.</returns>
+        protected override MeshGeometry3D Tessellate()
+        {
+            Vector3 u = this.LengthDirection;
+            Vector3 w = this.Normal;
+            Vector3 v = Vector3.Cross(w, u);
+            u = Vector3.Cross(v, w);
+
+            u = Vector3.Normalize(u);
+            v = Vector3.Normalize(v);
+            w = Vector3.Normalize(w);
+
+            float le = this.Length;
+            float wi = this.Width;
+
+            List<Vector3> pts = new List<Vector3>();
+            for (int i = 0; i < this.DivLength; i++)
+            {
+                float fi = -0.5f + ((float)i / (this.DivLength - 1));
+                for (int j = 0; j < this.DivWidth; j++)
+                {
+                    float fj = -0.5f + ((float)j / (this.DivWidth - 1));
+                    pts.Add(this.Origin + (u * le * fi) + (v * wi * fj));
+                }
+            }
+
+            MeshBuilder builder = new MeshBuilder();
+            builder.AddRectangularMesh(pts, this.DivWidth);
+
+            return builder.ToMesh().ToMeshGeometry3D();
+        }
+
+        /// <summary>
+        /// Coerces the division value.
+        /// </summary>
+        /// <param name="d">The sender.</param>
+        /// <param name="baseValue">The base value.</param>
+        /// <returns>A value not less than 2.</returns>
+        private static object CoerceDivValue(DependencyObject d, object baseValue)
+        {
+            return Math.Max(2, (int)baseValue);
+        }
+    }
+}
