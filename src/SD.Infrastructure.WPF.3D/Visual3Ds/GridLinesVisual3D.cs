@@ -1,4 +1,5 @@
-﻿using HelixToolkit.Geometry;
+﻿using HelixToolkit;
+using HelixToolkit.Geometry;
 using HelixToolkit.Maths;
 using HelixToolkit.SharpDX;
 using HelixToolkit.Wpf.SharpDX;
@@ -208,6 +209,18 @@ namespace SD.Infrastructure.WPF.ThreeDims.Visual3Ds
 
                 this.AddLineY(meshBuilder, y, minX, maxX, t);
                 y += this.MinorDistance;
+            }
+
+            //创建默认纹理坐标
+            if (meshBuilder.TextureCoordinates == null || meshBuilder.TextureCoordinates.Count != meshBuilder.Positions.Count)
+            {
+                Vector2Collection textureCoordinates = new Vector2Collection();
+                foreach (Vector3 position in meshBuilder.Positions)
+                {
+                    Vector2 textureCoordinate = new Vector2(position.X + 0.5f, position.Y + 0.5f);
+                    textureCoordinates.Add(textureCoordinate);
+                }
+                meshBuilder.TextureCoordinates = textureCoordinates;
             }
 
             MeshGeometry3D meshGeometry3D = meshBuilder.ToMesh().ToMeshGeometry3D();

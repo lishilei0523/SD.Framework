@@ -3,6 +3,7 @@
     <TargetFrameworks>net48;net8.0-windows;net10.0-windows</TargetFrameworks>
     <RootNamespace>SD.Infrastructure.WPF.ThreeDims</RootNamespace>
     <UseWPF>True</UseWPF>
+    <Version>4.0.1</Version>
     <Description>SD.Framework 基础设施 - WPF 3D基础</Description>
   </PropertyGroup>
 
