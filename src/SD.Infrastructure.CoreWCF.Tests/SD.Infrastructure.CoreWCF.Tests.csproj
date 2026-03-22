@@ -25,10 +25,10 @@
     <PackageReference Include="CoreWCF.ConfigurationManager" Version="1.8.0">
       <ExcludeAssets>contentFiles</ExcludeAssets>
     </PackageReference>
-    <PackageReference Include="SD.Common" Version="4.0.0" />
-    <PackageReference Include="SD.Toolkits.AspNet" Version="4.0.0" />
-    <PackageReference Include="SD.IOC.Core" Version="3.0.0" />
-    <PackageReference Include="SD.IOC.Extension.NetCore" Version="3.0.0" />
+    <PackageReference Include="SD.Common" Version="4.0.1" />
+    <PackageReference Include="SD.Toolkits.AspNet" Version="4.0.1" />
+    <PackageReference Include="SD.IOC.Core" Version="3.0.1" />
+    <PackageReference Include="SD.IOC.Extension.NetCore" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>

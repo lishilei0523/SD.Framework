@@ -5,16 +5,16 @@
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="9.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="9.0.14" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net10.0'))">
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="10.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="10.0.5" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.Toolkits.EntityFrameworkCore" Version="4.0.0" />
-    <PackageReference Include="SD.IOC.Core" Version="3.0.0" />
+    <PackageReference Include="SD.Toolkits.EntityFrameworkCore" Version="4.0.1" />
+    <PackageReference Include="SD.IOC.Core" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>

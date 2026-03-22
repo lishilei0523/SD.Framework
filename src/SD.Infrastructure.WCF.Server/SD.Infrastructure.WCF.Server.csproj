@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.IOC.Integration.WCF" Version="3.0.0" />
+    <PackageReference Include="SD.IOC.Integration.WCF" Version="3.0.1" />
   </ItemGroup>
 
   <ItemGroup>

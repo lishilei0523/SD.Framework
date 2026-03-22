@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
-    <PackageReference Include="SD.Toolkits.Redis" Version="4.0.0" />
+    <PackageReference Include="SD.Toolkits.Redis" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>

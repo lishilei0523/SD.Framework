@@ -4,9 +4,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="10.0.3" />
-    <PackageReference Include="SD.Toolkits.AspNet" Version="4.0.0" />
-    <PackageReference Include="SD.Toolkits.Redis" Version="4.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="10.0.5" />
+    <PackageReference Include="SD.Toolkits.AspNet" Version="4.0.1" />
+    <PackageReference Include="SD.Toolkits.Redis" Version="4.0.1" />
   </ItemGroup>
 
   <ItemGroup>
