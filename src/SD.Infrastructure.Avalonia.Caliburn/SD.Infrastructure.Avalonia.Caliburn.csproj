@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net10.0</TargetFrameworks>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <Description>SD.Framework 基础设施 - Avalonia基础 - Caliburn.Micro扩展</Description>
   </PropertyGroup>
 

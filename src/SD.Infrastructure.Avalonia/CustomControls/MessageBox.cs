@@ -13,6 +13,7 @@ namespace SD.Infrastructure.Avalonia.CustomControls
     /// </summary>
     public static class MessageBox
     {
+        #region # 显示消息 —— static async Task<TaskDialogStandardResult> Show(string content...
         /// <summary>
         /// 显示消息
         /// </summary>
@@ -78,5 +79,6 @@ namespace SD.Infrastructure.Avalonia.CustomControls
 
             return result;
         }
+        #endregion
     }
 }
