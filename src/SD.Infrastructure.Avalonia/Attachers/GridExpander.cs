@@ -3,7 +3,7 @@ using Avalonia.Controls;
 using Avalonia.Interactivity;
 using SD.Infrastructure.Avalonia.Models;
 
-namespace SD.Infrastructure.Avalonia.CustomControls
+namespace SD.Infrastructure.Avalonia.Attachers
 {
     /// <summary>
     /// Grid扩张器
