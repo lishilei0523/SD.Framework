@@ -17,8 +17,9 @@ namespace SD.Infrastructure.Avalonia.Caliburn.Extensions
         /// </summary>
         public static async Task<IReadOnlyList<IStorageFile>> OpenFilePickerAsync(this Screen screen, FilePickerOpenOptions options)
         {
-            TopLevel topLevel = (TopLevel)screen.GetView();
-            IReadOnlyList<IStorageFile> storageFiles = await topLevel.StorageProvider.OpenFilePickerAsync(options);
+            Control view = (Control)screen.GetView();
+            TopLevel topLevel = TopLevel.GetTopLevel(view);
+            IReadOnlyList<IStorageFile> storageFiles = await topLevel!.StorageProvider.OpenFilePickerAsync(options);
 
             return storageFiles;
         }
@@ -30,8 +31,9 @@ namespace SD.Infrastructure.Avalonia.Caliburn.Extensions
         /// </summary>
         public static async Task<IReadOnlyList<IStorageFolder>> OpenFolderPickerAsync(this Screen screen, FolderPickerOpenOptions options)
         {
-            TopLevel topLevel = (TopLevel)screen.GetView();
-            IReadOnlyList<IStorageFolder> storageFolders = await topLevel.StorageProvider.OpenFolderPickerAsync(options);
+            Control view = (Control)screen.GetView();
+            TopLevel topLevel = TopLevel.GetTopLevel(view);
+            IReadOnlyList<IStorageFolder> storageFolders = await topLevel!.StorageProvider.OpenFolderPickerAsync(options);
 
             return storageFolders;
         }
@@ -43,8 +45,9 @@ namespace SD.Infrastructure.Avalonia.Caliburn.Extensions
         /// </summary>
         public static async Task<IStorageFile> SaveFilePickerAsync(this Screen screen, FilePickerSaveOptions options)
         {
-            TopLevel topLevel = (TopLevel)screen.GetView();
-            IStorageFile storageFile = await topLevel.StorageProvider.SaveFilePickerAsync(options);
+            Control view = (Control)screen.GetView();
+            TopLevel topLevel = TopLevel.GetTopLevel(view);
+            IStorageFile storageFile = await topLevel!.StorageProvider.SaveFilePickerAsync(options);
 
             return storageFile;
         }
