@@ -115,6 +115,19 @@ namespace SD.Infrastructure.Avalonia.Attachers
         /// </summary>
         private static void Expand(Control element, Grid parentGrid)
         {
+            //先恢复其他已展开的元素
+            foreach (Control child in parentGrid.Children)
+            {
+                if (child is not null && child != element)
+                {
+                    GridState childState = GetOriginalState(child);
+                    if (childState is { IsExpanded: true })
+                    {
+                        Restore(child, parentGrid, childState);
+                    }
+                }
+            }
+
             //保存当前控件状态
             GridState state = new GridState
             {
@@ -166,7 +179,16 @@ namespace SD.Infrastructure.Avalonia.Attachers
             {
                 if (child is not null && child != element)
                 {
-                    child.IsVisible = true;
+                    //优先读取GridCell的IsVisible（配合GridLayout使用）
+                    GridCell cell = GridLayout.GetCell(child);
+                    if (cell != null)
+                    {
+                        child.IsVisible = cell.IsVisible;
+                    }
+                    else
+                    {
+                        child.IsVisible = true;
+                    }
                 }
             }
 
