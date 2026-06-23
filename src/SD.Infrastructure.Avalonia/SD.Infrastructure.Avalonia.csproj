@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net10.0</TargetFrameworks>
-    <Version>1.0.8</Version>
+    <Version>1.0.9</Version>
     <Description>SD.Framework 基础设施 - Avalonia基础</Description>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="11.3.16" />
+    <PackageReference Include="Avalonia" Version="11.3.18" />
     <PackageReference Include="FluentAvaloniaUI" Version="2.5.1" />
     <PackageReference Include="IconPacks.Avalonia.MaterialDesign" Version="2.0.0" />
   </ItemGroup>
