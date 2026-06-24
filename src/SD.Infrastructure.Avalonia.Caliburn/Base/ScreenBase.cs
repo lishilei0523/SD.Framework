@@ -14,16 +14,23 @@ namespace SD.Infrastructure.Avalonia.Caliburn.Base
         #region # 字段及构造器
 
         /// <summary>
-        /// 无参构造器
+        /// 默认构造器
         /// </summary>
         protected ScreenBase()
         {
-
+            this.InstanceUId = Guid.NewGuid().ToString();
         }
 
         #endregion
 
         #region # 属性
+
+        #region 实例UID —— string InstanceUId
+        /// <summary>
+        /// 实例UID
+        /// </summary>
+        public string InstanceUId { get; protected set; }
+        #endregion
 
         #region 是否繁忙 —— bool IsBusy
         /// <summary>

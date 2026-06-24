@@ -13,7 +13,32 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
     /// </summary>
     public class ScreenBase : Screen
     {
-        #region # 挂起繁忙状态 —— void Busy(string title...
+        #region # 字段及构造器
+
+        /// <summary>
+        /// 默认构造器
+        /// </summary>
+        protected ScreenBase()
+        {
+            this.InstanceUId = Guid.NewGuid().ToString();
+        }
+
+        #endregion
+
+        #region # 属性
+
+        #region 实例UID —— string InstanceUId
+        /// <summary>
+        /// 实例UID
+        /// </summary>
+        public string InstanceUId { get; protected set; }
+        #endregion
+
+        #endregion
+
+        #region # 方法
+
+        #region 挂起繁忙状态 —— void Busy(string title...
         /// <summary>
         /// 挂起繁忙状态
         /// </summary>
@@ -23,7 +48,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
         }
         #endregion
 
-        #region # 释放繁忙状态 —— void Idle()
+        #region 释放繁忙状态 —— void Idle()
         /// <summary>
         /// 释放繁忙状态
         /// </summary>
@@ -33,7 +58,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
         }
         #endregion
 
-        #region # 提示消息 —— void Toast(string title...
+        #region 提示消息 —— void Toast(string title...
         /// <summary>
         /// 提示消息
         /// </summary>
@@ -43,7 +68,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
         }
         #endregion
 
-        #region # 提示消息 —— void ToastVibrantly(string title...
+        #region 提示消息 —— void ToastVibrantly(string title...
         /// <summary>
         /// 提示消息
         /// </summary>
@@ -54,7 +79,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
         }
         #endregion
 
-        #region # 警告消息 —— async Task Alert(string message...
+        #region 警告消息 —— async Task Alert(string message...
         /// <summary>
         /// 警告消息
         /// </summary>
@@ -64,7 +89,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
         }
         #endregion
 
-        #region # 警告消息 —— async Task AlertVibrantly(string message...
+        #region 警告消息 —— async Task AlertVibrantly(string message...
         /// <summary>
         /// 警告消息
         /// </summary>
@@ -75,7 +100,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
         }
         #endregion
 
-        #region # 确认消息 —— async Task<bool> Confirm(string message...
+        #region 确认消息 —— async Task<bool> Confirm(string message...
         /// <summary>
         /// 确认消息
         /// </summary>
@@ -85,7 +110,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
         }
         #endregion
 
-        #region # 确认消息 —— async Task<bool> ConfirmVibrantly(string message...
+        #region 确认消息 —— async Task<bool> ConfirmVibrantly(string message...
         /// <summary>
         /// 确认消息
         /// </summary>
@@ -95,7 +120,7 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
         }
         #endregion
 
-        #region # 关闭视图模型 —— override async Task TryCloseAsync(bool? dialogResult = null)
+        #region 关闭视图模型 —— override async Task TryCloseAsync(bool? dialogResult = null)
         /// <summary>
         /// 关闭视图模型
         /// </summary>
@@ -109,6 +134,8 @@ namespace SD.Infrastructure.Maui.Caliburn.Base
 
             await base.TryCloseAsync(dialogResult);
         }
+        #endregion 
+
         #endregion
     }
 }
