@@ -11,5 +11,10 @@ namespace SD.Infrastructure.Avalonia.Caliburn.Base
         /// 事件发布者
         /// </summary>
         public Screen Publisher { get; set; }
+
+        /// <summary>
+        /// 事件组
+        /// </summary>
+        public string EventGroup { get; set; }
     }
 }

@@ -39,6 +39,13 @@ namespace SD.Infrastructure.Avalonia.Caliburn.Base
         public string InstanceUId { get; protected set; }
         #endregion
 
+        #region 事件组 —— string EventGroup
+        /// <summary>
+        /// 事件组
+        /// </summary>
+        public string EventGroup { get; set; }
+        #endregion
+
         #region 是否繁忙 —— bool IsBusy
         /// <summary>
         /// 是否繁忙

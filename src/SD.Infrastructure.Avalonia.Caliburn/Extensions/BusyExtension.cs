@@ -13,6 +13,7 @@ namespace SD.Infrastructure.Avalonia.Caliburn.Extensions
     /// </summary>
     public static class BusyExtension
     {
+        #region # 全局释放繁忙状态 —— static void GlobalIdle()
         /// <summary>
         /// 全局释放繁忙状态
         /// </summary>
@@ -58,7 +59,9 @@ namespace SD.Infrastructure.Avalonia.Caliburn.Extensions
                 }
             }
         }
+        #endregion
 
+        #region # 深度获取子元素列表 —— static void GetDeepSubElements(this Visual reference...
         /// <summary>
         /// 深度获取子元素列表
         /// </summary>
@@ -71,5 +74,6 @@ namespace SD.Infrastructure.Avalonia.Caliburn.Extensions
                 GetDeepSubElements(child, ref elements);
             }
         }
+        #endregion
     }
 }
