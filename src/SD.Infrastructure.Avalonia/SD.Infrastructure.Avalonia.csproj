@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net10.0</TargetFrameworks>
-    <Version>1.1.0</Version>
+    <Version>1.0.12</Version>
     <Description>SD.Framework 基础设施 - Avalonia基础</Description>
-    <AvaloniaUseCompiledBindingsByDefault>False</AvaloniaUseCompiledBindingsByDefault>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Avalonia" Version="12.0.5" />
-    <PackageReference Include="FluentAvaloniaUI" Version="3.0.0" />
+    <PackageReference Include="Avalonia" Version="11.3.18" />
+    <PackageReference Include="FluentAvaloniaUI" Version="2.5.1" />
     <PackageReference Include="IconPacks.Avalonia.MaterialDesign" Version="2.0.0" />
   </ItemGroup>
 

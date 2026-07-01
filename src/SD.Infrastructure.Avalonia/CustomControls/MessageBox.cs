@@ -13,7 +13,7 @@ namespace SD.Infrastructure.Avalonia.CustomControls
     /// </summary>
     public static class MessageBox
     {
-        #region # 显示消息 —— static async Task<FATaskDialogStandardResult> Show(string content...
+        #region # 显示消息 —— static async Task<TaskDialogStandardResult> Show(string content...
         /// <summary>
         /// 显示消息
         /// </summary>
@@ -22,26 +22,26 @@ namespace SD.Infrastructure.Avalonia.CustomControls
         /// <param name="button">按钮</param>
         /// <param name="icon">图标</param>
         /// <returns>消息结果</returns>
-        public static async Task<FATaskDialogStandardResult> Show(string content, string title = null, MessageBoxButton button = MessageBoxButton.OK, PackIconMaterialDesignKind icon = PackIconMaterialDesignKind.Info)
+        public static async Task<TaskDialogStandardResult> Show(string content, string title = null, MessageBoxButton button = MessageBoxButton.OK, PackIconMaterialDesignKind icon = PackIconMaterialDesignKind.Info)
         {
-            FATaskDialog dialog = new FATaskDialog
+            TaskDialog dialog = new TaskDialog
             {
                 Title = title,
                 Content = content,
                 ShowProgressBar = false,
-                FooterVisibility = FATaskDialogFooterVisibility.Never
+                FooterVisibility = TaskDialogFooterVisibility.Never
             };
 
             PackIconMaterialDesign packIcon = new PackIconMaterialDesign { Kind = PackIconMaterialDesignKind.Info };
-            dialog.IconSource = new FAPathIconSource
+            dialog.IconSource = new PathIconSource
             {
                 Data = packIcon.Data
             };
 
-            FATaskDialogButton okButton = FATaskDialogButton.OKButton;
-            FATaskDialogButton cancelButton = FATaskDialogButton.CancelButton;
-            FATaskDialogButton yesButton = FATaskDialogButton.YesButton;
-            FATaskDialogButton noButton = FATaskDialogButton.NoButton;
+            TaskDialogButton okButton = TaskDialogButton.OKButton;
+            TaskDialogButton cancelButton = TaskDialogButton.CancelButton;
+            TaskDialogButton yesButton = TaskDialogButton.YesButton;
+            TaskDialogButton noButton = TaskDialogButton.NoButton;
             okButton.Text = "确定";
             cancelButton.Text = "取消";
             yesButton.Text = "是";
@@ -75,7 +75,7 @@ namespace SD.Infrastructure.Avalonia.CustomControls
                 ? lifetime.Windows.Single(window => window.IsActive)
                 : lifetime.MainWindow;
 
-            FATaskDialogStandardResult result = (FATaskDialogStandardResult)await dialog.ShowAsync();
+            TaskDialogStandardResult result = (TaskDialogStandardResult)await dialog.ShowAsync();
 
             return result;
         }
