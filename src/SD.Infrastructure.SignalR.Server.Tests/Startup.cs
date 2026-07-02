@@ -35,7 +35,7 @@ namespace SD.Infrastructure.SignalR.Server.Tests
             });
             signalRServerBuilder.AddStackExchangeRedis(options =>
             {
-                options.ConnectionFactory = _ => Task.Run(() => RedisManager.Instance as IConnectionMultiplexer);
+                options.ConnectionFactory = _ => Task.Run(IConnectionMultiplexer () => RedisManager.Instance);
             });
         }
 
