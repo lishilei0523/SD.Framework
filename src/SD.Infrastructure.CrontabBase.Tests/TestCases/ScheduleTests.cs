@@ -314,7 +314,7 @@ namespace SD.Infrastructure.CrontabBase.Tests.TestCases
         [TestMethod]
         public void TestException()
         {
-            string log = $"{AppDomain.CurrentDomain.BaseDirectory}\\ScheduleLogs\\ExceptionLogs\\{DateTime.Today:yyyyMMdd}.txt";
+            string log = $"{AppDomain.CurrentDomain.BaseDirectory}\\ScheduleLogs\\ExceptionLogs\\{DateTime.Today:yyyyMMdd}.log";
 
             //开始调度
             TimeSpan timeSpan = new TimeSpan(0, 0, 2);

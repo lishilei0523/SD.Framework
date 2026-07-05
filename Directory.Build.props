@@ -8,7 +8,7 @@
 
   <!--Version-->
   <PropertyGroup>
-    <Version>4.0.1</Version>
+    <Version>4.0.2</Version>
     <Authors>Lee</Authors>
     <Company>SD</Company>
     <Copyright>Copyright © SD $([System.DateTime]::Now.ToString(yyyy))</Copyright>
