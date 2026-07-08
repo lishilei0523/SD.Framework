@@ -6,9 +6,10 @@
 
   <ItemGroup>
     <EmbeddedResource Include="App.config" />
-    <AppConfigWithTargetPath Condition="'$(Configuration)'=='Debug'" Include="App.config">
+    <None Include="App.config" Condition="'$(Configuration)'=='Debug'">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <TargetPath>ef.dll.config</TargetPath>
-    </AppConfigWithTargetPath>
+    </None>
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net8.0'))">

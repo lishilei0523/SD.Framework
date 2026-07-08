@@ -12,7 +12,7 @@
     <PackageReference Include="Caliburn.Micro.Core" Version="6.0.15-beta" />
     <PackageReference Include="Caliburn.Micro.Maui" Version="5.0.303-beta" />
     <PackageReference Include="Acr.UserDialogs" Version="9.2.2" />
-    <PackageReference Include="MrAdvice" Version="2.20.5" />
+    <PackageReference Include="MrAdvice" Version="2.20.6" />
     <PackageReference Include="SD.IOC.Core" Version="3.0.2" />
   </ItemGroup>
 </Project>

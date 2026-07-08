@@ -22,9 +22,9 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Quartz" Version="3.18.2" />
-    <PackageReference Include="MrAdvice" Version="2.20.5" />
+    <PackageReference Include="MrAdvice" Version="2.20.6" />
     <PackageReference Include="SD.Common" Version="4.0.2" />
-    <PackageReference Include="SD.Toolkits.Redis" Version="4.0.3" />
+    <PackageReference Include="SD.Toolkits.Redis" Version="4.0.4" />
     <PackageReference Include="SD.IOC.Core" Version="3.0.2" />
   </ItemGroup>
 

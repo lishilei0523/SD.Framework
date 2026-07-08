@@ -6,7 +6,7 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="10.0.9" />
     <PackageReference Include="SD.Toolkits.AspNet" Version="4.0.2" />
-    <PackageReference Include="SD.Toolkits.Redis" Version="4.0.3" />
+    <PackageReference Include="SD.Toolkits.Redis" Version="4.0.4" />
   </ItemGroup>
 
   <ItemGroup>
