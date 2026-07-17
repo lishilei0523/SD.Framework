@@ -8,11 +8,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Maui.Controls" Version="10.0.80" />
     <PackageReference Include="Microsoft.Maui.Essentials" Version="10.0.80" />
-    <PackageReference Include="CommunityToolkit.Maui" Version="14.2.0" />
+    <PackageReference Include="CommunityToolkit.Maui" Version="14.2.2" />
     <PackageReference Include="Caliburn.Micro.Core" Version="6.0.15-beta" />
     <PackageReference Include="Caliburn.Micro.Maui" Version="5.0.303-beta" />
     <PackageReference Include="Acr.UserDialogs" Version="9.2.2" />
-    <PackageReference Include="MrAdvice" Version="2.20.6" />
+    <PackageReference Include="MrAdvice" Version="2.21.0" />
     <PackageReference Include="SD.IOC.Core" Version="3.0.2" />
   </ItemGroup>
 </Project>
