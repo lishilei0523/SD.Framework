@@ -1,14 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>net10.0</TargetFrameworks>
-    <Version>1.0.13</Version>
+    <Version>1.0.14</Version>
     <Description>SD.Framework 基础设施 - Avalonia基础 - Caliburn.Micro扩展</Description>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Caliburn.Micro.Core" Version="5.0.258" />
     <PackageReference Include="Caliburn.Micro.Avalonia" Version="5.0.258-beta" />
-    <PackageReference Include="MrAdvice" Version="2.21.0" />
+    <PackageReference Include="MrAdvice" Version="2.22.0" />
   </ItemGroup>
 
   <ItemGroup>

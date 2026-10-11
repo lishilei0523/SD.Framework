@@ -5,9 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Quartz" Version="3.19.1" />
-    <PackageReference Include="MrAdvice" Version="2.21.0" />
-    <PackageReference Include="SD.IOC.Core" Version="3.0.2" />
+    <PackageReference Include="Quartz" Version="3.22.4" />
+    <PackageReference Include="MrAdvice" Version="2.22.0" />
+    <PackageReference Include="SD.IOC.Core" Version="3.0.3" />
   </ItemGroup>
 
   <ItemGroup>

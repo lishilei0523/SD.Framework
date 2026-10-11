@@ -5,27 +5,26 @@
   </PropertyGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net462'))">
-    <PackageReference Include="SD.IOC.Extension.NetFramework" Version="3.0.2" />
+    <PackageReference Include="SD.IOC.Extension.NetFramework" Version="3.0.3" />
   </ItemGroup>
 
   <ItemGroup Condition="$(TargetFramework.Equals('net10.0'))">
     <EmbeddedResource Include="App.config" />
-    <PackageReference Include="SD.IOC.Extension.NetCore" Version="3.0.2" />
+    <PackageReference Include="SD.IOC.Extension.NetCore" Version="3.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.8.1" />
-    <PackageReference Include="MSTest.TestAdapter" Version="4.3.3" />
-    <PackageReference Include="MSTest.TestFramework" Version="4.3.3" />
-    <PackageReference Include="coverlet.collector" Version="10.0.1">
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
+    <PackageReference Include="MSTest.TestAdapter" Version="4.5.1" />
+    <PackageReference Include="MSTest.TestFramework" Version="4.5.1" />
+    <PackageReference Include="coverlet.collector" Version="10.1.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Quartz" Version="3.19.1" />
-    <PackageReference Include="MrAdvice" Version="2.21.0" />
-    <PackageReference Include="SD.Common" Version="4.0.2" />
-    <PackageReference Include="SD.Toolkits.Redis" Version="4.0.4" />
-    <PackageReference Include="SD.IOC.Core" Version="3.0.2" />
+    <PackageReference Include="MrAdvice" Version="2.22.0" />
+    <PackageReference Include="SD.Common" Version="4.0.5" />
+    <PackageReference Include="SD.Toolkits.Redis" Version="4.0.5" />
+    <PackageReference Include="SD.IOC.Core" Version="3.0.3" />
   </ItemGroup>
 
   <ItemGroup>

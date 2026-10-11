@@ -10,9 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="SD.Toolkits.AspNet" Version="4.0.2" />
-    <PackageReference Include="SD.IOC.Core" Version="3.0.2" />
-    <PackageReference Include="SD.IOC.Extension.NetCore" Version="3.0.2" />
+    <PackageReference Include="SD.Toolkits.AspNet" Version="4.0.5" />
+    <PackageReference Include="SD.IOC.Core" Version="3.0.3" />
+    <PackageReference Include="SD.IOC.Extension.NetCore" Version="3.0.3" />
   </ItemGroup>
 
   <ItemGroup>
